@@ -1,18 +1,16 @@
-![alt text](data/icons/app/labrps-name.png "LabRPS")
 
-[![License][license-badge]][license-page] ![Build Testing](https://github.com/narunlifescience/LabRPS/workflows/Test%20Build/badge.svg ) [![Join the chat at https://gitter.im/narunlifescience/LabRPS](https://badges.gitter.im/narunlifescience/LabRPS.svg)](https://gitter.im/narunlifescience/LabRPS?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Download LabRPS](https://img.shields.io/sourceforge/dt/labrps.svg)](https://sourceforge.net/projects/labrps/files/latest/download) [![Download LabRPS](https://img.shields.io/sourceforge/dm/labrps.svg)](https://sourceforge.net/projects/labrps/files/latest/download) [![Download LabRPS](https://img.shields.io/sourceforge/dw/labrps.svg)](https://sourceforge.net/projects/labrps/files/latest/download) [![Download LabRPS](https://img.shields.io/sourceforge/dd/labrps.svg)](https://sourceforge.net/projects/labrps/files/latest/download)
+[![License][license-badge]][license-page] 
 
 [license-page]: COPYING
 [license-badge]: http://img.shields.io/badge/License-GPL2-blue.svg
 
-Alpha Plot is a free application for <i>Sci</i>entific <i>D</i>ata <i>A</i>nalysis and <i>Vis</i>ualization for Windows, Linux and Mac OS X (probably BSD also).
+LabRPS is a tool for the simulation of random phenomena such as wind velocity, seismic ground motion, sea surface....LabPRS is available for Windows, Linux and Mac OS X (probably BSD also).
 
 | Web         | Link                                             |
 |:------------|:-------------------------------------------------|
-| Website     | https://labrps.sourceforge.io/                |
-| Wiki        | https://labrps.sourceforge.io/wiki                |
-| Github      | https://github.com/narunlifescience/LabRPS    |
+| Website     | https://labrps.com/                |
+| Wiki        | https://labrps.com/wiki                |
+| Github      | https://github.com/LabRPS/LabRPS    |
 | Sourceforge | https://sourceforge.net/projects/labrps/      |
 | Test builds | https://labrps.sourceforge.io/test-build.html |
 
@@ -22,20 +20,11 @@ Alpha Plot is a free application for <i>Sci</i>entific <i>D</i>ata <i>A</i>nalys
 # Donate
 LabRPS is an open-source project that has been made possible due to the generous contributions by community backers. If you are interested in supporting this project, please consider becoming a sponsor or becoming a patron https://www.patreon.com/labrps
 
-# Watch the Video
-[![LabRPS Plotting Basics](data/screenshots/labrps1.png)](http://www.youtube.com/watch?v=U3DE_ObVLeU "LabRPS Plotting Basics")
-
-# Examples
-| | | |
-|:-------------------------:|:-------------------------:|:-------------------------:|
-|<img width="500" alt="" src="data/screenshots/example1.png">|  <img width="500" alt="" src="data/screenshots/example2.png">|<img width="500" alt="" src="data/screenshots/example3.png">|
-|<img width="500" alt="" src="data/screenshots/example4.png">|  <img width="500" alt="" src="data/screenshots/example5.png">|<img width="500" alt="" src="data/screenshots/example6.png">|
-|<img width="500" alt="" src="data/screenshots/example7.png">|  <img width="500" alt="" src="data/screenshots/example8.png">|<img width="500" alt="" src="data/screenshots/example9.png">|
 
 # Installation
 Get the code (if you haven't already):
 
-    git clone https://github.com/narunlifescience/LabRPS.git 
+    git clone https://github.com/LabRPS/LabRPS.git 
 
 Compile and install:
 
@@ -86,50 +75,13 @@ Note: LabRPS uses QtDataVisualization module for 3D plotting. You may have to in
 
 ## Author
 
-- **Arun Narayanankutty**
-
-## Packagers
-
-The following people have made installing LabRPS easier by providing specialized binary packages.
-In alphabetical order.
-
-- [Filipe](https://github.com/filipestevao) ([Flatpak stable](https://flathub.org/apps/details/io.github.narunlifescience.LabRPS) / [Flatpak beta](https://github.com/narunlifescience/LabRPS/issues/20#issuecomment-808984764))
-- [devacom](https://github.com/devacom) ([Ubuntu package](https://launchpad.net/~devacom/+archive/ubuntu/science))
-
-```
-sudo add-apt-repository ppa:devacom/science
-sudo apt-get update
-sudo apt install labrps
-```
+- **LabRPS Team**
 
 ## SciDAVis & QtiPlot Developers
 
-LabRPS is a fork of SciDAVis(at the time of the fork, i.e. SciDAVis 1.D009) which in turn is a fork of QtiPlot(at the time of the fork, i.e. QtiPlot 0.9-rc2). The following people have written parts of the SciDAVis & QtiPlot source code, ranging from a few lines to large chunks(in alphabetical order).
+LabRPS is a fork AlphaPlot which in turn is a fork of SciDAVis(at the time of the fork, i.e. SciDAVis 1.D009) which also in turn is a fork of QtiPlot(at the time of the fork, i.e. QtiPlot 0.9-rc2). 
 
-- Tilman Benkert,
-- Shen Chen,
-- Borries Demeler,
-- José Antonio Lorenzo Fernández,
-- Knut Franke,
-- Miquel Garriga,
-- Vasileios Gkanis,
-- Gudjon Gudjonsson,
-- Alex Kargovsky,
-- Michael Mac-Vicar,
-- **Arun Narayanankutty,**
-- Tomomasa Ohkubo,
-- Russell Standish,
-- Aaron Van Tassle,
-- Branimir Vasilic,
-- Ion Vasilief,
-- Vincent Wagelaar
-
-
-The LabRPS manual is based on the QtiPlot and SciDAVis manual, written by(in alphabetical order):
-
-- Knut Franke, 
-- Roger Gadiou, 
-- Ion Vasilief
+The LabRPS manual is based on the AlphaPlot manual.
 
 We thank all the tools and library developers & contributors used by LabRPS(in no particular order):
 
