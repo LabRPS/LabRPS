@@ -1,0 +1,9 @@
+﻿Your plugin descriptions
+
+PluginFileName: SeaLab
+PluginName: SeaLab
+RandomPhenomenon: Sea Wave
+PluginReleaseDate: 25/05/2021
+PluginAuthors: LabRPS Team
+PluginVersion: 1.0
+PluginDescription: This plugin adds a series of functionalities to LabRPS for sea wave simulation

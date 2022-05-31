@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/x-aproj">
+		<comment xml:lang="en">LabRPS project</comment>
+		<comment xml:lang="de">LabRPS-Projekt</comment>
+		<comment xml:lang="fr">Projet LabRPS</comment>
+		<comment xml:lang="pt_BR">Projeto do LabRPS</comment>
+		<comment xml:lang="ru">Проект LabRPS</comment>
+		<magic priority="100">
+			<match type="string" value="labrps" offset="0"/>
+		</magic>
+		<glob pattern="*.aproj"/>
+		<glob pattern="*.aproj.gz"/>
+	</mime-type>
+</mime-info>
