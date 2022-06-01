@@ -6,9 +6,11 @@
 TEMPLATE = subdirs
 
 SUBDIRS += pluginapi/windlabapi\
-                      pluginapi/seismiclabapi\
-                      pluginapi/sealabapi\
-                      app\
-                      plugins/seaLab\  
+           pluginapi/seismiclabapi\
+           pluginapi/sealabapi\
+           app\
+           plugins/windLab\
+           plugins/seismicLab\ 
+           plugins/seaLab\   
 
 CONFIG += ordered
