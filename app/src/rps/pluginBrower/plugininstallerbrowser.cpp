@@ -3,7 +3,7 @@
 
 #include "ui_plugininstallerbrowser.h"
 
-#include "RPSpluginManager.h"
+#include "rps/RPSpluginManager.h"
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include "RPSPluginsBrowser.h"

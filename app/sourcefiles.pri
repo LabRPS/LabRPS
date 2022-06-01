@@ -95,20 +95,6 @@ HEADERS  += src/ApplicationWindow.h \
             src/About.h \
             src/core/AprojHandler.h \
             src/future/lib/XmlStreamWriter.h \
-            
-            src/rps/RPSdefines.h \
-            src/rps/RPSpluginManager.h \
-            src/rps/sealab/rpsseawavedefinitiondlg.h\
-            src/rps/sealab/rpsselpsddefinitiondialog.h\
-            src/rps/sealab/rpsselcoherencedlg.h\
-            src/rps/sealab/rpsselcorrelationdlg.h\
-            src/rps/sealab/rpsselmodulationdlg.h\
-            src/rps/sealab/prsselsimuoptionsdlg.h\
-            src/rps/pluginBrower/RPSPluginsBrowser.h\
-            src/rps/pluginBrower/pluginbrwoser.h\
-            src/rps/pluginBrower/plugininstallerbrowser.h\
-
-
 
 
 ###################### SOURCES ##############################################
@@ -204,21 +190,6 @@ SOURCES  += src/ApplicationWindow.cpp \
             src/main.cpp \
             src/core/AprojHandler.cpp \
             src/future/lib/XmlStreamWriter.cpp \
-            
-            src/rps/RPSpluginManager.cpp \
-            src/rps/sealab/rpsseawavedefinitiondlg.cpp\
-            src/rps/sealab/rpsselpsddefinitiondialog.cpp\
-            src/rps/sealab/rpsselcoherencedlg.cpp\
-            src/rps/sealab/rpsselcorrelationdlg.cpp\
-            src/rps/sealab/rpsselmodulationdlg.cpp\
-            src/rps/sealab/prsselsimuoptionsdlg.cpp\
-            src/rps/pluginBrower/RPSPluginsBrowser.cpp\
-            src/rps/pluginBrower/pluginbrwoser.cpp\
-            src/rps/pluginBrower/plugininstallerbrowser.cpp\
-
-
-
-
 
 
 ###################### FORMS ##############################################
@@ -239,20 +210,6 @@ FORMS        += src/ApplicationWindow.ui \
                 src/ui/PropertiesDialog.ui \
                 src/ui/RandomDistributionDialog.ui \
                 src/About.ui \
-                src/sealab/rpsseawavedefinitiondlg.ui\
-                src/sealab/rpsselpsddefinitiondialog.ui\
-                src/sealab/rpsselcoherencedlg.ui\
-                src/sealab/rpsselcorrelationdlg.ui\
-                src/sealab/rpsselmodulationdlg.ui\
-                src/sealab/prsselsimuoptionsdlg.ui\
-                src/pluginBrower/pluginbrwoser.ui\
-                src/pluginBrower/plugininstallerbrowser.ui\
-
-
-                
-
-
-
 
 ########### Future code backported from the aspect framework ##################
 INCLUDEPATH  += src
@@ -468,3 +425,39 @@ SOURCES     += src/3Dplot/Layout3D.cpp \
                src/3Dplot/Bar3D.cpp \
                src/3Dplot/Scatter3D.cpp \
                src/3Dplot/SurfaceDialog.cpp \
+
+##############################################################
+########################## RPS ###############################
+##############################################################
+
+HEADERS  += src/rps/RPSdefines.h \
+            src/rps/RPSpluginManager.h \
+            src/rps/sealab/rpsseawavedefinitiondlg.h\
+            src/rps/sealab/rpsselpsddefinitiondialog.h\
+            src/rps/sealab/rpsselcoherencedlg.h\
+            src/rps/sealab/rpsselcorrelationdlg.h\
+            src/rps/sealab/rpsselmodulationdlg.h\
+            src/rps/sealab/prsselsimuoptionsdlg.h\
+            src/rps/pluginBrower/RPSPluginsBrowser.h\
+            src/rps/pluginBrower/pluginbrwoser.h\
+            src/rps/pluginBrower/plugininstallerbrowser.h\
+
+SOURCES  += src/rps/RPSpluginManager.cpp \
+            src/rps/sealab/rpsseawavedefinitiondlg.cpp\
+            src/rps/sealab/rpsselpsddefinitiondialog.cpp\
+            src/rps/sealab/rpsselcoherencedlg.cpp\
+            src/rps/sealab/rpsselcorrelationdlg.cpp\
+            src/rps/sealab/rpsselmodulationdlg.cpp\
+            src/rps/sealab/prsselsimuoptionsdlg.cpp\
+            src/rps/pluginBrower/RPSPluginsBrowser.cpp\
+            src/rps/pluginBrower/pluginbrwoser.cpp\
+            src/rps/pluginBrower/plugininstallerbrowser.cpp\
+
+FORMS    += src/rps/sealab/rpsseawavedefinitiondlg.ui\
+            src/rps/sealab/rpsselpsddefinitiondialog.ui\
+            src/rps/sealab/rpsselcoherencedlg.ui\
+            src/rps/sealab/rpsselcorrelationdlg.ui\
+            src/rps/sealab/rpsselmodulationdlg.ui\
+            src/rps/sealab/prsselsimuoptionsdlg.ui\
+            src/rps/pluginBrower/pluginbrwoser.ui\
+            src/rps/pluginBrower/plugininstallerbrowser.ui\

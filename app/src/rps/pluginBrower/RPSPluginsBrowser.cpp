@@ -2,7 +2,7 @@
 #include <QtWidgets>
 #include <QAbstractButton>
 
-#include "RPSpluginManager.h"
+#include "rps/RPSpluginManager.h"
 #include "RPSPluginsBrowser.h"
 #include "RPSSeaLabAPI.h"
 

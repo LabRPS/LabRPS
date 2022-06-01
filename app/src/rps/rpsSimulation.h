@@ -1,10 +1,16 @@
-#include <QObject>
+#ifndef RPSSIMULATION_H
+#define RPSSIMULATION_H
 
-class RPSSimulation : public QObject
- {
+#include <QWidget>
+#include "RPSSeaLabsimuData.h"
+
+class RPSSimulation : public QWidget
+{
   Q_OBJECT
+ 
  public:
-  RPSSimulation();
+
+  RPSSimulation(QWidget *parent = nullptr);
   ~RPSSimulation();
 
  private:
@@ -12,3 +18,5 @@ class RPSSimulation : public QObject
  public:
  
 };
+
+#endif  // RPSSIMULATION_H

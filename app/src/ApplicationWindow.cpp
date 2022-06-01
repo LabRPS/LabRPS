@@ -150,17 +150,17 @@
 
 #include "untitled3.h"
 #include "RPSSeaLabAPI.h"
-#include "RPSpluginManager.h"
-#include "sealab/rpsseawavedefinitiondlg.h"
-#include "sealab/rpsselpsddefinitiondialog.h"
-#include "sealab/rpsselcoherencedlg.h"
-#include "sealab/rpsselcorrelationdlg.h"
-#include "sealab/rpsselmodulationdlg.h"
-#include "sealab/prsselsimuoptionsdlg.h"
+#include "rps/RPSpluginManager.h"
+#include "rps/sealab/rpsseawavedefinitiondlg.h"
+#include "rps/sealab/rpsselpsddefinitiondialog.h"
+#include "rps/sealab/rpsselcoherencedlg.h"
+#include "rps/sealab/rpsselcorrelationdlg.h"
+#include "rps/sealab/rpsselmodulationdlg.h"
+#include "rps/sealab/prsselsimuoptionsdlg.h"
 
-#include "pluginBrower/RPSPluginsBrowser.h"
-#include "pluginBrower/pluginbrwoser.h"
-#include "pluginBrower/plugininstallerbrowser.h"
+#include "rps/pluginBrower/RPSPluginsBrowser.h"
+#include "rps/pluginBrower/pluginbrwoser.h"
+#include "rps/pluginBrower/plugininstallerbrowser.h"
 #include "RPS.h"
 
 
