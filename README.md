@@ -77,9 +77,9 @@ Note: LabRPS uses QtDataVisualization module for 3D plotting. You may have to in
 
 - **LabRPS Team**
 
-## SciDAVis & QtiPlot Developers
+## Data Visualization and UI
 
-LabRPS is a fork AlphaPlot which in turn is a fork of SciDAVis(at the time of the fork, i.e. SciDAVis 1.D009) which also in turn is a fork of QtiPlot(at the time of the fork, i.e. QtiPlot 0.9-rc2). 
+Most of data visualization and ui codes are from AlphaPlot  project which is a fork of SciDAVis(at the time of the fork, i.e. SciDAVis 1.D009) which also in turn is a fork of QtiPlot(at the time of the fork, i.e. QtiPlot 0.9-rc2). 
 
 The LabRPS manual is based on the AlphaPlot manual.
 
