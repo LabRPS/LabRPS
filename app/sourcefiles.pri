@@ -95,17 +95,18 @@ HEADERS  += src/ApplicationWindow.h \
             src/About.h \
             src/core/AprojHandler.h \
             src/future/lib/XmlStreamWriter.h \
-            src/RPSdefines.h \
-            src/RPSpluginManager.h \
-            src/sealab/rpsseawavedefinitiondlg.h\
-            src/sealab/rpsselpsddefinitiondialog.h\
-            src/sealab/rpsselcoherencedlg.h\
-            src/sealab/rpsselcorrelationdlg.h\
-            src/sealab/rpsselmodulationdlg.h\
-            src/sealab/prsselsimuoptionsdlg.h\
-            src/pluginBrower/RPSPluginsBrowser.h\
-            src/pluginBrower/pluginbrwoser.h\
-            src/pluginBrower/plugininstallerbrowser.h\
+            
+            src/rps/RPSdefines.h \
+            src/rps/RPSpluginManager.h \
+            src/rps/sealab/rpsseawavedefinitiondlg.h\
+            src/rps/sealab/rpsselpsddefinitiondialog.h\
+            src/rps/sealab/rpsselcoherencedlg.h\
+            src/rps/sealab/rpsselcorrelationdlg.h\
+            src/rps/sealab/rpsselmodulationdlg.h\
+            src/rps/sealab/prsselsimuoptionsdlg.h\
+            src/rps/pluginBrower/RPSPluginsBrowser.h\
+            src/rps/pluginBrower/pluginbrwoser.h\
+            src/rps/pluginBrower/plugininstallerbrowser.h\
 
 
 
@@ -203,16 +204,17 @@ SOURCES  += src/ApplicationWindow.cpp \
             src/main.cpp \
             src/core/AprojHandler.cpp \
             src/future/lib/XmlStreamWriter.cpp \
-            src/RPSpluginManager.cpp \
-            src/sealab/rpsseawavedefinitiondlg.cpp\
-            src/sealab/rpsselpsddefinitiondialog.cpp\
-            src/sealab/rpsselcoherencedlg.cpp\
-            src/sealab/rpsselcorrelationdlg.cpp\
-            src/sealab/rpsselmodulationdlg.cpp\
-            src/sealab/prsselsimuoptionsdlg.cpp\
-            src/pluginBrower/RPSPluginsBrowser.cpp\
-            src/pluginBrower/pluginbrwoser.cpp\
-            src/pluginBrower/plugininstallerbrowser.cpp\
+            
+            src/rps/RPSpluginManager.cpp \
+            src/rps/sealab/rpsseawavedefinitiondlg.cpp\
+            src/rps/sealab/rpsselpsddefinitiondialog.cpp\
+            src/rps/sealab/rpsselcoherencedlg.cpp\
+            src/rps/sealab/rpsselcorrelationdlg.cpp\
+            src/rps/sealab/rpsselmodulationdlg.cpp\
+            src/rps/sealab/prsselsimuoptionsdlg.cpp\
+            src/rps/pluginBrower/RPSPluginsBrowser.cpp\
+            src/rps/pluginBrower/pluginbrwoser.cpp\
+            src/rps/pluginBrower/plugininstallerbrowser.cpp\
 
 
 
