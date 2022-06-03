@@ -12,10 +12,8 @@
   <summary>LabRPS is a free application for Scientific Data Analysis and Visualization</summary>
   <description>
     <p>
-      LabRPS is an open-source computer program for interactive scientific graphing and data 
-      analysis. It can generate different types of 2D and 3D plots (such as line, scatter, bar, 
-      pie, and surface plots) from data that is either imported from ASCII files, entered by hand, 
-      or using formulas.
+      LabRPS is an open-source computer program for the simulation of random
+      phenomena such as random wind velocity, seismeic ground moting, sea surface...
     </p>
   </description>
   <screenshots>

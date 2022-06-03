@@ -71,10 +71,10 @@ QString LabRPS::releaseDateString() {
 
 QDate LabRPS::releaseDate() { return release_date; }
 
-QString LabRPS::originalAuthor() { return "Arun Narayanankutty"; }
+QString LabRPS::originalAuthor() { return "LabRPS Team"; }
 
 QString LabRPS::originalAuthorWithMail() {
-  return "Arun Narayanankutty: <n.arun.lifescience@gmail.com";
+  return "LabRPS Team: <labrps@glabrps.com";
 }
 
 QStringList LabRPS::getLocales() { return locales_; }

@@ -14,15 +14,15 @@ RPSSeaWaveDefinitionDlg::RPSSeaWaveDefinitionDlg(QWidget *parent) :
 
 	ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-     numberOfSpatialPosition = app->GetSeaLabData().numberOfSpatialPosition;
-	 numberOfTimeIncrements = app->GetSeaLabData().numberOfTimeIncrements;
-	 timeIncrement = app->GetSeaLabData().timeIncrement;
-	 minTime = app->GetSeaLabData().minTime;
-	 numberOfSample = app->GetSeaLabData().numberOfSample;
-	 stationarity = app->GetSeaLabData().stationarity;
-	 gaussianity = app->GetSeaLabData().gaussianity;
-	 spatialDistribution = app->GetSeaLabData().spatialDistribution;
-	 waveType = app->GetSeaLabData().waveType;
+     numberOfSpatialPosition = app->rpsSeaLabSimulator->GetSeaLabData().numberOfSpatialPosition;
+	 numberOfTimeIncrements = app->rpsSeaLabSimulator->GetSeaLabData().numberOfTimeIncrements;
+	 timeIncrement = app->rpsSeaLabSimulator->GetSeaLabData().timeIncrement;
+	 minTime = app->rpsSeaLabSimulator->GetSeaLabData().minTime;
+	 numberOfSample = app->rpsSeaLabSimulator->GetSeaLabData().numberOfSample;
+	 stationarity = app->rpsSeaLabSimulator->GetSeaLabData().stationarity;
+	 gaussianity = app->rpsSeaLabSimulator->GetSeaLabData().gaussianity;
+	 spatialDistribution = app->rpsSeaLabSimulator->GetSeaLabData().spatialDistribution;
+	 waveType = app->rpsSeaLabSimulator->GetSeaLabData().waveType;
 
      if(true == stationarity)
 	{
@@ -180,7 +180,7 @@ void RPSSeaWaveDefinitionDlg::OnBnClickedSpatialDistrInit()
 	if (NULL == currentSpatialDistr) { return; }
 
 	// Apply iniatial setting
-	currentSpatialDistr->OnInitialSetting(app->GetSeaLabData(), app->information);
+	currentSpatialDistr->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
 
 	// Delete the object
 	delete currentSpatialDistr;

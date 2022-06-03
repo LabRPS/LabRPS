@@ -14,7 +14,7 @@ RPSSeLCoherenceDlg::RPSSeLCoherenceDlg(QWidget *parent) :
 
 	ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-    coherenceFunction = app->GetSeaLabData().coherenceFunction;
+    coherenceFunction = app->rpsSeaLabSimulator->GetSeaLabData().coherenceFunction;
 
     ui->comboBoxCoherenceFunc->clear();
     ui->comboBoxCoherenceFunc->addItem(noSelection);
@@ -79,7 +79,7 @@ void RPSSeLCoherenceDlg::OnBnClickedCoherenceFnInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
 
 	// Delete the object
 	delete currentSelection;

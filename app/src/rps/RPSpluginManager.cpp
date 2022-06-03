@@ -909,3 +909,29 @@ std::map<QString, QString>& PluginManager::GetAllPlugedObjectsMap()
 {
 	return mAllPlugedObjectsMap;
 }
+
+bool PluginManager::doesPluginStillExist(QString pluginName, QString& pluginFullPath)
+{
+	// get the path the plugins folder
+  QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+  
+  // search and find all available plugin and save their descriptions
+  PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+	std::map<QString, CPluginDescription *>::iterator it;
+	for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+	{
+		if(pluginName == it->second->m_strFileName)
+		{
+			pluginFullPath = it->second->m_strFullPath;
+			PluginManager::GetInstance().GetPluginDescriptionsMap().clear();
+			return true;
+		}
+		      
+    }
+
+	return false;
+
+PluginManager::GetInstance().GetPluginDescriptionsMap().clear();
+
+}

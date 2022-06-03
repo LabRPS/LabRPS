@@ -40,6 +40,7 @@
 #include "scripting/ScriptingEnv.h"
 
 #include "RPSSeaLabsimuData.h"
+#include "rps/seaLab/rpsSeaLabSimulation.h"
 
 class QPixmap;
 class QCloseEvent;
@@ -843,16 +844,16 @@ class ApplicationWindow : public QMainWindow,
   void newCurve2D(Table* table, Column* xcol, Column* ycol);
 
   //rps
-  void seaSurface();
-  void spectrumSea();
-  void coherenceSea();
-  void correlationSea();
-  void modulationSea();
+  // void seaSurface();
+  // void spectrumSea();
+  // void coherenceSea();
+  // void correlationSea();
+  // void modulationSea();
   void setRandomPhemenon( int index );
-  void runSimulation();
-  void pauseSimulation();
-  void stopSimulation();
-  void simulationOptions();
+  // void runSimulation();
+  // void pauseSimulation();
+  // void stopSimulation();
+  // void simulationOptions();
 
 
  signals:
@@ -1195,43 +1196,49 @@ class ApplicationWindow : public QMainWindow,
 
   QStringList supportedRandomPhenomena = QStringList()
                      <<tr("Wind Velocity") << tr("Seismic Ground motion") << tr("Sea Surface");
-  
+   
   public:
-   bool regisgryPluginsAlreadyInstalled;
+    QString getSelectedRandomPhenomenon();
+
+  public:
+
+  RPSSeaLabSimulation* rpsSeaLabSimulator; 
    QStringList information;
 
-  //////////simulation data start///////////////
+//   public:
+//    bool regisgryPluginsAlreadyInstalled;
 
-  // sea surface simulation input data
-  CRPSSeaLabsimuData seaLabData;
 
-  /////////simulation data end/////////////
+//   //////////simulation data start///////////////
 
-  public:
+//   // sea surface simulation input data
+//   CRPSSeaLabsimuData seaLabData;
 
-  CRPSSeaLabsimuData& GetSeaLabData();
-  void seaLabDataInitialize();
-  void WriteMapToRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
-  void ReadMapFromRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
-  bool IntallRegistrySeaLabPlugins();
-  int RPSWriteToBeInstallObjectsToRegistry();
-  int RPSWriteInstalledPluginsToRegistry();
-  int RPSReadInstalledPluginsFromRegistry();
-  int RPSReadInstalledPluginsFromRegistryCommon();
+//   /////////simulation data end/////////////
 
 
 
+//   CRPSSeaLabsimuData& GetSeaLabData();
+//   void seaLabDataInitialize();
+//   void WriteMapToRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
+//   void ReadMapFromRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
+//   bool IntallRegistrySeaLabPlugins();
+//   int RPSWriteToBeInstallObjectsToRegistry();
+//   int RPSWriteInstalledPluginsToRegistry();
+//   int RPSReadInstalledPluginsFromRegistry();
+//   int RPSReadInstalledPluginsFromRegistryCommon();
 
-  //*******save installed plungins for seaLab (start)********//
-  void SeLWriteAllTobeInstallObjectsToRegistry();
-  void SeLReadAllTobeInstallObjectsFromRegistry();
-  void SeLClearAllTobeInstallObjectsFromRegistry();
-  void ClearMapFromRegistry(QString& settingsGroupt);
+//   //*******save installed plungins for seaLab (start)********//
+//   void SeLWriteAllTobeInstallObjectsToRegistry();
+//   void SeLReadAllTobeInstallObjectsFromRegistry();
+//   void SeLClearAllTobeInstallObjectsFromRegistry();
+//   void ClearMapFromRegistry(QString& settingsGroupt);
 
-  //*******save installed plungins for seaLab (end)********//
+//   //*******save installed plungins for seaLab (end)********//
 
- private slots:
- void receiveSelectedRandomnessProvider(const QString randomnessProvider);
+
+//  private slots:
+//  void receiveSelectedRandomnessProvider(const QString randomnessProvider);
 
 
 

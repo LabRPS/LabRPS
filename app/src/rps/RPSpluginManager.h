@@ -225,6 +225,9 @@ public:
 	void Recurse(QString pstr);
 	void PrintDirs();
 
+	bool doesPluginStillExist(QString pluginName, QString& pluginFullPath);
+
+
 private:
 	PluginManager();
 	~PluginManager();

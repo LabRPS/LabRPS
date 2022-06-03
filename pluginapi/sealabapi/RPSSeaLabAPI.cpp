@@ -1,7 +1,6 @@
 #include "RPSSeaLabAPI.h"
 #include <iostream>
 
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -68,6 +67,7 @@ void  CrpsSeLSimulationMethodFactory::SetDescription(QString description)
 
 void  CrpsSeLSimulationMethodFactory::RegisterSLSimulationMethod(const QString &name, const QString &pluginName, const QString &description, CreateSLSimulationMethodCallback cb)
 {
+
 	if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
 	{
 		return;

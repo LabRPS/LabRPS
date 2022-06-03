@@ -116,18 +116,18 @@ void PluginInstallerBrowser::updateButton()
 			else
 			{
 				pluginInstaled = false;
-				QMessageBox::critical(0, tr("error"), 
-				tr("%1 has not been previously installed.").arg(ItemText));
-				return;
+				// QMessageBox::critical(0, tr("error"), 
+				// tr("%1 has not been previously installed.").arg(ItemText));
+				// return;
 			}
 
 		}
 		else
 		{
 			pluginInstaled = false;
-			QMessageBox::critical(0, tr("error"), 
-				tr("%1 has not been previously installed.").arg(ItemText));
-				return;
+			// QMessageBox::critical(0, tr("error"), 
+			// 	tr("%1 has not been previously installed.").arg(ItemText));
+			// 	return;
 		}
 
 		// initialize the plugin

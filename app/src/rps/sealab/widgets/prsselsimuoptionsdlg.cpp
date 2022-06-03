@@ -13,10 +13,10 @@ PRSSeLSimuOptionsDlg::PRSSeLSimuOptionsDlg(QWidget *parent) :
 
 	ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-	currentRandomnessProvider = app->GetSeaLabData().randomnessProvider;
-	currentsimulationMethod = app->GetSeaLabData().simulationMethod;
-	comparisonMode = app->GetSeaLabData().comparisonMode;
-    largeScaleMode = app->GetSeaLabData().largeScaleSimulationMode; 
+	currentRandomnessProvider = app->rpsSeaLabSimulator->GetSeaLabData().randomnessProvider;
+	currentsimulationMethod = app->rpsSeaLabSimulator->GetSeaLabData().simulationMethod;
+	comparisonMode = app->rpsSeaLabSimulator->GetSeaLabData().comparisonMode;
+    largeScaleMode = app->rpsSeaLabSimulator->GetSeaLabData().largeScaleSimulationMode; 
     
 	if(true == comparisonMode)
 	{
@@ -175,7 +175,7 @@ void PRSSeLSimuOptionsDlg::OnBnClickedRandomnessInit()
 	if (NULL == currentRndProvider) { return; }
 
 	// Apply iniatial setting
-	currentRndProvider->OnInitialSetting(app->GetSeaLabData(), app->information);
+	currentRndProvider->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
 
 	// Delete the object
 	delete currentRndProvider;

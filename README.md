@@ -5,6 +5,7 @@
 [license-badge]: http://img.shields.io/badge/License-GPL2-blue.svg
 
 LabRPS is a tool for the simulation of random phenomena such as wind velocity, seismic ground motion, sea surface....LabPRS is available for Windows, Linux and Mac OS X (probably BSD also).
+This tool is under active development. Everyone is encouraged to give comments in order to improve the tool. Please open an issue to give your comment. 
 
 | Web         | Link                                             |
 |:------------|:-------------------------------------------------|

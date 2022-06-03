@@ -12,10 +12,6 @@ class RPSSimulation : public QWidget
 
   RPSSimulation(QWidget *parent = nullptr);
   ~RPSSimulation();
-
- private:
-
- public:
  
 };
 

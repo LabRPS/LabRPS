@@ -432,32 +432,38 @@ SOURCES     += src/3Dplot/Layout3D.cpp \
 
 HEADERS  += src/rps/RPSdefines.h \
             src/rps/RPSpluginManager.h \
-            src/rps/sealab/rpsseawavedefinitiondlg.h\
-            src/rps/sealab/rpsselpsddefinitiondialog.h\
-            src/rps/sealab/rpsselcoherencedlg.h\
-            src/rps/sealab/rpsselcorrelationdlg.h\
-            src/rps/sealab/rpsselmodulationdlg.h\
-            src/rps/sealab/prsselsimuoptionsdlg.h\
+            src/rps/sealab/widgets/rpsseawavedefinitiondlg.h\
+            src/rps/sealab/widgets/rpsselpsddefinitiondialog.h\
+            src/rps/sealab/widgets/rpsselcoherencedlg.h\
+            src/rps/sealab/widgets/rpsselcorrelationdlg.h\
+            src/rps/sealab/widgets/rpsselmodulationdlg.h\
+            src/rps/sealab/widgets/prsselsimuoptionsdlg.h\
             src/rps/pluginBrower/RPSPluginsBrowser.h\
             src/rps/pluginBrower/pluginbrwoser.h\
             src/rps/pluginBrower/plugininstallerbrowser.h\
+            src/rps/rpsSimulation.h\
+            src/rps/seaLab/rpsSeaLabSimulation.h\
+
+
 
 SOURCES  += src/rps/RPSpluginManager.cpp \
-            src/rps/sealab/rpsseawavedefinitiondlg.cpp\
-            src/rps/sealab/rpsselpsddefinitiondialog.cpp\
-            src/rps/sealab/rpsselcoherencedlg.cpp\
-            src/rps/sealab/rpsselcorrelationdlg.cpp\
-            src/rps/sealab/rpsselmodulationdlg.cpp\
-            src/rps/sealab/prsselsimuoptionsdlg.cpp\
+            src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
+            src/rps/sealab/widgets/rpsselpsddefinitiondialog.cpp\
+            src/rps/sealab/widgets/rpsselcoherencedlg.cpp\
+            src/rps/sealab/widgets/rpsselcorrelationdlg.cpp\
+            src/rps/sealab/widgets/rpsselmodulationdlg.cpp\
+            src/rps/sealab/widgets/prsselsimuoptionsdlg.cpp\
             src/rps/pluginBrower/RPSPluginsBrowser.cpp\
             src/rps/pluginBrower/pluginbrwoser.cpp\
             src/rps/pluginBrower/plugininstallerbrowser.cpp\
+            src/rps/rpsSimulation.cpp\
+            src/rps/seaLab/rpsSeaLabSimulation.cpp\
 
-FORMS    += src/rps/sealab/rpsseawavedefinitiondlg.ui\
-            src/rps/sealab/rpsselpsddefinitiondialog.ui\
-            src/rps/sealab/rpsselcoherencedlg.ui\
-            src/rps/sealab/rpsselcorrelationdlg.ui\
-            src/rps/sealab/rpsselmodulationdlg.ui\
-            src/rps/sealab/prsselsimuoptionsdlg.ui\
+FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
+            src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
+            src/rps/sealab/widgets/rpsselcoherencedlg.ui\
+            src/rps/sealab/widgets/rpsselcorrelationdlg.ui\
+            src/rps/sealab/widgets/rpsselmodulationdlg.ui\
+            src/rps/sealab/widgets/prsselsimuoptionsdlg.ui\
             src/rps/pluginBrower/pluginbrwoser.ui\
             src/rps/pluginBrower/plugininstallerbrowser.ui\

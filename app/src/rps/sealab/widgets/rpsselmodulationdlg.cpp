@@ -14,7 +14,7 @@ RPSSeLModulationDlg::RPSSeLModulationDlg(QWidget *parent) :
 
 	ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-    modulationFunction = app->GetSeaLabData().modulationFunction;
+    modulationFunction = app->rpsSeaLabSimulator->GetSeaLabData().modulationFunction;
 
     ui->comboBoxModulationFunc->clear();
     ui->comboBoxModulationFunc->addItem(noSelection);
@@ -79,7 +79,7 @@ void RPSSeLModulationDlg::OnBnClickedModulationFnInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
 
 	// Delete the object
 	delete currentSelection;
