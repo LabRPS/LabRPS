@@ -12,9 +12,9 @@ RPSSeLCorrelationDlg::RPSSeLCorrelationDlg(QWidget *parent) :
 
     QString noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-    correlationFunction = app->rpsSeaLabSimulator->GetSeaLabData().correlationFunction;
+    correlationFunction = rpsSeaLabSimulator->GetSeaLabData().correlationFunction;
  
     ui->comboBoxCorrelationFunc->clear();
     ui->comboBoxCorrelationFunc->addItem(noSelection);
@@ -71,7 +71,7 @@ void RPSSeLCorrelationDlg::comboBoxCorrelationFnIndexChanged(int index)
 
 void RPSSeLCorrelationDlg::OnBnClickedCorrelationFnInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLCorrelation* currentSelection = CrpsSeLCorrelationFactory::BuildCorrelation(correlationFunction);
@@ -80,7 +80,7 @@ void RPSSeLCorrelationDlg::OnBnClickedCorrelationFnInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;

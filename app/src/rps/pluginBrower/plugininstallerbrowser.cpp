@@ -7,8 +7,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include "RPSPluginsBrowser.h"
-
-
+#include "rps/seaLab/rpsSeaLabSimulation.h"
 
 
 PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) :
@@ -88,7 +87,9 @@ void PluginInstallerBrowser::updateButton()
 
 		PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType);
 
-        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath);
+        RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
+        
+		PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
        
 	    // QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
  	    wizard.exec();
@@ -133,8 +134,10 @@ void PluginInstallerBrowser::updateButton()
 		// initialize the plugin
 		CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
 		QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
+       
+	    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
 
-        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath);
+        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
        
  	    wizard.exec();
 
@@ -172,10 +175,12 @@ void PluginInstallerBrowser::updateButton()
 		// initialize the plugin
 		CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
 		QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
-
+         
 		PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType);
 
-        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath);
+	    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
+
+        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
        
 	    // QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
  	    wizard.exec();

@@ -19,7 +19,7 @@ CRPSWindLabFramework::~CRPSWindLabFramework()
 void CRPSWindLabFramework::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dCohVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -35,7 +35,7 @@ void CRPSWindLabFramework::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -51,7 +51,7 @@ void CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeCoherenceCubePPF(const CRPSWindLabsimuData &Data, cube &dCoherenceCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -69,7 +69,7 @@ void CRPSWindLabFramework::ComputeCoherenceCubePPF(const CRPSWindLabsimuData &Da
 void CRPSWindLabFramework::ComputeCrossCorrelationVectorT(const CRPSWindLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorreObject)
 	{
@@ -85,7 +85,7 @@ void CRPSWindLabFramework::ComputeCrossCorrelationVectorT(const CRPSWindLabsimuD
 void CRPSWindLabFramework::ComputeCrossCorrelationVectorP(const CRPSWindLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorreObject)
 	{
@@ -101,7 +101,7 @@ void CRPSWindLabFramework::ComputeCrossCorrelationVectorP(const CRPSWindLabsimuD
 void CRPSWindLabFramework::ComputeCrossCorrelationMatrixPP(const CRPSWindLabsimuData &Data, mat &dCorrelationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorreObject)
 	{
@@ -117,7 +117,7 @@ void CRPSWindLabFramework::ComputeCrossCorrelationMatrixPP(const CRPSWindLabsimu
 void CRPSWindLabFramework::ComputeCrossCorrelationCubePPT(const CRPSWindLabsimuData &Data, cube &dCorrelationCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorreObject)
 	{
@@ -134,7 +134,7 @@ void CRPSWindLabFramework::ComputeCrossCorrelationCubePPT(const CRPSWindLabsimuD
 void CRPSWindLabFramework::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation)
 {
 	// Build a frequency distribution object
-	IrpsWLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(Data.m_strFreqencyDistribution);
+	IrpsWLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(Data.freqencyDistribution);
 
 	if (NULL == SelectedFrequencyDistributionObject)
 	{
@@ -150,7 +150,7 @@ void CRPSWindLabFramework::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation)
 {
 	// Build a frequency distribution object
-	IrpsWLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(Data.m_strFreqencyDistribution);
+	IrpsWLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(Data.freqencyDistribution);
 
 	if (NULL == SelectedFrequencyDistributionObject)
 	{
@@ -167,7 +167,7 @@ void CRPSWindLabFramework::ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData 
 void CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsWLLocationDistribution* SelectedDistrObject = CrpsLocationDistributionFactory::BuildLocationDistribution(Data.m_strSpatialDistribution);
+	IrpsWLLocationDistribution* SelectedDistrObject = CrpsLocationDistributionFactory::BuildLocationDistribution(Data.spatialDistribution);
 
 	if (NULL == SelectedDistrObject)
 	{
@@ -184,7 +184,7 @@ void CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsi
 void CRPSWindLabFramework::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.m_strMeanFunction);
+	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.meanFunction);
 
 	if (NULL == SelectedMeanObject)
 	{
@@ -200,7 +200,7 @@ void CRPSWindLabFramework::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData
 void CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.m_strMeanFunction);
+	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.meanFunction);
 
 	if (NULL == SelectedMeanObject)
 	{
@@ -216,7 +216,7 @@ void CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData
 void CRPSWindLabFramework::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuData &Data, mat &dMeanSpeedMatrix, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.m_strMeanFunction);
+	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.meanFunction);
 
 	if (NULL == SelectedMeanObject)
 	{
@@ -233,7 +233,7 @@ void CRPSWindLabFramework::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -249,7 +249,7 @@ void CRPSWindLabFramework::ComputeModulationVectorT(const CRPSWindLabsimuData &D
 void CRPSWindLabFramework::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -265,7 +265,7 @@ void CRPSWindLabFramework::ComputeModulationVectorF(const CRPSWindLabsimuData &D
 void CRPSWindLabFramework::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -281,7 +281,7 @@ void CRPSWindLabFramework::ComputeModulationVectorP(const CRPSWindLabsimuData &D
 void CRPSWindLabFramework::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -297,7 +297,7 @@ void CRPSWindLabFramework::ComputeModulationMatrixTP(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -313,7 +313,7 @@ void CRPSWindLabFramework::ComputeModulationMatrixFP(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -329,7 +329,7 @@ void CRPSWindLabFramework::ComputeModulationMatrixTF(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, cube &dModulationCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -347,7 +347,7 @@ void CRPSWindLabFramework::ComputeModulationCubeTFP(const CRPSWindLabsimuData &D
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -363,7 +363,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindL
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -379,7 +379,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorT(const CRPSWindL
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorP(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -395,7 +395,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorP(const CRPSWindL
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -411,7 +411,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSWind
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -427,7 +427,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixTP(const CRPSWind
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixFP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -444,7 +444,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixFP(const CRPSWind
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixTF(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -461,7 +461,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixTF(const CRPSWind
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumCubePPF(const CRPSWindLabsimuData &Data, cube &dCPSDDecomCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -477,7 +477,7 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumCubePPF(const CRPSWindL
 void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dCPSDDecomCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -495,14 +495,14 @@ void CRPSWindLabFramework::ComputeDecomposedCrossSpectrumCubePPT(const CRPSWindL
 void CRPSWindLabFramework::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLRandomness * SelectedRandomnessObject = CrpsRandomnessFactory::BuildRandomness(Data.m_strRandomnessProvider);
+	IrpsWLRandomness * SelectedRandomnessObject = CrpsRandomnessFactory::BuildRandomness(Data.randomnessProvider);
 
 	if (NULL == SelectedRandomnessObject)
 	{
 		return;
 	}
 
-	if (Data.m_bComparisonMode)
+	if (Data.comparisonMode)
 	{
 
 	}
@@ -517,7 +517,7 @@ void CRPSWindLabFramework::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data
 void CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -533,7 +533,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -553,7 +553,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumVectorP(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -569,7 +569,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -585,7 +585,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixFP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -601,7 +601,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixFP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTF(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -617,7 +617,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTF(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeXCrossSpectrumCubePPF(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -633,7 +633,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumCubePPF(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeXCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -651,7 +651,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumCubePPT(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -666,7 +666,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(const CRPSWindLabsimuDat
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -681,7 +681,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const CRPSWindLabsimuDat
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumVectorP(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -696,7 +696,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumVectorP(const CRPSWindLabsimuDat
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -711,7 +711,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixPP(const CRPSWindLabsimuDa
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -726,7 +726,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTP(const CRPSWindLabsimuDa
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixFP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -741,7 +741,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixFP(const CRPSWindLabsimuDa
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTF(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -756,7 +756,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTF(const CRPSWindLabsimuDa
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumCubePPF(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -771,7 +771,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumCubePPF(const CRPSWindLabsimuDat
 }
 void CRPSWindLabFramework::ComputeYCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -789,7 +789,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumCubePPT(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -805,7 +805,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -821,7 +821,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeZCrossSpectrumVectorP(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -837,7 +837,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumVectorP(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -853,7 +853,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixPP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -869,7 +869,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixFP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -885,7 +885,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixFP(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTF(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -901,7 +901,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTF(const CRPSWindLabsimuDa
 void CRPSWindLabFramework::ComputeZCrossSpectrumCubePPF(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -917,7 +917,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumCubePPF(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeZCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -936,7 +936,7 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumCubePPT(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeCoherenceValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsWLCoherence * SelectedCoherenceObject = CrpsCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -953,7 +953,7 @@ void CRPSWindLabFramework::ComputeCoherenceValue(const CRPSWindLabsimuData &Data
 void CRPSWindLabFramework::ComputeCrossCorrelationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsWLCorrelation * SelectedCorreObject = CrpsCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorreObject)
 	{
@@ -971,7 +971,7 @@ void CRPSWindLabFramework::ComputeCrossCorrelationValue(const CRPSWindLabsimuDat
 void CRPSWindLabFramework::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dTime, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.m_strMeanFunction);
+	IrpsWLMean* SelectedMeanObject = CrpsMeanFactory::BuildMean(Data.meanFunction);
 
 	if (NULL == SelectedMeanObject)
 	{
@@ -988,7 +988,7 @@ void CRPSWindLabFramework::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsWLModulation * SelectedModulationObject = CrpsModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -1006,7 +1006,7 @@ void CRPSWindLabFramework::ComputeModulationValue(const CRPSWindLabsimuData &Dat
 void CRPSWindLabFramework::ComputeDecomposedPSDValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsWLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -1023,14 +1023,14 @@ void CRPSWindLabFramework::ComputeDecomposedPSDValue(const CRPSWindLabsimuData &
 void CRPSWindLabFramework::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLRandomness * SelectedRandomnessObject = CrpsRandomnessFactory::BuildRandomness(Data.m_strRandomnessProvider);
+	IrpsWLRandomness * SelectedRandomnessObject = CrpsRandomnessFactory::BuildRandomness(Data.randomnessProvider);
 
 	if (NULL == SelectedRandomnessObject)
 	{
 		return;
 	}
 
-	if (Data.m_bComparisonMode)
+	if (Data.comparisonMode)
 	{
 
 	}
@@ -1046,7 +1046,7 @@ void CRPSWindLabFramework::ComputeRandomValue(const CRPSWindLabsimuData &Data, d
 void CRPSWindLabFramework::ComputeXCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -1062,7 +1062,7 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumValue(const CRPSWindLabsimuData 
 
 void CRPSWindLabFramework::ComputeYCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
-	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsWLYSpectrum * SelectedYSpectrumObject = CrpsYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -1078,7 +1078,7 @@ void CRPSWindLabFramework::ComputeYCrossSpectrumValue(const CRPSWindLabsimuData 
 
 void CRPSWindLabFramework::ComputeZCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
-	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsWLZSpectrum * SelectedZSpectrumObject = CrpsZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -1097,136 +1097,136 @@ void CRPSWindLabFramework::ComputeZCrossSpectrumValue(const CRPSWindLabsimuData 
 
 void CRPSWindLabFramework::ComputeCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumVectorP(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumMatrixFP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumMatrixTF(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumCubePPF(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
 }
 void CRPSWindLabFramework::ComputeCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSWindLabFramework::ComputeXCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSWindLabFramework::ComputeYCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSWindLabFramework::ComputeZCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}

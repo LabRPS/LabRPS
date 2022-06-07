@@ -2,7 +2,7 @@
 #define RPSSEALABSIMULATION_H
 
 #include <QWidget>
-#include "rps/rpsSimulation.h"
+#include "RPSSeaLabsimuData.h"
 
 class RPSSeaLabSimulation : public QWidget
 {
@@ -13,39 +13,33 @@ class RPSSeaLabSimulation : public QWidget
   RPSSeaLabSimulation(QWidget *parent = nullptr);
   ~RPSSeaLabSimulation();
 
- private:
- 
-
- public:
-
-
  public slots:
-   
-  void runSimulation();
-  void pauseSimulation();
-  void stopSimulation();
-  void simulationOptions();
 
-   //seaLab
+   // input
   void seaSurface();
   void spectrumSea();
   void coherenceSea();
   void correlationSea();
   void modulationSea();
 
-  //Simulation
-  private:
+  //output
+  void seaSurfaceOutput();
+  void spectrumSeaOutput();
+  void coherenceSeaOutput();
+  void correlationSeaOutput();
+  void modulationSeaOutput();
 
-  // random phenomenon name
-  QString selectedRandomPhenomenon;
-  QStringList supportedRandomPhenomena = QStringList()
-                     <<tr("Wind Velocity") << tr("Seismic Ground motion") << tr("Sea Surface");
-  
+  //simulation
+  void runSimulation();
+  void pauseSimulation();
+  void stopSimulation();
+  void simulationOptions();
+
   public:
-   QStringList information;
 
   // sea surface simulation input data
   CRPSSeaLabsimuData seaLabData;
+  QStringList information;
 
   public:
 
@@ -53,11 +47,7 @@ class RPSSeaLabSimulation : public QWidget
   void seaLabDataInitialize();
   void WriteMapToRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
   void ReadMapFromRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
-  bool IntallRegistrySeaLabPlugins();
-  int RPSWriteToBeInstallObjectsToRegistry();
-  int RPSWriteInstalledPluginsToRegistry();
-  int RPSReadInstalledPluginsFromRegistry();
-  int RPSReadInstalledPluginsFromRegistryCommon();
+
 
   //*******save installed plungins for seaLab (start)********//
   void SeLWriteAllTobeInstallObjectsToRegistry();
@@ -66,6 +56,16 @@ class RPSSeaLabSimulation : public QWidget
   void ClearMapFromRegistry(QString& settingsGroupt);
 
   //*******save installed plungins for seaLab (end)********//
+bool GetObjects(std::map<const QString, QString>& map, QStringList& lstObject, QString pluginName);
+bool GetToBeInstalledObjectsList(QStringList& lstObject, QString pluginName);
+bool GetToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName);
+bool IsObjectInstalled(QString& object);
+bool UpdateObjectsMap(std::map<const QString, QString>& map, const QString& lstObject);
+bool UpdateToBeInstalledObjectsMap(const QString& lstObject);
+bool UpdateToBeUninstalledObjectsMap(const QString name, const QString pluginName);
+bool IsThisObjectInstalled(std::map<const QString, QString>& map, QString& object);
+bool UpdateObjectToSkipMap(std::map<const QString, QString>& map, const QString name, const QString pluginName);
+
  
 };
 

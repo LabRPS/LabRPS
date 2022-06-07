@@ -16,119 +16,110 @@ class RPS_CORE_API CRPSWindLabsimuData : public QObject
 	~CRPSWindLabsimuData();
 
 	// Large number of process simulation flag
-	bool m_bLargeScaleSimulationFlag;
+	bool largeScaleSimulationFlag;
 
 	// The Number of process
-	int m_iNumberOfSpatialPosition;
+	int numberOfSpatialPosition;
 
 	// The number of frequency increments
-	int m_iNumberOfFrequency;
+	int numberOfFrequency;
 
 	// The Number of sample
-	int m_iNumberOfSample;
+	int numberOfSample;
 
 	// Wind Direction
-	int m_iDirection;
+	int direction;
 
 	// Frequency distribution type
-	int m_iFrequencyDistrType;
+	int frequencyDistrType;
 
 	// Nunber of time instant
-	int m_iNumberOfTimeIncrements;
+	int numberOfTimeIncrements;
 
 	// Stationarity
-	int m_iStationarity;
+	bool stationarity;
 
 	// Stationarity
-	int m_iGaussianity;
+	bool gaussianity;
 
 	// The current frequency increment
-	double m_dFrequencyIncrement;
+	double frequencyIncrement;
 
 	// Time increment
-	double m_dTimeIncrement;
+	double timeIncrement;
 
 	// Minimum Time, 0 by default
-	double m_dMinTime;
+	double minTime;
 
 	// The minimum frequency
-	double m_dMinFrequency;
+	double minFrequency;
 
 	// The maximum frequency
-	double m_dMaxFrequency;
-
-	////Selected RP
-	//QString m_strRandomProcess;
+	double maxFrequency;
 
 	// The selected spatial distribution
-	QString m_strSpatialDistribution;
-
-	// The stationarity of the rp
-	QString m_strStationarity;
+	QString spatialDistribution;
 
 	// The selected shear velocity
-	QString m_strShearVelocity;
+	QString shearVelocity;
 
 	// The selected mean wind profile
-	QString m_strMeanFunction;
+	QString meanFunction;
 
 	// The selected spectrum model
-	QString m_strSpectrumModel;
+	QString spectrumModel;
 
 	// The selected coherence function
-	QString m_strCoherenceFunction;
+	QString coherenceFunction;
 
 	// Selected simulation approach
-	QString m_strSimulationApproach;
+	QString simulationApproach;
 
 	// Selected simulation method
-	QString m_strSimulationMethod;
+	QString simulationMethod;
 
 	// Selected Simulation
-	QString m_strFreqencyDistribution;
-
-	// Selected wind generation method
-	QString m_strRPGenerationMethod;
+	QString freqencyDistribution;
 
 	// Selected CPSD Decomposition Method
-	QString m_strCPSDDecompositionMethod;
+	QString cpsdDecompositionMethod;
 
 	// Selected randomness
-	QString m_strRandomnessProvider;
+	QString randomnessProvider;
 
 	// Selected Modulation function model
-	QString m_strModulationFunction;
+	QString modulationFunction;
 
 	// Selected correlation function model
-	QString m_strCorrelationFunction;
+	QString correlationFunction;
 
 	// Selected variance model
-	QString m_strVarianceFunction;
+	QString varianceFunction;
 
 	// The working directory path
-	QString m_strWorkingDirPath;
+	QString workingDirPath;
 	
 	// whether we are doing comparison or not
-	bool  m_bComparisonMode;
+	bool  comparisonMode;
 
 	// whether we are doing large scale simulation or not
-	bool  m_bLargeScaleSimulationMode;
+	bool  largeScaleSimulationMode;
 
-	int m_iLocationJ;
+	int locationJ;
 
-	int m_iLocationK;
+	int locationK;
 
-	int m_iFrequencyIndex;
+	int frequencyIndex;
 
-	int m_iDirectionIndex;
+	int directionIndex;
 
-	int m_iTimeIndex;
+	int timeIndex;
 
 	// Selected comparison category
-	QString m_strComparisonCategory;
+	QString comparisonCategory;
 
 	// Nunber of time lags
-	int m_iNumberOfTimeLags;
+	int numberOfTimeLags;
 
 };
 

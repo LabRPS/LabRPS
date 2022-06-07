@@ -21,7 +21,7 @@ CRPSSeismicLabFramework::~CRPSSeismicLabFramework()
 void CRPSSeismicLabFramework::ComputeCrossCoherenceVectorF(const CRPSSeismicLabsimuData &Data, vec &dCohVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -37,7 +37,7 @@ void CRPSSeismicLabFramework::ComputeCrossCoherenceVectorF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeCrossCoherenceMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -53,7 +53,7 @@ void CRPSSeismicLabFramework::ComputeCrossCoherenceMatrixPP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeCoherenceCubePPF(const CRPSSeismicLabsimuData &Data, cube &dCoherenceCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -69,7 +69,7 @@ void CRPSSeismicLabFramework::ComputeCoherenceCubePPF(const CRPSSeismicLabsimuDa
 void CRPSSeismicLabFramework::ComputeCoherenceValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.m_strCoherenceFunction);
+	IrpsSLCoherence * SelectedCoherenceObject = CrpsSLCoherenceFactory::BuildCoherence(Data.coherenceFunction);
 
 	if (NULL == SelectedCoherenceObject)
 	{
@@ -86,7 +86,7 @@ void CRPSSeismicLabFramework::ComputeCoherenceValue(const CRPSSeismicLabsimuData
 void CRPSSeismicLabFramework::ComputeCrossCorrelationVectorT(const CRPSSeismicLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorrelationObject)
 	{
@@ -102,7 +102,7 @@ void CRPSSeismicLabFramework::ComputeCrossCorrelationVectorT(const CRPSSeismicLa
 void CRPSSeismicLabFramework::ComputeCrossCorrelationVectorP(const CRPSSeismicLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorrelationObject)
 	{
@@ -118,7 +118,7 @@ void CRPSSeismicLabFramework::ComputeCrossCorrelationVectorP(const CRPSSeismicLa
 void CRPSSeismicLabFramework::ComputeCrossCorrelationMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCorrelationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorrelationObject)
 	{
@@ -134,7 +134,7 @@ void CRPSSeismicLabFramework::ComputeCrossCorrelationMatrixPP(const CRPSSeismicL
 void CRPSSeismicLabFramework::ComputeCrossCorrelationCubePPT(const CRPSSeismicLabsimuData &Data, cube &dCorrelationCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorrelationObject)
 	{
@@ -150,7 +150,7 @@ void CRPSSeismicLabFramework::ComputeCrossCorrelationCubePPT(const CRPSSeismicLa
 void CRPSSeismicLabFramework::ComputeCrossCorrelationValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.m_strCorrelationFunction);
+	IrpsSLCorrelation * SelectedCorrelationObject = CrpsSLCorrelationFactory::BuildCorrelation(Data.correlationFunction);
 
 	if (NULL == SelectedCorrelationObject)
 	{
@@ -167,7 +167,7 @@ void CRPSSeismicLabFramework::ComputeCrossCorrelationValue(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeFrequenciesVectorF(const CRPSSeismicLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation)
 {
 	// Build a frequency distribution object
-	IrpsSLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsSLFrequencyDistributionFactory::BuildFrequencyDistribution(Data.m_strFreqencyDistribution);
+	IrpsSLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsSLFrequencyDistributionFactory::BuildFrequencyDistribution(Data.freqencyDistribution);
 
 	if (NULL == SelectedFrequencyDistributionObject)
 	{
@@ -183,7 +183,7 @@ void CRPSSeismicLabFramework::ComputeFrequenciesVectorF(const CRPSSeismicLabsimu
 void CRPSSeismicLabFramework::ComputeFrequenciesMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation)
 {
 	// Build a frequency distribution object
-	IrpsSLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsSLFrequencyDistributionFactory::BuildFrequencyDistribution(Data.m_strFreqencyDistribution);
+	IrpsSLFrequencyDistribution * SelectedFrequencyDistributionObject = CrpsSLFrequencyDistributionFactory::BuildFrequencyDistribution(Data.freqencyDistribution);
 
 	if (NULL == SelectedFrequencyDistributionObject)
 	{
@@ -200,7 +200,7 @@ void CRPSSeismicLabFramework::ComputeFrequenciesMatrixFP(const CRPSSeismicLabsim
 void CRPSSeismicLabFramework::ComputeLocationCoordinateMatrixP3(const CRPSSeismicLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
 	// Build a location distribution object
-	IrpsSLLocationDistribution* SelectedDistrObject = CrpsSLLocationDistributionFactory::BuildLocationDistribution(Data.m_strSpatialDistribution);
+	IrpsSLLocationDistribution* SelectedDistrObject = CrpsSLLocationDistributionFactory::BuildLocationDistribution(Data.spatialDistribution);
 
 	if (NULL == SelectedDistrObject)
 	{
@@ -217,7 +217,7 @@ void CRPSSeismicLabFramework::ComputeLocationCoordinateMatrixP3(const CRPSSeismi
 void CRPSSeismicLabFramework::ComputeModulationVectorT(const CRPSSeismicLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -233,7 +233,7 @@ void CRPSSeismicLabFramework::ComputeModulationVectorT(const CRPSSeismicLabsimuD
 void CRPSSeismicLabFramework::ComputeModulationVectorF(const CRPSSeismicLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -249,7 +249,7 @@ void CRPSSeismicLabFramework::ComputeModulationVectorF(const CRPSSeismicLabsimuD
 void CRPSSeismicLabFramework::ComputeModulationVectorP(const CRPSSeismicLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -265,7 +265,7 @@ void CRPSSeismicLabFramework::ComputeModulationVectorP(const CRPSSeismicLabsimuD
 void CRPSSeismicLabFramework::ComputeModulationMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -281,7 +281,7 @@ void CRPSSeismicLabFramework::ComputeModulationMatrixTP(const CRPSSeismicLabsimu
 void CRPSSeismicLabFramework::ComputeModulationMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -297,7 +297,7 @@ void CRPSSeismicLabFramework::ComputeModulationMatrixFP(const CRPSSeismicLabsimu
 void CRPSSeismicLabFramework::ComputeModulationMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -313,7 +313,7 @@ void CRPSSeismicLabFramework::ComputeModulationMatrixTF(const CRPSSeismicLabsimu
 void CRPSSeismicLabFramework::ComputeModulationCubeTFP(const CRPSSeismicLabsimuData &Data, cube &dModulationCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -329,7 +329,7 @@ void CRPSSeismicLabFramework::ComputeModulationCubeTFP(const CRPSSeismicLabsimuD
 void CRPSSeismicLabFramework::ComputeModulationValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.m_strModulationFunction);
+	IrpsSLModulation * SelectedModulationObject = CrpsSLModulationFactory::BuildModulation(Data.modulationFunction);
 
 	if (NULL == SelectedModulationObject)
 	{
@@ -346,7 +346,7 @@ void CRPSSeismicLabFramework::ComputeModulationValue(const CRPSSeismicLabsimuDat
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -362,7 +362,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorF(const CRPSSe
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorT(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -378,7 +378,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorT(const CRPSSe
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorP(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -394,7 +394,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorP(const CRPSSe
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -410,7 +410,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSS
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -426,7 +426,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixTP(const CRPSS
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -442,7 +442,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixFP(const CRPSS
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -458,7 +458,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixTF(const CRPSS
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumCubePPF(const CRPSSeismicLabsimuData &Data, cube &dCPSDDecomCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -474,7 +474,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumCubePPF(const CRPSSe
 void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumCubePPT(const CRPSSeismicLabsimuData &Data, cube &dCPSDDecomCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -490,7 +490,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumCubePPT(const CRPSSe
 void CRPSSeismicLabFramework::ComputeDecomposedPSDValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.m_strCPSDDecompositionMethod);
+	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);
 
 	if (NULL == SelectedPSDdecomMethodObject)
 	{
@@ -507,14 +507,14 @@ void CRPSSeismicLabFramework::ComputeDecomposedPSDValue(const CRPSSeismicLabsimu
 void CRPSSeismicLabFramework::GenerateRandomArrayFP(const CRPSSeismicLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLRandomness * SelectedRandomnessObject = CrpsSLRandomnessFactory::BuildRandomness(Data.m_strRandomnessProvider);
+	IrpsSLRandomness * SelectedRandomnessObject = CrpsSLRandomnessFactory::BuildRandomness(Data.randomnessProvider);
 
 	if (NULL == SelectedRandomnessObject)
 	{
 		return;
 	}
 
-	if (Data.m_bComparisonMode)
+	if (Data.comparisonMode)
 	{
 
 	}
@@ -528,7 +528,7 @@ void CRPSSeismicLabFramework::GenerateRandomArrayFP(const CRPSSeismicLabsimuData
 void CRPSSeismicLabFramework::ComputeRandomValue(const CRPSSeismicLabsimuData &Data, double &dValue, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLRandomness * SelectedRandomnessObject = CrpsSLRandomnessFactory::BuildRandomness(Data.m_strRandomnessProvider);
+	IrpsSLRandomness * SelectedRandomnessObject = CrpsSLRandomnessFactory::BuildRandomness(Data.randomnessProvider);
 
 	if (NULL == SelectedRandomnessObject)
 	{
@@ -545,7 +545,7 @@ void CRPSSeismicLabFramework::ComputeRandomValue(const CRPSSeismicLabsimuData &D
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -561,7 +561,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorT(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -577,7 +577,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorP(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -593,7 +593,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorP(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -609,7 +609,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixPP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -625,7 +625,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -641,7 +641,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixFP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -657,7 +657,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTF(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPF(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -673,7 +673,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPT(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -689,7 +689,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeXCrossSpectrumValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.m_strSpectrumModel);
+	IrpsSLXSpectrum * SelectedXSpectrumObject = CrpsSLXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedXSpectrumObject)
 	{
@@ -706,7 +706,7 @@ void CRPSSeismicLabFramework::ComputeXCrossSpectrumValue(const CRPSSeismicLabsim
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -722,7 +722,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorT(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -738,7 +738,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorP(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -754,7 +754,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorP(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -770,7 +770,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixPP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -786,7 +786,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -802,7 +802,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixFP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -818,7 +818,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTF(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPF(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -834,7 +834,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPT(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -850,7 +850,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeYCrossSpectrumValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.m_strSpectrumModel);
+	IrpsSLYSpectrum * SelectedYSpectrumObject = CrpsSLYSpectrumFactory::BuildYSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedYSpectrumObject)
 	{
@@ -867,7 +867,7 @@ void CRPSSeismicLabFramework::ComputeYCrossSpectrumValue(const CRPSSeismicLabsim
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -883,7 +883,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorT(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -899,7 +899,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorP(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -915,7 +915,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorP(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -931,7 +931,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixPP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -947,7 +947,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -963,7 +963,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixFP(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -979,7 +979,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTF(const CRPSSeismicLab
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPF(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -995,7 +995,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPF(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPT(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -1011,7 +1011,7 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPT(const CRPSSeismicLabs
 void CRPSSeismicLabFramework::ComputeZCrossSpectrumValue(const CRPSSeismicLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build an along wind psd object
-	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.m_strSpectrumModel);
+	IrpsSLZSpectrum * SelectedZSpectrumObject = CrpsSLZSpectrumFactory::BuildZSpectrum(Data.spectrumModel);
 
 	if (NULL == SelectedZSpectrumObject)
 	{
@@ -1029,136 +1029,136 @@ void CRPSSeismicLabFramework::ComputeZCrossSpectrumValue(const CRPSSeismicLabsim
 
 void CRPSSeismicLabFramework::ComputeCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorF(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumVectorT(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorT(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumVectorP(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumVectorP(Data, dPSDVector, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixPP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumMatrixTP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixFP(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumMatrixTF(const CRPSSeismicLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumMatrixTF(Data, dPSDMatrix, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumCubePPF(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 	}
 }
 void CRPSSeismicLabFramework::ComputeCrossSpectrumCubePPT(const CRPSSeismicLabsimuData &Data, cube &dPSDCube, QStringList &strInformation)
 {
-	if (Data.m_iDirection == 1)
+	if (Data.direction == 1)
 	{
 		CRPSSeismicLabFramework::ComputeXCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 2)
+	else if (Data.direction == 2)
 	{
 		CRPSSeismicLabFramework::ComputeYCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}
-	else if (Data.m_iDirection == 3)
+	else if (Data.direction == 3)
 	{
 		CRPSSeismicLabFramework::ComputeZCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}

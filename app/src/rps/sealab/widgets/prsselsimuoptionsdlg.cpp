@@ -11,12 +11,12 @@ PRSSeLSimuOptionsDlg::PRSSeLSimuOptionsDlg(QWidget *parent) :
 
     noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-	currentRandomnessProvider = app->rpsSeaLabSimulator->GetSeaLabData().randomnessProvider;
-	currentsimulationMethod = app->rpsSeaLabSimulator->GetSeaLabData().simulationMethod;
-	comparisonMode = app->rpsSeaLabSimulator->GetSeaLabData().comparisonMode;
-    largeScaleMode = app->rpsSeaLabSimulator->GetSeaLabData().largeScaleSimulationMode; 
+	currentRandomnessProvider = rpsSeaLabSimulator->GetSeaLabData().randomnessProvider;
+	currentsimulationMethod = rpsSeaLabSimulator->GetSeaLabData().simulationMethod;
+	comparisonMode = rpsSeaLabSimulator->GetSeaLabData().comparisonMode;
+    largeScaleMode = rpsSeaLabSimulator->GetSeaLabData().largeScaleSimulationMode; 
     
 	if(true == comparisonMode)
 	{
@@ -166,7 +166,7 @@ void PRSSeLSimuOptionsDlg::checkBoxSLargeScaleSimulationModeChanged( int state)
 
 void PRSSeLSimuOptionsDlg::OnBnClickedRandomnessInit()
 {
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLRandomness* currentRndProvider = CrpsSeLRandomnessFactory::BuildRandomness(currentRandomnessProvider);
@@ -175,7 +175,7 @@ void PRSSeLSimuOptionsDlg::OnBnClickedRandomnessInit()
 	if (NULL == currentRndProvider) { return; }
 
 	// Apply iniatial setting
-	currentRndProvider->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentRndProvider->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentRndProvider;

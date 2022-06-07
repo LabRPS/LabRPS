@@ -438,11 +438,14 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/sealab/widgets/rpsselcorrelationdlg.h\
             src/rps/sealab/widgets/rpsselmodulationdlg.h\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.h\
+            src/rps/seismiclab/widgets/prsslsimuoptionsdlg.h\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.h\
             src/rps/pluginBrower/RPSPluginsBrowser.h\
-            src/rps/pluginBrower/pluginbrwoser.h\
             src/rps/pluginBrower/plugininstallerbrowser.h\
             src/rps/rpsSimulation.h\
             src/rps/seaLab/rpsSeaLabSimulation.h\
+            src/rps/seismicLab/rpsSeismicLabSimulation.h\
+            src/rps/windLab/rpsWindLabSimulation.h\
 
 
 
@@ -453,11 +456,15 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/sealab/widgets/rpsselcorrelationdlg.cpp\
             src/rps/sealab/widgets/rpsselmodulationdlg.cpp\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.cpp\
+            src/rps/seismiclab/widgets/prsslsimuoptionsdlg.cpp\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.cpp\
             src/rps/pluginBrower/RPSPluginsBrowser.cpp\
-            src/rps/pluginBrower/pluginbrwoser.cpp\
             src/rps/pluginBrower/plugininstallerbrowser.cpp\
             src/rps/rpsSimulation.cpp\
             src/rps/seaLab/rpsSeaLabSimulation.cpp\
+            src/rps/seismicLab/rpsSeismicLabSimulation.cpp\
+            src/rps/windLab/rpsWindLabSimulation.cpp\
+
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
@@ -465,5 +472,6 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselcorrelationdlg.ui\
             src/rps/sealab/widgets/rpsselmodulationdlg.ui\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.ui\
-            src/rps/pluginBrower/pluginbrwoser.ui\
+            src/rps/seismiclab/widgets/prsslsimuoptionsdlg.ui\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.ui\
             src/rps/pluginBrower/plugininstallerbrowser.ui\

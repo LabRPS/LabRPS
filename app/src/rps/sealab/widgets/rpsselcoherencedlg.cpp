@@ -12,9 +12,9 @@ RPSSeLCoherenceDlg::RPSSeLCoherenceDlg(QWidget *parent) :
 
     QString noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-    coherenceFunction = app->rpsSeaLabSimulator->GetSeaLabData().coherenceFunction;
+    coherenceFunction = rpsSeaLabSimulator->GetSeaLabData().coherenceFunction;
 
     ui->comboBoxCoherenceFunc->clear();
     ui->comboBoxCoherenceFunc->addItem(noSelection);
@@ -70,7 +70,7 @@ void RPSSeLCoherenceDlg::comboBoxCoherenceFnIndexChanged(int index)
 
 void RPSSeLCoherenceDlg::OnBnClickedCoherenceFnInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLCoherence* currentSelection = CrpsSeLCoherenceFactory::BuildCoherence(coherenceFunction);
@@ -79,7 +79,7 @@ void RPSSeLCoherenceDlg::OnBnClickedCoherenceFnInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;

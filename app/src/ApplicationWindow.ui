@@ -78,7 +78,6 @@
     <addaction name="actionImportASCII"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
-    <addaction name="hahahahaha"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -479,12 +478,18 @@
     <addaction name="separator"/>
     <addaction name="actionSimulationOptions"/>
    </widget>
+   <widget class="QMenu" name="menuOutput">
+    <property name="title">
+     <string>Output</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuView"/>
    <addaction name="menuScripting"/>
    <addaction name="menuInput"/>
    <addaction name="menuSimulation"/>
+   <addaction name="menuOutput"/>
    <addaction name="menuPlot"/>
    <addaction name="menuTableAnalysis"/>
    <addaction name="menuTable"/>

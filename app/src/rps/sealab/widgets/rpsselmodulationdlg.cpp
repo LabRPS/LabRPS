@@ -12,9 +12,9 @@ RPSSeLModulationDlg::RPSSeLModulationDlg(QWidget *parent) :
 
      QString noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-    modulationFunction = app->rpsSeaLabSimulator->GetSeaLabData().modulationFunction;
+    modulationFunction = rpsSeaLabSimulator->GetSeaLabData().modulationFunction;
 
     ui->comboBoxModulationFunc->clear();
     ui->comboBoxModulationFunc->addItem(noSelection);
@@ -70,7 +70,7 @@ void RPSSeLModulationDlg::comboBoxModulationFnIndexChanged(int index)
 
 void RPSSeLModulationDlg::OnBnClickedModulationFnInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLModulation* currentSelection = CrpsSeLModulationFactory::BuildModulation(modulationFunction);
@@ -79,7 +79,7 @@ void RPSSeLModulationDlg::OnBnClickedModulationFnInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;

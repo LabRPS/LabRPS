@@ -54,6 +54,45 @@ win32: {
 }
 
 
+SOURCES += \
+    CholeskyDecomposition.cpp\
+    ExpoModulation.cpp\
+    RPSDavenportCoherence.cpp\
+    RPSDeodatis1987.cpp\
+    RPSDoubleIndexFrequency.cpp\
+    RPSKaimalSpectr.cpp\
+    RPSLogarithmicLowProfile.cpp\
+    RPSRandomPhasesFromFile.cpp\
+    RPSSingleIndexFrequency.cpp\
+    RPSUniformRandomPhases.cpp\
+    RPSWLPowerLowProfile.cpp\
+    SineModulation.cpp\
+    ThreeParaModulation.cpp\
+    WindLab.cpp\
+    WLHorizontalUniformDistribution.cpp\
+    WLVerticalUniformDistribution.cpp\
+
+
+
+HEADERS += \
+    CholeskyDecomposition.h\
+    ExpoModulation.h\
+    RPSDavenportCoherence.h\
+    RPSDeodatis1987.h\
+    RPSDoubleIndexFrequency.h\
+    RPSKaimalSpectr.h\
+    RPSLogarithmicLowProfile.h\
+    RPSRandomPhasesFromFile.h\
+    RPSSingleIndexFrequency.h\
+    RPSUniformRandomPhases.h\
+    RPSWLPowerLowProfile.h\
+    SineModulation.h\
+    ThreeParaModulation.h\
+    WLHorizontalUniformDistribution.h\
+    WLVerticalUniformDistribution.h\
+
+
+
 DISTFILES += windLab.json
 
 # Default rules for deployment.

@@ -12,17 +12,17 @@ RPSSeaWaveDefinitionDlg::RPSSeaWaveDefinitionDlg(QWidget *parent) :
 
     QString noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-     numberOfSpatialPosition = app->rpsSeaLabSimulator->GetSeaLabData().numberOfSpatialPosition;
-	 numberOfTimeIncrements = app->rpsSeaLabSimulator->GetSeaLabData().numberOfTimeIncrements;
-	 timeIncrement = app->rpsSeaLabSimulator->GetSeaLabData().timeIncrement;
-	 minTime = app->rpsSeaLabSimulator->GetSeaLabData().minTime;
-	 numberOfSample = app->rpsSeaLabSimulator->GetSeaLabData().numberOfSample;
-	 stationarity = app->rpsSeaLabSimulator->GetSeaLabData().stationarity;
-	 gaussianity = app->rpsSeaLabSimulator->GetSeaLabData().gaussianity;
-	 spatialDistribution = app->rpsSeaLabSimulator->GetSeaLabData().spatialDistribution;
-	 waveType = app->rpsSeaLabSimulator->GetSeaLabData().waveType;
+     numberOfSpatialPosition = rpsSeaLabSimulator->GetSeaLabData().numberOfSpatialPosition;
+	 numberOfTimeIncrements = rpsSeaLabSimulator->GetSeaLabData().numberOfTimeIncrements;
+	 timeIncrement = rpsSeaLabSimulator->GetSeaLabData().timeIncrement;
+	 minTime = rpsSeaLabSimulator->GetSeaLabData().minTime;
+	 numberOfSample = rpsSeaLabSimulator->GetSeaLabData().numberOfSample;
+	 stationarity = rpsSeaLabSimulator->GetSeaLabData().stationarity;
+	 gaussianity = rpsSeaLabSimulator->GetSeaLabData().gaussianity;
+	 spatialDistribution = rpsSeaLabSimulator->GetSeaLabData().spatialDistribution;
+	 waveType = rpsSeaLabSimulator->GetSeaLabData().waveType;
 
      if(true == stationarity)
 	{
@@ -171,7 +171,7 @@ void RPSSeaWaveDefinitionDlg::radioButtonNonGaussianityToggled(bool)
 
 void RPSSeaWaveDefinitionDlg::OnBnClickedSpatialDistrInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLLocationDistribution* currentSpatialDistr = CrpsSeLLocationDistributionFactory::BuildLocationDistribution(spatialDistribution);
@@ -180,7 +180,7 @@ void RPSSeaWaveDefinitionDlg::OnBnClickedSpatialDistrInit()
 	if (NULL == currentSpatialDistr) { return; }
 
 	// Apply iniatial setting
-	currentSpatialDistr->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSpatialDistr->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSpatialDistr;

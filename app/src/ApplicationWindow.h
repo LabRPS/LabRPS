@@ -39,8 +39,7 @@
 #include "scripting/Script.h"
 #include "scripting/ScriptingEnv.h"
 
-#include "RPSSeaLabsimuData.h"
-#include "rps/seaLab/rpsSeaLabSimulation.h"
+#include "rps/rpsSimulation.h"
 
 class QPixmap;
 class QCloseEvent;
@@ -843,19 +842,6 @@ class ApplicationWindow : public QMainWindow,
   //@}
   void newCurve2D(Table* table, Column* xcol, Column* ycol);
 
-  //rps
-  // void seaSurface();
-  // void spectrumSea();
-  // void coherenceSea();
-  // void correlationSea();
-  // void modulationSea();
-  void setRandomPhemenon( int index );
-  // void runSimulation();
-  // void pauseSimulation();
-  // void stopSimulation();
-  // void simulationOptions();
-
-
  signals:
   void modified();
 
@@ -1126,15 +1112,49 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionplot3dmodeitemselect_;
   QAction* actionplot3dmodenoneselect_;
 
-  //rps
+  //seaLab input
   QAction* actionSeaSurface;
   QAction* actionSpectrumSea;
   QAction* actionCoherenceSea;
   QAction* actionCorrelationSea;
   QAction* actionModulationSea;
 
+    //windLab input
+  QAction* actionWindVelocity;
+  QAction* actionSpectrumWind;
+  QAction* actionCoherenceWind;
+  QAction* actionCorrelationWind;
+  QAction* actionModulationWind;
+  QAction* actionMeanWindVelocity;
 
+    //seismicLab input
+  QAction* actionGroundMotion;
+  QAction* actionSpectrumSeismic;
+  QAction* actionCoherenceSeismic;
+  QAction* actionCorrelationSeismic;
+  QAction* actionModulationSeismic;
 
+   //seaLab output
+  QAction* actionSeaSurfaceOutput;
+  QAction* actionSpectrumSeaOutput;
+  QAction* actionCoherenceSeaOutput;
+  QAction* actionCorrelationSeaOutput;
+  QAction* actionModulationSeaOutput;
+
+     //windLab output
+  QAction* actionWindVelocityOutput;
+  QAction* actionSpectrumWindOutput;
+  QAction* actionCoherenceWindOutput;
+  QAction* actionCorrelationWindOutput;
+  QAction* actionModulationWindOutput;
+  QAction* actionMeanWindVelocityOutput;
+
+     //seismicLab output
+  QAction* actionGroundMotionOutput;
+  QAction* actionSpectrumSeismicOutput;
+  QAction* actionCoherenceSeismicOutput;
+  QAction* actionCorrelationSeismicOutput;
+  QAction* actionModulationSeismicOutput;
 
 
   // Manages connection between 2dplot actions (not used by all 2dplot actions).
@@ -1188,59 +1208,13 @@ class ApplicationWindow : public QMainWindow,
   Matrix* getMatrixHandle();
   Note* getNoteHandle();
 
-  //Simulation
-  private:
-
-  // random phenomenon name
-  QString selectedRandomPhenomenon;
-
-  QStringList supportedRandomPhenomena = QStringList()
-                     <<tr("Wind Velocity") << tr("Seismic Ground motion") << tr("Sea Surface");
-   
-  public:
-    QString getSelectedRandomPhenomenon();
-
   public:
 
-  RPSSeaLabSimulation* rpsSeaLabSimulator; 
-   QStringList information;
+  RPSSimulation* rpsSimulator; 
+  QStringList information;
 
-//   public:
-//    bool regisgryPluginsAlreadyInstalled;
-
-
-//   //////////simulation data start///////////////
-
-//   // sea surface simulation input data
-//   CRPSSeaLabsimuData seaLabData;
-
-//   /////////simulation data end/////////////
-
-
-
-//   CRPSSeaLabsimuData& GetSeaLabData();
-//   void seaLabDataInitialize();
-//   void WriteMapToRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
-//   void ReadMapFromRegistry(std::map<const QString, QString> & map, QString& settingsGroup, int& count);
-//   bool IntallRegistrySeaLabPlugins();
-//   int RPSWriteToBeInstallObjectsToRegistry();
-//   int RPSWriteInstalledPluginsToRegistry();
-//   int RPSReadInstalledPluginsFromRegistry();
-//   int RPSReadInstalledPluginsFromRegistryCommon();
-
-//   //*******save installed plungins for seaLab (start)********//
-//   void SeLWriteAllTobeInstallObjectsToRegistry();
-//   void SeLReadAllTobeInstallObjectsFromRegistry();
-//   void SeLClearAllTobeInstallObjectsFromRegistry();
-//   void ClearMapFromRegistry(QString& settingsGroupt);
-
-//   //*******save installed plungins for seaLab (end)********//
-
-
-//  private slots:
-//  void receiveSelectedRandomnessProvider(const QString randomnessProvider);
-
-
+  public slots:
+  void savePhenomenon(int index);
 
 
 };

@@ -54,6 +54,40 @@ win32: {
 }
 
 
+SOURCES += \
+    AbrahamsonCoherence.cpp\
+    BogdanoffGoldbergBernarModulation.cpp\
+    CloughPenzienSpectrum.cpp\
+    HarichandranVanmarcheCoherence.cpp\
+    JenningEtAlModulation.cpp\
+    KanaiTajimiSpectrum.cpp\
+    RPSDeodatis1996.cpp\
+    RPSSLDoubleIndexFrequency.cpp\
+    RPSSLRandomPhasesFromFile.cpp\
+    RPSSLSingleIndexFrequency.cpp\
+    RPSSLUniformRandomPhases.cpp\
+    SeismicLab.cpp\
+    SLCholeskyDecomposition.cpp\
+    SLHorizontalUniformDistribution.cpp\
+    SLVerticalUniformDistribution.cpp\
+
+HEADERS += \
+    AbrahamsonCoherence.h\
+    BogdanoffGoldbergBernarModulation.h\
+    CloughPenzienSpectrum.h\
+    HarichandranVanmarcheCoherence.h\
+    JenningEtAlModulation.h\
+    KanaiTajimiSpectrum.h\
+    RPSDeodatis1996.h\
+    RPSSLDoubleIndexFrequency.h\
+    RPSSLRandomPhasesFromFile.h\
+    RPSSLSingleIndexFrequency.h\
+    RPSSLUniformRandomPhases.h\
+    SLCholeskyDecomposition.h\
+    SLHorizontalUniformDistribution.h\
+    SLVerticalUniformDistribution.h\
+  
+
 DISTFILES += seismicLab.json
 
 # Default rules for deployment.

@@ -18,110 +18,107 @@ class RPS_CORE_API CRPSSeismicLabsimuData : public QObject
 	~CRPSSeismicLabsimuData();
 
 	// Large number of process simulation flag
-	bool m_bLargeScaleSimulationFlag;
+	bool largeScaleSimulationFlag;
 
 	// whether we are doing comparison or not
-	bool  m_bComparisonMode;
+	bool  comparisonMode;
 
 	// whether we are doing large scale simulation or not
-	bool  m_bLargeScaleSimulationMode;
+	bool  largeScaleSimulationMode;
 
 	// The Number of process
-	int m_iNumberOfSpatialPosition;
+	int numberOfSpatialPosition;
 
 	// The number of frequency increments
-	int m_iNumberOfFrequency;
+	int numberOfFrequency;
 
 	// The Number of sample
-	int m_iNumberOfSample;
+	int numberOfSample;
 
 	// Wind Direction
-	int m_iDirection;
+	int direction;
 
 	// Nunber of time instant
-	int m_iNumberOfTimeIncrements;
+	int numberOfTimeIncrements;
 
 	// Stationarity
-	int m_iStationarity;
+	bool stationarity;
 
 	// Stationarity
-	int m_iGaussianity;
+	bool gaussianity;
 
 	// The current frequency increment
-	double m_dFrequencyIncrement;
+	double frequencyIncrement;
 
 	// Time increment
-	double m_dTimeIncrement;
+	double timeIncrement;
 
 	// Minimum Time, 0 by default
-	double m_dMinTime;
+	double minTime;
 
 	// The minimum frequency
-	double m_dMinFrequency;
+	double minFrequency;
 
 	// The maximum frequency
-	double m_dMaxFrequency;
+	double maxFrequency;
 
 	// The working directory path
-	QString m_strWorkingDirPath;
+	QString workingDirPath;
 
 	// simulation Method
-	QString m_strSimulationMethod;
+	QString simulationMethod;
 
 	// The selected spatial distribution
-	QString m_strSpatialDistribution;
-
-	// The stationarity of the rp
-	QString m_strStationarity;
+	QString spatialDistribution;
 
 	// The selected spectrum model
-	QString m_strSpectrumModel;
+	QString spectrumModel;
 
 	// The selected coherence function
-	QString m_strCoherenceFunction;
+	QString coherenceFunction;
 
 	// Selected simulation approach
-	QString m_strSimulationApproach;
+	QString simulationApproach;
 
 	// Selected Simulation
-	QString m_strFreqencyDistribution;
+	QString freqencyDistribution;
 
 	// Selected CPSD Decomposition Method
-	QString m_strCPSDDecompositionMethod;
+	QString cpsdDecompositionMethod;
 
 	// Selected randomness
-	QString m_strRandomnessProvider;
+	QString randomnessProvider;
 
 	// Selected Modulation function model
-	QString m_strModulationFunction;
+	QString modulationFunction;
 
 	// Selected correlation function model
-	QString m_strCorrelationFunction;
+	QString correlationFunction;
 
 	// Selected variance model
-	QString m_strVarianceFunction;
+	QString varianceFunction;
 
 	// Selected variance model
-	QString m_strSoilType;
+	QString soilType;
 
 	// frequency distribution type
-	int m_iFrequencyDistrType;
+	int frequencyDistrType;
 
-	int m_iLocationJ;
+	int locationJ;
 
-	int m_iLocationK;
+	int mlocationK;
 
-	int m_iFrequencyIndex;
+	int frequencyIndex;
 
-	int m_iDirectionIndex;
+	int directionIndex;
 
-	int m_iTimeIndex;
+	int timeIndex;
 
 	// Selected comparison category
-	QString m_strComparisonCategory;
+	QString comparisonCategory;
 
 	// Nunber of time lags
-	int m_iNumberOfTimeLags;
+	int numberOfTimeLags;
 
 };
 

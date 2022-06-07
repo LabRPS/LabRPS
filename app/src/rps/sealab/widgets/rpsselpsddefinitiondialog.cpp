@@ -13,23 +13,23 @@ RPSSeLPSDDefinitionDialog::RPSSeLPSDDefinitionDialog(QWidget *parent) :
 
     QString noSelection = "<None>";
 
-	ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
-     numberOfFrequency = app->rpsSeaLabSimulator->GetSeaLabData().numberOfFrequency;
-	 minFrequency = app->rpsSeaLabSimulator->GetSeaLabData().minFrequency;
-	 maxFrequency = app->rpsSeaLabSimulator->GetSeaLabData().maxFrequency;
-	 frequencyIncrement = app->rpsSeaLabSimulator->GetSeaLabData().frequencyIncrement;
-	 numberOfDirection = app->rpsSeaLabSimulator->GetSeaLabData().numberOfDirection;
-	 minDirection = app->rpsSeaLabSimulator->GetSeaLabData().minDirection;
-	 maxDirection = app->rpsSeaLabSimulator->GetSeaLabData().maxDirection;
-	 directionIncrement = app->rpsSeaLabSimulator->GetSeaLabData().directionIncrement;
+     numberOfFrequency = rpsSeaLabSimulator->GetSeaLabData().numberOfFrequency;
+	 minFrequency = rpsSeaLabSimulator->GetSeaLabData().minFrequency;
+	 maxFrequency = rpsSeaLabSimulator->GetSeaLabData().maxFrequency;
+	 frequencyIncrement = rpsSeaLabSimulator->GetSeaLabData().frequencyIncrement;
+	 numberOfDirection = rpsSeaLabSimulator->GetSeaLabData().numberOfDirection;
+	 minDirection = rpsSeaLabSimulator->GetSeaLabData().minDirection;
+	 maxDirection = rpsSeaLabSimulator->GetSeaLabData().maxDirection;
+	 directionIncrement = rpsSeaLabSimulator->GetSeaLabData().directionIncrement;
 	 
-     spectrumModel = app->rpsSeaLabSimulator->GetSeaLabData().spectrumModel;
-	 cpsdDecompositionMethod = app->rpsSeaLabSimulator->GetSeaLabData().cpsdDecompositionMethod;
-	 freqencyDistribution = app->rpsSeaLabSimulator->GetSeaLabData().freqencyDistribution;
-	 directionDistributionFunction = app->rpsSeaLabSimulator->GetSeaLabData().directionDistributionFunction;
-	 directionSpreadingFunction = app->rpsSeaLabSimulator->GetSeaLabData().directionSpreadingFunction;
-	 directionalSpectrumFunction = app->rpsSeaLabSimulator->GetSeaLabData().directionalSpectrumFunction;
+     spectrumModel = rpsSeaLabSimulator->GetSeaLabData().spectrumModel;
+	 cpsdDecompositionMethod = rpsSeaLabSimulator->GetSeaLabData().cpsdDecompositionMethod;
+	 freqencyDistribution = rpsSeaLabSimulator->GetSeaLabData().freqencyDistribution;
+	 directionDistributionFunction = rpsSeaLabSimulator->GetSeaLabData().directionDistributionFunction;
+	 directionSpreadingFunction = rpsSeaLabSimulator->GetSeaLabData().directionSpreadingFunction;
+	 directionalSpectrumFunction = rpsSeaLabSimulator->GetSeaLabData().directionalSpectrumFunction;
 
      ui->lineEditNberOfFreqIncr->setText(QString::number(numberOfFrequency));
      ui->lineEditMinFreq->setText(QString::number(minFrequency));
@@ -287,7 +287,7 @@ void RPSSeLPSDDefinitionDialog::comboBoxDirDistrIndexChanged(int index)
 
 void RPSSeLPSDDefinitionDialog::OnBnClickedPSDModelInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLSpectrum* currentSelection = CrpsSeLXSpectrumFactory::BuildXSpectrum(spectrumModel);
@@ -296,14 +296,14 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedPSDModelInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
 }
 void RPSSeLPSDDefinitionDialog::OnBnClickedPSDdecompInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLPSDdecompositionMethod* currentSelection = CrpsSeLPSDdecomMethodFactory::BuildPSDdecomMethod(cpsdDecompositionMethod);
@@ -312,14 +312,14 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedPSDdecompInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
 }
 void RPSSeLPSDDefinitionDialog::OnBnClickedDirSpreadingInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLDirectionSpreadingFunction* currentSelection = CrpsSeLDirectionSpreadingFunctionFactory::BuildDirectionSpreadingFunction(directionSpreadingFunction);
@@ -328,14 +328,14 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedDirSpreadingInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
 }
 void RPSSeLPSDDefinitionDialog::OnBnClickedDirPSDInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLDirectionalSpectrum* currentSelection = CrpsSeLDirectionalSpectrumFactory::BuildDirectionalSpectrum(directionalSpectrumFunction);
@@ -344,14 +344,14 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedDirPSDInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
 }
 void RPSSeLPSDDefinitionDialog::OnBnClickedFrequencyDistrInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLFrequencyDistribution* currentSelection = CrpsSeLFrequencyDistributionFactory::BuildFrequencyDistribution(freqencyDistribution);
@@ -360,14 +360,14 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedFrequencyDistrInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
 }
 void RPSSeLPSDDefinitionDialog::OnBnClickedDirDistrInit()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+	RPSSeaLabSimulation *rpsSeaLabSimulator = (RPSSeaLabSimulation *)this->parent();
 
 	// Build an object
 	IrpsSeLDirectionDistribution* currentSelection = CrpsSeLDirectionDistributionFactory::BuildDirectionDistribution(directionDistributionFunction);
@@ -376,7 +376,7 @@ void RPSSeLPSDDefinitionDialog::OnBnClickedDirDistrInit()
 	if (NULL == currentSelection) { return; }
 
 	// Apply iniatial setting
-	currentSelection->OnInitialSetting(app->rpsSeaLabSimulator->GetSeaLabData(), app->information);
+	currentSelection->OnInitialSetting(rpsSeaLabSimulator->GetSeaLabData(), rpsSeaLabSimulator->information);
 
 	// Delete the object
 	delete currentSelection;
