@@ -472,11 +472,22 @@
     <property name="title">
      <string>Simulation</string>
     </property>
+    <widget class="QMenu" name="menuCompare">
+     <property name="title">
+      <string>Compare</string>
+     </property>
+     <addaction name="actionCompareAccuracy"/>
+     <addaction name="actionCompareComputationTime"/>
+     <addaction name="actionCompareMemoryUsage"/>
+    </widget>
     <addaction name="actionRunSimulation"/>
     <addaction name="actionPauseSimulation"/>
     <addaction name="actionStopSimulation"/>
     <addaction name="separator"/>
     <addaction name="actionSimulationOptions"/>
+    <addaction name="menuCompare"/>
+    <addaction name="separator"/>
+    <addaction name="actionPlugins"/>
    </widget>
    <widget class="QMenu" name="menuOutput">
     <property name="title">
@@ -1711,6 +1722,26 @@
   <action name="actionSimulationOptions">
    <property name="text">
     <string>Options...</string>
+   </property>
+  </action>
+  <action name="actionCompareAccuracy">
+   <property name="text">
+    <string>Accuracy</string>
+   </property>
+  </action>
+  <action name="actionCompareComputationTime">
+   <property name="text">
+    <string>Computation time</string>
+   </property>
+  </action>
+  <action name="actionCompareMemoryUsage">
+   <property name="text">
+    <string>Memory usage</string>
+   </property>
+  </action>
+  <action name="actionPlugins">
+   <property name="text">
+    <string>Plugins</string>
    </property>
   </action>
  </widget>

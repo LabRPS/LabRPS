@@ -36,13 +36,28 @@ public:
   bool IntallRegistryPlugins();
   int RPSReadInstalledPluginsFromRegistry();
   int RPSReadInstalledPluginsFromRegistryCommon();
+  void simulate();
 
   public slots:
   void runSimulation();
   void pauseSimulation();
   void stopSimulation();
   void simulationOptions();
-  
+  void rpsPlugins();
+  void compareAccuracy();
+  void compareComputationTime();
+  void compareMemoryUsage();
+  void receiveString(QString string);
+  void fillLocationJComboBox();
+  void fillLocationKComboBox();
+  void fillFrequencyComboBox();
+  void fillTimeComboBox();
+  void locJCurrentIndexChanged(int index);
+  void locKCurrentIndexChanged(int index);
+  void freqCurrentIndexChanged(int index);
+  void timCurrentIndexChanged(int index);
+
+
 };
 
 #endif // RPSSIMULATION_H

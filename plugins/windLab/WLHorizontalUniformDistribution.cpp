@@ -1,7 +1,8 @@
 
 #include "WLHorizontalUniformDistribution.h"
 #include "RPSWindLabTools.h"
-// #include "HorizontalLocDistr.h"
+#include "cwlhorizontallocdistr.h"
+#include <QMessageBox>
 
 
 using namespace std;
@@ -18,36 +19,27 @@ static double stmdLength = 10;
 
 void CWLHorizontalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
-	// // Computing the location coordinates
-	// for (int loop = 0; loop < Data.m_iNumberOfSpatialPosition; loop++)
-	// {		
-	// 	dLocCoord(loop, 0) = loop * stmdSpacing;
-	// 	dLocCoord(loop, 1) = 0.0;
-	// 	dLocCoord(loop, 2) = stmdHeight;
-	// }	
+	// Computing the location coordinates
+	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
+	{		
+		dLocCoord(loop, 0) = loop * stmdSpacing;
+		dLocCoord(loop, 1) = 0.0;
+		dLocCoord(loop, 2) = stmdHeight;
+	}	
 }
 
 
 bool CWLHorizontalUniformDistribution::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	// // the input diolag
-	// CHorizontalLocDistr Dlg;
+	// the input diolag
+	std::unique_ptr<CWLHorizontalLocDistr> dlg(new CWLHorizontalLocDistr(stmdSpacing, stmdHeight, stmdLength));
 
-	// // Display the current values
-	// Dlg.m_dSpacing = stmdSpacing;
-	// Dlg.m_dHeight = stmdHeight;
-	// Dlg.m_dLength = stmdLength;
-
-	// if (Dlg.DoModal() == IDOK)  // 
-	// {
-	// 	mdSpacing = Dlg.m_dSpacing;
-	// 	mdHeight = Dlg.m_dHeight;
-	// 	mdLength = Dlg.m_dLength;
-
-	// 	stmdSpacing = Dlg.m_dSpacing;
-	// 	stmdHeight = Dlg.m_dHeight;
-	// 	stmdLength = Dlg.m_dLength;
-	// }
+	if (dlg->exec() == QDialog::Accepted) //
+	{
+		stmdSpacing = dlg->mdSpacing;
+		stmdHeight = dlg->mdHeight;
+		stmdLength = dlg->mdLength;
+	}
 
 	return true;
 }

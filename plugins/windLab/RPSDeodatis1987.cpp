@@ -2,17 +2,34 @@
 #include "RPSDeodatis1987.h"
 #include "RPSWindLabFramework.h"
 #include "RPSWindLabTools.h"
+#include <QMessageBox>
 
 
 //Initial setting
 bool CRPSDeodatis1987::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
+	QMessageBox::warning(0,"hi", "in Deodatis method");
 	return true;
 }
 
 // The simulation function 
-bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation)
+bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
 {
+	minProgress = 0;
+    maxProgress = 1000000000;
+    double a;
+	
+		for (int l = 1; l <= maxProgress/*Data.numberOfTimeIncrements*/; l++) {
+			for (int m = 1; m <= maxProgress/*Data.numberOfSpatialPosition*/; m++) {
+			
+			  a = l*m;
+			
+			}
+
+			currentProgress = l;
+		}
+
+		strInformation.append("Koffa the way");
 
 	// // Locale array for the Cholesky decomposed cpsd
 	// cube dCPSDdecompArray ;
@@ -197,13 +214,13 @@ bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityA
 }
 
 // The simulation function in large scale mode
-bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, QStringList &strInformation)
+bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
 {
 	return true;
 }
 
 // The simulation function in comparison mode
-bool CRPSDeodatis1987::SimulateInComparisonMode(const CRPSWindLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, QStringList &strInformation)
+bool CRPSDeodatis1987::SimulateInComparisonMode(const CRPSWindLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
 {
 	// // Locale array for the Cholesky decomposed cpsd
 	// cube dCPSDdecompArray;

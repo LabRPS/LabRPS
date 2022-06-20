@@ -1,10 +1,13 @@
 
 #include "RPSUniformRandomPhases.h"
 #include "RPSWindLabTools.h"
+#include <QMessageBox>
 
 
 bool CRPSUniformRandomPhases::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
+	QMessageBox::warning(0,"hi", "in uniform random phase");
+
 	return true;
 }
 

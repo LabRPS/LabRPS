@@ -4,7 +4,7 @@
 class IrpsSeLCoherence 
 {
 public:
-    virtual ~IrpsSeLCoherence() {}
+    virtual ~IrpsSeLCoherence() {};
 	
 	virtual void ComputeCrossCoherenceVectorF(const CRPSSeaLabsimuData &Data, vec &dCohVector, QStringList &strInformation) = 0;
 

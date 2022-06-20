@@ -4,6 +4,7 @@
 class IrpsSLSimulationMethod
 {
 public:
+    virtual ~IrpsSLSimulationMethod() {};
 
 	//Initial setting
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;

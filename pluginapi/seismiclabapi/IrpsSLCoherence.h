@@ -4,6 +4,7 @@
 class IrpsSLCoherence 
 {
 public:
+    virtual ~IrpsSLCoherence() {};
 
 	virtual void ComputeCrossCoherenceVectorF(const CRPSSeismicLabsimuData &Data, vec &dCohVector, QStringList &strInformation) = 0;
 

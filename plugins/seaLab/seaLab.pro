@@ -106,8 +106,6 @@ HEADERS += \
     RPSCorrelationFunction.h\
 
 
-
-
 FORMS  += minmaxvaluesdlg.ui\
           cslhorizontallocdistr.ui\
           slvertdistrdialog.ui\

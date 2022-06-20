@@ -56,6 +56,9 @@ class RPS_CORE_API CRPSSeismicLabsimuData : public QObject
 	// Minimum Time, 0 by default
 	double minTime;
 
+	// Minimum Time, 0 by default
+	double maxTime;
+
 	// The minimum frequency
 	double minFrequency;
 

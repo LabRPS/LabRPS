@@ -4,6 +4,8 @@ class IrpsWLMean
 {
 public:
 
+virtual ~IrpsWLMean() {};
+
 virtual void ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation) = 0;
 
 virtual void ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation) = 0;

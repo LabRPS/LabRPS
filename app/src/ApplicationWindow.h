@@ -31,7 +31,7 @@
 #include <QLocale>
 
 #include "Table.h"
-
+#include "Matrix.h"
 // Scripting
 #include "../3rdparty/qcustomplot/qcustomplot.h"
 #include "2Dplot/Graph2DCommon.h"
@@ -60,6 +60,7 @@ class QStatusBar;
 class QSignalMapper;
 class QTreeWidgetItem;
 class QMdiArea;
+class QProgressBar;
 
 class Ui_ApplicationWindow;
 class Matrix;
@@ -207,6 +208,8 @@ class ApplicationWindow : public QMainWindow,
 
   //rps
     QToolBar* simulationToolbar;
+    QProgressBar *progressBar;
+
 
 
   MyWidget* getactiveMyWidget();
@@ -1136,6 +1139,8 @@ class ApplicationWindow : public QMainWindow,
 
    //seaLab output
   QAction* actionSeaSurfaceOutput;
+  QAction* actionFrequencyDistributionSeaOutput;
+  QAction* actionLocationDistributionSeaOutput;
   QAction* actionSpectrumSeaOutput;
   QAction* actionCoherenceSeaOutput;
   QAction* actionCorrelationSeaOutput;
@@ -1143,6 +1148,8 @@ class ApplicationWindow : public QMainWindow,
 
      //windLab output
   QAction* actionWindVelocityOutput;
+  QAction* actionFrequencyDistributionWindOutput;
+  QAction* actionLocationDistributionWindOutput;
   QAction* actionSpectrumWindOutput;
   QAction* actionCoherenceWindOutput;
   QAction* actionCorrelationWindOutput;
@@ -1151,6 +1158,8 @@ class ApplicationWindow : public QMainWindow,
 
      //seismicLab output
   QAction* actionGroundMotionOutput;
+  QAction* actionFrequencyDistributionSeismicOutput;
+  QAction* actionLocationDistributionSeismicOutput;
   QAction* actionSpectrumSeismicOutput;
   QAction* actionCoherenceSeismicOutput;
   QAction* actionCorrelationSeismicOutput;
@@ -1173,6 +1182,16 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionShowConsole;
   
   QComboBox* comboxbox_simu_toolbarbtn_;
+  QComboBox* comboxbox_LocJ_statusbarbtn_;
+  QComboBox* comboxbox_LocK_statusbarbtn_;
+  QComboBox* comboxbox_Freq_statusbarbtn_;
+  QComboBox* comboxbox_Tim_statusbarbtn_;
+
+  QLabel* label_LocJ_statusbarbtn_;
+  QLabel* label_LocK_statusbarbtn_;
+  QLabel* label_Freq_statusbarbtn_;
+  QLabel* label_Tim_statusbarbtn_;
+
   QToolButton* btn_new_aspect_;
   QToolButton* btn_layout_;
   QToolButton* btn_curves_;
@@ -1215,6 +1234,15 @@ class ApplicationWindow : public QMainWindow,
 
   public slots:
   void savePhenomenon(int index);
+  void recieveInformation(QStringList infoList);
+
+public:
+  QString qStringListToString(QStringList qStringList);
+  QComboBox* getComboxboxLocJstatusbarbtn();
+  QComboBox* getComboxboxLocKstatusbarbtn();
+  QComboBox* getComboxboxFreqstatusbarbtn();
+  QComboBox* getComboxboxTimstatusbarbtn();
+
 
 
 };

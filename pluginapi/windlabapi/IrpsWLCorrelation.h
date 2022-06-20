@@ -4,6 +4,7 @@
 class IrpsWLCorrelation
 {
 public:
+    virtual ~IrpsWLCorrelation() {};
 
 	virtual void ComputeCrossCorrelationVectorT(const CRPSWindLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation) = 0;
 

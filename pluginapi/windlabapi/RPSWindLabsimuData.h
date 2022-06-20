@@ -2,10 +2,9 @@
 
 #include "RPSWindLabAPIdefines.h"
 #include <QStringList>
-#include <QObject>
 #include "RPS.h"
 
-class RPS_CORE_API CRPSWindLabsimuData : public QObject
+class RPS_CORE_API CRPSWindLabsimuData
 {
  public:
 
@@ -50,6 +49,9 @@ class RPS_CORE_API CRPSWindLabsimuData : public QObject
 
 	// Minimum Time, 0 by default
 	double minTime;
+
+	// Maximum Time,
+	double maxTime;
 
 	// The minimum frequency
 	double minFrequency;

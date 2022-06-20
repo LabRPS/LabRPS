@@ -71,8 +71,12 @@ SOURCES += \
     WindLab.cpp\
     WLHorizontalUniformDistribution.cpp\
     WLVerticalUniformDistribution.cpp\
-
-
+    meanwindlogprofildialog.cpp\
+    meanwindpowerprofildialog.cpp\
+    davenportcoherencedialog.cpp\
+    wlvertdistrdialog.cpp\
+    cwlhorizontallocdistr.cpp\
+    kaimalpsdshearvelocitydialog.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -90,6 +94,19 @@ HEADERS += \
     ThreeParaModulation.h\
     WLHorizontalUniformDistribution.h\
     WLVerticalUniformDistribution.h\
+    meanwindlogprofildialog.h\
+    meanwindpowerprofildialog.h\
+    davenportcoherencedialog.h\
+    wlvertdistrdialog.h\
+    cwlhorizontallocdistr.h\
+    kaimalpsdshearvelocitydialog.h\
+
+FORMS  += meanwindlogprofildialog.ui\
+          meanwindpowerprofildialog.ui\
+          davenportcoherencedialog.ui\
+          wlvertdistrdialog.ui\
+          cwlhorizontallocdistr.ui\
+          kaimalpsdshearvelocitydialog.ui\
 
 
 

@@ -3,6 +3,11 @@
 #include "RPSSeismicLabAPI.h"
 #include "rps/RPSpluginManager.h"
 #include "rps/seismicLab/widgets/prsslsimuoptionsdlg.h"
+#include "rps/seismicLab/widgets/rpsgroundmotiondefinitiondlg.h"
+#include "rps/seismicLab/widgets/rpsslpsddefinitiondialog.h"
+#include "rps/seismicLab/widgets/rpsslcoherencedlg.h"
+#include "rps/seismicLab/widgets/rpsslcorrelationdlg.h"
+#include "rps/seismicLab/widgets/rpsslmodulationdlg.h"
 
 #include <QSettings>
 #include <QString>
@@ -28,30 +33,79 @@ RPSSeismicLabSimulation::~RPSSeismicLabSimulation()
 
 void RPSSeismicLabSimulation::groundMotion()
 {
-	QMessageBox::warning(0, "seimicLab", "intput ground motion");
+	std::unique_ptr<RPSGroundMotionDefinitionDlg> dlg(new RPSGroundMotionDefinitionDlg(this));
+
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetSeismicLabData().numberOfSpatialPosition = dlg->numberOfSpatialPosition;
+		GetSeismicLabData().numberOfTimeIncrements = dlg->numberOfTimeIncrements;
+		GetSeismicLabData().timeIncrement = dlg->timeIncrement;
+		GetSeismicLabData().minTime = dlg->minTime;
+		GetSeismicLabData().maxTime = dlg->maxTime;
+		GetSeismicLabData().numberOfSample = dlg->numberOfSample;
+		GetSeismicLabData().stationarity = dlg->stationarity;
+		GetSeismicLabData().gaussianity = dlg->gaussianity;
+		GetSeismicLabData().spatialDistribution = dlg->spatialDistribution;
+		GetSeismicLabData().soilType = dlg->soilType;
+	}
 
 }
 void RPSSeismicLabSimulation::spectrumSeismic()
 {
-	QMessageBox::warning(0, "seimicLab", "intput spectrum");
+	std::unique_ptr<RPSSLPSDDefinitionDialog> dlg(new RPSSLPSDDefinitionDialog(this));
+
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetSeismicLabData().numberOfFrequency = dlg->numberOfFrequency;
+		GetSeismicLabData().minFrequency = dlg->minFrequency;
+		GetSeismicLabData().maxFrequency = dlg->maxFrequency;
+		GetSeismicLabData().frequencyIncrement = dlg->frequencyIncrement;
+		GetSeismicLabData().direction = dlg->windDirection;
+
+		GetSeismicLabData().spectrumModel = dlg->spectrumModel;
+		GetSeismicLabData().cpsdDecompositionMethod = dlg->cpsdDecompositionMethod;
+		GetSeismicLabData().freqencyDistribution = dlg->freqencyDistribution;
+	}
 }
 
 void RPSSeismicLabSimulation::coherenceSeismic()
 {
-	QMessageBox::warning(0, "seimicLab", "intput coherence");
+	std::unique_ptr<RPSSLCoherenceDlg> dlg(new RPSSLCoherenceDlg(this));
+
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetSeismicLabData().coherenceFunction = dlg->coherenceFunction;
+	}
 }
 void RPSSeismicLabSimulation::correlationSeismic()
 {
-	QMessageBox::warning(0, "seimicLab", "intput correlation");
+	std::unique_ptr<RPSSLCorrelationDlg> dlg(new RPSSLCorrelationDlg(this));
+
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetSeismicLabData().correlationFunction = dlg->correlationFunction;
+	}
 }
 void RPSSeismicLabSimulation::modulationSeismic()
 {
-	QMessageBox::warning(0, "seimicLab", "intput modulation");
+	std::unique_ptr<RPSSLModulationDlg> dlg(new RPSSLModulationDlg(this));
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetSeismicLabData().modulationFunction = dlg->modulationFunction;
+	}
 }
 
 void RPSSeismicLabSimulation::groundMotionOutput()
 {
 	QMessageBox::warning(0, "seimicLab", "Output ground motion");
+}
+void RPSSeismicLabSimulation::frequencyDistributionOutput()
+{
+	QMessageBox::warning(0, "seimicLab", "Output spectrum");
+}
+void RPSSeismicLabSimulation::locationDistributionOutput()
+{
+	QMessageBox::warning(0, "seimicLab", "Output spectrum");
 }
 void RPSSeismicLabSimulation::spectrumSeismicOutput()
 {
@@ -492,15 +546,15 @@ bool RPSSeismicLabSimulation::IsThisObjectInstalled(std::map<const QString, QStr
 void RPSSeismicLabSimulation::runSimulation()
 {
   //   // Build an object
-  // 	IrpsSeLRandomness* currentRndProvider = CrpsSeLRandomnessFactory::BuildRandomness(GetSeaLabData().randomnessProvider);
+  // 	IrpsSeLRandomness* currentRndProvider = CrpsSeLRandomnessFactory::BuildRandomness(GetSeismicLabData().randomnessProvider);
 
   // 	// Check whether good object
   // 	if (NULL == currentRndProvider) { return; }
 
-  //   mat randomValueArray(GetSeaLabData().numberOfFrequency, GetSeaLabData().numberOfSpatialPosition);
+  //   mat randomValueArray(GetSeismicLabData().numberOfFrequency, GetSeismicLabData().numberOfSpatialPosition);
 
   // 	// Apply iniatial setting
-  // 	currentRndProvider->GenerateRandomArrayFP(GetSeaLabData(), randomValueArray, information);
+  // 	currentRndProvider->GenerateRandomArrayFP(GetSeismicLabData(), randomValueArray, information);
 
   //   QMessageBox::warning(
   //         this, ("sim"),
@@ -509,12 +563,12 @@ void RPSSeismicLabSimulation::runSimulation()
   //   logInfo = ("hahahahahahaha");
   //   showResults(true);
 
-  //   QString arrayName = ("Random Phase (%1,%2)").arg( GetSeaLabData().numberOfFrequency, GetSeaLabData().numberOfSpatialPosition);
+  //   QString arrayName = ("Random Phase (%1,%2)").arg( GetSeismicLabData().numberOfFrequency, GetSeismicLabData().numberOfSpatialPosition);
 
-  //   Table *table = newTable(arrayName, GetSeaLabData().numberOfFrequency, GetSeaLabData().numberOfSpatialPosition);
+  //   Table *table = newTable(arrayName, GetSeismicLabData().numberOfFrequency, GetSeismicLabData().numberOfSpatialPosition);
 
-  //   for (int j = 0; j < GetSeaLabData().numberOfSpatialPosition; j++) {
-  //     for (int i = 0; i < GetSeaLabData().numberOfFrequency; i++) {
+  //   for (int j = 0; j < GetSeismicLabData().numberOfSpatialPosition; j++) {
+  //     for (int i = 0; i < GetSeismicLabData().numberOfFrequency; i++) {
   //     table->setCellValue(i, j, randomValueArray(i,j));
   //       table->showNormal();
 
@@ -542,6 +596,17 @@ void RPSSeismicLabSimulation::simulationOptions()
   }
 }
 
+  void RPSSeismicLabSimulation::compareAccuracy()
+  {
 
+  }
+  void RPSSeismicLabSimulation::compareComputationTime()
+  {
+
+  }
+  void RPSSeismicLabSimulation::compareMemoryUsage()
+  {
+	  
+  }
 
 

@@ -1,7 +1,8 @@
  
 #include "WLVerticalUniformDistribution.h"
-// #include "VertDistrDialog.h"
+#include "wlvertdistrdialog.h"
 #include "RPSWindLabTools.h"
+#include <QMessageBox>
 
 // Spacing along vertical line
 static double vstmdSpacing = 5;
@@ -17,33 +18,28 @@ static double vstmLength = 10;
 
 void CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
-	// // Computing the location coordinates
-	// for (int loop = 0; loop < Data.m_iNumberOfSpatialPosition; loop++)
-	// {
-	// 	dLocCoord(loop, 0) = vstmdPositionX;
-	// 	dLocCoord(loop, 1) = 0.0;
-	// 	dLocCoord(loop, 2) = vstmdHeightHo + loop * vstmdSpacing;
-	// }
+	// Computing the location coordinates
+	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
+	{
+		dLocCoord(loop, 0) = vstmdPositionX;
+		dLocCoord(loop, 1) = 0.0;
+		dLocCoord(loop, 2) = vstmdHeightHo + loop * vstmdSpacing;
+	}
 
 }
 
 
 bool CWLVerticalUniformDistribution::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	// CVertDistrDialog Dlg;
+	std::unique_ptr<WLVertDistrDialog> dlg(new WLVertDistrDialog(vstmdHeightHo,vstmdSpacing , vstmLength, vstmdPositionX));
 
-	// Dlg.m_dSpacing = vstmdSpacing;
-	// Dlg.m_dPositionX = vstmdPositionX;
-	// Dlg.m_dHeightHo = vstmdHeightHo;
-	// Dlg.m_dLength = vstmLength;
-
-	// if (Dlg.DoModal() == IDOK)  // 
-	// {
-	// 	vstmdSpacing = Dlg.m_dSpacing;
-	// 	vstmdPositionX = Dlg.m_dPositionX;
-	// 	vstmdHeightHo = Dlg.m_dHeightHo;
-	// 	vstmLength = Dlg.m_dLength;
-	// }
+	if (dlg->exec() == QDialog::Accepted)  // 
+	{
+		vstmdSpacing = dlg->mspacing;
+		vstmdPositionX = dlg->mpositionX;
+		vstmdHeightHo = dlg->mminHeightHo;
+		vstmLength = dlg->mlength;
+	}
 
 	return true;
 }

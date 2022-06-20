@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>216</width>
+    <width>219</width>
     <height>265</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Jonswap Spectrum</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">

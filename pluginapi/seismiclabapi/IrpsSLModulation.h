@@ -4,6 +4,7 @@
 class IrpsSLModulation
 {
 public:
+    virtual ~IrpsSLModulation() {};
 
 	virtual void ComputeModulationVectorT(const CRPSSeismicLabsimuData &Data, vec &dModulationVector, QStringList &strInformation) = 0;
 

@@ -1,6 +1,7 @@
 
 #include "SineModulation.h"
 // #include "SineModuDlg.h"
+#include <QMessageBox>
 
 void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
@@ -49,6 +50,7 @@ bool CSineModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringL
 	// 	// Save the To parameter in the document
 	// 	m_dPulseDuration = SineModuModelDialog.m_dPulseDuration;
 	// }
+	QMessageBox::warning(0,"hi", "in sine modulation");
 
 	return true;
 }

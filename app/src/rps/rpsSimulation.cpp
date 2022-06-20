@@ -3,6 +3,7 @@
 #include "rps/RPSpluginManager.h"
 #include "rps/pluginBrower/plugininstallerbrowser.h"
 
+#include "ApplicationWindow.h"
 #include <QString>
 #include <QMessageBox>
 #include <QSettings>
@@ -216,9 +217,14 @@ int RPSSimulation::RPSReadInstalledPluginsFromRegistryCommon()
   return 1;
 }
 
-
 void RPSSimulation::runSimulation()
 {
+  
+  // RPSSimulationThread *simThread = new RPSSimulationThread(this);
+  // //QObject::connect(simThread, SIGNAL(finished()), simThread, SLOT(deleteLater()));
+  // QObject::connect(simThread, SIGNAL(sendString(QString)), this, SLOT(receiveString(QString)), Qt::QueuedConnection);
+  // simThread->start();
+
   if (selectedRandomPhenomenon == "Wind Velocity")
   {
     rpsWindLabSimulator->runSimulation();
@@ -235,7 +241,7 @@ void RPSSimulation::runSimulation()
 }
 void RPSSimulation::pauseSimulation()
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+    if (selectedRandomPhenomenon == "Wind Velocity")
   {
     rpsWindLabSimulator->pauseSimulation();
   }
@@ -247,14 +253,10 @@ void RPSSimulation::pauseSimulation()
   {
     rpsSeaLabSimulator->pauseSimulation();
   }
-
 }
 
 void RPSSimulation::stopSimulation()
 {
-  std::unique_ptr<PluginInstallerBrowser> dlg(new PluginInstallerBrowser(this));
-
-  dlg->exec();
 }
 
 void RPSSimulation::simulationOptions()
@@ -272,4 +274,218 @@ void RPSSimulation::simulationOptions()
     rpsSeaLabSimulator->simulationOptions();
   }
 }
+ void RPSSimulation::simulate()
+ {
 
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->runSimulation();
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    rpsSeismicLabSimulator->runSimulation();
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    rpsSeaLabSimulator->runSimulation();
+  }
+
+ }
+
+void RPSSimulation::rpsPlugins()
+{
+  std::unique_ptr<PluginInstallerBrowser> dlg(new PluginInstallerBrowser(this));
+  dlg->exec();
+}
+
+void RPSSimulation::compareAccuracy()
+{
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->compareAccuracy();
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    rpsSeismicLabSimulator->compareAccuracy();
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    rpsSeaLabSimulator->compareAccuracy();
+  }
+}
+
+void RPSSimulation::compareComputationTime()
+{
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->compareComputationTime();
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    rpsSeismicLabSimulator->compareComputationTime();
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    rpsSeaLabSimulator->compareComputationTime();
+  }
+}
+
+void RPSSimulation::compareMemoryUsage()
+{
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->compareMemoryUsage();
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    rpsSeismicLabSimulator->compareMemoryUsage();
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    rpsSeaLabSimulator->compareMemoryUsage();
+  }
+}
+
+void RPSSimulation::receiveString(QString string)
+{
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+  app->logInfo = (string);
+	app->showResults(true);
+
+  QMessageBox::warning(0, "from thread", string);
+
+}
+
+void RPSSimulation::fillLocationJComboBox()
+{
+    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+  
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
+  }
+}
+void RPSSimulation::fillLocationKComboBox()
+{
+   ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
+  }
+}
+void RPSSimulation::fillFrequencyComboBox()
+{
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+	if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
+  }
+}
+void RPSSimulation::fillTimeComboBox()
+{
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
+  }
+}
+
+  void RPSSimulation::locJCurrentIndexChanged(int index)
+  {
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->locJCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->locJCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->locJCurrentIndexChanged(index);
+  }
+  }
+  void RPSSimulation::locKCurrentIndexChanged(int index)
+  {
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->locKCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->locKCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->locKCurrentIndexChanged(index);
+  }
+  }
+  void RPSSimulation::freqCurrentIndexChanged(int index)
+  {
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->freqCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->freqCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->freqCurrentIndexChanged(index);
+  }
+  }
+  void RPSSimulation::timCurrentIndexChanged(int index)
+  {
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    rpsWindLabSimulator->timCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    // rpsSeismicLabSimulator->timCurrentIndexChanged(index);
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    // rpsSeaLabSimulator->timCurrentIndexChanged(index);
+  }
+  }

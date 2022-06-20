@@ -2,6 +2,7 @@
 #include "RPSRandomPhasesFromFile.h"
 #include <iostream>
 #include <fstream>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ QString mstrRPFilePath;
 bool CRPSRandomPhasesFromFile::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
 	// GetFilePathButton();
+	QMessageBox::warning(0,"hi", "in random phase from file");
 
 	return true;
 }

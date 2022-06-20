@@ -4,6 +4,7 @@
 class IrpsSLPSDdecompositionMethod
 {
 public:
+    virtual ~IrpsSLPSDdecompositionMethod() {};
 
 	virtual void ComputeDecomposedCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation) = 0;
 

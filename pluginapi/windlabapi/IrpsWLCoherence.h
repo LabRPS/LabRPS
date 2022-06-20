@@ -5,6 +5,7 @@ class IrpsWLCoherence
 {
 public:
 
+    virtual ~IrpsWLCoherence() {};
 
 	virtual void ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dCohVector, QStringList &strInformation) = 0;
 

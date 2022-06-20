@@ -2,8 +2,7 @@
 #include "CholeskyDecomposition.h"
 #include "RPSWindLabTools.h"
 #include "RPSWindLabFramework.h"
-
-
+#include <QMessageBox>
 
 
 void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
@@ -130,6 +129,7 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumCubePPT(const CRPSWin
 
 bool CCholeskyDecomposition::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
+	QMessageBox::warning(0,"hi", "in Cholesky decomp");
 	return true ;
 }
 

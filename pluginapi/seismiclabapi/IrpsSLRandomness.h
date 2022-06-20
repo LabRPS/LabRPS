@@ -4,6 +4,7 @@
 class IrpsSLRandomness
 {
 public:
+    virtual ~IrpsSLRandomness() {};
 
 	virtual void GenerateRandomArrayFP(const CRPSSeismicLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation) = 0;
 

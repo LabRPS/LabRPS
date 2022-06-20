@@ -126,7 +126,7 @@
   <widget class="QCheckBox" name="checkBoxLargeScaleMode">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>200</x>
      <y>190</y>
      <width>91</width>
      <height>20</height>

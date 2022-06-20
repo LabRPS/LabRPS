@@ -4,6 +4,7 @@
 class IrpsWLModulation
 {
 public:
+    virtual ~IrpsWLModulation() {};
 
 	virtual void ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation) = 0;
 

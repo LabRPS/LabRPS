@@ -439,15 +439,31 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/sealab/widgets/rpsselmodulationdlg.h\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.h\
             src/rps/seismiclab/widgets/prsslsimuoptionsdlg.h\
-            src/rps/windlab/widgets/prswlsimuoptionsdlg.h\
             src/rps/pluginBrower/RPSPluginsBrowser.h\
             src/rps/pluginBrower/plugininstallerbrowser.h\
             src/rps/rpsSimulation.h\
             src/rps/seaLab/rpsSeaLabSimulation.h\
             src/rps/seismicLab/rpsSeismicLabSimulation.h\
             src/rps/windLab/rpsWindLabSimulation.h\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.h\
+            src/rps/windLab/widgets/rpswindvelocitydefinitiondlg.h\
+            src/rps/windLab/widgets/rpswlpsddefinitiondialog.h\
+            src/rps/windLab/widgets/rpswlmeanwinddlg.h\
+            src/rps/windLab/widgets/rpswlcoherencedlg.h\
+            src/rps/windLab/widgets/rpswlcorrelationdlg.h\
+            src/rps/windLab/widgets/rpswlmodulationdlg.h\
+            src/rps/seismicLab/widgets/rpsgroundmotiondefinitiondlg.h\
+            src/rps/seismicLab/widgets/rpsslpsddefinitiondialog.h\
+            src/rps/seismicLab/widgets/rpsslcoherencedlg.h\
+            src/rps/seismicLab/widgets/rpsslcorrelationdlg.h\
+            src/rps/seismicLab/widgets/rpsslmodulationdlg.h\
+            src/rps/windLab/widgets/rpswlcomparisondialog.h\
+            src/rps/windLab/widgets/rpswlaccuracycomparisondialog.h\
+            src/rps/windLab/rpsWindLabSimulationWorker.h\
+            src/rps/windLab/rpsWindLabSimulationOutputWorker.h\
 
 
+            
 
 SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
@@ -457,13 +473,28 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/sealab/widgets/rpsselmodulationdlg.cpp\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.cpp\
             src/rps/seismiclab/widgets/prsslsimuoptionsdlg.cpp\
-            src/rps/windlab/widgets/prswlsimuoptionsdlg.cpp\
             src/rps/pluginBrower/RPSPluginsBrowser.cpp\
             src/rps/pluginBrower/plugininstallerbrowser.cpp\
             src/rps/rpsSimulation.cpp\
             src/rps/seaLab/rpsSeaLabSimulation.cpp\
             src/rps/seismicLab/rpsSeismicLabSimulation.cpp\
             src/rps/windLab/rpsWindLabSimulation.cpp\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.cpp\
+            src/rps/windLab/widgets/rpswindvelocitydefinitiondlg.cpp\
+            src/rps/windLab/widgets/rpswlpsddefinitiondialog.cpp\
+            src/rps/windLab/widgets/rpswlmeanwinddlg.cpp\
+            src/rps/windLab/widgets/rpswlcoherencedlg.cpp\
+            src/rps/windLab/widgets/rpswlcorrelationdlg.cpp\
+            src/rps/windLab/widgets/rpswlmodulationdlg.cpp\
+            src/rps/seismicLab/widgets/rpsgroundmotiondefinitiondlg.cpp\
+            src/rps/seismicLab/widgets/rpsslpsddefinitiondialog.cpp\
+            src/rps/seismicLab/widgets/rpsslcoherencedlg.cpp\
+            src/rps/seismicLab/widgets/rpsslcorrelationdlg.cpp\
+            src/rps/seismicLab/widgets/rpsslmodulationdlg.cpp\
+            src/rps/windLab/widgets/rpswlcomparisondialog.cpp\
+            src/rps/windLab/widgets/rpswlaccuracycomparisondialog.cpp\
+            src/rps/windLab/rpsWindLabSimulationWorker.cpp\
+            src/rps/windLab/rpsWindLabSimulationOutputWorker.cpp\
 
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
@@ -473,5 +504,18 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselmodulationdlg.ui\
             src/rps/sealab/widgets/prsselsimuoptionsdlg.ui\
             src/rps/seismiclab/widgets/prsslsimuoptionsdlg.ui\
-            src/rps/windlab/widgets/prswlsimuoptionsdlg.ui\
             src/rps/pluginBrower/plugininstallerbrowser.ui\
+            src/rps/windlab/widgets/prswlsimuoptionsdlg.ui\
+            src/rps/windLab/widgets/rpswindvelocitydefinitiondlg.ui\
+            src/rps/windLab/widgets/rpswlpsddefinitiondialog.ui\
+            src/rps/windLab/widgets/rpswlmeanwinddlg.ui\
+            src/rps/windLab/widgets/rpswlcoherencedlg.ui\
+            src/rps/windLab/widgets/rpswlcorrelationdlg.ui\
+            src/rps/windLab/widgets/rpswlmodulationdlg.ui\
+            src/rps/seismicLab/widgets/rpsgroundmotiondefinitiondlg.ui\
+            src/rps/seismicLab/widgets/rpsslpsddefinitiondialog.ui\
+            src/rps/seismicLab/widgets/rpsslcoherencedlg.ui\
+            src/rps/seismicLab/widgets/rpsslcorrelationdlg.ui\
+            src/rps/seismicLab/widgets/rpsslmodulationdlg.ui\
+            src/rps/windLab/widgets/rpswlcomparisondialog.ui\
+            src/rps/windLab/widgets/rpswlaccuracycomparisondialog.ui\

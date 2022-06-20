@@ -1,7 +1,7 @@
 #include "rpsselpsddefinitiondialog.h"
 #include "ui_rpsselpsddefinitiondialog.h"
 
-#include "ApplicationWindow.h"
+#include "rps/sealab/rpsSeaLabSimulation.h"
 #include "RPSSeaLabAPI.h"
 
 

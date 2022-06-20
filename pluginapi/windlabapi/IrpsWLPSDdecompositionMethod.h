@@ -4,6 +4,7 @@
 class IrpsWLPSDdecompositionMethod
 {
 public:
+    virtual ~IrpsWLPSDdecompositionMethod() {};
 
 	virtual void ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation) = 0;
 

@@ -33,6 +33,7 @@ void comboBoxSimuMethodCurrentIndexChanged( int index);
 void checkBoxComparisonModeChanged( int state);
 void checkBoxSLargeScaleSimulationModeChanged( int state);
 void OnBnClickedRandomnessInit();
+void OnBnClickedSimulationMethodInit();
 
 
 

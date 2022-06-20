@@ -1,5 +1,6 @@
 
 #include "ExpoModulation.h"
+#include <QMessageBox>
 
 bool CExpoModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
@@ -21,6 +22,7 @@ bool CExpoModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringL
 	// 	// Save the Dt parameter in the document
 	// 	m_dStormLength = ExpoModuModelDialog.m_dStormLength;
 	// }
+	QMessageBox::warning(0,"hi", "in expo modulation");
 
 	return true;
 }

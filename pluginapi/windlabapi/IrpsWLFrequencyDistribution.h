@@ -4,6 +4,8 @@
 class IrpsWLFrequencyDistribution
 {
 public:
+    virtual ~IrpsWLFrequencyDistribution() {};
+
 	virtual void ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation) = 0;
 
 	virtual void ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation) = 0;

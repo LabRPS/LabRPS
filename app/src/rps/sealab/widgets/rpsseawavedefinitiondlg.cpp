@@ -18,6 +18,7 @@ RPSSeaWaveDefinitionDlg::RPSSeaWaveDefinitionDlg(QWidget *parent) :
 	 numberOfTimeIncrements = rpsSeaLabSimulator->GetSeaLabData().numberOfTimeIncrements;
 	 timeIncrement = rpsSeaLabSimulator->GetSeaLabData().timeIncrement;
 	 minTime = rpsSeaLabSimulator->GetSeaLabData().minTime;
+	 maxTime = rpsSeaLabSimulator->GetSeaLabData().maxTime;
 	 numberOfSample = rpsSeaLabSimulator->GetSeaLabData().numberOfSample;
 	 stationarity = rpsSeaLabSimulator->GetSeaLabData().stationarity;
 	 gaussianity = rpsSeaLabSimulator->GetSeaLabData().gaussianity;
@@ -192,6 +193,7 @@ void RPSSeaWaveDefinitionDlg::OnBnClickedSpatialDistrInit()
     numberOfTimeIncrements = ui->lineEditNberOfTimeIncr->text().toDouble();
     timeIncrement = ui->lineEditTimeIncreValue->text().toDouble();
     minTime = ui->lineEditMinTimeValue->text().toDouble();
+	maxTime = ui->lineEditMaxTimeValue->text().toDouble();
     numberOfSample = ui->lineEditNumberOfSample->text().toDouble();
  }
     

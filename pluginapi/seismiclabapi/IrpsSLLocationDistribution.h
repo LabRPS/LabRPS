@@ -8,6 +8,7 @@
 class IrpsSLLocationDistribution
 {
 public:
+    virtual ~IrpsSLLocationDistribution() {};
 
 	virtual void ComputeLocationCoordinateMatrixP3(const CRPSSeismicLabsimuData &Data, mat &dLocCoord, QStringList &strInformation) = 0;
 

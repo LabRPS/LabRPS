@@ -4,6 +4,7 @@
 class IrpsSLYSpectrum
 {
 public:
+    virtual ~IrpsSLYSpectrum() {};
 
 	virtual void ComputeYCrossSpectrumVectorF(const CRPSSeismicLabsimuData &Data, vec &dPSDVector, QStringList &strInformation) = 0;
 

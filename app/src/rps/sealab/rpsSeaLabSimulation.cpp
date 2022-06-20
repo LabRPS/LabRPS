@@ -40,6 +40,7 @@ void RPSSeaLabSimulation::seaSurface()
 		GetSeaLabData().numberOfTimeIncrements = dlg->numberOfTimeIncrements;
 		GetSeaLabData().timeIncrement = dlg->timeIncrement;
 		GetSeaLabData().minTime = dlg->minTime;
+	    GetSeaLabData().maxTime = dlg->maxTime;
 		GetSeaLabData().numberOfSample = dlg->numberOfSample;
 		GetSeaLabData().stationarity = dlg->stationarity;
 		GetSeaLabData().gaussianity = dlg->gaussianity;
@@ -105,6 +106,14 @@ void RPSSeaLabSimulation::modulationSea()
 void RPSSeaLabSimulation::seaSurfaceOutput()
 {
 	QMessageBox::warning(0, "seaLab", "Output sea surface");
+}
+void RPSSeaLabSimulation::frequencyDistributionOutput()
+{
+	QMessageBox::warning(0, "seimicLab", "Output spectrum");
+}
+void RPSSeaLabSimulation::locationDistributionOutput()
+{
+	QMessageBox::warning(0, "seimicLab", "Output spectrum");
 }
 void RPSSeaLabSimulation::spectrumSeaOutput()
 {
@@ -625,4 +634,15 @@ void RPSSeaLabSimulation::simulationOptions()
   }
 }
 
+  void RPSSeaLabSimulation::compareAccuracy()
+  {
 
+  }
+  void RPSSeaLabSimulation::compareComputationTime()
+  {
+
+  }
+  void RPSSeaLabSimulation::compareMemoryUsage()
+  {
+	  
+  }

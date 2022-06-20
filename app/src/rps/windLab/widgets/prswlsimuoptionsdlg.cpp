@@ -122,6 +122,9 @@ PRSWLSimuOptionsDlg::PRSWLSimuOptionsDlg(QWidget *parent) :
    connect( ui->pushButtonRandomnessInit, SIGNAL( clicked() ),
              this, SLOT( OnBnClickedRandomnessInit( ) ) );
 
+   connect( ui->pushButtonSimuMethodInit, SIGNAL( clicked() ),
+             this, SLOT( OnBnClickedSimulationMethodInit( ) ) );
+
 
 }
 
@@ -183,3 +186,8 @@ void PRSWLSimuOptionsDlg::OnBnClickedRandomnessInit()
 	delete currentRndProvider;
 }
 
+void PRSWLSimuOptionsDlg::OnBnClickedSimulationMethodInit()
+{
+	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
+    rpsWindLabSimulator->simulationMethodInital(ui->comboBoxSimuMethod->currentText());
+}

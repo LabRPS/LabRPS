@@ -1,6 +1,7 @@
 
 #include "ThreeParaModulation.h"
 // #include "ThreeParaModulatinDialog.h"
+#include <QMessageBox>
 
 
 void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
@@ -82,6 +83,7 @@ bool CThreeParaModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QSt
 	// 	m_dModAlpha = (pow(m_dModLambda, m_dModBeta)) / ((pow(m_dModBeta, m_dModBeta))*exp(m_dModBeta));
 
 	// }
+	QMessageBox::warning(0,"hi", "in in three para modulation");
 
 	return true;
 }

@@ -3,6 +3,8 @@
 class IrpsSLFrequencyDistribution
 {
 public:
+    virtual ~IrpsSLFrequencyDistribution() {};
+
 	virtual void ComputeFrequenciesVectorF(const CRPSSeismicLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation) = 0;
 
 	virtual void ComputeFrequenciesMatrixFP(const CRPSSeismicLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation) = 0;

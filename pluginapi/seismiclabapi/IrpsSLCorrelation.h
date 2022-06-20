@@ -4,6 +4,7 @@
 class IrpsSLCorrelation
 {
 public:
+    virtual ~IrpsSLCorrelation() {};
 
 	virtual void ComputeCrossCorrelationVectorT(const CRPSSeismicLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation) = 0;
 

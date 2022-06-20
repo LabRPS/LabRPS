@@ -36,6 +36,7 @@ public:
 	 int numberOfTimeIncrements;
 	 double timeIncrement;
 	 double minTime;
+	 double maxTime;
 	 int numberOfSample;
 	 bool stationarity;
 	 bool gaussianity;

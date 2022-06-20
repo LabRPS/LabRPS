@@ -58,7 +58,10 @@ public:
 	// Minimum Time, 0 by default
 	double minTime;
 
-	// The minimum frequency
+	// Minimum Time, 0 by default
+	double maxTime;
+
+	// The maximum frequency
 	double minFrequency;
 
 	// The maximum frequency

@@ -4,6 +4,7 @@
 class IrpsWLYSpectrum 
 {
 public:
+    virtual ~IrpsWLYSpectrum() {};
 
 	virtual void ComputeYCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation) = 0;
 

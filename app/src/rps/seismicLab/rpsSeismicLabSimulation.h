@@ -24,6 +24,8 @@ class RPSSeismicLabSimulation : public QWidget
 
   //output
   void groundMotionOutput();
+  void frequencyDistributionOutput();
+  void locationDistributionOutput();
   void spectrumSeismicOutput();
   void coherenceSeismicOutput();
   void correlationSeismicOutput();
@@ -66,7 +68,9 @@ bool UpdateToBeUninstalledObjectsMap(const QString name, const QString pluginNam
 bool IsThisObjectInstalled(std::map<const QString, QString>& map, QString& object);
 bool UpdateObjectToSkipMap(std::map<const QString, QString>& map, const QString name, const QString pluginName);
 
- 
+  void compareAccuracy();
+  void compareComputationTime();
+  void compareMemoryUsage();
 };
 
 #endif  // RPSSEISMICLABSIMULATION_H
