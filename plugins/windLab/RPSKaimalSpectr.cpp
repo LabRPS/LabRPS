@@ -205,7 +205,7 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumMatrixTF(const CRPSWindLabsimuData &
 		{
 			// Compute the frequency vector
 			ComputeXCrossSpectrumValue(Data, thePSD, dLocCoord(loop3, 0), dLocCoord(loop3, 1), dLocCoord(loop3, 2), dLocCoord(loop3, 0), dLocCoord(loop3, 1), dLocCoord(loop3, 2), dFrequencies(loop2), dTime, strInformation);
-			dPSDMatrix(loop2, loop1) = thePSD;
+			dPSDMatrix(loop1, loop2) = thePSD;
 		}
 	}
 

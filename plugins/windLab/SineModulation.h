@@ -22,8 +22,5 @@ public:
 	void ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation);
 
 	bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);
-
-public:
-	double m_dPulseDuration = 150;
 };
 

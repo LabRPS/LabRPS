@@ -24,11 +24,6 @@ public:
 
 	//Initial setting
 	bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);
-
-public:
-	double m_dModAlpha = 4.98;
-	double m_dModBeta = 3;
-	double m_dModLambda = 0.003; // maximum modulation funtion value occurs at t = 3/1000, 3 = m_dModBeta
-
+	
 };
 

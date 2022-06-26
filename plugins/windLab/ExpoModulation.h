@@ -26,7 +26,6 @@ public:
 	void ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation);
 
 public:
-	double m_dTimeOfMax = 300;
-	double m_dStormLength = 125;
+
 };
 

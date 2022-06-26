@@ -77,6 +77,9 @@ SOURCES += \
     wlvertdistrdialog.cpp\
     cwlhorizontallocdistr.cpp\
     kaimalpsdshearvelocitydialog.cpp\
+    expomodulationdialog.cpp\
+    sinemodulationdialog.cpp\
+    threeparamodulationdialog.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -100,6 +103,9 @@ HEADERS += \
     wlvertdistrdialog.h\
     cwlhorizontallocdistr.h\
     kaimalpsdshearvelocitydialog.h\
+    expomodulationdialog.h\
+    sinemodulationdialog.h\
+    threeparamodulationdialog.h\
 
 FORMS  += meanwindlogprofildialog.ui\
           meanwindpowerprofildialog.ui\
@@ -107,6 +113,9 @@ FORMS  += meanwindlogprofildialog.ui\
           wlvertdistrdialog.ui\
           cwlhorizontallocdistr.ui\
           kaimalpsdshearvelocitydialog.ui\
+          expomodulationdialog.ui\
+          sinemodulationdialog.ui\
+          threeparamodulationdialog.ui\
 
 
 
