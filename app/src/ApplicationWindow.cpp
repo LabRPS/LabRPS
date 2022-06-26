@@ -1156,8 +1156,8 @@ ApplicationWindow::ApplicationWindow()
 
      //receiving information messages from simulators
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(sendInformation(QStringList)), this, SLOT(recieveInformation(QStringList)), Qt::QueuedConnection);
-    connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarShow()), progressBar, SLOT(show()), Qt::QueuedConnection);
-    connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarHide()), progressBar, SLOT(hide()), Qt::QueuedConnection);
+    connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarShow()), progressBar, SLOT(show()), Qt::DirectConnection);
+    connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarHide()), progressBar, SLOT(hide()), Qt::DirectConnection);
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarSetValue(int)), progressBar, SLOT(setValue(int)), Qt::QueuedConnection);
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarSetMin(int)), progressBar, SLOT(setMinimum(int)), Qt::QueuedConnection);
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarSetMax(int)), progressBar, SLOT(setMaximum(int)), Qt::QueuedConnection);
@@ -11702,7 +11702,7 @@ QString ApplicationWindow::qStringListToString(QStringList qStringList)
     string += i + " <br>";
   }
 
-  return string;
+  return string + "<br>";
 }
 
   QComboBox* ApplicationWindow::getComboxboxLocJstatusbarbtn()

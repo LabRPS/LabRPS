@@ -52,7 +52,7 @@ void RPSWindLabSimulationWorker::simulate()
     m_information.append(QString::number(t.elapsed())) ;
     
     emit sendInformation(m_information);
-    emit progressBarHide();
+    // emit progressBarHide();
 
     stopped = true;
 
@@ -79,8 +79,8 @@ bool RPSWindLabSimulationWorker::isStopped()
     void RPSWindLabSimulationWorker::progressBarMinMaxValue()
     {
         mutex.lock();
-        emit progressBarSetValue(currentStep);
-        emit progressBarHide();
+        // emit progressBarSetValue(currentStep);
+        // emit progressBarHide();
 
         if(0 != maxStep ||  maxStep != maxStepOld)
         {

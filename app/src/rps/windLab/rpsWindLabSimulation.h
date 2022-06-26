@@ -8,6 +8,7 @@
 
 #include "RPSWindLabsimuData.h"
 #include "rpsWindLabSimulationWorker.h"
+#include "rpsWindLabSimulationOutputWorker.h"
 
 class RPSWindLabSimulation : public QWidget
 {
@@ -17,13 +18,13 @@ public:
   RPSWindLabSimulation(QWidget *parent = nullptr);
   ~RPSWindLabSimulation();
 signals:
-void sendInformation(QStringList infoList);
-void progressBarShow();
-void progressBarHide();
-void progressBarSetValue(int);
-void progressBarSetMin(int);
-void progressBarSetMax(int);
-void progressBarReset();
+  void sendInformation(QStringList infoList);
+  void progressBarShow();
+  void progressBarHide();
+  void progressBarSetValue(int);
+  void progressBarSetMin(int);
+  void progressBarSetMax(int);
+  void progressBarReset();
 
 public slots:
 
@@ -59,13 +60,31 @@ public slots:
   void progressBarSetMaxSL(int value);
   void progressBarResetSL();
 
+  // display output
+  void displayWindVelocity();
+  void displayFrequencyDistribution();
+  void displayLocationDistribution();
+  void displaySpectrum();
+  void displayXSpectrum();
+  void displayYSpectrum();
+  void displayZSpectrum();
+  void displayCoherenceWind();
+  void displayCorrelationWind();
+  void displayModulationWind();
+  void displayMeanWindVelocity();
+
 private:
   // wind velocity simulation input data
   CRPSWindLabsimuData windLabData;
 
-  QThread* simulationThread = nullptr;
-  RPSWindLabSimulationWorker* simulationWorker = nullptr;
-  QTimer* simulationTimer = nullptr;
+  QThread *simulationThread = nullptr;
+  RPSWindLabSimulationWorker *simulationWorker = nullptr;
+  QTimer *simulationTimer = nullptr;
+
+  QThread *simulationOutputThread = nullptr;
+  RPSWindLabSimulationOutputWorker *simulationOutputWorker = nullptr;
+
+  mat m_resultMatrix;
 
 public:
   QStringList information;
@@ -88,6 +107,8 @@ public:
   int totalNumber;
   int resultOutputTime;
 
+  QString psdPrefix;
+
   QStringList categories;
   QStringList functions;
   std::map<QString, QStringList> categoryFunctionListMap;
@@ -96,6 +117,7 @@ public:
 
 public:
   CRPSWindLabsimuData &GetWindLabData();
+  RPSWindLabSimulationOutputWorker *GetWindLabSimulationOutputWorker();
   void windLabDataInitialize();
   void WriteMapToRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
   void ReadMapFromRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
@@ -129,8 +151,8 @@ public:
   QStringList FindAllPSDDecompositionMethods();
   QStringList FindAllSimulationMethods();
   QStringList FindAllSpectrumModels();
-  void fillCategoryComboBox(QComboBox* categoryComboBox);
-  void fillFunctionAndCandidateComboBoxes(QString category, QComboBox* functionComboBox, QComboBox* candidatesComboBox);
+  void fillCategoryComboBox(QComboBox *categoryComboBox);
+  void fillFunctionAndCandidateComboBoxes(QString category, QComboBox *functionComboBox, QComboBox *candidatesComboBox);
 
   void CoherenceFunctionInital(QString currentSelected);
   void correlationFunctionInital(QString currentSelected);
@@ -143,30 +165,16 @@ public:
   void randomnessProviderInital(QString currentSelected);
   void candidateInitialData(QString category, QString currentSelected);
 
-  void CoherenceFunctionOutput();
-  // void correlationFunctionOutput(QString currentSelected);
-  // void frequencyDistributionOutput(QString currentSelected);
-  // void meanWindProfilOutput(QString currentSelected);
-  // void modulationFunctionOutput(QString currentSelected);
-  // void psdDecompositionMethodOutput(QString currentSelected);
-  // void simulationMethodOutput(QString currentSelected);
-  // void spectrumModelOutput(QString currentSelected);
-  // void randomnessProviderOutput(QString currentSelected);
+  void createOutputWorker();
 
-  void fillLocationJComboBox(QComboBox* locationJComboBox);
-  void fillLocationKComboBox(QComboBox* locationKComboBox);
-  void fillFrequencyComboBox(QComboBox* frequencyComboBox);
-  void fillTimeComboBox(QComboBox* timeComboBox);
+  void fillLocationJComboBox(QComboBox *locationJComboBox);
+  void fillLocationKComboBox(QComboBox *locationKComboBox);
+  void fillFrequencyComboBox(QComboBox *frequencyComboBox);
+  void fillTimeComboBox(QComboBox *timeComboBox);
   void locJCurrentIndexChanged(int index);
   void locKCurrentIndexChanged(int index);
   void freqCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
-  void spatialPositionOut();
-  void meanWindVelocityOut();
-  void frequencyDistributionOut();
-  void spectrumXModelOut();
-  void spectrumYModelOut();
-  void spectrumZModelOut();
 };
 
 #endif // RPSWINDLABSIMULATION_H
