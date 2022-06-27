@@ -16,6 +16,7 @@
 #include "ThreeParaModulation.h"
 #include "RPSDeodatis1987.h"
 #include "RPSWindLabpluginAPI.h"
+#include "GeneralSpatialDistribution.h"
 
 
 QString strPluginName = ("windLab");
@@ -36,6 +37,17 @@ LABRPS_VERSION("1.00");
 API_VERSION("1.00");
 PLUGIN_RELEASE_DATE("07/01/2021");
 //PLUG_IN_THIS_RP("Random Wind Velocity");
+
+///////////////////////General Spatial Distribution/////////////////
+RPS_PLUGIN_FUNC IrpsWLLocationDistribution *BuildGeneralSpatialDistribution()
+{
+	return new GeneralSpatialDistribution;
+}
+
+RPS_PLUGIN_FUNC void DestroyGeneralSpatialDistribution(IrpsWLLocationDistribution *r)
+{
+	delete r;
+}
 
 ///////////////////////horizontal uniform location distribution/////////////////
 RPS_PLUGIN_FUNC IrpsWLLocationDistribution *BuildHorizontalDistr()
@@ -208,6 +220,7 @@ RPS_PLUGIN_FUNC void DestroyRPSDeodatis1987(IrpsWLSimuMethod *r)
 
 PLUGIN_INIT()
 {
+	InitializeLocationDistribution(("General Distribution"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeLocationDistribution(("Horizontal Distribution"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeLocationDistribution(("Vertical Distribution"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeMean(("RPS Power Low"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
@@ -230,6 +243,7 @@ PLUGIN_INIT()
 
 INSTALL_PLUGIN()
 {
+	RegisterLocationDistribution(("General Distribution"), strPluginName, ("The object allows to add a spatial point with x, y, and z coordinates."), BuildGeneralSpatialDistribution, DestroyGeneralSpatialDistribution);	
 	RegisterLocationDistribution(("Horizontal Distribution"), strPluginName, ("This object allows you to define a set of locations which are uniformly disctributed along a horizontal axis"), BuildHorizontalDistr, DestroyHorizontalDistr);	
 	RegisterLocationDistribution(("Vertical Distribution"), strPluginName, ("This object allows you to define a set of locations which are uniformly disctributed along a vertical axis"), BuildVerticalDistr, DestroyVerticalDistr);
 	RegisterMean(("RPS Power Low"), strPluginName, ("This is the power low mean wind profile"), BuildRPSPowerLowProfile, DestroyRPSPowerLowProfile);
@@ -251,6 +265,7 @@ INSTALL_PLUGIN()
 
 UNINSTALL_PLUGIN()
 {
+	UnregisterLocationDistribution(("General Distribution"), strPluginName);
 	UnregisterLocationDistribution(("Horizontal Distribution"), strPluginName);
 	UnregisterLocationDistribution(("Vertical Distribution"), strPluginName);
 	UnregisterMean(("RPS Power Low"), strPluginName);
