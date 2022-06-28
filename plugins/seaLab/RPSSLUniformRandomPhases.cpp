@@ -14,6 +14,7 @@ void CRPSSLUniformRandomPhases::GenerateRandomArrayFP(const CRPSSeaLabsimuData &
     double maxValue = settings.value("maxValue").toDouble();
     settings.endGroup(); 
 
+    std::srand((unsigned int) time(0));
 	dRandomValueArray = (maxValue-minValue) * MatrixXd::Random(Data.numberOfFrequency, Data.numberOfSpatialPosition);
 	dRandomValueArray.array() += minValue;
 }
