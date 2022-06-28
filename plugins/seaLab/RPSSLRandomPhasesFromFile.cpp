@@ -6,7 +6,7 @@
 #include <QFileDialog>
 
 
-// the path to the file onta
+// the path to the file 
 QString mstrRPFilePath;
 
 void CRPSSLRandomPhasesFromFile::GenerateRandomArrayFP(const CRPSSeaLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
