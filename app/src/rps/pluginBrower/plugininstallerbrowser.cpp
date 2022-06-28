@@ -15,12 +15,34 @@ PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) :
     ui(new Ui::PluginInstallerBrowser)
 {
     ui->setupUi(this);
-    fillLocalPluginsList();
+
+	QStringList tableHeader;
+    ui->tableWidget->setColumnCount(8);
+    tableHeader << "File"
+                << "Name"
+				<< "Type"
+                << "Release Date"
+                << "Authors"
+                << "Version"
+                << "Status"
+                << "Description";
+
+    ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+	
+	ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+	ui->tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
+	
+	fillLocalPluginsList();
+	
 	connect(ui->pushButtonInstall, &QPushButton::clicked, this, &PluginInstallerBrowser::install);
 	connect(ui->pushButtonUninstall, &QPushButton::clicked, this, &PluginInstallerBrowser::uninstall);
 	connect(ui->pushButtonUpdate, &QPushButton::clicked, this, &PluginInstallerBrowser::modify);
 	connect(ui->pushButtonClose, &QPushButton::clicked, this, &PluginInstallerBrowser::close);
-	connect(ui->listWidgetLocalPlugin, &QListWidget::itemSelectionChanged, this, &PluginInstallerBrowser::updateButton);
 
 
 }
@@ -60,7 +82,10 @@ void PluginInstallerBrowser::updateButton()
 
   void PluginInstallerBrowser::install(){
 	  pluginInstallationType = 1; //installation
-	  QListWidgetItem *currentItem = ui->listWidgetLocalPlugin->currentItem();
+	  
+	  int row = ui->tableWidget->currentRow();
+	  QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
+	  
 	  if(NULL != currentItem){
 		QString ItemText = currentItem->text();
 		
@@ -104,7 +129,10 @@ void PluginInstallerBrowser::updateButton()
   void PluginInstallerBrowser::uninstall(){
 
 	  pluginInstallationType = 2; //installation
-	  QListWidgetItem *currentItem = ui->listWidgetLocalPlugin->currentItem();
+
+	  int row = ui->tableWidget->currentRow();
+	  QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
+
 	  if(NULL != currentItem){
 		QString ItemText = currentItem->text();
 		
@@ -151,7 +179,10 @@ void PluginInstallerBrowser::updateButton()
   void PluginInstallerBrowser::modify(){
 
 	 pluginInstallationType = 3; //installation
-	  QListWidgetItem *currentItem = ui->listWidgetLocalPlugin->currentItem();
+
+	 int row = ui->tableWidget->currentRow();
+	 QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
+
 	  if(NULL != currentItem){
 		QString ItemText = currentItem->text();
 		
@@ -201,27 +232,60 @@ void PluginInstallerBrowser::updateButton()
   }
 
   void PluginInstallerBrowser::fillLocalPluginsList(){
-  
-  // get the path the plugin folder
-  QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
-  
-  // search and find all available plugin and save their descriptions
-  PluginManager::GetInstance().SearchForAllPlugins(strPath);
 
-	std::map<QString, CPluginDescription *>::iterator it;
-	for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
-	{
-		ui->listWidgetLocalPlugin->addItem(it->second->m_strFileName);      
-    }
-  
+	  // get the path the plugin folder
+	  QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+
+	  // search and find all available plugin and save their descriptions
+	  PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+	  int i = 0;
+
+	  // clear all plugins in list control
+	  ui->tableWidget->clearContents();
+	  ui->tableWidget->setRowCount(0);
+
+	  int row = PluginManager::GetInstance().GetPluginDescriptionsMap().size();
+	  int col = 8;
+	  ui->tableWidget->setRowCount(row);
+	  ui->tableWidget->setColumnCount(col);
+
+	  CPluginDescription *Descript;
+
+	  std::map<QString, CPluginDescription *>::iterator it;
+	  for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+	  {
+		  Descript = new CPluginDescription();
+		  Descript = it->second;
+
+		  ui->tableWidget->setItem(i, 0, new QTableWidgetItem(Descript->m_strFileName));
+		  ui->tableWidget->setItem(i, 1, new QTableWidgetItem(Descript->m_strName));
+		  ui->tableWidget->setItem(i, 2, new QTableWidgetItem(Descript->m_strType));
+		  ui->tableWidget->setItem(i, 3, new QTableWidgetItem(Descript->m_strReleaseDate));
+		  ui->tableWidget->setItem(i, 4, new QTableWidgetItem(Descript->m_strAuthors));
+		  ui->tableWidget->setItem(i, 5, new QTableWidgetItem(Descript->m_strVersion));
+		  ui->tableWidget->setItem(i, 7, new QTableWidgetItem(Descript->m_strDescription));
+
+		  if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
+		  {
+			  if (PluginManager::GetInstance().GetInstalledPluginsMap().find(Descript->m_strFullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
+			  {
+				  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Installed"));
+			  }
+			  else
+			  {
+				  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
+			  }
+		  }
+		  else
+		  {
+			  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
+		  }
+
+		  i++;
+	  }
   }
 
   void PluginInstallerBrowser::fillOnlinePluginsList(){
 
   }
-
-//   void PluginInstallerBrowser::receiveListWidget(QListWidget *list){
-//    QMessageBox::warning(
-//         0, "ooo",
-//         "can receive");
-//   }
