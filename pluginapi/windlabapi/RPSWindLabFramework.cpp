@@ -1232,3 +1232,173 @@ void CRPSWindLabFramework::ComputeCrossSpectrumCubePPT(const CRPSWindLabsimuData
 	}
 }
 
+ObjectDescription CRPSWindLabFramework::getSpatialDistributionObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+		
+	description.m_pluginName = CrpsLocationDistributionFactory::GetOwnerPlugin();
+	description.m_description = CrpsLocationDistributionFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsLocationDistributionFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsLocationDistributionFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsLocationDistributionFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsLocationDistributionFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+
+ObjectDescription CRPSWindLabFramework::getMeanProfilObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsMeanFactory::GetOwnerPlugin();
+	description.m_description = CrpsMeanFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsMeanFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsMeanFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsMeanFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsMeanFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getAlongWindSpectrumObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsXSpectrumFactory::GetOwnerPlugin();
+	description.m_description = CrpsXSpectrumFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsXSpectrumFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsXSpectrumFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsXSpectrumFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsXSpectrumFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getVerticalWindSpectrumObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsYSpectrumFactory::GetOwnerPlugin();
+	description.m_description = CrpsYSpectrumFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsYSpectrumFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsYSpectrumFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsYSpectrumFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsYSpectrumFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getAcrossWindSpectrumObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsZSpectrumFactory::GetOwnerPlugin();
+	description.m_description = CrpsZSpectrumFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsZSpectrumFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsZSpectrumFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsZSpectrumFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsZSpectrumFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getDecomposedSpectrumObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsPSDdecomMethodFactory::GetOwnerPlugin();
+	description.m_description = CrpsPSDdecomMethodFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsPSDdecomMethodFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsPSDdecomMethodFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsPSDdecomMethodFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsPSDdecomMethodFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getCoherenceFunctionObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsCoherenceFactory::GetOwnerPlugin();
+	description.m_description = CrpsCoherenceFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsCoherenceFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsCoherenceFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsCoherenceFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsCoherenceFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getSimulationMethodObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsSimuMethodFactory::GetOwnerPlugin();
+	description.m_description = CrpsSimuMethodFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsSimuMethodFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsSimuMethodFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsSimuMethodFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsSimuMethodFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getFrequencyDistributionObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsFrequencyDistributionFactory::GetOwnerPlugin();
+	description.m_description = CrpsFrequencyDistributionFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsFrequencyDistributionFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsFrequencyDistributionFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsFrequencyDistributionFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsFrequencyDistributionFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getRandomnessProviderObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsRandomnessFactory::GetOwnerPlugin();
+	description.m_description = CrpsRandomnessFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsRandomnessFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsRandomnessFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsRandomnessFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsRandomnessFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getModulationFunctionObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsModulationFactory::GetOwnerPlugin();
+	description.m_description = CrpsModulationFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsModulationFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsModulationFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsModulationFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsModulationFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getCorrelationFunctionObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsCorrelationFactory::GetOwnerPlugin();
+	description.m_description = CrpsCorrelationFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsCorrelationFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsCorrelationFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsCorrelationFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsCorrelationFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+

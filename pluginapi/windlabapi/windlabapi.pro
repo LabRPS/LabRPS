@@ -15,6 +15,7 @@ SOURCES += \
     RPSWindLabpluginAPI.cpp\
     RPSWindLabsimuData.cpp\
     RPSWindLabTools.cpp\
+    ObjectDescription.cpp\
 
 HEADERS += \
     IrpsWLCoherence.h\
@@ -34,7 +35,8 @@ HEADERS += \
     RPSWindLabpluginAPI.h\
     RPSWindLabsimuData.h\
     RPSWindLabTools.h\
-    RPS.h
+    RPS.h\
+    ObjectDescription.h\
 
 
 # Default rules for deployment.

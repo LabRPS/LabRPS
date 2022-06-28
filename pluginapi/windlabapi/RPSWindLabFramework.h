@@ -5,6 +5,7 @@
 
 #include "RPSWindLabAPIdefines.h"
 #include "RPSWindLabsimuData.h"
+#include "ObjectDescription.h"
 
 class RPS_CORE_API CRPSWindLabFramework
 {
@@ -12,14 +13,14 @@ public:
 	CRPSWindLabFramework();
 	~CRPSWindLabFramework();
 
-	//coherence function
+	// coherence function
 	static void ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dCohVector, QStringList &strInformation);
 
 	static void ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation);
 
 	static void ComputeCoherenceCubePPF(const CRPSWindLabsimuData &Data, cube &dCoherenceCube, QStringList &strInformation);
 
-	//correlation function
+	// correlation function
 	static void ComputeCrossCorrelationVectorT(const CRPSWindLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation);
 
 	static void ComputeCrossCorrelationVectorP(const CRPSWindLabsimuData &Data, vec &dCorrelationVector, QStringList &strInformation);
@@ -28,22 +29,22 @@ public:
 
 	static void ComputeCrossCorrelationCubePPT(const CRPSWindLabsimuData &Data, cube &dCorrelationCube, QStringList &strInformation);
 
-	//frequency distribution
+	// frequency distribution
 	static void ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation);
 
 	static void ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation);
 
-	//location distribution
+	// location distribution
 	static void ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation);
 
-	//mean wind speed
+	// mean wind speed
 	static void ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation);
 
 	static void ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation);
 
 	static void ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuData &Data, mat &dMeanSpeedMatrix, QStringList &strInformation);
 
-	//modulation function
+	// modulation function
 	static void ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation);
 
 	static void ComputeModulationVectorF(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation);
@@ -58,7 +59,7 @@ public:
 
 	static void ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, cube &dModulationCube, QStringList &strInformation);
 
-	//psd decomposition
+	// psd decomposition
 	static void ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation);
 
 	static void ComputeDecomposedCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation);
@@ -77,7 +78,7 @@ public:
 
 	static void ComputeDecomposedCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dCPSDDecomCube, QStringList &strInformation);
 
-	//randomness
+	// randomness
 	static void GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation);
 
 	// X spectrum
@@ -137,7 +138,7 @@ public:
 
 	static void ComputeZCrossSpectrumCubePPT(const CRPSWindLabsimuData &Data, cube &dPSDCube, QStringList &strInformation);
 
-	//spectrum X, Y, Z
+	// spectrum X, Y, Z
 	static void ComputeCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation);
 
 	static void ComputeCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation);
@@ -167,6 +168,18 @@ public:
 	static void ComputeYCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation);
 	static void ComputeZCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation);
 
+	static ObjectDescription getSpatialDistributionObjDescription(const QString &objectName);
+	static ObjectDescription getMeanProfilObjDescription(const QString &objectName);
+	static ObjectDescription getAlongWindSpectrumObjDescription(const QString &objectName);
+	static ObjectDescription getVerticalWindSpectrumObjDescription(const QString &objectName);
+	static ObjectDescription getAcrossWindSpectrumObjDescription(const QString &objectName);
+	static ObjectDescription getDecomposedSpectrumObjDescription(const QString &objectName);
+	static ObjectDescription getCoherenceFunctionObjDescription(const QString &objectName);
+	static ObjectDescription getSimulationMethodObjDescription(const QString &objectName);
+	static ObjectDescription getFrequencyDistributionObjDescription(const QString &objectName);
+	static ObjectDescription getRandomnessProviderObjDescription(const QString &objectName);
+	static ObjectDescription getModulationFunctionObjDescription(const QString &objectName);
+	static ObjectDescription getCorrelationFunctionObjDescription(const QString &objectName);
 };
 
 #endif
