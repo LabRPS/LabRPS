@@ -24,6 +24,7 @@ RPSWindLabSimulationOutputWorker::RPSWindLabSimulationOutputWorker(CRPSWindLabsi
 
 RPSWindLabSimulationOutputWorker::~RPSWindLabSimulationOutputWorker()
 {
+    m_information.clear();
     m_information.append("worker distroyed");
     emit sendInformation(m_information);
 }
@@ -132,6 +133,19 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOut()
     stopped = true;
 }
 
+
+void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOut()
+{
+
+    if (isStopped())
+    {
+        stopped = false;
+        decomposedSpectrumModelOutp();
+    }
+
+    stopped = true;
+}
+
 void RPSWindLabSimulationOutputWorker::coherenceOut()
 {
     if (isStopped())
@@ -174,105 +188,120 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOut()
     stopped = true;
 }
 
+void RPSWindLabSimulationOutputWorker::randomPhaseOut()
+{
+    if (isStopped())
+    {
+        stopped = false;
+        randomPhaseOutp();
+    }
+
+    stopped = true;
+}
+
 void RPSWindLabSimulationOutputWorker::windVelocityOutp()
 {
 }
 void RPSWindLabSimulationOutputWorker::frequencyDistributionOutp()
 {
-  	if (m_locationJ > 0 &&
-		m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-		m_locationK == 0 &&
-		m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-		m_timeIndex == 0)
-	{
+    if (m_locationJ > 0 &&
+        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+        m_locationK == 0 &&
+        m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+        m_timeIndex == 0)
+    {
 
-		// Build an coherence function and frequency distribution functions
-		IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+        // Build an coherence function and frequency distribution functions
+        IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
-		// Check whether good coherence object
-		if (NULL == currentFreqDistr)
-		{
-			m_information.append("Invalid mean wind profil");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentFreqDistr)
+        {
+            m_information.append("Invalid mean wind profil");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector, m_information);
-		m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
+        // running the computation
+        currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector, m_information);
+        m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
 
-		delete currentFreqDistr;
-	}
-	else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-			 m_locationK == 0 &&
-			 m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-			 m_timeIndex == 0)
-	{
-		// Build an coherence function and frequency distribution functions
-		IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+        delete currentFreqDistr;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex == 0)
+    {
+        // Build an coherence function and frequency distribution functions
+        IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
-		// Check whether good coherence object
-		if (NULL == currentFreqDistr)
-		{
-			m_information.append("Invalid frequency distribution");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentFreqDistr)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfSpatialPosition);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfSpatialPosition);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentFreqDistr->ComputeFrequenciesMatrixFP(m_windLabData, m_ResultMatrix, m_information);
+        // running the computation
+        currentFreqDistr->ComputeFrequenciesMatrixFP(m_windLabData, m_ResultMatrix, m_information);
 
-		m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
+        m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
 
-		delete currentFreqDistr;
-	}
-	else
-	{
-		m_information.append("Sorry, there is no function that meet your requirements.");
+        delete currentFreqDistr;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
     }
 
     emit showFrequencyDistributionOutput();
-
 }
 void RPSWindLabSimulationOutputWorker::locationDistributionOutp()
 {
-	IrpsWLLocationDistribution *currentLocationDistribution = CrpsLocationDistributionFactory::BuildLocationDistribution(m_windLabData.spatialDistribution);
+    IrpsWLLocationDistribution *currentLocationDistribution = CrpsLocationDistributionFactory::BuildLocationDistribution(m_windLabData.spatialDistribution);
 
-	// Check whether good spatial distribution object
-	if (NULL == currentLocationDistribution)
-	{
-		m_information.append("Invalid spatial distribution");
-		return;
-	}
+    // Check whether good spatial distribution object
+    if (NULL == currentLocationDistribution)
+    {
+        m_information.append("Invalid spatial distribution");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
 
-	// allocate memories to receive the computed coherence and frequencies
-	m_ResultMatrix.resize(m_windLabData.numberOfSpatialPosition, 3);
+    // allocate memories to receive the computed coherence and frequencies
+    m_ResultMatrix.resize(m_windLabData.numberOfSpatialPosition, 3);
 
-	QTime t;
-	t.start();
+    QTime t;
+    t.start();
 
-	// running the computation
-	currentLocationDistribution->ComputeLocationCoordinateMatrixP3(m_windLabData, m_ResultMatrix, m_information);
+    // running the computation
+    currentLocationDistribution->ComputeLocationCoordinateMatrixP3(m_windLabData, m_ResultMatrix, m_information);
 
-	m_information.append(tr("The computation of the spatial distribution took %1 ms").arg(QString::number(t.elapsed())));
+    m_information.append(tr("The computation of the spatial distribution took %1 ms").arg(QString::number(t.elapsed())));
 
-	delete currentLocationDistribution;
+    delete currentLocationDistribution;
 
     emit showLocationDistributionOutput();
-
 }
 
 void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
@@ -296,12 +325,16 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -338,6 +371,8 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -370,6 +405,8 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -402,6 +439,8 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -433,6 +472,8 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -465,12 +506,16 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -501,47 +546,39 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
     {
         // Build the psd model and the frequency distribution functions
         IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(m_windLabData.spectrumModel);
-        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
         // Check whether good frequency object
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
-            return;
-        }
-
-        if (NULL == currentFrequencyDistribution)
-        {
-            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         // allocate memories to receive the computed coherence and frequencies
-        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfTimeIncrements);
-        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
 
         QTime t;
         t.start();
 
         // running the computation
         currentPSD->ComputeXCrossSpectrumMatrixTF(m_windLabData, m_ResultMatrix, m_information);
-        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentPSD;
-        delete currentFrequencyDistribution;
     }
     else
     {
         m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
-        return;    }
+        return;
+    }
 
     emit showXSpectrumOutput();
 }
-
 void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
 {
     if (m_locationJ > 0 &&
@@ -563,12 +600,16 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -605,6 +646,8 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -637,6 +680,8 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -669,6 +714,8 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -700,6 +747,8 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -732,12 +781,16 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -768,43 +821,36 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
     {
         // Build the psd model and the frequency distribution functions
         IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(m_windLabData.spectrumModel);
-        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
         // Check whether good frequency object
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
-            return;
-        }
-
-        if (NULL == currentFrequencyDistribution)
-        {
-            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         // allocate memories to receive the computed coherence and frequencies
-        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfTimeIncrements);
-        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
 
         QTime t;
         t.start();
 
         // running the computation
         currentPSD->ComputeYCrossSpectrumMatrixTF(m_windLabData, m_ResultMatrix, m_information);
-        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentPSD;
-        delete currentFrequencyDistribution;
     }
     else
     {
-       m_information.append("Sorry, there is no function that meet your requirements.");
+        m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
-        return;    }
+        return;
+    }
 
     emit showYSpectrumOutput();
 }
@@ -829,12 +875,16 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -871,6 +921,8 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -903,6 +955,8 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -935,6 +989,8 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -966,6 +1022,8 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -998,12 +1056,16 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         if (NULL == currentFrequencyDistribution)
         {
             m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
@@ -1034,35 +1096,405 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
     {
         // Build the psd model and the frequency distribution functions
         IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(m_windLabData.spectrumModel);
-        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
         // Check whether good frequency object
         if (NULL == currentPSD)
         {
             m_information.append("Invalid spectrum model");
-            return;
-        }
-
-        if (NULL == currentFrequencyDistribution)
-        {
-            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
             return;
         }
 
         // allocate memories to receive the computed coherence and frequencies
-        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfTimeIncrements);
-        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
 
         QTime t;
         t.start();
 
         // running the computation
         currentPSD->ComputeZCrossSpectrumMatrixTF(m_windLabData, m_ResultMatrix, m_information);
-        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentPSD;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    emit showZSpectrumOutput();
+}
+
+
+void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
+{
+    if (m_locationJ > 0 &&
+        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+        m_locationK > 0 &&
+        m_locationK <= m_windLabData.numberOfSpatialPosition &&
+        m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+        m_timeIndex > 0 &&
+        m_timeIndex <= m_windLabData.numberOfTimeIncrements
+
+    )
+    {
+
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
+    }
+    else if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK > 0 &&
+             m_locationK <= m_windLabData.numberOfSpatialPosition &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1
+
+    )
+    {
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements
+
+    )
+    {
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumVectorP(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == m_locationJ &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements
+
+    )
+    {
+        if(1 == m_windLabData.direction)
+        {
+            spectrumXModelOutp();
+        }
+        if(2 == m_windLabData.direction)
+        {
+            spectrumYModelOutp();
+        }
+        if(3 == m_windLabData.direction)
+        {
+            spectrumZModelOutp();
+        }
+
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix2.resize(m_windLabData.numberOfSpatialPosition, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix2, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1
+
+    )
+    {
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumMatrixTP(m_windLabData, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements
+
+    )
+    {
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfSpatialPosition);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumMatrixFP(m_windLabData, m_ResultMatrix, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
+    }
+    else if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK > 0 &&
+             m_locationK <= m_windLabData.numberOfSpatialPosition &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1
+
+    )
+    {
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumMatrixTF(m_windLabData, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    emit showDecomposedSpectrumOutput();
+}
+
+void RPSWindLabSimulationOutputWorker::coherenceOutp()
+{
+    // Build an coherence function and frequency distribution functions
+    IrpsWLCoherence *currentCoherenceFunction = CrpsCoherenceFactory::BuildCoherence(m_windLabData.coherenceFunction);
+
+    // Check whether good coherence object
+    if (NULL == currentCoherenceFunction)
+    {
+        m_information.append("Invalid coherence function");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    if (m_locationJ > 0 &&
+        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+        m_locationK > 0 &&
+        m_locationK <= m_windLabData.numberOfSpatialPosition &&
+        m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+        m_timeIndex > 0 &&
+        m_timeIndex <= m_windLabData.numberOfTimeIncrements)
+    {
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentFrequencyDistribution;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements)
+    {
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfSpatialPosition, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+        // running the computation
+        currentCoherenceFunction->ComputeCrossCoherenceMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
         delete currentFrequencyDistribution;
     }
     else
@@ -1070,305 +1502,239 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
-        return;    }
-
-    emit showZSpectrumOutput();
-}
-
-void RPSWindLabSimulationOutputWorker::coherenceOutp()
-{
-	// Build an coherence function and frequency distribution functions
-	IrpsWLCoherence *currentCoherenceFunction = CrpsCoherenceFactory::BuildCoherence(m_windLabData.coherenceFunction);
-
-	// Check whether good coherence object
-	if (NULL == currentCoherenceFunction)
-	{
-		m_information.append("Invalid coherence function");
-		return;
-	}
-
-	if (m_locationJ > 0 &&
-		m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-		m_locationK > 0 &&
-		m_locationK <= m_windLabData.numberOfSpatialPosition &&
-		m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-		m_timeIndex > 0 &&
-		m_timeIndex <= m_windLabData.numberOfTimeIncrements)
-	{
-		IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
-
-		// Check whether good frequency object
-		if (NULL == currentFrequencyDistribution)
-		{
-			m_information.append("Invalid frequency distribution");
-			return;
-		}
-
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfFrequency);
-		m_ResultVector2.resize(m_windLabData.numberOfFrequency);
-
-		QTime t;
-		t.start();
-
-		// running the computation
-		currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector, m_information);
-		currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
-
-		m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
-
-		delete currentFrequencyDistribution;
-	}
-	else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-			 m_locationK == m_windLabData.numberOfSpatialPosition + 1 &&
-			 m_frequencyIndex > 0 &&
-			 m_frequencyIndex <= m_windLabData.numberOfFrequency &&
-			 m_timeIndex > 0 &&
-			 m_timeIndex <= m_windLabData.numberOfTimeIncrements)
-	{
-        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
-
-		// Check whether good frequency object
-		if (NULL == currentFrequencyDistribution)
-		{
-			m_information.append("Invalid frequency distribution");
-			return;
-		}
-
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfSpatialPosition, m_windLabData.numberOfSpatialPosition);
-
-		QTime t;
-		t.start();
-		// running the computation
-		currentCoherenceFunction->ComputeCrossCoherenceMatrixPP(m_windLabData, m_ResultMatrix, m_information);
-
-		m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
-		delete currentFrequencyDistribution;
-	}
-	else
-	{
-		m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
         delete currentCoherenceFunction;
         return;
     }
 
-	// Delete the object
-	delete currentCoherenceFunction;
+    // Delete the object
+    delete currentCoherenceFunction;
 
     emit showCoherenceOutput();
-
-
 }
 void RPSWindLabSimulationOutputWorker::correlationOutp()
 {
 }
+
 void RPSWindLabSimulationOutputWorker::modulationOutp()
 {
     if (m_locationJ > 0 &&
-		m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-		m_locationK == 0 &&
-		m_frequencyIndex > 0 &&
-		m_frequencyIndex <= m_windLabData.numberOfFrequency &&
-		m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
-
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
-
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
-
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
-
-		QTime t;
-		t.start();
-
-		// running the computation
-		currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector, m_information);
-
-		m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
-        delete currentModulationFtn;
-	}
-	else if (m_locationJ > 0 &&
-		m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-		m_locationK == 0 &&
-		m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-        m_timeIndex > 0 &&
-		m_timeIndex <= m_windLabData.numberOfTimeIncrements)
-	{
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
-		IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
-
-        // Check whether good frequency object
-		if (NULL == currentFrequencyDistribution)
-		{
-			m_information.append("Invalid frequency distribution");
-			return;
-		}
-
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
-
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfFrequency);
-		m_ResultVector2.resize(m_windLabData.numberOfFrequency);
-
-		QTime t;
-		t.start();
-
-		// running the computation
-		currentModulationFtn->ComputeModulationVectorF(m_windLabData, m_ResultVector, m_information);
-		currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
-
-		m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
-        delete currentModulationFtn;
-	}
-	else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-		m_locationK == 0 &&
+        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+        m_locationK == 0 &&
         m_frequencyIndex > 0 &&
         m_frequencyIndex <= m_windLabData.numberOfFrequency &&
-        m_timeIndex > 0 &&
-		m_timeIndex <= m_windLabData.numberOfTimeIncrements)
-	{
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+        m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
 
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		QTime t;
-		t.start();
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
 
-		// running the computation
-		currentModulationFtn->ComputeModulationVectorP(m_windLabData, m_ResultVector, m_information);
+        QTime t;
+        t.start();
 
-		m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
+        // running the computation
+        currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
         delete currentModulationFtn;
-	}
-    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-		m_locationK == 0 &&
-		m_frequencyIndex > 0 &&
-        m_frequencyIndex <= m_windLabData.numberOfFrequency &&
-		m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
-
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
-
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
-
-		QTime t;
-		t.start();
-
-		// running the computation
-		currentModulationFtn->ComputeModulationMatrixTP(m_windLabData, m_ResultMatrix, m_information);
-
-		m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
-        delete currentModulationFtn;
-	}
-    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-		m_locationK == 0 &&
-		m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-        m_timeIndex > 0 &&
-		m_timeIndex <= m_windLabData.numberOfTimeIncrements)
-	{
-
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+    }
+    else if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements)
+    {
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
         IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
 
         // Check whether good frequency object
-		if (NULL == currentFrequencyDistribution)
-		{
-			m_information.append("Invalid frequency distribution");
-			return;
-		}
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfSpatialPosition);
-		m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		QTime t;
-		t.start();
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
 
-		// running the computation
-		currentModulationFtn->ComputeModulationMatrixFP(m_windLabData, m_ResultMatrix, m_information);
-		currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
-	
-    	m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentModulationFtn->ComputeModulationVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
         delete currentModulationFtn;
-	}
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements)
+    {
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentModulationFtn->ComputeModulationVectorP(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentModulationFtn;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex > 0 &&
+             m_frequencyIndex <= m_windLabData.numberOfFrequency &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentModulationFtn->ComputeModulationMatrixTP(m_windLabData, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentModulationFtn;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex > 0 &&
+             m_timeIndex <= m_windLabData.numberOfTimeIncrements)
+    {
+
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfFrequency, m_windLabData.numberOfSpatialPosition);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentModulationFtn->ComputeModulationMatrixFP(m_windLabData, m_ResultMatrix, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentModulationFtn;
+    }
     else if (m_locationJ > 0 &&
-		m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-		m_locationK == 0 &&
-		m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-		m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
 
-		// Build an coherence function and frequency distribution functions
-		IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
 
-		// Check whether good coherence object
-		if (NULL == currentModulationFtn)
-		{
-			m_information.append("Invalid modulation function");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfFrequency);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentModulationFtn->ComputeModulationMatrixTF(m_windLabData, m_ResultMatrix, m_information);
+        // running the computation
+        currentModulationFtn->ComputeModulationMatrixTF(m_windLabData, m_ResultMatrix, m_information);
 
-		m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
-		
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
         delete currentModulationFtn;
-	}
-	else
-	{
-		m_information.append("Sorry, there is no function that meet your requirements.");
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1376,104 +1742,153 @@ void RPSWindLabSimulationOutputWorker::modulationOutp()
 
     emit showModulationOutput();
 }
+
 void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
 {
-	if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-		m_locationK == 0 &&
-		m_frequencyIndex == 0 &&
-		m_timeIndex > 0 &&
-		m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
+    if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+        m_locationK == 0 &&
+        m_frequencyIndex == 0 &&
+        m_timeIndex > 0 &&
+        m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
 
-		// Build an coherence function and frequency distribution functions
-		IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
+        // Build an coherence function and frequency distribution functions
+        IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
 
-		// Check whether good coherence object
-		if (NULL == currentMeanWindProfil)
-		{
-			m_information.append("Invalid mean wind profil");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentMeanWindProfil)
+        {
+            m_information.append("Invalid mean wind profil");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector, m_information);
+        // running the computation
+        currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector, m_information);
 
-		m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
-		
+        m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
+
         delete currentMeanWindProfil;
-	}
-	else if (m_locationJ > 0 &&
-			 m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-			 m_locationK == 0 &&
-			 m_frequencyIndex == 0 &&
-			 m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
-		// allocate memories to receive the computed coherence and frequencies
-		// Build an coherence function and frequency distribution functions
-		IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
+    }
+    else if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories to receive the computed coherence and frequencies
+        // Build an coherence function and frequency distribution functions
+        IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
 
-		// Check whether good coherence object
-		if (NULL == currentMeanWindProfil)
-		{
-			m_information.append("Invalid mean wind profil");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentMeanWindProfil)
+        {
+            m_information.append("Invalid mean wind profil");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, m_ResultVector, m_information);
+        // running the computation
+        currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, m_ResultVector, m_information);
 
-		m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
+        m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
 
-		delete currentMeanWindProfil;
-	}
-	else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-			 m_locationK == 0 &&
-			 m_frequencyIndex == 0 &&
-			 m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
-	{
-		// allocate memories to receive the computed coherence and frequencies
-		// Build an coherence function and frequency distribution functions
-		IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
+        delete currentMeanWindProfil;
+    }
+    else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories to receive the computed coherence and frequencies
+        // Build an coherence function and frequency distribution functions
+        IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
 
-		// Check whether good coherence object
-		if (NULL == currentMeanWindProfil)
-		{
-			m_information.append("Invalid mean wind profil");
-			return;
-		}
+        // Check whether good coherence object
+        if (NULL == currentMeanWindProfil)
+        {
+            m_information.append("Invalid mean wind profil");
+            return;
+        }
 
-		// allocate memories to receive the computed coherence and frequencies
-		m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
 
-		QTime t;
-		t.start();
+        QTime t;
+        t.start();
 
-		// running the computation
-		currentMeanWindProfil->ComputeMeanWindSpeedMatrixTP(m_windLabData, m_ResultMatrix, m_information);
+        // running the computation
+        currentMeanWindProfil->ComputeMeanWindSpeedMatrixTP(m_windLabData, m_ResultMatrix, m_information);
 
-		m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
+        m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
 
-		delete currentMeanWindProfil;
-	}
-	else
-	{
-		m_information.append("Sorry, there is no function that meet your requirements.");
+        delete currentMeanWindProfil;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
     }
 
     emit showMeanWindVelocityOutput();
+}
+
+void RPSWindLabSimulationOutputWorker::randomPhaseOutp()
+{
+    if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+        m_locationK == 0 &&
+        m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+        m_timeIndex == 0)
+    {
+
+        // Build an coherence function and frequency distribution functions
+        IrpsWLRandomness *currentRandomnessProvider = CrpsRandomnessFactory::BuildRandomness(m_windLabData.randomnessProvider);
+
+        // Check whether good coherence object
+        if (NULL == currentRandomnessProvider)
+        {
+            m_information.append("Invalid randomness provider");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentRandomnessProvider->GenerateRandomArrayFP(m_windLabData, m_ResultMatrix, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentRandomnessProvider;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    emit showRandomPhaseOutput();
 }

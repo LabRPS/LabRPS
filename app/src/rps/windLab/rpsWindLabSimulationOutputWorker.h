@@ -32,10 +32,12 @@ public slots:
     void spectrumXModelOut();
     void spectrumYModelOut();
     void spectrumZModelOut();
+    void decomposedSpectrumModelOut();
     void coherenceOut();
     void correlationOut();
     void modulationOut();
     void meanWindVelocityOut();
+    void randomPhaseOut();
 
 signals:
     void sendInformation(QStringList infoList);
@@ -54,10 +56,12 @@ signals:
     void showXSpectrumOutput();
     void showYSpectrumOutput();
     void showZSpectrumOutput();
+    void showDecomposedSpectrumOutput();
     void showCoherenceOutput();
     void showCorrelationOutput();
     void showModulationOutput();
     void showMeanWindVelocityOutput();
+    void showRandomPhaseOutput();
 
 public:
     // output
@@ -67,10 +71,12 @@ public:
     void spectrumXModelOutp();
     void spectrumYModelOutp();
     void spectrumZModelOutp();
+    void decomposedSpectrumModelOutp();
     void coherenceOutp();
     void correlationOutp();
     void modulationOutp();
     void meanWindVelocityOutp();
+    void randomPhaseOutp();
 
 private:
     CRPSWindLabsimuData m_windLabData;
@@ -92,6 +98,7 @@ public:
     vec m_ResultVector2;
 
     mat m_ResultMatrix;
+    mat m_ResultMatrix2;
 
 public:
     QStringList getInformation();

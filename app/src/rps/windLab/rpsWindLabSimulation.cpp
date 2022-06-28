@@ -205,6 +205,18 @@ void RPSWindLabSimulation::spectrumWindOutput()
 		simulationOutputThread->start();
 	}
 }
+
+void RPSWindLabSimulation::decomposedSpectrumWindOutput()
+{
+	createOutputWorker();
+
+	// QFuture<void> future = QtConcurrent::run(simulationOutputWorker, &RPSWindLabSimulationOutputWorker::spectrumXModelOut);
+		connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(decomposedSpectrumModelOut()));
+		connect(simulationOutputWorker, SIGNAL(showDecomposedSpectrumOutput()), this, SLOT(displayDecomposedSpectrum()));
+		emit progressBarShow();
+		simulationOutputThread->start();
+}
+
 void RPSWindLabSimulation::coherenceWindOutput()
 {
 	createOutputWorker();
@@ -233,6 +245,16 @@ void RPSWindLabSimulation::meanWindVelocityOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(meanWindVelocityOut()));
 	connect(simulationOutputWorker, SIGNAL(showMeanWindVelocityOutput()), this, SLOT(displayMeanWindVelocity()));
+	
+	emit progressBarShow();
+	simulationOutputThread->start();
+}
+
+void RPSWindLabSimulation::randomPhaseWindOutput()
+{
+	createOutputWorker();
+	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(randomPhaseOut()));
+	connect(simulationOutputWorker, SIGNAL(showRandomPhaseOutput()), this, SLOT(displayRandomPhase()));
 	
 	emit progressBarShow();
 	simulationOutputThread->start();
@@ -1679,7 +1701,6 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-        return;
 	}
 
 	// send info the main window to show it
@@ -1692,6 +1713,60 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 	GetWindLabSimulationOutputWorker()->finished();
 }
 
+void RPSWindLabSimulation::displayRandomPhase()
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the frequency results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+	if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+		locationK == 0 &&
+		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+		timeIndex == 0)
+	{
+
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = "RandomPhase (All, None, All, None)";
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition);
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		{
+			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+			{
+				table->setCellValue(i, j, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
+			}
+		}
+		table->showNormal();
+		information.append(tr("The computed random phases took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+
+	}
+	else
+	{
+		information.append("Sorry, there is no function that meet your requirements.");
+	}
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabSimulationOutputWorker()->finished();
+}
 void RPSWindLabSimulation::displayWindVelocity()
 {
 
@@ -1768,7 +1843,6 @@ void RPSWindLabSimulation::displayFrequencyDistribution()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-        return;
 	}
 
 	// send info the main window to show it
@@ -1851,7 +1925,6 @@ void RPSWindLabSimulation::displayCoherenceWind()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-        return;
 	}
 
 	// send info the main window to show it
@@ -1891,7 +1964,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (%1, %2, All, %3)").arg(locationJ).arg(locationK).arg(timeIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (%1, %2, All, %3)").arg(locationJ).arg(locationK).arg(timeIndex);
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, 2);
@@ -1925,7 +1998,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (%1, %2, %3, All)").arg(locationJ).arg(locationK).arg(frequencyIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (%1, %2, %3, All)").arg(locationJ).arg(locationK).arg(frequencyIndex);
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, 2);
@@ -1960,7 +2033,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (All, None, %1, %2)").arg(frequencyIndex).arg(timeIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (All, None, %1, %2)").arg(frequencyIndex).arg(timeIndex);
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfSpatialPosition, 2);
@@ -1993,7 +2066,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (All, All, %1, %2)").arg(frequencyIndex).arg(timeIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (All, All, %1, %2)").arg(frequencyIndex).arg(timeIndex);
 
 		// allocate memory for the matrix
 		Matrix *matrix = app->newMatrix(arrayName, GetWindLabData().numberOfSpatialPosition, GetWindLabData().numberOfSpatialPosition);
@@ -2025,7 +2098,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (All, None, %1, All)").arg(frequencyIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (All, None, %1, All)").arg(frequencyIndex);
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition + 1);
@@ -2063,7 +2136,7 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (All, None, All, %1)").arg(timeIndex);
+		QString arrayName = psdPrefix + tr("Spectrum (All, None, All, %1)").arg(timeIndex);
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition + 1);
@@ -2098,22 +2171,27 @@ void RPSWindLabSimulation::displaySpectrum()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = psdPrefix + tr("SpectrumX (%1, %2, All, All)").arg(locationJ).arg(locationK);
+		QString arrayName = psdPrefix + tr("Spectrum (%1, %2, All, All)").arg(locationJ).arg(locationK);
 
 		// allocate memory for the table
-		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfTimeIncrements + 1);
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfFrequency + 1);
 
-		table->setColName(0, "Frequency");
+		table->setColName(0, "Time");
+
+		double timeInr;
 
 		// fill the table with computed coherence
-		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
 		{
-			table->setCellValue(i, 0, GetWindLabSimulationOutputWorker()->m_ResultVector2(i));
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
 
-			for (int j = 0; j < GetWindLabData().numberOfTimeIncrements; j++)
+			table->setCellValue(i, 0, timeInr);
+
+			for (int j = 0; j < GetWindLabData().numberOfFrequency; j++)
 			{
 				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
 			}
+
 		}
 
 		table->showNormal();
@@ -2123,7 +2201,6 @@ void RPSWindLabSimulation::displaySpectrum()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-        return;
 	}
 
 	// send info the main window to show it
@@ -2134,8 +2211,6 @@ void RPSWindLabSimulation::displaySpectrum()
 
 	// delete the worker
 	GetWindLabSimulationOutputWorker()->finished();
-
-	// QString id = QString( "%1" ).arg(static_cast<int>(QThread::currentThreadId()), 16);
 }
 
 void RPSWindLabSimulation::displayXSpectrum()
@@ -2151,6 +2226,283 @@ void RPSWindLabSimulation::displayYSpectrum()
 void RPSWindLabSimulation::displayZSpectrum()
 {
 	displaySpectrum();
+}
+
+
+void RPSWindLabSimulation::displayDecomposedSpectrum()
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the spectrum results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+	if (locationJ > 0 &&
+		locationJ <= GetWindLabData().numberOfSpatialPosition &&
+		locationK > 0 &&
+		locationK <= GetWindLabData().numberOfSpatialPosition &&
+		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+		timeIndex > 0 &&
+		timeIndex <= GetWindLabData().numberOfTimeIncrements
+
+	)
+	{
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (%1, %2, All, %3)").arg(locationJ).arg(locationK).arg(timeIndex);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, 2);
+
+		table->setColName(0, "Frequency");
+		table->setColName(1, "Spectrum");
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		{
+			table->setCellValue(i, 0, GetWindLabSimulationOutputWorker()->m_ResultVector2(i));
+			table->setCellValue(i, 1, GetWindLabSimulationOutputWorker()->m_ResultVector(i));
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ > 0 &&
+			 locationJ <= GetWindLabData().numberOfSpatialPosition &&
+			 locationK > 0 &&
+			 locationK <= GetWindLabData().numberOfSpatialPosition &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1
+
+	)
+	{
+
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (%1, %2, %3, All)").arg(locationJ).arg(locationK).arg(frequencyIndex);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, 2);
+
+		table->setColName(0, "Time");
+		table->setColName(1, "Spectrum");
+
+		double timeInr = 0.0;
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		{
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+			table->setCellValue(i, 0, timeInr);
+			table->setCellValue(i, 1, GetWindLabSimulationOutputWorker()->m_ResultVector(i));
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == 0 &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements
+
+	)
+	{
+
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (All, None, %1, %2)").arg(frequencyIndex).arg(timeIndex);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfSpatialPosition, 2);
+
+		table->setColName(0, "Location");
+		table->setColName(1, "Spectrum");
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfSpatialPosition; i++)
+		{
+			table->setCellValue(i, 0, i + 1);
+			table->setCellValue(i, 1, GetWindLabSimulationOutputWorker()->m_ResultVector(i));
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == locationJ &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements
+
+	)
+	{
+
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (All, All, %1, %2)").arg(frequencyIndex).arg(timeIndex);
+
+		// allocate memory for the matrix
+		Matrix *matrix = app->newMatrix(arrayName, GetWindLabData().numberOfSpatialPosition, GetWindLabData().numberOfSpatialPosition);
+		matrix->setCoordinates(1, GetWindLabData().numberOfSpatialPosition, 1, GetWindLabData().numberOfSpatialPosition);
+
+		// fill the matrix with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfSpatialPosition; i++)
+		{
+			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+			{
+				matrix->setText(i, j, QString::number(GetWindLabSimulationOutputWorker()->m_ResultMatrix2(i, j)));
+			}
+		}
+
+		matrix->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == 0 &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1
+
+	)
+	{
+
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (All, None, %1, All)").arg(frequencyIndex);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition + 1);
+
+		table->setColName(0, "Time");
+
+		double timeInr = 0.0;
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		{
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+
+			table->setCellValue(i, 0, timeInr);
+
+			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+			{
+				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
+			}
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == 0 &&
+			 frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements
+
+	)
+	{
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (All, None, All, %1)").arg(timeIndex);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition + 1);
+
+		table->setColName(0, "Frequency");
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		{
+			table->setCellValue(i, 0, GetWindLabSimulationOutputWorker()->m_ResultVector2(i));
+
+			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+			{
+				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
+			}
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else if (locationJ > 0 &&
+			 locationJ <= GetWindLabData().numberOfSpatialPosition &&
+			 locationK > 0 &&
+			 locationK <= GetWindLabData().numberOfSpatialPosition &&
+			 frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1
+
+	)
+	{
+		QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = psdPrefix + tr("DecomposedSpectrum (%1, %2, All, All)").arg(locationJ).arg(locationK);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfFrequency + 1);
+
+		table->setColName(0, "Time");
+
+		double timeInr;
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		{
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+
+			table->setCellValue(i, 0, timeInr);
+
+			for (int j = 0; j < GetWindLabData().numberOfFrequency; j++)
+			{
+				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
+			}
+
+		}
+
+		table->showNormal();
+
+		information.append(tr("The spectrum decomposition took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else
+	{
+		information.append("Sorry, there is no function that meet your requirements.");
+	}
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabSimulationOutputWorker()->finished();
 }
 
 void RPSWindLabSimulation::displayCorrelationWind()
@@ -2252,7 +2604,7 @@ void RPSWindLabSimulation::displayModulationWind()
 		table->setColName(1, "Modulation");
 
 		// fill the table with computed coherence
-		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		for (int i = 0; i < GetWindLabData().numberOfSpatialPosition; i++)
 		{
 			table->setCellValue(i, 0, i + 1);
 			table->setCellValue(i, 1, GetWindLabSimulationOutputWorker()->m_ResultVector(i));
@@ -2342,20 +2694,24 @@ void RPSWindLabSimulation::displayModulationWind()
 		// prepare the name of the table
 		QString arrayName = tr("Modulation (%1, None, All, All)").arg(locationJ);
 
-		// allocate memory for the table
-		Table *table = app->newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfTimeIncrements + 1);
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfFrequency + 1);
 
-		table->setColName(0, "Frequency");
+		table->setColName(0, "Time");
+
+		double timeInr;
 
 		// fill the table with computed coherence
-		for (int i = 0; i < GetWindLabData().numberOfFrequency; i++)
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
 		{
-			table->setCellValue(i, 0, GetWindLabSimulationOutputWorker()->m_ResultVector2(i));
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
 
-			for (int j = 0; j < GetWindLabData().numberOfTimeIncrements; j++)
+			table->setCellValue(i, 0, timeInr);
+
+			for (int j = 0; j < GetWindLabData().numberOfFrequency; j++)
 			{
 				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
 			}
+
 		}
 
 		table->showNormal();
@@ -2365,7 +2721,6 @@ void RPSWindLabSimulation::displayModulationWind()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-        return;
     }
 
 	// send info the main window to show it

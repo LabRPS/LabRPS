@@ -41,10 +41,12 @@ public slots:
   void frequencyDistributionOutput();
   void locationDistributionOutput();
   void spectrumWindOutput();
+  void decomposedSpectrumWindOutput();
   void coherenceWindOutput();
   void correlationWindOutput();
   void modulationWindOutput();
   void meanWindVelocityOutput();
+  void randomPhaseWindOutput();
 
   // simulation
   void runSimulation();
@@ -68,10 +70,13 @@ public slots:
   void displayXSpectrum();
   void displayYSpectrum();
   void displayZSpectrum();
+  void displayDecomposedSpectrum();;
   void displayCoherenceWind();
   void displayCorrelationWind();
   void displayModulationWind();
   void displayMeanWindVelocity();
+  void displayRandomPhase();
+
 
 private:
   // wind velocity simulation input data

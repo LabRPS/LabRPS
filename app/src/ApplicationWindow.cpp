@@ -280,6 +280,8 @@ ApplicationWindow::ApplicationWindow()
     actionCorrelationWindOutput = new QAction(tr("Co&rrelation"), this);
     actionModulationWindOutput = new QAction(tr("&Modulation"), this);
     actionMeanWindVelocityOutput = new QAction(tr("M&ean Wind"), this);
+    actionDecomposedSpectrumWindOutput = new QAction(tr("&Decomposed PSD"), this);
+    actionRandomPhaseWindOutput = new QAction(tr("&Random Phase"), this);
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
   {
@@ -1143,8 +1145,10 @@ ApplicationWindow::ApplicationWindow()
             &RPSWindLabSimulation::frequencyDistributionOutput);
     connect(actionLocationDistributionWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::locationDistributionOutput);
-     connect(actionSpectrumWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+    connect(actionSpectrumWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::spectrumWindOutput);
+    connect(actionDecomposedSpectrumWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::decomposedSpectrumWindOutput);
     connect(actionCoherenceWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::coherenceWindOutput);
     connect(actionCorrelationWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
@@ -1153,7 +1157,9 @@ ApplicationWindow::ApplicationWindow()
             &RPSWindLabSimulation::modulationWindOutput);
     connect(actionMeanWindVelocityOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::meanWindVelocityOutput);
-
+    connect(actionRandomPhaseWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::randomPhaseWindOutput);
+    
      //receiving information messages from simulators
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(sendInformation(QStringList)), this, SLOT(recieveInformation(QStringList)), Qt::QueuedConnection);
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(progressBarShow()), progressBar, SLOT(show()), Qt::DirectConnection);
@@ -1560,9 +1566,12 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
     ui_->menuOutput->addAction(actionLocationDistributionWindOutput);
     ui_->menuOutput->addAction(actionMeanWindVelocityOutput);
     ui_->menuOutput->addAction(actionSpectrumWindOutput);
+    ui_->menuOutput->addAction(actionDecomposedSpectrumWindOutput);
     ui_->menuOutput->addAction(actionCoherenceWindOutput);
     ui_->menuOutput->addAction(actionCorrelationWindOutput);
     ui_->menuOutput->addAction(actionModulationWindOutput);
+    ui_->menuOutput->addAction(actionRandomPhaseWindOutput);
+
 
     menuBar()->addMenu(ui_->menuOutput);
   }
@@ -11688,7 +11697,7 @@ void ApplicationWindow::savePhenomenon(int index)
 
 void ApplicationWindow::recieveInformation(QStringList infoList)
 {
-
+  if(infoList.isEmpty()){return;}
    QString logInf = qStringListToString(infoList);
 	 updateLog(logInf);
 }

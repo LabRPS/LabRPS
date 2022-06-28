@@ -150,6 +150,10 @@ void RPSWindVelocityDefinitionDlg::OnBnClickedSpatialDistrInit()
 	// Apply iniatial setting
 	currentSpatialDistr->OnInitialSetting(rpsWindLabSimulator->GetWindLabData(), rpsWindLabSimulator->information);
 
+    // show information before deleting the object
+	rpsWindLabSimulator->sendInformation(rpsWindLabSimulator->information);
+    rpsWindLabSimulator->information.clear();
+	
 	// Delete the object
 	delete currentSpatialDistr;
 }

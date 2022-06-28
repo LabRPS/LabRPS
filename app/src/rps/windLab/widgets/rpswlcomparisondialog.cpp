@@ -89,6 +89,7 @@ RPSWLComparisonDialog::RPSWLComparisonDialog(QWidget *parent) : QDialog(parent),
     ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     // ui->tableWidget->setShowGrid(false);
     // ui->tableWidget->setStyleSheet("QTableView {selection-background-color: blue;}");
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     readTableItemsFromList(rpsWindLabSimulator->candidateList);
 
     connect(ui->comboBoxCategory, SIGNAL(currentIndexChanged(int)),

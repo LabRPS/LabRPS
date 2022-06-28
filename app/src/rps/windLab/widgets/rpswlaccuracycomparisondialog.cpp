@@ -129,6 +129,7 @@ void RPSWLAccuracyComparisonDialog::radioButtonByTimeWindToggled(bool)
 {
     resultOutputTime = 3;
 }
+
 void RPSWLAccuracyComparisonDialog::acceptInput()
 {
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();

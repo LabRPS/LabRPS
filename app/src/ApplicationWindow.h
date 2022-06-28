@@ -1151,10 +1151,12 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionFrequencyDistributionWindOutput;
   QAction* actionLocationDistributionWindOutput;
   QAction* actionSpectrumWindOutput;
+  QAction* actionDecomposedSpectrumWindOutput;
   QAction* actionCoherenceWindOutput;
   QAction* actionCorrelationWindOutput;
   QAction* actionModulationWindOutput;
   QAction* actionMeanWindVelocityOutput;
+  QAction* actionRandomPhaseWindOutput;
 
      //seismicLab output
   QAction* actionGroundMotionOutput;
