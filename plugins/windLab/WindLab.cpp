@@ -227,9 +227,9 @@ PLUGIN_INIT()
 	InitializeMean(("RPS Logarithmic Low"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeXSpectrum(("Kaimail Along Wind Spectrum"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeFrequencyDistribution(("Double Index Frequency"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
-	InitializeFrequencyDistribution(("Single Index Frequency"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
+	InitializeFrequencyDistribution(("Single Index Frequency"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Koffi Daniel"), ("Uniform Random Phases"));
 	InitializeCoherence(("Davenport Coherence"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
-	InitializePSDdecomMethod(("RPS Cholesky Decomposition"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
+	InitializePSDdecomMethod(("RPS Cholesky Decomposition"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Koffi Daniel"), ("11/11/2011"));
 	InitializeRandomness(("Uniform Random Phases"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeRandomness(("Random Phases Importer"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));
 	InitializeModulation(("RPS Three Parameters Model"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"));

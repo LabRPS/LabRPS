@@ -82,6 +82,7 @@ SOURCES += \
     threeparamodulationdialog.cpp\
     generaldistributiondialog.cpp\
     GeneralSpatialDistribution.cpp\
+    minmaxvaluesdlg.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -110,6 +111,7 @@ HEADERS += \
     threeparamodulationdialog.h\
     generaldistributiondialog.h\
     GeneralSpatialDistribution.h\
+    minmaxvaluesdlg.h\
 
 FORMS  += meanwindlogprofildialog.ui\
           meanwindpowerprofildialog.ui\
@@ -121,6 +123,7 @@ FORMS  += meanwindlogprofildialog.ui\
           sinemodulationdialog.ui\
           threeparamodulationdialog.ui\
           generaldistributiondialog.ui\
+          minmaxvaluesdlg.ui\
 
 
 

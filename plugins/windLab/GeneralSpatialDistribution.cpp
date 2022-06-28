@@ -9,7 +9,7 @@ using namespace std;
 ////////////////////////Horizontal distribution///////////////////////////////////////////////
 
 //spacing between two adjacent points
-static mat pointsMatrix(3,3);
+static mat pointsMatrix;
 
 void GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
@@ -19,12 +19,15 @@ void GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWin
 
 bool GeneralSpatialDistribution::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
+	pointsMatrix = MatrixXd::Zero(Data.numberOfSpatialPosition, 3);
+	
 	// the input diolag
 	std::unique_ptr<GeneralDistributionDialog> dlg(new GeneralDistributionDialog(Data.numberOfSpatialPosition, pointsMatrix));
 
 	if (dlg->exec() == QDialog::Accepted) //
 	{
 		pointsMatrix = dlg->m_pointsMatrix;
+		strInformation += dlg->m_information;
 	}
 
 	return true;

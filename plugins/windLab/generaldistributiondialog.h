@@ -30,6 +30,7 @@ private slots:
 public:
     mat m_pointsMatrix;
     int m_nomberOfPoint;
+    QStringList m_information;
 
 };
 

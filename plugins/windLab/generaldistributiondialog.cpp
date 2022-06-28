@@ -1,5 +1,6 @@
 #include "generaldistributiondialog.h"
 #include "ui_generaldistributiondialog.h"
+#include <QMessageBox>
 
 GeneralDistributionDialog::GeneralDistributionDialog(int nomberOfPoints, mat& pointsMatrix, QWidget *parent) :
     QDialog(parent),
@@ -15,10 +16,12 @@ GeneralDistributionDialog::GeneralDistributionDialog(int nomberOfPoints, mat& po
                 << "Y Coordinate"
                 << "Z Coordinate";
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     readTableItemsFromMatrix();
 
     connect(ui->pushButtonAdd, SIGNAL(clicked()),
@@ -43,6 +46,17 @@ GeneralDistributionDialog::~GeneralDistributionDialog()
 
 void GeneralDistributionDialog::acceptInput()
 {
+    int row = ui->tableWidget->rowCount();
+    
+    //QMessageBox::warning(this, QString::number(row), QString::number(m_nomberOfPoint));
+
+    if(row != m_nomberOfPoint)
+    {
+        QString info = tr("The number of points must be %1.").arg(m_nomberOfPoint);
+        m_information.append(info);
+        return;
+    }
+
     saveTableItemsToMatrix();
 }
 
@@ -50,8 +64,10 @@ void GeneralDistributionDialog::OnBnClickedTableAddRow()
 {
     int row = ui->tableWidget->rowCount();
 
-    if(row - 1 > m_nomberOfPoint)
+    if(row > m_nomberOfPoint)
     {
+        QString info = tr("The number of points cannot exceed %1.").arg(m_nomberOfPoint);
+        m_information.append(info);
         return;
     }
     
@@ -76,8 +92,10 @@ void GeneralDistributionDialog::OnBnClickedTableDeleteRow()
 
 void GeneralDistributionDialog::OnBnClickedTableDeleteAllRows()
 {
-    int row = ui->tableWidget->currentRow();
-    ui->tableWidget->removeRow(row);
+    while (ui->tableWidget->rowCount() > 0)
+    {
+        ui->tableWidget->removeRow(0);
+    }
 }
 
 void GeneralDistributionDialog::saveTableItemsToMatrix()
