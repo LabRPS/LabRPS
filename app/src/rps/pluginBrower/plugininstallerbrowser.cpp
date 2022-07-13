@@ -7,7 +7,7 @@
 #include <QMessageBox>
 #include <QListWidgetItem>
 #include "RPSPluginsBrowser.h"
-#include "rps/seaLab/rpsSeaLabSimulation.h"
+#include "rps/sealab/rpsSeaLabSimulation.h"
 
 
 PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) :
@@ -44,7 +44,7 @@ PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) :
 	connect(ui->pushButtonUpdate, &QPushButton::clicked, this, &PluginInstallerBrowser::modify);
 	connect(ui->pushButtonClose, &QPushButton::clicked, this, &PluginInstallerBrowser::close);
 
-
+    //__git.downloadFile("https://raw.githubusercontent.com/LabRPS/LabRPS-plugins/master/.gitmodules", "C:/Users/KOFFI/Desktop/", "hehehe", 4000);
 }
 
 PluginInstallerBrowser::~PluginInstallerBrowser()

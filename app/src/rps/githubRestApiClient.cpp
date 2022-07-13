@@ -1,5 +1,4 @@
-#include "githubrestapiclient.h"
-#include "web2boardexceptions.h"
+#include "githubRestApiClient.h"
 
 GitHubRestApiClient::GitHubRestApiClient():QObject()
 {
@@ -43,7 +42,6 @@ QJsonDocument GitHubRestApiClient::get(const QUrl &url, const QString &header, i
         return json;
     }else{
         qDebug() << "Time to get data from " << url.toString()  << " exceeded";
-        throw GetTimeOutException("Time to get data from " +  url.toString()  + " exceeded");
     }
 }
 
@@ -90,6 +88,15 @@ bool GitHubRestApiClient::downloadFile(QString url, QString path, QString filena
     //from Qt 5.6 redirects can be automatically followed by setting
     //request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
     //here is done automatically becaus of Ubuntu 16.04 Qt version (5.5)
+
+    // request.setAttribute(
+    //     QNetworkRequest::RedirectPolicyAttribute,
+    //     QNetworkRequest::UserVerifiedRedirectPolicy, );
+    // request.setAttribute(
+    //     QNetworkRequest::CacheSaveControlAttribute, True);
+    // request.setAttribute(
+    //     QNetworkRequest::CacheLoadControlAttribute,
+    //     QNetworkRequest::PreferNetwork, );
 
     do{
         //qDebug() <<"Downloading " << qurl;

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QListWidget>
+#include "rps/githubRestApiClient.h"
 
 namespace Ui {
 class PluginInstallerBrowser;
@@ -18,6 +19,7 @@ public:
 
 private:
     Ui::PluginInstallerBrowser *ui;
+    GitHubRestApiClient __git; ///client of the Github API repository
 
 private slots:
   void install();

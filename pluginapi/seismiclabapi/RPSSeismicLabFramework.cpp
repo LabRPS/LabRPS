@@ -391,7 +391,7 @@ void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumVectorP(const CRPSSe
 	// Delete the object
 	delete SelectedPSDdecomMethodObject;
 }
-void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
+void CRPSSeismicLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCPSDDecomMatrix, const mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Build an along wind psd object
 	IrpsSLPSDdecompositionMethod * SelectedPSDdecomMethodObject = CrpsSLPSDdecomMethodFactory::BuildPSDdecomMethod(Data.cpsdDecompositionMethod);

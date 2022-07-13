@@ -62,7 +62,7 @@ DEFINES         += SCRIPTING_MUPARSER
 ### a dialog for selecting the scripting language.
 DEFINES         += SCRIPTING_DIALOG
 DEFINES         += SEARCH_FOR_UPDATES
-
+CONFIG          += console
 !contains(PRESET, linux_all_dynamic) {
   DEFINES       += DYNAMIC_PLUGIN_PATH
 }
@@ -133,7 +133,7 @@ mxe {
 
   QMAKE_CXXFLAGS +=-g
   DEFINES        += CONSOLE
-    
+  
   LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi
 
   # Qt libs specified here to get around a dependency bug in qmake

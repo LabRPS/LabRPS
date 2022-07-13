@@ -56,6 +56,7 @@ public:
   void locKCurrentIndexChanged(int index);
   void freqCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
+  void wavCurrentIndexChanged(int index);
 
 
 };

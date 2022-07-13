@@ -489,3 +489,20 @@ void RPSSimulation::fillTimeComboBox()
     // rpsSeaLabSimulator->timCurrentIndexChanged(index);
   }
   }
+
+  void RPSSimulation::wavCurrentIndexChanged(int index)
+  {
+
+  if (selectedRandomPhenomenon == "Wind Velocity")
+  {
+    
+  }
+  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  {
+    
+  }
+  else if (selectedRandomPhenomenon == "Sea Surface")
+  {
+    //rpsSeaLabSimulator->wavCurrentIndexChanged(index);
+  }
+  }

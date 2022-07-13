@@ -1055,12 +1055,14 @@ ApplicationWindow::ApplicationWindow()
   comboxbox_LocK_statusbarbtn_ = new QComboBox(statusBar()) ;
   comboxbox_Freq_statusbarbtn_ = new QComboBox(statusBar()) ;
   comboxbox_Tim_statusbarbtn_ = new QComboBox(statusBar()) ;
+  // comboxbox_Wav_statusbarbtn_ = new QComboBox(statusBar()) ;
 
   // label near each status bar combobox
   label_LocJ_statusbarbtn_ = new QLabel(tr("Location J: "), statusBar());
   label_LocK_statusbarbtn_ = new QLabel(tr("Location K: "), statusBar());
   label_Freq_statusbarbtn_ = new QLabel(tr("Frequency: "), statusBar());
   label_Tim_statusbarbtn_ = new QLabel(tr("Time: "), statusBar());
+  // label_Wav_statusbarbtn_ = new QLabel(tr("Wave: "), statusBar());
 
   progressBar->setAlignment(Qt::AlignRight);
 
@@ -1084,6 +1086,8 @@ ApplicationWindow::ApplicationWindow()
   statusBar()->addPermanentWidget(comboxbox_Freq_statusbarbtn_, 1);
   statusBar()->addPermanentWidget(label_Tim_statusbarbtn_, 0);
   statusBar()->addPermanentWidget(comboxbox_Tim_statusbarbtn_, 1);
+  // statusBar()->addPermanentWidget(label_Wav_statusbarbtn_, 0);
+  // statusBar()->addPermanentWidget(comboxbox_Wav_statusbarbtn_, 1);
 
   progressBar->setMinimum(0);
   progressBar->setMaximum(0); 
@@ -1093,6 +1097,8 @@ ApplicationWindow::ApplicationWindow()
   rpsSimulator->fillLocationKComboBox();
   rpsSimulator->fillFrequencyComboBox();
   rpsSimulator->fillTimeComboBox();
+  // rpsSimulator->fillWaveNumberComboBox();
+
 
   // label_LocJ_statusbarbtn_->setMinimumWidth(120);
 
@@ -1254,6 +1260,10 @@ ApplicationWindow::ApplicationWindow()
 
   connect(comboxbox_Tim_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
           rpsSimulator, SLOT(timCurrentIndexChanged(int)));
+
+  //  connect(comboxbox_Wav_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+  //         rpsSimulator, SLOT(wavCurrentIndexChanged(int)));
+
 }
 
 // Distructor
@@ -11730,3 +11740,8 @@ QString ApplicationWindow::qStringListToString(QStringList qStringList)
   {
     return comboxbox_Tim_statusbarbtn_;
   }
+
+  //   QComboBox* ApplicationWindow::getComboxboxWavstatusbarbtn()
+  // {
+  //   return comboxbox_Wav_statusbarbtn_;
+  // }

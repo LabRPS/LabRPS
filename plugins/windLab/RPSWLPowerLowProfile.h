@@ -1,5 +1,5 @@
 #pragma once
-#include "IrpsWLMean.h";
+#include "IrpsWLMean.h"
 
 
 class CRPSWLPowerLowProfile : public IrpsWLMean

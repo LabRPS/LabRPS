@@ -1,6 +1,6 @@
 
 #include "RPSWindLabpluginAPI.h"
-#include "RPSWindLabAPI.h";
+#include "RPSWindLabAPI.h"
 
 
 

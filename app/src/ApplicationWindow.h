@@ -1188,11 +1188,15 @@ class ApplicationWindow : public QMainWindow,
   QComboBox* comboxbox_LocK_statusbarbtn_;
   QComboBox* comboxbox_Freq_statusbarbtn_;
   QComboBox* comboxbox_Tim_statusbarbtn_;
+  // QComboBox* comboxbox_Wav_statusbarbtn_;
+
 
   QLabel* label_LocJ_statusbarbtn_;
   QLabel* label_LocK_statusbarbtn_;
   QLabel* label_Freq_statusbarbtn_;
   QLabel* label_Tim_statusbarbtn_;
+  // QLabel* label_Wav_statusbarbtn_;
+
 
   QToolButton* btn_new_aspect_;
   QToolButton* btn_layout_;
@@ -1244,6 +1248,8 @@ public:
   QComboBox* getComboxboxLocKstatusbarbtn();
   QComboBox* getComboxboxFreqstatusbarbtn();
   QComboBox* getComboxboxTimstatusbarbtn();
+  // QComboBox* getComboxboxWavstatusbarbtn();
+
 
 
 

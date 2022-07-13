@@ -439,6 +439,12 @@ Folder *AprojHandler::readxmlstream(ApplicationWindow *app, QFile *file,
         recursivecount_--;
       }
     }
+    else if (token == QXmlStreamReader::StartElement &&
+             xmlreader->name() == "windLab")
+    {
+      // load everything about windLab
+      app->rpsSimulator->rpsWindLabSimulator->load(xmlreader.get());
+    }
   }
 
   if (xmlreader->hasWarnings()) {
@@ -509,6 +515,10 @@ bool AprojHandler::saveproject(const QString &filename, Folder *folder) {
   xmlwriter->writeStartElement("log");
   xmlwriter->writeAttribute("value", app_->getLogInfoText());
   xmlwriter->writeEndElement();
+
+   // save everything about windLab 
+  app_->rpsSimulator->rpsWindLabSimulator->save(xmlwriter.get());
+
   xmlwriter->writeEndElement();
   xmlwriter->writeEndDocument();
   // Compressed file
@@ -521,7 +531,7 @@ bool AprojHandler::saveproject(const QString &filename, Folder *folder) {
 
 void AprojHandler::saveTreeRecursive(Folder *folder,
                                      XmlStreamWriter *xmlwriter) {
-  // make sure that plots are saved after tables & metrices
+  // make sure that plots are saved after tables & matrices
   QList<MyWidget *> others;
   QList<MyWidget *> plots;
   foreach (MyWidget *subwindow, folder->windowsList()) {

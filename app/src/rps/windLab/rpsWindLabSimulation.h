@@ -10,6 +10,9 @@
 #include "rpsWindLabSimulationWorker.h"
 #include "rpsWindLabSimulationOutputWorker.h"
 
+class XmlStreamWriter;
+class XmlStreamReader;
+
 class RPSWindLabSimulation : public QWidget
 {
   Q_OBJECT
@@ -17,6 +20,11 @@ class RPSWindLabSimulation : public QWidget
 public:
   RPSWindLabSimulation(QWidget *parent = nullptr);
   ~RPSWindLabSimulation();
+  void save(XmlStreamWriter *xmlwriter);
+  bool load(XmlStreamReader *xmlreader);
+  void saveWindLabData(XmlStreamWriter *xmlwriter);
+  bool loadWindLabData(XmlStreamReader *xmlreader);
+
 signals:
   void sendInformation(QStringList infoList);
   void progressBarShow();

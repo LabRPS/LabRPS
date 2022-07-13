@@ -13,6 +13,8 @@
 #include "rps/windLab/widgets/rpswlaccuracycomparisondialog.h"
 #include "rps/rpsSimulation.h"
 #include "ApplicationWindow.h"
+#include "future/lib/XmlStreamReader.h"
+#include "future/lib/XmlStreamWriter.h"
 
 #include <QSettings>
 #include <QString>
@@ -171,6 +173,8 @@ void RPSWindLabSimulation::locationDistributionOutput()
 }
 void RPSWindLabSimulation::windVelocityOutput()
 {
+    qDebug() << "Output wind velocity";
+
 	QMessageBox::warning(0, "windLab", "Output wind velocity");
 }
 void RPSWindLabSimulation::spectrumWindOutput()
@@ -2732,3 +2736,242 @@ void RPSWindLabSimulation::displayModulationWind()
 	// delete the worker
 	GetWindLabSimulationOutputWorker()->finished();
 }
+
+
+void RPSWindLabSimulation::save(XmlStreamWriter *xmlwriter) {
+  
+  xmlwriter->writeStartElement("windLab");
+  saveWindLabData(xmlwriter);
+  xmlwriter->writeEndElement();
+
+}
+
+bool RPSWindLabSimulation::load(XmlStreamReader *xmlreader) {
+ 
+  if (xmlreader->isStartElement() && xmlreader->name() == "windLab") 
+  {
+    loadWindLabData(xmlreader);
+  } 
+  else  // no element
+  {
+	xmlreader->raiseError(tr("no windLab element found"));
+
+  }
+ 
+  return !xmlreader->hasError();
+}
+
+void RPSWindLabSimulation::saveWindLabData(XmlStreamWriter *xmlwriter) {
+  
+  (windLabData.largeScaleSimulationFlag) ? xmlwriter->writeAttribute("largeScaleSimulationFlag", "true")
+										 : xmlwriter->writeAttribute("largeScaleSimulationFlag", "false");
+  (windLabData.stationarity) ? xmlwriter->writeAttribute("stationarity", "true")
+							 : xmlwriter->writeAttribute("stationarity", "false");
+  (windLabData.gaussianity) ? xmlwriter->writeAttribute("gaussianity", "true")
+							: xmlwriter->writeAttribute("gaussianity", "false");
+  (windLabData.comparisonMode) ? xmlwriter->writeAttribute("comparisonMode", "true")
+							 : xmlwriter->writeAttribute("comparisonMode", "false");
+  (windLabData.largeScaleSimulationMode) ? xmlwriter->writeAttribute("largeScaleSimulationMode", "true")
+							: xmlwriter->writeAttribute("largeScaleSimulationMode", "false");
+  
+  xmlwriter->writeAttribute("numberOfSpatialPosition", QString::number(windLabData.numberOfSpatialPosition));
+  xmlwriter->writeAttribute("numberOfFrequency", QString::number(windLabData.numberOfFrequency));
+  xmlwriter->writeAttribute("numberOfSample", QString::number(windLabData.numberOfSample));
+  xmlwriter->writeAttribute("direction", QString::number(windLabData.direction));
+  xmlwriter->writeAttribute("frequencyDistrType", QString::number(windLabData.frequencyDistrType));
+  xmlwriter->writeAttribute("numberOfTimeIncrements", QString::number(windLabData.numberOfTimeIncrements));
+  xmlwriter->writeAttribute("frequencyIncrement", QString::number(windLabData.frequencyIncrement));
+  xmlwriter->writeAttribute("timeIncrement", QString::number(windLabData.timeIncrement));
+  xmlwriter->writeAttribute("minTime", QString::number(windLabData.minTime));
+  xmlwriter->writeAttribute("maxTime", QString::number(windLabData.maxTime));
+  xmlwriter->writeAttribute("minFrequency", QString::number(windLabData.minFrequency));
+  xmlwriter->writeAttribute("maxFrequency", QString::number(windLabData.maxFrequency));
+  xmlwriter->writeAttribute("locationJ", QString::number(windLabData.locationJ));
+  xmlwriter->writeAttribute("locationK", QString::number(windLabData.locationK));
+  xmlwriter->writeAttribute("frequencyIndex", QString::number(windLabData.frequencyIndex));
+  xmlwriter->writeAttribute("directionIndex", QString::number(windLabData.directionIndex));
+  xmlwriter->writeAttribute("timeIndex", QString::number(windLabData.timeIndex));
+  xmlwriter->writeAttribute("numberOfTimeLags", QString::number(windLabData.numberOfTimeLags));
+
+  xmlwriter->writeAttribute("spatialDistribution", windLabData.spatialDistribution);
+  xmlwriter->writeAttribute("shearVelocity", windLabData.shearVelocity);
+  xmlwriter->writeAttribute("meanFunction", windLabData.meanFunction);
+  xmlwriter->writeAttribute("spectrumModel", windLabData.spectrumModel);
+  xmlwriter->writeAttribute("coherenceFunction", windLabData.coherenceFunction);
+  xmlwriter->writeAttribute("simulationApproach", windLabData.simulationApproach);
+  xmlwriter->writeAttribute("simulationMethod", windLabData.simulationMethod);
+  xmlwriter->writeAttribute("freqencyDistribution", windLabData.freqencyDistribution);
+  xmlwriter->writeAttribute("cpsdDecompositionMethod", windLabData.cpsdDecompositionMethod);
+  xmlwriter->writeAttribute("randomnessProvider", windLabData.randomnessProvider);
+  xmlwriter->writeAttribute("modulationFunction", windLabData.modulationFunction);
+  xmlwriter->writeAttribute("correlationFunction", windLabData.correlationFunction);
+  xmlwriter->writeAttribute("varianceFunction", windLabData.varianceFunction);
+  xmlwriter->writeAttribute("workingDirPath", windLabData.workingDirPath);
+  xmlwriter->writeAttribute("comparisonCategory", windLabData.comparisonCategory);
+
+}
+
+bool RPSWindLabSimulation::loadWindLabData(XmlStreamReader *xmlreader) {
+ 
+    bool ok;
+	bool bvalue;
+	int  ivalue;
+	double dvalue;
+	QString svalue;
+	
+	bvalue = xmlreader->readAttributeBool("largeScaleSimulationFlag", &ok);
+    if(ok){windLabData.largeScaleSimulationFlag = bvalue;}else
+	{xmlreader->raiseWarning("Large scale simulation flag setting error");}
+	
+    bvalue = xmlreader->readAttributeBool("stationarity", &ok);
+    if(ok){windLabData.stationarity = bvalue;}else
+	{xmlreader->raiseWarning("Stationarity setting error");}
+
+	bvalue = xmlreader->readAttributeBool("gaussianity", &ok);
+    if(ok){windLabData.gaussianity = bvalue;}else
+	{xmlreader->raiseWarning("Gaussianity setting error");}
+
+    bvalue = xmlreader->readAttributeBool("comparisonMode", &ok);
+    if(ok){windLabData.comparisonMode = bvalue;}else
+	{xmlreader->raiseWarning("Comparison mode setting error");}
+
+    bvalue = xmlreader->readAttributeBool("largeScaleSimulationMode", &ok);
+    if(ok){windLabData.largeScaleSimulationMode = bvalue;}else
+	{xmlreader->raiseWarning("Large scale simulation mode setting error");}
+
+    ivalue = xmlreader->readAttributeInt("numberOfSpatialPosition", &ok);
+    if(ok){windLabData.numberOfSpatialPosition = ivalue;}else
+	{xmlreader->raiseWarning("Number of spatial postion setting error");}
+
+    ivalue = xmlreader->readAttributeInt("numberOfFrequency", &ok);
+    if(ok){windLabData.numberOfFrequency = ivalue;}else
+	{xmlreader->raiseWarning("Number of frequency setting error");}
+
+    ivalue = xmlreader->readAttributeInt("numberOfSample", &ok);
+    if(ok){windLabData.numberOfSample = ivalue;}else
+	{xmlreader->raiseWarning("Number of sample setting error");}
+
+    ivalue = xmlreader->readAttributeInt("direction", &ok);
+    if(ok){windLabData.direction = ivalue;}else
+	{xmlreader->raiseWarning("Wind direction setting error");}
+
+    ivalue = xmlreader->readAttributeInt("frequencyDistrType", &ok);
+    if(ok){windLabData.frequencyDistrType = ivalue;}else
+	{xmlreader->raiseWarning("Frequency distribution type setting error");}
+
+    ivalue = xmlreader->readAttributeInt("numberOfTimeIncrements", &ok);
+    if(ok){windLabData.numberOfTimeIncrements = ivalue;}else
+	{xmlreader->raiseWarning("Number of time increments setting error");}
+
+    ivalue = xmlreader->readAttributeInt("locationJ", &ok);
+    if(ok){windLabData.locationJ = ivalue;}else
+	{xmlreader->raiseWarning("Location J index setting error");}
+
+    ivalue = xmlreader->readAttributeInt("locationK", &ok);
+    if(ok){windLabData.locationK = ivalue;}else
+	{xmlreader->raiseWarning("Location K index setting error");}
+
+    ivalue = xmlreader->readAttributeInt("frequencyIndex", &ok);
+    if(ok){windLabData.frequencyIndex = ivalue;}else
+	{xmlreader->raiseWarning("Frequency index setting error");}
+
+    ivalue = xmlreader->readAttributeInt("directionIndex", &ok);
+    if(ok){windLabData.directionIndex = ivalue;}else
+	{xmlreader->raiseWarning("Direction index setting error");}
+
+    ivalue = xmlreader->readAttributeInt("timeIndex", &ok);
+    if(ok){windLabData.timeIndex = ivalue;}else
+	{xmlreader->raiseWarning("Time index setting error");}
+
+    ivalue = xmlreader->readAttributeInt("numberOfTimeLags", &ok);
+    if(ok){windLabData.numberOfTimeLags = ivalue;}else
+	{xmlreader->raiseWarning("Number of time lags setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("frequencyIncrement", &ok);
+    if(ok){windLabData.frequencyIncrement = dvalue;}else
+	{xmlreader->raiseWarning("Frequency increment setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("timeIncrement", &ok);
+    if(ok){windLabData.timeIncrement = dvalue;}else
+	{xmlreader->raiseWarning("Time increment setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("minTime", &ok);
+    if(ok){windLabData.minTime = dvalue;}else
+	{xmlreader->raiseWarning("Minimum time setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("maxTime", &ok);
+    if(ok){windLabData.maxTime = dvalue;}else
+	{xmlreader->raiseWarning("Maximum time setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("minFrequency", &ok);
+    if(ok){windLabData.minFrequency = dvalue;}else
+	{xmlreader->raiseWarning("Minimum frequency setting error");}
+
+    dvalue = xmlreader->readAttributeDouble("maxFrequency", &ok);
+    if(ok){windLabData.maxFrequency = dvalue;}else
+	{xmlreader->raiseWarning("Maximum frequency setting error");}
+
+    svalue = xmlreader->readAttributeString("spatialDistribution", &ok);
+    if(ok){windLabData.spatialDistribution = svalue;}else
+	{xmlreader->raiseWarning("Spatial distribution setting error");}
+
+    svalue = xmlreader->readAttributeString("shearVelocity", &ok);
+    if(ok){windLabData.shearVelocity = svalue;}else
+	{xmlreader->raiseWarning("Shear velocity setting error");}
+
+    svalue = xmlreader->readAttributeString("meanFunction", &ok);
+    if(ok){windLabData.meanFunction = svalue;}else
+	{xmlreader->raiseWarning("Mean function setting error");}
+
+    svalue = xmlreader->readAttributeString("spectrumModel", &ok);
+    if(ok){windLabData.spectrumModel = svalue;}else
+	{xmlreader->raiseWarning("Spectrum model setting error");}
+
+    svalue = xmlreader->readAttributeString("coherenceFunction", &ok);
+    if(ok){windLabData.coherenceFunction = svalue;}else
+	{xmlreader->raiseWarning("Coherence function setting error");}
+
+    svalue = xmlreader->readAttributeString("simulationApproach", &ok);
+    if(ok){windLabData.simulationApproach = svalue;}else
+	{xmlreader->raiseWarning("Simulation approach setting error");}
+
+    svalue = xmlreader->readAttributeString("simulationMethod", &ok);
+    if(ok){windLabData.simulationMethod = svalue;}else
+	{xmlreader->raiseWarning("Simulation method setting error");}
+
+    svalue = xmlreader->readAttributeString("freqencyDistribution", &ok);
+    if(ok){windLabData.freqencyDistribution = svalue;}else
+	{xmlreader->raiseWarning("Frequency distribution setting error");}
+
+    svalue = xmlreader->readAttributeString("cpsdDecompositionMethod", &ok);
+    if(ok){windLabData.cpsdDecompositionMethod = svalue;}else
+	{xmlreader->raiseWarning("cpsd decompositionMethod setting error");}
+
+    svalue = xmlreader->readAttributeString("randomnessProvider", &ok);
+    if(ok){windLabData.randomnessProvider = svalue;}else
+	{xmlreader->raiseWarning("Randomness provider setting error");}
+
+    svalue = xmlreader->readAttributeString("modulationFunction", &ok);
+    if(ok){windLabData.modulationFunction = svalue;}else
+	{xmlreader->raiseWarning("Modulation function setting error");}
+
+    svalue = xmlreader->readAttributeString("correlationFunction", &ok);
+    if(ok){windLabData.correlationFunction = svalue;}else
+	{xmlreader->raiseWarning("Correlation function setting error");}
+
+    svalue = xmlreader->readAttributeString("varianceFunction", &ok);
+    if(ok){windLabData.varianceFunction = svalue;}else
+	{xmlreader->raiseWarning("Variance function setting error");}
+
+    svalue = xmlreader->readAttributeString("workingDirPath", &ok);
+    if(ok){windLabData.workingDirPath = svalue;}else
+	{xmlreader->raiseWarning("Working directory path setting error");}
+
+    svalue = xmlreader->readAttributeString("comparisonCategory", &ok);
+    if(ok){windLabData.comparisonCategory = svalue;}else
+	{xmlreader->raiseWarning("Comparison category setting error");}
+ 
+  return !xmlreader->hasError();
+}
+
+

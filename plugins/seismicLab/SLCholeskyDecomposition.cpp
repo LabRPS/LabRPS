@@ -18,7 +18,7 @@ void CSLCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorP(const CRPSS
 {
 
 }
-void CSLCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
+void CSLCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSSeismicLabsimuData &Data, mat &dCPSDDecomMatrix, const mat &dPSDMatrix, QStringList &strInformation)
 {
 	for (int i = 0; i < Data.numberOfSpatialPosition; i++)
 	{
