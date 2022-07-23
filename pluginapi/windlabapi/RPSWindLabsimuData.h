@@ -123,6 +123,8 @@ class RPS_CORE_API CRPSWindLabsimuData
 	// Nunber of time lags
 	int numberOfTimeLags;
 
+	bool isInterruptionRequested;
+
 };
 
 

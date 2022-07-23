@@ -85,6 +85,8 @@ class SettingsDialog;
 class PropertiesDialog;
 class PropertyEditor;
 class PropertyBrowser;
+class PluginPropertyEditor;
+class PluginPropertyBrowser;
 class AxisRect2D;
 class Curve2D;
 class Function2DDialog;
@@ -191,6 +193,8 @@ class ApplicationWindow : public QMainWindow,
 #endif
   PropertyBrowser* propertybrowser;
   PropertyEditor* propertyeditor;
+  PluginPropertyBrowser* pluginpropertybrowser;
+  PluginPropertyEditor* pluginpropertyeditor;
   QMdiArea* d_workspace;
   QToolButton* btnResults;
   QList<MyWidget*> hiddenWindows;
@@ -1179,6 +1183,7 @@ class ApplicationWindow : public QMainWindow,
   bool was_maximized_;
 
   QAction* actionShowPropertyEditor;
+  QAction* actionShowPluginPropertyEditor;
   QAction* actionShowProjectExplorer;
   QAction* actionShowResultsLog;
   QAction* actionShowConsole;

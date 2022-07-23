@@ -101,12 +101,16 @@ ObjectSelectionPage::ObjectSelectionPage(int installationType, QString installin
     InstallingPluginFullPath = installingPluginFullPath;
     InstallationType = installationType;
 
-    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
+    rpsSimulator = (RPSSimulation *)parent;
 
-    createListWidget(rpsSimu);
+    createListWidget(rpsSimulator);
     createOtherWidgets();
     createLayout();
     createConnections();
+}
+
+ObjectSelectionPage::~ObjectSelectionPage()
+{
 }
 
 void ObjectSelectionPage::createListWidget(RPSSimulation *rpsSimu)
@@ -218,8 +222,6 @@ void ObjectSelectionPage::resetSelection()
 
 bool ObjectSelectionPage::validatePage()
 {
-    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
-
     QStringList checkedList;
     QStringList unCheckedList;
 
@@ -237,17 +239,17 @@ bool ObjectSelectionPage::validatePage()
             if (1 == InstallationType)
             {
                 // this object shoulb be remove from the installing objects map
-                rpsSimu->UpdateToBeInstalledObjectsMap(item->text());
+                rpsSimulator->UpdateToBeInstalledObjectsMap(item->text());
             }
             else if (2 == InstallationType)
             {
                 // this object shoulb be remove from the list
-                rpsSimu->UpdateToBeUninstalledObjectsMap(item->text(), InstallingPluginName);
+                rpsSimulator->UpdateToBeUninstalledObjectsMap(item->text(), InstallingPluginName);
             }
             else if (3 == InstallationType)
             {
                 // this object shoulb be remove from the list
-                rpsSimu->UpdateToBeInstalledObjectsMap(item->text());
+                rpsSimulator->UpdateToBeInstalledObjectsMap(item->text());
             }
         }
     }

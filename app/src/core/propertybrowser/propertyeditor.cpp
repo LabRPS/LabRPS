@@ -7229,6 +7229,7 @@ void PropertyEditor::populateObjectBrowser(MyWidget *widget) {
         0, IconLoader::load("clear-loginfo", IconLoader::General));
     qDebug() << "unknown Mywidget";
   }
+
   // add to Tree
   objectbrowser_->addTopLevelItems(objectitems_);
   objectbrowser_->insertTopLevelItems(0, objectitems_);
@@ -7240,6 +7241,7 @@ void PropertyEditor::populateObjectBrowser(MyWidget *widget) {
     objectbrowser_->topLevelItem(0)->setSelected(true);
     selectObjectItem(objectbrowser_->topLevelItem(0));
   }*/
+
 }
 
 void PropertyEditor::axisrectConnections(AxisRect2D *axisrect) {

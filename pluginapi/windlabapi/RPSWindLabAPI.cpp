@@ -6,11 +6,6 @@
 #include <iostream>
 
 
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
-
 typedef IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
 typedef IrpsWLMean *(*CreateMeanCallback)();
 typedef IrpsWLXSpectrum *(*CreateXSpectrumCallback)();
@@ -41,6 +36,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsCoherenceFactory::mLinkMap;
 	std::map<const QString, QString> CrpsCoherenceFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsCoherenceFactory::mDateMap;
+	std::map<const QString, QString> CrpsCoherenceFactory::mVersionMap;
 
 	QString CrpsCoherenceFactory::GetOwnerPlugin()
 	{
@@ -51,23 +47,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	{
 		mOwnerPlugin = ownerPlugin;
 	}
-
-	/*QString CrpsCoherenceFactory::GetDescription()
-	{
-		return mDescription;
-	}
-	void CrpsCoherenceFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 	
-	void CrpsCoherenceFactory::InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsCoherenceFactory::InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
+		mVersionMap[name] = version;
+
 	}
 
 	void CrpsCoherenceFactory::RegisterCoherence(const QString &name, const QString &pluginName, const QString &description, CreateCoherenceCallback cb)
@@ -80,7 +69,6 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 		SetOwnerPlugin(pluginName);
-		//SetDescription(description);
 	}
 
 	void CrpsCoherenceFactory::UnregisterCoherence(const QString &name, const QString &pluginName)
@@ -153,6 +141,12 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsCoherenceFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
+
     std::map<const QString, QString> &  CrpsCoherenceFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -170,11 +164,9 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsLocationDistributionFactory::mLinkMap;
 	std::map<const QString, QString> CrpsLocationDistributionFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsLocationDistributionFactory::mDateMap;
-
-	//std::vector<QString> CrpsLocationDistributionFactory::mLocDistrNames;
+	std::map<const QString, QString> CrpsLocationDistributionFactory::mVersionMap;
 
 	QString CrpsLocationDistributionFactory::mOwnerPlugin;
-	//QString CrpsLocationDistributionFactory::mDescription;
 
 	QString CrpsLocationDistributionFactory::GetOwnerPlugin()
 	{
@@ -186,23 +178,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsLocationDistributionFactory::InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsLocationDistributionFactory::InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsLocationDistributionFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsLocationDistributionFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsLocationDistributionFactory::RegisterLocationDistribution(const QString &name, const QString &pluginName, const QString &description, CreateLocDistrCallback cb)
 	{
@@ -285,6 +270,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsLocationDistributionFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsLocationDistributionFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -303,7 +293,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsMeanFactory::mLinkMap;
 	std::map<const QString, QString> CrpsMeanFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsMeanFactory::mDateMap;
-	//QString CrpsMeanFactory::mDescription;
+	std::map<const QString, QString> CrpsMeanFactory::mVersionMap;
 
 	QString CrpsMeanFactory::GetOwnerPlugin()
 	{
@@ -315,23 +305,15 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsMeanFactory::InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsMeanFactory::InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
+		mVersionMap[name] = version;
 	}
-
-	/*QString CrpsMeanFactory::GetDescription()
-	{
-		return mDescription;
-	}
-	void CrpsMeanFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsMeanFactory::RegisterMean(const QString &name, const QString &pluginName, const QString &description, CreateMeanCallback cb)
 	{
@@ -413,6 +395,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsMeanFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsMeanFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -432,6 +419,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsXSpectrumFactory::mLinkMap;
 	std::map<const QString, QString> CrpsXSpectrumFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsXSpectrumFactory::mDateMap;
+	std::map<const QString, QString> CrpsXSpectrumFactory::mVersionMap;
 
 	//QString CrpsXSpectrumFactory::mDescription;
 
@@ -445,23 +433,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsXSpectrumFactory::InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsXSpectrumFactory::InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsXSpectrumFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsXSpectrumFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsXSpectrumFactory::RegisterXSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateXSpectrumCallback cb)
 	{
@@ -544,6 +525,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsXSpectrumFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsXSpectrumFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -562,6 +548,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsZSpectrumFactory::mLinkMap;
 	std::map<const QString, QString> CrpsZSpectrumFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsZSpectrumFactory::mDateMap;
+	std::map<const QString, QString> CrpsZSpectrumFactory::mVersionMap;
 
 	//QString CrpsZSpectrumFactory::mDescription;
 
@@ -575,23 +562,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsZSpectrumFactory::InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsZSpectrumFactory::InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsZSpectrumFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsZSpectrumFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsZSpectrumFactory::RegisterZSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateZSpectrumCallback cb)
 	{
@@ -674,6 +654,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsZSpectrumFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsZSpectrumFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -692,6 +677,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsYSpectrumFactory::mLinkMap;
 	std::map<const QString, QString> CrpsYSpectrumFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsYSpectrumFactory::mDateMap;
+	std::map<const QString, QString> CrpsYSpectrumFactory::mVersionMap;
 
 	//QString CrpsYSpectrumFactory::mDescription;
 
@@ -705,23 +691,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsYSpectrumFactory::InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsYSpectrumFactory::InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsYSpectrumFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsYSpectrumFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsYSpectrumFactory::RegisterYSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateYSpectrumCallback cb)
 	{
@@ -804,43 +783,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsYSpectrumFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsYSpectrumFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
     }
 	///////////////////////////////////////////Wind Coherence/////////////////////////////////////////////////
-
-	////// instantiate the static variable
-	//CrpsCoherenceFactory::CallbackMap CrpsCoherenceFactory::mCoherences;
-	//
-	//
-	//void CrpsCoherenceFactory::RegisterCoherence(const QString &name, CreateCoherenceCallback cb)
-	//{
-	//	mCoherences[name] = cb;
-	//}
-	//
-	//void CrpsCoherenceFactory::UnregisterCoherence(const QString &name)
-	//{
-	//	mCoherences.erase(name);
-	//}
-	//
-	//IrpsWLCoherence *CrpsCoherenceFactory::BuildCoherence(const QString &name)
-	//{
-	//	CallbackMap::iterator it = mCoherences.find(name);
-	//	if (it != mCoherences.end())
-	//	{
-	//		// call the creation callback to construct this derived name
-	//		return (it->second)();
-	//	}
-	//
-	//	return NULL;
-	//}
-	//
-	//std::map<const QString, CreateCoherenceCallback>& CrpsCoherenceFactory::GetCoherenceNamesMap()
-	//{
-	//	return mCoherences;
-	//}
-
 
 	
 	///////////////////////////////////////////Simulation method/////////////////////////////////////////////////
@@ -857,6 +809,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsSimuMethodFactory::mLinkMap;
 	std::map<const QString, QString> CrpsSimuMethodFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsSimuMethodFactory::mDateMap;
+	std::map<const QString, QString> CrpsSimuMethodFactory::mVersionMap;
 
 	//QString CrpsSimuMethodFactory::mDescription;
 
@@ -870,23 +823,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsSimuMethodFactory::InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsSimuMethodFactory::InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsSimuMethodFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsSimuMethodFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsSimuMethodFactory::RegisterSimuMethod(const QString &name, const QString &pluginName, const QString &description, CreateSimuMethodCallback cb)
 	{
@@ -969,6 +915,12 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsSimuMethodFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
+
 	std::map<const QString, QString> &  CrpsSimuMethodFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -987,6 +939,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsFrequencyDistributionFactory::mLinkMap;
 	std::map<const QString, QString> CrpsFrequencyDistributionFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsFrequencyDistributionFactory::mDateMap;
+	std::map<const QString, QString> CrpsFrequencyDistributionFactory::mVersionMap;
 
 	//QString CrpsFrequencyDistributionFactory::mDescription;
 
@@ -1000,23 +953,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsFrequencyDistributionFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsFrequencyDistributionFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsFrequencyDistributionFactory::RegisterFrequencyDistribution(const QString &name, const QString &pluginName, const QString &description, CreateFrequencyDistributionCallback cb)
 	{
@@ -1098,6 +1044,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	{
 		return mDateMap;
 	}
+
+	std::map<const QString, QString>& CrpsFrequencyDistributionFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
 	
 	std::map<const QString, QString> &  CrpsFrequencyDistributionFactory::GetOjectsSkipDuringUnintallationMap()
     {
@@ -1118,8 +1069,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsRandomnessFactory::mLinkMap;
 	std::map<const QString, QString> CrpsRandomnessFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsRandomnessFactory::mDateMap;
-
-	//QString CrpsRandomnessFactory::mDescription;
+	std::map<const QString, QString> CrpsRandomnessFactory::mVersionMap;
 
 	QString CrpsRandomnessFactory::GetOwnerPlugin()
 	{
@@ -1131,23 +1081,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsRandomnessFactory::InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsRandomnessFactory::InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsRandomnessFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsRandomnessFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsRandomnessFactory::RegisterRandomness(const QString &name, const QString &pluginName, const QString &description, CreateRandomnessCallback cb)
 	{
@@ -1230,6 +1173,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsRandomnessFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsRandomnessFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -1250,6 +1198,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsPSDdecomMethodFactory::mLinkMap;
 	std::map<const QString, QString> CrpsPSDdecomMethodFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsPSDdecomMethodFactory::mDateMap;
+	std::map<const QString, QString> CrpsPSDdecomMethodFactory::mVersionMap;
 
 	QString CrpsPSDdecomMethodFactory::GetOwnerPlugin()
 	{
@@ -1261,23 +1210,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsPSDdecomMethodFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsPSDdecomMethodFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsPSDdecomMethodFactory::RegisterPSDdecomMethod(const QString &name, const QString &pluginName, const QString &description, CreatePSDdecomMethodCallback cb)
 	{
@@ -1361,6 +1303,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsPSDdecomMethodFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsPSDdecomMethodFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -1379,7 +1326,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsCorrelationFactory::mLinkMap;
 	std::map<const QString, QString> CrpsCorrelationFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsCorrelationFactory::mDateMap;
-	//QString CrpsCorrelationFactory::mDescription;
+	std::map<const QString, QString> CrpsCorrelationFactory::mVersionMap;
 
 	QString CrpsCorrelationFactory::GetOwnerPlugin()
 	{
@@ -1391,23 +1338,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsCorrelationFactory::InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsCorrelationFactory::InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsCorrelationFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsCorrelationFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsCorrelationFactory::RegisterCorrelation(const QString &name, const QString &pluginName, const QString &description, CreateCorrelationCallback cb)
 	{
@@ -1490,6 +1430,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		return mDateMap;
 	}
 
+	std::map<const QString, QString>& CrpsCorrelationFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
 	std::map<const QString, QString> &  CrpsCorrelationFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
@@ -1508,8 +1453,7 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString> CrpsModulationFactory::mLinkMap;
 	std::map<const QString, QString> CrpsModulationFactory::mAuthorMap;
 	std::map<const QString, QString> CrpsModulationFactory::mDateMap;
-
-	//QString CrpsModulationFactory::mDescription;
+	std::map<const QString, QString> CrpsModulationFactory::mVersionMap;
 
 	QString CrpsModulationFactory::GetOwnerPlugin()
 	{
@@ -1521,23 +1465,16 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsModulationFactory::InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+	void CrpsModulationFactory::InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
 		mTobeInstalledObjectsMap[name] = description;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-	}
+		mVersionMap[name] = version;
 
-	/*QString CrpsModulationFactory::GetDescription()
-	{
-		return mDescription;
 	}
-	void CrpsModulationFactory::SetDescription(QString description)
-	{
-		mDescription = description;
-	}*/
 
 	void CrpsModulationFactory::RegisterModulation(const QString &name, const QString &pluginName, const QString &description, CreateModulationCallback cb)
 	{
@@ -1618,6 +1555,11 @@ typedef IrpsWLModulation *(*CreateModulationCallback)();
 	std::map<const QString, QString>& CrpsModulationFactory::GetDateMap()
 	{
 		return mDateMap;
+	}
+
+	std::map<const QString, QString>& CrpsModulationFactory::GetVersionMap()
+	{
+		return mVersionMap;
 	}
 
 	std::map<const QString, QString> &  CrpsModulationFactory::GetOjectsSkipDuringUnintallationMap()

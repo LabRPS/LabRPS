@@ -51,6 +51,25 @@ const char* LabRPS::bugreport_Uri =
 const char* LabRPS::download_Uri =
     "https://sourceforge.net/projects/labrps/";
 
+// rps phenomena
+  QString LabRPS::rpsPhenomenonWindVelocity = "Wind Velocity";
+  QString LabRPS::rpsPhenomenonSeaSurface = "Sea Surface";
+  QString LabRPS::rpsPhenomenonSeismicGroundMotion = "Seismic Ground Motion";
+
+  // object groups
+  QString LabRPS::objGroupLocationDistribution = "Location Distributions";
+  QString LabRPS::objGroupMeanWindProfile = "Mean Wind Profiles";
+  QString LabRPS::objGroupAlongWindSpectrum = "Along Wind Spectrum";
+  QString LabRPS::objGroupVerticalWindSpectrum = "Vertical Wind Spectrum";
+  QString LabRPS::objGroupAcrossWindSpectrum = "Across Wind Spectrum";
+  QString LabRPS::objGroupSpectrumDecompositionMethod = "Spectrum Decomposition Method";
+  QString LabRPS::objGroupCoherenceFunction = "Coherence Function";
+  QString LabRPS::objGroupSimulationMethod = "Simulation Method";
+  QString LabRPS::objGroupFrequencyDistribution = "Frequency Distribution";
+  QString LabRPS::objGroupRandomnessProvider = "Randomness Provider";
+  QString LabRPS::objGroupModulationFunction = "Modulation Function";
+  QString LabRPS::objGroupCorrelationFunction = "Correlation Function";
+
 QStringList LabRPS::locales_ = QStringList();
 
 int LabRPS::version() { return LabRPS_versionNo; }

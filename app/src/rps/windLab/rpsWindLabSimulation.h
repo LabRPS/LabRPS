@@ -33,6 +33,7 @@ signals:
   void progressBarSetMin(int);
   void progressBarSetMax(int);
   void progressBarReset();
+  void stopped();
 
 public slots:
 
@@ -131,6 +132,8 @@ public:
 public:
   CRPSWindLabsimuData &GetWindLabData();
   RPSWindLabSimulationOutputWorker *GetWindLabSimulationOutputWorker();
+  RPSWindLabSimulationWorker *GetWindLabSimulationWorker();
+
   void windLabDataInitialize();
   void WriteMapToRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
   void ReadMapFromRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
@@ -179,6 +182,8 @@ public:
   void candidateInitialData(QString category, QString currentSelected);
 
   void createOutputWorker();
+  void createSimulationWorker();
+
 
   void fillLocationJComboBox(QComboBox *locationJComboBox);
   void fillLocationKComboBox(QComboBox *locationKComboBox);

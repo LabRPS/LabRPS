@@ -136,6 +136,8 @@
 #include "core/propertybrowser/ObjectBrowserTreeItemModel.h"
 #include "core/propertybrowser/propertybrowser.h"
 #include "core/propertybrowser/propertyeditor.h"
+#include "core/propertybrowser/pluginpropertybrowser.h"
+#include "core/propertybrowser/pluginpropertyeditor.h"
 #include "future/lib/XmlStreamWriter.h"
 #include "scripting/ScriptingFunctions.h"
 #include "scripting/ScriptingLangDialog.h"
@@ -163,6 +165,7 @@ ApplicationWindow::ApplicationWindow()
 #endif
       // propertybrowser(new PropertyBrowser(this, this)),
       propertyeditor(new PropertyEditor(this, this)),
+      pluginpropertyeditor(new PluginPropertyEditor(this, this)),
       d_workspace(new QMdiArea(this)),
       lastModified(nullptr),
       fileToolbar(new QToolBar(tr("File"), this)),
@@ -204,6 +207,7 @@ ApplicationWindow::ApplicationWindow()
       d_plot_mapper(new QSignalMapper(this)),
       statusBarInfo(new QLabel(this)),
       actionShowPropertyEditor(new QAction(this)),
+      actionShowPluginPropertyEditor(new QAction(this)),
       actionShowProjectExplorer(new QAction(this)),
       actionShowResultsLog(new QAction(this)),
       actionShowConsole(new QAction(this)),
@@ -261,7 +265,7 @@ ApplicationWindow::ApplicationWindow()
   actionCopyStatusBarText = new QAction(tr("&Copy status bar text"), this);
   actionExportPDF->setShortcut(tr("Ctrl+Alt+P"));
 
-  if (rpsSimulator->getSelectedRandomPhenomenon() == "Wind Velocity")
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
     // windLab input
     actionWindVelocity = new QAction(tr("&Wind Velocity..."), this);
@@ -357,6 +361,7 @@ ApplicationWindow::ApplicationWindow()
 
   // Show/hide toggle Project Explorer, Result Log & Scripting Console
   actionShowPropertyEditor = propertyeditor->toggleViewAction();
+  actionShowPluginPropertyEditor = pluginpropertyeditor->toggleViewAction();
   // actionShowPropertyEditor = propertybrowser->toggleViewAction();
   actionShowProjectExplorer = ui_->explorerWindow->toggleViewAction();
   actionShowResultsLog = ui_->logWindow->toggleViewAction();
@@ -478,6 +483,10 @@ ApplicationWindow::ApplicationWindow()
   addDockWidget(Qt::RightDockWidgetArea, propertyeditor);
   propertyeditor->show();
 
+  pluginpropertyeditor->setObjectName("pluginpropertyeditorWindow");
+  addDockWidget(Qt::LeftDockWidgetArea, pluginpropertyeditor);
+  pluginpropertyeditor->show();
+
   disableActions();
   // After initialization of QDockWidget, for toggleViewAction() to work
   // Set icons for QActions
@@ -568,19 +577,23 @@ ApplicationWindow::ApplicationWindow()
   connect(ui_->actionShowSimulationToolbar, SIGNAL(toggled(bool)),
           simulationToolbar, SLOT(setVisible(bool)));
   actionShowPropertyEditor->setText(tr("Property Editor"));
+  actionShowPluginPropertyEditor->setText(tr("Object Editor"));
   actionShowProjectExplorer->setText(tr("Project Explorer"));
   actionShowResultsLog->setText(tr("Result Log"));
   actionShowConsole->setText(tr("Console"));
   actionShowPropertyEditor->setToolTip(tr("Show Property Editor"));
+  actionShowPluginPropertyEditor->setToolTip(tr("Show Object Editor"));
   actionShowProjectExplorer->setToolTip(tr("Show Project Explorer"));
   actionShowResultsLog->setToolTip(tr("Show Result Log"));
   actionShowConsole->setToolTip(tr("Show Scripting Console"));
   actionShowProjectExplorer->setShortcut(tr("Ctrl+E"));
   actionShowPropertyEditor->setCheckable(true);
+  actionShowPluginPropertyEditor->setCheckable(true);
   actionShowProjectExplorer->setCheckable(true);
   actionShowResultsLog->setCheckable(true);
   actionShowConsole->setCheckable(true);
   ui_->menuView->addAction(actionShowPropertyEditor);
+  ui_->menuView->addAction(actionShowPluginPropertyEditor);
   ui_->menuView->addAction(actionShowProjectExplorer);
   ui_->menuView->addAction(actionShowResultsLog);
 #ifdef SCRIPTING_CONSOLE
@@ -1128,7 +1141,7 @@ ApplicationWindow::ApplicationWindow()
   connect(this, qOverload<>(&ApplicationWindow::modified), this,
           qOverload<>(&ApplicationWindow::modifiedProject));
 
-  if (rpsSimulator->getSelectedRandomPhenomenon() == "Wind Velocity")
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
     // windLab input
     connect(actionWindVelocity, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
@@ -1240,14 +1253,15 @@ ApplicationWindow::ApplicationWindow()
 
   // Simulation
   connect(ui_->actionRunSimulation, SIGNAL(triggered()), rpsSimulator, SLOT(runSimulation()));
-  connect(ui_->actionPauseSimulation, SIGNAL(triggered()), rpsSimulator, SLOT(pauseSimulation()));
+  //connect(ui_->actionPauseSimulation, SIGNAL(triggered()), rpsSimulator, SLOT(pauseSimulation()));
   connect(ui_->actionStopSimulation, SIGNAL(triggered()), rpsSimulator, SLOT(stopSimulation()));
   connect(ui_->actionSimulationOptions, SIGNAL(triggered()), rpsSimulator, SLOT(simulationOptions()));
   connect(ui_->actionPlugins, SIGNAL(triggered()), rpsSimulator, SLOT(rpsPlugins()));
   connect(ui_->actionCompareAccuracy, SIGNAL(triggered()), rpsSimulator, SLOT(compareAccuracy()));
   connect(ui_->actionCompareComputationTime, SIGNAL(triggered()), rpsSimulator, SLOT(compareComputationTime()));
   connect(ui_->actionCompareMemoryUsage, SIGNAL(triggered()), rpsSimulator, SLOT(compareMemoryUsage()));
-  
+  connect(rpsSimulator, &RPSSimulation::pluginModified, pluginpropertyeditor, &PluginPropertyEditor::populateObjectBrowser);
+
   // output
   connect(comboxbox_LocJ_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
           rpsSimulator, SLOT(locJCurrentIndexChanged(int)));
@@ -1435,7 +1449,7 @@ void ApplicationWindow::makeToolBars()
 
   // Simulation tools toolbar
   simulationToolbar->addAction(ui_->actionRunSimulation);
-  simulationToolbar->addAction(ui_->actionPauseSimulation);
+  //simulationToolbar->addAction(ui_->actionPauseSimulation);
   simulationToolbar->addAction(ui_->actionStopSimulation);
   simulationToolbar->addSeparator();
   simulationToolbar->addAction(ui_->actionSimulationOptions);
@@ -1500,6 +1514,7 @@ void ApplicationWindow::makeToolBars()
   matrix3DPlotToolbar->setEnabled(false);
   graph3DToolbar->setEnabled(false);
   // simulationToolbar->setEnabled(false);
+  
 
   // Graph 3D orentation actions
   connect(actionResetCameraFront_, SIGNAL(triggered()), this,
@@ -1558,7 +1573,7 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
   ui_->actionEvaluateExpression->setEnabled(false);
 
   // create menu for simulation input
-  if (rpsSimulator->getSelectedRandomPhenomenon() == "Wind Velocity")
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
     ui_->menuInput->addAction(actionWindVelocity);
     ui_->menuInput->addAction(actionMeanWindVelocity);
@@ -1809,11 +1824,18 @@ void ApplicationWindow::customToolBars(QMdiSubWindow *subwindow)
   }
   else
   {
-    graphToolsToolbar->setEnabled(false);
-    tableToolbar->setEnabled(false);
-    plot2DToolbar->setEnabled(false);
-    graph3DToolbar->setEnabled(false);
-    matrix3DPlotToolbar->setEnabled(false);
+    // graphToolsToolbar->setEnabled(false);
+    // tableToolbar->setEnabled(false);
+    // plot2DToolbar->setEnabled(false);
+    // graph3DToolbar->setEnabled(false);
+    // matrix3DPlotToolbar->setEnabled(false);
+    
+    editToolbar->setVisible(false);
+    graphToolsToolbar->setVisible(false);
+    tableToolbar->setVisible(false);
+    plot2DToolbar->setVisible(false);
+    matrix3DPlotToolbar->setVisible(false);
+    graph3DToolbar->setVisible(false);
   }
 }
 
@@ -3025,6 +3047,7 @@ void ApplicationWindow::windowActivated(QMdiSubWindow *subwindow)
   if (!subwindow || !qobject_cast<MyWidget *>(subwindow))
   {
     propertyeditor->populateObjectBrowser(nullptr);
+    pluginpropertyeditor->populateObjectBrowser(nullptr);
     // propertybrowser->populateObjectBrowser(nullptr);
     return;
   }
@@ -3066,6 +3089,8 @@ void ApplicationWindow::windowActivated(QMdiSubWindow *subwindow)
   if (f)
     f->setActiveWindow(mywidget);
   propertyeditor->populateObjectBrowser(mywidget);
+  pluginpropertyeditor->populateObjectBrowser(nullptr);
+
   // propertybrowser->populateObjectBrowser(mywidget);
   emit modified();
 }
@@ -4187,23 +4212,23 @@ void ApplicationWindow::loadSettings()
   ui_->actionShowFileToolbar->setChecked(
       settings.value("FileToolbar", true).toBool());
   ui_->actionShowEditToolbar->setChecked(
-      settings.value("EditToolbar", true).toBool());
+      settings.value("EditToolbar", false).toBool());
   ui_->actionShowGraphToolbar->setChecked(
-      settings.value("GraphToolbar", true).toBool());
+      settings.value("GraphToolbar", false).toBool());
   ui_->actionShowPlotToolbar->setChecked(
-      settings.value("PlotToolbar", true).toBool());
+      settings.value("PlotToolbar", false).toBool());
   ui_->actionShowTableToolbar->setChecked(
-      settings.value("TableToolbar", true).toBool());
+      settings.value("TableToolbar", false).toBool());
   ui_->actionShowMatrixPlotToolbar->setChecked(
-      settings.value("MatrixPlotToolbar", true).toBool());
+      settings.value("MatrixPlotToolbar", false).toBool());
   ui_->actionShow3DSurfacePlotToolbar->setChecked(
-      settings.value("3DSurfacePlotToolbar", true).toBool());
+      settings.value("3DSurfacePlotToolbar", false).toBool());
   ui_->actionShowSimulationToolbar->setChecked(
       settings.value("SimulationToolbar", true).toBool());
   ui_->actionLockToolbars->setChecked(
       settings.value("LockToolbars", false).toBool());
   ui_->explorerWindow->setVisible(
-      settings.value("ShowExplorer", false).toBool());
+      settings.value("ShowExplorer", true).toBool());
   ui_->logWindow->setVisible(settings.value("ShowResultsLog", false).toBool());
 #ifdef SCRIPTING_CONSOLE
   consoleWindow->setVisible(settings.value("ShowConsole", false).toBool());
@@ -6808,6 +6833,8 @@ void ApplicationWindow::closeWindow(MyWidget *window)
     customMenu(nullptr);
     customToolBars(nullptr);
     propertyeditor->populateObjectBrowser(nullptr);
+    pluginpropertyeditor->populateObjectBrowser(nullptr);
+
   }
 
   emit modified();
@@ -11414,8 +11441,8 @@ void ApplicationWindow::loadIcons()
 
   ui_->actionRunSimulation->setIcon(
       IconLoader::load("project-open", IconLoader::LightDark));
-  ui_->actionPauseSimulation->setIcon(
-      IconLoader::load("project-open", IconLoader::LightDark));
+  // ui_->actionPauseSimulation->setIcon(
+  //     IconLoader::load("project-open", IconLoader::LightDark));
   ui_->actionStopSimulation->setIcon(
       IconLoader::load("project-open", IconLoader::LightDark));
   ui_->actionSimulationOptions->setIcon(

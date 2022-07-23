@@ -11,7 +11,12 @@ class RPSWindLabSimulationWorker : public QObject
     Q_OBJECT
  
 public:
-    RPSWindLabSimulationWorker(CRPSWindLabsimuData windLabData, QStringList information);
+    RPSWindLabSimulationWorker(CRPSWindLabsimuData windLabData,
+                                     QStringList information,
+                                     int locationJ,
+                                     int locationK,
+                                     int frequencyIndex,
+                                     int timeIndex);
     ~RPSWindLabSimulationWorker();
     bool isStopped();
 
@@ -22,6 +27,7 @@ public slots:
 
 
 signals:
+    void showWindVelocityOutput();
     void sendInformation(QStringList infoList);
     void progressBarShow();
     void progressBarHide();
@@ -29,6 +35,10 @@ signals:
     void progressBarSetMin(int value);
     void progressBarSetMax(int value);
     void progressBarReset();
+    void finished();
+
+public:
+void windVelocityOutp();
     
 private:
     CRPSWindLabsimuData m_windLabData;
@@ -39,6 +49,21 @@ private:
     int maxStep;
     int currentStep;
     int maxStepOld;
+
+    int m_locationJ;
+    int m_locationK;
+    int m_frequencyIndex;
+    int m_timeIndex;
+
+public:
+    vec m_ResultVector;
+    vec m_ResultVector2;
+
+    mat m_ResultMatrix;
+    mat m_ResultMatrix2;
+
+public:
+    QStringList getInformation();
 };
 
 #endif // RPSWINDLABSIMULATIONWORKER_H

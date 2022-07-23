@@ -50,7 +50,7 @@ signals:
     void finished();
 
     // output
-    void showWindVelocityOutput();
+    
     void showFrequencyDistributionOutput();
     void showLocationDistributionOutput();
     void showXSpectrumOutput();

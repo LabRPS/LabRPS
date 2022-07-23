@@ -14,6 +14,8 @@ HEADERS  += src/ApplicationWindow.h \
             src/core/propertybrowser/DummyWindow.h \
             src/core/propertybrowser/propertyeditor.h \
             src/core/propertybrowser/propertybrowser.h \
+            src/core/propertybrowser/pluginpropertyeditor.h \
+            src/core/propertybrowser/pluginpropertybrowser.h \            
             src/widgets/ColorLabel.h \
             src/globals.h\
             src/scripting/MuParserScript.h \
@@ -109,6 +111,8 @@ SOURCES  += src/ApplicationWindow.cpp \
             src/core/propertybrowser/DummyWindow.cpp \
             src/core/propertybrowser/propertyeditor.cpp \
             src/core/propertybrowser/propertybrowser.cpp \
+            src/core/propertybrowser/pluginpropertyeditor.cpp \
+            src/core/propertybrowser/pluginpropertybrowser.cpp \            
             src/widgets/ColorLabel.cpp \
             src/scripting/MuParserScript.cpp \
             src/scripting/MuParserScripting.cpp \
@@ -196,6 +200,8 @@ SOURCES  += src/ApplicationWindow.cpp \
 FORMS        += src/ApplicationWindow.ui \
                 src/core/propertybrowser/propertyeditor.ui \
                 src/core/propertybrowser/propertybrowser.ui \
+                src/core/propertybrowser/pluginpropertyeditor.ui \
+                src/core/propertybrowser/pluginpropertybrowser.ui \                
                 src/scripting/widgets/ConsoleWidget.ui \
                 src/widgets/CustomCharacterDialog.ui \
                 src/ui/GeneralApplicationSettings.ui \

@@ -2,68 +2,52 @@
 #include "RPSWindLabAPI.h"
 #include "RPS.h"
 #include <QTime>
+#include <QThread>
 
-RPSWindLabSimulationWorker::RPSWindLabSimulationWorker(CRPSWindLabsimuData windLabData, QStringList information):
-m_windLabData(windLabData), 
-m_information(information), 
-stopped(true) 
+RPSWindLabSimulationWorker::RPSWindLabSimulationWorker(CRPSWindLabsimuData windLabData,
+                                                                   QStringList information,
+                                                                   int locationJ,
+                                                                   int locationK,
+                                                                   int frequencyIndex,
+                                                                   int timeIndex) : m_windLabData(windLabData),
+                                                                                    m_information(information),
+                                                                                    m_locationJ(locationJ),
+                                                                                    m_locationK(locationK),
+                                                                                    m_frequencyIndex(frequencyIndex),
+                                                                                    m_timeIndex(timeIndex),
+                                                                                    stopped(true)
 {
     minStep = 0;
     maxStep = 0;
     currentStep = 0;
     maxStepOld = 0;
+    m_windLabData.isInterruptionRequested = false;
+
 }
  
 RPSWindLabSimulationWorker::~RPSWindLabSimulationWorker() 
 {
-
+    m_information.clear();
+    m_information.append("Simulation worker distroyed");
+    emit sendInformation(m_information);
 }
  
 void RPSWindLabSimulationWorker::simulate() 
 {
-    QTime t;
-   t.start();
-
-    if (isStopped()) 
+    if (isStopped())
     {
-
-    stopped = false;
-        // Build an object
-	IrpsWLSimuMethod *currentRndProvider = CrpsSimuMethodFactory::BuildSimuMethod(m_windLabData.simulationMethod);
-
-	// Check whether good object
-	if (NULL == currentRndProvider)
-	{
-		return;
-	}
-	
-    mat randomWindVelocity(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
-
-    emit progressBarShow();
-
-	// simulation
-    currentRndProvider->Simulate(m_windLabData, randomWindVelocity, minStep, maxStep, currentStep, m_information);
-	
-    // Delete the object
-	delete currentRndProvider;
-
-    
+        stopped = false;
+        windVelocityOutp();
     }
-    m_information.append(QString::number(t.elapsed())) ;
-    
-    emit sendInformation(m_information);
-    // emit progressBarHide();
 
     stopped = true;
-
-    // Self-destruct now!
-    deleteLater(); 
 }
 
 void RPSWindLabSimulationWorker::stop()
 {
     mutex.lock();
     stopped = true;
+    m_windLabData.isInterruptionRequested = true;   
     mutex.unlock();
 }
 
@@ -94,3 +78,61 @@ bool RPSWindLabSimulationWorker::isStopped()
         mutex.unlock();
 
     }
+
+    
+void RPSWindLabSimulationWorker::windVelocityOutp()
+{
+    if (m_locationJ > 0 &&
+        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+        m_locationK == 0 &&
+        m_timeIndex == m_windLabData.numberOfTimeIncrements + 1
+    )
+    {
+        // Build an object
+	IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(m_windLabData.simulationMethod);
+
+	// Check whether good object
+	if (NULL == currentSimuMethod)
+	{
+		m_information.append("Invalid random wind simulation method");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+	}
+	
+    m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+	// simulation
+    currentSimuMethod->Simulate(m_windLabData, m_ResultMatrix, minStep, maxStep, currentStep, m_information);
+	
+    m_information.append(tr("The simulation took %1 ms").arg(QString::number(t.elapsed())));
+
+    // Delete the object
+	delete currentSimuMethod;
+    }
+    else
+    {
+        m_information.append("Sorry, there is no function that meet your requirements.");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    if(m_windLabData.isInterruptionRequested)
+    {
+     emit progressBarHide();
+     return;
+    }
+
+    emit showWindVelocityOutput();
+
+}
+
+QStringList RPSWindLabSimulationWorker::getInformation()
+{
+    return m_information;
+}
+

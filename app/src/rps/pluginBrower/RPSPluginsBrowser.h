@@ -119,6 +119,7 @@ class ObjectSelectionPage : public QWizardPage
 
 public:
     ObjectSelectionPage(int installationType, QString installingPluginName, QString installingPluginFullPath, QWidget *parent = nullptr);
+    ~ObjectSelectionPage();
 
 public slots:
     void highlightChecked(QListWidgetItem* item);
@@ -141,7 +142,7 @@ private:
     int InstallationType;
     QString InstallingPluginName;
     QString InstallingPluginFullPath;
-    
+    RPSSimulation *rpsSimulator;
 private:
 
 bool validatePage() override;

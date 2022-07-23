@@ -24,9 +24,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeCoherence(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeCoherence(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsCoherenceFactory::InitializeCoherence(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsCoherenceFactory::InitializeCoherence(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterCoherence(const QString name, const QString &pluginName)
@@ -47,9 +47,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeLocationDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeLocationDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsLocationDistributionFactory::InitializeLocationDistribution(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsLocationDistributionFactory::InitializeLocationDistribution(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterLocationDistribution(const QString name, const QString &pluginName)
@@ -71,9 +71,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeMean(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeMean(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsMeanFactory::InitializeMean(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsMeanFactory::InitializeMean(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterMean(const QString name, const QString &pluginName)
@@ -95,9 +95,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeXSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeXSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsXSpectrumFactory::InitializeXSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsXSpectrumFactory::InitializeXSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterXSpectrum(const QString name, const QString &pluginName)
@@ -119,9 +119,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeZSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeZSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsZSpectrumFactory::InitializeZSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsZSpectrumFactory::InitializeZSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterZSpectrum(const QString name, const QString &pluginName)
@@ -142,9 +142,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeYSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeYSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsYSpectrumFactory::InitializeYSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsYSpectrumFactory::InitializeYSpectrum(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterYSpectrum(const QString name, const QString &pluginName)
@@ -188,9 +188,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeSimuMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeSimuMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsSimuMethodFactory::InitializeSimuMethod(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsSimuMethodFactory::InitializeSimuMethod(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterSimuMethod(const QString name, const QString &pluginName)
@@ -213,9 +213,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeFrequencyDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeFrequencyDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterFrequencyDistribution(const QString name, const QString &pluginName)
@@ -238,9 +238,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeRandomness(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeRandomness(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsRandomnessFactory::InitializeRandomness(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsRandomnessFactory::InitializeRandomness(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterRandomness(const QString name, const QString &pluginName)
@@ -263,9 +263,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializePSDdecomMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializePSDdecomMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterPSDdecomMethod(const QString name, const QString &pluginName)
@@ -287,9 +287,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeCorrelation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeCorrelation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsCorrelationFactory::InitializeCorrelation(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsCorrelationFactory::InitializeCorrelation(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterCorrelation(const QString name, const QString &pluginName)
@@ -311,9 +311,9 @@
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeModulation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate)
+ void InitializeModulation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsModulationFactory::InitializeModulation(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate);
+	 CrpsModulationFactory::InitializeModulation(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterModulation(const QString name, const QString &pluginName)

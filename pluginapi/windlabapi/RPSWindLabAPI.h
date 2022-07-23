@@ -35,7 +35,7 @@
 	public:
 		typedef IrpsWLCoherence *(*CreateCoherenceCallback)();
 
-		static void InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterCoherence(const QString &name, const QString &pluginName, const QString &description, CreateCoherenceCallback cb);
 
@@ -54,12 +54,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateCoherenceCallback> CallbackMap;
@@ -75,6 +75,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -86,7 +87,7 @@
 	public:
 		typedef IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
 
-		static void InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterLocationDistribution(const QString &name, const QString &pluginName, const QString &description, CreateLocDistrCallback cb);
 
@@ -104,12 +105,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateLocDistrCallback> CallbackMap;
@@ -124,6 +125,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -136,7 +138,7 @@
 	public:
 		typedef IrpsWLMean *(*CreateMeanCallback)();
 
-		static void InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterMean(const QString &name, const QString &pluginName, const QString &description, CreateMeanCallback cb);
 
@@ -152,12 +154,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateMeanCallback> CallbackMap;
@@ -172,6 +174,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -183,7 +186,7 @@
 	public:
 		typedef IrpsWLXSpectrum *(*CreateXSpectrumCallback)();
 
-		static void InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterXSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateXSpectrumCallback cb);
 
@@ -199,12 +202,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateXSpectrumCallback> CallbackMap;
@@ -219,6 +222,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -230,7 +234,7 @@
 	public:
 		typedef IrpsWLZSpectrum *(*CreateZSpectrumCallback)();
 
-		static void InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterZSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateZSpectrumCallback cb);
 
@@ -246,12 +250,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateZSpectrumCallback> CallbackMap;
@@ -266,6 +270,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -277,7 +282,7 @@
 	public:
 		typedef IrpsWLYSpectrum *(*CreateYSpectrumCallback)();
 
-		static void InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterYSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateYSpectrumCallback cb);
 
@@ -293,12 +298,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateYSpectrumCallback> CallbackMap;
@@ -313,6 +318,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -326,7 +332,7 @@
 	public:
 		typedef IrpsWLSimuMethod *(*CreateSimuMethodCallback)();
 
-		static void InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterSimuMethod(const QString &name, const QString &pluginName, const QString &description, CreateSimuMethodCallback cb);
 
@@ -342,12 +348,13 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
+
 	private:
 		typedef std::map<const QString, CreateSimuMethodCallback> CallbackMap;
 		static CallbackMap mSimuMethods;
@@ -361,6 +368,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -372,7 +380,7 @@
 	public:
 		typedef IrpsWLFrequencyDistribution *(*CreateFrequencyDistributionCallback)();
 
-		static void InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterFrequencyDistribution(const QString &name, const QString &pluginName, const QString &description, CreateFrequencyDistributionCallback cb);
 
@@ -388,12 +396,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateFrequencyDistributionCallback> CallbackMap;
@@ -408,6 +416,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -419,7 +428,7 @@
 	public:
 		typedef IrpsWLRandomness *(*CreateRandomnessCallback)();
 
-		static void InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterRandomness(const QString &name, const QString &pluginName, const QString &description, CreateRandomnessCallback cb);
 
@@ -435,12 +444,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateRandomnessCallback> CallbackMap;
@@ -455,6 +464,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -466,7 +476,7 @@
 	public:
 		typedef IrpsWLPSDdecompositionMethod *(*CreatePSDdecomMethodCallback)();
 
-		static void InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterPSDdecomMethod(const QString &name, const QString &pluginName, const QString &description, CreatePSDdecomMethodCallback cb);
 
@@ -482,12 +492,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 		static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreatePSDdecomMethodCallback> CallbackMap;
@@ -502,6 +512,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -512,7 +523,7 @@
 	public:
 		typedef IrpsWLCorrelation *(*CreateCorrelationCallback)();
 
-		static void InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterCorrelation(const QString &name, const QString &pluginName, const QString &description, CreateCorrelationCallback cb);
 
@@ -528,12 +539,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
     	static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateCorrelationCallback> CallbackMap;
@@ -548,6 +559,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 
@@ -558,7 +570,7 @@
 	public:
 		typedef IrpsWLModulation *(*CreateModulationCallback)();
 
-		static void InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate);
+		static void InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterModulation(const QString &name, const QString &pluginName, const QString &description, CreateModulationCallback cb);
 
@@ -574,12 +586,12 @@
 		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
 		static std::map<const QString, QString> & GetOjectDescriptionMap();
 		static std::map<const QString, QString> & GetOjectAndPluginMap();
-		static QString& GetObjectVersion();
 		static std::map<const QString, QString> & GetTitleMap();
 		static std::map<const QString, QString> & GetLinkMap();
 		static std::map<const QString, QString> & GetAuthorMap();
 		static std::map<const QString, QString> & GetDateMap();
 	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
 
 	private:
 		typedef std::map<const QString, CreateModulationCallback> CallbackMap;
@@ -594,6 +606,7 @@
 		static std::map<const QString, QString> mAuthorMap;
 		static std::map<const QString, QString> mDateMap;
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
 
 	};
 

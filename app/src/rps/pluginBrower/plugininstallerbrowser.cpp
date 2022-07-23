@@ -114,10 +114,11 @@ void PluginInstallerBrowser::updateButton()
 
         RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
         
-		PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
-       
+		//PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
+       	std::unique_ptr<PlunginIntallationWizard> wizard(new PlunginIntallationWizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu));
+
 	    // QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
- 	    wizard.exec();
+ 	    wizard->exec();
 
 	   // installing plugin
 	

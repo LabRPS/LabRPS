@@ -180,6 +180,7 @@ public:
 	static ObjectDescription getRandomnessProviderObjDescription(const QString &objectName);
 	static ObjectDescription getModulationFunctionObjDescription(const QString &objectName);
 	static ObjectDescription getCorrelationFunctionObjDescription(const QString &objectName);
+	
 };
 
 #endif

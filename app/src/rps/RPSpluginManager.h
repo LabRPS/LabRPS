@@ -77,7 +77,7 @@ public:
 	QString GetPluginReleaseDate();
 
 	// Get the subfolder containing the plugin
-	QString GetPluginSbubFolder();
+	QString GetPluginSubFolder();
 
 	// Retrieve string from dll function address
 	QString GetStringFromDllFunct(const QString &name);

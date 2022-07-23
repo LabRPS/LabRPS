@@ -131,27 +131,6 @@ void RPSWindLabSimulation::meanWindVelocity()
 	}
 }
 
-void RPSWindLabSimulation::createOutputWorker()
-{
-	// create a worker
-	simulationOutputWorker = new RPSWindLabSimulationOutputWorker(windLabData, information, locationJ, locationK, frequencyIndex, timeIndex);
-
-	// create a new thread and attach the worker to it
-	simulationOutputThread = new QThread(this);
-	simulationOutputWorker->moveToThread(simulationOutputThread);
-
-	// add the functionality to stop the outputing process
-	connect(this, SIGNAL(stopped()), simulationOutputWorker, SLOT(stop()), Qt::DirectConnection);
-
-	connect(simulationOutputWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-	connect(simulationOutputWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
-	connect(simulationOutputWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
-
-
-	// add the functionaly to delete the worker after work is done
-	connect(simulationOutputWorker, SIGNAL(finished()), simulationOutputWorker, SLOT(deleteLater()));
-}
-
 void RPSWindLabSimulation::frequencyDistributionOutput()
 {
 	createOutputWorker();
@@ -273,6 +252,12 @@ RPSWindLabSimulationOutputWorker *RPSWindLabSimulation::GetWindLabSimulationOutp
 {
 	return simulationOutputWorker;
 }
+
+RPSWindLabSimulationWorker *RPSWindLabSimulation::GetWindLabSimulationWorker()
+{
+	return simulationWorker;
+}
+
 
 void RPSWindLabSimulation::windLabDataInitialize()
 {
@@ -704,94 +689,11 @@ bool RPSWindLabSimulation::IsThisObjectInstalled(std::map<const QString, QString
 
 void RPSWindLabSimulation::runSimulation()
 {
-	// simulationThread = new QThread(this);
-	// simulationWorker = new RPSWindLabSimulationWorker(windLabData, information);
-
-	// simulationWorker->moveToThread(simulationThread);
-	// connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-	// connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(simulate()));
-	// connect(simulationWorker, SIGNAL(finished()), simulationThread, SLOT(quit()));
-	// connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
-	// connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
-	// simulationThread->start();
-
-	// from https://stackoverflow.com/questions/4093159/what-is-the-correct-way-to-implement-a-qthread-example-please
-	simulationThread = new QThread();
-	simulationWorker = new RPSWindLabSimulationWorker(windLabData, information);
-
-	simulationTimer = new QTimer();
-	simulationTimer->setInterval(1000); // Timer's inteveral set to 0 means that timer will trigger an event as soon as there are no other events to be processed
-
-	simulationWorker->moveToThread(simulationThread);
-	simulationTimer->moveToThread(simulationThread);
-
-	// Make the worker watch when the thread starts then let the worker start simulation
-	connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(simulate()));
-
-	// Make the worker set its 'stop' flag when we're done.
-	// This is performed while the simulate() method is still running,
-	// so we need to execute it concurrently from this thread,
-	// hence the Qt::DirectConnection. The stop() method is thread-safe
-	// (uses a mutex to set the flag).
-	connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
-
-	// Make the thread quit when the worker self-destructs:
-	connect(simulationWorker, SIGNAL(destroyed()), simulationThread, SLOT(quit()));
-
-	// Make the thread self-destruct when it finishes,
-	// or rather, make the main thread delete it:
-	connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
-
-	connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-	connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
-	connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
-	connect(simulationWorker, SIGNAL(progressBarSetMin(int)), this, SLOT(progressBarSetMinSL(int)));
-	connect(simulationWorker, SIGNAL(progressBarSetMax(int)), this, SLOT(progressBarSetMaxSL(int)));
-	connect(simulationWorker, SIGNAL(progressBarSetValue(int)), this, SLOT(progressBarSetValueSL(int)));
-	connect(simulationWorker, SIGNAL(progressBarReset()), this, SLOT(progressBarResetSL()));
-
-	connect(simulationTimer, SIGNAL(timeout()), simulationWorker, SLOT(progressBarMinMaxValue()));
-	connect(simulationThread, SIGNAL(started()), simulationTimer, SLOT(start()));
-	connect(simulationWorker, SIGNAL(destroyed()), simulationTimer, SLOT(deleteLater()));
-
+	createSimulationWorker();	
+	connect(simulationWorker, SIGNAL(showWindVelocityOutput()), this, SLOT(displayWindVelocity()));
+	emit progressBarShow();
 	simulationThread->start();
-	// simulationTimer->start();
-	// QMetaObject::invokeMethod(timer, "start", Qt::QueuedConnection);
-
-	// QMessageBox::warning(0, "in thread", "WindLab simulation");
-
-	// int i = 1;
-	// while(10>i){ i++;}
-
-	//   // Build an object
-	// 	IrpsSeLRandomness* currentRndProvider = CrpsSeLRandomnessFactory::BuildRandomness(GetWindLabData().randomnessProvider);
-
-	// 	// Check whether good object
-	// 	if (NULL == currentRndProvider) { return; }
-
-	//   mat randomValueArray(GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition);
-
-	// 	// Apply iniatial setting
-	// 	currentRndProvider->GenerateRandomArrayFP(GetWindLabData(), randomValueArray, information);
-
-	//   QMessageBox::warning(
-	//         this, ("sim"),
-	//         QString::number(randomValueArray(0,0)));
-
-	//   logInfo = ("hahahahahahaha");
-	//   showResults(true);
-
-	//   QString arrayName = ("Random Phase (%1,%2)").arg( GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition);
-
-	//   Table *table = newTable(arrayName, GetWindLabData().numberOfFrequency, GetWindLabData().numberOfSpatialPosition);
-
-	//   for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++) {
-	//     for (int i = 0; i < GetWindLabData().numberOfFrequency; i++) {
-	//     table->setCellValue(i, j, randomValueArray(i,j));
-	//       table->showNormal();
-
-	//     // t->column(i)->setTextAt(i, randomValueArray(i,j));
-	//   }  }
+	
 }
 void RPSWindLabSimulation::pauseSimulation()
 {
@@ -854,7 +756,9 @@ void RPSWindLabSimulation::pauseSimulation()
 }
 void RPSWindLabSimulation::stopSimulation()
 {
+	emit stopped();
 }
+
 void RPSWindLabSimulation::simulationOptions()
 {
 	std::unique_ptr<PRSWLSimuOptionsDlg> dlg(new PRSWLSimuOptionsDlg(this));
@@ -1448,6 +1352,8 @@ void RPSWindLabSimulation::progressBarShowSL()
 void RPSWindLabSimulation::progressBarHideSL()
 {
 	emit progressBarHide();
+	qApp->processEvents();
+
 }
 void RPSWindLabSimulation::progressBarSetValueSL(int value)
 {
@@ -1773,7 +1679,57 @@ void RPSWindLabSimulation::displayRandomPhase()
 }
 void RPSWindLabSimulation::displayWindVelocity()
 {
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
+    information = information + GetWindLabSimulationWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the random velocity results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+	if (locationJ > 0 &&
+        locationJ <= GetWindLabData().numberOfSpatialPosition &&
+        locationK == 0 &&
+        timeIndex == GetWindLabData().numberOfTimeIncrements + 1
+    )
+    {
+	    QTime t;
+		t.start();
+
+		// prepare the name of the table
+		QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition);
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		{
+			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+			{
+				table->setCellValue(i, j, GetWindLabSimulationWorker()->m_ResultMatrix(i, j));
+			}
+		}
+		table->showNormal();
+		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+
+    }
+    else
+	{
+		information.append("Sorry, there is no function that meet your requirements.");
+	}
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabSimulationWorker()->finished();
 }
 
 
@@ -2975,3 +2931,48 @@ bool RPSWindLabSimulation::loadWindLabData(XmlStreamReader *xmlreader) {
 }
 
 
+void RPSWindLabSimulation::createOutputWorker()
+{
+	// create a worker
+	simulationOutputWorker = new RPSWindLabSimulationOutputWorker(windLabData, information, locationJ, locationK, frequencyIndex, timeIndex);
+
+	// create a new thread and attach the worker to it
+	simulationOutputThread = new QThread(this);
+	simulationOutputWorker->moveToThread(simulationOutputThread);
+
+	// add the functionality to stop the outputing process
+	connect(this, SIGNAL(stopped()), simulationOutputWorker, SLOT(stop()), Qt::DirectConnection);
+
+	connect(simulationOutputWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+	connect(simulationOutputWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+	connect(simulationOutputWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+
+
+	// add the functionaly to delete the worker after work is done
+	connect(simulationOutputWorker, SIGNAL(finished()), simulationOutputWorker, SLOT(deleteLater()));
+}
+
+void RPSWindLabSimulation::createSimulationWorker()
+{
+	// create a worker
+	simulationWorker = new RPSWindLabSimulationWorker(windLabData, information, locationJ, locationK, frequencyIndex, timeIndex);
+
+	// create a new thread and attach the worker to it
+	simulationThread = new QThread(this);
+	simulationWorker->moveToThread(simulationThread);
+
+	// Make the worker watch when the thread starts then let the worker start simulation
+	connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(simulate()));
+
+	// add the functionality to stop the outputing process
+	connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
+	connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+    connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+	connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+
+
+	// add the functionaly to delete the worker after work is done  
+	connect(simulationWorker, SIGNAL(finished()), simulationThread, SLOT(quit()));
+	connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
+	connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
+}

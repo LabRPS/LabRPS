@@ -27,6 +27,9 @@
 #include "ApplicationWindow.h"
 #include "core/IconLoader.h"
 #include "globals.h"
+#include "core/propertybrowser/propertyeditor.h"
+#include "core/propertybrowser/pluginpropertyeditor.h"
+
 
 #ifdef Q_OS_WIN
 #include <windows.h>
@@ -157,7 +160,7 @@ int main(int argc, char** argv) {
   ApplicationWindow* mw = new ApplicationWindow();
   // Process more events here before starting app.
   mw->applyUserSettings();
-  mw->newTable();
+  //mw->newTable();
   mw->savedProject();
 
 #ifdef SEARCH_FOR_UPDATES
@@ -169,6 +172,11 @@ int main(int argc, char** argv) {
   mw->parseCommandLineArguments(args);
 
   mw->activateWindow();
+  mw->customMenu(nullptr);
+  mw->customToolBars(nullptr);
+  mw->propertyeditor->populateObjectBrowser(nullptr);
+  mw->pluginpropertyeditor->populateObjectBrowser(nullptr);
+
   splash->finish(mw);
 
   app->connect(app, &Application::lastWindowClosed, app, &Application::quit);

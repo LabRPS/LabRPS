@@ -145,8 +145,6 @@ bool PluginInstance::Load()
 
 bool PluginInstance::Unload()
 {
-	QMessageBox::warning(0,"1","from good");
-
 	// Initialized the plugin
 	Impl::MyPrototypeOne Uninstal_func = mImpl->GetFunctionPrototypeOne("UninstallPlugin");
 	if (!Uninstal_func)
@@ -212,7 +210,7 @@ QString PluginInstance::GetAPIVersion()
 	return mImpl->mAPIVersion;
 }
 
-QString PluginInstance::GetPluginSbubFolder()
+QString PluginInstance::GetPluginSubFolder()
 {
 	return mImpl->mPluginSubFolder;
 }
@@ -498,7 +496,7 @@ bool PluginManager::InstallPlugin(const QString &name)
 	//mInstalledPlugins.push_back(pi);
 
 	// success! add the plugin to the installed plugins map
-	mInstalledPluginsMap[pi->GetPluginSbubFolder()] = pi;
+	mInstalledPluginsMap[pi->GetPluginSubFolder()] = pi;
 	mAllInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	// Populate combo box containing RP
@@ -545,7 +543,7 @@ bool PluginManager::InstallPluginInReg(const QString &name)
 
 
 	// Success! add the plugin to the installed plugins map
-	mInstalledPluginsMap[pi->GetPluginSbubFolder()] = pi;
+	mInstalledPluginsMap[pi->GetPluginSubFolder()] = pi;
 	mAllInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	// // Report sucess
@@ -742,7 +740,7 @@ std::map<QString, PluginInstance *>& PluginManager::GetInstalledPluginsNameMap()
 //		// If the plugin is of type PRPL then save it in the document
 //		if (tr("PRPL") == pi->GetPluginType())
 //		{
-//			mAllRPMap[pi->GetPluginSbubFolder()] = pi->GetDisplayName();
+//			mAllRPMap[pi->GetPluginSubFolder()] = pi->GetDisplayName();
 //		}
 //}
 

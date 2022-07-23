@@ -58,6 +58,28 @@ class LabRPS : public QObject {
   static const char* bugreport_Uri;
   static const char* download_Uri;
 
+  // rps
+
+  // phenomena
+  static QString rpsPhenomenonWindVelocity;
+  static QString rpsPhenomenonSeaSurface;
+  static QString rpsPhenomenonSeismicGroundMotion;
+
+  // object groups
+  static QString objGroupLocationDistribution;
+  static QString objGroupMeanWindProfile;
+  static QString objGroupAlongWindSpectrum;
+  static QString objGroupVerticalWindSpectrum;
+  static QString objGroupAcrossWindSpectrum;
+  static QString objGroupSpectrumDecompositionMethod;
+  static QString objGroupCoherenceFunction;
+  static QString objGroupSimulationMethod;
+  static QString objGroupFrequencyDistribution;
+  static QString objGroupRandomnessProvider;
+  static QString objGroupModulationFunction;
+  static QString objGroupCorrelationFunction;
+
+
   //! Types of plot designations
   enum PlotDesignation {
     noDesignation = 0,  //!< no plot designation

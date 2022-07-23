@@ -2,32 +2,32 @@
 #include "rps/pluginBrower/RPSPluginsBrowser.h"
 #include "rps/RPSpluginManager.h"
 #include "rps/pluginBrower/plugininstallerbrowser.h"
-
 #include "ApplicationWindow.h"
+#include "globals.h"
+
 #include <QString>
 #include <QMessageBox>
 #include <QSettings>
 
 RPSSimulation::RPSSimulation(QWidget *parent) : QWidget(parent)
 {
+  supportedRandomPhenomena.append(LabRPS::rpsPhenomenonWindVelocity);
+  supportedRandomPhenomena.append(LabRPS::rpsPhenomenonSeismicGroundMotion);
+  supportedRandomPhenomena.append(LabRPS::rpsPhenomenonSeaSurface);
+
   QSettings settings;
 
-  selectedRandomPhenomenon = settings.value("rpsPhenomenon", false).toString();
+  selectedRandomPhenomenon = settings.value("rpsPhenomenon", LabRPS::rpsPhenomenonWindVelocity).toString();
 
-  if (selectedRandomPhenomenon.isEmpty())
-  {
-    selectedRandomPhenomenon = "Sea Surface";
-  }
-
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator = new RPSWindLabSimulation(this);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator = new RPSSeismicLabSimulation(this);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator = new RPSSeaLabSimulation(this);
   }
@@ -48,15 +48,15 @@ QString RPSSimulation::getSelectedRandomPhenomenon()
 bool RPSSimulation::GetToBeInstalledObjectsList(QStringList &lstObject, QString pluginName)
 {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     return rpsWindLabSimulator->GetToBeInstalledObjectsList(lstObject, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     return rpsSeismicLabSimulator->GetToBeInstalledObjectsList(lstObject, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->GetToBeInstalledObjectsList(lstObject, pluginName);
   }
@@ -66,15 +66,15 @@ bool RPSSimulation::GetToBeInstalledObjectsList(QStringList &lstObject, QString 
 
 bool RPSSimulation::GetToBeUninstalledObjectsList(QStringList &lstObject, QString pluginName)
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     return rpsWindLabSimulator->GetToBeUninstalledObjectsList(lstObject, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     return rpsSeismicLabSimulator->GetToBeUninstalledObjectsList(lstObject, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->GetToBeUninstalledObjectsList(lstObject, pluginName);
   }
@@ -84,15 +84,15 @@ bool RPSSimulation::GetToBeUninstalledObjectsList(QStringList &lstObject, QStrin
 
 bool RPSSimulation::IsObjectInstalled(QString &object)
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     return rpsWindLabSimulator->IsObjectInstalled(object);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     return rpsSeismicLabSimulator->IsObjectInstalled(object);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->IsObjectInstalled(object);
   }
@@ -102,15 +102,15 @@ bool RPSSimulation::IsObjectInstalled(QString &object)
 
 bool RPSSimulation::UpdateToBeInstalledObjectsMap(const QString &lstObject)
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     return rpsWindLabSimulator->UpdateToBeInstalledObjectsMap(lstObject);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     return rpsSeismicLabSimulator->UpdateToBeInstalledObjectsMap(lstObject);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->UpdateToBeInstalledObjectsMap(lstObject);
   }
@@ -120,15 +120,15 @@ bool RPSSimulation::UpdateToBeInstalledObjectsMap(const QString &lstObject)
 
 bool RPSSimulation::UpdateToBeUninstalledObjectsMap(const QString name, const QString pluginName)
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     return rpsWindLabSimulator->UpdateToBeUninstalledObjectsMap(name, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     return rpsSeismicLabSimulator->UpdateToBeUninstalledObjectsMap(name, pluginName);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->UpdateToBeUninstalledObjectsMap(name, pluginName);
   }
@@ -153,7 +153,7 @@ int RPSSimulation::RPSWriteInstalledPluginsToRegistry()
   for (it = PluginManager::GetInstance().GetInstalledPluginsMap().begin(); it != PluginManager::GetInstance().GetInstalledPluginsMap().end(); ++it)
   {
     // Get the plugin names
-    Descript = it->second->GetPluginSbubFolder(); // second veut dire "b", first sera "a" map<a,b>
+    Descript = it->second->GetPluginSubFolder(); // second veut dire "b", first sera "a" map<a,b>
 
     // Make a name of each plugin to be saved
     PlgName = tr("%1").arg(i);
@@ -225,15 +225,15 @@ void RPSSimulation::runSimulation()
   // QObject::connect(simThread, SIGNAL(sendString(QString)), this, SLOT(receiveString(QString)), Qt::QueuedConnection);
   // simThread->start();
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->runSimulation();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->runSimulation();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->runSimulation();
   }
@@ -241,15 +241,15 @@ void RPSSimulation::runSimulation()
 }
 void RPSSimulation::pauseSimulation()
 {
-    if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->pauseSimulation();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->pauseSimulation();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->pauseSimulation();
   }
@@ -257,19 +257,31 @@ void RPSSimulation::pauseSimulation()
 
 void RPSSimulation::stopSimulation()
 {
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+  {
+    rpsWindLabSimulator->stopSimulation();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
+  {
+    rpsSeismicLabSimulator->stopSimulation();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
+  {
+    rpsSeaLabSimulator->stopSimulation();
+  }
 }
 
 void RPSSimulation::simulationOptions()
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->simulationOptions();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->simulationOptions();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->simulationOptions();
   }
@@ -277,15 +289,15 @@ void RPSSimulation::simulationOptions()
  void RPSSimulation::simulate()
  {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->runSimulation();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->runSimulation();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->runSimulation();
   }
@@ -296,19 +308,20 @@ void RPSSimulation::rpsPlugins()
 {
   std::unique_ptr<PluginInstallerBrowser> dlg(new PluginInstallerBrowser(this));
   dlg->exec();
+  emit pluginModified(nullptr);
 }
 
 void RPSSimulation::compareAccuracy()
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->compareAccuracy();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->compareAccuracy();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->compareAccuracy();
   }
@@ -316,15 +329,15 @@ void RPSSimulation::compareAccuracy()
 
 void RPSSimulation::compareComputationTime()
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->compareComputationTime();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->compareComputationTime();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->compareComputationTime();
   }
@@ -332,15 +345,15 @@ void RPSSimulation::compareComputationTime()
 
 void RPSSimulation::compareMemoryUsage()
 {
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->compareMemoryUsage();
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     rpsSeismicLabSimulator->compareMemoryUsage();
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->compareMemoryUsage();
   }
@@ -360,15 +373,15 @@ void RPSSimulation::fillLocationJComboBox()
 {
     ApplicationWindow *app = (ApplicationWindow *)this->parent();
   
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
   }
@@ -377,15 +390,15 @@ void RPSSimulation::fillLocationKComboBox()
 {
    ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->fillLocationKComboBox(app->getComboxboxLocKstatusbarbtn());
   }
@@ -394,15 +407,15 @@ void RPSSimulation::fillFrequencyComboBox()
 {
   ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-	if (selectedRandomPhenomenon == "Wind Velocity")
+	if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
   }
@@ -411,15 +424,15 @@ void RPSSimulation::fillTimeComboBox()
 {
   ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->fillTimeComboBox(app->getComboxboxTimstatusbarbtn());
   }
@@ -428,15 +441,15 @@ void RPSSimulation::fillTimeComboBox()
   void RPSSimulation::locJCurrentIndexChanged(int index)
   {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->locJCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->locJCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->locJCurrentIndexChanged(index);
   }
@@ -444,15 +457,15 @@ void RPSSimulation::fillTimeComboBox()
   void RPSSimulation::locKCurrentIndexChanged(int index)
   {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->locKCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->locKCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->locKCurrentIndexChanged(index);
   }
@@ -460,15 +473,15 @@ void RPSSimulation::fillTimeComboBox()
   void RPSSimulation::freqCurrentIndexChanged(int index)
   {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->freqCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->freqCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->freqCurrentIndexChanged(index);
   }
@@ -476,15 +489,15 @@ void RPSSimulation::fillTimeComboBox()
   void RPSSimulation::timCurrentIndexChanged(int index)
   {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->timCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // rpsSeismicLabSimulator->timCurrentIndexChanged(index);
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->timCurrentIndexChanged(index);
   }
@@ -493,15 +506,15 @@ void RPSSimulation::fillTimeComboBox()
   void RPSSimulation::wavCurrentIndexChanged(int index)
   {
 
-  if (selectedRandomPhenomenon == "Wind Velocity")
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     
   }
-  else if (selectedRandomPhenomenon == "Seismic Ground motion")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     
   }
-  else if (selectedRandomPhenomenon == "Sea Surface")
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     //rpsSeaLabSimulator->wavCurrentIndexChanged(index);
   }

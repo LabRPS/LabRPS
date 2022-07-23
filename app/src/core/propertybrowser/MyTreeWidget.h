@@ -49,6 +49,24 @@ class MyTreeWidget : public QTreeWidget {
     TableWindow = 28,
     MatrixWindow = 29,
   };
+
+  enum class WindLabObjectPropertyItemType : int {
+    WindLabPlugin = 0,
+    WindLabLocationDistribution = 1,
+    WindLabMeanProfile = 2,
+    WindLabXSpectrumModel = 3,
+    WindLabYSpectrumModel = 4,
+    WindLabZSpectrumModel = 5,
+    WindLabSpectrumDecompositionMethod = 6,
+    WindLabCoherence = 7,
+    WindLabSimulationMethod = 8,
+    WindLabFrequencyDistribution = 9,
+    WindLabRandomness = 10,
+    WindLabModulationFunction = 11,
+    WindLabCorrelationFunction = 12,
+    WindLabCovarianceFunction = 13,
+  };
+
   MyTreeWidget(QWidget *parent = nullptr);
   ~MyTreeWidget();
 

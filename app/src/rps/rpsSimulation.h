@@ -6,6 +6,8 @@
 #include "rps/seismicLab/rpsSeismicLabSimulation.h"
 #include "rps/windLab/rpsWindLabSimulation.h"
 
+class MyWidget;
+
 class RPSSimulation : public QWidget
 {
   Q_OBJECT
@@ -18,8 +20,7 @@ private:
   QString selectedRandomPhenomenon;
 
 public:
-  QStringList supportedRandomPhenomena = QStringList()
-                                         << tr("Wind Velocity") << tr("Seismic Ground motion") << tr("Sea Surface");
+  QStringList supportedRandomPhenomena;
 
   RPSSeaLabSimulation *rpsSeaLabSimulator;
   RPSSeismicLabSimulation *rpsSeismicLabSimulator;
@@ -57,6 +58,9 @@ public:
   void freqCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
   void wavCurrentIndexChanged(int index);
+
+  signals:
+  void pluginModified(MyWidget *widget);
 
 
 };
