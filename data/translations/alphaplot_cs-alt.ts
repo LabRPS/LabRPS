@@ -3079,7 +3079,7 @@ Různé části souboru nemusí být zobrazeny korektně.</translation>
     </message>
     <message>
         <location filename="../../LabRPS/src/ApplicationWindow.cpp" line="4103"/>
-        <source>Table1</source>
+        <source>hahahihi</source>
         <translation type="unfinished">Tabulka1</translation>
     </message>
     <message>

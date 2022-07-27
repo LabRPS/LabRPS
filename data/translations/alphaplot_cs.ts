@@ -5099,7 +5099,7 @@ Různé části tohoto souboru se nemusí zobrazovat tak, jak se očekává.</tr
     </message>
     <message>
         <location filename="../../libscidavis/src/ApplicationWindow.cpp" line="4103"/>
-        <source>Table1</source>
+        <source>hahahihi</source>
         <translation type="unfinished">Tabulka 1</translation>
     </message>
     <message>

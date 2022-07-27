@@ -135,13 +135,13 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixFP(const CRPSWi
 	// compute the psd cube for all positions and time
 	CRPSWindLabFramework::ComputeCrossSpectrumCubePPF(Data, dPSDCube, strInformation);
 
-	for (int i = 0; i < Data.numberOfFrequency; i++)
+	for (int i = 0; i < Data.numberOfFrequency && false == Data.isInterruptionRequested; i++)
 	{
-		for (int j = 0; j < Data.numberOfSpatialPosition; j++)
+		for (int j = 0; j < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; j++)
 		{
-			for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition; loop1++)
+			for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
 			{
-				for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition; loop2++)
+				for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop2++)
 				{
 					// for each frequency pick corresponding matrix
 					PSDMatrix(loop1, loop2) = dPSDCube(loop1, loop2, i);

@@ -226,13 +226,13 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumCubePPF(const CRPSWindLabsimuData &D
 	double dMeanSpeed2 = 0.0;
 	double dTime = Data.minTime + Data.timeIncrement*(Data.timeIndex);
 
-	for (int loop3 = 0; loop3 < Data.numberOfFrequency; loop3++)
+	for (int loop3 = 0; loop3 < Data.numberOfFrequency && false == Data.isInterruptionRequested; loop3++)
 	{
 		dFrequency = dFrequencies(loop3);
 
-		for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition; loop1++)
+		for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
 		{
-			for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition; loop2++)
+			for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop2++)
 			{
 				CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed1, dLocCoord(loop1, 0), dLocCoord(loop1, 1), dLocCoord(loop1, 2), dTime, strInformation);
 				CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed2, dLocCoord(loop2, 0), dLocCoord(loop2, 1), dLocCoord(loop2, 2), dTime, strInformation);

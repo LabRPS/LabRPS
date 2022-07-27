@@ -108,14 +108,13 @@
      <addaction name="actionShowFileToolbar"/>
      <addaction name="actionShowEditToolbar"/>
      <addaction name="actionShowTableToolbar"/>
-     <addaction name="separator"/>
      <addaction name="actionShowPlotToolbar"/>
      <addaction name="actionShowMatrixPlotToolbar"/>
-     <addaction name="separator"/>
      <addaction name="actionShowGraphToolbar"/>
      <addaction name="actionShow3DSurfacePlotToolbar"/>
-     <addaction name="separator"/>
+     <addaction name="actionShowInputToolbar"/>
      <addaction name="actionShowSimulationToolbar"/>
+     <addaction name="actionShowOutputToolbar"/>
     </widget>
     <addaction name="actionPlotWizard"/>
     <addaction name="separator"/>
@@ -481,7 +480,6 @@
      <addaction name="actionCompareMemoryUsage"/>
     </widget>
     <addaction name="actionRunSimulation"/>
-    <addaction name="actionPauseSimulation"/>
     <addaction name="actionStopSimulation"/>
     <addaction name="separator"/>
     <addaction name="actionSimulationOptions"/>
@@ -1691,11 +1689,6 @@
     <string>Add/Remove Vector Plot...</string>
    </property>
   </action>
-  <action name="hahahahaha">
-   <property name="text">
-    <string>hahahahaha</string>
-   </property>
-  </action>
   <action name="actionShowSimulationToolbar">
    <property name="checkable">
     <bool>true</bool>
@@ -1742,6 +1735,22 @@
   <action name="actionPlugins">
    <property name="text">
     <string>Plugins</string>
+   </property>
+  </action>
+  <action name="actionShowInputToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Input</string>
+   </property>
+  </action>
+  <action name="actionShowOutputToolbar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>output</string>
    </property>
   </action>
  </widget>

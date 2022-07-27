@@ -14,9 +14,6 @@ class RPS_CORE_API CRPSWindLabsimuData
 	// Destructor
 	~CRPSWindLabsimuData();
 
-	// Large number of process simulation flag
-	bool largeScaleSimulationFlag;
-
 	// The Number of process
 	int numberOfSpatialPosition;
 
@@ -40,6 +37,18 @@ class RPS_CORE_API CRPSWindLabsimuData
 
 	// Stationarity
 	bool gaussianity;
+
+	// whether we are doing comparison or not
+	bool  comparisonMode;
+
+	// whether we are doing large scale simulation or not
+	bool  largeScaleSimulationMode;
+
+	// Large number of process simulation flag
+	bool largeScaleSimulationFlag;
+
+	// simulation successfull or not flag
+	bool isSimulationSuccessful;
 
 	// The current frequency increment
 	double frequencyIncrement;
@@ -100,12 +109,6 @@ class RPS_CORE_API CRPSWindLabsimuData
 
 	// The working directory path
 	QString workingDirPath;
-	
-	// whether we are doing comparison or not
-	bool  comparisonMode;
-
-	// whether we are doing large scale simulation or not
-	bool  largeScaleSimulationMode;
 
 	int locationJ;
 

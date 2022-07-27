@@ -175,6 +175,8 @@ ApplicationWindow::ApplicationWindow()
       tableToolbar(new QToolBar(tr("Table"), this)),
       matrix3DPlotToolbar(new QToolBar(tr("Matrix Plot"), this)),
       simulationToolbar(new QToolBar(tr("Simulation"), this)),
+      inputToolbar(new QToolBar(tr("Input"), this)),
+      outputToolbar(new QToolBar(tr("Output"), this)),
       graph3DToolbar(new QToolBar(tr("3D Surface"), this)),
       current_folder(new Folder(nullptr, tr("Untitled"))),
       show_windows_policy(ActiveFolder),
@@ -212,6 +214,8 @@ ApplicationWindow::ApplicationWindow()
       actionShowResultsLog(new QAction(this)),
       actionShowConsole(new QAction(this)),
       btn_new_aspect_(new QToolButton(this)),
+      btn_input_(new QToolButton(this)),
+      btn_output_(new QToolButton(this)),
       comboxbox_simu_toolbarbtn_(new QComboBox(simulationToolbar)),
       btn_layout_(new QToolButton(this)),
       btn_curves_(new QToolButton(this)),
@@ -237,7 +241,10 @@ ApplicationWindow::ApplicationWindow()
 
   // fills the simulation combo box with
   // all supported random phenomena
-  comboxbox_simu_toolbarbtn_->addItems(rpsSimulator->supportedRandomPhenomena);
+  comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("windvelocity", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(0));
+  comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("seismicgroundmotion", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(1));
+  comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("seawave", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(2));
+
   comboxbox_simu_toolbarbtn_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
   comboxbox_simu_toolbarbtn_->setCurrentText(rpsSimulator->getSelectedRandomPhenomenon());
@@ -339,6 +346,11 @@ ApplicationWindow::ApplicationWindow()
   // Toolbar QToolbuttons
   btn_new_aspect_->setPopupMode(QToolButton::InstantPopup);
   btn_new_aspect_->setToolTip(tr("New Aspect"));
+  btn_input_->setPopupMode(QToolButton::InstantPopup);
+  btn_input_->setToolTip(tr("Input"));
+  btn_output_->setPopupMode(QToolButton::InstantPopup);
+  btn_output_->setToolTip(tr("Output"));
+
   btn_layout_->setPopupMode(QToolButton::InstantPopup);
   btn_layout_->setToolTip(tr("Manage Layouts"));
   btn_curves_->setPopupMode(QToolButton::InstantPopup);
@@ -576,6 +588,11 @@ ApplicationWindow::ApplicationWindow()
           SLOT(lockToolbars(bool)));
   connect(ui_->actionShowSimulationToolbar, SIGNAL(toggled(bool)),
           simulationToolbar, SLOT(setVisible(bool)));
+  connect(ui_->actionShowInputToolbar, SIGNAL(toggled(bool)),
+          inputToolbar, SLOT(setVisible(bool)));
+  connect(ui_->actionShowOutputToolbar, SIGNAL(toggled(bool)),
+          outputToolbar, SLOT(setVisible(bool)));
+
   actionShowPropertyEditor->setText(tr("Property Editor"));
   actionShowPluginPropertyEditor->setText(tr("Object Editor"));
   actionShowProjectExplorer->setText(tr("Project Explorer"));
@@ -1330,6 +1347,9 @@ void ApplicationWindow::makeToolBars()
   matrix3DPlotToolbar->setObjectName("matrix3DPlotToolbar");
   graph3DToolbar->setObjectName("graph3DToolbar");
   simulationToolbar->setObjectName("simulationToolbar");
+  inputToolbar->setObjectName("inputToolbar");
+  outputToolbar->setObjectName("outputToolbar");
+
 
   // File tools toolbar
   fileToolbar->addAction(ui_->actionNewProject);
@@ -1451,8 +1471,102 @@ void ApplicationWindow::makeToolBars()
   simulationToolbar->addAction(ui_->actionRunSimulation);
   //simulationToolbar->addAction(ui_->actionPauseSimulation);
   simulationToolbar->addAction(ui_->actionStopSimulation);
-  simulationToolbar->addSeparator();
   simulationToolbar->addAction(ui_->actionSimulationOptions);
+  simulationToolbar->addSeparator();
+  simulationToolbar->addAction(ui_->actionCompareAccuracy);
+  simulationToolbar->addAction(ui_->actionCompareComputationTime);
+  simulationToolbar->addAction(ui_->actionCompareMemoryUsage);
+  simulationToolbar->addSeparator();
+  simulationToolbar->addAction(ui_->actionPlugins);
+
+    if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
+  {
+     // input toolbar
+    inputToolbar->addAction(actionWindVelocity);
+    inputToolbar->addAction(actionSpectrumWind);
+    inputToolbar->addAction(actionCoherenceWind);
+    inputToolbar->addAction(actionCorrelationWind);
+    inputToolbar->addAction(actionModulationWind);
+    inputToolbar->addAction(actionMeanWindVelocity);
+
+  // output toolbar
+    outputToolbar->addAction(actionWindVelocityOutput);
+    outputToolbar->addAction(actionFrequencyDistributionWindOutput);
+    outputToolbar->addAction(actionLocationDistributionWindOutput);
+    outputToolbar->addAction(actionSpectrumWindOutput);
+    outputToolbar->addAction(actionDecomposedSpectrumWindOutput);
+    outputToolbar->addAction(actionCoherenceWindOutput);
+    outputToolbar->addAction(actionCorrelationWindOutput);
+    outputToolbar->addAction(actionModulationWindOutput);
+    outputToolbar->addAction(actionMeanWindVelocityOutput);
+    outputToolbar->addAction(actionRandomPhaseWindOutput);
+
+    QMenu *menu_input = new QMenu(this);
+    menu_input->addAction(actionWindVelocity);
+    menu_input->addAction(actionSpectrumWind);
+    menu_input->addAction(actionCoherenceWind);
+    menu_input->addAction(actionCorrelationWind);
+    menu_input->addAction(actionModulationWind);
+    menu_input->addAction(actionMeanWindVelocity);
+
+    btn_input_->setMenu(menu_input);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_input_);
+
+     QMenu *menu_output = new QMenu(this);
+    menu_output->addAction(actionWindVelocityOutput);
+    menu_output->addAction(actionFrequencyDistributionWindOutput);
+    menu_output->addAction(actionLocationDistributionWindOutput);
+    menu_output->addAction(actionSpectrumWindOutput);
+    menu_output->addAction(actionDecomposedSpectrumWindOutput);
+    menu_output->addAction(actionCoherenceWindOutput);
+    menu_output->addAction(actionCorrelationWindOutput);
+    menu_output->addAction(actionModulationWindOutput);
+    menu_output->addAction(actionMeanWindVelocityOutput);
+    menu_output->addAction(actionRandomPhaseWindOutput);
+
+    btn_output_->setMenu(menu_output);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_output_);
+
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  {
+    // input toolbar
+    inputToolbar->addAction(actionGroundMotion);
+    inputToolbar->addAction(actionSpectrumSeismic);
+    inputToolbar->addAction(actionCoherenceSeismic);
+    inputToolbar->addAction(actionCorrelationSeismic);
+    inputToolbar->addAction(actionModulationSeismic);
+
+   // output toolbar
+    outputToolbar->addAction(actionGroundMotionOutput);
+    outputToolbar->addAction(actionFrequencyDistributionSeismicOutput);
+    outputToolbar->addAction(actionLocationDistributionSeismicOutput);
+    outputToolbar->addAction(actionSpectrumSeismicOutput);
+    outputToolbar->addAction(actionCoherenceSeismicOutput);
+    outputToolbar->addAction(actionCorrelationSeismicOutput);
+    outputToolbar->addAction(actionModulationSeismicOutput);
+    
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  {
+    // input toolbar
+    inputToolbar->addAction(actionSeaSurface);
+    inputToolbar->addAction(actionSpectrumSea);
+    inputToolbar->addAction(actionCoherenceSea);
+    inputToolbar->addAction(actionCorrelationSea);
+    inputToolbar->addAction(actionModulationSea);
+
+    // output toolbar
+    outputToolbar->addAction(actionSeaSurfaceOutput);
+    outputToolbar->addAction(actionFrequencyDistributionSeaOutput);
+    outputToolbar->addAction(actionLocationDistributionSeaOutput);
+    outputToolbar->addAction(actionSpectrumSeaOutput);
+    outputToolbar->addAction(actionCoherenceSeaOutput);
+    outputToolbar->addAction(actionCorrelationSeaOutput);
+    outputToolbar->addAction(actionModulationSeaOutput);    
+  }
 
   // Matrix tools toolbar
   matrix3DPlotToolbar->addAction(ui_->action3DWireFrame);
@@ -1496,11 +1610,15 @@ void ApplicationWindow::makeToolBars()
   matrix3DPlotToolbar->setIconSize(QSize(24, 24));
   graph3DToolbar->setIconSize(QSize(24, 24));
   simulationToolbar->setIconSize(QSize(24, 24));
+  inputToolbar->setIconSize(QSize(24, 24));
+  outputToolbar->setIconSize(QSize(24, 24));
 
   // Add toolbars
   addToolBar(Qt::TopToolBarArea, fileToolbar);
   addToolBar(editToolbar);
   addToolBar(simulationToolbar);
+  addToolBar(inputToolbar);
+  addToolBar(outputToolbar);
   addToolBar(graphToolsToolbar);
   addToolBar(Qt::LeftToolBarArea, plot2DToolbar);
   addToolBar(Qt::TopToolBarArea, tableToolbar);
@@ -1542,6 +1660,8 @@ void ApplicationWindow::lockToolbars(const bool status)
     tableToolbar->setMovable(false);
     matrix3DPlotToolbar->setMovable(false);
     simulationToolbar->setMovable(false);
+    inputToolbar->setMovable(false);
+    outputToolbar->setMovable(false);
     ui_->actionLockToolbars->setIcon(
         IconLoader::load("lock", IconLoader::LightDark));
   }
@@ -1555,6 +1675,8 @@ void ApplicationWindow::lockToolbars(const bool status)
     tableToolbar->setMovable(true);
     matrix3DPlotToolbar->setMovable(true);
     simulationToolbar->setMovable(true);
+    inputToolbar->setMovable(true);
+    outputToolbar->setMovable(true);
     ui_->actionLockToolbars->setIcon(
         IconLoader::load("unlock", IconLoader::LightDark));
   }
@@ -4225,6 +4347,10 @@ void ApplicationWindow::loadSettings()
       settings.value("3DSurfacePlotToolbar", false).toBool());
   ui_->actionShowSimulationToolbar->setChecked(
       settings.value("SimulationToolbar", true).toBool());
+  ui_->actionShowInputToolbar->setChecked(
+      settings.value("inputToolbar", false).toBool());
+  ui_->actionShowOutputToolbar->setChecked(
+      settings.value("outputToolbar", false).toBool());
   ui_->actionLockToolbars->setChecked(
       settings.value("LockToolbars", false).toBool());
   ui_->explorerWindow->setVisible(
@@ -4233,6 +4359,10 @@ void ApplicationWindow::loadSettings()
 #ifdef SCRIPTING_CONSOLE
   consoleWindow->setVisible(settings.value("ShowConsole", false).toBool());
 #endif
+
+  inputToolbar->setVisible(settings.value("inputToolbar", false).toBool());
+  outputToolbar->setVisible(settings.value("outputToolbar", false).toBool());
+
   settings.endGroup(); // View
 
   settings.beginGroup("UserFunctions");
@@ -4517,6 +4647,8 @@ void ApplicationWindow::saveSettings()
   settings.setValue("GraphToolbar", ui_->actionShowGraphToolbar->isChecked());
   settings.setValue("PlotToolbar", ui_->actionShowPlotToolbar->isChecked());
   settings.setValue("SimulationToolbar", ui_->actionShowSimulationToolbar->isChecked());
+  settings.setValue("inputToolbar", ui_->actionShowInputToolbar->isChecked());
+  settings.setValue("outputToolbar", ui_->actionShowOutputToolbar->isChecked());
   settings.setValue("TableToolbar", ui_->actionShowTableToolbar->isChecked());
   settings.setValue("MatrixPlotToolbar",
                     ui_->actionShowMatrixPlotToolbar->isChecked());
@@ -11401,6 +11533,10 @@ void ApplicationWindow::loadIcons()
   // Toolbutton
   btn_new_aspect_->setIcon(
       IconLoader::load("edit-new-aspect", IconLoader::LightDark));
+  btn_input_->setIcon(
+      IconLoader::load("input", IconLoader::General));
+  btn_output_->setIcon(
+      IconLoader::load("output", IconLoader::General));
   btn_layout_->setIcon(
       IconLoader::load("layer-arrange", IconLoader::LightDark));
   btn_curves_->setIcon(
@@ -11440,14 +11576,58 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("edit-print", IconLoader::LightDark));
 
   ui_->actionRunSimulation->setIcon(
-      IconLoader::load("project-open", IconLoader::LightDark));
+      IconLoader::load("simulation-run", IconLoader::General));
   // ui_->actionPauseSimulation->setIcon(
   //     IconLoader::load("project-open", IconLoader::LightDark));
-  ui_->actionStopSimulation->setIcon(
-      IconLoader::load("project-open", IconLoader::LightDark));
-  ui_->actionSimulationOptions->setIcon(
-      IconLoader::load("project-open", IconLoader::LightDark));
 
+  
+  ui_->actionStopSimulation->setIcon(
+      IconLoader::load("simulation-stop", IconLoader::General));
+  ui_->actionSimulationOptions->setIcon(
+      IconLoader::load("simulation-options", IconLoader::General));
+  ui_->menuCompare->setIcon(
+      IconLoader::load("simulation-compare", IconLoader::General));
+  ui_->actionPlugins->setIcon(
+      IconLoader::load("simulation-plugins", IconLoader::General));
+  actionCoherenceWind->setIcon(
+      IconLoader::load("input-coherence", IconLoader::General));
+  actionWindVelocity->setIcon(
+      IconLoader::load("input-windvelocity", IconLoader::General));
+  actionSpectrumWind->setIcon(
+      IconLoader::load("input-spectrum", IconLoader::General));
+  actionModulationWind->setIcon(
+      IconLoader::load("input-modulation", IconLoader::General));
+  actionMeanWindVelocity->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+  actionCorrelationWind->setIcon(
+      IconLoader::load("input-correlation", IconLoader::General));
+  actionModulationWindOutput->setIcon(
+      IconLoader::load("output-modulation", IconLoader::General));
+  actionCorrelationWindOutput->setIcon(
+      IconLoader::load("output-correlation", IconLoader::General));
+  actionFrequencyDistributionWindOutput->setIcon(
+      IconLoader::load("output-frequencies", IconLoader::General));
+  actionMeanWindVelocityOutput->setIcon(
+      IconLoader::load("output-mean", IconLoader::General));
+  actionCoherenceWindOutput->setIcon(
+      IconLoader::load("output-coherence", IconLoader::General));
+  actionDecomposedSpectrumWindOutput->setIcon(
+      IconLoader::load("output-decomposedpsd", IconLoader::General));
+  actionSpectrumWindOutput->setIcon(
+      IconLoader::load("output-spectrum", IconLoader::General));
+  actionWindVelocityOutput->setIcon(
+      IconLoader::load("output-windvelocity", IconLoader::General));
+  actionLocationDistributionWindOutput->setIcon(
+      IconLoader::load("output-locations", IconLoader::General));
+  actionRandomPhaseWindOutput->setIcon(
+      IconLoader::load("output-randomphase", IconLoader::General));
+  ui_->actionCompareMemoryUsage->setIcon(
+      IconLoader::load("compare-memory", IconLoader::General));
+  ui_->actionCompareComputationTime->setIcon(
+      IconLoader::load("compare-time", IconLoader::General));
+  ui_->actionCompareAccuracy->setIcon(
+      IconLoader::load("compare-accuracy", IconLoader::General));
+  
   foreach (QMdiSubWindow *subwindow, subWindowsList())
   {
     QList<QTreeWidgetItem *> items = ui_->listView->findItems(

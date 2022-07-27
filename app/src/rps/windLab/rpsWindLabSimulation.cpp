@@ -152,10 +152,17 @@ void RPSWindLabSimulation::locationDistributionOutput()
 }
 void RPSWindLabSimulation::windVelocityOutput()
 {
-    qDebug() << "Output wind velocity";
+    if(    GetWindLabData().isSimulationSuccessful == true){
+		displayWindVelocity();
+	}
+	else {
+        information.append("Please make sure you successfully run a simulation first");
+		emit sendInformation(information);
 
-	QMessageBox::warning(0, "windLab", "Output wind velocity");
+	}
 }
+
+
 void RPSWindLabSimulation::spectrumWindOutput()
 {
 	createOutputWorker();
@@ -756,7 +763,12 @@ void RPSWindLabSimulation::pauseSimulation()
 }
 void RPSWindLabSimulation::stopSimulation()
 {
+	if(nullptr == simulationThread || !simulationThread->isRunning()){return;}
+	information.append("Stopping the simulation...");
+	emit sendInformation(information);
+	information.clear();
 	emit stopped();
+
 }
 
 void RPSWindLabSimulation::simulationOptions()
@@ -1682,10 +1694,23 @@ void RPSWindLabSimulation::displayWindVelocity()
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationWorker()->getInformation();
-	information.append("Please wait. LabRPS is now showing the random velocity results...");
-	emit sendInformation(information);
-	emit progressBarHide();
+	if (nullptr != GetWindLabSimulationWorker())
+	{
+		information = information + GetWindLabSimulationWorker()->getInformation();
+		information.append("Please wait. LabRPS is now showing the random velocity results...");
+		emit sendInformation(information);
+		information.clear();
+		emit progressBarHide();
+
+	   // save a copy of the simulated wind velocity
+       m_resultMatrix  = GetWindLabSimulationWorker()->m_ResultMatrix;
+
+	}else if(m_resultMatrix.size() <= 0){
+		information.append("Please,run the simulation first.");
+		emit sendInformation(information);
+		information.clear();
+		return;
+	}
 
 	qApp->processEvents();
 	information.clear();
@@ -1693,6 +1718,39 @@ void RPSWindLabSimulation::displayWindVelocity()
 	if (locationJ > 0 &&
         locationJ <= GetWindLabData().numberOfSpatialPosition &&
         locationK == 0 &&
+		frequencyIndex == 0 &&
+        timeIndex == GetWindLabData().numberOfTimeIncrements + 1
+    )
+    {
+	QTime t;
+	t.start();
+
+	// prepare the name of the table
+	QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
+
+	// allocate memory for the table
+	Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, 2);
+		
+	table->setColName(0, "Time");
+	table->setColName(1, tr("Location %1").arg(locationJ));
+
+	double timeInr = 0.0;
+
+	// fill the table with computed coherence
+	for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+	{
+		timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+
+		table->setCellValue(i, 0, timeInr);
+		table->setCellValue(i, 1, m_resultMatrix(i, locationJ));	}
+
+		table->showNormal();
+		
+		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+    }
+	else if (locationJ <= GetWindLabData().numberOfSpatialPosition + 1 &&
+        locationK == 0 &&
+		frequencyIndex == 0 &&
         timeIndex == GetWindLabData().numberOfTimeIncrements + 1
     )
     {
@@ -1700,20 +1758,34 @@ void RPSWindLabSimulation::displayWindVelocity()
 		t.start();
 
 		// prepare the name of the table
-		QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
+		QString arrayName = "RandomVelocity (All, None, None, All)";
 
 		// allocate memory for the table
-		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition);
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition + 1);
+		
+		table->setColName(0, "Time");
+
+		for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
+		{
+			table->setColName(j + 1, tr("Location %1").arg(j + 1));
+		}
+
+		double timeInr = 0.0;
 
 		// fill the table with computed coherence
 		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
 		{
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+
+			table->setCellValue(i, 0, timeInr);
+
 			for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
 			{
-				table->setCellValue(i, j, GetWindLabSimulationWorker()->m_ResultMatrix(i, j));
+				table->setCellValue(i, j + 1, m_resultMatrix(i, j));
 			}
 		}
 		table->showNormal();
+		
 		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
     }
@@ -1728,9 +1800,13 @@ void RPSWindLabSimulation::displayWindVelocity()
 	// clear the information list
 	information.clear();
 
-	// delete the worker
-	GetWindLabSimulationWorker()->finished();
-}
+	if (nullptr != GetWindLabSimulationWorker())
+	{
+		// delete the worker
+	    GetWindLabSimulationWorker()->finished();
+	}
+
+	}
 
 
 void RPSWindLabSimulation::displayFrequencyDistribution()

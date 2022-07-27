@@ -11,108 +11,108 @@ CRPSWindLabTools::~CRPSWindLabTools()
 {
 }
 
-// void CRPSWindLabTools::RPSComputeFFT(vec &realpartinput, vec &imagpartinput, const int &n, const int &k, const int &l, const int &il, vec &realpartoutput, vec &imagpartoutput)
-// {
+void CRPSWindLabTools::RPSComputeFFT(vec &realpartinput, vec &imagpartinput, const int &n, const int &k, const int &l, const int &il, vec &realpartoutput, vec &imagpartoutput)
+{
 
-// 	//  int it, m, is, i, j, nv, l0;
-// 	//  double p, q, s, vr, vi, poddr, poddi;
-// 	// for (it = 0; it <= n - 1; it++)
-// 	// {
-// 	// 	m = it; is = 0;
-// 	// 	for (i = 0; i <= k - 1; i++)
-// 	// 	{
-// 	// 		j = m / 2;
-// 	// 		is = 2 * is + (m - 2 * j);
-// 	// 		m = j;
-// 	// 	}
-// 	// 	realpartoutput(it) = realpartinput(is); imagpartoutput(it) = imagpartinput(is);
-// 	// }
-// 	// realpartinput(0) = 1.0; imagpartinput(0) = 0.0;
-// 	// p = 6.283185306 / (1.0*n);
-// 	// realpartinput(1) = cos(p); imagpartinput(1) = -sin(p);
-// 	// if (l != 0) imagpartinput(1) = -imagpartinput(1);
-// 	// for (i = 2; i <= n - 1; i++)
-// 	// {
-// 	// 	p = realpartinput(i - 1) * realpartinput(1); q = imagpartinput(i - 1) * imagpartinput(1);
-// 	// 	s = (realpartinput(i - 1) + imagpartinput(i - 1))*(realpartinput(1) + imagpartinput(1));
-// 	// 	realpartinput(i) = p - q; imagpartinput(i) = s - p - q;
-// 	// }
-// 	// for (it = 0; it <= n - 2; it = it + 2)
-// 	// {
-// 	// 	vr = realpartoutput(it); vi = imagpartoutput(it);
-// 	// 	realpartoutput(it) = vr + realpartoutput(it + 1); imagpartoutput(it) = vi + imagpartoutput(it + 1);
-// 	// 	realpartoutput(it + 1) = vr - realpartoutput(it + 1); imagpartoutput(it + 1) = vi - imagpartoutput(it + 1);
-// 	// }
-// 	// m = n / 2; nv = 2;
-// 	// for (l0 = k - 2; l0 >= 0; l0--)
-// 	// {
-// 	// 	m = m / 2; nv = 2 * nv;
-// 	// 	for (it = 0; it <= (m - 1)*nv; it = it + nv)
-// 	// 		for (j = 0; j <= (nv / 2) - 1; j++)
-// 	// 		{
-// 	// 			p = realpartinput(m*j) * realpartoutput(it + j + nv / 2);
-// 	// 			q = imagpartinput(m*j) * imagpartoutput(it + j + nv / 2);
-// 	// 			s = realpartinput(m*j) + imagpartinput(m*j);
-// 	// 			s = s*(realpartoutput(it + j + nv / 2) + imagpartoutput(it + j + nv / 2));
-// 	// 			poddr = p - q; poddi = s - p - q;
-// 	// 			realpartoutput(it + j + nv / 2) = realpartoutput(it + j) - poddr;
-// 	// 			imagpartoutput(it + j + nv / 2) = imagpartoutput(it + j) - poddi;
-// 	// 			realpartoutput(it + j) = realpartoutput(it + j) + poddr;
-// 	// 			imagpartoutput(it + j) = imagpartoutput(it + j) + poddi;
-// 	// 		}
-// 	// }
-// 	// if (l != 0)
-// 	// {
-// 	// 	for (i = 0; i <= n - 1; i++)
-// 	// 	{
-// 	// 		realpartoutput(i) = realpartoutput(i) / (1.0*n);
-// 	// 		imagpartoutput(i) = imagpartoutput(i) / (1.0*n);
-// 	// 	}
-// 	// 	if (il != 0)
-// 	// 		for (i = 0; i <= n - 1; i++)
-// 	// 		{
-// 	// 			realpartinput(i) = sqrt(realpartoutput(i) * realpartoutput(i) + imagpartoutput(i) * imagpartoutput(i));
-// 	// 			if (fabs(realpartoutput(i))<0.000001*fabs(imagpartoutput(i)))
-// 	// 			{
-// 	// 				if ((imagpartoutput(i) * realpartoutput(i))>0) imagpartinput(i) = 90.0;
-// 	// 				else imagpartinput(i) = -90.0;
-// 	// 			}
-// 	// 			else
-// 	// 				imagpartinput(i) = atan(imagpartoutput(i) / realpartoutput(i))*360.0 / 6.283185306;
-// 	// 		}
-// 	// }
-// }
+    //  int it, m, is, i, j, nv, l0;
+    //  double p, q, s, vr, vi, poddr, poddi;
+    // for (it = 0; it <= n - 1; it++)
+    // {
+    // 	m = it; is = 0;
+    // 	for (i = 0; i <= k - 1; i++)
+    // 	{
+    // 		j = m / 2;
+    // 		is = 2 * is + (m - 2 * j);
+    // 		m = j;
+    // 	}
+    // 	realpartoutput(it) = realpartinput(is); imagpartoutput(it) = imagpartinput(is);
+    // }
+    // realpartinput(0) = 1.0; imagpartinput(0) = 0.0;
+    // p = 6.283185306 / (1.0*n);
+    // realpartinput(1) = cos(p); imagpartinput(1) = -sin(p);
+    // if (l != 0) imagpartinput(1) = -imagpartinput(1);
+    // for (i = 2; i <= n - 1; i++)
+    // {
+    // 	p = realpartinput(i - 1) * realpartinput(1); q = imagpartinput(i - 1) * imagpartinput(1);
+    // 	s = (realpartinput(i - 1) + imagpartinput(i - 1))*(realpartinput(1) + imagpartinput(1));
+    // 	realpartinput(i) = p - q; imagpartinput(i) = s - p - q;
+    // }
+    // for (it = 0; it <= n - 2; it = it + 2)
+    // {
+    // 	vr = realpartoutput(it); vi = imagpartoutput(it);
+    // 	realpartoutput(it) = vr + realpartoutput(it + 1); imagpartoutput(it) = vi + imagpartoutput(it + 1);
+    // 	realpartoutput(it + 1) = vr - realpartoutput(it + 1); imagpartoutput(it + 1) = vi - imagpartoutput(it + 1);
+    // }
+    // m = n / 2; nv = 2;
+    // for (l0 = k - 2; l0 >= 0; l0--)
+    // {
+    // 	m = m / 2; nv = 2 * nv;
+    // 	for (it = 0; it <= (m - 1)*nv; it = it + nv)
+    // 		for (j = 0; j <= (nv / 2) - 1; j++)
+    // 		{
+    // 			p = realpartinput(m*j) * realpartoutput(it + j + nv / 2);
+    // 			q = imagpartinput(m*j) * imagpartoutput(it + j + nv / 2);
+    // 			s = realpartinput(m*j) + imagpartinput(m*j);
+    // 			s = s*(realpartoutput(it + j + nv / 2) + imagpartoutput(it + j + nv / 2));
+    // 			poddr = p - q; poddi = s - p - q;
+    // 			realpartoutput(it + j + nv / 2) = realpartoutput(it + j) - poddr;
+    // 			imagpartoutput(it + j + nv / 2) = imagpartoutput(it + j) - poddi;
+    // 			realpartoutput(it + j) = realpartoutput(it + j) + poddr;
+    // 			imagpartoutput(it + j) = imagpartoutput(it + j) + poddi;
+    // 		}
+    // }
+    // if (l != 0)
+    // {
+    // 	for (i = 0; i <= n - 1; i++)
+    // 	{
+    // 		realpartoutput(i) = realpartoutput(i) / (1.0*n);
+    // 		imagpartoutput(i) = imagpartoutput(i) / (1.0*n);
+    // 	}
+    // 	if (il != 0)
+    // 		for (i = 0; i <= n - 1; i++)
+    // 		{
+    // 			realpartinput(i) = sqrt(realpartoutput(i) * realpartoutput(i) + imagpartoutput(i) * imagpartoutput(i));
+    // 			if (fabs(realpartoutput(i))<0.000001*fabs(imagpartoutput(i)))
+    // 			{
+    // 				if ((imagpartoutput(i) * realpartoutput(i))>0) imagpartinput(i) = 90.0;
+    // 				else imagpartinput(i) = -90.0;
+    // 			}
+    // 			else
+    // 				imagpartinput(i) = atan(imagpartoutput(i) / realpartoutput(i))*360.0 / 6.283185306;
+    // 		}
+    // }
+}
 
-// void CRPSWindLabTools::RPSComputeCholeskyDecomposition(const mat &dMatrix, const int &iRow, mat &ddecomposedMatrix)
-// {
-// 	// double Sum;
+void CRPSWindLabTools::RPSComputeCholeskyDecomposition(const mat &dMatrix, const int &iRow, mat &ddecomposedMatrix)
+{
+    // double Sum;
 
-// 	// for (int i = 0; i < iRow; i++)
-// 	// {
-// 	// 	for (int j = 0; j < iRow; j++)
-// 	// 	{
-// 	// 		ddecomposedMatrix[i * iRow + j] = 0;
-// 	// 	}
-// 	// }
+    // for (int i = 0; i < iRow; i++)
+    // {
+    // 	for (int j = 0; j < iRow; j++)
+    // 	{
+    // 		ddecomposedMatrix[i * iRow + j] = 0;
+    // 	}
+    // }
 
-// 	// // compute Lower triangular matrix
-// 	// for (int k = 0; k < iRow; k++)
-// 	// {
-// 	// 	Sum = 0;
-// 	// 	for (int j = 0; j < k - 1; j++)
-// 	// 		Sum += pow(ddecomposedMatrix[k * iRow + j], 2);
-// 	// 	ddecomposedMatrix[k * iRow + k] = sqrt(dMatrix[k * iRow + k] - Sum);
-// 	// 	for (int i = 0; i < k - 1; i++)
-// 	// 	{
-// 	// 		Sum = 0;
-// 	// 		for (int j = 0; j < i - 1; j++)
-// 	// 			Sum += ddecomposedMatrix[i * iRow + j] * ddecomposedMatrix[k * iRow + j];
-// 	// 		ddecomposedMatrix[k * iRow + i] = (dMatrix[k * iRow + i] - Sum) / ddecomposedMatrix[i * iRow + i];
-// 	// 	}
-// 	// }
+    // // compute Lower triangular matrix
+    // for (int k = 0; k < iRow; k++)
+    // {
+    // 	Sum = 0;
+    // 	for (int j = 0; j < k - 1; j++)
+    // 		Sum += pow(ddecomposedMatrix[k * iRow + j], 2);
+    // 	ddecomposedMatrix[k * iRow + k] = sqrt(dMatrix[k * iRow + k] - Sum);
+    // 	for (int i = 0; i < k - 1; i++)
+    // 	{
+    // 		Sum = 0;
+    // 		for (int j = 0; j < i - 1; j++)
+    // 			Sum += ddecomposedMatrix[i * iRow + j] * ddecomposedMatrix[k * iRow + j];
+    // 		ddecomposedMatrix[k * iRow + i] = (dMatrix[k * iRow + i] - Sum) / ddecomposedMatrix[i * iRow + i];
+    // 	}
+    // }
 
-// 	// return;
-// }
+    // return;
+}
 
 // void CRPSWindLabTools::GenerateRandomArray(const double &dMin, const double &dMax, const int &iRow, const int &iCol, mat &dRandomValueArray)
 // {

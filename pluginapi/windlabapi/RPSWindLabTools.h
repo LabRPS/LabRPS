@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSWINDLABTOOL_H
 #define RPSWINDLABTOOL_H
 
@@ -17,11 +15,11 @@ public:
 
 // 	/////////////////////Simulation tools/////////////////////////////////////////////////////
 
-// 	// Compute the FFT of a vector
-// 	static void RPSComputeFFT(vec &realpartinput, vec &imagpartinput, const int &n, const int &k, const int &l, const int &il, vec &realpartoutput, vec &imagpartoutput);
+// Compute the FFT of a vector
+static void RPSComputeFFT(vec &realpartinput, vec &imagpartinput, const int &n, const int &k, const int &l, const int &il, vec &realpartoutput, vec &imagpartoutput);
 
-// 	// Compute the Cholesky decomposition of a matrix
-// 	static void RPSComputeCholeskyDecomposition(const mat &dMatrix, const int &iRow, mat &ddecomposedMatrix);
+// Compute the Cholesky decomposition of a matrix
+static void RPSComputeCholeskyDecomposition(const mat &dMatrix, const int &iRow, mat &ddecomposedMatrix);
 
 // 	//Generate an array of random const double &precision values between dMin and dMax
 // 	static void GenerateRandomArray(const double &dMin, const double &dMax, const int &iRow, const int &iCol, mat &dRandomValueArray);

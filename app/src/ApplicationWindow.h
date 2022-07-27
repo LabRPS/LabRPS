@@ -212,9 +212,12 @@ class ApplicationWindow : public QMainWindow,
 
   //rps
     QToolBar* simulationToolbar;
+    QToolBar* inputToolbar;
+    QToolBar* outputToolbar;
+
     QProgressBar *progressBar;
-
-
+    QToolButton* btn_input_;
+    QToolButton* btn_output_;
 
   MyWidget* getactiveMyWidget();
   /* Generates a new unique name starting with string /param name.

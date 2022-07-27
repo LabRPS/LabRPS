@@ -19,11 +19,15 @@ DEFINES += WINDLAB_LIBRARY
 contains(PRESET, linux_all_dynamic) {
 
   LIBS         +=  -libwindlabapi
+  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+
 }
 
 contains(PRESET, linux_static) {
   ### Link statically and dynamically against rest.
   LIBS         +=  -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi
+
 }
 
 contains(PRESET, linux_all_static) {
@@ -31,26 +35,42 @@ contains(PRESET, linux_all_static) {
   message(Build configuration: Linux all static)
 
   LIBS         += /usr/lib/libwindlabapi.a
+  LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
+
 }
 
 contains(PRESET, osx_dist) {
   # Uses HomeBrew supplied versions of the dependencies
   message(Build configuration: OSX Distro)
 
-  LIBS         += -libwindlabapi 
+  LIBS         += -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+ 
 }
 
 win32: {
   !mxe {
     ### Static linking mostly.
     message(Build configuration: Win32)
-
+    
+    isEmpty(LIBPATH): LIBPATH = E:/LabRPS/3rdparty
     isEmpty(APILIBPATH): APILIBPATH =E:/LabRPS/pluginapi
 
     INCLUDEPATH  += "$${APILIBPATH}/windlabapi"
+    INCLUDEPATH  += "$${LIBPATH}/gsl/include"
 
     LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
+    LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
+    LIBS         += "$${LIBPATH}/gsl/lib/libgslcblas.a"
    }
+}
+
+mxe {
+  ### Mingw cross compilation environment on Linux.
+  message(Build configuration: Mxe all static)
+  
+  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi
+
 }
 
 

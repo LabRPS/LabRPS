@@ -47,7 +47,8 @@ void RPSWindLabSimulationWorker::stop()
 {
     mutex.lock();
     stopped = true;
-    m_windLabData.isInterruptionRequested = true;   
+    m_windLabData.isInterruptionRequested = true;
+    m_windLabData.isSimulationSuccessful = false;   
     mutex.unlock();
 }
 
@@ -82,13 +83,7 @@ bool RPSWindLabSimulationWorker::isStopped()
     
 void RPSWindLabSimulationWorker::windVelocityOutp()
 {
-    if (m_locationJ > 0 &&
-        m_locationJ <= m_windLabData.numberOfSpatialPosition &&
-        m_locationK == 0 &&
-        m_timeIndex == m_windLabData.numberOfTimeIncrements + 1
-    )
-    {
-        // Build an object
+    // Build an object
 	IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(m_windLabData.simulationMethod);
 
 	// Check whether good object
@@ -96,6 +91,7 @@ void RPSWindLabSimulationWorker::windVelocityOutp()
 	{
 		m_information.append("Invalid random wind simulation method");
         emit sendInformation(m_information);
+        m_windLabData.isSimulationSuccessful = false;
         emit progressBarHide();
         return;
 	}
@@ -112,23 +108,20 @@ void RPSWindLabSimulationWorker::windVelocityOutp()
 
     // Delete the object
 	delete currentSimuMethod;
-    }
-    else
-    {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
-    }
 
     if(m_windLabData.isInterruptionRequested)
     {
      emit progressBarHide();
+     m_windLabData.isSimulationSuccessful = false;
+     m_information.append("The simulation has been stopped.");
+     emit sendInformation(m_information);
+     m_information.clear();
      return;
     }
 
-    emit showWindVelocityOutput();
+    m_windLabData.isSimulationSuccessful = true;
 
+    emit showWindVelocityOutput();
 }
 
 QStringList RPSWindLabSimulationWorker::getInformation()

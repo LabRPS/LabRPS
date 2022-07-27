@@ -56,6 +56,35 @@
     <file>icons/common/16/graph3d-bars.png</file>
     <file>icons/common/16/color-management.png</file>
     <file>icons/common/16/theme.png</file>
+    <file>icons/common/16/simulation-run.png</file>
+    <file>icons/common/16/simulation-stop.png</file>
+    <file>icons/common/16/simulation-options.png</file>
+    <file>icons/common/16/simulation-compare.png</file>
+    <file>icons/common/16/simulation-plugins.png</file>
+    <file>icons/common/16/input-coherence.png</file>
+    <file>icons/common/16/input-windvelocity.png</file>
+    <file>icons/common/16/input-spectrum.png</file>
+    <file>icons/common/16/input-modulation.png</file>
+    <file>icons/common/16/input-mean.png</file>
+    <file>icons/common/16/input-correlation.png</file>
+    <file>icons/common/16/output-modulation.png</file>
+    <file>icons/common/16/output-correlation.png</file>
+    <file>icons/common/16/output-frequencies.png</file>
+    <file>icons/common/16/output-mean.png</file>
+    <file>icons/common/16/output-coherence.png</file>
+    <file>icons/common/16/output-decomposedpsd.png</file>
+    <file>icons/common/16/output-spectrum.png</file>
+    <file>icons/common/16/output-windvelocity.png</file>
+    <file>icons/common/16/output-locations.png</file>
+    <file>icons/common/16/output-randomphase.png</file>
+    <file>icons/common/16/compare-memory.png</file>
+    <file>icons/common/16/compare-time.png</file>
+    <file>icons/common/16/compare-accuracy.png</file>
+    <file>icons/common/16/seawave.png</file>
+    <file>icons/common/16/seismicgroundmotion.png</file>
+    <file>icons/common/16/windvelocity.png</file>
+    <file>icons/common/16/input.png</file>
+    <file>icons/common/16/output.png</file>
     <file>icons/common/22/folder-closed.png</file>
     <file>icons/common/22/folder-open.png</file>
     <file>icons/common/22/application-exit.png</file>
@@ -71,6 +100,35 @@
     <file>icons/common/22/graph3d-bars.png</file>
     <file>icons/common/22/color-management.png</file>
     <file>icons/common/22/theme.png</file>
+    <file>icons/common/22/simulation-run.png</file>
+    <file>icons/common/22/simulation-stop.png</file>
+    <file>icons/common/22/simulation-options.png</file>
+    <file>icons/common/16/simulation-compare.png</file>
+    <file>icons/common/22/simulation-plugins.png</file>
+    <file>icons/common/22/input-coherence.png</file>
+    <file>icons/common/22/input-windvelocity.png</file>
+    <file>icons/common/22/input-spectrum.png</file>
+    <file>icons/common/22/input-modulation.png</file>
+    <file>icons/common/22/input-mean.png</file>
+    <file>icons/common/22/input-correlation.png</file>
+    <file>icons/common/22/output-modulation.png</file>
+    <file>icons/common/22/output-correlation.png</file>
+    <file>icons/common/22/output-frequencies.png</file>
+    <file>icons/common/22/output-mean.png</file>
+    <file>icons/common/22/output-coherence.png</file>
+    <file>icons/common/22/output-decomposedpsd.png</file>
+    <file>icons/common/22/output-spectrum.png</file>
+    <file>icons/common/22/output-windvelocity.png</file>
+    <file>icons/common/22/output-locations.png</file>
+    <file>icons/common/22/output-randomphase.png</file>
+    <file>icons/common/22/compare-memory.png</file>
+    <file>icons/common/22/compare-time.png</file>
+    <file>icons/common/22/compare-accuracy.png</file>
+    <file>icons/common/22/seawave.png</file>
+    <file>icons/common/22/seismicgroundmotion.png</file>
+    <file>icons/common/22/windvelocity.png</file>
+    <file>icons/common/22/input.png</file>
+    <file>icons/common/22/output.png</file>
     <file>icons/common/24/folder-closed.png</file>
     <file>icons/common/24/folder-open.png</file>
     <file>icons/common/24/application-exit.png</file>
@@ -92,6 +150,35 @@
     <file>icons/common/24/edit-graymap3d.png</file>
     <file>icons/common/24/graph3d-bars.png</file>
     <file>icons/common/24/color-management.png</file>
+    <file>icons/common/24/simulation-run.png</file>
+    <file>icons/common/24/simulation-stop.png</file>
+    <file>icons/common/24/simulation-options.png</file>
+    <file>icons/common/24/simulation-compare.png</file>
+    <file>icons/common/24/simulation-plugins.png</file>
+    <file>icons/common/24/input-coherence.png</file>
+    <file>icons/common/24/input-windvelocity.png</file>
+    <file>icons/common/24/input-spectrum.png</file>
+    <file>icons/common/24/input-modulation.png</file>
+    <file>icons/common/24/input-mean.png</file>
+    <file>icons/common/24/input-correlation.png</file>
+    <file>icons/common/24/output-modulation.png</file>
+    <file>icons/common/24/output-correlation.png</file>
+    <file>icons/common/24/output-frequencies.png</file>
+    <file>icons/common/24/output-mean.png</file>
+    <file>icons/common/24/output-coherence.png</file>
+    <file>icons/common/24/output-decomposedpsd.png</file>
+    <file>icons/common/24/output-spectrum.png</file>
+    <file>icons/common/24/output-windvelocity.png</file>
+    <file>icons/common/24/output-locations.png</file>
+    <file>icons/common/24/output-randomphase.png</file>
+    <file>icons/common/24/compare-memory.png</file>
+    <file>icons/common/24/compare-time.png</file>
+    <file>icons/common/24/compare-accuracy.png</file>
+    <file>icons/common/24/seawave.png</file>
+    <file>icons/common/24/seismicgroundmotion.png</file>
+    <file>icons/common/24/windvelocity.png</file>
+    <file>icons/common/24/input.png</file>
+    <file>icons/common/24/output.png</file>
     <file>icons/common/32/folder-closed.png</file>
     <file>icons/common/32/folder-open.png</file>
     <file>icons/common/32/application-exit.png</file>
@@ -105,6 +192,35 @@
     <file>icons/common/32/preferences-table-font.png</file>
     <file>icons/common/32/preferences-fitting.png</file>
     <file>icons/common/32/alpha-logo.png</file>
+    <file>icons/common/32/simulation-run.png</file>
+    <file>icons/common/32/simulation-stop.png</file>
+    <file>icons/common/32/simulation-options.png</file>
+    <file>icons/common/32/simulation-compare.png</file>
+    <file>icons/common/32/simulation-plugins.png</file>
+    <file>icons/common/32/input-coherence.png</file>
+    <file>icons/common/32/input-windvelocity.png</file>
+    <file>icons/common/32/input-spectrum.png</file>
+    <file>icons/common/32/input-modulation.png</file>
+    <file>icons/common/32/input-mean.png</file>
+    <file>icons/common/32/input-correlation.png</file>
+    <file>icons/common/32/output-modulation.png</file>
+    <file>icons/common/32/output-correlation.png</file>
+    <file>icons/common/32/output-frequencies.png</file>
+    <file>icons/common/32/output-mean.png</file>
+    <file>icons/common/32/output-coherence.png</file>
+    <file>icons/common/32/output-decomposedpsd.png</file>
+    <file>icons/common/32/output-spectrum.png</file>
+    <file>icons/common/32/output-windvelocity.png</file>
+    <file>icons/common/32/output-locations.png</file>
+    <file>icons/common/32/output-randomphase.png</file>
+    <file>icons/common/32/compare-memory.png</file>
+    <file>icons/common/32/compare-time.png</file>
+    <file>icons/common/32/compare-accuracy.png</file>
+    <file>icons/common/32/seawave.png</file>
+    <file>icons/common/32/seismicgroundmotion.png</file>
+    <file>icons/common/32/windvelocity.png</file>
+    <file>icons/common/32/input.png</file>
+    <file>icons/common/32/output.png</file>
     <file>icons/common/48/folder-closed.png</file>
     <file>icons/common/48/folder-open.png</file>
     <file>icons/common/48/preferences-general.png</file>
