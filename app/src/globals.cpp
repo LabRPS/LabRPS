@@ -70,6 +70,32 @@ const char* LabRPS::download_Uri =
   QString LabRPS::objGroupModulationFunction = "Modulation Function";
   QString LabRPS::objGroupCorrelationFunction = "Correlation Function";
 
+  QString LabRPS::ComputeCrossCoherenceVectorF = "ComputeCrossCoherenceVectorF";
+	QString LabRPS::ComputeCrossCorrelationVectorT = "ComputeCrossCorrelationVectorT";
+	QString LabRPS::ComputeCrossCorrelationVectorP = "ComputeCrossCorrelationVectorP";
+	QString LabRPS::ComputeFrequenciesVectorF = "ComputeFrequenciesVectorF";
+	QString LabRPS::ComputeMeanWindSpeedVectorP = "ComputeMeanWindSpeedVectorP";
+	QString LabRPS::ComputeMeanWindSpeedVectorT = "ComputeMeanWindSpeedVectorT";
+	QString LabRPS::ComputeModulationVectorT = "ComputeModulationVectorT";
+	QString LabRPS::ComputeModulationVectorF = "ComputeModulationVectorF";
+	QString LabRPS::ComputeModulationVectorP = "ComputeModulationVectorP";
+	QString LabRPS::ComputeDecomposedCrossSpectrumVectorF = "ComputeDecomposedCrossSpectrumVectorF";
+	QString LabRPS::ComputeDecomposedCrossSpectrumVectorT = "ComputeDecomposedCrossSpectrumVectorT";
+	QString LabRPS::ComputeDecomposedCrossSpectrumVectorP = "ComputeDecomposedCrossSpectrumVectorP";
+	QString LabRPS::Simulate = "Simulate";
+	QString LabRPS::SimulateInLargeScaleMode = "SimulateInLargeScaleMode";
+	QString LabRPS::ComputeXCrossSpectrumVectorF = "ComputeXCrossSpectrumVectorF";
+	QString LabRPS::ComputeXCrossSpectrumVectorT = "ComputeXCrossSpectrumVectorT";
+	QString LabRPS::ComputeXCrossSpectrumVectorP = "ComputeXCrossSpectrumVectorP";
+	QString LabRPS::ComputeYCrossSpectrumVectorF = "ComputeYCrossSpectrumVectorF";
+	QString LabRPS::ComputeYCrossSpectrumVectorT = "ComputeYCrossSpectrumVectorT";
+	QString LabRPS::ComputeYCrossSpectrumVectorP = "ComputeYCrossSpectrumVectorP";
+	QString LabRPS::ComputeZCrossSpectrumVectorF = "ComputeZCrossSpectrumVectorF";
+	QString LabRPS::ComputeZCrossSpectrumVectorT = "ComputeZCrossSpectrumVectorT";
+	QString LabRPS::ComputeZCrossSpectrumVectorP = "ComputeZCrossSpectrumVectorP";
+
+
+
 QStringList LabRPS::locales_ = QStringList();
 
 int LabRPS::version() { return LabRPS_versionNo; }

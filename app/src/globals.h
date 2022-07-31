@@ -79,6 +79,31 @@ class LabRPS : public QObject {
   static QString objGroupModulationFunction;
   static QString objGroupCorrelationFunction;
 
+  // available comparison categories
+  static QString ComputeCrossCoherenceVectorF;
+	static QString ComputeCrossCorrelationVectorT;
+	static QString ComputeCrossCorrelationVectorP;
+	static QString ComputeFrequenciesVectorF;
+	static QString ComputeMeanWindSpeedVectorP;
+	static QString ComputeMeanWindSpeedVectorT;
+	static QString ComputeModulationVectorT;
+	static QString ComputeModulationVectorF;
+	static QString ComputeModulationVectorP;
+	static QString ComputeDecomposedCrossSpectrumVectorF;
+	static QString ComputeDecomposedCrossSpectrumVectorT;
+	static QString ComputeDecomposedCrossSpectrumVectorP;
+	static QString Simulate;
+	static QString SimulateInLargeScaleMode;
+	static QString ComputeXCrossSpectrumVectorF;
+	static QString ComputeXCrossSpectrumVectorT;
+	static QString ComputeXCrossSpectrumVectorP;
+	static QString ComputeYCrossSpectrumVectorF;
+	static QString ComputeYCrossSpectrumVectorT;
+	static QString ComputeYCrossSpectrumVectorP;
+	static QString ComputeZCrossSpectrumVectorF;
+	static QString ComputeZCrossSpectrumVectorT;
+	static QString ComputeZCrossSpectrumVectorP;
+
 
   //! Types of plot designations
   enum PlotDesignation {

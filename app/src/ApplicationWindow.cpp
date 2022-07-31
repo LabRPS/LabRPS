@@ -1547,6 +1547,16 @@ void ApplicationWindow::makeToolBars()
     outputToolbar->addAction(actionCoherenceSeismicOutput);
     outputToolbar->addAction(actionCorrelationSeismicOutput);
     outputToolbar->addAction(actionModulationSeismicOutput);
+
+    QMenu *menu_input = new QMenu(this);
+    btn_input_->setMenu(menu_input);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_input_);
+
+    QMenu *menu_output = new QMenu(this);
+    btn_output_->setMenu(menu_output);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_output_);
     
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
@@ -1565,7 +1575,17 @@ void ApplicationWindow::makeToolBars()
     outputToolbar->addAction(actionSpectrumSeaOutput);
     outputToolbar->addAction(actionCoherenceSeaOutput);
     outputToolbar->addAction(actionCorrelationSeaOutput);
-    outputToolbar->addAction(actionModulationSeaOutput);    
+    outputToolbar->addAction(actionModulationSeaOutput);
+
+    QMenu *menu_input = new QMenu(this);
+    btn_input_->setMenu(menu_input);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_input_);
+
+    QMenu *menu_output = new QMenu(this);
+    btn_output_->setMenu(menu_output);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_output_);    
   }
 
   // Matrix tools toolbar
@@ -7012,7 +7032,7 @@ void ApplicationWindow::newAproj()
 
   ApplicationWindow *ed = new ApplicationWindow();
   ed->applyUserSettings();
-  ed->newTable();
+  // ed->newTable();
 
   if (this->isMaximized())
     ed->showMaximized();
@@ -7022,6 +7042,12 @@ void ApplicationWindow::newAproj()
   ed->ui_->folderView->setCurrentItem(
       ed->projectFolder()->folderTreeWidgetItem());
   ed->savedProject();
+
+  ed->activateWindow();
+  ed->customMenu(nullptr);
+  ed->customToolBars(nullptr);
+  ed->propertyeditor->populateObjectBrowser(nullptr);
+  ed->pluginpropertyeditor->populateObjectBrowser(nullptr);
 
   this->close();
 }
@@ -11579,8 +11605,6 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("simulation-run", IconLoader::General));
   // ui_->actionPauseSimulation->setIcon(
   //     IconLoader::load("project-open", IconLoader::LightDark));
-
-  
   ui_->actionStopSimulation->setIcon(
       IconLoader::load("simulation-stop", IconLoader::General));
   ui_->actionSimulationOptions->setIcon(
@@ -11589,6 +11613,15 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("simulation-compare", IconLoader::General));
   ui_->actionPlugins->setIcon(
       IconLoader::load("simulation-plugins", IconLoader::General));
+  ui_->actionCompareMemoryUsage->setIcon(
+      IconLoader::load("compare-memory", IconLoader::General));
+  ui_->actionCompareComputationTime->setIcon(
+      IconLoader::load("compare-time", IconLoader::General));
+  ui_->actionCompareAccuracy->setIcon(
+      IconLoader::load("compare-accuracy", IconLoader::General));
+
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
+  {
   actionCoherenceWind->setIcon(
       IconLoader::load("input-coherence", IconLoader::General));
   actionWindVelocity->setIcon(
@@ -11621,13 +11654,16 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("output-locations", IconLoader::General));
   actionRandomPhaseWindOutput->setIcon(
       IconLoader::load("output-randomphase", IconLoader::General));
-  ui_->actionCompareMemoryUsage->setIcon(
-      IconLoader::load("compare-memory", IconLoader::General));
-  ui_->actionCompareComputationTime->setIcon(
-      IconLoader::load("compare-time", IconLoader::General));
-  ui_->actionCompareAccuracy->setIcon(
-      IconLoader::load("compare-accuracy", IconLoader::General));
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  {
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  { 
+  }
+
   
+    
   foreach (QMdiSubWindow *subwindow, subWindowsList())
   {
     QList<QTreeWidgetItem *> items = ui_->listView->findItems(
@@ -11906,10 +11942,11 @@ void ApplicationWindow::savePhenomenon(int index)
   QString selectedRandomPhenomenon = rpsSimulator->supportedRandomPhenomena.at(index);
 
   QSettings settings;
+  settings.setValue("rpsPhenomenon", selectedRandomPhenomenon);
+
 
   newAproj();
 
-  settings.setValue("rpsPhenomenon", selectedRandomPhenomenon);
 }
 
 void ApplicationWindow::recieveInformation(QStringList infoList)

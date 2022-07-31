@@ -28,6 +28,7 @@ public:
 
 public slots:
     void comboBoxCategoryCurrentIndexChanged(int);
+    void comboBoxFunctionCurrentIndexChanged(int);
     void OnBnClickedFunctionInit();
     void OnBnClickedCategoryInit();
     void OnBnClickedCadidateInit();

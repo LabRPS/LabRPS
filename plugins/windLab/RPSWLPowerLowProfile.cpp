@@ -37,7 +37,7 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuDat
 	// Compute the location coordinate array
 	CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
 
-	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
+	for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
 	{
 		dMeanSpeedVector(loop) = pow(dLocCoord(Data.locationJ, 2) / dreferenceHeight, dDimensionlessPower) * dreferenceSpeed;
 	}

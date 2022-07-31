@@ -15,6 +15,8 @@
 #include "ApplicationWindow.h"
 #include "future/lib/XmlStreamReader.h"
 #include "future/lib/XmlStreamWriter.h"
+#include "globals.h"
+
 
 #include <QSettings>
 #include <QString>
@@ -35,6 +37,12 @@ RPSWindLabSimulation::RPSWindLabSimulation(QWidget *parent) : QWidget(parent)
 	// initialized windLab simulation data
 	windLabDataInitialize();
 
+	WLReadAllTobeInstallObjVersionToRegistry();
+    WLReadAllTobeInstallObjPublicationTitleToRegistry();
+    WLReadAllTobeInstallObjPublicationLinkToRegistry();
+    WLReadAllTobeInstallObjPublicationAuthorToRegistry();
+    WLReadAllTobeInstallObjPublicationDateToRegistry();
+    
 	// read install windLab from registry if any
 	WLReadAllTobeInstallObjectsFromRegistry();
 	WLClearAllTobeInstallObjectsFromRegistry();
@@ -46,6 +54,13 @@ RPSWindLabSimulation::RPSWindLabSimulation(QWidget *parent) : QWidget(parent)
 RPSWindLabSimulation::~RPSWindLabSimulation()
 {
 	// write install windLab from registry if any
+	
+	WLWriteAllTobeInstallObjPublicationTitleToRegistry();
+    WLWriteAllTobeInstallObjPublicationLinkToRegistry();
+    WLWriteAllTobeInstallObjPublicationAuthorToRegistry();
+    WLWriteAllTobeInstallObjPublicationDateToRegistry();
+    WLWriteAllTobeInstallObjVersionToRegistry();
+
 	WLWriteAllTobeInstallObjectsToRegistry();
 }
 
@@ -265,6 +280,10 @@ RPSWindLabSimulationWorker *RPSWindLabSimulation::GetWindLabSimulationWorker()
 	return simulationWorker;
 }
 
+RPSWindLabComparisonWorker *RPSWindLabSimulation::GetWindLabComparisonWorker()
+{
+	return comparisonWorker;
+}
 
 void RPSWindLabSimulation::windLabDataInitialize()
 {
@@ -296,8 +315,11 @@ void RPSWindLabSimulation::windLabDataInitialize()
 	windLabData.frequencyIndex = 0;
 	windLabData.timeIndex = 0;
 	windLabData.directionIndex = 0;
-	windLabData.comparisonCategory = ("Simulation Method");
+	windLabData.comparisonCategory = LabRPS::objGroupSimulationMethod;
 	windLabData.numberOfTimeLags = windLabData.numberOfFrequency;
+	windLabData.comparisonType = 1;
+	windLabData.isInterruptionRequested = false;
+	windLabData.isSimulationSuccessful = false;
 }
 
 void RPSWindLabSimulation::WriteMapToRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count)
@@ -329,6 +351,59 @@ void RPSWindLabSimulation::WriteMapToRegistry(std::map<const QString, QString> &
 }
 
 void RPSWindLabSimulation::ReadMapFromRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count)
+{
+	QSettings settings;
+
+	settings.beginGroup(settingsGroup);
+	QStringList mapkeylst = settings.value("mapkey").toStringList();
+	QStringList mapvaluelst = settings.value("mapValue").toStringList();
+	settings.endGroup();
+
+	if (mapkeylst.isEmpty())
+	{
+		return;
+	}
+
+	for (int i = 0; i < mapkeylst.size(); ++i)
+	{
+		QString key = mapkeylst.at(i);
+		QString value = mapvaluelst.at(i);
+
+		map[key] = value;
+	}
+
+	count++;
+}
+
+void RPSWindLabSimulation::WriteMapToRegistry2(std::map<const QString, QString> &map, QString &settingsGroup, int &count)
+{
+
+	if (map.empty())
+	{
+		return;
+	}
+
+	QStringList mapkeylst;
+	QStringList mapvaluelst;
+
+	// Iterate though the map
+	for (auto it1 = map.begin(); it1 != map.end(); ++it1)
+	{
+		mapkeylst.append(it1->first);
+		mapvaluelst.append(it1->second);
+	}
+
+	QSettings settings;
+
+	settings.beginGroup(settingsGroup);
+	settings.setValue("mapkey", mapkeylst);
+	settings.setValue("mapValue", mapvaluelst);
+	settings.endGroup();
+
+	count++;
+}
+
+void RPSWindLabSimulation::ReadMapFromRegistry2(std::map<const QString, QString> &map, QString &settingsGroup, int &count)
 {
 	QSettings settings;
 
@@ -403,41 +478,472 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjectsFromRegistry()
 	QString settingsGroup;
 
 	settingsGroup = ("WLSimMethod"), count = 1;
-	ReadMapFromRegistry(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLLoc"), count = 1;
-	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLXPSD"), count = 1;
-	ReadMapFromRegistry(CrpsXSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsXSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLYPSD"), count = 1;
-	ReadMapFromRegistry(CrpsYSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsYSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLZPSD"), count = 1;
-	ReadMapFromRegistry(CrpsZSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsZSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLCoh"), count = 1;
-	ReadMapFromRegistry(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLDecomp"), count = 1;
-	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLFreq"), count = 1;
-	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLRand"), count = 1;
-	ReadMapFromRegistry(CrpsRandomnessFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsRandomnessFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLMod"), count = 1;
-	ReadMapFromRegistry(CrpsModulationFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsModulationFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLCorr"), count = 1;
-	ReadMapFromRegistry(CrpsCorrelationFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsCorrelationFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
 	settingsGroup = ("WLMean"), count = 1;
-	ReadMapFromRegistry(CrpsMeanFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+	ReadMapFromRegistry2(CrpsMeanFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 }
+
+
+void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationTitleToRegistry()
+{
+	int count = 1;
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodTitle"), count = 1;
+	WriteMapToRegistry(CrpsSimuMethodFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocTitle"), count = 1;
+	WriteMapToRegistry(CrpsLocationDistributionFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDTitle"), count = 1;
+	WriteMapToRegistry(CrpsXSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDTitle"), count = 1;
+	WriteMapToRegistry(CrpsYSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDTitle"), count = 1;
+	WriteMapToRegistry(CrpsZSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohTitle"), count = 1;
+	WriteMapToRegistry(CrpsCoherenceFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompTitle"), count = 1;
+	WriteMapToRegistry(CrpsPSDdecomMethodFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqTitle"), count = 1;
+	WriteMapToRegistry(CrpsFrequencyDistributionFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandTitle"), count = 1;
+	WriteMapToRegistry(CrpsRandomnessFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModTitle"), count = 1;
+	WriteMapToRegistry(CrpsModulationFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrTitle"), count = 1;
+	WriteMapToRegistry(CrpsCorrelationFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanTitle"), count = 1;
+	WriteMapToRegistry(CrpsMeanFactory::GetTitleMap(), settingsGroup, count);
+}
+
+void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationTitleToRegistry()
+{
+	int count = 1;
+
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodTitle"), count = 1;
+	ReadMapFromRegistry(CrpsSimuMethodFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocTitle"), count = 1;
+	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDTitle"), count = 1;
+	ReadMapFromRegistry(CrpsXSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDTitle"), count = 1;
+	ReadMapFromRegistry(CrpsYSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDTitle"), count = 1;
+	ReadMapFromRegistry(CrpsZSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohTitle"), count = 1;
+	ReadMapFromRegistry(CrpsCoherenceFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompTitle"), count = 1;
+	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqTitle"), count = 1;
+	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandTitle"), count = 1;
+	ReadMapFromRegistry(CrpsRandomnessFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModTitle"), count = 1;
+	ReadMapFromRegistry(CrpsModulationFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrTitle"), count = 1;
+	ReadMapFromRegistry(CrpsCorrelationFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanTitle"), count = 1;
+	ReadMapFromRegistry(CrpsMeanFactory::GetTitleMap(), settingsGroup, count);
+}
+
+
+void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationLinkToRegistry()
+{
+	int count = 1;
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodLink"), count = 1;
+	WriteMapToRegistry(CrpsSimuMethodFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocLink"), count = 1;
+	WriteMapToRegistry(CrpsLocationDistributionFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDLink"), count = 1;
+	WriteMapToRegistry(CrpsXSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDLink"), count = 1;
+	WriteMapToRegistry(CrpsYSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDLink"), count = 1;
+	WriteMapToRegistry(CrpsZSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohLink"), count = 1;
+	WriteMapToRegistry(CrpsCoherenceFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompLink"), count = 1;
+	WriteMapToRegistry(CrpsPSDdecomMethodFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqLink"), count = 1;
+	WriteMapToRegistry(CrpsFrequencyDistributionFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandLink"), count = 1;
+	WriteMapToRegistry(CrpsRandomnessFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModLink"), count = 1;
+	WriteMapToRegistry(CrpsModulationFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrLink"), count = 1;
+	WriteMapToRegistry(CrpsCorrelationFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanLink"), count = 1;
+	WriteMapToRegistry(CrpsMeanFactory::GetLinkMap(), settingsGroup, count);
+}
+
+void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationLinkToRegistry()
+{
+	int count = 1;
+
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodLink"), count = 1;
+	ReadMapFromRegistry(CrpsSimuMethodFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocLink"), count = 1;
+	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDLink"), count = 1;
+	ReadMapFromRegistry(CrpsXSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDLink"), count = 1;
+	ReadMapFromRegistry(CrpsYSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDLink"), count = 1;
+	ReadMapFromRegistry(CrpsZSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohLink"), count = 1;
+	ReadMapFromRegistry(CrpsCoherenceFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompLink"), count = 1;
+	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqLink"), count = 1;
+	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandLink"), count = 1;
+	ReadMapFromRegistry(CrpsRandomnessFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModLink"), count = 1;
+	ReadMapFromRegistry(CrpsModulationFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrLink"), count = 1;
+	ReadMapFromRegistry(CrpsCorrelationFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanLink"), count = 1;
+	ReadMapFromRegistry(CrpsMeanFactory::GetLinkMap(), settingsGroup, count);
+}
+
+
+void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationAuthorToRegistry()
+{
+	int count = 1;
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodAuthor"), count = 1;
+	WriteMapToRegistry(CrpsSimuMethodFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocAuthor"), count = 1;
+	WriteMapToRegistry(CrpsLocationDistributionFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDAuthor"), count = 1;
+	WriteMapToRegistry(CrpsXSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDAuthor"), count = 1;
+	WriteMapToRegistry(CrpsYSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDAuthor"), count = 1;
+	WriteMapToRegistry(CrpsZSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohAuthor"), count = 1;
+	WriteMapToRegistry(CrpsCoherenceFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompAuthor"), count = 1;
+	WriteMapToRegistry(CrpsPSDdecomMethodFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqAuthor"), count = 1;
+	WriteMapToRegistry(CrpsFrequencyDistributionFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandAuthor"), count = 1;
+	WriteMapToRegistry(CrpsRandomnessFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModAuthor"), count = 1;
+	WriteMapToRegistry(CrpsModulationFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrAuthor"), count = 1;
+	WriteMapToRegistry(CrpsCorrelationFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanAuthor"), count = 1;
+	WriteMapToRegistry(CrpsMeanFactory::GetAuthorMap(), settingsGroup, count);
+}
+
+void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationAuthorToRegistry()
+{
+	int count = 1;
+
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsSimuMethodFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsXSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsYSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsZSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsCoherenceFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsRandomnessFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsModulationFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsCorrelationFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsMeanFactory::GetAuthorMap(), settingsGroup, count);
+}
+
+
+void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationDateToRegistry()
+{
+	int count = 1;
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodDate"), count = 1;
+	WriteMapToRegistry(CrpsSimuMethodFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocDate"), count = 1;
+	WriteMapToRegistry(CrpsLocationDistributionFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDDate"), count = 1;
+	WriteMapToRegistry(CrpsXSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDDate"), count = 1;
+	WriteMapToRegistry(CrpsYSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDDate"), count = 1;
+	WriteMapToRegistry(CrpsZSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohDate"), count = 1;
+	WriteMapToRegistry(CrpsCoherenceFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompDate"), count = 1;
+	WriteMapToRegistry(CrpsPSDdecomMethodFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqDate"), count = 1;
+	WriteMapToRegistry(CrpsFrequencyDistributionFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandDate"), count = 1;
+	WriteMapToRegistry(CrpsRandomnessFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModDate"), count = 1;
+	WriteMapToRegistry(CrpsModulationFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrDate"), count = 1;
+	WriteMapToRegistry(CrpsCorrelationFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanDate"), count = 1;
+	WriteMapToRegistry(CrpsMeanFactory::GetDateMap(), settingsGroup, count);
+}
+
+void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationDateToRegistry()
+{
+	int count = 1;
+
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodDate"), count = 1;
+	ReadMapFromRegistry(CrpsSimuMethodFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocDate"), count = 1;
+	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDDate"), count = 1;
+	ReadMapFromRegistry(CrpsXSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDDate"), count = 1;
+	ReadMapFromRegistry(CrpsYSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDDate"), count = 1;
+	ReadMapFromRegistry(CrpsZSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohDate"), count = 1;
+	ReadMapFromRegistry(CrpsCoherenceFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompDate"), count = 1;
+	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqDate"), count = 1;
+	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandDate"), count = 1;
+	ReadMapFromRegistry(CrpsRandomnessFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModDate"), count = 1;
+	ReadMapFromRegistry(CrpsModulationFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrDate"), count = 1;
+	ReadMapFromRegistry(CrpsCorrelationFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanDate"), count = 1;
+	ReadMapFromRegistry(CrpsMeanFactory::GetDateMap(), settingsGroup, count);
+}
+
+
+void RPSWindLabSimulation::WLWriteAllTobeInstallObjVersionToRegistry()
+{
+	int count = 1;
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethodVersion"), count = 1;
+	WriteMapToRegistry(CrpsSimuMethodFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocVersion"), count = 1;
+	WriteMapToRegistry(CrpsLocationDistributionFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDVersion"), count = 1;
+	WriteMapToRegistry(CrpsXSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDVersion"), count = 1;
+	WriteMapToRegistry(CrpsYSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDVersion"), count = 1;
+	WriteMapToRegistry(CrpsZSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohVersion"), count = 1;
+	WriteMapToRegistry(CrpsCoherenceFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompVersion"), count = 1;
+	WriteMapToRegistry(CrpsPSDdecomMethodFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqVersion"), count = 1;
+	WriteMapToRegistry(CrpsFrequencyDistributionFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandVersion"), count = 1;
+	WriteMapToRegistry(CrpsRandomnessFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModVersion"), count = 1;
+	WriteMapToRegistry(CrpsModulationFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrVersion"), count = 1;
+	WriteMapToRegistry(CrpsCorrelationFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanVersion"), count = 1;
+	WriteMapToRegistry(CrpsMeanFactory::GetVersionMap(), settingsGroup, count);
+}
+
+void RPSWindLabSimulation::WLReadAllTobeInstallObjVersionToRegistry()
+{
+	int count = 1;
+
+	QString settingsGroup;
+
+	settingsGroup = ("WLSimMethod"), count = 1;
+	ReadMapFromRegistry(CrpsSimuMethodFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLLocVersion"), count = 1;
+	ReadMapFromRegistry(CrpsLocationDistributionFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLXPSDVersion"), count = 1;
+	ReadMapFromRegistry(CrpsXSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLYPSDVersion"), count = 1;
+	ReadMapFromRegistry(CrpsYSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLZPSDVersion"), count = 1;
+	ReadMapFromRegistry(CrpsZSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCohVersion"), count = 1;
+	ReadMapFromRegistry(CrpsCoherenceFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLDecompVersion"), count = 1;
+	ReadMapFromRegistry(CrpsPSDdecomMethodFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLFreqVersion"), count = 1;
+	ReadMapFromRegistry(CrpsFrequencyDistributionFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLRandVersion"), count = 1;
+	ReadMapFromRegistry(CrpsRandomnessFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLModVersion"), count = 1;
+	ReadMapFromRegistry(CrpsModulationFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLCorrVersion"), count = 1;
+	ReadMapFromRegistry(CrpsCorrelationFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLMeanVersion"), count = 1;
+	ReadMapFromRegistry(CrpsMeanFactory::GetVersionMap(), settingsGroup, count);
+}
+
 
 void RPSWindLabSimulation::WLClearAllTobeInstallObjectsFromRegistry()
 {
@@ -478,6 +984,192 @@ void RPSWindLabSimulation::WLClearAllTobeInstallObjectsFromRegistry()
 
 	settingsGroup = ("WLMean");
 	ClearMapFromRegistry(settingsGroup);
+
+	//
+	settingsGroup = ("WLSimMethodTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLLocTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLXPSDTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLYPSDTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLZPSDTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCohTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLDecompTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLFreqTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLRandTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLModTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCorrTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLMeanTitle");
+	ClearMapFromRegistry(settingsGroup);
+
+	//
+	settingsGroup = ("WLSimMethodLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLLocLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLXPSDLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLYPSDLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLZPSDLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCohLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLDecompLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLFreqLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLRandLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLModLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCorrLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLMeanLink");
+	ClearMapFromRegistry(settingsGroup);
+
+	//
+	settingsGroup = ("WLSimMethodAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLLocAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLXPSDAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLYPSDAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLZPSDAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCohAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLDecompAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLFreqAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLRandAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLModAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCorrAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLMeanAuthor");
+	ClearMapFromRegistry(settingsGroup);
+
+	//
+	settingsGroup = ("WLSimMethodDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLLocDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLXPSDDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLYPSDDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLZPSDDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCohDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLDecompDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLFreqDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLRandDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLModDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCorrDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLMeanDate");
+	ClearMapFromRegistry(settingsGroup);
+
+	//
+	settingsGroup = ("WLSimMethodVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLLocVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLXPSDVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLYPSDVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLZPSDVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCohVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLDecompVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLFreqVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLRandVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLModVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLCorrVersion");
+	ClearMapFromRegistry(settingsGroup);
+
+	settingsGroup = ("WLMeanVersion");
+	ClearMapFromRegistry(settingsGroup);
+
 }
 
 void RPSWindLabSimulation::ClearMapFromRegistry(QString &settingsGroup)
@@ -696,11 +1388,40 @@ bool RPSWindLabSimulation::IsThisObjectInstalled(std::map<const QString, QString
 
 void RPSWindLabSimulation::runSimulation()
 {
-	createSimulationWorker();	
-	connect(simulationWorker, SIGNAL(showWindVelocityOutput()), this, SLOT(displayWindVelocity()));
-	emit progressBarShow();
-	simulationThread->start();
-	
+	if(!GetWindLabData().comparisonMode)
+	{
+		createSimulationWorker();
+		connect(simulationWorker, SIGNAL(showWindVelocityOutput()), this, SLOT(displayWindVelocity()));
+		emit progressBarShow();
+		simulationThread->start();
+	}
+	else
+	{
+		if(GetWindLabData().comparisonType == 1)//accuracy
+		{
+			createComparisonWorker();
+	    	connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareAccuracy()));
+			connect(comparisonWorker, SIGNAL(showAccuracyComparisonOutput()), this, SLOT(displayAccuracyComparisonResults()));
+			emit progressBarShow();
+			comparisonThread->start();
+		}
+		else if(GetWindLabData().comparisonType == 2)//time
+		{
+			createComparisonWorker();
+			connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareTime()));
+			connect(comparisonWorker, SIGNAL(showTimeComparisonOutput()), this, SLOT(displayTimeComparisonResults()));
+			emit progressBarShow();
+			comparisonThread->start();
+		}
+		else if(GetWindLabData().comparisonType == 3)//memory
+		{
+			createComparisonWorker();
+			connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareMemory()));
+			connect(comparisonWorker, SIGNAL(showMemoryComparisonOutput()), this, SLOT(displayMemoryComparisonResults()));
+			emit progressBarShow();
+			comparisonThread->start();
+		}
+	}
 }
 void RPSWindLabSimulation::pauseSimulation()
 {
@@ -792,6 +1513,7 @@ void RPSWindLabSimulation::compareAccuracy()
 		comparisonFunction = dlg->comparisonFunction;
 		comparisonCandidate = dlg->comparisonCandidate;
 		resultOutputTime = dlg->resultOutputTime;
+		GetWindLabData().comparisonType = 1;
 	}
 }
 void RPSWindLabSimulation::compareComputationTime()
@@ -813,6 +1535,8 @@ void RPSWindLabSimulation::compareComputationTime()
 		numberOfTimeIncrement = dlg->numberOfTimeIncrement;
 		totalNumber = dlg->totalNumber;
 		resultOutputTime = dlg->resultOutputTime;
+		GetWindLabData().comparisonType = 2;
+
 	}
 }
 void RPSWindLabSimulation::compareMemoryUsage()
@@ -821,73 +1545,87 @@ void RPSWindLabSimulation::compareMemoryUsage()
 	std::unique_ptr<RPSWLComparisonDialog> dlg(new RPSWLComparisonDialog(this));
 	if (dlg->exec() == QDialog::Accepted)
 	{
+		mcompareComputationTime = dlg->compareComputationTime;
+		mcompareMemoryUsage = dlg->compareMemoryUsage;
+		comparisonCategory = dlg->comparisonCategory;
+		comparisonFunction = dlg->comparisonFunction;
+		comparisonCandidate = dlg->comparisonCandidate;
+		minNumberOfLocation = dlg->minNumberOfLocation;
+		minNumberOfFrequency = dlg->minNumberOfFrequency;
+		minNumberOfTime = dlg->minNumberOfTime;
+		numberOfLocationIncrement = dlg->numberOfLocationIncrement;
+		numberOfFrequencyIncrement = dlg->numberOfFrequencyIncrement;
+		numberOfTimeIncrement = dlg->numberOfTimeIncrement;
+		totalNumber = dlg->totalNumber;
+		resultOutputTime = dlg->resultOutputTime;
+		GetWindLabData().comparisonType = 3;
 	}
 }
 
 void RPSWindLabSimulation::comparisonInitial()
 {
 	int index = 0;
-	categories.append("Coherence Function");
-	categories.append("Correlation Function");
-	categories.append("Frequency Distribution");
-	categories.append("Mean Wind Profil");
-	categories.append("Modulation Function");
-	categories.append("PSD Decomposition Method");
-	categories.append("Simulation Method");
-	categories.append("Along Wind Spectrum");
-	categories.append("Cross Wind Spectrum");
-	categories.append("Vertical Wind Spectrum");
+	categories.append(LabRPS::objGroupCoherenceFunction);
+	categories.append(LabRPS::objGroupCorrelationFunction);
+	categories.append(LabRPS::objGroupFrequencyDistribution);
+	categories.append(LabRPS::objGroupMeanWindProfile);
+	categories.append(LabRPS::objGroupModulationFunction);
+	categories.append(LabRPS::objGroupSpectrumDecompositionMethod);
+	categories.append(LabRPS::objGroupSimulationMethod);
+	categories.append(LabRPS::objGroupAlongWindSpectrum);
+	categories.append(LabRPS::objGroupAcrossWindSpectrum);
+	categories.append(LabRPS::objGroupVerticalWindSpectrum);
 
-	functions.append("ComputeCrossCoherenceVectorF");
+	functions.append(LabRPS::ComputeCrossCoherenceVectorF);
 	categoryFunctionListMap[categories.at(0)] = functions;
 	functions.clear();
 
-	functions.append("ComputeCrossCorrelationVectorT");
-	functions.append("ComputeCrossCorrelationVectorP");
+	functions.append(LabRPS::ComputeCrossCorrelationVectorT);
+	functions.append(LabRPS::ComputeCrossCorrelationVectorP);
 	categoryFunctionListMap[categories.at(1)] = functions;
 	functions.clear();
 
-	functions.append("ComputeFrequenciesVectorF");
+	functions.append(LabRPS::ComputeFrequenciesVectorF);
 	categoryFunctionListMap[categories.at(2)] = functions;
 	functions.clear();
 
-	functions.append("ComputeMeanWindSpeedVectorP");
-	functions.append("ComputeMeanWindSpeedVectorT");
+	functions.append(LabRPS::ComputeMeanWindSpeedVectorP);
+	functions.append(LabRPS::ComputeMeanWindSpeedVectorT);
 	categoryFunctionListMap[categories.at(3)] = functions;
 	functions.clear();
 
-	functions.append("ComputeModulationVectorT");
-	functions.append("ComputeModulationVectorF");
-	functions.append("ComputeModulationVectorP");
+	functions.append(LabRPS::ComputeModulationVectorT);
+	functions.append(LabRPS::ComputeModulationVectorF);
+	functions.append(LabRPS::ComputeModulationVectorP);
 	categoryFunctionListMap[categories.at(4)] = functions;
 	functions.clear();
 
-	functions.append("ComputeDecomposedCrossSpectrumVectorF");
-	functions.append("ComputeDecomposedCrossSpectrumVectorT");
-	functions.append("ComputeDecomposedCrossSpectrumVectorP");
+	functions.append(LabRPS::ComputeDecomposedCrossSpectrumVectorF);
+	functions.append(LabRPS::ComputeDecomposedCrossSpectrumVectorT);
+	functions.append(LabRPS::ComputeDecomposedCrossSpectrumVectorP);
 	categoryFunctionListMap[categories.at(5)] = functions;
 	functions.clear();
 
-	functions.append("Simulate");
-	functions.append("SimulateInLargeScaleMode");
+	functions.append(LabRPS::Simulate);
+	functions.append(LabRPS::SimulateInLargeScaleMode);
 	categoryFunctionListMap[categories.at(6)] = functions;
 	functions.clear();
 
-	functions.append("ComputeXCrossSpectrumVectorF");
-	functions.append("ComputeXCrossSpectrumVectorT");
-	functions.append("ComputeXCrossSpectrumVectorP");
+	functions.append(LabRPS::ComputeXCrossSpectrumVectorF);
+	functions.append(LabRPS::ComputeXCrossSpectrumVectorT);
+	functions.append(LabRPS::ComputeXCrossSpectrumVectorP);
 	categoryFunctionListMap[categories.at(7)] = functions;
 	functions.clear();
 
-	functions.append("ComputeYCrossSpectrumVectorF");
-	functions.append("ComputeYCrossSpectrumVectorT");
-	functions.append("ComputeYCrossSpectrumVectorP");
+	functions.append(LabRPS::ComputeYCrossSpectrumVectorF);
+	functions.append(LabRPS::ComputeYCrossSpectrumVectorT);
+	functions.append(LabRPS::ComputeYCrossSpectrumVectorP);
 	categoryFunctionListMap[categories.at(8)] = functions;
 	functions.clear();
 
-	functions.append("ComputeZCrossSpectrumVectorF");
-	functions.append("ComputeZCrossSpectrumVectorT");
-	functions.append("ComputeZCrossSpectrumVectorP");
+	functions.append(LabRPS::ComputeZCrossSpectrumVectorF);
+	functions.append(LabRPS::ComputeZCrossSpectrumVectorT);
+	functions.append(LabRPS::ComputeZCrossSpectrumVectorP);
 	categoryFunctionListMap[categories.at(9)] = functions;
 	functions.clear();
 
@@ -1689,6 +2427,196 @@ void RPSWindLabSimulation::displayRandomPhase()
 	// delete the worker
 	GetWindLabSimulationOutputWorker()->finished();
 }
+
+void RPSWindLabSimulation::displayComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+    information = information + GetWindLabComparisonWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the comparison results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+	QTime t;
+	t.start();
+
+	// allocate memory for the table
+	Table *table = app->newTable(tableName, row, 3);
+	table->setColName(0, variableName);
+	table->setColName(1, candidat1);
+	table->setColName(2, candidat2);
+
+
+	// fill the table with computed coherence
+	for (int i = 0; i < row; i++)
+	{
+		table->setCellValue(i, 0, GetWindLabComparisonWorker()->m_resultVectorVariable(i));
+		table->setCellValue(i, 1, GetWindLabComparisonWorker()->m_resultVectorCandidate1(i));
+		table->setCellValue(i, 2, GetWindLabComparisonWorker()->m_resultVectorCandidate2(i));
+	}
+
+	table->showNormal();
+	information.append(tr("The comparison results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabComparisonWorker()->finished();
+}
+
+  void RPSWindLabSimulation::displayAccuracyComparisonResults()
+  {
+	int count = candidateList.size();
+    QString comparisonCategory = candidateList[1];
+    QString comparisonFunction = candidateList[2];
+    QString candidate1 = candidateList[0];
+    QString candidate2 = candidateList[3];
+
+    if (comparisonCategory == LabRPS::objGroupCoherenceFunction)
+    {
+        if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "CoherenceF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupCorrelationFunction)
+    {
+        if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
+        {
+        }
+        else if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorP)
+        {
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupFrequencyDistribution)
+    {
+        if (comparisonFunction == LabRPS::ComputeFrequenciesVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "Frequency", "Numbering", GetWindLabData().numberOfFrequency);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupMeanWindProfile)
+    {
+        if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "MeanP", "Location", GetWindLabData().numberOfSpatialPosition);
+        }
+        else if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "MeanT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupModulationFunction)
+    {
+        if (comparisonFunction == LabRPS::ComputeModulationVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "ModulationT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+        else if (comparisonFunction == LabRPS::ComputeModulationVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "ModulationF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+        else if (comparisonFunction == LabRPS::ComputeModulationVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "ModulationP", "Frequency", GetWindLabData().numberOfSpatialPosition);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupSpectrumDecompositionMethod)
+    {
+        if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "DecomposedpsdF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+        else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "DecomposedpsdT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+        else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "DecomposedpsdP", "Location", GetWindLabData().numberOfSpatialPosition);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupSimulationMethod)
+    {
+        if (comparisonFunction == LabRPS::Simulate)
+        {
+        }
+        else if (comparisonFunction == LabRPS::SimulateInLargeScaleMode)
+        {
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupAlongWindSpectrum)
+    {
+        if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "XSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+        else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "XSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+        else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "XSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupAcrossWindSpectrum)
+    {
+        if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "YSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+        else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "YSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+        else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "YSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupVerticalWindSpectrum)
+    {
+        if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorF)
+        {
+			displayComparisonResults(candidate1, candidate2, "ZSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+        }
+        else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorT)
+        {
+			displayComparisonResults(candidate1, candidate2, "ZSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+        else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorP)
+        {
+			displayComparisonResults(candidate1, candidate2, "ZSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+        }
+    }
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabComparisonWorker()->finished();
+
+  }
+  void RPSWindLabSimulation::displayTimeComparisonResults()
+  {
+	int a;
+  }
+  void RPSWindLabSimulation::displayMemoryComparisonResults()
+  {
+	int a;
+  }
 void RPSWindLabSimulation::displayWindVelocity()
 {
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
@@ -3047,8 +3975,38 @@ void RPSWindLabSimulation::createSimulationWorker()
 	connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
 
-	// add the functionaly to delete the worker after work is done  
-	connect(simulationWorker, SIGNAL(finished()), simulationThread, SLOT(quit()));
+	// // add the functionaly to delete the worker after work is done  
+	// connect(simulationWorker, SIGNAL(finished()), simulationThread, SLOT(quit()));
+	// connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
+	// connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
+
+	// add the functionaly to delete the worker after work is done
 	connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
-	connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
+
+}
+
+void RPSWindLabSimulation::createComparisonWorker()
+{
+	// create a worker
+	comparisonWorker = new RPSWindLabComparisonWorker(windLabData, information, locationJ, locationK, frequencyIndex, timeIndex, candidateList);
+
+	// create a new thread and attach the worker to it
+	comparisonThread = new QThread(this);
+	comparisonWorker->moveToThread(comparisonThread);
+
+	// add the functionality to stop the outputing process
+	connect(this, SIGNAL(stopped()), comparisonWorker, SLOT(stop()), Qt::DirectConnection);
+	connect(comparisonWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+    connect(comparisonWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+	connect(comparisonWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+
+
+	// // add the functionaly to delete the worker after work is done  
+	// connect(comparisonWorker, SIGNAL(finished()), comparisonThread, SLOT(quit()));
+	// connect(comparisonWorker, SIGNAL(finished()), comparisonWorker, SLOT(deleteLater()));
+	// connect(comparisonThread, SIGNAL(finished()), comparisonThread, SLOT(deleteLater()));
+
+	// add the functionaly to delete the worker after work is done
+	connect(comparisonWorker, SIGNAL(finished()), comparisonWorker, SLOT(deleteLater()));
+
 }

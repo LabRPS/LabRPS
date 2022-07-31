@@ -25,7 +25,7 @@ RPSWindLabSimulationOutputWorker::RPSWindLabSimulationOutputWorker(CRPSWindLabsi
 RPSWindLabSimulationOutputWorker::~RPSWindLabSimulationOutputWorker()
 {
     m_information.clear();
-    m_information.append("worker distroyed");
+    m_information.append("Output worker distroyed");
     emit sendInformation(m_information);
 }
 
@@ -1419,6 +1419,8 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
 
     emit showDecomposedSpectrumOutput();
 }
+
+
 
 void RPSWindLabSimulationOutputWorker::coherenceOutp()
 {

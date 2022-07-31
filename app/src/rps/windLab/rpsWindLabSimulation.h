@@ -9,6 +9,7 @@
 #include "RPSWindLabsimuData.h"
 #include "rpsWindLabSimulationWorker.h"
 #include "rpsWindLabSimulationOutputWorker.h"
+#include "rpsWindLabComparisonWorker.h"
 
 class XmlStreamWriter;
 class XmlStreamReader;
@@ -86,6 +87,14 @@ public slots:
   void displayMeanWindVelocity();
   void displayRandomPhase();
 
+  // display comparison results
+  void displayAccuracyComparisonResults();
+  void displayTimeComparisonResults();
+  void displayMemoryComparisonResults();
+
+  void displayComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+
+
 
 private:
   // wind velocity simulation input data
@@ -97,6 +106,10 @@ private:
 
   QThread *simulationOutputThread = nullptr;
   RPSWindLabSimulationOutputWorker *simulationOutputWorker = nullptr;
+  
+  QThread *comparisonThread = nullptr;
+  RPSWindLabComparisonWorker *comparisonWorker = nullptr;
+
 
   mat m_resultMatrix;
 
@@ -133,17 +146,36 @@ public:
   CRPSWindLabsimuData &GetWindLabData();
   RPSWindLabSimulationOutputWorker *GetWindLabSimulationOutputWorker();
   RPSWindLabSimulationWorker *GetWindLabSimulationWorker();
+  RPSWindLabComparisonWorker *GetWindLabComparisonWorker();
 
   void windLabDataInitialize();
   void WriteMapToRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
   void ReadMapFromRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
+  void WriteMapToRegistry2(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
+  void ReadMapFromRegistry2(std::map<const QString, QString> &map, QString &settingsGroup, int &count);
 
   //*******save installed plungins for windLab (start)********//
   void WLWriteAllTobeInstallObjectsToRegistry();
   void WLReadAllTobeInstallObjectsFromRegistry();
+  
+void WLWriteAllTobeInstallObjPublicationTitleToRegistry();
+void WLReadAllTobeInstallObjPublicationTitleToRegistry();
+
+void WLWriteAllTobeInstallObjPublicationLinkToRegistry();
+void WLReadAllTobeInstallObjPublicationLinkToRegistry();
+
+void WLWriteAllTobeInstallObjPublicationAuthorToRegistry();
+void WLReadAllTobeInstallObjPublicationAuthorToRegistry();
+
+void WLWriteAllTobeInstallObjPublicationDateToRegistry();
+void WLReadAllTobeInstallObjPublicationDateToRegistry();
+
+void WLWriteAllTobeInstallObjVersionToRegistry();
+void WLReadAllTobeInstallObjVersionToRegistry();
+
   void WLClearAllTobeInstallObjectsFromRegistry();
   void ClearMapFromRegistry(QString &settingsGroupt);
-
+  
   //*******save installed plungins for windLab (end)********//
   bool GetObjects(std::map<const QString, QString> &map, QStringList &lstObject, QString pluginName);
   bool GetToBeInstalledObjectsList(QStringList &lstObject, QString pluginName);
@@ -183,7 +215,7 @@ public:
 
   void createOutputWorker();
   void createSimulationWorker();
-
+  void createComparisonWorker();
 
   void fillLocationJComboBox(QComboBox *locationJComboBox);
   void fillLocationKComboBox(QComboBox *locationKComboBox);

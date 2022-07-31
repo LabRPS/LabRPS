@@ -122,8 +122,8 @@ PluginPropertyEditor::PluginPropertyEditor(QWidget *parent, ApplicationWindow *a
           SLOT(selectObjectItem(QTreeWidgetItem *)));
   connect(objectbrowser_, &MyTreeWidget::activate,
           [=](MyWidget *widget) { app_->activateWindow(widget); });
-  connect(objectbrowser_, &MyTreeWidget::itemRootContextMenuRequested, app_,
-          &ApplicationWindow::showWindowTitleBarMenu);
+//   connect(objectbrowser_, &MyTreeWidget::itemRootContextMenuRequested, app_,
+//           &ApplicationWindow::showWindowTitleBarMenu);
   connect(boolManager_, SIGNAL(valueChanged(QtProperty *, bool)), this,
           SLOT(valueChange(QtProperty *, const bool &))); 
   connect(doubleManager_, SIGNAL(valueChanged(QtProperty *, double)), this,
@@ -220,7 +220,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -252,7 +252,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -284,7 +284,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -316,7 +316,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -348,7 +348,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -380,7 +380,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -412,7 +412,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -444,7 +444,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -476,7 +476,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -508,7 +508,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -540,7 +540,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -572,7 +572,7 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
-                   WindLabObjectPropertyBlock(objectDescription);     
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);     
                 }
 
         }
@@ -633,7 +633,7 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
         /////////////*********rps********///////////////////////////
         objectbrowser_->setHeaderLabel("Plugins");
         objectbrowser_->headerItem()->setIcon(
-            0, IconLoader::load("table", IconLoader::LightDark));
+            0, IconLoader::load("simulation-plugins", IconLoader::General));
         // installed plugins
         {
                 // get the path to the plugin folder
@@ -641,11 +641,19 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
 
                 // search and find all available plugin and save their descriptions
                 PluginManager::GetInstance().SearchForAllPlugins(strPath);
-                
+
+                if (PluginManager::GetInstance().GetPluginDescriptionsMap().size() <= 0)
+                {
+                        objectbrowser_->setHeaderLabel("(none)");
+                        objectbrowser_->headerItem()->setIcon(
+                            0, IconLoader::load("clear-loginfo", IconLoader::General));
+                        return;
+                }
+
                 // an iterator
                 std::map<QString, CPluginDescription *>::iterator it;
                 
-                // iterate through all location distribution
+                // iterate through all plugins
                 for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
                 {
                         // the name of the plugin
@@ -1177,9 +1185,155 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
         // tableConnections(table);
 }
 void PluginPropertyEditor::seaLabPopulateObjectBrowser(MyWidget *widget)
-{}
+{
+        // delete all TreeWidgetItems
+        objectbrowser_->blockSignals(true);
+        while (objectbrowser_->topLevelItemCount())
+        {
+                QTreeWidgetItemIterator itr(objectbrowser_,
+                                            QTreeWidgetItemIterator::NoChildren);
+                while (*itr)
+                {
+                        delete (*itr);
+                        ++itr;
+                }
+        }
+        objectbrowser_->clear();
+        objectitems_.clear();
+        propertybrowser_->clear();
+        objectbrowser_->blockSignals(false);
+
+        /////////////*********rps********///////////////////////////
+        objectbrowser_->setHeaderLabel("Plugins");
+        objectbrowser_->headerItem()->setIcon(
+            0, IconLoader::load("simulation-plugins", IconLoader::General));
+        // installed plugins
+        {
+                // get the path to the plugin folder
+                QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+
+                // search and find all available plugin and save their descriptions
+                PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+                if (PluginManager::GetInstance().GetPluginDescriptionsMap().size() <= 0)
+                {
+                        objectbrowser_->setHeaderLabel("(none)");
+                        objectbrowser_->headerItem()->setIcon(
+                            0, IconLoader::load("clear-loginfo", IconLoader::General));
+                        return;
+                }
+
+                // an iterator
+                std::map<QString, CPluginDescription *>::iterator it;
+
+                // iterate through all plugins
+                for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+                {
+                        // the name of the plugin
+                        QString installedpluginitemtext = it->second->m_strName;
+
+                        // create the plugin note item
+                        QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
+                            static_cast<QTreeWidget *>(nullptr), QStringList(installedpluginitemtext));
+
+                        // set tooltip and icon
+                        installedpluginitem->setToolTip(0, installedpluginitemtext);
+                        installedpluginitem->setIcon(0,
+                                                     IconLoader::load("goto-cell", IconLoader::LightDark));
+                        // set firt data to the item
+                        installedpluginitem->setData(
+                            0, Qt::UserRole,
+                            static_cast<int>(MyTreeWidget::SeaLabObjectPropertyItemType::SeaLabPlugin));
+
+                        // set second data to the item
+                        installedpluginitem->setData(0, Qt::UserRole + 1,
+                                                     QVariant(installedpluginitemtext));
+
+                        // add the plugin node item to the tree
+                        objectitems_.append(installedpluginitem);
+                }
+
+                // add to Tree
+                objectbrowser_->addTopLevelItems(objectitems_);
+                objectbrowser_->insertTopLevelItems(0, objectitems_);
+                // objectbrowser_->expandAll();
+        }
+}
 void PluginPropertyEditor::seismicLabPopulateObjectBrowser(MyWidget *widget)
-{}
+{
+        // delete all TreeWidgetItems
+        objectbrowser_->blockSignals(true);
+        while (objectbrowser_->topLevelItemCount())
+        {
+                QTreeWidgetItemIterator itr(objectbrowser_,
+                                            QTreeWidgetItemIterator::NoChildren);
+                while (*itr)
+                {
+                        delete (*itr);
+                        ++itr;
+                }
+        }
+        objectbrowser_->clear();
+        objectitems_.clear();
+        propertybrowser_->clear();
+        objectbrowser_->blockSignals(false);
+
+        /////////////*********rps********///////////////////////////
+        objectbrowser_->setHeaderLabel("Plugins");
+        objectbrowser_->headerItem()->setIcon(
+            0, IconLoader::load("simulation-plugins", IconLoader::General));
+        // installed plugins
+        {
+                // get the path to the plugin folder
+                QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+
+                // search and find all available plugin and save their descriptions
+                PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+                if (PluginManager::GetInstance().GetPluginDescriptionsMap().size() <= 0)
+                {
+                        objectbrowser_->setHeaderLabel("(none)");
+                        objectbrowser_->headerItem()->setIcon(
+                            0, IconLoader::load("clear-loginfo", IconLoader::General));
+                        return;
+                }
+
+                // an iterator
+                std::map<QString, CPluginDescription *>::iterator it;
+
+                // iterate through all plugins
+                for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+                {
+                        // the name of the plugin
+                        QString installedpluginitemtext = it->second->m_strName;
+
+                        // create the plugin note item
+                        QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
+                            static_cast<QTreeWidget *>(nullptr), QStringList(installedpluginitemtext));
+
+                        // set tooltip and icon
+                        installedpluginitem->setToolTip(0, installedpluginitemtext);
+                        installedpluginitem->setIcon(0,
+                                                     IconLoader::load("goto-cell", IconLoader::LightDark));
+                        // set firt data to the item
+                        installedpluginitem->setData(
+                            0, Qt::UserRole,
+                            static_cast<int>(MyTreeWidget::SeismicLabObjectPropertyItemType::SeismicLabPlugin));
+
+                        // set second data to the item
+                        installedpluginitem->setData(0, Qt::UserRole + 1,
+                                                     QVariant(installedpluginitemtext));
+
+                        // add the plugin node item to the tree
+                        objectitems_.append(installedpluginitem);
+                }
+
+                // add to Tree
+                objectbrowser_->addTopLevelItems(objectitems_);
+                objectbrowser_->insertTopLevelItems(0, objectitems_);
+                // objectbrowser_->expandAll();
+        }
+}
 
 void PluginPropertyEditor::setObjectPropertyId()
 {}
@@ -1241,7 +1395,7 @@ void PluginPropertyEditor::WindLabParentObjectPropertyBlock(const QString &name,
 
 }
 
-void PluginPropertyEditor::WindLabObjectPropertyBlock(const ObjectDescription &object)
+void PluginPropertyEditor::WindLabObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object)
 {
  propertybrowser_->clear();
  propertybrowser_->addProperty(objecttypeitem_);
@@ -1262,7 +1416,7 @@ void PluginPropertyEditor::WindLabObjectPropertyBlock(const ObjectDescription &o
  propertybrowser_->addProperty(objectversionitem_);
 
 
-QString isSelected = GetWindLabObjectSelectionState("Location Distributions", object.m_objectName, app_->rpsSimulator->rpsWindLabSimulator->GetWindLabData());
+QString isSelected = GetWindLabObjectSelectionState(objectGroup, object.m_objectName, app_->rpsSimulator->rpsWindLabSimulator->GetWindLabData());
 stringManager_->setValue(objecttypeitem_, "Object");
 stringManager_->setValue(objectnameitem_, object.m_objectName);
 stringManager_->setValue(objectselecteditem_, isSelected);

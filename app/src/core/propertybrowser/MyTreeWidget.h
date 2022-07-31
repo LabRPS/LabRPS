@@ -67,6 +67,16 @@ class MyTreeWidget : public QTreeWidget {
     WindLabCovarianceFunction = 13,
   };
 
+  enum class SeaLabObjectPropertyItemType : int {
+    SeaLabPlugin = 0,
+    
+  };
+
+   enum class SeismicLabObjectPropertyItemType : int {
+    SeismicLabPlugin = 0,
+    
+  };
+
   MyTreeWidget(QWidget *parent = nullptr);
   ~MyTreeWidget();
 

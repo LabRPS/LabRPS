@@ -467,6 +467,7 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/windLab/widgets/rpswlaccuracycomparisondialog.h\
             src/rps/windLab/rpsWindLabSimulationWorker.h\
             src/rps/windLab/rpsWindLabSimulationOutputWorker.h\
+            src/rps/windLab/rpsWindLabComparisonWorker.h\
             src/rps/githubRestApiClient.h\
 
 
@@ -502,6 +503,7 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/windLab/widgets/rpswlaccuracycomparisondialog.cpp\
             src/rps/windLab/rpsWindLabSimulationWorker.cpp\
             src/rps/windLab/rpsWindLabSimulationOutputWorker.cpp\
+            src/rps/windLab/rpsWindLabComparisonWorker.cpp\
             src/rps/githubRestApiClient.cpp\
 
 

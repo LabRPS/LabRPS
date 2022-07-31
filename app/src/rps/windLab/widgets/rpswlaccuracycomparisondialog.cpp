@@ -59,7 +59,8 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
 
     connect(ui->comboBoxCategory, SIGNAL(currentIndexChanged(int)),
             this, SLOT(comboBoxCategoryCurrentIndexChanged(int)));
-
+    connect(ui->comboBoxFunction, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(comboBoxFunctionCurrentIndexChanged(int)));
     connect(ui->pushButtonFunctionInit, SIGNAL(clicked()),
             this, SLOT(OnBnClickedFunctionInit()));
 
@@ -100,6 +101,13 @@ void RPSWLAccuracyComparisonDialog::comboBoxCategoryCurrentIndexChanged(int)
     QString cat = ui->comboBoxCategory->currentText();
 
     rpsWindLabSimulator->fillFunctionAndCandidateComboBoxes(cat, ui->comboBoxFunction, ui->comboBoxCandidate);
+
+    ui->tableWidget->setRowCount(0);
+}
+
+void RPSWLAccuracyComparisonDialog::comboBoxFunctionCurrentIndexChanged(int)
+{
+    ui->tableWidget->setRowCount(0);
 }
 
 void RPSWLAccuracyComparisonDialog::OnBnClickedFunctionInit()
@@ -137,7 +145,8 @@ void RPSWLAccuracyComparisonDialog::acceptInput()
     comparisonCategory = ui->comboBoxCategory->currentText();
     comparisonFunction = ui->comboBoxFunction->currentText();
     comparisonCandidate = ui->comboBoxCandidate->currentText();
-
+    
+    rpsWindLabSimulator->candidateList.clear();
     saveTableItemsToList(rpsWindLabSimulator->candidateList);
 
 }
@@ -171,6 +180,9 @@ void RPSWLAccuracyComparisonDialog::saveTableItemsToList(std::vector<QString> &i
     int row = ui->tableWidget->rowCount();
     int col = ui->tableWidget->columnCount();
     rpsWindLabSimulator->numberOfCandidate = row;
+
+    itemList.clear();
+
     for (int i = 0; i < row; i++)
     {
         for (int j = 0; j < col; j++)

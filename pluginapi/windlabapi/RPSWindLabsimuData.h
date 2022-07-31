@@ -128,6 +128,9 @@ class RPS_CORE_API CRPSWindLabsimuData
 
 	bool isInterruptionRequested;
 
+	//comparison type: 1 for accuracy, 2 for time and 3 for memory
+	int comparisonType;
+
 };
 
 

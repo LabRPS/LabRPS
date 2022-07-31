@@ -74,7 +74,7 @@ class PluginPropertyEditor : public QDockWidget {
   // properties block handler
     void WindLabPluginPropertyBlock(CPluginDescription *description);
     void WindLabParentObjectPropertyBlock(const QString &name, const int &number);
-    void WindLabObjectPropertyBlock(const ObjectDescription &object);
+    void WindLabObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object);
 
   // 
 ObjectDescription GetWindLabPluggedObjectDescription(const QString &itemText, const QString &objectName);

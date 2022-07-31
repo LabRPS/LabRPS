@@ -37,6 +37,8 @@ public:
   bool IntallRegistryPlugins();
   int RPSReadInstalledPluginsFromRegistry();
   int RPSReadInstalledPluginsFromRegistryCommon();
+  void WLWriteAllTobeInstalledPluginsToRegistry();
+  void WLReadAllTobeInstalledPluginsFromRegistry(const QStringList &pluginList);
   void simulate();
 
   public slots:

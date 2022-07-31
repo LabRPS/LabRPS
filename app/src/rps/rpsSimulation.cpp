@@ -177,6 +177,8 @@ bool RPSSimulation::IntallRegistryPlugins()
   for (int i = 0; i < PluginManager::GetInstance().GetInstalledPluginsInRegVector().size(); i++)
   {
     QString PluginFromReg = PluginManager::GetInstance().GetInstalledPluginsInRegVector().at(i);
+    
+    //PluginManager::GetInstance().InitializePlugin(PluginFromReg);
     PluginManager::GetInstance().InstallPlugin(PluginFromReg);
   }
 
@@ -219,7 +221,7 @@ int RPSSimulation::RPSReadInstalledPluginsFromRegistryCommon()
 
 void RPSSimulation::runSimulation()
 {
-  
+
   // RPSSimulationThread *simThread = new RPSSimulationThread(this);
   // //QObject::connect(simThread, SIGNAL(finished()), simThread, SLOT(deleteLater()));
   // QObject::connect(simThread, SIGNAL(sendString(QString)), this, SLOT(receiveString(QString)), Qt::QueuedConnection);
@@ -237,7 +239,6 @@ void RPSSimulation::runSimulation()
   {
     rpsSeaLabSimulator->runSimulation();
   }
-
 }
 void RPSSimulation::pauseSimulation()
 {
@@ -286,8 +287,8 @@ void RPSSimulation::simulationOptions()
     rpsSeaLabSimulator->simulationOptions();
   }
 }
- void RPSSimulation::simulate()
- {
+void RPSSimulation::simulate()
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -301,8 +302,7 @@ void RPSSimulation::simulationOptions()
   {
     rpsSeaLabSimulator->runSimulation();
   }
-
- }
+}
 
 void RPSSimulation::rpsPlugins()
 {
@@ -363,16 +363,15 @@ void RPSSimulation::receiveString(QString string)
 {
   ApplicationWindow *app = (ApplicationWindow *)this->parent();
   app->logInfo = (string);
-	app->showResults(true);
+  app->showResults(true);
 
   QMessageBox::warning(0, "from thread", string);
-
 }
 
 void RPSSimulation::fillLocationJComboBox()
 {
-    ApplicationWindow *app = (ApplicationWindow *)this->parent();
-  
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillLocationJComboBox(app->getComboxboxLocJstatusbarbtn());
@@ -388,7 +387,7 @@ void RPSSimulation::fillLocationJComboBox()
 }
 void RPSSimulation::fillLocationKComboBox()
 {
-   ApplicationWindow *app = (ApplicationWindow *)this->parent();
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -407,7 +406,7 @@ void RPSSimulation::fillFrequencyComboBox()
 {
   ApplicationWindow *app = (ApplicationWindow *)this->parent();
 
-	if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->fillFrequencyComboBox(app->getComboxboxFreqstatusbarbtn());
   }
@@ -438,8 +437,8 @@ void RPSSimulation::fillTimeComboBox()
   }
 }
 
-  void RPSSimulation::locJCurrentIndexChanged(int index)
-  {
+void RPSSimulation::locJCurrentIndexChanged(int index)
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -453,9 +452,9 @@ void RPSSimulation::fillTimeComboBox()
   {
     // rpsSeaLabSimulator->locJCurrentIndexChanged(index);
   }
-  }
-  void RPSSimulation::locKCurrentIndexChanged(int index)
-  {
+}
+void RPSSimulation::locKCurrentIndexChanged(int index)
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -469,9 +468,9 @@ void RPSSimulation::fillTimeComboBox()
   {
     // rpsSeaLabSimulator->locKCurrentIndexChanged(index);
   }
-  }
-  void RPSSimulation::freqCurrentIndexChanged(int index)
-  {
+}
+void RPSSimulation::freqCurrentIndexChanged(int index)
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -485,9 +484,9 @@ void RPSSimulation::fillTimeComboBox()
   {
     // rpsSeaLabSimulator->freqCurrentIndexChanged(index);
   }
-  }
-  void RPSSimulation::timCurrentIndexChanged(int index)
-  {
+}
+void RPSSimulation::timCurrentIndexChanged(int index)
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -501,21 +500,55 @@ void RPSSimulation::fillTimeComboBox()
   {
     // rpsSeaLabSimulator->timCurrentIndexChanged(index);
   }
-  }
+}
 
-  void RPSSimulation::wavCurrentIndexChanged(int index)
-  {
+void RPSSimulation::wavCurrentIndexChanged(int index)
+{
 
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
-    
   }
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
-    
   }
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
-    //rpsSeaLabSimulator->wavCurrentIndexChanged(index);
+    // rpsSeaLabSimulator->wavCurrentIndexChanged(index);
   }
-  }
+}
+
+void RPSSimulation::WLWriteAllTobeInstalledPluginsToRegistry()
+{
+  // QStringList pluginList;
+
+  // // an iterator
+  // std::map<QString, PluginInstance *>::iterator it;
+
+  // // iterate through all plugins
+  // for (it = PluginManager::GetInstance().GetInstalledPluginsNameMap().begin(); it != PluginManager::GetInstance().GetInstalledPluginsNameMap().end(); ++it)
+  // {
+  //   pluginList.append(it->first);
+  // }
+
+  // // the setting objec and group
+  // QSettings settings;
+  // settings.beginGroup("AllTobeInstalledPluginsRegistry");
+
+  // // save the plugin list
+  // settings.setValue("PluginList", pluginList);
+
+  // // end
+  // settings.endGroup();
+}
+void RPSSimulation::WLReadAllTobeInstalledPluginsFromRegistry(const QStringList &pluginList)
+{
+  // // the setting objec and group
+  // QSettings settings;
+  // settings.beginGroup("AllTobeInstalledPluginsRegistry");
+
+  // // read the plugin list from registry
+  // pluginList = settings.value("PluginList").toStringList();
+
+  // // end
+  // settings.endGroup();
+}

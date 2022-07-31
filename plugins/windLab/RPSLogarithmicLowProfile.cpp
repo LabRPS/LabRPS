@@ -38,7 +38,7 @@ void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsim
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
 	{
-		dMeanSpeedVector(loop) = log(dLocCoord(Data.locationJ, 2) / dterrainRoughness)*dshearVelocity / VonKarmanConst;
+        dMeanSpeedVector(loop) = log(dLocCoord(Data.locationJ, 2) / dterrainRoughness)*dshearVelocity / VonKarmanConst;
 	}
 }
 void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuData &Data, mat &dMeanSpeedMatrix, QStringList &strInformation)
