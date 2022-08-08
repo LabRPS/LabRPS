@@ -92,7 +92,12 @@ public slots:
   void displayTimeComparisonResults();
   void displayMemoryComparisonResults();
 
-  void displayComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+
+  void displayAComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  void displayTComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  
+  void displayWindVelocitySimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  void displayWindVelocityLargeScaleSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
 
 
 
@@ -132,7 +137,7 @@ public:
   int numberOfFrequencyIncrement;
   int numberOfTimeIncrement;
   int totalNumber;
-  int resultOutputTime;
+  int resultOutputType;
 
   QString psdPrefix;
 
@@ -141,6 +146,23 @@ public:
   std::map<QString, QStringList> categoryFunctionListMap;
   std::vector<QString> candidateList;
   int numberOfCandidate;
+
+   std::vector<int> m_resultVectorVariable;
+   std::vector<int> m_resultVectorCandidate1;
+   std::vector<int> m_resultVectorCandidate2;
+
+   //
+    QString coherence;
+    QString correlation;
+    QString frequency;
+    QString mean;
+    QString modulation;
+    QString decomposition;
+    QString simulation;
+    QString spatial;
+    QString randomness;
+    QString spectrum;
+
 
 public:
   CRPSWindLabsimuData &GetWindLabData();
@@ -199,6 +221,9 @@ void WLReadAllTobeInstallObjVersionToRegistry();
   QStringList FindAllPSDDecompositionMethods();
   QStringList FindAllSimulationMethods();
   QStringList FindAllSpectrumModels();
+  QStringList FindAllSpatialDistribution();
+  QStringList FindAllRandomnessProvider();
+
   void fillCategoryComboBox(QComboBox *categoryComboBox);
   void fillFunctionAndCandidateComboBoxes(QString category, QComboBox *functionComboBox, QComboBox *candidatesComboBox);
 

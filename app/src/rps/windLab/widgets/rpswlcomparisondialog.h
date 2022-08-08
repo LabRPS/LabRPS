@@ -35,10 +35,23 @@ public:
     int numberOfFrequencyIncrement;
     int numberOfTimeIncrement;
     int totalNumber;
-    int resultOutputTime;
+    int resultOutputType;
+
+    QString coherence;
+    QString correlation;
+    QString frequency;
+    QString mean;
+    QString modulation;
+    QString decomposition;
+    QString simulation;
+    QString spatial;
+    QString randomness;
+    QString spectrum;
+
 
 public slots:
     void comboBoxCategoryCurrentIndexChanged(int);
+    void comboBoxFunctionCurrentIndexChanged(int);
     void checkBoxComputationTimeModeChanged(int);
     void checkBoxMemoryUsageModeChanged(int);
     void OnBnClickedFunctionInit();
@@ -50,6 +63,7 @@ public slots:
     void acceptInput();
     void OnBnClickedTableAddRow();
     void OnBnClickedTableDeleteRow();
+    
 };
 
 #endif // RPSWLCOMPARISONDIALOG_H

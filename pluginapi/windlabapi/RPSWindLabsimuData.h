@@ -44,9 +44,6 @@ class RPS_CORE_API CRPSWindLabsimuData
 	// whether we are doing large scale simulation or not
 	bool  largeScaleSimulationMode;
 
-	// Large number of process simulation flag
-	bool largeScaleSimulationFlag;
-
 	// simulation successfull or not flag
 	bool isSimulationSuccessful;
 

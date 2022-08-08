@@ -9,15 +9,35 @@
 class RPSWindLabComparisonWorker : public QObject 
 {
     Q_OBJECT
- 
+
 public:
     RPSWindLabComparisonWorker(CRPSWindLabsimuData windLabData,
-                                     QStringList information,
-                                     int locationJ,
-                                     int locationK,
-                                     int frequencyIndex,
-                                     int timeIndex,
-                                     std::vector<QString> candidateList);
+                               QStringList information,
+                               int locationJ,
+                               int locationK,
+                               int frequencyIndex,
+                               int timeIndex,
+                               std::vector<QString> candidateList,
+                               int resultOutputType,
+                               int minNumberOfLocation,
+                               int minNumberOfFrequency,
+                               int minNumberOfTime,
+                               int numberOfLocationIncrement,
+                               int numberOfFrequencyIncrement,
+                               int numberOfTimeIncrement,
+                               int totalNumber,
+                               QString coherence,
+                               QString correlation,
+                               QString frequency,
+                               QString mean,
+                               QString modulation,
+                               QString decomposition,
+                               QString simulation,
+                               QString spatial,
+                               QString randomness,
+                               QString spectrum);
+
+
     ~RPSWindLabComparisonWorker();
     bool isStopped();
 
@@ -31,20 +51,22 @@ public slots:
 
 
 signals:
-    void showAccuracyComparisonOutput();
-    void showTimeComparisonOutput();
-    void showMemoryComparisonOutput();
+void showAccuracyComparisonOutput();
+void showTimeComparisonOutput();
+void showMemoryComparisonOutput();
+void saveComputationTimeConsumption();
 
-    void sendInformation(QStringList infoList);
-    void progressBarShow();
-    void progressBarHide();
-    void progressBarSetValue(int value);
-    void progressBarSetMin(int value);
-    void progressBarSetMax(int value);
-    void progressBarReset();
-    void finished();
+void sendInformation(QStringList infoList);
+void progressBarShow();
+void progressBarHide();
+void progressBarSetValue(int value);
+void progressBarSetMin(int value);
+void progressBarSetMax(int value);
+void progressBarReset();
+void finished();
 
 public:
+void workerComparing();
 void accuracyOutp();
 void timeOutp();
 void memoryOutp();
@@ -68,9 +90,14 @@ void ComputeYCrossSpectrumVectorP(const QString &name, vec &result, int &time, i
 void ComputeZCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
 void ComputeZCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
 void ComputeZCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
+void Simulate(const QString &name, mat &result, int &time, int &memory, QStringList &information);
+void SimulateInLargeScaleMode(const QString &name, QString &strFileName, int &time, int &memory, QStringList &information);
 
 void fillVectorWithNumbers(vec &vector, const int &row);
 void fillVectorWithTimeIncrements(vec &vector);
+
+void setOjectDependencyForCanditate1();
+void setOjectDependencyForCanditate2();
 
 private:
     CRPSWindLabsimuData m_windLabData;
@@ -88,6 +115,26 @@ private:
     int m_timeIndex;
 
   std::vector<QString> m_candidateList;
+  int m_resultOutputType;
+  int m_minNumberOfLocation;
+  int m_minNumberOfFrequency;
+  int m_minNumberOfTime;
+  int m_numberOfLocationIncrement;
+  int m_numberOfFrequencyIncrement;
+  int m_numberOfTimeIncrement;
+  int m_totalNumber;
+
+    QString m_coherence;
+    QString m_correlation;
+    QString m_frequency;
+    QString m_mean;
+    QString m_modulation;
+    QString m_decomposition;
+    QString m_simulation;
+    QString m_spatial;
+    QString m_randomness;
+    QString m_spectrum;
+
 
 
 public:
@@ -103,6 +150,14 @@ public:
 
     int memoryConsumption1;
     int memoryConsumption2;
+
+    QString windVelocityFileName1;
+    QString windVelocityFileName2;
+
+   std::vector<int> m_resultVectorVariableVec;
+   std::vector<int> m_resultVectorCandidate1Vec;
+   std::vector<int> m_resultVectorCandidate2Vec;
+
 
 public:
     QStringList getInformation();

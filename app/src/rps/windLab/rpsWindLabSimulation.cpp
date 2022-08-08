@@ -17,7 +17,6 @@
 #include "future/lib/XmlStreamWriter.h"
 #include "globals.h"
 
-
 #include <QSettings>
 #include <QString>
 #include <QMessageBox>
@@ -38,11 +37,11 @@ RPSWindLabSimulation::RPSWindLabSimulation(QWidget *parent) : QWidget(parent)
 	windLabDataInitialize();
 
 	WLReadAllTobeInstallObjVersionToRegistry();
-    WLReadAllTobeInstallObjPublicationTitleToRegistry();
-    WLReadAllTobeInstallObjPublicationLinkToRegistry();
-    WLReadAllTobeInstallObjPublicationAuthorToRegistry();
-    WLReadAllTobeInstallObjPublicationDateToRegistry();
-    
+	WLReadAllTobeInstallObjPublicationTitleToRegistry();
+	WLReadAllTobeInstallObjPublicationLinkToRegistry();
+	WLReadAllTobeInstallObjPublicationAuthorToRegistry();
+	WLReadAllTobeInstallObjPublicationDateToRegistry();
+
 	// read install windLab from registry if any
 	WLReadAllTobeInstallObjectsFromRegistry();
 	WLClearAllTobeInstallObjectsFromRegistry();
@@ -54,14 +53,22 @@ RPSWindLabSimulation::RPSWindLabSimulation(QWidget *parent) : QWidget(parent)
 RPSWindLabSimulation::~RPSWindLabSimulation()
 {
 	// write install windLab from registry if any
-	
+
 	WLWriteAllTobeInstallObjPublicationTitleToRegistry();
-    WLWriteAllTobeInstallObjPublicationLinkToRegistry();
-    WLWriteAllTobeInstallObjPublicationAuthorToRegistry();
-    WLWriteAllTobeInstallObjPublicationDateToRegistry();
-    WLWriteAllTobeInstallObjVersionToRegistry();
+	WLWriteAllTobeInstallObjPublicationLinkToRegistry();
+	WLWriteAllTobeInstallObjPublicationAuthorToRegistry();
+	WLWriteAllTobeInstallObjPublicationDateToRegistry();
+	WLWriteAllTobeInstallObjVersionToRegistry();
 
 	WLWriteAllTobeInstallObjectsToRegistry();
+
+	if(nullptr != comparisonThread)
+	{
+		QMessageBox::warning(0, "windLab", "worker thread still running.");
+        comparisonThread->exit(0);
+        comparisonThread->wait(); // <-- wits till the thread has exited
+        deleteLater(); // <-- ensures that it will be deleted later when the (main?) event loop executes again
+	}
 }
 
 void RPSWindLabSimulation::windVelocity()
@@ -152,7 +159,7 @@ void RPSWindLabSimulation::frequencyDistributionOutput()
 
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(frequencyDistributionOut()));
 	connect(simulationOutputWorker, SIGNAL(showFrequencyDistributionOutput()), this, SLOT(displayFrequencyDistribution()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
@@ -161,22 +168,22 @@ void RPSWindLabSimulation::locationDistributionOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(locationDistributionOut()));
 	connect(simulationOutputWorker, SIGNAL(showLocationDistributionOutput()), this, SLOT(displayLocationDistribution()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
 void RPSWindLabSimulation::windVelocityOutput()
 {
-    if(    GetWindLabData().isSimulationSuccessful == true){
+	if (GetWindLabData().isSimulationSuccessful == true)
+	{
 		displayWindVelocity();
 	}
-	else {
-        information.append("Please make sure you successfully run a simulation first");
+	else
+	{
+		information.append("Please make sure you successfully run a simulation first");
 		emit sendInformation(information);
-
 	}
 }
-
 
 void RPSWindLabSimulation::spectrumWindOutput()
 {
@@ -216,10 +223,10 @@ void RPSWindLabSimulation::decomposedSpectrumWindOutput()
 	createOutputWorker();
 
 	// QFuture<void> future = QtConcurrent::run(simulationOutputWorker, &RPSWindLabSimulationOutputWorker::spectrumXModelOut);
-		connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(decomposedSpectrumModelOut()));
-		connect(simulationOutputWorker, SIGNAL(showDecomposedSpectrumOutput()), this, SLOT(displayDecomposedSpectrum()));
-		emit progressBarShow();
-		simulationOutputThread->start();
+	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(decomposedSpectrumModelOut()));
+	connect(simulationOutputWorker, SIGNAL(showDecomposedSpectrumOutput()), this, SLOT(displayDecomposedSpectrum()));
+	emit progressBarShow();
+	simulationOutputThread->start();
 }
 
 void RPSWindLabSimulation::coherenceWindOutput()
@@ -227,7 +234,7 @@ void RPSWindLabSimulation::coherenceWindOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(coherenceOut()));
 	connect(simulationOutputWorker, SIGNAL(showCoherenceOutput()), this, SLOT(displayCoherenceWind()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
@@ -240,7 +247,7 @@ void RPSWindLabSimulation::modulationWindOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(modulationOut()));
 	connect(simulationOutputWorker, SIGNAL(showModulationOutput()), this, SLOT(displayModulationWind()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
@@ -250,7 +257,7 @@ void RPSWindLabSimulation::meanWindVelocityOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(meanWindVelocityOut()));
 	connect(simulationOutputWorker, SIGNAL(showMeanWindVelocityOutput()), this, SLOT(displayMeanWindVelocity()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
@@ -260,7 +267,7 @@ void RPSWindLabSimulation::randomPhaseWindOutput()
 	createOutputWorker();
 	connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(randomPhaseOut()));
 	connect(simulationOutputWorker, SIGNAL(showRandomPhaseOutput()), this, SLOT(displayRandomPhase()));
-	
+
 	emit progressBarShow();
 	simulationOutputThread->start();
 }
@@ -514,7 +521,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjectsFromRegistry()
 	ReadMapFromRegistry2(CrpsMeanFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 }
 
-
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationTitleToRegistry()
 {
 	int count = 1;
@@ -599,7 +605,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationTitleToRegistry()
 	settingsGroup = ("WLMeanTitle"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetTitleMap(), settingsGroup, count);
 }
-
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationLinkToRegistry()
 {
@@ -686,7 +691,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationLinkToRegistry()
 	ReadMapFromRegistry(CrpsMeanFactory::GetLinkMap(), settingsGroup, count);
 }
 
-
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationAuthorToRegistry()
 {
 	int count = 1;
@@ -771,7 +775,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationAuthorToRegistry()
 	settingsGroup = ("WLMeanAuthor"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetAuthorMap(), settingsGroup, count);
 }
-
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationDateToRegistry()
 {
@@ -858,7 +861,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationDateToRegistry()
 	ReadMapFromRegistry(CrpsMeanFactory::GetDateMap(), settingsGroup, count);
 }
 
-
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjVersionToRegistry()
 {
 	int count = 1;
@@ -943,7 +945,6 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjVersionToRegistry()
 	settingsGroup = ("WLMeanVersion"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetVersionMap(), settingsGroup, count);
 }
-
 
 void RPSWindLabSimulation::WLClearAllTobeInstallObjectsFromRegistry()
 {
@@ -1169,7 +1170,6 @@ void RPSWindLabSimulation::WLClearAllTobeInstallObjectsFromRegistry()
 
 	settingsGroup = ("WLMeanVersion");
 	ClearMapFromRegistry(settingsGroup);
-
 }
 
 void RPSWindLabSimulation::ClearMapFromRegistry(QString &settingsGroup)
@@ -1388,7 +1388,7 @@ bool RPSWindLabSimulation::IsThisObjectInstalled(std::map<const QString, QString
 
 void RPSWindLabSimulation::runSimulation()
 {
-	if(!GetWindLabData().comparisonMode)
+	if (!GetWindLabData().comparisonMode)
 	{
 		createSimulationWorker();
 		connect(simulationWorker, SIGNAL(showWindVelocityOutput()), this, SLOT(displayWindVelocity()));
@@ -1397,23 +1397,24 @@ void RPSWindLabSimulation::runSimulation()
 	}
 	else
 	{
-		if(GetWindLabData().comparisonType == 1)//accuracy
+		if (GetWindLabData().comparisonType == 1) // accuracy
 		{
 			createComparisonWorker();
-	    	connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareAccuracy()));
+			connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareAccuracy()));
 			connect(comparisonWorker, SIGNAL(showAccuracyComparisonOutput()), this, SLOT(displayAccuracyComparisonResults()));
 			emit progressBarShow();
 			comparisonThread->start();
 		}
-		else if(GetWindLabData().comparisonType == 2)//time
+		else if (GetWindLabData().comparisonType == 2) // time
 		{
 			createComparisonWorker();
 			connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareTime()));
 			connect(comparisonWorker, SIGNAL(showTimeComparisonOutput()), this, SLOT(displayTimeComparisonResults()));
+
 			emit progressBarShow();
 			comparisonThread->start();
 		}
-		else if(GetWindLabData().comparisonType == 3)//memory
+		else if (GetWindLabData().comparisonType == 3) // memory
 		{
 			createComparisonWorker();
 			connect(comparisonThread, SIGNAL(started()), comparisonWorker, SLOT(compareMemory()));
@@ -1484,12 +1485,14 @@ void RPSWindLabSimulation::pauseSimulation()
 }
 void RPSWindLabSimulation::stopSimulation()
 {
-	if(nullptr == simulationThread || !simulationThread->isRunning()){return;}
+	if (nullptr == simulationThread || !simulationThread->isRunning())
+	{
+		return;
+	}
 	information.append("Stopping the simulation...");
 	emit sendInformation(information);
 	information.clear();
 	emit stopped();
-
 }
 
 void RPSWindLabSimulation::simulationOptions()
@@ -1512,7 +1515,7 @@ void RPSWindLabSimulation::compareAccuracy()
 		comparisonCategory = dlg->comparisonCategory;
 		comparisonFunction = dlg->comparisonFunction;
 		comparisonCandidate = dlg->comparisonCandidate;
-		resultOutputTime = dlg->resultOutputTime;
+		// resultOutputType = dlg->resultOutputType;
 		GetWindLabData().comparisonType = 1;
 	}
 }
@@ -1534,9 +1537,20 @@ void RPSWindLabSimulation::compareComputationTime()
 		numberOfFrequencyIncrement = dlg->numberOfFrequencyIncrement;
 		numberOfTimeIncrement = dlg->numberOfTimeIncrement;
 		totalNumber = dlg->totalNumber;
-		resultOutputTime = dlg->resultOutputTime;
+		resultOutputType = dlg->resultOutputType;
+		
 		GetWindLabData().comparisonType = 2;
 
+		coherence = dlg->coherence;
+		correlation = dlg->correlation;
+		frequency = dlg->frequency;
+		mean = dlg->mean;
+		modulation = dlg->modulation;
+		decomposition = dlg->decomposition;
+		simulation = dlg->simulation;
+		spatial = dlg->spatial;
+		randomness = dlg->randomness;
+		spectrum = dlg->spectrum;
 	}
 }
 void RPSWindLabSimulation::compareMemoryUsage()
@@ -1557,8 +1571,20 @@ void RPSWindLabSimulation::compareMemoryUsage()
 		numberOfFrequencyIncrement = dlg->numberOfFrequencyIncrement;
 		numberOfTimeIncrement = dlg->numberOfTimeIncrement;
 		totalNumber = dlg->totalNumber;
-		resultOutputTime = dlg->resultOutputTime;
+		resultOutputType = dlg->resultOutputType;
+		
 		GetWindLabData().comparisonType = 3;
+
+		coherence = dlg->coherence;
+		correlation = dlg->correlation;
+		frequency = dlg->frequency;
+		mean = dlg->mean;
+		modulation = dlg->modulation;
+		decomposition = dlg->decomposition;
+		simulation = dlg->simulation;
+		spatial = dlg->spatial;
+		randomness = dlg->randomness;
+		spectrum = dlg->spectrum;
 	}
 }
 
@@ -1639,7 +1665,41 @@ void RPSWindLabSimulation::comparisonInitial()
 	numberOfFrequencyIncrement = 0;
 	numberOfTimeIncrement = 0;
 	totalNumber = 3;
-	resultOutputTime = 1;
+	resultOutputType = 1;
+}
+
+QStringList RPSWindLabSimulation::FindAllSpatialDistribution()
+{
+	QStringList theList;
+	/////******coherence model start*******/////////
+	typedef IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
+	std::map<const QString, CreateLocDistrCallback>::iterator locIt;
+
+	// Iterate though the map and show all the registed spectrum models in the combo box
+	for (locIt = CrpsLocationDistributionFactory::GetLocDistrNamesMap().begin(); locIt != CrpsLocationDistributionFactory::GetLocDistrNamesMap().end(); ++locIt)
+	{
+		// Add it to the combo box
+		theList.append(locIt->first);
+	}
+
+	return theList;
+}
+
+QStringList RPSWindLabSimulation::FindAllRandomnessProvider()
+{
+	QStringList theList;
+	/////******coherence model start*******/////////
+	typedef IrpsWLRandomness *(*CreateRandomnessCallback)();
+	std::map<const QString, CreateRandomnessCallback>::iterator randIt;
+
+	// Iterate though the map and show all the registed spectrum models in the combo box
+	for (randIt = CrpsRandomnessFactory::GetRandomnessNamesMap().begin(); randIt != CrpsRandomnessFactory::GetRandomnessNamesMap().end(); ++randIt)
+	{
+		// Add it to the combo box
+		theList.append(randIt->first);
+	}
+
+	return theList;
 }
 
 QStringList RPSWindLabSimulation::FindAllCoherenceFunction()
@@ -1837,14 +1897,26 @@ void RPSWindLabSimulation::fillFunctionAndCandidateComboBoxes(QString category, 
 		break;
 	case 7:
 		functionComboBox->addItems(categoryFunctionListMap[categories.at(7)]);
+		if (1 != GetWindLabData().direction)
+		{
+			break;
+		}
 		candidatesComboBox->addItems(FindAllSpectrumModels());
 		break;
 	case 8:
 		functionComboBox->addItems(categoryFunctionListMap[categories.at(8)]);
+		if (2 != GetWindLabData().direction)
+		{
+			break;
+		}
 		candidatesComboBox->addItems(FindAllSpectrumModels());
 		break;
 	case 9:
 		functionComboBox->addItems(categoryFunctionListMap[categories.at(9)]);
+		if (3 != GetWindLabData().direction)
+		{
+			break;
+		}
 		candidatesComboBox->addItems(FindAllSpectrumModels());
 		break;
 	default:
@@ -2103,7 +2175,6 @@ void RPSWindLabSimulation::progressBarHideSL()
 {
 	emit progressBarHide();
 	qApp->processEvents();
-
 }
 void RPSWindLabSimulation::progressBarSetValueSL(int value)
 {
@@ -2226,7 +2297,7 @@ void RPSWindLabSimulation::displayLocationDistribution()
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the spectrum results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2269,7 +2340,7 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the spectrum results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2300,8 +2371,7 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 		}
 
 		table->showNormal();
-	    information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-
+		information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
 	else if (locationJ > 0 &&
 			 locationJ <= GetWindLabData().numberOfSpatialPosition &&
@@ -2329,7 +2399,7 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 		}
 
 		table->showNormal();
-	    information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+		information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
 	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
 			 locationK == 0 &&
@@ -2356,7 +2426,7 @@ void RPSWindLabSimulation::displayMeanWindVelocity()
 
 		table->showNormal();
 
-	    information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+		information.append(tr("The computed mean wind velocities took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
 	else
 	{
@@ -2378,7 +2448,7 @@ void RPSWindLabSimulation::displayRandomPhase()
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the frequency results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2411,7 +2481,6 @@ void RPSWindLabSimulation::displayRandomPhase()
 		}
 		table->showNormal();
 		information.append(tr("The computed random phases took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-
 	}
 	else
 	{
@@ -2428,12 +2497,12 @@ void RPSWindLabSimulation::displayRandomPhase()
 	GetWindLabSimulationOutputWorker()->finished();
 }
 
-void RPSWindLabSimulation::displayComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
+void RPSWindLabSimulation::displayAComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
 {
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabComparisonWorker()->getInformation();
+	information = information + GetWindLabComparisonWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the comparison results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2449,7 +2518,6 @@ void RPSWindLabSimulation::displayComparisonResults(const QString &candidat1, co
 	table->setColName(0, variableName);
 	table->setColName(1, candidat1);
 	table->setColName(2, candidat2);
-
 
 	// fill the table with computed coherence
 	for (int i = 0; i < row; i++)
@@ -2472,132 +2540,44 @@ void RPSWindLabSimulation::displayComparisonResults(const QString &candidat1, co
 	GetWindLabComparisonWorker()->finished();
 }
 
-  void RPSWindLabSimulation::displayAccuracyComparisonResults()
-  {
-	int count = candidateList.size();
-    QString comparisonCategory = candidateList[1];
-    QString comparisonFunction = candidateList[2];
-    QString candidate1 = candidateList[0];
-    QString candidate2 = candidateList[3];
+void RPSWindLabSimulation::displayWindVelocitySimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    if (comparisonCategory == LabRPS::objGroupCoherenceFunction)
+	information = information + GetWindLabComparisonWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the comparison results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+    if (!(locationJ > 0 && locationJ <= GetWindLabData().numberOfSpatialPosition))
     {
-        if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "CoherenceF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
+        emit GetWindLabComparisonWorker()->finished();
+        return;
     }
-    else if (comparisonCategory == LabRPS::objGroupCorrelationFunction)
-    {
-        if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
-        {
-        }
-        else if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorP)
-        {
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupFrequencyDistribution)
-    {
-        if (comparisonFunction == LabRPS::ComputeFrequenciesVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "Frequency", "Numbering", GetWindLabData().numberOfFrequency);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupMeanWindProfile)
-    {
-        if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "MeanP", "Location", GetWindLabData().numberOfSpatialPosition);
-        }
-        else if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "MeanT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupModulationFunction)
-    {
-        if (comparisonFunction == LabRPS::ComputeModulationVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "ModulationT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-        else if (comparisonFunction == LabRPS::ComputeModulationVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "ModulationF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
-        else if (comparisonFunction == LabRPS::ComputeModulationVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "ModulationP", "Frequency", GetWindLabData().numberOfSpatialPosition);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupSpectrumDecompositionMethod)
-    {
-        if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "DecomposedpsdF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
-        else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "DecomposedpsdT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-        else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "DecomposedpsdP", "Location", GetWindLabData().numberOfSpatialPosition);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupSimulationMethod)
-    {
-        if (comparisonFunction == LabRPS::Simulate)
-        {
-        }
-        else if (comparisonFunction == LabRPS::SimulateInLargeScaleMode)
-        {
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupAlongWindSpectrum)
-    {
-        if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "XSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
-        else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "XSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-        else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "XSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupAcrossWindSpectrum)
-    {
-        if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "YSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
-        else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "YSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-        else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "YSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
-        }
-    }
-    else if (comparisonCategory == LabRPS::objGroupVerticalWindSpectrum)
-    {
-        if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorF)
-        {
-			displayComparisonResults(candidate1, candidate2, "ZSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
-        }
-        else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorT)
-        {
-			displayComparisonResults(candidate1, candidate2, "ZSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
-        }
-        else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorP)
-        {
-			displayComparisonResults(candidate1, candidate2, "ZSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
-        }
-    }
+
+	QTime t;
+	t.start();
+
+	// allocate memory for the table
+	Table *table = app->newTable(tableName, row, 3);
+	table->setColName(0, variableName);
+	table->setColName(1, candidat1);
+	table->setColName(2, candidat2);
+
+	// fill the table with computed coherence
+	for (int i = 0; i < row; i++)
+	{
+		table->setCellValue(i, 0, GetWindLabComparisonWorker()->m_resultVectorVariable(i));
+		table->setCellValue(i, 1, GetWindLabComparisonWorker()->m_resultCandidate1(i, GetWindLabData().locationJ));
+		table->setCellValue(i, 2, GetWindLabComparisonWorker()->m_resultCandidate2(i, GetWindLabData().locationJ));
+	}
+
+	table->showNormal();
+	information.append(tr("The comparison results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
 	// send info the main window to show it
 	emit sendInformation(information);
@@ -2607,16 +2587,432 @@ void RPSWindLabSimulation::displayComparisonResults(const QString &candidat1, co
 
 	// delete the worker
 	GetWindLabComparisonWorker()->finished();
+}
 
-  }
-  void RPSWindLabSimulation::displayTimeComparisonResults()
-  {
-	int a;
-  }
-  void RPSWindLabSimulation::displayMemoryComparisonResults()
-  {
-	int a;
-  }
+void RPSWindLabSimulation::displayTComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+	information = information + GetWindLabComparisonWorker()->getInformation();
+	information.append("Please wait. LabRPS is now showing the comparison results...");
+	emit sendInformation(information);
+	emit progressBarHide();
+
+	qApp->processEvents();
+	information.clear();
+
+	QTime t;
+	t.start();
+
+	// allocate memory for the table
+	Table *table = app->newTable(tableName, row, 3);
+	table->setColName(0, variableName);
+	table->setColName(1, candidat1);
+	table->setColName(2, candidat2);
+
+	// fill the table with computed coherence
+	for (int i = 0; i < row; i++)
+	{
+		table->setCellValue(i, 0, GetWindLabComparisonWorker()->m_resultVectorVariableVec.at(i));
+		table->setCellValue(i, 1, GetWindLabComparisonWorker()->m_resultVectorCandidate1Vec.at(i));
+		table->setCellValue(i, 2, GetWindLabComparisonWorker()->m_resultVectorCandidate2Vec.at(i));
+	}
+
+	table->showNormal();
+	information.append(tr("The comparison results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabComparisonWorker()->finished();
+}
+
+void RPSWindLabSimulation::displayWindVelocityLargeScaleSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row)
+{
+	// RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	// ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+	// information = information + GetWindLabComparisonWorker()->getInformation();
+	// information.append("Please wait. LabRPS is now showing the comparison results...");
+	// emit sendInformation(information);
+	// emit progressBarHide();
+
+	// qApp->processEvents();
+	// information.clear();
+
+	// QTime t;
+	// t.start();
+
+	// // allocate memory for the table
+	// Table *table = app->newTable(tableName, row, 3);
+	// table->setColName(0, variableName);
+	// table->setColName(1, candidat1);
+	// table->setColName(2, candidat2);
+
+	// // fill the table with computed coherence
+	// for (int i = 0; i < row; i++)
+	// {
+	// 	table->setCellValue(i, 0, GetWindLabComparisonWorker()->m_resultVectorVariable(i));
+	// 	table->setCellValue(i, 1, GetWindLabComparisonWorker()->m_resultCandidate1(i, GetWindLabData().locationJ));
+	// 	table->setCellValue(i, 2, GetWindLabComparisonWorker()->m_resultCandidate2(i, GetWindLabData().locationJ));
+	// }
+
+	// table->showNormal();
+	// information.append(tr("The comparison results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+
+	// // send info the main window to show it
+	// emit sendInformation(information);
+
+	// // clear the information list
+	// information.clear();
+
+	// // delete the worker
+	// GetWindLabComparisonWorker()->finished();
+}
+
+void RPSWindLabSimulation::displayAccuracyComparisonResults()
+{
+	int count = candidateList.size();
+	QString candidate1 = candidateList[0];
+    QString comparisonCategory = candidateList[1];
+    QString comparisonFunction = candidateList[2];
+    QString coherence1 = candidateList[3];
+    QString correlation1 = candidateList[4];
+    QString frequency1 = candidateList[5];
+    QString mean1 = candidateList[6];
+    QString modulation1 = candidateList[7];
+    QString decomposition1 = candidateList[8];
+    QString simulation1 = candidateList[9];
+    QString spatial1 = candidateList[10];
+    QString randomness1 = candidateList[11];
+    QString spectrum1 = candidateList[12];
+    
+    QString candidate2 = candidateList[13];
+    QString coherence2 = candidateList[16];
+    QString correlation2 = candidateList[17];
+    QString frequency2 = candidateList[18];
+    QString mean2 = candidateList[19];
+    QString modulation2 = candidateList[20];
+    QString decomposition2 = candidateList[21];
+    QString simulation2 = candidateList[22];
+    QString spatial2 = candidateList[23];
+    QString randomness2 = candidateList[24];
+    QString spectrum2 = candidateList[25];
+
+	if (comparisonCategory == LabRPS::objGroupCoherenceFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "CoherenceF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupCorrelationFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
+		{
+		}
+		else if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorP)
+		{
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupFrequencyDistribution)
+	{
+		if (comparisonFunction == LabRPS::ComputeFrequenciesVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "Frequency", "Numbering", GetWindLabData().numberOfFrequency);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupMeanWindProfile)
+	{
+		if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "MeanP", "Location", GetWindLabData().numberOfSpatialPosition);
+		}
+		else if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "MeanT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupModulationFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeModulationVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ModulationT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::ComputeModulationVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ModulationF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+		else if (comparisonFunction == LabRPS::ComputeModulationVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ModulationP", "Frequency", GetWindLabData().numberOfSpatialPosition);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupSpectrumDecompositionMethod)
+	{
+		if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "DecomposedpsdF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+		else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "DecomposedpsdT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "DecomposedpsdP", "Location", GetWindLabData().numberOfSpatialPosition);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupSimulationMethod)
+	{
+		if (comparisonFunction == LabRPS::Simulate)
+		{
+			displayWindVelocitySimComparisonResults(candidate1, candidate2, "Velocity", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::SimulateInLargeScaleMode && GetWindLabData().largeScaleSimulationMode)
+		{
+			displayWindVelocityLargeScaleSimComparisonResults(candidate1, candidate2, "Velocity", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupAlongWindSpectrum && 1 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "XSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+		else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "XSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "XSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupAcrossWindSpectrum && 2 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "YSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+		else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "YSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "YSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupVerticalWindSpectrum && 3 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorF)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ZSpectrumF", "Frequency", GetWindLabData().numberOfFrequency);
+		}
+		else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorT)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ZSpectrumT", "Time", GetWindLabData().numberOfTimeIncrements);
+		}
+		else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorP)
+		{
+			displayAComparisonResults(candidate1, candidate2, "ZSpectrumP", "Location", GetWindLabData().numberOfSpatialPosition);
+		}
+	}
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabComparisonWorker()->finished();
+}
+void RPSWindLabSimulation::displayTimeComparisonResults()
+{
+	int count = candidateList.size();
+	QString candidate1 = candidateList[0];
+    QString comparisonCategory = candidateList[1];
+    QString comparisonFunction = candidateList[2];
+    QString coherence1 = candidateList[3];
+    QString correlation1 = candidateList[4];
+    QString frequency1 = candidateList[5];
+    QString mean1 = candidateList[6];
+    QString modulation1 = candidateList[7];
+    QString decomposition1 = candidateList[8];
+    QString simulation1 = candidateList[9];
+    QString spatial1 = candidateList[10];
+    QString randomness1 = candidateList[11];
+    QString spectrum1 = candidateList[12];
+    
+    QString candidate2 = candidateList[13];
+    QString coherence2 = candidateList[16];
+    QString correlation2 = candidateList[17];
+    QString frequency2 = candidateList[18];
+    QString mean2 = candidateList[19];
+    QString modulation2 = candidateList[20];
+    QString decomposition2 = candidateList[21];
+    QString simulation2 = candidateList[22];
+    QString spatial2 = candidateList[23];
+    QString randomness2 = candidateList[24];
+    QString spectrum2 = candidateList[25];
+
+	QString variableName;
+
+	if (1 == resultOutputType)
+	{
+		variableName = "Locations(n)";
+	}
+	else if (2 == resultOutputType)
+	{
+		variableName = "Frequencies(n)";
+	}
+	else if (3 == resultOutputType)
+	{
+		variableName = "Times(n)";
+	}
+
+	if (comparisonCategory == LabRPS::objGroupCoherenceFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "CoherenceF", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupCorrelationFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
+		{
+		}
+		else if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorP)
+		{
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupFrequencyDistribution)
+	{
+		if (comparisonFunction == LabRPS::ComputeFrequenciesVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "Frequency", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupMeanWindProfile)
+	{
+		if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "MeanP", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "MeanT", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupModulationFunction)
+	{
+		if (comparisonFunction == LabRPS::ComputeModulationVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ModulationT", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeModulationVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ModulationF", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeModulationVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ModulationP", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupSpectrumDecompositionMethod)
+	{
+		if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "DecomposedpsdF", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "DecomposedpsdT", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "DecomposedpsdP", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupSimulationMethod)
+	{
+		if (comparisonFunction == LabRPS::Simulate)
+		{
+			displayWindVelocitySimComparisonResults(candidate1, candidate2, "Velocity", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::SimulateInLargeScaleMode && GetWindLabData().largeScaleSimulationMode)
+		{
+			displayWindVelocityLargeScaleSimComparisonResults(candidate1, candidate2, "Velocity", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupAlongWindSpectrum && 1 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "XSpectrumF", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "XSpectrumT", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeXCrossSpectrumVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "XSpectrumP", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupAcrossWindSpectrum && 2 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "YSpectrumF", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "YSpectrumT", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeYCrossSpectrumVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "YSpectrumP", variableName, totalNumber);
+		}
+	}
+	else if (comparisonCategory == LabRPS::objGroupVerticalWindSpectrum && 3 == GetWindLabData().direction)
+	{
+		if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorF)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ZSpectrumF", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorT)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ZSpectrumT", variableName, totalNumber);
+		}
+		else if (comparisonFunction == LabRPS::ComputeZCrossSpectrumVectorP)
+		{
+			displayTComparisonResults(candidate1, candidate2, "ZSpectrumP", variableName, totalNumber);
+		}
+	}
+
+	// send info the main window to show it
+	emit sendInformation(information);
+
+	// clear the information list
+	information.clear();
+
+	// delete the worker
+	GetWindLabComparisonWorker()->finished();
+}
+
+void RPSWindLabSimulation::displayMemoryComparisonResults()
+{
+}
+
 void RPSWindLabSimulation::displayWindVelocity()
 {
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
@@ -2630,10 +3026,11 @@ void RPSWindLabSimulation::displayWindVelocity()
 		information.clear();
 		emit progressBarHide();
 
-	   // save a copy of the simulated wind velocity
-       m_resultMatrix  = GetWindLabSimulationWorker()->m_ResultMatrix;
-
-	}else if(m_resultMatrix.size() <= 0){
+		// save a copy of the simulated wind velocity
+		m_resultMatrix = GetWindLabSimulationWorker()->m_ResultMatrix;
+	}
+	else if (m_resultMatrix.size() <= 0)
+	{
 		information.append("Please,run the simulation first.");
 		emit sendInformation(information);
 		information.clear();
@@ -2644,45 +3041,44 @@ void RPSWindLabSimulation::displayWindVelocity()
 	information.clear();
 
 	if (locationJ > 0 &&
-        locationJ <= GetWindLabData().numberOfSpatialPosition &&
-        locationK == 0 &&
+		locationJ <= GetWindLabData().numberOfSpatialPosition &&
+		locationK == 0 &&
 		frequencyIndex == 0 &&
-        timeIndex == GetWindLabData().numberOfTimeIncrements + 1
-    )
-    {
-	QTime t;
-	t.start();
-
-	// prepare the name of the table
-	QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
-
-	// allocate memory for the table
-	Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, 2);
-		
-	table->setColName(0, "Time");
-	table->setColName(1, tr("Location %1").arg(locationJ));
-
-	double timeInr = 0.0;
-
-	// fill the table with computed coherence
-	for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
 	{
-		timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+		QTime t;
+		t.start();
 
-		table->setCellValue(i, 0, timeInr);
-		table->setCellValue(i, 1, m_resultMatrix(i, locationJ));	}
+		// prepare the name of the table
+		QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
+
+		// allocate memory for the table
+		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, 2);
+
+		table->setColName(0, "Time");
+		table->setColName(1, tr("Location %1").arg(locationJ));
+
+		double timeInr = 0.0;
+
+		// fill the table with computed coherence
+		for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
+		{
+			timeInr = GetWindLabData().minTime + i * GetWindLabData().timeIncrement;
+
+			table->setCellValue(i, 0, timeInr);
+			table->setCellValue(i, 1, m_resultMatrix(i, locationJ));
+		}
 
 		table->showNormal();
-		
+
 		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-    }
+	}
 	else if (locationJ <= GetWindLabData().numberOfSpatialPosition + 1 &&
-        locationK == 0 &&
-		frequencyIndex == 0 &&
-        timeIndex == GetWindLabData().numberOfTimeIncrements + 1
-    )
-    {
-	    QTime t;
+			 locationK == 0 &&
+			 frequencyIndex == 0 &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
+	{
+		QTime t;
 		t.start();
 
 		// prepare the name of the table
@@ -2690,7 +3086,7 @@ void RPSWindLabSimulation::displayWindVelocity()
 
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfTimeIncrements, GetWindLabData().numberOfSpatialPosition + 1);
-		
+
 		table->setColName(0, "Time");
 
 		for (int j = 0; j < GetWindLabData().numberOfSpatialPosition; j++)
@@ -2713,11 +3109,10 @@ void RPSWindLabSimulation::displayWindVelocity()
 			}
 		}
 		table->showNormal();
-		
-		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
-    }
-    else
+		information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
+	}
+	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
 	}
@@ -2731,18 +3126,16 @@ void RPSWindLabSimulation::displayWindVelocity()
 	if (nullptr != GetWindLabSimulationWorker())
 	{
 		// delete the worker
-	    GetWindLabSimulationWorker()->finished();
+		GetWindLabSimulationWorker()->finished();
 	}
-
-	}
-
+}
 
 void RPSWindLabSimulation::displayFrequencyDistribution()
 {
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the frequency results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2775,7 +3168,6 @@ void RPSWindLabSimulation::displayFrequencyDistribution()
 
 		table->showNormal();
 		information.append(tr("The computed frequencies took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-
 	}
 	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
 			 locationK == 0 &&
@@ -2802,7 +3194,6 @@ void RPSWindLabSimulation::displayFrequencyDistribution()
 		}
 		table->showNormal();
 		information.append(tr("The computed frequencies took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-
 	}
 	else
 	{
@@ -2824,7 +3215,7 @@ void RPSWindLabSimulation::displayCoherenceWind()
 	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
 	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
 
-    information = information + GetWindLabSimulationOutputWorker()->getInformation();
+	information = information + GetWindLabSimulationOutputWorker()->getInformation();
 	information.append("Please wait. LabRPS is now showing the frequency results...");
 	emit sendInformation(information);
 	emit progressBarHide();
@@ -2839,7 +3230,7 @@ void RPSWindLabSimulation::displayCoherenceWind()
 		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
 		timeIndex > 0 &&
 		timeIndex <= GetWindLabData().numberOfTimeIncrements)
-	{		
+	{
 		QTime t;
 		t.start();
 
@@ -2857,7 +3248,6 @@ void RPSWindLabSimulation::displayCoherenceWind()
 		}
 
 		table->showNormal();
-
 	}
 	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
 			 locationK == GetWindLabData().numberOfSpatialPosition + 1 &&
@@ -2868,7 +3258,7 @@ void RPSWindLabSimulation::displayCoherenceWind()
 	{
 		QTime t;
 		t.start();
-	
+
 		// prepare the name of the matrix
 		QString arrayName = tr("Coherence (All, All, %1, %2)").arg(frequencyIndex).arg(timeIndex);
 
@@ -3155,7 +3545,6 @@ void RPSWindLabSimulation::displaySpectrum()
 			{
 				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
 			}
-
 		}
 
 		table->showNormal();
@@ -3191,7 +3580,6 @@ void RPSWindLabSimulation::displayZSpectrum()
 {
 	displaySpectrum();
 }
-
 
 void RPSWindLabSimulation::displayDecomposedSpectrum()
 {
@@ -3447,7 +3835,6 @@ void RPSWindLabSimulation::displayDecomposedSpectrum()
 			{
 				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
 			}
-
 		}
 
 		table->showNormal();
@@ -3471,7 +3858,6 @@ void RPSWindLabSimulation::displayDecomposedSpectrum()
 
 void RPSWindLabSimulation::displayCorrelationWind()
 {
-
 }
 void RPSWindLabSimulation::displayModulationWind()
 {
@@ -3486,7 +3872,7 @@ void RPSWindLabSimulation::displayModulationWind()
 	qApp->processEvents();
 	information.clear();
 
-	 if (locationJ > 0 &&
+	if (locationJ > 0 &&
 		locationJ <= GetWindLabData().numberOfSpatialPosition &&
 		locationK == 0 &&
 		frequencyIndex > 0 &&
@@ -3519,11 +3905,11 @@ void RPSWindLabSimulation::displayModulationWind()
 		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
 	else if (locationJ > 0 &&
-		locationJ <= GetWindLabData().numberOfSpatialPosition &&
-		locationK == 0 &&
-		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
-        timeIndex > 0 &&
-		timeIndex <= GetWindLabData().numberOfTimeIncrements)
+			 locationJ <= GetWindLabData().numberOfSpatialPosition &&
+			 locationK == 0 &&
+			 frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements)
 	{
 		QTime t;
 		t.start();
@@ -3549,11 +3935,11 @@ void RPSWindLabSimulation::displayModulationWind()
 		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
 	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
-		locationK == 0 &&
-        frequencyIndex > 0 &&
-        frequencyIndex <= GetWindLabData().numberOfFrequency &&
-        timeIndex > 0 &&
-		timeIndex <= GetWindLabData().numberOfTimeIncrements)
+			 locationK == 0 &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements)
 	{
 		QTime t;
 		t.start();
@@ -3564,7 +3950,7 @@ void RPSWindLabSimulation::displayModulationWind()
 		// allocate memory for the table
 		Table *table = app->newTable(arrayName, GetWindLabData().numberOfSpatialPosition, 2);
 
-        table->setColName(0, "Locations");
+		table->setColName(0, "Locations");
 		table->setColName(1, "Modulation");
 
 		// fill the table with computed coherence
@@ -3576,13 +3962,12 @@ void RPSWindLabSimulation::displayModulationWind()
 
 		table->showNormal();
 		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));
-
 	}
-    else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
-		locationK == 0 &&
-		frequencyIndex > 0 &&
-        frequencyIndex <= GetWindLabData().numberOfFrequency &&
-		timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == 0 &&
+			 frequencyIndex > 0 &&
+			 frequencyIndex <= GetWindLabData().numberOfFrequency &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
 	{
 		QTime t;
 		t.start();
@@ -3614,11 +3999,11 @@ void RPSWindLabSimulation::displayModulationWind()
 
 		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
-    else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
-		locationK == 0 &&
-		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
-        timeIndex > 0 &&
-		timeIndex <= GetWindLabData().numberOfTimeIncrements)
+	else if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
+			 locationK == 0 &&
+			 frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+			 timeIndex > 0 &&
+			 timeIndex <= GetWindLabData().numberOfTimeIncrements)
 	{
 		QTime t;
 		t.start();
@@ -3644,13 +4029,13 @@ void RPSWindLabSimulation::displayModulationWind()
 
 		table->showNormal();
 
-		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));	
+		information.append(tr("The computed modulation function took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 	}
-    else if (locationJ > 0 &&
-		locationJ <= GetWindLabData().numberOfSpatialPosition &&
-		locationK == 0 &&
-		frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
-		timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
+	else if (locationJ > 0 &&
+			 locationJ <= GetWindLabData().numberOfSpatialPosition &&
+			 locationK == 0 &&
+			 frequencyIndex == GetWindLabData().numberOfFrequency + 1 &&
+			 timeIndex == GetWindLabData().numberOfTimeIncrements + 1)
 	{
 		QTime t;
 		t.start();
@@ -3675,7 +4060,6 @@ void RPSWindLabSimulation::displayModulationWind()
 			{
 				table->setCellValue(i, j + 1, GetWindLabSimulationOutputWorker()->m_ResultMatrix(i, j));
 			}
-
 		}
 
 		table->showNormal();
@@ -3685,7 +4069,7 @@ void RPSWindLabSimulation::displayModulationWind()
 	else
 	{
 		information.append("Sorry, there is no function that meet your requirements.");
-    }
+	}
 
 	// send info the main window to show it
 	emit sendInformation(information);
@@ -3697,243 +4081,458 @@ void RPSWindLabSimulation::displayModulationWind()
 	GetWindLabSimulationOutputWorker()->finished();
 }
 
+void RPSWindLabSimulation::save(XmlStreamWriter *xmlwriter)
+{
 
-void RPSWindLabSimulation::save(XmlStreamWriter *xmlwriter) {
-  
-  xmlwriter->writeStartElement("windLab");
-  saveWindLabData(xmlwriter);
-  xmlwriter->writeEndElement();
-
+	xmlwriter->writeStartElement("windLab");
+	saveWindLabData(xmlwriter);
+	xmlwriter->writeEndElement();
 }
 
-bool RPSWindLabSimulation::load(XmlStreamReader *xmlreader) {
- 
-  if (xmlreader->isStartElement() && xmlreader->name() == "windLab") 
-  {
-    loadWindLabData(xmlreader);
-  } 
-  else  // no element
-  {
-	xmlreader->raiseError(tr("no windLab element found"));
+bool RPSWindLabSimulation::load(XmlStreamReader *xmlreader)
+{
 
-  }
- 
-  return !xmlreader->hasError();
+	if (xmlreader->isStartElement() && xmlreader->name() == "windLab")
+	{
+		loadWindLabData(xmlreader);
+	}
+	else // no element
+	{
+		xmlreader->raiseError(tr("no windLab element found"));
+	}
+
+	return !xmlreader->hasError();
 }
 
-void RPSWindLabSimulation::saveWindLabData(XmlStreamWriter *xmlwriter) {
-  
-  (windLabData.largeScaleSimulationFlag) ? xmlwriter->writeAttribute("largeScaleSimulationFlag", "true")
-										 : xmlwriter->writeAttribute("largeScaleSimulationFlag", "false");
-  (windLabData.stationarity) ? xmlwriter->writeAttribute("stationarity", "true")
-							 : xmlwriter->writeAttribute("stationarity", "false");
-  (windLabData.gaussianity) ? xmlwriter->writeAttribute("gaussianity", "true")
-							: xmlwriter->writeAttribute("gaussianity", "false");
-  (windLabData.comparisonMode) ? xmlwriter->writeAttribute("comparisonMode", "true")
-							 : xmlwriter->writeAttribute("comparisonMode", "false");
-  (windLabData.largeScaleSimulationMode) ? xmlwriter->writeAttribute("largeScaleSimulationMode", "true")
-							: xmlwriter->writeAttribute("largeScaleSimulationMode", "false");
-  
-  xmlwriter->writeAttribute("numberOfSpatialPosition", QString::number(windLabData.numberOfSpatialPosition));
-  xmlwriter->writeAttribute("numberOfFrequency", QString::number(windLabData.numberOfFrequency));
-  xmlwriter->writeAttribute("numberOfSample", QString::number(windLabData.numberOfSample));
-  xmlwriter->writeAttribute("direction", QString::number(windLabData.direction));
-  xmlwriter->writeAttribute("frequencyDistrType", QString::number(windLabData.frequencyDistrType));
-  xmlwriter->writeAttribute("numberOfTimeIncrements", QString::number(windLabData.numberOfTimeIncrements));
-  xmlwriter->writeAttribute("frequencyIncrement", QString::number(windLabData.frequencyIncrement));
-  xmlwriter->writeAttribute("timeIncrement", QString::number(windLabData.timeIncrement));
-  xmlwriter->writeAttribute("minTime", QString::number(windLabData.minTime));
-  xmlwriter->writeAttribute("maxTime", QString::number(windLabData.maxTime));
-  xmlwriter->writeAttribute("minFrequency", QString::number(windLabData.minFrequency));
-  xmlwriter->writeAttribute("maxFrequency", QString::number(windLabData.maxFrequency));
-  xmlwriter->writeAttribute("locationJ", QString::number(windLabData.locationJ));
-  xmlwriter->writeAttribute("locationK", QString::number(windLabData.locationK));
-  xmlwriter->writeAttribute("frequencyIndex", QString::number(windLabData.frequencyIndex));
-  xmlwriter->writeAttribute("directionIndex", QString::number(windLabData.directionIndex));
-  xmlwriter->writeAttribute("timeIndex", QString::number(windLabData.timeIndex));
-  xmlwriter->writeAttribute("numberOfTimeLags", QString::number(windLabData.numberOfTimeLags));
+void RPSWindLabSimulation::saveWindLabData(XmlStreamWriter *xmlwriter)
+{
 
-  xmlwriter->writeAttribute("spatialDistribution", windLabData.spatialDistribution);
-  xmlwriter->writeAttribute("shearVelocity", windLabData.shearVelocity);
-  xmlwriter->writeAttribute("meanFunction", windLabData.meanFunction);
-  xmlwriter->writeAttribute("spectrumModel", windLabData.spectrumModel);
-  xmlwriter->writeAttribute("coherenceFunction", windLabData.coherenceFunction);
-  xmlwriter->writeAttribute("simulationApproach", windLabData.simulationApproach);
-  xmlwriter->writeAttribute("simulationMethod", windLabData.simulationMethod);
-  xmlwriter->writeAttribute("freqencyDistribution", windLabData.freqencyDistribution);
-  xmlwriter->writeAttribute("cpsdDecompositionMethod", windLabData.cpsdDecompositionMethod);
-  xmlwriter->writeAttribute("randomnessProvider", windLabData.randomnessProvider);
-  xmlwriter->writeAttribute("modulationFunction", windLabData.modulationFunction);
-  xmlwriter->writeAttribute("correlationFunction", windLabData.correlationFunction);
-  xmlwriter->writeAttribute("varianceFunction", windLabData.varianceFunction);
-  xmlwriter->writeAttribute("workingDirPath", windLabData.workingDirPath);
-  xmlwriter->writeAttribute("comparisonCategory", windLabData.comparisonCategory);
+	(windLabData.stationarity) ? xmlwriter->writeAttribute("stationarity", "true")
+							   : xmlwriter->writeAttribute("stationarity", "false");
+	(windLabData.gaussianity) ? xmlwriter->writeAttribute("gaussianity", "true")
+							  : xmlwriter->writeAttribute("gaussianity", "false");
+	(windLabData.comparisonMode) ? xmlwriter->writeAttribute("comparisonMode", "true")
+								 : xmlwriter->writeAttribute("comparisonMode", "false");
+	(windLabData.largeScaleSimulationMode) ? xmlwriter->writeAttribute("largeScaleSimulationMode", "true")
+										   : xmlwriter->writeAttribute("largeScaleSimulationMode", "false");
 
+	xmlwriter->writeAttribute("numberOfSpatialPosition", QString::number(windLabData.numberOfSpatialPosition));
+	xmlwriter->writeAttribute("numberOfFrequency", QString::number(windLabData.numberOfFrequency));
+	xmlwriter->writeAttribute("numberOfSample", QString::number(windLabData.numberOfSample));
+	xmlwriter->writeAttribute("direction", QString::number(windLabData.direction));
+	xmlwriter->writeAttribute("frequencyDistrType", QString::number(windLabData.frequencyDistrType));
+	xmlwriter->writeAttribute("numberOfTimeIncrements", QString::number(windLabData.numberOfTimeIncrements));
+	xmlwriter->writeAttribute("frequencyIncrement", QString::number(windLabData.frequencyIncrement));
+	xmlwriter->writeAttribute("timeIncrement", QString::number(windLabData.timeIncrement));
+	xmlwriter->writeAttribute("minTime", QString::number(windLabData.minTime));
+	xmlwriter->writeAttribute("maxTime", QString::number(windLabData.maxTime));
+	xmlwriter->writeAttribute("minFrequency", QString::number(windLabData.minFrequency));
+	xmlwriter->writeAttribute("maxFrequency", QString::number(windLabData.maxFrequency));
+	xmlwriter->writeAttribute("locationJ", QString::number(windLabData.locationJ));
+	xmlwriter->writeAttribute("locationK", QString::number(windLabData.locationK));
+	xmlwriter->writeAttribute("frequencyIndex", QString::number(windLabData.frequencyIndex));
+	xmlwriter->writeAttribute("directionIndex", QString::number(windLabData.directionIndex));
+	xmlwriter->writeAttribute("timeIndex", QString::number(windLabData.timeIndex));
+	xmlwriter->writeAttribute("numberOfTimeLags", QString::number(windLabData.numberOfTimeLags));
+
+	xmlwriter->writeAttribute("spatialDistribution", windLabData.spatialDistribution);
+	xmlwriter->writeAttribute("shearVelocity", windLabData.shearVelocity);
+	xmlwriter->writeAttribute("meanFunction", windLabData.meanFunction);
+	xmlwriter->writeAttribute("spectrumModel", windLabData.spectrumModel);
+	xmlwriter->writeAttribute("coherenceFunction", windLabData.coherenceFunction);
+	xmlwriter->writeAttribute("simulationApproach", windLabData.simulationApproach);
+	xmlwriter->writeAttribute("simulationMethod", windLabData.simulationMethod);
+	xmlwriter->writeAttribute("freqencyDistribution", windLabData.freqencyDistribution);
+	xmlwriter->writeAttribute("cpsdDecompositionMethod", windLabData.cpsdDecompositionMethod);
+	xmlwriter->writeAttribute("randomnessProvider", windLabData.randomnessProvider);
+	xmlwriter->writeAttribute("modulationFunction", windLabData.modulationFunction);
+	xmlwriter->writeAttribute("correlationFunction", windLabData.correlationFunction);
+	xmlwriter->writeAttribute("varianceFunction", windLabData.varianceFunction);
+	xmlwriter->writeAttribute("workingDirPath", windLabData.workingDirPath);
+	xmlwriter->writeAttribute("comparisonCategory", windLabData.comparisonCategory);
 }
 
-bool RPSWindLabSimulation::loadWindLabData(XmlStreamReader *xmlreader) {
- 
-    bool ok;
+bool RPSWindLabSimulation::loadWindLabData(XmlStreamReader *xmlreader)
+{
+
+	bool ok;
 	bool bvalue;
-	int  ivalue;
+	int ivalue;
 	double dvalue;
 	QString svalue;
-	
-	bvalue = xmlreader->readAttributeBool("largeScaleSimulationFlag", &ok);
-    if(ok){windLabData.largeScaleSimulationFlag = bvalue;}else
-	{xmlreader->raiseWarning("Large scale simulation flag setting error");}
-	
-    bvalue = xmlreader->readAttributeBool("stationarity", &ok);
-    if(ok){windLabData.stationarity = bvalue;}else
-	{xmlreader->raiseWarning("Stationarity setting error");}
+
+	bvalue = xmlreader->readAttributeBool("stationarity", &ok);
+	if (ok)
+	{
+		windLabData.stationarity = bvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Stationarity setting error");
+	}
 
 	bvalue = xmlreader->readAttributeBool("gaussianity", &ok);
-    if(ok){windLabData.gaussianity = bvalue;}else
-	{xmlreader->raiseWarning("Gaussianity setting error");}
+	if (ok)
+	{
+		windLabData.gaussianity = bvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Gaussianity setting error");
+	}
 
-    bvalue = xmlreader->readAttributeBool("comparisonMode", &ok);
-    if(ok){windLabData.comparisonMode = bvalue;}else
-	{xmlreader->raiseWarning("Comparison mode setting error");}
+	bvalue = xmlreader->readAttributeBool("comparisonMode", &ok);
+	if (ok)
+	{
+		windLabData.comparisonMode = bvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Comparison mode setting error");
+	}
 
-    bvalue = xmlreader->readAttributeBool("largeScaleSimulationMode", &ok);
-    if(ok){windLabData.largeScaleSimulationMode = bvalue;}else
-	{xmlreader->raiseWarning("Large scale simulation mode setting error");}
+	bvalue = xmlreader->readAttributeBool("largeScaleSimulationMode", &ok);
+	if (ok)
+	{
+		windLabData.largeScaleSimulationMode = bvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Large scale simulation mode setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("numberOfSpatialPosition", &ok);
-    if(ok){windLabData.numberOfSpatialPosition = ivalue;}else
-	{xmlreader->raiseWarning("Number of spatial postion setting error");}
+	ivalue = xmlreader->readAttributeInt("numberOfSpatialPosition", &ok);
+	if (ok)
+	{
+		windLabData.numberOfSpatialPosition = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Number of spatial postion setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("numberOfFrequency", &ok);
-    if(ok){windLabData.numberOfFrequency = ivalue;}else
-	{xmlreader->raiseWarning("Number of frequency setting error");}
+	ivalue = xmlreader->readAttributeInt("numberOfFrequency", &ok);
+	if (ok)
+	{
+		windLabData.numberOfFrequency = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Number of frequency setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("numberOfSample", &ok);
-    if(ok){windLabData.numberOfSample = ivalue;}else
-	{xmlreader->raiseWarning("Number of sample setting error");}
+	ivalue = xmlreader->readAttributeInt("numberOfSample", &ok);
+	if (ok)
+	{
+		windLabData.numberOfSample = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Number of sample setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("direction", &ok);
-    if(ok){windLabData.direction = ivalue;}else
-	{xmlreader->raiseWarning("Wind direction setting error");}
+	ivalue = xmlreader->readAttributeInt("direction", &ok);
+	if (ok)
+	{
+		windLabData.direction = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Wind direction setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("frequencyDistrType", &ok);
-    if(ok){windLabData.frequencyDistrType = ivalue;}else
-	{xmlreader->raiseWarning("Frequency distribution type setting error");}
+	ivalue = xmlreader->readAttributeInt("frequencyDistrType", &ok);
+	if (ok)
+	{
+		windLabData.frequencyDistrType = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Frequency distribution type setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("numberOfTimeIncrements", &ok);
-    if(ok){windLabData.numberOfTimeIncrements = ivalue;}else
-	{xmlreader->raiseWarning("Number of time increments setting error");}
+	ivalue = xmlreader->readAttributeInt("numberOfTimeIncrements", &ok);
+	if (ok)
+	{
+		windLabData.numberOfTimeIncrements = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Number of time increments setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("locationJ", &ok);
-    if(ok){windLabData.locationJ = ivalue;}else
-	{xmlreader->raiseWarning("Location J index setting error");}
+	ivalue = xmlreader->readAttributeInt("locationJ", &ok);
+	if (ok)
+	{
+		windLabData.locationJ = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Location J index setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("locationK", &ok);
-    if(ok){windLabData.locationK = ivalue;}else
-	{xmlreader->raiseWarning("Location K index setting error");}
+	ivalue = xmlreader->readAttributeInt("locationK", &ok);
+	if (ok)
+	{
+		windLabData.locationK = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Location K index setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("frequencyIndex", &ok);
-    if(ok){windLabData.frequencyIndex = ivalue;}else
-	{xmlreader->raiseWarning("Frequency index setting error");}
+	ivalue = xmlreader->readAttributeInt("frequencyIndex", &ok);
+	if (ok)
+	{
+		windLabData.frequencyIndex = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Frequency index setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("directionIndex", &ok);
-    if(ok){windLabData.directionIndex = ivalue;}else
-	{xmlreader->raiseWarning("Direction index setting error");}
+	ivalue = xmlreader->readAttributeInt("directionIndex", &ok);
+	if (ok)
+	{
+		windLabData.directionIndex = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Direction index setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("timeIndex", &ok);
-    if(ok){windLabData.timeIndex = ivalue;}else
-	{xmlreader->raiseWarning("Time index setting error");}
+	ivalue = xmlreader->readAttributeInt("timeIndex", &ok);
+	if (ok)
+	{
+		windLabData.timeIndex = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Time index setting error");
+	}
 
-    ivalue = xmlreader->readAttributeInt("numberOfTimeLags", &ok);
-    if(ok){windLabData.numberOfTimeLags = ivalue;}else
-	{xmlreader->raiseWarning("Number of time lags setting error");}
+	ivalue = xmlreader->readAttributeInt("numberOfTimeLags", &ok);
+	if (ok)
+	{
+		windLabData.numberOfTimeLags = ivalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Number of time lags setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("frequencyIncrement", &ok);
-    if(ok){windLabData.frequencyIncrement = dvalue;}else
-	{xmlreader->raiseWarning("Frequency increment setting error");}
+	dvalue = xmlreader->readAttributeDouble("frequencyIncrement", &ok);
+	if (ok)
+	{
+		windLabData.frequencyIncrement = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Frequency increment setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("timeIncrement", &ok);
-    if(ok){windLabData.timeIncrement = dvalue;}else
-	{xmlreader->raiseWarning("Time increment setting error");}
+	dvalue = xmlreader->readAttributeDouble("timeIncrement", &ok);
+	if (ok)
+	{
+		windLabData.timeIncrement = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Time increment setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("minTime", &ok);
-    if(ok){windLabData.minTime = dvalue;}else
-	{xmlreader->raiseWarning("Minimum time setting error");}
+	dvalue = xmlreader->readAttributeDouble("minTime", &ok);
+	if (ok)
+	{
+		windLabData.minTime = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Minimum time setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("maxTime", &ok);
-    if(ok){windLabData.maxTime = dvalue;}else
-	{xmlreader->raiseWarning("Maximum time setting error");}
+	dvalue = xmlreader->readAttributeDouble("maxTime", &ok);
+	if (ok)
+	{
+		windLabData.maxTime = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Maximum time setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("minFrequency", &ok);
-    if(ok){windLabData.minFrequency = dvalue;}else
-	{xmlreader->raiseWarning("Minimum frequency setting error");}
+	dvalue = xmlreader->readAttributeDouble("minFrequency", &ok);
+	if (ok)
+	{
+		windLabData.minFrequency = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Minimum frequency setting error");
+	}
 
-    dvalue = xmlreader->readAttributeDouble("maxFrequency", &ok);
-    if(ok){windLabData.maxFrequency = dvalue;}else
-	{xmlreader->raiseWarning("Maximum frequency setting error");}
+	dvalue = xmlreader->readAttributeDouble("maxFrequency", &ok);
+	if (ok)
+	{
+		windLabData.maxFrequency = dvalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Maximum frequency setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("spatialDistribution", &ok);
-    if(ok){windLabData.spatialDistribution = svalue;}else
-	{xmlreader->raiseWarning("Spatial distribution setting error");}
+	svalue = xmlreader->readAttributeString("spatialDistribution", &ok);
+	if (ok)
+	{
+		windLabData.spatialDistribution = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Spatial distribution setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("shearVelocity", &ok);
-    if(ok){windLabData.shearVelocity = svalue;}else
-	{xmlreader->raiseWarning("Shear velocity setting error");}
+	svalue = xmlreader->readAttributeString("shearVelocity", &ok);
+	if (ok)
+	{
+		windLabData.shearVelocity = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Shear velocity setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("meanFunction", &ok);
-    if(ok){windLabData.meanFunction = svalue;}else
-	{xmlreader->raiseWarning("Mean function setting error");}
+	svalue = xmlreader->readAttributeString("meanFunction", &ok);
+	if (ok)
+	{
+		windLabData.meanFunction = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Mean function setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("spectrumModel", &ok);
-    if(ok){windLabData.spectrumModel = svalue;}else
-	{xmlreader->raiseWarning("Spectrum model setting error");}
+	svalue = xmlreader->readAttributeString("spectrumModel", &ok);
+	if (ok)
+	{
+		windLabData.spectrumModel = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Spectrum model setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("coherenceFunction", &ok);
-    if(ok){windLabData.coherenceFunction = svalue;}else
-	{xmlreader->raiseWarning("Coherence function setting error");}
+	svalue = xmlreader->readAttributeString("coherenceFunction", &ok);
+	if (ok)
+	{
+		windLabData.coherenceFunction = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Coherence function setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("simulationApproach", &ok);
-    if(ok){windLabData.simulationApproach = svalue;}else
-	{xmlreader->raiseWarning("Simulation approach setting error");}
+	svalue = xmlreader->readAttributeString("simulationApproach", &ok);
+	if (ok)
+	{
+		windLabData.simulationApproach = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Simulation approach setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("simulationMethod", &ok);
-    if(ok){windLabData.simulationMethod = svalue;}else
-	{xmlreader->raiseWarning("Simulation method setting error");}
+	svalue = xmlreader->readAttributeString("simulationMethod", &ok);
+	if (ok)
+	{
+		windLabData.simulationMethod = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Simulation method setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("freqencyDistribution", &ok);
-    if(ok){windLabData.freqencyDistribution = svalue;}else
-	{xmlreader->raiseWarning("Frequency distribution setting error");}
+	svalue = xmlreader->readAttributeString("freqencyDistribution", &ok);
+	if (ok)
+	{
+		windLabData.freqencyDistribution = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Frequency distribution setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("cpsdDecompositionMethod", &ok);
-    if(ok){windLabData.cpsdDecompositionMethod = svalue;}else
-	{xmlreader->raiseWarning("cpsd decompositionMethod setting error");}
+	svalue = xmlreader->readAttributeString("cpsdDecompositionMethod", &ok);
+	if (ok)
+	{
+		windLabData.cpsdDecompositionMethod = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("cpsd decompositionMethod setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("randomnessProvider", &ok);
-    if(ok){windLabData.randomnessProvider = svalue;}else
-	{xmlreader->raiseWarning("Randomness provider setting error");}
+	svalue = xmlreader->readAttributeString("randomnessProvider", &ok);
+	if (ok)
+	{
+		windLabData.randomnessProvider = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Randomness provider setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("modulationFunction", &ok);
-    if(ok){windLabData.modulationFunction = svalue;}else
-	{xmlreader->raiseWarning("Modulation function setting error");}
+	svalue = xmlreader->readAttributeString("modulationFunction", &ok);
+	if (ok)
+	{
+		windLabData.modulationFunction = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Modulation function setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("correlationFunction", &ok);
-    if(ok){windLabData.correlationFunction = svalue;}else
-	{xmlreader->raiseWarning("Correlation function setting error");}
+	svalue = xmlreader->readAttributeString("correlationFunction", &ok);
+	if (ok)
+	{
+		windLabData.correlationFunction = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Correlation function setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("varianceFunction", &ok);
-    if(ok){windLabData.varianceFunction = svalue;}else
-	{xmlreader->raiseWarning("Variance function setting error");}
+	svalue = xmlreader->readAttributeString("varianceFunction", &ok);
+	if (ok)
+	{
+		windLabData.varianceFunction = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Variance function setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("workingDirPath", &ok);
-    if(ok){windLabData.workingDirPath = svalue;}else
-	{xmlreader->raiseWarning("Working directory path setting error");}
+	svalue = xmlreader->readAttributeString("workingDirPath", &ok);
+	if (ok)
+	{
+		windLabData.workingDirPath = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Working directory path setting error");
+	}
 
-    svalue = xmlreader->readAttributeString("comparisonCategory", &ok);
-    if(ok){windLabData.comparisonCategory = svalue;}else
-	{xmlreader->raiseWarning("Comparison category setting error");}
- 
-  return !xmlreader->hasError();
+	svalue = xmlreader->readAttributeString("comparisonCategory", &ok);
+	if (ok)
+	{
+		windLabData.comparisonCategory = svalue;
+	}
+	else
+	{
+		xmlreader->raiseWarning("Comparison category setting error");
+	}
+
+	return !xmlreader->hasError();
 }
-
 
 void RPSWindLabSimulation::createOutputWorker()
 {
@@ -3950,7 +4549,6 @@ void RPSWindLabSimulation::createOutputWorker()
 	connect(simulationOutputWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
 	connect(simulationOutputWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
 	connect(simulationOutputWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
-
 
 	// add the functionaly to delete the worker after work is done
 	connect(simulationOutputWorker, SIGNAL(finished()), simulationOutputWorker, SLOT(deleteLater()));
@@ -3971,24 +4569,46 @@ void RPSWindLabSimulation::createSimulationWorker()
 	// add the functionality to stop the outputing process
 	connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
 	connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-    connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+	connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
 	connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
-
-	// // add the functionaly to delete the worker after work is done  
+	// // add the functionaly to delete the worker after work is done
 	// connect(simulationWorker, SIGNAL(finished()), simulationThread, SLOT(quit()));
 	// connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
 	// connect(simulationThread, SIGNAL(finished()), simulationThread, SLOT(deleteLater()));
 
 	// add the functionaly to delete the worker after work is done
 	connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
-
 }
 
 void RPSWindLabSimulation::createComparisonWorker()
 {
 	// create a worker
-	comparisonWorker = new RPSWindLabComparisonWorker(windLabData, information, locationJ, locationK, frequencyIndex, timeIndex, candidateList);
+	comparisonWorker = new RPSWindLabComparisonWorker(windLabData,
+													  information,
+													  locationJ,
+													  locationK,
+													  frequencyIndex,
+													  timeIndex,
+													  candidateList,
+													  resultOutputType,
+													  minNumberOfLocation,
+													  minNumberOfFrequency,
+													  minNumberOfTime,
+													  numberOfLocationIncrement,
+													  numberOfFrequencyIncrement,
+													  numberOfTimeIncrement,
+													  totalNumber,
+													  coherence,
+													  correlation,
+													  frequency,
+													  mean,
+													  modulation,
+													  decomposition,
+													  simulation,
+													  spatial,
+													  randomness,
+													  spectrum);
 
 	// create a new thread and attach the worker to it
 	comparisonThread = new QThread(this);
@@ -3997,16 +4617,14 @@ void RPSWindLabSimulation::createComparisonWorker()
 	// add the functionality to stop the outputing process
 	connect(this, SIGNAL(stopped()), comparisonWorker, SLOT(stop()), Qt::DirectConnection);
 	connect(comparisonWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-    connect(comparisonWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+	connect(comparisonWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
 	connect(comparisonWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
-
-	// // add the functionaly to delete the worker after work is done  
+	// // add the functionaly to delete the worker after work is done
 	// connect(comparisonWorker, SIGNAL(finished()), comparisonThread, SLOT(quit()));
 	// connect(comparisonWorker, SIGNAL(finished()), comparisonWorker, SLOT(deleteLater()));
 	// connect(comparisonThread, SIGNAL(finished()), comparisonThread, SLOT(deleteLater()));
 
 	// add the functionaly to delete the worker after work is done
 	connect(comparisonWorker, SIGNAL(finished()), comparisonWorker, SLOT(deleteLater()));
-
 }

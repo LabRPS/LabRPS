@@ -24,7 +24,19 @@ public:
     QString comparisonCategory;
     QString comparisonFunction;
     QString comparisonCandidate;
-    int resultOutputTime;
+    int resultOutputType;
+
+    QString coherence;
+    QString correlation;
+    QString frequency;
+    QString mean;
+    QString modulation;
+    QString decomposition;
+    QString simulation;
+    QString spatial;
+    QString randomness;
+    QString spectrum;
+
 
 public slots:
     void comboBoxCategoryCurrentIndexChanged(int);

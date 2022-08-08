@@ -3,6 +3,9 @@
 
 #include "RPSWindLabAPI.h"
 #include "rps/windLab/rpsWindLabSimulation.h"
+#include "rpswlaccuracycomparisonobjectdependencydialog.h"
+#include "rpswlaccuracycomparisontablezoomindialog.h"
+
 
 RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     QDialog(parent),
@@ -16,7 +19,7 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     comparisonCategory = rpsWindLabSimulator->comparisonCategory;
     comparisonFunction = rpsWindLabSimulator->comparisonFunction;
     comparisonCandidate = rpsWindLabSimulator->comparisonCandidate;
-    resultOutputTime = rpsWindLabSimulator->resultOutputTime;
+    // resultOutputType = rpsWindLabSimulator->resultOutputType;
 
     ui->comboBoxCategory->clear();
     ui->comboBoxFunction->clear();
@@ -29,24 +32,35 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     rpsWindLabSimulator->fillCategoryComboBox(ui->comboBoxCategory);
     rpsWindLabSimulator->fillFunctionAndCandidateComboBoxes(rpsWindLabSimulator->comparisonCategory, ui->comboBoxFunction, ui->comboBoxCandidate);
 
-    if (1 == resultOutputTime)
-    {
-        ui->radioButtonByLoc->setChecked(Qt::Checked);
-    }
-    else if (2 == resultOutputTime)
-    {
-        ui->radioButtonByFreq->setChecked(Qt::Checked);
-    }
-    else if (3 == resultOutputTime)
-    {
-        ui->radioButtonByTim->setChecked(Qt::Checked);
-    }
+    // if (1 == resultOutputType)
+    // {
+    //     ui->radioButtonByLoc->setChecked(Qt::Checked);
+    // }
+    // else if (2 == resultOutputType)
+    // {
+    //     ui->radioButtonByFreq->setChecked(Qt::Checked);
+    // }
+    // else if (3 == resultOutputType)
+    // {
+    //     ui->radioButtonByTim->setChecked(Qt::Checked);
+    // }
 
     QStringList tableHeader;
-    ui->tableWidget->setColumnCount(3);
+    ui->tableWidget->setColumnCount(13);
     tableHeader << "Candidate"
                 << "Category"
-                << "Function";
+                << "Function"
+                << "Coherence function"
+                << "Correlation function"
+                << "Frequency distribution"
+                << "Mean profile"
+                << "Modulation Function"
+                << "PSDd decomposition method"
+                << "Simulation method"
+                << "Spatial distribution"
+                << "Randomness provider"
+                << "Spectrum model";
+
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
     //ui->tableWidget->verticalHeader()->setVisible(false);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -55,7 +69,23 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     // ui->tableWidget->setShowGrid(false);
     // ui->tableWidget->setStyleSheet("QTableView {selection-background-color: blue;}");
-    readTableItemsFromList(rpsWindLabSimulator->candidateList);
+
+    if (rpsWindLabSimulator->GetWindLabData().comparisonType == 1) // accuracy
+    {
+      readTableItemsFromList(rpsWindLabSimulator->candidateList);
+    }
+
+    if(ui->tableWidget->rowCount() == 2)
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        ui->pushButtonAdd->setEnabled(false);
+
+    }
+    else
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        ui->pushButtonAdd->setEnabled(true);
+    }
 
     connect(ui->comboBoxCategory, SIGNAL(currentIndexChanged(int)),
             this, SLOT(comboBoxCategoryCurrentIndexChanged(int)));
@@ -70,14 +100,14 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     connect(ui->pushButtonCandidateInit, SIGNAL(clicked()),
             this, SLOT(OnBnClickedCadidateInit()));
 
-    connect(ui->radioButtonByLoc, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByLocationToggled(bool)));
+    // connect(ui->radioButtonByLoc, SIGNAL(toggled(bool)),
+    //         this, SLOT(radioButtonByLocationToggled(bool)));
 
-    connect(ui->radioButtonByFreq, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByFrequencyToggled(bool)));
+    // connect(ui->radioButtonByFreq, SIGNAL(toggled(bool)),
+    //         this, SLOT(radioButtonByFrequencyToggled(bool)));
 
-    connect(ui->radioButtonByTim, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByTimeWindToggled(bool)));
+    // connect(ui->radioButtonByTim, SIGNAL(toggled(bool)),
+    //         this, SLOT(radioButtonByTimeWindToggled(bool)));
 
     connect(ui->pushButtonAdd, SIGNAL(clicked()),
             this, SLOT(OnBnClickedTableAddRow()));
@@ -112,9 +142,28 @@ void RPSWLAccuracyComparisonDialog::comboBoxFunctionCurrentIndexChanged(int)
 
 void RPSWLAccuracyComparisonDialog::OnBnClickedFunctionInit()
 {
+    std::unique_ptr<RPSWLAccuracyComparisonTableZoomInDialog> dlg(new RPSWLAccuracyComparisonTableZoomInDialog(this));
+	
+   dlg->exec();
 }
 void RPSWLAccuracyComparisonDialog::OnBnClickedCategoryInit()
 {
+     std::unique_ptr<RPSWLAccuracyComparisonObjectDependencyDialog> dlg(new RPSWLAccuracyComparisonObjectDependencyDialog(this));
+	
+    if (dlg->exec() == QDialog::Accepted)
+	{
+	 coherence = dlg->coherence;
+     correlation = dlg->correlation;
+     frequency = dlg->frequency;
+     mean = dlg->mean;
+     modulation = dlg->modulation;
+     decomposition = dlg->decomposition;
+     simulation = dlg->simulation;
+     spatial = dlg->spatial;
+     randomness = dlg->randomness;
+     spectrum = dlg->spectrum;
+
+	}
 }
 void RPSWLAccuracyComparisonDialog::OnBnClickedCadidateInit()
 {
@@ -127,15 +176,15 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedCadidateInit()
 }
 void RPSWLAccuracyComparisonDialog::radioButtonByLocationToggled(bool)
 {
-    resultOutputTime = 1;
+    //resultOutputType = 1;
 }
 void RPSWLAccuracyComparisonDialog::radioButtonByFrequencyToggled(bool)
 {
-    resultOutputTime = 2;
+    //resultOutputType = 2;
 }
 void RPSWLAccuracyComparisonDialog::radioButtonByTimeWindToggled(bool)
 {
-    resultOutputTime = 3;
+    //resultOutputType = 3;
 }
 
 void RPSWLAccuracyComparisonDialog::acceptInput()
@@ -158,19 +207,73 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedTableAddRow()
     QTableWidgetItem *item1 = new QTableWidgetItem();
     QTableWidgetItem *item2 = new QTableWidgetItem();
     QTableWidgetItem *item3 = new QTableWidgetItem();
+    QTableWidgetItem *item4 = new QTableWidgetItem();
+    QTableWidgetItem *item5 = new QTableWidgetItem();
+    QTableWidgetItem *item6 = new QTableWidgetItem();
+    QTableWidgetItem *item7 = new QTableWidgetItem();
+    QTableWidgetItem *item8 = new QTableWidgetItem();
+    QTableWidgetItem *item9 = new QTableWidgetItem();
+    QTableWidgetItem *item10 = new QTableWidgetItem();
+    QTableWidgetItem *item11 = new QTableWidgetItem();
+    QTableWidgetItem *item12 = new QTableWidgetItem();
+    QTableWidgetItem *item13 = new QTableWidgetItem();
 
     item1->setText(ui->comboBoxCandidate->currentText());
     item2->setText(ui->comboBoxCategory->currentText());
     item3->setText(ui->comboBoxFunction->currentText());
+    item4->setText(coherence);
+    item5->setText(correlation);
+    item6->setText(frequency);
+    item7->setText(mean);
+    item8->setText(modulation);
+    item9->setText(decomposition);
+    item10->setText(simulation);
+    item11->setText(spatial);
+    item12->setText(randomness);
+    item13->setText(spectrum);
+
 
     ui->tableWidget->setItem(row, 0, item1);
     ui->tableWidget->setItem(row, 1, item2);
     ui->tableWidget->setItem(row, 2, item3);
+    ui->tableWidget->setItem(row, 3, item4);
+    ui->tableWidget->setItem(row, 4, item5);
+    ui->tableWidget->setItem(row, 5, item6);
+    ui->tableWidget->setItem(row, 6, item7);
+    ui->tableWidget->setItem(row, 7, item8);
+    ui->tableWidget->setItem(row, 8, item9);
+    ui->tableWidget->setItem(row, 9, item10);
+    ui->tableWidget->setItem(row, 10, item11);
+    ui->tableWidget->setItem(row, 11, item12);
+    ui->tableWidget->setItem(row, 12, item13);
+
+    if(ui->tableWidget->rowCount() == 2)
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        ui->pushButtonAdd->setEnabled(false);
+
+    }
+    else
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        ui->pushButtonAdd->setEnabled(true);
+    }
 }
 void RPSWLAccuracyComparisonDialog::OnBnClickedTableDeleteRow()
 {
     int row = ui->tableWidget->currentRow();
     ui->tableWidget->removeRow(row);
+    if(ui->tableWidget->rowCount() == 2)
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+        ui->pushButtonAdd->setEnabled(false);
+
+    }
+    else
+    {
+        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        ui->pushButtonAdd->setEnabled(true);
+    }
 }
 
 void RPSWLAccuracyComparisonDialog::saveTableItemsToList(std::vector<QString> &itemList)
@@ -198,7 +301,7 @@ void RPSWLAccuracyComparisonDialog::readTableItemsFromList(std::vector<QString> 
 {
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
     int row = rpsWindLabSimulator->numberOfCandidate;
-    int col = 3;
+    int col = 13;
     //ui->tableWidget->insertRow(row);
     ui->tableWidget->setRowCount(row);
     ui->tableWidget->setColumnCount(col);

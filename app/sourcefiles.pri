@@ -469,9 +469,11 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/windLab/rpsWindLabSimulationOutputWorker.h\
             src/rps/windLab/rpsWindLabComparisonWorker.h\
             src/rps/githubRestApiClient.h\
+            src/rps/windLab/widgets/rpswlcomparisonobjectdependencydialog.h\
+            src/rps/windLab/widgets/rpswlcomparisontablezoomindialog.h\
+            src/rps/windLab/widgets/rpswlaccuracycomparisontablezoomindialog.h\
+            src/rps/windLab/widgets/rpswlaccuracycomparisonobjectdependencydialog.h\
 
-
-            
 
 SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
@@ -505,6 +507,12 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/windLab/rpsWindLabSimulationOutputWorker.cpp\
             src/rps/windLab/rpsWindLabComparisonWorker.cpp\
             src/rps/githubRestApiClient.cpp\
+            src/rps/windLab/widgets/rpswlcomparisonobjectdependencydialog.cpp\
+            src/rps/windLab/widgets/rpswlcomparisontablezoomindialog.cpp\
+            src/rps/windLab/widgets/rpswlaccuracycomparisontablezoomindialog.cpp\
+            src/rps/windLab/widgets/rpswlaccuracycomparisonobjectdependencydialog.cpp\
+
+
 
 
 
@@ -530,3 +538,9 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/seismicLab/widgets/rpsslmodulationdlg.ui\
             src/rps/windLab/widgets/rpswlcomparisondialog.ui\
             src/rps/windLab/widgets/rpswlaccuracycomparisondialog.ui\
+            src/rps/windLab/widgets/rpswlcomparisonobjectdependencydialog.ui\
+            src/rps/windLab/widgets/rpswlcomparisontablezoomindialog.ui\
+            src/rps/windLab/widgets/rpswlaccuracycomparisontablezoomindialog.ui\
+            src/rps/windLab/widgets/rpswlaccuracycomparisonobjectdependencydialog.ui\
+
+
