@@ -108,7 +108,7 @@ Note: patches may be required.. for eg arch based systems may need https://proje
 9. download latest sources of LabRPS(lets use the home directory $HOME)
 
     `cd ~`
-    `git clone https://github.com/narunlifescience/LabRPS.git`
+    `git clone https://github.com/LabRPS/LabRPS.git`
 
 10. create include & lib directory inside ~/LabRPS/3rdparty/
 11. copy contents of src directory(only *.h files) inside qwtplot3d to ~/LabRPS/3rdparty/include

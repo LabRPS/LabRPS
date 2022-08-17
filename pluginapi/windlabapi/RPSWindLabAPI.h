@@ -17,7 +17,6 @@
 #include "IrpsWLCorrelation.h"
 #include "IrpsWLModulation.h"
 
-
 #include <map>
 #include<vector>
 
@@ -26,12 +25,17 @@
 /// A factory object in LabRPS
 ///
 
+class RPS_CORE_API RPSWindLabAPIInfo
+{
+public:
 
+	static const char * getWindLabAPIVersion();
+};
 
-	///////////Coherence///////////////
+///////////Coherence///////////////
 
-	class RPS_CORE_API CrpsCoherenceFactory
-	{
+class RPS_CORE_API CrpsCoherenceFactory
+{
 	public:
 		typedef IrpsWLCoherence *(*CreateCoherenceCallback)();
 
@@ -77,7 +81,7 @@
 		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
 		static std::map<const QString, QString> mVersionMap;
 
-	};
+};
 
 	//////////////////////////////////Location distribution//////////////////////////////////////////////
 

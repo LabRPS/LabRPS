@@ -30,7 +30,7 @@
     <file>icons/common/16/list-remove.png</file>
     <file>icons/common/16/edit-hide.png</file>
     <file>icons/common/16/edit-unhide.png</file>
-    <file>icons/common/16/alpha-logo.png</file>
+    <file>icons/common/16/rps-logo.png</file>
     <file>icons/common/16/edit-solid-pattern.png</file>
     <file>icons/common/16/edit-dense1-pattern.png</file>
     <file>icons/common/16/edit-dense2-pattern.png</file>
@@ -93,7 +93,7 @@
     <file>icons/common/22/list-remove.png</file>
     <file>icons/common/22/edit-hide.png</file>
     <file>icons/common/22/edit-unhide.png</file>
-    <file>icons/common/22/alpha-logo.png</file>
+    <file>icons/common/22/rps-logo.png</file>
     <file>icons/common/22/edit-colormap3d.png</file>
     <file>icons/common/22/edit-contour3d.png</file>
     <file>icons/common/22/edit-graymap3d.png</file>
@@ -144,7 +144,7 @@
     <file>icons/common/24/preferences-general-numericformat.png</file>
     <file>icons/common/24/preferences-table-font.png</file>
     <file>icons/common/24/preferences-fitting.png</file>
-    <file>icons/common/24/alpha-logo.png</file>
+    <file>icons/common/24/rps-logo.png</file>
     <file>icons/common/24/edit-colormap3d.png</file>
     <file>icons/common/24/edit-contour3d.png</file>
     <file>icons/common/24/edit-graymap3d.png</file>
@@ -191,7 +191,7 @@
     <file>icons/common/32/preferences-general-numericformat.png</file>
     <file>icons/common/32/preferences-table-font.png</file>
     <file>icons/common/32/preferences-fitting.png</file>
-    <file>icons/common/32/alpha-logo.png</file>
+    <file>icons/common/32/rps-logo.png</file>
     <file>icons/common/32/simulation-run.png</file>
     <file>icons/common/32/simulation-stop.png</file>
     <file>icons/common/32/simulation-options.png</file>
@@ -230,7 +230,7 @@
     <file>icons/common/48/preferences-general-numericformat.png</file>
     <file>icons/common/48/preferences-table-font.png</file>
     <file>icons/common/48/preferences-fitting.png</file>
-    <file>icons/common/48/alpha-logo.png</file>
+    <file>icons/common/48/rps-logo.png</file>
     <file>icons/common/64/folder-closed.png</file>
     <file>icons/common/64/folder-open.png</file>
     <file>icons/common/64/preferences-general.png</file>
@@ -240,7 +240,7 @@
     <file>icons/common/64/preferences-general-numericformat.png</file>
     <file>icons/common/64/preferences-table-font.png</file>
     <file>icons/common/64/preferences-fitting.png</file>
-    <file>icons/common/64/alpha-logo.png</file>
+    <file>icons/common/64/rps-logo.png</file>
     <file>icons/common/96/folder-closed.png</file>
     <file>icons/common/96/folder-open.png</file>
     <file>icons/common/96/preferences-general.png</file>
@@ -250,7 +250,7 @@
     <file>icons/common/96/preferences-general-numericformat.png</file>
     <file>icons/common/96/preferences-table-font.png</file>
     <file>icons/common/96/preferences-fitting.png</file>
-    <file>icons/common/96/alpha-logo.png</file>
+    <file>icons/common/96/rps-logo.png</file>
     <file>icons/common/128/folder-closed.png</file>
     <file>icons/common/128/folder-open.png</file>
     <file>icons/common/128/preferences-general.png</file>
@@ -260,7 +260,7 @@
     <file>icons/common/128/preferences-general-numericformat.png</file>
     <file>icons/common/128/preferences-table-font.png</file>
     <file>icons/common/128/preferences-fitting.png</file>
-    <file>icons/common/128/alpha-logo.png</file>
+    <file>icons/common/128/rps-logo.png</file>
     <file>icons/light/16/drag-move.png</file>
     <file>icons/light/16/edit-copy.png</file>
     <file>icons/light/16/edit-cut.png</file>

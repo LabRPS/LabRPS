@@ -29,7 +29,7 @@ pass()
 trap "fail" 1 2 3 15
 
 # insert test commands here
-cp $here/test/*.aproj .
+cp $here/test/*.rps .
 $here/test/readWriteProject
 if test $? -ne 0; then fail; fi
 

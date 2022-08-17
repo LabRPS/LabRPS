@@ -19,7 +19,10 @@ typedef IrpsWLPSDdecompositionMethod *(*CreatePSDdecomMethodCallback)();
 typedef IrpsWLCorrelation *(*CreateCorrelationCallback)();
 typedef IrpsWLModulation *(*CreateModulationCallback)();
 
-	
+const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
+{
+	return "0.001";
+}
 
 	///////Coherence////////
 	//// instantiate the static variable

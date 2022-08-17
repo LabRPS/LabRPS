@@ -37,19 +37,21 @@
 #include <QObject>
 #include <QtDebug>
 
-const int LabRPS::LabRPS_versionNo = 1022022;
-const char* LabRPS::LabRPS_version = "1.02";
+const int LabRPS::LabRPS_versionNo = 00012023;
+const char* LabRPS::LabRPS_version = "0.001";
+const char* LabRPS::LabRPS_Windlab_api_version = "0.001";
+const char* LabRPS::LabRPS_Windlab_plugin_api_version = "0.001";
 const char* LabRPS::extra_version = "stable";
 const QDate LabRPS::release_date =
-    QDate::fromString(QString("18-01-2022"), "dd-MM-yyyy");
-const char* LabRPS::homepage_Uri = "https://labrps.sourceforge.io/";
-const char* LabRPS::wiki_Uri = "https://labrps.sourceforge.io/wiki";
+    QDate::fromString(QString("01-01-2023"), "dd-MM-yyyy");
+const char* LabRPS::homepage_Uri = "https://labrps.com/";
+const char* LabRPS::wiki_Uri = "https://wiki.labrps.com/";
 const char* LabRPS::forum_Uri =
-    "https://sourceforge.net/p/labrps/discussion/";
+    "https://labrps.com/boards/";
 const char* LabRPS::bugreport_Uri =
-    "https://github.com/narunlifescience/LabRPS/issues/new";
+    "https://github.com/LabRPS/LabRPS/issues/new";
 const char* LabRPS::download_Uri =
-    "https://sourceforge.net/projects/labrps/";
+    "https://github.com/LabRPS/LabRPS/";
 
 // rps phenomena
   QString LabRPS::rpsPhenomenonWindVelocity = "Wind Velocity";
@@ -107,6 +109,8 @@ QString LabRPS::schemaVersion() {
 }
 
 QString LabRPS::versionString() { return LabRPS_version; }
+QString LabRPS::windLabAPIVersionString() { return LabRPS_Windlab_api_version; }
+QString LabRPS::windLabPluginAPIVersionString() { return LabRPS_Windlab_plugin_api_version; }
 
 QString LabRPS::extraVersion() { return QString(extra_version); }
 

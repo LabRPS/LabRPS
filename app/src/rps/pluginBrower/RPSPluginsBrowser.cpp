@@ -74,7 +74,7 @@ TaskSelectionPage::TaskSelectionPage(int installationType, QString installingPlu
     taskButtonGroup->addButton(unInstallRadioButton);
     taskButtonGroup->addButton(modificationRadioButton);
 
-    registerField("installOPlugin", intallRadioButton);
+    registerField("installPlugin", intallRadioButton);
     registerField("uninstallPlugin", unInstallRadioButton);
     registerField("modifyPlugin", modificationRadioButton);
 
@@ -224,6 +224,8 @@ bool ObjectSelectionPage::validatePage()
 {
     QStringList checkedList;
     QStringList unCheckedList;
+    
+    bool remove = true;
 
     int cnt = objectList->count();
     for (int i = 0; i < cnt; i++)
@@ -231,7 +233,8 @@ bool ObjectSelectionPage::validatePage()
         QListWidgetItem *item = objectList->item(i);
         if (Qt::Checked == item->checkState())
         {
-            // this object is to be installed
+            // this object is to be installed or uninstalled
+            remove = false; // mean don't delete plugin instance because there are still objects in the plugin
         }
         else if (Qt::Unchecked == item->checkState())
         {
@@ -243,12 +246,12 @@ bool ObjectSelectionPage::validatePage()
             }
             else if (2 == InstallationType)
             {
-                // this object shoulb be remove from the list
+                // this object shoulb be remove from the uninstalling objects map
                 rpsSimulator->UpdateToBeUninstalledObjectsMap(item->text(), InstallingPluginName);
             }
             else if (3 == InstallationType)
             {
-                // this object shoulb be remove from the list
+                // this object shoulb be remove from the installing objects map
                 rpsSimulator->UpdateToBeInstalledObjectsMap(item->text());
             }
         }
@@ -262,7 +265,7 @@ bool ObjectSelectionPage::validatePage()
     else if (2 == InstallationType)
     {
         // now the install the selected objects
-        PluginManager::GetInstance().UnInstallPlugin(InstallingPluginFullPath);
+        PluginManager::GetInstance().UnInstallPlugin(InstallingPluginFullPath, remove);
     }
     else if (3 == InstallationType)
     {

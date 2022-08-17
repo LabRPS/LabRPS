@@ -8,17 +8,34 @@
 #include <QString>
 #include "RPSdefines.h"
 
-class CPluginDescription
+
+class RPS_CORE_API CPluginDescription
 {
 public:
-	QString m_strName;
-	QString m_strType;
-	QString m_strReleaseDate;
-	QString m_strAuthors;
-	QString m_strVersion;
-	QString m_strDescription;
-	QString m_strFileName;
-	QString m_strFullPath;
+
+    // the name of the plugin
+	QString name;
+
+	// the type of the plugin
+	QString type;
+
+	// the date the plugin has been released
+	QString releaseDate;
+
+	// the authors, those who contribute to the implementatio of the plugin
+	QString authors;
+
+	// the plugin version
+	QString version;
+
+	// the description showing what the plugin does
+	QString description;
+
+	// the plugin file name
+	QString fileName;
+
+	// the full path to the plugin file
+	QString fullPath;
 };
 
 
@@ -31,13 +48,13 @@ public:
 	explicit PluginInstance(const QString &name);
 	~PluginInstance();
 
-	/// Initialize the plugin
+	// Initialize the plugin
 	bool Initialize();
 
-	/// Load the plugin
+	// Load the plugin
 	bool Load();
 
-	/// Unload the plugin
+	// Unload the plugin
 	bool Unload();
 
 	/// Return true if the plugin is loaded
@@ -61,9 +78,6 @@ public:
 	/// Return the plugin's description
 	QString GetPluginDescription();
 
-	/// Return the version of plugin api used 
-	int GetPluginApiVersion();
-
 	/// Return the version for the plugin
 	QString GetPluginVersion();
 
@@ -84,9 +98,6 @@ public:
 
 	// Get the location of the plugin
 	QString GetPluginLacotionPath();
-
-	// Get the location of the plugin
-	QString GetPluginRPName();
 	
 	// Get the installation state of the plugin (true = installed)
 	bool GetInstallationState();
@@ -101,7 +112,7 @@ private:
 
 	class Impl;
 	Impl *mImpl;
-	bool bIsInstalled;
+	bool isInstalled;
 };
 
 ///
@@ -125,22 +136,16 @@ public:
 	/// Unload a single named plugin
 	bool Unload(const QString &name);
 
-	/// Return a list of all plugins
-	std::vector<PluginInstance *> GetAllPlugins();
-
 	// send text to output pane
 	void rpsOutputText(QString outputText);
 
 	// This function determine the plugins location
 	QString GetPluginLacotionPath();
 
-	// This function search for plugins
+	// this function search for plugins
 	void SearchPlugin();
 
-	// Function that determine the application path
-	QString GetApplicationPath();
-
-	// This function install a plugin
+	// this function install a plugin
 	bool InitializePlugin(const QString &name, int instUninstMOd);
 
 	// This function install a plugin
@@ -150,19 +155,10 @@ public:
 	bool InstallPluginInReg(const QString &name);
 
 	// This function uninstall a plugin
-	bool UnInstallPlugin(const QString &name);
-
-	/// Read plugin descriptions from description files
-	void ReadDescription();
+	bool UnInstallPlugin(const QString &name, bool remove = true);
 
 	// Read a text files
 	bool ReadPlgTXT(const QString &name);
-
-	//// Get plugin descriptions vector
-	//std::vector<CPluginDescription *>& GetPluginDescriptionsVector();
-
-	//// Get installed plugins vector
-	//std::vector<PluginInstance *>& GetInstalledPluginsVector();
 
 	// Get installed plugins vector
 	std::vector<QString>& GetInstalledPluginsInRegVector();
@@ -176,30 +172,6 @@ public:
 	// Get installed plugin name map
 	std::map<QString, PluginInstance *>& GetInstalledPluginsNameMap();
 
-
-	//// Get the map containing all the RP
-	//std::map<QString, QString>& GetAllRPMap();
-
-	// // Write the intalled plugins to registry
-	// int RPSWriteInstalledPluginsToRegistry();
-
-	// int RPSWriteToBeInstallObjectsToRegistry();
-
-	// // Read the intalled plugin to registry
-	// int RPSReadInstalledPluginsFromRegistry();
-
-	// // common function to all rp to Read the intalled plugin to registry
-	// int RPSReadInstalledPluginsFromRegistryCommon();
-
-	// // Check if regiskey exists already for installed plugins
-	// int CheckIfInstalledPlgsRegKeyExist();
-
-	//// Insert all RP the the combo box
-	//void InstallPRPL(PluginInstance * pi);
-
-	//// Get the map containing all the RP
-	//std::map<QString, QString>& GetAllRPMap();
-
 	// This function find each folder in the plugin folder
 	QString SearchPluginFolders(QString pluginpath);
 	
@@ -210,19 +182,14 @@ public:
 	void ReadDescriptionFromFolder(QString strPath);
 
 	// Get the full path of plugin
-	QString GetPluginFullPath(QString FileName);
+	QString GetPluginFullPath(QString fileName);
 
 	// Make the file name from the plugin full name
 	QString MakeFileNameFromFullPath(QString fullpath);
 
-	// This function install the plugins of type POLR (Put it in appropriate map)
-	void InstallPOLR(PluginInstance * pi);
-
 	// Get all added objects map
 	std::map<QString, QString>& GetAllPlugedObjectsMap();
 
-	// These functions are just for testing
-	void Recurse(QString pstr);
 	void PrintDirs();
 
 	bool doesPluginStillExist(QString pluginName, QString& pluginFullPath);
@@ -235,37 +202,26 @@ private:
 	const PluginManager &operator =(const PluginManager &);
 
 	// A vector containing instances of all plugins
-	std::vector<PluginInstance *> mPlugins;
+	std::vector<PluginInstance *> plugins;
 
-	//// A vector containing descriptions of all plugins
-	//std::vector<CPluginDescription *> mPluginDescriptions;
-
-	//// A vector containing instances of all plugins
-	//std::vector<PluginInstance *> mInstalledPlugins;
-
-	
 	// A map containing instances of all plugin: first = plugin file full path, second = the plugin instance
-	std::map<QString, PluginInstance *> mInstalledPluginsMap;
+	std::map<QString, PluginInstance *> installedPluginsMap;
 
 	// A map containing description of all plugin
-	std::map<QString, CPluginDescription *> PluginDescriptionMap;
-
-	//// A map containing description of all plugin
-	//std::map<QString, QString> mAllRPMap;
+	std::map<QString, CPluginDescription *> pluginDescriptionMap;
 	
 	// A vector containing names of all installed plugins
-	std::vector<QString> mInstalledPluginsInReg;
+	std::vector<QString> installedPluginsInReg;
 
 	// All pluged ojects map: first = object name, second = its plugin full path
-	std::map<QString, QString> mAllPlugedObjectsMap;
+	std::map<QString, QString> allPlugedObjectsMap;
 
 	// A map containing instances of all plugin: first = plugin name, second = the plugin instance
-	std::map<QString, PluginInstance *> mAllInstalledPluginsNamesMap;
+	std::map<QString, PluginInstance *> allInstalledPluginsNamesMap;
 
 	// The path of the plugins location
-	QString m_strPluginLacotionPath;
-
-	// 
+	QString pluginLacotionPath;
+ 
 };
 
 

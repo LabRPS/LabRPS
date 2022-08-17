@@ -40,9 +40,9 @@ OpenProjectDialog::OpenProjectDialog(QWidget *parent, bool extended,
   setWindowTitle(tr("Open Project"));
   setFileMode(ExistingFile);
   QStringList filters;
-  filters << tr("LabRPS project") + " (*.aproj)"
-          << tr("Compressed LabRPS project") + " (*.aproj.gz)"
-          << tr("Backup files") + " (*.aproj~ *.aproj.gz~)"
+  filters << tr("LabRPS project") + " (*.rps)"
+          << tr("Compressed LabRPS project") + " (*.rps.gz)"
+          << tr("Backup files") + " (*.rps~ *.rps.gz~)"
           //<< tr("Python Source") + " (*.py *.PY)"
           << tr("All files") + " (*)";
   setNameFilters(filters);

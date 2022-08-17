@@ -2,7 +2,10 @@
 #include "RPSWindLabpluginAPI.h"
 #include "RPSWindLabAPI.h"
 
-
+const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
+{
+	return "0.001";
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //Fill output pane
@@ -151,28 +154,6 @@
  {
 	 CrpsYSpectrumFactory::UnregisterYSpectrum(name, pluginName);
  }
-
-
- //////////////////////////////////////Wind Coherence//////////////////////////////////////////
-
- //void RegisterCoherence(const QString name, const QString &description, CoherenceInitFunc init_cb, CoherenceFreeFunc free_cb)
- //{
-	// CrpsCoherenceFactory::RegisterCoherence(name, description, init_cb);
-	// (void)free_cb; // we never free these objects
- //}
-
- //void InitializeCoherence(const QString name, const QString &description, CoherenceInitFunc init_cb, CoherenceFreeFunc free_cb)
- //{
-	// CrpsCoherenceFactory::RegisterCoherence(name, description, init_cb);
-	// (void)free_cb; // we never free these objects
- //}
-
- //void UnregisterCoherence(const QString name)
- //{
-	// CrpsCoherenceFactory::UnregisterCoherence(name);
- //}
-
-
 
  ////////////////////////////////////Simulation method//////////////////////////////////////////
 

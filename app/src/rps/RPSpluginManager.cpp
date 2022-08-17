@@ -19,22 +19,46 @@ using namespace std;
 class PluginInstance::Impl
 {
 public:
-	QString mFileName;
-	QString mDisplayName;
-	QString theString;
-	QString mSystemName;
-	QString mRandomPhenomenon;
-	QString mPluginAuthor;
-	QString mPluginDescription;
-	QString mPluginVersion;
-	QString mLabRPSVersion;
-	QString mAPIVersion;
-	QString mPluginReleaseDate;
-	QString mPluginSubFolder;
-	QString mPluginRPName;
-	bool mIsPluginInstalled;
-	int mPluginApiVersion;
 
+    // plugin name
+	QString fileName;
+
+	// the name of plugin as displayed in the plugin browser
+	QString displayName;
+
+	// a string 
+	QString theString;
+
+	// the plugin name in the application system
+	QString systemName;
+
+	// the random phenomenon for which the plugin is developed
+	QString randomPhenomenon;
+
+	// the name of the contributors to the plugin implementation
+	QString pluginAuthor;
+
+	// the description of the plugin
+	QString pluginDescription;
+
+	// the version of the plugin
+	QString pluginVersion;
+
+	// the version of LabRPS
+	QString labRPSVersion;
+
+	// the version of the api
+	QString apiVersion;
+
+	// the release date of the plugin
+	QString pluginReleaseDate;
+
+	// the name of the sub folder containing the plugin files
+	QString pluginSubFolder;
+
+	// the flag to show whether the plugin is installed
+	bool isPluginInstalled;
+	
 	QLibrary library;
 
     typedef const int (*MyPrototypeOne)();
@@ -43,7 +67,7 @@ public:
 	bool Load()
 	{
 		// Load the plugin
-		library.setFileName(mPluginSubFolder);
+		library.setFileName(pluginSubFolder);
 		library.load();
 		return !library.fileName().isEmpty();
 	}
@@ -77,9 +101,8 @@ public:
 PluginInstance::PluginInstance(const QString &name)
 {
 	mImpl = new Impl;
-	mImpl->mDisplayName = name;
-	//mImpl->mFileName = /*GetPluginLacotionPath() + */name /*+ tr(".dll")*/;
-	mImpl->mPluginSubFolder = name;
+	mImpl->displayName = name;
+	mImpl->pluginSubFolder = name;
 }
 
 PluginInstance::~PluginInstance()
@@ -92,20 +115,16 @@ bool PluginInstance::Initialize()
 	//load the plugin
 	if (!mImpl->Load())
 	{
-		// QString str = tr("Plugin initialization fails");
-
-		// PluginManager::GetInstance().rpsOutputText(str);
-		// // AfxMessageBox(str);
 		return false;
 	}
 
-	// Initialized the plugin
+	// get the plugin initialization function
 	Impl::MyPrototypeOne init_func = mImpl->GetFunctionPrototypeOne("PluginInit");
 	if (!init_func)
 		return false;
 
-	// Register the plugin
-	int retn = (*init_func)();
+	// register the plugin
+	(*init_func)();
 
 	return true;
 }
@@ -117,27 +136,27 @@ bool PluginInstance::Load()
 	{		
 		return false;
 	}
-
+    
+	// if the plugin is successfuly loaded
 	// Call functions from the plungin (dll) to get information about the plugin
-	mImpl->mDisplayName = GetStringFromDllFunct("PluginDisplayName");
-	mImpl->mSystemName = GetStringFromDllFunct("PluginSystemName");
-	mImpl->mRandomPhenomenon = GetStringFromDllFunct("Phenomenon");
-	mImpl->mPluginAuthor = GetStringFromDllFunct("PluginAuthor");
-	mImpl->mPluginDescription = GetStringFromDllFunct("PluginDescription");
-	mImpl->mPluginVersion = GetStringFromDllFunct("PluginCurrentVersion");
-	mImpl->mPluginReleaseDate = GetStringFromDllFunct("PluginReleaseDate");
-	mImpl->mLabRPSVersion = GetStringFromDllFunct("Labrpsversion");
-	mImpl->mAPIVersion = GetStringFromDllFunct("Apiversion");
-	mImpl->mPluginRPName = GetStringFromDllFunct("PlungInThisRP");
+	mImpl->displayName = GetStringFromDllFunct("PluginDisplayName");
+	mImpl->systemName = GetStringFromDllFunct("PluginSystemName");
+	mImpl->randomPhenomenon = GetStringFromDllFunct("Phenomenon");
+	mImpl->pluginAuthor = GetStringFromDllFunct("PluginAuthor");
+	mImpl->pluginDescription = GetStringFromDllFunct("PluginDescription");
+	mImpl->pluginVersion = GetStringFromDllFunct("PluginCurrentVersion");
+	mImpl->pluginReleaseDate = GetStringFromDllFunct("PluginReleaseDate");
+	mImpl->labRPSVersion = GetStringFromDllFunct("Labrpsversion");
+	mImpl->apiVersion = GetStringFromDllFunct("Apiversion");
 
-	// Initialized the plugin
-	Impl::MyPrototypeOne init_func = mImpl->GetFunctionPrototypeOne("InstallPlugin");
-	if (!init_func)
+	// get the plugin installation function
+	Impl::MyPrototypeOne install_func = mImpl->GetFunctionPrototypeOne("InstallPlugin");
+	if (!install_func)
 		return false;
 
-	// Register the plugin
-	mImpl->mPluginApiVersion = (*init_func)();
-	mImpl->mIsPluginInstalled = true;
+	// install the plugin
+	(*install_func)();
+	mImpl->isPluginInstalled = true;
 
 	return true;
 }
@@ -145,12 +164,14 @@ bool PluginInstance::Load()
 
 bool PluginInstance::Unload()
 {
-	// Initialized the plugin
+	// get the plugin uninstallation function
 	Impl::MyPrototypeOne Uninstal_func = mImpl->GetFunctionPrototypeOne("UninstallPlugin");
+	
 	if (!Uninstal_func)
 		return false;
 
-	mImpl->mPluginApiVersion = (*Uninstal_func)();
+	// uninstall the plugin
+	(*Uninstal_func)();
 
 	return mImpl->Unload();
 }
@@ -162,114 +183,61 @@ bool PluginInstance::IsLoaded()
 
 QString PluginInstance::GetFileName()
 {
-	return mImpl->mFileName;
+	return mImpl->fileName;
 }
 
 QString PluginInstance::GetDisplayName()
 {
-	return mImpl->mDisplayName;
+	return mImpl->displayName;
 }
 
 QString PluginInstance::GetSystemName()
 {
-	return mImpl->mSystemName;
+	return mImpl->systemName;
 }
 
 QString PluginInstance::GetRandomPhenomenon()
 {
-	return mImpl->mRandomPhenomenon;
+	return mImpl->randomPhenomenon;
 }
 
 QString PluginInstance::GetPluginAuthor()
 {
-	return mImpl->mPluginAuthor;
+	return mImpl->pluginAuthor;
 }
 
 QString PluginInstance::GetPluginDescription()
 {
-	return mImpl->mPluginDescription;
-}
-
-int PluginInstance::GetPluginApiVersion()
-{
-	return mImpl->mPluginApiVersion;
+	return mImpl->pluginDescription;
 }
 
 QString PluginInstance::GetPluginVersion()
 {
-	return mImpl->mPluginVersion;
+	return mImpl->pluginVersion;
 }
 
 QString PluginInstance::GetLabRPSVersion()
 {
-	return mImpl->mLabRPSVersion;
+	return mImpl->labRPSVersion;
 }
 
 QString PluginInstance::GetAPIVersion()
 {
-	return mImpl->mAPIVersion;
+	return mImpl->apiVersion;
 }
 
 QString PluginInstance::GetPluginSubFolder()
 {
-	return mImpl->mPluginSubFolder;
+	return mImpl->pluginSubFolder;
 }
-
 
 QString PluginInstance::GetPluginReleaseDate()
 {
-	return mImpl->mPluginReleaseDate;
+	return mImpl->pluginReleaseDate;
 }
-
-QString PluginInstance::GetPluginRPName()
-{
-	return mImpl->mPluginRPName;
-}
-
-
-QString PluginInstance::GetPluginLacotionPath()
-{
-// 	TCHAR szBuff[_MAX_PATH];
-// 	::GetModuleFileName(AfxGetInstanceHandle(), szBuff, _MAX_PATH);
-// 	QString filename(szBuff);
-// 	filename.MakeUpper();
-
-// #if defined _DEBUG
-// 	QString exe_file = tr("DEBUG\\LABRPS.EXE");
-// 	int loc;
-// #else
-// 	// if "Release" is in the path, remove it (this happens when testing release builds)
-// 	int loc = filename.Find(tr("RELEASE\\"));
-// 	if (loc != -1)
-// 		filename.replace(("RELEASE\\"), tr(""));
-
-// 	QString exe_file = tr("LABRPS.EXE");
-// #endif
-// 	loc = filename.Find(exe_file);
-// 	if (loc == -1)
-// 	{
-// 		// something is wrong... that find should have succeeded
-// 		// hard code the default install location so that there is a remote chance of success
-// 		filename = tr("C:\\PROGRAM FILES\\LAB RPS\\LABRPS\\");
-// 	}
-// 	else
-// 	{
-// 		filename.Replace(exe_file, tr(""));
-// 	}
-
-// 	// Get the help file location path. Note that the help file should be added the INSTALLDIR in installshield when deploying
-// 	QString strPluginLacotionPath = _tcsdup(filename + tr("Plugins\\"));
-
-// 	return strPluginLacotionPath;
-return "";
-}
-
 
 PluginManager::PluginManager()
 {
-	//QString pluginpath;
-	////SearchPluginFolders(pluginpath);
-	//PrintDirs();
 }
 
 PluginManager::~PluginManager()
@@ -284,9 +252,6 @@ PluginManager &PluginManager::GetInstance()
 
 bool PluginManager::LoadAll()
 {
-	// hardcode loading our 2 example plugins
-	// in reality, this would search for all plugins to load
-	//Load(tr("plugin1"));
 	SearchPlugin();
 	return true;
 }
@@ -298,14 +263,6 @@ bool PluginManager::Load(const QString &name)
 	if (loaded.find(name) != loaded.end())
 		return true;
 
-	// Now make the file name
-	QString filename = MakeFileNameFromFullPath(name);
-
-	// // Send text to output pane
-	// QString str;
-	// str.LoadString(IDS_LOADING_PLUGIN);
-	// rpsOutputText(filename + str);
-
 	// try to load this plugin
 	PluginInstance *pi = new PluginInstance(name);
 	if (!pi->Load())
@@ -315,7 +272,7 @@ bool PluginManager::Load(const QString &name)
 	}
 
 	// success! add the plugin to our manager
-	mPlugins.push_back(pi);
+	plugins.push_back(pi);
 
 	// and don't try to load it again
 	loaded.insert(name);
@@ -330,20 +287,7 @@ bool PluginManager::UnloadAll()
 
 bool PluginManager::Unload(const QString &name)
 {
-	QMessageBox::warning(0,"1","from bad");
-	// not implemented yet
 	return false;
-}
-
-std::vector<PluginInstance *> PluginManager::GetAllPlugins()
-{
-	// If we had an external metadata file that described all of the
-	// plugins, this would be the point where we load that file -
-	// without loading the actual plugins.  Without that external
-	// metadata, we need to load all plugins.
-	LoadAll();
-	
-	return mPlugins;
 }
 
 QString PluginManager::GetPluginLacotionPath()
@@ -352,52 +296,15 @@ QString PluginManager::GetPluginLacotionPath()
   QString appPath = QFileInfo(QCoreApplication::applicationFilePath()).path();
 
   // construct the plugin directory
-  m_strPluginLacotionPath =  appPath + "/plugins/";
+  pluginLacotionPath =  appPath + "/plugins/";
 
-	return m_strPluginLacotionPath;
+	return pluginLacotionPath;
 }
 
 // search plugin
 void PluginManager::SearchPlugin()
 {
-	// //QString strPath = GetApplicationPath();
-	// QString strPath = GetPluginLacotionPath();
-	// strPath += tr("*.dll");
-
-	// CFileFind find;
-	// BOOL bIsFind = find.FindFile(strPath);
-	// while (bIsFind)
-	// {
-	// 	bIsFind = find.FindNextFile();
-
-	// 	if (find.IsDots())
-	// 		continue;
-	// 	else if (find.IsDirectory())
-	// 		continue;
-	// 	else
-	// 	{
-	// 		QString strFileName = find.GetFileName();
-	// 		// load dll
-	// 		Load(strFileName);
-	// 	}
-	// }
-}
-
-QString PluginManager::GetApplicationPath()
-{
-	// TCHAR filename[_MAX_PATH];
-	// TCHAR drive[_MAX_DRIVE];
-	// TCHAR path[_MAX_PATH];
-
-	// GetModuleFileName(AfxGetInstanceHandle(), filename, MAX_PATH);
-	// _wsplitpath_s(filename, drive, _MAX_DRIVE, path, _MAX_PATH, NULL, 0, NULL, 0);
-
-	// QString strLocation(drive);
-	// strLocation += path;
-
-	// return strLocation;
-
-	return "";
+	
 }
 
 QString PluginInstance::GetStringFromDllFunct(const QString &name)
@@ -416,45 +323,31 @@ QString PluginInstance::GetStringFromDllFunct(const QString &name)
 	return NULL;
 }
 
-
 void PluginManager::rpsOutputText(QString outputText)
 {
 	
 }
 
-
 bool PluginInstance::GetInstallationState()
 {
-	return mImpl->mIsPluginInstalled;
+	return mImpl->isPluginInstalled;
 }
 
 void PluginInstance::SetInstallationState(bool state)
 {
-   bIsInstalled = state;
+   isInstalled = state;
 }
-
 
 bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd)
 {
 		// have we already loaded this plugin?
 		static std::set<QString> loaded;
-		//if (loaded.find(name) != loaded.end())
-		QString filename;
-
+		
 		if ((1 == instUninstMOd) || (3 == instUninstMOd))
-		{
-		
-		
-			// Now make the file name
-			filename = MakeFileNameFromFullPath(name);
-
-			// // Send text to output pane
-			// QString str;
-			// str.LoadString(IDS_STR_INSTALLING_PLG);
-			// rpsOutputText(filename + str);
-
+		{		
 			// try to load this plugin
 			PluginInstance *pi = new PluginInstance(name);
+			
 			if (!pi->Initialize())
 			{
 				delete pi;
@@ -463,8 +356,7 @@ bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd)
 
 			delete pi;
 		}
-		
-		
+			
 	return true;
 }
 
@@ -473,17 +365,6 @@ bool PluginManager::InstallPlugin(const QString &name)
 	// have we already loaded this plugin?
 	static std::set<QString> loaded;
 	
-	//if (loaded.find(name) != loaded.end())
-	QString filename;
-	
-	// Now make the file name
-	filename = MakeFileNameFromFullPath(name);
-
-	// // Send text to output pane
-	// QString str;
-	// str.LoadString(IDS_STR_INSTALLING_PLG);
-	// rpsOutputText(filename + str);
-
 	// try to load this plugin
 	PluginInstance *pi = new PluginInstance(name);
 	if (!pi->Load())
@@ -492,32 +373,9 @@ bool PluginManager::InstallPlugin(const QString &name)
 		return false;
 	}
 
-	//// success! add the plugin to the installed plugins vector
-	//mInstalledPlugins.push_back(pi);
-
 	// success! add the plugin to the installed plugins map
-	mInstalledPluginsMap[pi->GetPluginSubFolder()] = pi;
-	mAllInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
-
-	// Populate combo box containing RP
-	/*InstallPRPL(pi);*/
-
-	// and don't try to load it again
-	//loaded.insert(name);
-
-	// Now make the file name
-	filename = MakeFileNameFromFullPath(name);
-
-	// // Report sucess
-	// // Send text to output pane
-	// str.LoadString(IDS_STR_SUCESS_INSTALL);
-	// rpsOutputText(filename + str);
-	// AfxMessageBox(filename + str);
-
-	// // Update the plugged objects tree
-	// CLabRPSMainFrame* pMainFrame = DYNAMIC_DOWNCAST(CLabRPSMainFrame, AfxGetMainWnd());
-
-	// pMainFrame->GetPLuggedObjectPane().FillPluggedObjectsTree();
+	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
+	allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	return true;
 }
@@ -525,103 +383,53 @@ bool PluginManager::InstallPlugin(const QString &name)
 
 bool PluginManager::InstallPluginInReg(const QString &name)
 {
-	// Now make the file name
-	QString filename = MakeFileNameFromFullPath(name);
-
-	// // Send text to output pane
-	// QString str;
-	// str.LoadString(IDS_STR_INSTALLING_PLG);
-	// rpsOutputText(filename + str);
-
 	// try to load this plugin
 	PluginInstance *pi = new PluginInstance(name);
+	
 	if (!pi->Load())
 	{
 		delete pi;
 		return false;
 	}
 
-
 	// Success! add the plugin to the installed plugins map
-	mInstalledPluginsMap[pi->GetPluginSubFolder()] = pi;
-	mAllInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
-
-	// // Report sucess
-	// // Send text to output pane
-	// str.LoadString(IDS_STR_SUCESS_INSTALL);
-	// rpsOutputText(filename + str);
-
-	// // Update the plugged objects tree
-	// CLabRPSMainFrame* pMainFrame = DYNAMIC_DOWNCAST(CLabRPSMainFrame, AfxGetMainWnd());
-	// pMainFrame->GetPLuggedObjectPane().FillPluggedObjectsTree();
+	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
+	allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	return true;
 }
 
-bool PluginManager::UnInstallPlugin(const QString &name)
+bool PluginManager::UnInstallPlugin(const QString &name, bool remove)
 {
 	// Now make the file name
 	QString filename = MakeFileNameFromFullPath(name);
 
-	if (mInstalledPluginsMap.find(name) != mInstalledPluginsMap.end())
+	if (installedPluginsMap.find(name) != installedPluginsMap.end())
 	{
 		// Uninstall the plugin its corresponding map
-		mInstalledPluginsMap[name]->Unload();
+		installedPluginsMap[name]->Unload();
 
-		// Set it as not installed
-		mInstalledPluginsMap.erase(name);
+		if (remove)
+		{
+			// Set it as not installed
+			installedPluginsMap.erase(name);
+		}
 	}
 
-	if (mAllInstalledPluginsNamesMap.find(filename) != mAllInstalledPluginsNamesMap.end())
+	if (allInstalledPluginsNamesMap.find(filename) != allInstalledPluginsNamesMap.end())
 	{
 		// Uninstall the plugin its corresponding map
-		mAllInstalledPluginsNamesMap[filename]->Unload();
+		allInstalledPluginsNamesMap[filename]->Unload();
 
-		// Set it as not installed
-		mAllInstalledPluginsNamesMap.erase(filename);
+		if (remove)
+		{
+			// Set it as not installed
+			allInstalledPluginsNamesMap.erase(filename);
+		}
 	}
-
-	
-
-	// QString str;
-	// str.LoadString(IDS_STR_NOT_INSTALLED3);
-	// rpsOutputText(filename + str);
-	// AfxMessageBox(filename + str);
-
-
-	// // Update the plugged objects tree
-	// CLabRPSMainFrame* pMainFrame = DYNAMIC_DOWNCAST(CLabRPSMainFrame, AfxGetMainWnd());
-	// pMainFrame->GetPLuggedObjectPane().FillPluggedObjectsTree();
 
 	return true;
 }
-
-
-void PluginManager::ReadDescription()
-{
-	// //QString strPath = GetApplicationPath();
-	// QString strPath = GetPluginLacotionPath();
-	// strPath += tr("*.txt");
-
-	// CFileFind find;
-	// BOOL bIsFind = find.FindFile(strPath);
-	// while (bIsFind)
-	// {
-	// 	bIsFind = find.FindNextFile();
-
-	// 	if (find.IsDots())
-	// 		continue;
-	// 	else if (find.IsDirectory())
-	// 		continue;
-	// 	else
-	// 	{
-	// 		QString strFileName = find.GetFileName();
-	// 		// Read .txt
-	// 		ReadPlgTXT(GetPluginLacotionPath() + strFileName);
-	// 	}
-	// }
-}
-
 
 bool PluginManager::ReadPlgTXT(const QString &path)
 {
@@ -645,37 +453,37 @@ bool PluginManager::ReadPlgTXT(const QString &path)
 		if (true == line.contains("PluginFileName: "))
 		{
 			line.replace("PluginFileName: ", "");
-			Description->m_strFileName = line;
+			Description->fileName = line;
 		}
 		else if(true == line.contains("PluginName: "))
 		{
 			line.replace("PluginName: ", "");
-			Description->m_strName = line;
+			Description->name = line;
 		}
 		else if (true == line.contains("RandomPhenomenon: "))
 		{
 			line.replace("RandomPhenomenon: ", "");
-			Description->m_strType = line;
+			Description->type = line;
 		}
 		else if (true == line.contains("PluginReleaseDate: "))
 		{
 			line.replace("PluginReleaseDate: ", "");
-			Description->m_strReleaseDate = line;
+			Description->releaseDate = line;
 		}
 		else if (true == line.contains("PluginAuthors: "))
 		{
 			line.replace("PluginAuthors: ", "");
-			Description->m_strAuthors = line;
+			Description->authors = line;
 		}
 		else if (true == line.contains("PluginVersion: "))
 		{
 			line.replace("PluginVersion: ", "");
-			Description->m_strVersion = line;
+			Description->version = line;
 		}
 		else if (true == line.contains("PluginDescription: "))
 		{
 			line.replace("PluginDescription: ", "");
-			Description->m_strDescription = line;
+			Description->description = line;
 		}
 	   }
     
@@ -688,149 +496,36 @@ bool PluginManager::ReadPlgTXT(const QString &path)
 	fullpah.replace(".txt", ".dll");
 
 	// Save the plugin full path
-	Description->m_strFullPath = fullpah;
+	Description->fullPath = fullpah;
 
-	//// success! add the plugin descriptions to our manager
-	//mPluginDescriptions.push_back(Description);
+	pluginDescriptionMap[Description->fileName] = Description;
 
-	PluginDescriptionMap[Description->m_strFileName] = Description;
-
-	/*delete Description;*/
 	return true;
 }
 
-
-//std::vector<CPluginDescription *>& PluginManager::GetPluginDescriptionsVector()
-//{
-//	return mPluginDescriptions;
-//}
-
-//std::vector<PluginInstance *>& PluginManager::GetInstalledPluginsVector()
-//{
-//	return mInstalledPlugins;
-//}
-
 std::vector<QString>& PluginManager::GetInstalledPluginsInRegVector()
 {
-	return mInstalledPluginsInReg;
+	return installedPluginsInReg;
 }
 
 
 std::map<QString, CPluginDescription *>& PluginManager::GetPluginDescriptionsMap()
 {
-	return PluginDescriptionMap;
+	return pluginDescriptionMap;
 }
 
 std::map<QString, PluginInstance *>& PluginManager::GetInstalledPluginsMap()
 {
-	return mInstalledPluginsMap;
+	return installedPluginsMap;
 }
 
 std::map<QString, PluginInstance *>& PluginManager::GetInstalledPluginsNameMap()
 {
-	return mAllInstalledPluginsNamesMap;
+	return allInstalledPluginsNamesMap;
 }
-
-//std::map<QString, QString>& PluginManager::GetAllRPMap()
-//{
-//	return mAllRPMap;
-//}
-//void PluginManager::InstallPRPL(PluginInstance * pi)
-//{
-//		// If the plugin is of type PRPL then save it in the document
-//		if (tr("PRPL") == pi->GetPluginType())
-//		{
-//			mAllRPMap[pi->GetPluginSubFolder()] = pi->GetDisplayName();
-//		}
-//}
 
 QString PluginManager::SearchPluginFolders(QString pluginpath)
 {
-	// WIN32_FIND_DATA FindFileData;
-	// HANDLE hFind;
-	// std::vector<QString> MyVect;
-
-	// QString pluginDir = GetPluginLacotionPath();
-
-	// hFind = FindFirstFile(pluginDir, &FindFileData);
-	// do
-	// {
-	// 	if (FindFileData.dwFileAttributes == 16)
-	// 	{
-	// 		MyVect.push_back(FindFileData.cFileName);
-	// 	}
-	// } while (FindNextFile(hFind, &FindFileData));
-
-
-	// //Now run in a loop of all the files and folders under this folder
-	// while (hFind)
-	// {
-	// 	//Ignore system directories "." and ".." the good old MS-DOS days
-
-	// 		//Check if the current object is a Folder or a File
-	// 		if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-	// 		{
-
-	// 		}
-	// 		else if
-	// 			(!((FindFileData.dwFileAttributes &  FILE_ATTRIBUTE_TEMPORARY)
-	// 				|| (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN)))
-	// 		{
-				
-	// 		}
-
-	// 	}
-	// 	if (!FindNextFile(hFind, &FindFileData))
-	// 	{
-	// 		//If nothing is found , make hFile NULL so that
-	// 		//we get out of the while loop
-	// 		FindClose(hFind);
-	// 		hFind = NULL;
-	// 	}
-
-
-
-	// FindClose(hFind);
-
-	// return pluginDir;
-
-	return "";
-
-}
-
-
-void PluginManager::Recurse(QString pstr)
-{
-	// CFileFind finder;
-
-	// // build a string with wildcards
-	// QString strWildcard(pstr);
-	// strWildcard += tr("\\*.*");
-
-	// // start working for files
-	// BOOL bWorking = finder.FindFile(strWildcard);
-
-	// while (bWorking)
-	// {
-	// 	bWorking = finder.FindNextFile();
-
-	// 	// skip . and .. files; otherwise, we'd 
-	// 	// recur infinitely! 
-
-	// 	if (finder.IsDots())
-	// 		continue;
-
-	// 	// if it's a directory, recursively search it 
-
-	// 	if (finder.IsDirectory())
-	// 	{
-	// 		QString str = finder.GetFilePath();
-	// 		TRACE(tr("%s\n"), (LPCTSTR)str);
-	// 		Recurse(str);
-	// 	}
-	// }
-
-	// finder.Close();
 }
 
 void PluginManager::PrintDirs()
@@ -842,8 +537,6 @@ void PluginManager::PrintDirs()
 
 QString PluginManager::SearchForAllPlugins(QString pstr)
 {	
-	//QString strPath = GetPluginLacotionPath();
-	// QString strPath = "E:\\NewLabRPSProject\\Staffs\\LabRPS\\LabRPS\\plugins";
     QString nameFilter( "*.txt" ); 
 
 	 QStringList filter;
@@ -860,8 +553,7 @@ QString PluginManager::SearchForAllPlugins(QString pstr)
 		ReadDescriptionFromFolder(str);
 		index++;
 	}
-   
-
+ 
 	return "";
 }
 
@@ -871,13 +563,13 @@ void PluginManager::ReadDescriptionFromFolder(QString strPath)
 	ReadPlgTXT(strPath);
 }
 
-QString PluginManager::GetPluginFullPath(QString FileName)
+QString PluginManager::GetPluginFullPath(QString fileName)
 {
 	// Get the plugin description
-	CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[FileName];
+    CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[fileName];
 
 	// Get the full path of the plugin
-	QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
+	QString InstallingPluginFullPath = InstallingPluginDescription->fullPath;
 	
 	delete InstallingPluginDescription;
 
@@ -894,18 +586,9 @@ QString PluginManager::MakeFileNameFromFullPath(QString fullpath)
 	return filename;
 }
 
-void PluginManager::InstallPOLR(PluginInstance * pi)
-{
-	// If the plugin is of type PRPL then save it in the document
-	if ("POLR" == pi->GetRandomPhenomenon())
-	{
-
-	}
-}
-
 std::map<QString, QString>& PluginManager::GetAllPlugedObjectsMap()
 {
-	return mAllPlugedObjectsMap;
+	return allPlugedObjectsMap;
 }
 
 bool PluginManager::doesPluginStillExist(QString pluginName, QString& pluginFullPath)
@@ -919,9 +602,9 @@ bool PluginManager::doesPluginStillExist(QString pluginName, QString& pluginFull
 	std::map<QString, CPluginDescription *>::iterator it;
 	for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
 	{
-		if(pluginName == it->second->m_strFileName)
+		if(pluginName == it->second->fileName)
 		{
-			pluginFullPath = it->second->m_strFullPath;
+			pluginFullPath = it->second->fullPath;
 			PluginManager::GetInstance().GetPluginDescriptionsMap().clear();
 			return true;
 		}

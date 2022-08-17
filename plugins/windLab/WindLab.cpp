@@ -15,8 +15,9 @@
 #include "ExpoModulation.h"
 #include "ThreeParaModulation.h"
 #include "RPSDeodatis1987.h"
-#include "RPSWindLabpluginAPI.h"
 #include "GeneralSpatialDistribution.h"
+
+#include "RPSWindLabpluginAPI.h"
 
 
 QString strPluginName = ("windLab");

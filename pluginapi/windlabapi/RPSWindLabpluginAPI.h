@@ -87,6 +87,14 @@
 #define API_VERSION(apiversion) \
 	RPS_PLUGIN_FUNC const char *  Apiversion = apiversion
 
+////////////////////////////////////////////////////////////////
+class RPS_CORE_API RPSWindLabPluginAPIInfo
+{
+public:
+
+	static const char * getWindLabPluginAPIVersion();
+};
+
 ////////////////////////////////////coherence//////////////////////////////////////////
 
 // Register and build Coherence object

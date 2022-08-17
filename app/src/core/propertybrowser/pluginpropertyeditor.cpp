@@ -61,7 +61,7 @@ PluginPropertyEditor::PluginPropertyEditor(QWidget *parent, ApplicationWindow *a
       datetimeFactory_(new QtDateTimeEditFactory(propertybrowser_)) {
   Q_ASSERT(app_);
   ui_->setupUi(this);
-  setWindowTitle(tr("Plugins"));
+  setWindowTitle(tr("RPS Objects Browser"));
   setWindowIcon(QIcon());
   objectbrowser_->setColumnCount(1);
 
@@ -657,7 +657,7 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
                 for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
                 {
                         // the name of the plugin
-                        QString installedpluginitemtext = it->second->m_strName;
+                        QString installedpluginitemtext = it->second->name;
 
                         // create the plugin note item
                         QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
@@ -1230,7 +1230,7 @@ void PluginPropertyEditor::seaLabPopulateObjectBrowser(MyWidget *widget)
                 for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
                 {
                         // the name of the plugin
-                        QString installedpluginitemtext = it->second->m_strName;
+                        QString installedpluginitemtext = it->second->name;
 
                         // create the plugin note item
                         QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
@@ -1305,7 +1305,7 @@ void PluginPropertyEditor::seismicLabPopulateObjectBrowser(MyWidget *widget)
                 for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
                 {
                         // the name of the plugin
-                        QString installedpluginitemtext = it->second->m_strName;
+                        QString installedpluginitemtext = it->second->name;
 
                         // create the plugin note item
                         QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
@@ -1359,17 +1359,17 @@ void PluginPropertyEditor::WindLabPluginPropertyBlock(CPluginDescription *descri
         propertybrowser_->addProperty(pluginstatusitem_);
         propertybrowser_->addProperty(plugindescriptionitem_);
 
-        stringManager_->setValue(pluginfileitem_, description->m_strFileName);
-        stringManager_->setValue(pluginnameitem_, description->m_strName);
-        stringManager_->setValue(plugintypeitem_, description->m_strType);
-        stringManager_->setValue(pluginreleasedateitem_, description->m_strReleaseDate);
-        stringManager_->setValue(pluginauthorsitem_, description->m_strAuthors);
-        stringManager_->setValue(pluginversionitem_, description->m_strVersion);
-        stringManager_->setValue(plugindescriptionitem_, description->m_strDescription);
+        stringManager_->setValue(pluginfileitem_, description->fileName);
+        stringManager_->setValue(pluginnameitem_, description->name);
+        stringManager_->setValue(plugintypeitem_, description->type);
+        stringManager_->setValue(pluginreleasedateitem_, description->releaseDate);
+        stringManager_->setValue(pluginauthorsitem_, description->authors);
+        stringManager_->setValue(pluginversionitem_, description->version);
+        stringManager_->setValue(plugindescriptionitem_, description->description);
 
         if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
         {
-                if (PluginManager::GetInstance().GetInstalledPluginsMap().find(description->m_strFullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
+                if (PluginManager::GetInstance().GetInstalledPluginsMap().find(description->fullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
                 {
                         stringManager_->setValue(pluginstatusitem_, "Installed");
                 }

@@ -118,7 +118,7 @@ void AprojHandler::appendproject(const QString &filename) {
   QFileInfo fi(filename);
   app_->workingDir = fi.absolutePath();
 
-  if (filename.contains(".aproj")) {
+  if (filename.contains(".rps")) {
     QFileInfo fileinfo(filename);
     if (!fileinfo.exists()) {
       QMessageBox::critical(

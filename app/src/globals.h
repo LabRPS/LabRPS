@@ -28,8 +28,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef ALPHA_PLOT_GLOBALS_H
-#define ALPHA_PLOT_GLOBALS_H
+#ifndef LAB_RPS_GLOBALS_H
+#define LAB_RPS_GLOBALS_H
 
 #include <QColor>
 #include <QObject>
@@ -145,6 +145,8 @@ class LabRPS : public QObject {
   static QString schemaVersion();
   /// the user visible release version string (x.Dy usually)
   static QString versionString();
+  static QString windLabAPIVersionString();
+  static QString windLabPluginAPIVersionString();
 
   // Return the extra version as a string
   static QString extraVersion();
@@ -167,6 +169,9 @@ class LabRPS : public QObject {
    * bb = bugfix version */
   static const int LabRPS_versionNo;
   static const char* LabRPS_version;
+  static const char* LabRPS_Windlab_api_version;
+  static const char* LabRPS_Windlab_plugin_api_version;
+
   // Extra version information string (like "-alpha", "-beta", "-rc1", etc...)
   static const char* extra_version;
   // Release date
@@ -174,4 +179,4 @@ class LabRPS : public QObject {
   static QStringList locales_;
 };
 
-#endif  // ALPHA_PLOT_GLOBALS_H
+#endif  // LAB_RPS_GLOBALS_H

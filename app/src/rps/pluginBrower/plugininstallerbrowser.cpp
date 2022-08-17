@@ -1,62 +1,62 @@
 #include "plugininstallerbrowser.h"
 #include "RPSPluginsBrowser.h"
-
 #include "ui_plugininstallerbrowser.h"
-
 #include "rps/RPSpluginManager.h"
-#include <QMessageBox>
-#include <QListWidgetItem>
 #include "RPSPluginsBrowser.h"
 #include "rps/sealab/rpsSeaLabSimulation.h"
+#include "RPSWindLabAPI.h"
+#include "RPSWindLabpluginAPI.h"
+#include "globals.h"
 
+#include <QMessageBox>
+#include <QListWidgetItem>
+#include <QSettings>
 
-PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::PluginInstallerBrowser)
+PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) : QDialog(parent),
+																  ui(new Ui::PluginInstallerBrowser)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
 	QStringList tableHeader;
-    ui->tableWidget->setColumnCount(8);
-    tableHeader << "File"
-                << "Name"
+	ui->tableWidget->setColumnCount(8);
+	tableHeader << "File"
+				<< "Name"
 				<< "Type"
-                << "Release Date"
-                << "Authors"
-                << "Version"
-                << "Status"
-                << "Description";
+				<< "Release Date"
+				<< "Authors"
+				<< "Version"
+				<< "Status"
+				<< "Description";
 
-    ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
-    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-    ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	
+	ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
+	ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+	ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+	ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
 	ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 	ui->tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);
-	
+
 	fillLocalPluginsList();
-	
+
 	connect(ui->pushButtonInstall, &QPushButton::clicked, this, &PluginInstallerBrowser::install);
 	connect(ui->pushButtonUninstall, &QPushButton::clicked, this, &PluginInstallerBrowser::uninstall);
-	connect(ui->pushButtonUpdate, &QPushButton::clicked, this, &PluginInstallerBrowser::modify);
 	connect(ui->pushButtonClose, &QPushButton::clicked, this, &PluginInstallerBrowser::close);
+	connect(ui->pushButtonRefresh, &QPushButton::clicked, this, &PluginInstallerBrowser::refresh);
 
-    //__git.downloadFile("https://raw.githubusercontent.com/LabRPS/LabRPS-plugins/master/.gitmodules", "C:/Users/KOFFI/Desktop/", "hehehe", 4000);
 }
 
 PluginInstallerBrowser::~PluginInstallerBrowser()
 {
-    delete ui;
+	delete ui;
 }
 
 void PluginInstallerBrowser::updateButton()
 {
 	// QListWidgetItem *currentItem = ui->listWidgetLocalPlugin->currentItem();
 	// QString ItemText = currentItem->text();
-	// std::map<QString, PluginInstance *> map = 
+	// std::map<QString, PluginInstance *> map =
 	// PluginManager::GetInstance().GetInstalledPluginsNameMap();
 
 	// if (!map.empty())
@@ -80,15 +80,44 @@ void PluginInstallerBrowser::updateButton()
 	// }
 }
 
-  void PluginInstallerBrowser::install(){
-	  pluginInstallationType = 1; //installation
-	  
-	  int row = ui->tableWidget->currentRow();
-	  QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
-	  
-	  if(NULL != currentItem){
+void PluginInstallerBrowser::install()
+{
+	QSettings settings;
+
+	QString selectedRandomPhenomenon = settings.value("rpsPhenomenon", LabRPS::rpsPhenomenonWindVelocity).toString();
+
+	if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+	{
+        if (RPSWindLabAPIInfo::getWindLabAPIVersion() != LabRPS::windLabAPIVersionString())
+        {
+            QMessageBox::critical(0, "Error",
+                                  "Sorry, couldn't install the plugin. Your plugin was developed with a core api whose version is not compatible with the one in the current version of LabRPS.");
+            return;
+        }
+
+        if (RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion() != LabRPS::windLabPluginAPIVersionString())
+        {
+            QMessageBox::critical(0, "Error",
+                                  "Sorry, couldn't install the plugin. Your plugin was developed with a plugin api whose version is not compatible with the one in the current version of LabRPS.");
+            return;
+        }
+	}
+	else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
+	{
+	}
+	else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
+	{
+	}
+
+	pluginInstallationType = 1; // installation
+
+	int row = ui->tableWidget->currentRow();
+	QTableWidgetItem *currentItem = ui->tableWidget->item(row, 0);
+
+	if (NULL != currentItem)
+	{
 		QString ItemText = currentItem->text();
-		
+
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
 			if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(ItemText) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
@@ -99,7 +128,6 @@ void PluginInstallerBrowser::updateButton()
 			{
 				pluginInstaled = false;
 			}
-
 		}
 		else
 		{
@@ -107,36 +135,35 @@ void PluginInstallerBrowser::updateButton()
 		}
 
 		// initialize the plugin
-		CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
-		QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
+		CPluginDescription *InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
+		QString InstallingPluginFullPath = InstallingPluginDescription->fullPath;
 
 		PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType);
 
-        RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
-        
-		//PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
-       	std::unique_ptr<PlunginIntallationWizard> wizard(new PlunginIntallationWizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu));
+		RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
 
-	    // QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
- 	    wizard->exec();
+		// PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
+		std::unique_ptr<PlunginIntallationWizard> wizard(new PlunginIntallationWizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu));
 
-	   // installing plugin
-	
+		// QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
+		wizard->exec();
 
-	  }
+		// installing plugin
+	}
+}
 
-  }
+void PluginInstallerBrowser::uninstall()
+{
 
-  void PluginInstallerBrowser::uninstall(){
+	pluginInstallationType = 2; // installation
 
-	  pluginInstallationType = 2; //installation
+	int row = ui->tableWidget->currentRow();
+	QTableWidgetItem *currentItem = ui->tableWidget->item(row, 0);
 
-	  int row = ui->tableWidget->currentRow();
-	  QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
-
-	  if(NULL != currentItem){
+	if (NULL != currentItem)
+	{
 		QString ItemText = currentItem->text();
-		
+
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
 			if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(ItemText) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
@@ -146,147 +173,104 @@ void PluginInstallerBrowser::updateButton()
 			else
 			{
 				pluginInstaled = false;
-				// QMessageBox::critical(0, tr("error"), 
+				// QMessageBox::critical(0, tr("error"),
 				// tr("%1 has not been previously installed.").arg(ItemText));
 				// return;
 			}
-
 		}
 		else
 		{
 			pluginInstaled = false;
-			// QMessageBox::critical(0, tr("error"), 
+			// QMessageBox::critical(0, tr("error"),
 			// 	tr("%1 has not been previously installed.").arg(ItemText));
 			// 	return;
 		}
 
 		// initialize the plugin
-		CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
-		QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
-       
-	    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
+		CPluginDescription *InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
+		QString InstallingPluginFullPath = InstallingPluginDescription->fullPath;
 
-        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
-       
- 	    wizard.exec();
+		RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
 
-	   // installing plugin
-	
+		PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
 
-	  }
+		wizard.exec();
 
-  }
+		// installing plugin
+	}
+}
 
-  void PluginInstallerBrowser::modify(){
+void PluginInstallerBrowser::modify()
+{
 
-	 pluginInstallationType = 3; //installation
+}
 
-	 int row = ui->tableWidget->currentRow();
-	 QTableWidgetItem * currentItem =	ui->tableWidget->item(row, 0);
+void PluginInstallerBrowser::close()
+{
+	this->reject();
+}
 
-	  if(NULL != currentItem){
-		QString ItemText = currentItem->text();
-		
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
+void PluginInstallerBrowser::refresh()
+{
+	fillLocalPluginsList();
+}
+
+void PluginInstallerBrowser::fillLocalPluginsList()
+{
+
+	// get the path the plugin folder
+	QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+
+	// search and find all available plugin and save their descriptions
+	PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+	int i = 0;
+
+	// clear all plugins in list control
+	ui->tableWidget->clearContents();
+	ui->tableWidget->setRowCount(0);
+
+	int row = PluginManager::GetInstance().GetPluginDescriptionsMap().size();
+	int col = 8;
+	ui->tableWidget->setRowCount(row);
+	ui->tableWidget->setColumnCount(col);
+
+	CPluginDescription *Descript;
+
+	std::map<QString, CPluginDescription *>::iterator it;
+	for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+	{
+		Descript = new CPluginDescription();
+		Descript = it->second;
+
+		ui->tableWidget->setItem(i, 0, new QTableWidgetItem(Descript->fileName));
+		ui->tableWidget->setItem(i, 1, new QTableWidgetItem(Descript->name));
+		ui->tableWidget->setItem(i, 2, new QTableWidgetItem(Descript->type));
+		ui->tableWidget->setItem(i, 3, new QTableWidgetItem(Descript->releaseDate));
+		ui->tableWidget->setItem(i, 4, new QTableWidgetItem(Descript->authors));
+		ui->tableWidget->setItem(i, 5, new QTableWidgetItem(Descript->version));
+		ui->tableWidget->setItem(i, 7, new QTableWidgetItem(Descript->description));
+
+		if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
 		{
-			if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(ItemText) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
+			if (PluginManager::GetInstance().GetInstalledPluginsMap().find(Descript->fullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
 			{
-				pluginInstaled = true;
+				ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Installed"));
 			}
 			else
 			{
-				pluginInstaled = false;
+				ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
 			}
-
 		}
 		else
 		{
-			pluginInstaled = false;
+			ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
 		}
 
-		// initialize the plugin
-		CPluginDescription* InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
-		QString InstallingPluginFullPath = InstallingPluginDescription->m_strFullPath;
-         
-		PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType);
+		i++;
+	}
+}
 
-	    RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
-
-        PlunginIntallationWizard wizard(pluginInstallationType, ItemText, InstallingPluginFullPath, rpsSimu);
-       
-	    // QObject::connect(wizard, SIGNAL(PlunginIntallationWizard::sendListWidget(QListWidget *)）,this,SLOT(PluginInstallerBrowser::receiveListWidget(QListWidget *))）;
- 	    wizard.exec();
-
-	   // installing plugin
-	
-
-	  }
-
-  }
-
-  void PluginInstallerBrowser::close(){
-	  this->reject();
-  }
-
-  void PluginInstallerBrowser::configure(){
-
-  }
-
-  void PluginInstallerBrowser::fillLocalPluginsList(){
-
-	  // get the path the plugin folder
-	  QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
-
-	  // search and find all available plugin and save their descriptions
-	  PluginManager::GetInstance().SearchForAllPlugins(strPath);
-
-	  int i = 0;
-
-	  // clear all plugins in list control
-	  ui->tableWidget->clearContents();
-	  ui->tableWidget->setRowCount(0);
-
-	  int row = PluginManager::GetInstance().GetPluginDescriptionsMap().size();
-	  int col = 8;
-	  ui->tableWidget->setRowCount(row);
-	  ui->tableWidget->setColumnCount(col);
-
-	  CPluginDescription *Descript;
-
-	  std::map<QString, CPluginDescription *>::iterator it;
-	  for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
-	  {
-		  Descript = new CPluginDescription();
-		  Descript = it->second;
-
-		  ui->tableWidget->setItem(i, 0, new QTableWidgetItem(Descript->m_strFileName));
-		  ui->tableWidget->setItem(i, 1, new QTableWidgetItem(Descript->m_strName));
-		  ui->tableWidget->setItem(i, 2, new QTableWidgetItem(Descript->m_strType));
-		  ui->tableWidget->setItem(i, 3, new QTableWidgetItem(Descript->m_strReleaseDate));
-		  ui->tableWidget->setItem(i, 4, new QTableWidgetItem(Descript->m_strAuthors));
-		  ui->tableWidget->setItem(i, 5, new QTableWidgetItem(Descript->m_strVersion));
-		  ui->tableWidget->setItem(i, 7, new QTableWidgetItem(Descript->m_strDescription));
-
-		  if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
-		  {
-			  if (PluginManager::GetInstance().GetInstalledPluginsMap().find(Descript->m_strFullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
-			  {
-				  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Installed"));
-			  }
-			  else
-			  {
-				  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
-			  }
-		  }
-		  else
-		  {
-			  ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
-		  }
-
-		  i++;
-	  }
-  }
-
-  void PluginInstallerBrowser::fillOnlinePluginsList(){
-
-  }
+void PluginInstallerBrowser::fillOnlinePluginsList()
+{
+}

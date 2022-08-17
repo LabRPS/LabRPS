@@ -26,7 +26,7 @@ private slots:
   void uninstall();
   void modify();
   void close();
-  void configure();
+  void refresh();
   void updateButton();
   void fillLocalPluginsList();
   void fillOnlinePluginsList();

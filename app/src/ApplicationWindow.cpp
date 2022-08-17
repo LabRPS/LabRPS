@@ -366,7 +366,7 @@ ApplicationWindow::ApplicationWindow()
   btn_plot_pie_->setPopupMode(QToolButton::InstantPopup);
 
   // Mainwindow properties
-  setWindowIcon(IconLoader::load("alpha-logo", IconLoader::General));
+  setWindowIcon(IconLoader::load("rps-logo", IconLoader::General));
   setAttribute(Qt::WA_DeleteOnClose);
   setWindowTitle("LabRPS - " + tr("untitled"));
   QPixmapCache::setCacheLimit(20 * QPixmapCache::cacheLimit());
@@ -3987,9 +3987,9 @@ void ApplicationWindow::openAproj()
         return;
       }
     }
-    if (fileName.endsWith(".aproj", Qt::CaseInsensitive) ||
-        fileName.endsWith(".aproj~", Qt::CaseInsensitive) ||
-        fileName.endsWith(".aproj.gz", Qt::CaseInsensitive))
+    if (fileName.endsWith(".rps", Qt::CaseInsensitive) ||
+        fileName.endsWith(".rps~", Qt::CaseInsensitive) ||
+        fileName.endsWith(".rps.gz", Qt::CaseInsensitive))
     {
       if (!fi.exists())
       {
@@ -4005,9 +4005,9 @@ void ApplicationWindow::openAproj()
       if (appWindow)
       {
         appWindow->workingDir = workingDir;
-        if (fileName.endsWith(".aproj", Qt::CaseInsensitive) ||
-            fileName.endsWith(".aproj~", Qt::CaseInsensitive) ||
-            fileName.endsWith(".aproj.gz", Qt::CaseInsensitive))
+        if (fileName.endsWith(".rps", Qt::CaseInsensitive) ||
+            fileName.endsWith(".rps~", Qt::CaseInsensitive) ||
+            fileName.endsWith(".rps.gz", Qt::CaseInsensitive))
           this->close();
       }
     }
@@ -4033,10 +4033,10 @@ ApplicationWindow *ApplicationWindow::openAproj(const QString &fileName)
   {
     return loadScript(fileName);
   }
-  else if (fileName.endsWith(".aproj", Qt::CaseInsensitive) ||
-           fileName.endsWith(".aproj.gz", Qt::CaseInsensitive) ||
-           fileName.endsWith(".aproj~", Qt::CaseInsensitive) ||
-           fileName.endsWith(".aproj.gz~", Qt::CaseInsensitive))
+  else if (fileName.endsWith(".rps", Qt::CaseInsensitive) ||
+           fileName.endsWith(".rps.gz", Qt::CaseInsensitive) ||
+           fileName.endsWith(".rps~", Qt::CaseInsensitive) ||
+           fileName.endsWith(".rps.gz~", Qt::CaseInsensitive))
   {
     return aprojhandler_->openproject(fileName);
   }
@@ -4085,9 +4085,9 @@ void ApplicationWindow::openRecentAproj()
   {
     saveSettings(); // the recent projects must be saved
     ApplicationWindow *app = openAproj(filename);
-    if (app && (filename.endsWith(".aproj", Qt::CaseInsensitive) ||
-                filename.endsWith(".aproj~", Qt::CaseInsensitive) ||
-                filename.endsWith(".aproj.gz", Qt::CaseInsensitive)))
+    if (app && (filename.endsWith(".rps", Qt::CaseInsensitive) ||
+                filename.endsWith(".rps~", Qt::CaseInsensitive) ||
+                filename.endsWith(".rps.gz", Qt::CaseInsensitive)))
       this->close();
   }
 }
@@ -5140,10 +5140,10 @@ bool ApplicationWindow::saveProject()
 
 void ApplicationWindow::saveProjectAs()
 {
-  QString filter = QString(tr("LabRPS project %1")).arg("(*.aproj);;");
+  QString filter = QString(tr("LabRPS project %1")).arg("(*.rps);;");
   filter +=
-      QString(tr("Compressed LabRPS project %1")).arg("(*.aproj.gz);;");
-  filter += QString(tr("Backup files %1")).arg("(*.aproj~ *.aproj.gz~);;");
+      QString(tr("Compressed LabRPS project %1")).arg("(*.rps.gz);;");
+  filter += QString(tr("Backup files %1")).arg("(*.rps~ *.rps.gz~);;");
   filter += QString(tr("All files %1")).arg("(*.*);;");
 
   QString selectedFilter;
@@ -5154,9 +5154,9 @@ void ApplicationWindow::saveProjectAs()
     QFileInfo fi(filename);
     workingDir = fi.absolutePath();
     QString baseName = fi.fileName();
-    if (!baseName.endsWith(".aproj") && !baseName.endsWith(".aproj.gz"))
+    if (!baseName.endsWith(".rps") && !baseName.endsWith(".rps.gz"))
     {
-      filename.append(".aproj");
+      filename.append(".rps");
       if (selectedFilter.contains(".gz"))
         filename.append(".gz");
     }
@@ -8774,7 +8774,7 @@ void ApplicationWindow::parseCommandLineArguments(const QStringList &args)
            " --version: " + tr("print LabRPS version and release date") +
            "\n";
       s += "'" + tr("file") + "_" + tr("name") + "' " +
-           tr("can be any .aproj, .aproj.gz, .py or ASCII "
+           tr("can be any .rps, .rps.gz, .py or ASCII "
               "file") +
            "\n";
 #ifdef Q_OS_WIN
@@ -9061,8 +9061,8 @@ void ApplicationWindow::appendProject()
 
 void ApplicationWindow::saveAsProject()
 {
-  QString filter = tr("LabRPS project") + " (*.aproj);;";
-  filter += tr("Compressed LabRPS project") + " (*.aproj.gz)";
+  QString filter = tr("LabRPS project") + " (*.rps);;";
+  filter += tr("Compressed LabRPS project") + " (*.rps.gz)";
 
   QString selectedFilter;
   QString filename = QFileDialog::getSaveFileName(
@@ -9073,9 +9073,9 @@ void ApplicationWindow::saveAsProject()
     QFileInfo fi(filename);
     workingDir = fi.absolutePath();
     QString baseName = fi.fileName();
-    if (!baseName.endsWith(".aproj") && !baseName.endsWith(".aproj.gz"))
+    if (!baseName.endsWith(".rps") && !baseName.endsWith(".rps.gz"))
     {
-      filename.append(".aproj");
+      filename.append(".rps");
       if (selectedFilter.contains(".gz"))
         filename.append(".gz");
     }

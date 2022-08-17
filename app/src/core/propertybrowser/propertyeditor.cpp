@@ -92,7 +92,7 @@ PropertyEditor::PropertyEditor(QWidget *parent, ApplicationWindow *app)
       datetimeFactory_(new QtDateTimeEditFactory(propertybrowser_)) {
   Q_ASSERT(app_);
   ui_->setupUi(this);
-  setWindowTitle(tr("Property Editor"));
+  setWindowTitle(tr("Visual Property Editor"));
   setWindowIcon(QIcon());
   objectbrowser_->setColumnCount(1);
 
