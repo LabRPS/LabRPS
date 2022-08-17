@@ -1,4 +1,5 @@
 
+![alt text](data/icons/app/labrps-name.png "LabRPS")
 [![License][license-badge]][license-page] 
 
 [license-page]: COPYING
@@ -9,14 +10,14 @@ This tool is under active development. Everyone is encouraged to give comments i
 
 | Web         | Link                                             |
 |:------------|:-------------------------------------------------|
-| Website     | https://labrps.com/                |
-| Wiki        | https://labrps.com/wiki                |
-| Github      | https://github.com/LabRPS/LabRPS    |
-| Sourceforge | https://sourceforge.net/projects/labrps/      |
+| Website     | https://labrps.com/               |
+| Wiki        | https://wiki.labrps.com/          |
+| Github      | https://github.com/LabRPS/LabRPS  |
+| Sourceforge | https://sourceforge.net/projects/labrps/       |
 | Test builds | https://labrps.sourceforge.io/test-build.html |
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/labrps.svg)](https://repology.org/project/labrps/versions)
-<a href='https://flathub.org/apps/details/io.github.narunlifescience.LabRPS'><img width='120' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<a href='https://flathub.org/apps/details/io.github.LabRPS.LabRPS'><img width='120' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 # Donate
 LabRPS is an open-source project that has been made possible due to the generous contributions by community backers. If you are interested in supporting this project, please consider becoming a sponsor or becoming a patron https://www.patreon.com/labrps
