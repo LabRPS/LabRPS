@@ -1,5 +1,6 @@
 
 ![alt text](data/icons/app/labrps-name.png "LabRPS")
+
 [![License][license-badge]][license-page] 
 
 [license-page]: COPYING
