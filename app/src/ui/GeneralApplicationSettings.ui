@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
-    <height>404</height>
+    <width>536</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
@@ -24,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>377</width>
-        <height>328</height>
+        <width>516</width>
+        <height>443</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">

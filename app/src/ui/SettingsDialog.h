@@ -28,43 +28,56 @@ class Ui_SettingsDialog;
 
 class QScrollArea;
 class QStandardItemModel;
+class QAbstractButton;
+class QListWidgetItem;
+class QTabWidget;
 
 class SettingsDialog : public QDialog {
-  Q_OBJECT
+    Q_OBJECT
+public:
+    static void addPage(const std::string& className, const std::string& group);
+    static void removePage(const std::string& className, const std::string& group);
+    static void reloadSettings();
 
- public:
-  explicit SettingsDialog(QWidget *parent = nullptr);
-  ~SettingsDialog();
+    SettingsDialog(QWidget* parent = 0, Qt::WindowFlags fl = Qt::WindowFlags());
+    ~SettingsDialog();
 
-  enum Catagory { General, Table, Plot2d, Plot3d, Fitting, Scripting };
+    void accept();
+    void reload();
+    void activateGroupPage(const QString& group, int id);
 
-  enum Page {
-    Page_RootSettings = 0,
-    // General
-    Page_GeneralApplication = 1,
-    Page_GeneralConfirmation = 2,
-    Page_GeneralAppearance = 3,
-    Page_GeneralNumericFormat = 4,
-    // Table
-    Page_TableBasic = 5,
-    Page_TableColor = 6,
-    Page_TableFont = 7,
-    // 2D Plots
-    /*Page_Plot2dFont = 7,
-    Page_Plot2dPrint = 8,
-    Page_Plot2dTick = 9,
-    Page_Plot2dDefaultStyle = 10,
-    Page_Plot2dOption = 11,
-    // 3D Plots
-    Page_Plot3dOption = 12,
-    Page_Plot3dColor = 13,
-    Page_Plot3dFont = 14,*/
-    // Fitting
-    Page_Fitting = 8,
-    //Page_FittingOutput = 16,
-    // Scripting
-    Page_ScriptingColor = 9
-  };
+protected:
+    void changeEvent(QEvent *e);
+    void showEvent(QShowEvent*);
+    void resizeEvent(QResizeEvent*);
+
+
+protected Q_SLOTS:
+    void changeGroup(QListWidgetItem *current, QListWidgetItem *previous);
+    void on_buttonBox_clicked(QAbstractButton*);
+    void resizeWindow(int w, int h);
+
+private:
+    /** @name for internal use only */
+    //@{
+    void setupPages();
+    void reloadPages();
+    QTabWidget* createTabForGroup(const std::string& groupName);
+    void createPageInGroup(QTabWidget* tabWidget, const std::string& pageName);
+    void applyChanges();
+    void restoreDefaults();
+    //@}
+
+private:
+    typedef std::pair<std::string, std::list<std::string>> TGroupPages;
+    static std::list<TGroupPages> _pages; /**< Name of all registered preference pages */
+    std::unique_ptr<Ui_SettingsDialog> ui;
+    bool invalidParameter;
+    bool canEmbedScrollArea;
+
+    static const int GroupNameRole; /**< A name for our Qt::UserRole, used when storing user data in a list item */
+
+    static SettingsDialog* _activeDialog; /**< Defaults to the nullptr, points to the current instance if there is one */
 
  signals:
   void generalapplicationsettingsupdates();
@@ -76,38 +89,6 @@ class SettingsDialog : public QDialog {
   void tablefontsettingsupdates();
   void fittingsettingsupdates();
 
- protected:
-  QSize sizeHint() const;
-  void resizeEvent(QResizeEvent *);
-
- private:
-  void addPage(Catagory catogory, Page id, SettingsPage *page);
-  void handleResizeBeforeListviewVisible(aSettingsListView *&listView);
-  void clearAllSelection();
-
-  Ui_SettingsDialog *ui_;
-  QColor baseColor_;
-  QColor fontColor_;
-  QMenu *settingsViewMenu_;
-  QActionGroup *settingsViewGroup_;
-  QAction *treeView_;
-  QAction *iconView_;
-  QStandardItemModel *generalSettingsModel_;
-  QStandardItemModel *tableSettingsModel_;
-  QStandardItemModel *plot2dSettingsModel_;
-  QStandardItemModel *plot3dSettingsModel_;
-  QStandardItemModel *fittingSettingsModel_;
-  QStandardItemModel *scriptingSettingsModel_;
-
- private slots:
-  void getBackToRootSettingsPage();
-  // aListView selection (porting to QT5 should make this lambda functions)
-  void generalEnsureSelection(const QModelIndex &index);
-  void tableEnsureSelection(const QModelIndex &index);
-  void plot2dEnsureSelection(const QModelIndex &index);
-  void plot3dEnsureSelection(const QModelIndex &index);
-  void fittingEnsureSelection(const QModelIndex &index);
-  void scriptingEnsureSelection(const QModelIndex &index);
 };
 
 #endif  // SETTINGSDIALOG_H

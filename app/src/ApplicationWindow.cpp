@@ -294,7 +294,7 @@ ApplicationWindow::ApplicationWindow()
     actionDecomposedSpectrumWindOutput = new QAction(tr("&Decomposed PSD"), this);
     actionRandomPhaseWindOutput = new QAction(tr("&Random Phase"), this);
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // seimicLab input
     actionGroundMotion = new QAction(tr("&Ground Motion..."), this);
@@ -312,7 +312,7 @@ ApplicationWindow::ApplicationWindow()
     actionCorrelationSeismicOutput = new QAction(tr("Co&rrelation"), this);
     actionModulationSeismicOutput = new QAction(tr("&Modulation"), this);
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
   {
     // seaLab input
     actionSeaSurface = new QAction(tr("S&ea Surface..."), this);
@@ -1207,7 +1207,7 @@ ApplicationWindow::ApplicationWindow()
 
 
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // seismicLab input
     connect(actionGroundMotion, &QAction::triggered, rpsSimulator->rpsSeismicLabSimulator,
@@ -1237,7 +1237,7 @@ ApplicationWindow::ApplicationWindow()
     connect(actionModulationSeismicOutput, &QAction::triggered, rpsSimulator->rpsSeismicLabSimulator,
             &RPSSeismicLabSimulation::modulationSeismicOutput);
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
   {
     // seaLab input
     connect(actionSeaSurface, &QAction::triggered, rpsSimulator->rpsSeaLabSimulator,
@@ -1530,7 +1530,7 @@ void ApplicationWindow::makeToolBars()
     simulationToolbar->addWidget(btn_output_);
 
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     // input toolbar
     inputToolbar->addAction(actionGroundMotion);
@@ -1559,7 +1559,7 @@ void ApplicationWindow::makeToolBars()
     simulationToolbar->addWidget(btn_output_);
     
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
   {
     // input toolbar
     inputToolbar->addAction(actionSeaSurface);
@@ -1742,7 +1742,7 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
 
     menuBar()->addMenu(ui_->menuOutput);
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
     ui_->menuInput->addAction(actionGroundMotion);
     ui_->menuInput->addAction(actionSpectrumSeismic);
@@ -1764,7 +1764,7 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
 
     menuBar()->addMenu(ui_->menuOutput);
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
   {
     ui_->menuInput->addAction(actionSeaSurface);
     ui_->menuInput->addAction(actionSpectrumSea);
@@ -3297,7 +3297,7 @@ void ApplicationWindow::updateCurves(Table *t, const QString &name)
 
 void ApplicationWindow::showPreferencesDialog()
 {
-  std::unique_ptr<SettingsDialog> settings_(new SettingsDialog);
+  std::unique_ptr<SettingsDialog> settings_(new SettingsDialog(this));
   connect(settings_.get(), &SettingsDialog::generalapplicationsettingsupdates,
           this, &ApplicationWindow::updateGeneralApplicationOptions);
   connect(settings_.get(), &SettingsDialog::generalconfirmationsettingsupdates,
@@ -11655,10 +11655,10 @@ void ApplicationWindow::loadIcons()
   actionRandomPhaseWindOutput->setIcon(
       IconLoader::load("output-randomphase", IconLoader::General));
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Seismic Ground motion")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
   }
-  else if (rpsSimulator->getSelectedRandomPhenomenon() == "Sea Surface")
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
   { 
   }
 
