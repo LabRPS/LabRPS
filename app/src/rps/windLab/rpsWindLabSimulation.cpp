@@ -306,7 +306,7 @@ void RPSWindLabSimulation::windLabDataInitialize()
 	windLabData.simulationApproach = ("Spectral Representation Approach");
 	windLabData.simulationMethod = ("Deodatis et al 1987");
 	windLabData.randomnessProvider = ("Uniform Random Phases");
-	windLabData.spectrumModel = ("Kaimail Along Wind Spectrum");
+	windLabData.spectrumModel = ("Kaimal Along Wind Spectrum");
 	windLabData.cpsdDecompositionMethod = ("RPS Cholesky Decomposition");
 	windLabData.freqencyDistribution = ("Double Index Frequency");
 	windLabData.modulationFunction = ("RPS Exponential Model");
@@ -476,6 +476,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjectsToRegistry()
 
 	settingsGroup = ("WLMean"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetOjectDescriptionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLTableTool"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetOjectDescriptionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixTool"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetOjectDescriptionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObj"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjectsFromRegistry()
@@ -519,6 +529,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjectsFromRegistry()
 
 	settingsGroup = ("WLMean"), count = 1;
 	ReadMapFromRegistry2(CrpsMeanFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableTool"), count = 1;
+	ReadMapFromRegistry2(CrpsTableToolFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixTool"), count = 1;
+	ReadMapFromRegistry2(CrpsMatrixToolFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObj"), count = 1;
+	ReadMapFromRegistry2(CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationTitleToRegistry()
@@ -561,6 +581,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationTitleToRegistry()
 
 	settingsGroup = ("WLMeanTitle"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolTitle"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolTitle"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjTitle"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetTitleMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationTitleToRegistry()
@@ -604,6 +634,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationTitleToRegistry()
 
 	settingsGroup = ("WLMeanTitle"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetTitleMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolTitle"), count = 1;
+	ReadMapFromRegistry(CrpsTableToolFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolTitle"), count = 1;
+	ReadMapFromRegistry(CrpsMatrixToolFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjTitle"), count = 1;
+	ReadMapFromRegistry(CrpsUserDefinedRPSObjectFactory::GetTitleMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationLinkToRegistry()
@@ -646,6 +686,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationLinkToRegistry()
 
 	settingsGroup = ("WLMeanLink"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolLink"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolLink"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjLink"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetLinkMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationLinkToRegistry()
@@ -689,6 +739,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationLinkToRegistry()
 
 	settingsGroup = ("WLMeanLink"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetLinkMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolLink"), count = 1;
+	ReadMapFromRegistry(CrpsTableToolFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolLink"), count = 1;
+	ReadMapFromRegistry(CrpsMatrixToolFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjLink"), count = 1;
+	ReadMapFromRegistry(CrpsUserDefinedRPSObjectFactory::GetLinkMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationAuthorToRegistry()
@@ -731,6 +791,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationAuthorToRegistry()
 
 	settingsGroup = ("WLMeanAuthor"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolAuthor"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolAuthor"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjAuthor"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetAuthorMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationAuthorToRegistry()
@@ -774,6 +844,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationAuthorToRegistry()
 
 	settingsGroup = ("WLMeanAuthor"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetAuthorMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsTableToolFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsMatrixToolFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjAuthor"), count = 1;
+	ReadMapFromRegistry(CrpsUserDefinedRPSObjectFactory::GetAuthorMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationDateToRegistry()
@@ -816,6 +896,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjPublicationDateToRegistry()
 
 	settingsGroup = ("WLMeanDate"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolDate"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolDate"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjDate"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetDateMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationDateToRegistry()
@@ -859,6 +949,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjPublicationDateToRegistry()
 
 	settingsGroup = ("WLMeanDate"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetDateMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolDate"), count = 1;
+	ReadMapFromRegistry(CrpsTableToolFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolDate"), count = 1;
+	ReadMapFromRegistry(CrpsMatrixToolFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjDate"), count = 1;
+	ReadMapFromRegistry(CrpsUserDefinedRPSObjectFactory::GetDateMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLWriteAllTobeInstallObjVersionToRegistry()
@@ -901,6 +1001,16 @@ void RPSWindLabSimulation::WLWriteAllTobeInstallObjVersionToRegistry()
 
 	settingsGroup = ("WLMeanVersion"), count = 1;
 	WriteMapToRegistry(CrpsMeanFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolVersion"), count = 1;
+	WriteMapToRegistry(CrpsTableToolFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolVersion"), count = 1;
+	WriteMapToRegistry(CrpsMatrixToolFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjVersion"), count = 1;
+	WriteMapToRegistry(CrpsUserDefinedRPSObjectFactory::GetVersionMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLReadAllTobeInstallObjVersionToRegistry()
@@ -944,6 +1054,16 @@ void RPSWindLabSimulation::WLReadAllTobeInstallObjVersionToRegistry()
 
 	settingsGroup = ("WLMeanVersion"), count = 1;
 	ReadMapFromRegistry(CrpsMeanFactory::GetVersionMap(), settingsGroup, count);
+
+	settingsGroup = ("WLTableToolVersion"), count = 1;
+	ReadMapFromRegistry(CrpsTableToolFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLMatrixToolVersion"), count = 1;
+	ReadMapFromRegistry(CrpsMatrixToolFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = ("WLUserDefinedRPSObjVersion"), count = 1;
+	ReadMapFromRegistry(CrpsUserDefinedRPSObjectFactory::GetVersionMap(), settingsGroup, count);
+
 }
 
 void RPSWindLabSimulation::WLClearAllTobeInstallObjectsFromRegistry()

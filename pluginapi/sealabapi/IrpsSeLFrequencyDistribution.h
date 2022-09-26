@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELFREQUENCYDISTRIBUTION_H
+#define IRPSSELFREQUENCYDISTRIBUTION_H
+
 #include "RPSSeaLabsimuData.h"
 class IrpsSeLFrequencyDistribution
 {
@@ -12,3 +14,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSELFREQUENCYDISTRIBUTION_H

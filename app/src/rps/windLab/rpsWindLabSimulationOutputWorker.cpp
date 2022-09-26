@@ -1751,7 +1751,7 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
         m_locationK == 0 &&
         m_frequencyIndex == 0 &&
         m_timeIndex > 0 &&
-        m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+        m_timeIndex <= m_windLabData.numberOfTimeIncrements)
     {
 
         // Build an coherence function and frequency distribution functions

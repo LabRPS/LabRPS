@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IRPSSELDIRECTIONDISTRIBUTION_H
+#define IRPSSELDIRECTIONDISTRIBUTION_H
 #include "RPSSeaLabsimuData.h"
 class IrpsSeLDirectionDistribution
 {
@@ -24,3 +25,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSELDIRECTIONDISTRIBUTION_H

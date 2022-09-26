@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLPSDDECOMPOSITIONMETHOD_H
+#define IRPSWLPSDDECOMPOSITIONMETHOD_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLPSDdecompositionMethod
@@ -29,3 +31,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSWLPSDDECOMPOSITIONMETHOD_H

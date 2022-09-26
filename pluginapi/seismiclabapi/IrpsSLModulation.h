@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLMODULATION_H
+#define IRPSSLMODULATION_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLModulation
@@ -24,4 +26,5 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSLMODULATION_H
 

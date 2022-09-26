@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLDirectionalSpectrum.h"
 
 class CRPSDirectionalSpectrum : public IrpsSeLDirectionalSpectrum

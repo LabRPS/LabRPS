@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLCOHERENCE_H
+#define IRPSSLCOHERENCE_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLCoherence 
@@ -16,3 +18,5 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 };
+
+#endif  // IRPSSLCOHERENCE_H

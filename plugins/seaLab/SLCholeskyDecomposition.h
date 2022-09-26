@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLPSDdecompositionMethod.h"
 
 class CSLCholeskyDecomposition : public IrpsSeLPSDdecompositionMethod

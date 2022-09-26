@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSSEISMICLABFRAMEWORK_H
 #define RPSSEISMICLABFRAMEWORK_H
 

@@ -71,6 +71,10 @@ const char* LabRPS::download_Uri =
   QString LabRPS::objGroupRandomnessProvider = "Randomness Provider";
   QString LabRPS::objGroupModulationFunction = "Modulation Function";
   QString LabRPS::objGroupCorrelationFunction = "Correlation Function";
+  QString LabRPS::objGroupTableTool = "Table Tool";
+  QString LabRPS::objGroupMatrixTool = "Matrix Tool";
+  QString LabRPS::objGroupUserDefinedRPSObject = "User Defined RPS object";
+
 
   QString LabRPS::ComputeCrossCoherenceVectorF = "ComputeCrossCoherenceVectorF";
 	QString LabRPS::ComputeCrossCorrelationVectorT = "ComputeCrossCorrelationVectorT";
@@ -95,6 +99,7 @@ const char* LabRPS::download_Uri =
 	QString LabRPS::ComputeZCrossSpectrumVectorF = "ComputeZCrossSpectrumVectorF";
 	QString LabRPS::ComputeZCrossSpectrumVectorT = "ComputeZCrossSpectrumVectorT";
 	QString LabRPS::ComputeZCrossSpectrumVectorP = "ComputeZCrossSpectrumVectorP";
+    QString LabRPS::UserDefinedRPSObjectComputePFT = "UserDefinedRPSObjectComputePFT";
 
 
 

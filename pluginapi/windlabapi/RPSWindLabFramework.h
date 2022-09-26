@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSWINDLABFRAMEWORK_H
 #define RPSWINDLABFRAMEWORK_H
 
@@ -180,7 +178,14 @@ public:
 	static ObjectDescription getRandomnessProviderObjDescription(const QString &objectName);
 	static ObjectDescription getModulationFunctionObjDescription(const QString &objectName);
 	static ObjectDescription getCorrelationFunctionObjDescription(const QString &objectName);
-	
+	static ObjectDescription getTableToolObjDescription(const QString &objectName);
+	static ObjectDescription getMatrixToolObjDescription(const QString &objectName);
+	static ObjectDescription getUserDefinedRPSObjDescription(const QString &objectName);
+
+	static void TableToolComputePFT(const CRPSWindLabsimuData &Data, const mat &inputTable, mat &outputTable, QStringList &strInformation);
+	static void MatrixToolComputePFT(const CRPSWindLabsimuData &Data, const mat &inputMatrix, mat &outputMatrix, QStringList &strInformation);
+	static void UserDefinedRPSObjectComputePFT(const CRPSWindLabsimuData &Data, cube &dresultCube, QStringList &strInformation);
+
 };
 
 #endif

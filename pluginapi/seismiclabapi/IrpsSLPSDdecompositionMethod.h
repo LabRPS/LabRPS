@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLPSDDECOMPOSITIONMETHOD_H
+#define IRPSSLPSDDECOMPOSITIONMETHOD_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLPSDdecompositionMethod
@@ -28,3 +30,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSLPSDDECOMPOSITIONMETHOD_H

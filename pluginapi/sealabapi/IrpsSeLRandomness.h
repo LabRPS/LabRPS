@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELRANDOMNESS_H
+#define IRPSSELRANDOMNESS_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLRandomness
@@ -14,3 +16,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELRANDOMNESS_H

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLXSPECTRUM_H
+#define IRPSWLXSPECTRUM_H
+
 #include "RPSWindLabsimuData.h"
 class IrpsWLXSpectrum
 {
@@ -28,3 +30,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSWLSIMUMETHOD_H

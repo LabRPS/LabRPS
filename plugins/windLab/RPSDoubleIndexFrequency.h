@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsWLFrequencyDistribution.h"
 
 class CRPSDoubleIndexFrequency : public IrpsWLFrequencyDistribution

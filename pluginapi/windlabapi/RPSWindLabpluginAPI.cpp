@@ -302,4 +302,73 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 CrpsModulationFactory::UnregisterModulation(name, pluginName);
  }
 
+ ////////////////////////////////////table tool object//////////////////////////////////////////
+
+ void RegisterTableTool(const QString name, const QString &pluginName, const QString &description, TableToolInitFunc init_cb, TableToolFreeFunc free_cb)
+ {
+	 if (CrpsTableToolFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTableToolFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+	 CrpsTableToolFactory::RegisterTableTool(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeTableTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+	 CrpsTableToolFactory::InitializeTableTool(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterTableTool(const QString name, const QString &pluginName)
+ {
+	 CrpsTableToolFactory::UnregisterTableTool(name, pluginName);
+ }
+
+////////////////////////////////////matrix tools object//////////////////////////////////////////
+
+ void RegisterMatrixTool(const QString name, const QString &pluginName, const QString &description, MatrixToolInitFunc init_cb, MatrixToolFreeFunc free_cb)
+ {
+	 if (CrpsMatrixToolFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsMatrixToolFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+	 CrpsMatrixToolFactory::RegisterMatrixTool(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeMatrixTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+	 CrpsMatrixToolFactory::InitializeMatrixTool(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterMatrixTool(const QString name, const QString &pluginName)
+ {
+	 CrpsMatrixToolFactory::UnregisterMatrixTool(name, pluginName);
+ }
+
+ ////////////////////////////////////user defined rps object//////////////////////////////////////////
+
+ void RegisterUserDefinedRPSObject(const QString name, const QString &pluginName, const QString &description, UserDefinedRPSObjectInitFunc init_cb, UserDefinedRPSObjectFreeFunc free_cb)
+ {
+	 if (CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+	 CrpsUserDefinedRPSObjectFactory::RegisterUserDefinedRPSObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeUserDefinedRPSObject(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+	 CrpsUserDefinedRPSObjectFactory::InitializeUserDefinedRPSObject(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterUserDefinedRPSObject(const QString name, const QString &pluginName)
+ {
+	 CrpsUserDefinedRPSObjectFactory::UnregisterUserDefinedRPSObject(name, pluginName);
+ }
+
  

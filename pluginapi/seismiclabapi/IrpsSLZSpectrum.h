@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLZSPECTRUM_H
+#define IRPSSLZSPECTRUM_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLZSpectrum
@@ -29,3 +31,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSLZSPECTRUM_H

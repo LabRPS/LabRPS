@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLMODULATION_H
+#define IRPSWLMODULATION_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLModulation
@@ -26,3 +28,4 @@ public:
 
 };
 
+#endif  // IRPSWLMODULATION_H

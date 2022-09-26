@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLMEAN_H
+#define IRPSWLMEAN_H
+
 #include "RPSWindLabsimuData.h"
 class IrpsWLMean
 {
@@ -17,3 +19,4 @@ virtual void ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &
 virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSWLMEAN_H

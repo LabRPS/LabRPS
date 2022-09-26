@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLSpectrum.h"
 
 class CJonswapSpectrum : public IrpsSeLSpectrum

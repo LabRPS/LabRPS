@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLLOCATIONDISTRIBUTION_H
+#define IRPSSLLOCATIONDISTRIBUTION_H
+
 #include "RPSSeismicLabsimuData.h"
 
 #ifdef _DEBUG
@@ -16,3 +18,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSLLOCATIONDISTRIBUTION_H

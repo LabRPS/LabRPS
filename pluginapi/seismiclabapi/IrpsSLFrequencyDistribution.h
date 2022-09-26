@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLFREQUENCYDISTRIBUTION_H
+#define IRPSSLFREQUENCYDISTRIBUTION_H
+
 #include "RPSSeismicLabsimuData.h"
 class IrpsSLFrequencyDistribution
 {
@@ -11,3 +13,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSLFREQUENCYDISTRIBUTION_H

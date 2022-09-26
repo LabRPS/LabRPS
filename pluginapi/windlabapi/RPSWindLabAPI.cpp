@@ -18,6 +18,9 @@ typedef IrpsWLRandomness *(*CreateRandomnessCallback)();
 typedef IrpsWLPSDdecompositionMethod *(*CreatePSDdecomMethodCallback)();
 typedef IrpsWLCorrelation *(*CreateCorrelationCallback)();
 typedef IrpsWLModulation *(*CreateModulationCallback)();
+typedef IrpsWLTableTool *(*CreateTableToolCallback)();
+typedef IrpsWLMatrixTool *(*CreateMatrixToolCallback)();
+typedef IrpsWLUserDefinedRPSObject *(*CreateUserDefinedRPSObjectCallback)();
 
 const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 {
@@ -1566,6 +1569,399 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 	}
 
 	std::map<const QString, QString> &  CrpsModulationFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+	///////Table tool////////
+	//// instantiate the static variable
+	CrpsTableToolFactory::CallbackMap CrpsTableToolFactory::mTableTools;
+	std::vector<QString> CrpsTableToolFactory::mTableToolNames;
+	QString CrpsTableToolFactory::mOwnerPlugin;
+	//QString CrpsTableToolFactory::mDescription;
+	std::map<const QString, QString> CrpsTableToolFactory::mTobeInstalledObjectsMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mOjectDescriptionMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mOjectAndPluginMap;
+    std::map<const QString, QString> CrpsTableToolFactory::mOjectsSkipDuringUnintallationMap;
+
+	std::map<const QString, QString> CrpsTableToolFactory::mTitleMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mLinkMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mAuthorMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mDateMap;
+	std::map<const QString, QString> CrpsTableToolFactory::mVersionMap;
+
+	QString CrpsTableToolFactory::GetOwnerPlugin()
+	{
+		return mOwnerPlugin;
+	}
+
+	void CrpsTableToolFactory::SetOwnerPlugin(QString ownerPlugin)
+	{
+		mOwnerPlugin = ownerPlugin;
+	}
+	
+	void CrpsTableToolFactory::InitializeTableTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	{		
+		mTobeInstalledObjectsMap[name] = description;
+		mTitleMap[name] = publicationTitle;
+		mLinkMap[name] = publicationLink;
+		mAuthorMap[name] = publicationAuthor;
+		mDateMap[name] = publicationDate;
+		mVersionMap[name] = version;
+
+	}
+
+	void CrpsTableToolFactory::RegisterTableTool(const QString &name, const QString &pluginName, const QString &description, CreateTableToolCallback cb)
+	{
+		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		{
+			return;
+		}
+		mTableTools[name] = cb;
+		mOjectDescriptionMap[name] = description;
+		mOjectAndPluginMap[name] = pluginName;
+		SetOwnerPlugin(pluginName);
+	}
+
+	void CrpsTableToolFactory::UnregisterTableTool(const QString &name, const QString &pluginName)
+	{
+		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		{
+			mTableTools.erase(name);
+			mOjectDescriptionMap.erase(name);
+			mOjectAndPluginMap.erase(name);
+
+		}
+
+	}
+
+	IrpsWLTableTool *CrpsTableToolFactory::BuildTableTool(const QString &name)
+	{
+		CallbackMap::iterator it = mTableTools.find(name);
+		if (it != mTableTools.end())
+		{
+			// call the creation callback to construct this derived name
+			return (it->second)();
+		}
+
+		return NULL;
+	}
+
+    std::map<const QString, CreateTableToolCallback>& CrpsTableToolFactory::GetTableToolNamesMap()
+	{
+		return mTableTools;
+	}
+
+	std::vector<QString> CrpsTableToolFactory::GetNameVector()
+	{
+		return mTableToolNames;
+	}
+
+	std::map<const QString, QString> & CrpsTableToolFactory::GetTobeInstalledObjectsMap()
+	{
+		return mTobeInstalledObjectsMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetOjectDescriptionMap()
+	{
+		return mOjectDescriptionMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetOjectAndPluginMap()
+	{
+		return mOjectAndPluginMap;
+	}
+
+	///
+	std::map<const QString, QString>& CrpsTableToolFactory::GetTitleMap()
+	{
+		return mTitleMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetLinkMap()
+	{
+		return mLinkMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetAuthorMap()
+	{
+		return mAuthorMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetDateMap()
+	{
+		return mDateMap;
+	}
+
+	std::map<const QString, QString>& CrpsTableToolFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
+
+    std::map<const QString, QString> &  CrpsTableToolFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+	///////Matrix tool////////
+	//// instantiate the static variable
+	CrpsMatrixToolFactory::CallbackMap CrpsMatrixToolFactory::mMatrixTools;
+	std::vector<QString> CrpsMatrixToolFactory::mMatrixToolNames;
+	QString CrpsMatrixToolFactory::mOwnerPlugin;
+	//QString CrpsMatrixToolFactory::mDescription;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mTobeInstalledObjectsMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mOjectDescriptionMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mOjectAndPluginMap;
+    std::map<const QString, QString> CrpsMatrixToolFactory::mOjectsSkipDuringUnintallationMap;
+
+	std::map<const QString, QString> CrpsMatrixToolFactory::mTitleMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mLinkMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mAuthorMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mDateMap;
+	std::map<const QString, QString> CrpsMatrixToolFactory::mVersionMap;
+
+	QString CrpsMatrixToolFactory::GetOwnerPlugin()
+	{
+		return mOwnerPlugin;
+	}
+
+	void CrpsMatrixToolFactory::SetOwnerPlugin(QString ownerPlugin)
+	{
+		mOwnerPlugin = ownerPlugin;
+	}
+	
+	void CrpsMatrixToolFactory::InitializeMatrixTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	{		
+		mTobeInstalledObjectsMap[name] = description;
+		mTitleMap[name] = publicationTitle;
+		mLinkMap[name] = publicationLink;
+		mAuthorMap[name] = publicationAuthor;
+		mDateMap[name] = publicationDate;
+		mVersionMap[name] = version;
+
+	}
+
+	void CrpsMatrixToolFactory::RegisterMatrixTool(const QString &name, const QString &pluginName, const QString &description, CreateMatrixToolCallback cb)
+	{
+		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		{
+			return;
+		}
+		mMatrixTools[name] = cb;
+		mOjectDescriptionMap[name] = description;
+		mOjectAndPluginMap[name] = pluginName;
+		SetOwnerPlugin(pluginName);
+	}
+
+	void CrpsMatrixToolFactory::UnregisterMatrixTool(const QString &name, const QString &pluginName)
+	{
+		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		{
+			mMatrixTools.erase(name);
+			mOjectDescriptionMap.erase(name);
+			mOjectAndPluginMap.erase(name);
+
+		}
+
+	}
+
+	IrpsWLMatrixTool *CrpsMatrixToolFactory::BuildMatrixTool(const QString &name)
+	{
+		CallbackMap::iterator it = mMatrixTools.find(name);
+		if (it != mMatrixTools.end())
+		{
+			// call the creation callback to construct this derived name
+			return (it->second)();
+		}
+
+		return NULL;
+	}
+
+    std::map<const QString, CreateMatrixToolCallback>& CrpsMatrixToolFactory::GetMatrixToolNamesMap()
+	{
+		return mMatrixTools;
+	}
+
+	std::vector<QString> CrpsMatrixToolFactory::GetNameVector()
+	{
+		return mMatrixToolNames;
+	}
+
+	std::map<const QString, QString> & CrpsMatrixToolFactory::GetTobeInstalledObjectsMap()
+	{
+		return mTobeInstalledObjectsMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetOjectDescriptionMap()
+	{
+		return mOjectDescriptionMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetOjectAndPluginMap()
+	{
+		return mOjectAndPluginMap;
+	}
+
+	///
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetTitleMap()
+	{
+		return mTitleMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetLinkMap()
+	{
+		return mLinkMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetAuthorMap()
+	{
+		return mAuthorMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetDateMap()
+	{
+		return mDateMap;
+	}
+
+	std::map<const QString, QString>& CrpsMatrixToolFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
+
+    std::map<const QString, QString> &  CrpsMatrixToolFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+	///////user defined rps objects////////
+	//// instantiate the static variable
+	CrpsUserDefinedRPSObjectFactory::CallbackMap CrpsUserDefinedRPSObjectFactory::mUserDefinedRPSObjects;
+	std::vector<QString> CrpsUserDefinedRPSObjectFactory::mUserDefinedRPSObjectNames;
+	QString CrpsUserDefinedRPSObjectFactory::mOwnerPlugin;
+	//QString CrpsUserDefinedRPSObjectFactory::mDescription;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mTobeInstalledObjectsMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mOjectDescriptionMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mOjectAndPluginMap;
+    std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mOjectsSkipDuringUnintallationMap;
+
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mTitleMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mLinkMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mAuthorMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mDateMap;
+	std::map<const QString, QString> CrpsUserDefinedRPSObjectFactory::mVersionMap;
+
+	QString CrpsUserDefinedRPSObjectFactory::GetOwnerPlugin()
+	{
+		return mOwnerPlugin;
+	}
+
+	void CrpsUserDefinedRPSObjectFactory::SetOwnerPlugin(QString ownerPlugin)
+	{
+		mOwnerPlugin = ownerPlugin;
+	}
+	
+	void CrpsUserDefinedRPSObjectFactory::InitializeUserDefinedRPSObject(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	{		
+		mTobeInstalledObjectsMap[name] = description;
+		mTitleMap[name] = publicationTitle;
+		mLinkMap[name] = publicationLink;
+		mAuthorMap[name] = publicationAuthor;
+		mDateMap[name] = publicationDate;
+		mVersionMap[name] = version;
+
+	}
+
+	void CrpsUserDefinedRPSObjectFactory::RegisterUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedRPSObjectCallback cb)
+	{
+		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		{
+			return;
+		}
+		mUserDefinedRPSObjects[name] = cb;
+		mOjectDescriptionMap[name] = description;
+		mOjectAndPluginMap[name] = pluginName;
+		SetOwnerPlugin(pluginName);
+	}
+
+	void CrpsUserDefinedRPSObjectFactory::UnregisterUserDefinedRPSObject(const QString &name, const QString &pluginName)
+	{
+		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		{
+			mUserDefinedRPSObjects.erase(name);
+			mOjectDescriptionMap.erase(name);
+			mOjectAndPluginMap.erase(name);
+
+		}
+
+	}
+
+	IrpsWLUserDefinedRPSObject *CrpsUserDefinedRPSObjectFactory::BuildUserDefinedRPSObject(const QString &name)
+	{
+		CallbackMap::iterator it = mUserDefinedRPSObjects.find(name);
+		if (it != mUserDefinedRPSObjects.end())
+		{
+			// call the creation callback to construct this derived name
+			return (it->second)();
+		}
+
+		return NULL;
+	}
+
+    std::map<const QString, CreateUserDefinedRPSObjectCallback>& CrpsUserDefinedRPSObjectFactory::GetUserDefinedRPSObjectNamesMap()
+	{
+		return mUserDefinedRPSObjects;
+	}
+
+	std::vector<QString> CrpsUserDefinedRPSObjectFactory::GetNameVector()
+	{
+		return mUserDefinedRPSObjectNames;
+	}
+
+	std::map<const QString, QString> & CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap()
+	{
+		return mTobeInstalledObjectsMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap()
+	{
+		return mOjectDescriptionMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap()
+	{
+		return mOjectAndPluginMap;
+	}
+
+	///
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetTitleMap()
+	{
+		return mTitleMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetLinkMap()
+	{
+		return mLinkMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetAuthorMap()
+	{
+		return mAuthorMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetDateMap()
+	{
+		return mDateMap;
+	}
+
+	std::map<const QString, QString>& CrpsUserDefinedRPSObjectFactory::GetVersionMap()
+	{
+		return mVersionMap;
+	}
+
+
+    std::map<const QString, QString> &  CrpsUserDefinedRPSObjectFactory::GetOjectsSkipDuringUnintallationMap()
     {
 	    return mOjectsSkipDuringUnintallationMap;
     }

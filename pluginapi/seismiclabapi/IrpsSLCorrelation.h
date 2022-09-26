@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLCORRELATION_H
+#define IRPSSLCORRELATION_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLCorrelation
@@ -19,3 +21,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSLCORRELATION_H

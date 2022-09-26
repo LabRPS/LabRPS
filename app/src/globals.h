@@ -78,6 +78,9 @@ class LabRPS : public QObject {
   static QString objGroupRandomnessProvider;
   static QString objGroupModulationFunction;
   static QString objGroupCorrelationFunction;
+  static QString objGroupTableTool;
+  static QString objGroupMatrixTool;
+  static QString objGroupUserDefinedRPSObject;
 
   // available comparison categories
   static QString ComputeCrossCoherenceVectorF;
@@ -103,7 +106,7 @@ class LabRPS : public QObject {
 	static QString ComputeZCrossSpectrumVectorF;
 	static QString ComputeZCrossSpectrumVectorT;
 	static QString ComputeZCrossSpectrumVectorP;
-
+    static QString UserDefinedRPSObjectComputePFT;
 
   //! Types of plot designations
   enum PlotDesignation {

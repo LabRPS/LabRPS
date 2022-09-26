@@ -8,6 +8,7 @@ TEMPLATE = subdirs
 SUBDIRS += pluginapi/windlabapi\
            pluginapi/seismiclabapi\
            pluginapi/sealabapi\
+           pluginapi/userdefinedphenomenonapi\
            app\
            plugins/windLab\
            plugins/seismicLab\ 

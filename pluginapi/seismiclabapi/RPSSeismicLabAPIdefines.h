@@ -1,4 +1,4 @@
-#pragma once
+
 #ifndef SEISMIC_DEFINES_H
 #define SEISMIC_DEFINES_H
 

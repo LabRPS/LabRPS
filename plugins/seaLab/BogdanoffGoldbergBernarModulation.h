@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLModulation.h"
 
 class CBogdanoffGoldbergBernarModulation : public IrpsSeLModulation

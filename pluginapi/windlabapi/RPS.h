@@ -1,4 +1,6 @@
-#pragma once
+#ifndef WL_RPS_H
+#define WL_RPS_H
+
 #include <../../3rdparty/eigen-3.4.0/Eigen/Dense>
 
 #include <../../3rdparty/eigen-3.4.0/unsupported/Eigen/CXX11/Tensor>
@@ -17,3 +19,5 @@ typedef Tensor<double, 3> cube;
 typedef VectorXcd cx_vec;
 typedef MatrixXcd cx_mat;
 typedef Tensor<std::complex<double>, 3> cx_cube;
+
+#endif  // WL_RPS_H

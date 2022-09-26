@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELCOHERENCE_H
+#define IRPSSELCOHERENCE_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLCoherence 
@@ -16,3 +18,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSELCOHERENCE_H

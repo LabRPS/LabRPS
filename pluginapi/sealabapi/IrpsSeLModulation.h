@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELMODULATION_H
+#define IRPSSELMODULATION_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLModulation
@@ -33,4 +35,5 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSELMODULATION_H
 

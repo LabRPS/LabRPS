@@ -1,4 +1,4 @@
-#pragma once
+
 #ifndef RPS_G_DEFINES_H
 #define RPS_G_DEFINES_H
 

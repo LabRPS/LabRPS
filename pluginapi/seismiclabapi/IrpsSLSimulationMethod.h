@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLSIMULATIONMETHOD_H
+#define IRPSSLSIMULATIONMETHOD_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLSimulationMethod
@@ -19,3 +21,4 @@ public:
 	virtual bool SimulateInComparisonMode(const CRPSSeismicLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSLSIMULATIONMETHOD_H

@@ -1401,4 +1401,95 @@ ObjectDescription CRPSWindLabFramework::getCorrelationFunctionObjDescription(con
 	return description;
 }
 
+ObjectDescription CRPSWindLabFramework::getTableToolObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsTableToolFactory::GetOwnerPlugin();
+	description.m_description = CrpsTableToolFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsTableToolFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsTableToolFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsTableToolFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsTableToolFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getMatrixToolObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsMatrixToolFactory::GetOwnerPlugin();
+	description.m_description = CrpsMatrixToolFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsMatrixToolFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsMatrixToolFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsMatrixToolFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsMatrixToolFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+ObjectDescription CRPSWindLabFramework::getUserDefinedRPSObjDescription(const QString &objectName)
+{
+	ObjectDescription description;
+
+	description.m_pluginName = CrpsUserDefinedRPSObjectFactory::GetOwnerPlugin();
+	description.m_description = CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap()[objectName];
+	description.m_publicationTitle = CrpsUserDefinedRPSObjectFactory::GetTitleMap()[objectName];
+	description.m_publicationLink = CrpsUserDefinedRPSObjectFactory::GetLinkMap()[objectName];
+	description.m_publicationAuthor = CrpsUserDefinedRPSObjectFactory::GetAuthorMap()[objectName];
+	description.m_publicationDate = CrpsUserDefinedRPSObjectFactory::GetDateMap()[objectName];
+
+	return description;
+}
+
+void CRPSWindLabFramework::TableToolComputePFT(const CRPSWindLabsimuData &Data, const mat &inputTable, mat &outputTable, QStringList &strInformation)
+{
+	IrpsWLTableTool * SelectedTableTool = CrpsTableToolFactory::BuildTableTool(Data.tableTool);
+
+	if (NULL == SelectedTableTool)
+	{
+		return;
+	}
+
+	// Compute the frequency distribution object
+	SelectedTableTool->TableToolComputePFT(Data, inputTable,outputTable, strInformation);
+
+	// Delete the object
+	delete SelectedTableTool;
+}
+
+void CRPSWindLabFramework::MatrixToolComputePFT(const CRPSWindLabsimuData &Data, const mat &inputMatrix, mat &outputMatrix, QStringList &strInformation)
+{
+	IrpsWLMatrixTool * SelectedMatrixTool = CrpsMatrixToolFactory::BuildMatrixTool(Data.matrixTool);
+
+	if (NULL == SelectedMatrixTool)
+	{
+		return;
+	}
+
+	// Compute the frequency distribution object
+	SelectedMatrixTool->MatrixToolComputePFT(Data, inputMatrix,outputMatrix, strInformation);
+
+	// Delete the object
+	delete SelectedMatrixTool;
+}
+
+void CRPSWindLabFramework::UserDefinedRPSObjectComputePFT(const CRPSWindLabsimuData &Data, cube &dresultCube, QStringList &strInformation)
+{
+	IrpsWLUserDefinedRPSObject* SelectedUserDefinedRPSObject = CrpsUserDefinedRPSObjectFactory::BuildUserDefinedRPSObject(Data.userDefinedRPSObject);
+
+	if (NULL == SelectedUserDefinedRPSObject)
+	{
+		return;
+	}
+
+	// Compute the frequency distribution object
+	SelectedUserDefinedRPSObject->UserDefinedRPSObjectComputePFT(Data, dresultCube, strInformation);
+
+	// Delete the object
+	delete SelectedUserDefinedRPSObject;
+}
+
+
 

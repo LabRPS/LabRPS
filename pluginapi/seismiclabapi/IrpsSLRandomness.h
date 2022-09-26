@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSLRANDOMNESS_H
+#define IRPSSLRANDOMNESS_H
+
 #include "RPSSeismicLabsimuData.h"
 
 class IrpsSLRandomness
@@ -12,3 +14,4 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSSeismicLabsimuData &Data, QStringList &strInformation) = 0;
 };
+#endif  // IRPSSLRANDOMNESS_H

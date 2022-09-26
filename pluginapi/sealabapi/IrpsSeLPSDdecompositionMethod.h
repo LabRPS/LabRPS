@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELPSDDECOMPOSITIONMETHOD_H
+#define IRPSSELPSDDECOMPOSITIONMETHOD_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLPSDdecompositionMethod
@@ -38,3 +40,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELPSDDECOMPOSITIONMETHOD_H

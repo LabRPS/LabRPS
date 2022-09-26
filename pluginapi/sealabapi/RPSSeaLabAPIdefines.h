@@ -1,4 +1,4 @@
-#pragma once
+
 #ifndef Sea_DEFINES_H
 #define Sea_DEFINES_H
 

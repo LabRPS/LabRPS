@@ -1,6 +1,3 @@
-
-#pragma once
-
 #ifndef RPSSLPLUGINAPI_H
 #define RPSSLPLUGINAPI_H
 

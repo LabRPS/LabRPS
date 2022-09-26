@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELDIRECTIONSPREADINGFUNCTION_H
+#define IRPSSELDIRECTIONSPREADINGFUNCTION_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLDirectionSpreadingFunction
@@ -38,3 +40,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELDIRECTIONSPREADINGFUNCTION_H

@@ -1,4 +1,4 @@
-#pragma once
+
 
 #ifndef RPSPLUGINAPI_H
 #define RPSPLUGINAPI_H
@@ -16,6 +16,11 @@
 #include "IrpsWLPSDdecompositionMethod.h"
 #include "IrpsWLCorrelation.h"
 #include "IrpsWLModulation.h"
+#include "IrpsWLTableTool.h"
+#include "IrpsWLMatrixTool.h"
+#include "IrpsWLUserDefinedRPSObject.h"
+
+
 
 #define PLUGIN_API_VERSION  2
 
@@ -349,5 +354,66 @@ RPS_CORE_FUNC void InitializeModulation(const QString name, const QString &descr
 RPS_CORE_FUNC void UnregisterModulation(const QString name, const QString &pluginName);
 
 RPS_CORE_FUNC void SimulationOutputText(QString outputText);
+
+////////////////////////////////////user defined rps object//////////////////////////////////////////
+
+// Register and build user defined rps object
+/// The function signature for a routine that creates a random process
+typedef IrpsWLTableTool *(*TableToolInitFunc)();
+
+/// The function signature for a routine that destroys a random process
+typedef void(*TableToolFreeFunc)(IrpsWLTableTool *);
+
+/// A routine to let a plugin register a new renderer name
+RPS_CORE_FUNC void RegisterTableTool(const QString name, const QString &description, const QString &pluginName,
+	TableToolInitFunc init_cb,
+	TableToolFreeFunc free_cb);
+
+/// A routine to let a plugin install new location distribution
+RPS_CORE_FUNC void InitializeTableTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+/// This uninstall the location distribution
+RPS_CORE_FUNC void UnregisterTableTool(const QString name, const QString &pluginName);
+
+////////////////////////////////////user defined rps object//////////////////////////////////////////
+
+// Register and build user defined rps object
+/// The function signature for a routine that creates a random process
+typedef IrpsWLMatrixTool *(*MatrixToolInitFunc)();
+
+/// The function signature for a routine that destroys a random process
+typedef void(*MatrixToolFreeFunc)(IrpsWLMatrixTool *);
+
+/// A routine to let a plugin register a new renderer name
+RPS_CORE_FUNC void RegisterMatrixTool(const QString name, const QString &description, const QString &pluginName,
+	MatrixToolInitFunc init_cb,
+	MatrixToolFreeFunc free_cb);
+
+/// A routine to let a plugin install new location distribution
+RPS_CORE_FUNC void InitializeMatrixTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+/// This uninstall the location distribution
+RPS_CORE_FUNC void UnregisterMatrixTool(const QString name, const QString &pluginName);
+
+////////////////////////////////////user defined rps object//////////////////////////////////////////
+
+// Register and build user defined rps object
+/// The function signature for a routine that creates a random process
+typedef IrpsWLUserDefinedRPSObject *(*UserDefinedRPSObjectInitFunc)();
+
+/// The function signature for a routine that destroys a random process
+typedef void(*UserDefinedRPSObjectFreeFunc)(IrpsWLUserDefinedRPSObject *);
+
+/// A routine to let a plugin register a new renderer name
+RPS_CORE_FUNC void RegisterUserDefinedRPSObject(const QString name, const QString &description, const QString &pluginName,
+	UserDefinedRPSObjectInitFunc init_cb,
+	UserDefinedRPSObjectFreeFunc free_cb);
+
+/// A routine to let a plugin install new location distribution
+RPS_CORE_FUNC void InitializeUserDefinedRPSObject(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+/// This uninstall the location distribution
+RPS_CORE_FUNC void UnregisterUserDefinedRPSObject(const QString name, const QString &pluginName);
+
 
 #endif

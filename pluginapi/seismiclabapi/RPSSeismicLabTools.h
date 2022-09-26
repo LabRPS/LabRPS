@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSSEISMICLABTOOL_H
 #define RPSSEISMICLABTOOL_H
 

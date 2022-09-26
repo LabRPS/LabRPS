@@ -386,13 +386,11 @@ void RPSWLPSDDefinitionDialog::radioButtonAlongWindToggled(bool)
 	// Search the combo list elements from index 0 until the current selected is found
 	if ((nDex != ui->comboBoxSpectrumModel->findText(spectrumModel)))
 	{
-        QMessageBox::warning(0,"1", spectrumModel);
 		// Select the corresponding randomness in the combox based on the index
 		ui->comboBoxSpectrumModel->setCurrentText(spectrumModel);
 	}
 	else if ((nDex != ui->comboBoxSpectrumModel->findText(noSelection)))
 	{
-        QMessageBox::warning(0,"2", "2");
 		// Select the none text then
 		ui->comboBoxSpectrumModel->setCurrentText(noSelection);
 	}
@@ -428,13 +426,11 @@ void RPSWLPSDDefinitionDialog::radioButtonCrossWindToggled(bool)
 	// Search the combo list elements from index 0 until the current selected is found
 	if ((nDex != ui->comboBoxSpectrumModel->findText(spectrumModel)))
 	{
-                QMessageBox::warning(0,"3", "3");
 		// Select the corresponding randomness in the combox based on the index
 		ui->comboBoxSpectrumModel->setCurrentText(spectrumModel);
 	}
 	else if ((nDex != ui->comboBoxSpectrumModel->findText(noSelection)))
 	{
-                QMessageBox::warning(0,"4", "4");
 		// Select the none text then
 		ui->comboBoxSpectrumModel->setCurrentText(noSelection);
 	}
@@ -469,14 +465,11 @@ void RPSWLPSDDefinitionDialog::radioButtonVerticalWindToggled(bool)
 	// Search the combo list elements from index 0 until the current selected is found
 	if ((nDex != ui->comboBoxSpectrumModel->findText(spectrumModel)))
 	{
-                        QMessageBox::warning(0,"5", "5");
 		// Select the corresponding randomness in the combox based on the index
 		ui->comboBoxSpectrumModel->setCurrentText(spectrumModel);
 	}
 	else if ((nDex != ui->comboBoxSpectrumModel->findText(noSelection)))
 	{
-                        QMessageBox::warning(0,"6", "6");
-
 		// Select the none text then
 		ui->comboBoxSpectrumModel->setCurrentText(noSelection);
 	}

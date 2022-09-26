@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLRandomness.h"
 
 #include <QStringList>

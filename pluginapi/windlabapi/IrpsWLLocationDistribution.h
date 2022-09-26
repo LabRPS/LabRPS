@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLLOCATIONDISTRIBUTION_H
+#define IRPSWLLOCATIONDISTRIBUTION_H
+
 #include "RPSWindLabsimuData.h"
 
 #ifdef _DEBUG
@@ -14,3 +16,5 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 };
+
+#endif  // IRPSWLLOCATIONDISTRIBUTION_H

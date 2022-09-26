@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsWLRandomness.h"
 
 class CRPSRandomPhasesFromFile : public IrpsWLRandomness

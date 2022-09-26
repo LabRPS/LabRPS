@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELCORRELATION_H
+#define IRPSSELCORRELATION_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLCorrelation
@@ -20,3 +22,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELCORRELATION_H

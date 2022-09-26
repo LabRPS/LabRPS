@@ -226,7 +226,7 @@ PLUGIN_INIT()
 	InitializeLocationDistribution(("Vertical Distribution"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
 	InitializeMean(("RPS Power Low"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
 	InitializeMean(("RPS Logarithmic Low"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
-	InitializeXSpectrum(("Kaimail Along Wind Spectrum"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
+	InitializeXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
 	InitializeFrequencyDistribution(("Double Index Frequency"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
 	InitializeFrequencyDistribution(("Single Index Frequency"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Koffi Daniel"), ("Uniform Random Phases"), "1.00");
 	InitializeCoherence(("Davenport Coherence"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "1.00");
@@ -249,7 +249,7 @@ INSTALL_PLUGIN()
 	RegisterLocationDistribution(("Vertical Distribution"), strPluginName, ("This object allows you to define a set of locations which are uniformly disctributed along a vertical axis"), BuildVerticalDistr, DestroyVerticalDistr);
 	RegisterMean(("RPS Power Low"), strPluginName, ("This is the power low mean wind profile"), BuildRPSPowerLowProfile, DestroyRPSPowerLowProfile);
 	RegisterMean(("RPS Logarithmic Low"), strPluginName, ("This is the logarithmic low mean wind profile"), BuildRPSLogarithmicLowProfile, DestroyRPSLogarithmicLowProfile);
-	RegisterXSpectrum(("Kaimail Along Wind Spectrum"), strPluginName, ("Allow wind spectrum according to Kaimal"), BuildRPSKaimalSpectr, DestroyRPSKaimalSpectr);
+	RegisterXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName, ("Allow wind spectrum according to Kaimal"), BuildRPSKaimalSpectr, DestroyRPSKaimalSpectr);
 	RegisterFrequencyDistribution(("Double Index Frequency"), strPluginName, ("Single index frequency distribution"), BuildRPSDoubleIndexFreq, DestroyRPSDoubleIndexFreq);
 	RegisterFrequencyDistribution(("Single Index Frequency"), strPluginName, ("Double index frequency distribution. This may be useful when ergodic wind is desired"), BuildRPSSingleIndexFreq, DestroyRPSSingleIndexFreq);
 	RegisterCoherence(("Davenport Coherence"), strPluginName, ("This is the Davenport coherence model"), BuildRPSDavenportCoh, DestroyRPSDavenportCoh);
@@ -271,7 +271,7 @@ UNINSTALL_PLUGIN()
 	UnregisterLocationDistribution(("Vertical Distribution"), strPluginName);
 	UnregisterMean(("RPS Power Low"), strPluginName);
 	UnregisterMean(("RPS Logarithmic Low"), strPluginName);
-	UnregisterXSpectrum(("Kaimail Along Wind Spectrum"), strPluginName);
+	UnregisterXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName);
 	UnregisterFrequencyDistribution(("Double Index Frequency"), strPluginName);
 	UnregisterFrequencyDistribution(("Single Index Frequency"), strPluginName);
 	UnregisterCoherence(("Davenport Coherence"), strPluginName);

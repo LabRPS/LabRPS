@@ -15,8 +15,8 @@ PlunginIntallationWizard::PlunginIntallationWizard(int installationType, QString
     // addPage(new ProgressPage(installationType, installingPluginName));
     addPage(new ConclusionPage(installationType, installingPluginName));
 
-    setPixmap(QWizard::BannerPixmap, QPixmap(":/icons/images/banner.png"));
-    setPixmap(QWizard::BackgroundPixmap, QPixmap(":/icons/images/background.png"));
+    setPixmap(QWizard::BannerPixmap, QPixmap(":icons/images/banner.png"));
+    setPixmap(QWizard::BackgroundPixmap, QPixmap(":icons/images/background.png"));
 
     setWindowTitle(tr("Plugin Installer"));
 }
@@ -30,7 +30,7 @@ IntroPage::IntroPage(int installationType, QString installingPluginName, QWidget
     : QWizardPage(parent)
 {
     setTitle(tr("Welcome to RPS Plugin Installer"));
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(":/icons/images/watermark1.png"));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(":icons/images/watermark1.png"));
 
     label = new QLabel(tr("This wizard will guide you through the installation "
                           "of plugins or objecs. Please, click next to continue."));
@@ -48,7 +48,7 @@ TaskSelectionPage::TaskSelectionPage(int installationType, QString installingPlu
     setTitle(tr("Choose a tak"));
     setSubTitle(tr("From here you can choose to install or uninstal "
                    " or modify your plugins."));
-    setPixmap(QWizard::LogoPixmap, QPixmap(":/icons/images/logo1.png"));
+    setPixmap(QWizard::LogoPixmap, QPixmap(":icons/images/logo1.png"));
 
     groupBox = new QGroupBox(tr("&Tasks"));
 
@@ -306,7 +306,7 @@ ConclusionPage::ConclusionPage(int installationType, QString installingPluginNam
     : QWizardPage(parent)
 {
     setTitle(tr("Intallation Completed"));
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(":/icons/images/watermark2.png"));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(":icons/images/watermark2.png"));
 
     label = new QLabel;
     label->setWordWrap(true);

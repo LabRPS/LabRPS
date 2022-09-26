@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IRPSSLCOHERENCE_H
+#define IRPSSLCOHERENCE_H
 
 #include "RPSSeaLabAPIdefines.h"
 #include <QStringList>
@@ -147,4 +148,7 @@ public:
 	int numberOfTimeLags;
 
 };
+
+#endif  // IRPSWLRANDOMNESS_H
+
 

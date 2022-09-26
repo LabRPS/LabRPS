@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CRPSWINDLABDATA_H
+#define CRPSWINDLABDATA_H
 
 #include "RPSWindLabAPIdefines.h"
 #include <QStringList>
@@ -107,6 +108,15 @@ class RPS_CORE_API CRPSWindLabsimuData
 	// The working directory path
 	QString workingDirPath;
 
+	// table tool name
+	QString tableTool;
+
+	// matrix tool name
+	QString matrixTool;
+
+	// user defined object name
+	QString userDefinedRPSObject;
+
 	int locationJ;
 
 	int locationK;
@@ -130,6 +140,7 @@ class RPS_CORE_API CRPSWindLabsimuData
 
 };
 
+#endif  // CRPSWINDLABDATA_H
 
 
 

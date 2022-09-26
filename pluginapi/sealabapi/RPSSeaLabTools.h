@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSSeaLABTOOL_H
 #define RPSSeaLABTOOL_H
 

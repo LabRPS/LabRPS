@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsWLLocationDistribution.h"
 
 class GeneralSpatialDistribution : public IrpsWLLocationDistribution

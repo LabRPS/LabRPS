@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSSeaLABFRAMEWORK_H
 #define RPSSeaLABFRAMEWORK_H
 

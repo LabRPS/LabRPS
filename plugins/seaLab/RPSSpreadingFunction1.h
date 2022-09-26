@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLDirectionSpreadingFunction.h"
 
 class CRPSSpreadingFunction1 : public IrpsSeLDirectionSpreadingFunction

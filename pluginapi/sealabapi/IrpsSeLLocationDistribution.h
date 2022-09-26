@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELLOCATIONDISTRIBUTION_H
+#define IRPSSELLOCATIONDISTRIBUTION_H
+
 #include "RPSSeaLabsimuData.h"
 
 #ifdef _DEBUG
@@ -16,3 +18,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELLOCATIONDISTRIBUTION_H

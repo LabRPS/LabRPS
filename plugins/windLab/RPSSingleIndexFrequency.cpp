@@ -25,7 +25,7 @@ void CRPSSingleIndexFrequency::ComputeFrequenciesMatrixFP(const CRPSWindLabsimuD
 
 bool CRPSSingleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	QMessageBox::warning(0,"Frequency Distribution", "This the single index frequency distribution. No additional input needed.");
+    QMessageBox::warning(0,"Frequency Distribution", "This is the single index frequency distribution. No additional input needed.");
 
 	return true;
 }

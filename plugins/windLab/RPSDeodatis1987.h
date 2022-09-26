@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsWLSimuMethod.h"
 
 class CRPSDeodatis1987 : public IrpsWLSimuMethod

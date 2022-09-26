@@ -78,12 +78,12 @@ contains(PRESET, linux_all_dynamic) {
   INCLUDEPATH   = "$(HOME)/usr/include" $$INCLUDEPATH
   QMAKE_LIBDIR  = "$(HOME)/usr/lib" $$QMAKE_LIBDIR
 
-  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
 }
 
 contains(PRESET, linux_static) {
   ### Link statically and dynamically against rest.
-  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
 }
 
 contains(PRESET, linux_all_static) {
@@ -91,7 +91,7 @@ contains(PRESET, linux_all_static) {
   message(Build configuration: Linux all static)
 
   LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
-  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a
+  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a /usr/lib/libuserdefinedphenomenonapi.a
 }
 
 contains(PRESET, osx_dist) {
@@ -100,7 +100,7 @@ contains(PRESET, osx_dist) {
 
   INCLUDEPATH  += /usr/local/include
   QMAKE_LIBDIR += /usr/local/lib
-  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
 }
 
 win32: {
@@ -115,6 +115,7 @@ win32: {
     INCLUDEPATH  += "$${APILIBPATH}/sealabapi"
     INCLUDEPATH  += "$${APILIBPATH}/seismiclabapi"
     INCLUDEPATH  += "$${APILIBPATH}/windlabapi"
+    INCLUDEPATH  += "$${APILIBPATH}/userdefinedphenomenonapi"
 
     INCLUDEPATH  += "$${LIBPATH}/Eigen/Core"
 
@@ -124,6 +125,8 @@ win32: {
     LIBS         += "$${APILIBPATH}/sealabapi/release/libsealabapi.a"
     LIBS         += "$${APILIBPATH}/seismiclabapi/release/libseismiclabapi.a"
     LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
+    LIBS         += "$${APILIBPATH}/userdefinedphenomenonapi/release/libuserdefinedphenomenonapi.a"
+
   }
 }
 
@@ -134,7 +137,7 @@ mxe {
   QMAKE_CXXFLAGS +=-g
   DEFINES        += CONSOLE
   
-  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi
+  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi libuserdefinedphenomenonapi
 
   # Qt libs specified here to get around a dependency bug in qmake
   LIBS += -lQt5OpenGL -lQt5Gui -lQt5Widgets -lQt5Network -lQt5Core -lQt5Svg

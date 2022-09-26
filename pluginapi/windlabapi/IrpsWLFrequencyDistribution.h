@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLFREQUENCYDISTRIBUTION_H
+#define IRPSWLFREQUENCYDISTRIBUTION_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLFrequencyDistribution
@@ -13,3 +15,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 
 	};
+#endif  // IRPSWLFREQUENCYDISTRIBUTION_H

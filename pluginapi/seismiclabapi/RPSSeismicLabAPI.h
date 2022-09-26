@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSWSCOREAPI_H
 #define RPSWSCOREAPI_H
 

@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsWLModulation.h"
 
 class CSineModulation : public IrpsWLModulation

@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLSimulationMethod.h"
 #include <QStringList>
 

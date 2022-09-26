@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CRPSSEISMICLABSIMUDATA_H
+#define CRPSSEISMICLABSIMUDATA_H
 
 #include "RPSSeismicLabAPIdefines.h"
 #include <QStringList>
@@ -125,3 +126,4 @@ class RPS_CORE_API CRPSSeismicLabsimuData : public QObject
 
 };
 
+#endif  // CRPSSEISMICLABSIMUDATA_H

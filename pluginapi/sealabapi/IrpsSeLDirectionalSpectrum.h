@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IRPSSELDIRECTIONALSPECTRUM_H
+#define IRPSSELDIRECTIONALSPECTRUM_H
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLDirectionalSpectrum
@@ -38,3 +39,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELDIRECTIONALSPECTRUM_H

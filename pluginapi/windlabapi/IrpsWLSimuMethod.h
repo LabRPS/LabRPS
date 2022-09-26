@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLSIMUMETHOD_H
+#define IRPSWLSIMUMETHOD_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLSimuMethod 
@@ -19,3 +21,4 @@ public:
 	virtual bool SimulateInComparisonMode(const CRPSWindLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSWLSIMUMETHOD_H

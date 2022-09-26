@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLCorrelation.h"
 
 class CRPSCorrelationFunction : public IrpsSeLCorrelation

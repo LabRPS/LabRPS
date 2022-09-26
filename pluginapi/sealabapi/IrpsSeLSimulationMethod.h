@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELSIMULATIONMETHOD_H
+#define IRPSSELSIMULATIONMETHOD_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLSimulationMethod
@@ -20,3 +22,5 @@ public:
 	virtual bool SimulateInComparisonMode(const CRPSSeaLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, QStringList &strInformation) = 0;
 
 };
+
+#endif  // IRPSSELSIMULATIONMETHOD_H

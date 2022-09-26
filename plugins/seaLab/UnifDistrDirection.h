@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLDirectionDistribution.h"
 
 class CUnifDistrDirection : public IrpsSeLDirectionDistribution

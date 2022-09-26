@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLCORRELATION_H
+#define IRPSWLCORRELATION_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLCorrelation
@@ -20,3 +22,5 @@ public:
 
 
 };
+
+#endif  // IRPSWLCORRELATION_H

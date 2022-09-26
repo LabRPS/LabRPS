@@ -1175,6 +1175,128 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
                                 
                         }
 
+                        // table tool
+                        if (!CrpsTableToolFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupTableTool;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTableTool));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsTableToolFactory::GetOjectAndPluginMap().begin(); it != CrpsTableToolFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTableTool));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                                
+                        }
+
+                        // table tool
+                        if (!CrpsMatrixToolFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupMatrixTool;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabMatrixTool));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsMatrixToolFactory::GetOjectAndPluginMap().begin(); it != CrpsMatrixToolFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabMatrixTool));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                                
+                        }
+
+                        // user defined rps object
+                        if (!CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupUserDefinedRPSObject;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabCoherence));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap().begin(); it != CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabUserDefinedRPSObject));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                                
+                        }
                 }
 
                 // add to Tree

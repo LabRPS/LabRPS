@@ -65,6 +65,10 @@ class MyTreeWidget : public QTreeWidget {
     WindLabModulationFunction = 11,
     WindLabCorrelationFunction = 12,
     WindLabCovarianceFunction = 13,
+    WindLabTableTool = 14,
+    WindLabMatrixTool = 15,
+    WindLabUserDefinedRPSObject = 16,
+
   };
 
   enum class SeaLabObjectPropertyItemType : int {

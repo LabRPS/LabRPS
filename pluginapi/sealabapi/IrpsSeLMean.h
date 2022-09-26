@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELMEAN_H
+#define IRPSSELMEAN_H
+
 #include "RPSSeaLabsimuData.h"
 class IrpsSeLMean
 {
@@ -17,3 +19,4 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSSELMEAN_H

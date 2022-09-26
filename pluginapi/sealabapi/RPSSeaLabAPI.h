@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef RPSSESCOREAPI_H
 #define RPSSESCOREAPI_H
 

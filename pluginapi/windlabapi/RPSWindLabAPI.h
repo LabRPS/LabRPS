@@ -1,4 +1,4 @@
-#pragma once
+
 
 #ifndef RPSCOREAPI_H
 #define RPSCOREAPI_H
@@ -16,6 +16,9 @@
 #include "IrpsWLPSDdecompositionMethod.h"
 #include "IrpsWLCorrelation.h"
 #include "IrpsWLModulation.h"
+#include "IrpsWLTableTool.h"
+#include "IrpsWLMatrixTool.h"
+#include "IrpsWLUserDefinedRPSObject.h"
 
 #include <map>
 #include<vector>
@@ -613,5 +616,158 @@ class RPS_CORE_API CrpsCoherenceFactory
 		static std::map<const QString, QString> mVersionMap;
 
 	};
+
+	///////////Table tool///////////////
+
+class RPS_CORE_API CrpsTableToolFactory
+{
+	public:
+		typedef IrpsWLTableTool *(*CreateTableToolCallback)();
+
+		static void InitializeTableTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+        static void RegisterTableTool(const QString &name, const QString &pluginName, const QString &description, CreateTableToolCallback cb);
+
+		static void UnregisterTableTool(const QString &name, const QString &pluginName);
+
+		static IrpsWLTableTool *BuildTableTool(const QString &name);
+
+		static std::vector<QString> GetNameVector();
+
+		static std::map<const QString, CreateTableToolCallback>& GetTableToolNamesMap();
+
+		static QString GetOwnerPlugin();
+		static void SetOwnerPlugin(QString ownerPlugin);
+		/*static QString GetDescription();
+		static void SetDescription(QString description);*/
+		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
+		static std::map<const QString, QString> & GetOjectDescriptionMap();
+		static std::map<const QString, QString> & GetOjectAndPluginMap();
+		static std::map<const QString, QString> & GetTitleMap();
+		static std::map<const QString, QString> & GetLinkMap();
+		static std::map<const QString, QString> & GetAuthorMap();
+		static std::map<const QString, QString> & GetDateMap();
+	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
+
+	private:
+		typedef std::map<const QString, CreateTableToolCallback> CallbackMap;
+		static CallbackMap mTableTools;
+		static std::vector<QString> mTableToolNames;
+		static QString mOwnerPlugin;
+		//static QString mDescription;
+		static std::map<const QString, QString> mTobeInstalledObjectsMap;
+		static std::map<const QString, QString> mOjectDescriptionMap;
+		static std::map<const QString, QString> mOjectAndPluginMap;
+		static std::map<const QString, QString> mTitleMap;
+		static std::map<const QString, QString> mLinkMap;
+		static std::map<const QString, QString> mAuthorMap;
+		static std::map<const QString, QString> mDateMap;
+		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
+
+};
+
+///////////Matrix tool///////////////
+
+class RPS_CORE_API CrpsMatrixToolFactory
+{
+	public:
+		typedef IrpsWLMatrixTool *(*CreateMatrixToolCallback)();
+
+		static void InitializeMatrixTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+        static void RegisterMatrixTool(const QString &name, const QString &pluginName, const QString &description, CreateMatrixToolCallback cb);
+
+		static void UnregisterMatrixTool(const QString &name, const QString &pluginName);
+
+		static IrpsWLMatrixTool *BuildMatrixTool(const QString &name);
+
+		static std::vector<QString> GetNameVector();
+
+		static std::map<const QString, CreateMatrixToolCallback>& GetMatrixToolNamesMap();
+
+		static QString GetOwnerPlugin();
+		static void SetOwnerPlugin(QString ownerPlugin);
+		/*static QString GetDescription();
+		static void SetDescription(QString description);*/
+		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
+		static std::map<const QString, QString> & GetOjectDescriptionMap();
+		static std::map<const QString, QString> & GetOjectAndPluginMap();
+		static std::map<const QString, QString> & GetTitleMap();
+		static std::map<const QString, QString> & GetLinkMap();
+		static std::map<const QString, QString> & GetAuthorMap();
+		static std::map<const QString, QString> & GetDateMap();
+	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
+
+	private:
+		typedef std::map<const QString, CreateMatrixToolCallback> CallbackMap;
+		static CallbackMap mMatrixTools;
+		static std::vector<QString> mMatrixToolNames;
+		static QString mOwnerPlugin;
+		//static QString mDescription;
+		static std::map<const QString, QString> mTobeInstalledObjectsMap;
+		static std::map<const QString, QString> mOjectDescriptionMap;
+		static std::map<const QString, QString> mOjectAndPluginMap;
+		static std::map<const QString, QString> mTitleMap;
+		static std::map<const QString, QString> mLinkMap;
+		static std::map<const QString, QString> mAuthorMap;
+		static std::map<const QString, QString> mDateMap;
+		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
+
+};
+
+///////////user defined rps object///////////////
+
+class RPS_CORE_API CrpsUserDefinedRPSObjectFactory
+{
+	public:
+		typedef IrpsWLUserDefinedRPSObject *(*CreateUserDefinedRPSObjectCallback)();
+
+		static void InitializeUserDefinedRPSObject(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+
+        static void RegisterUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedRPSObjectCallback cb);
+
+		static void UnregisterUserDefinedRPSObject(const QString &name, const QString &pluginName);
+
+		static IrpsWLUserDefinedRPSObject *BuildUserDefinedRPSObject(const QString &name);
+
+		static std::vector<QString> GetNameVector();
+
+		static std::map<const QString, CreateUserDefinedRPSObjectCallback>& GetUserDefinedRPSObjectNamesMap();
+
+		static QString GetOwnerPlugin();
+		static void SetOwnerPlugin(QString ownerPlugin);
+		/*static QString GetDescription();
+		static void SetDescription(QString description);*/
+		static std::map<const QString, QString> & GetTobeInstalledObjectsMap();
+		static std::map<const QString, QString> & GetOjectDescriptionMap();
+		static std::map<const QString, QString> & GetOjectAndPluginMap();
+		static std::map<const QString, QString> & GetTitleMap();
+		static std::map<const QString, QString> & GetLinkMap();
+		static std::map<const QString, QString> & GetAuthorMap();
+		static std::map<const QString, QString> & GetDateMap();
+	    static std::map<const QString, QString> & GetOjectsSkipDuringUnintallationMap();
+		static std::map<const QString, QString> & GetVersionMap();
+
+	private:
+		typedef std::map<const QString, CreateUserDefinedRPSObjectCallback> CallbackMap;
+		static CallbackMap mUserDefinedRPSObjects;
+		static std::vector<QString> mUserDefinedRPSObjectNames;
+		static QString mOwnerPlugin;
+		//static QString mDescription;
+		static std::map<const QString, QString> mTobeInstalledObjectsMap;
+		static std::map<const QString, QString> mOjectDescriptionMap;
+		static std::map<const QString, QString> mOjectAndPluginMap;
+		static std::map<const QString, QString> mTitleMap;
+		static std::map<const QString, QString> mLinkMap;
+		static std::map<const QString, QString> mAuthorMap;
+		static std::map<const QString, QString> mDateMap;
+		static std::map<const QString, QString> mOjectsSkipDuringUnintallationMap;
+		static std::map<const QString, QString> mVersionMap;
+
+};
 
 #endif

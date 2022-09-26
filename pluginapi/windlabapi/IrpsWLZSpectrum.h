@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLZSPECTRUM_H
+#define IRPSWLZSPECTRUM_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLZSpectrum 
@@ -29,3 +31,4 @@ public:
 	virtual void ComputeZCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation) = 0;
 
 };
+#endif  // IRPSWLZSPECTRUM_H

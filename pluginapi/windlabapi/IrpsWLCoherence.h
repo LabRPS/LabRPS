@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSWLCOHERENCE_H
+#define IRPSWLCOHERENCE_H
+
 #include "RPSWindLabsimuData.h"
 
 class IrpsWLCoherence 
@@ -17,3 +19,5 @@ public:
 
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 };
+
+#endif  // IRPSWLCOHERENCE_H

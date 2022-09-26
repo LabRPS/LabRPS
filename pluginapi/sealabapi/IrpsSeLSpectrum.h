@@ -1,4 +1,6 @@
-#pragma once
+#ifndef IRPSSELSPECTRUM_H
+#define IRPSSELSPECTRUM_H
+
 #include "RPSSeaLabsimuData.h"
 
 class IrpsSeLSpectrum 
@@ -38,3 +40,5 @@ public:
 	virtual bool OnInitialSetting(const CRPSSeaLabsimuData &Data, QStringList &strInformation) = 0;
 
 };
+
+#endif  // IRPSSELSPECTRUM_H

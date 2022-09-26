@@ -1,4 +1,4 @@
-#pragma once
+
 #include "IrpsSeLCoherence.h"
 
 class CAbrahamsonCoherence : public IrpsSeLCoherence
