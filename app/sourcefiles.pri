@@ -477,7 +477,7 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationWorker.h\
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationOutputWorker.h\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.h\
-
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.h\
 
 SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
@@ -519,6 +519,8 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationWorker.cpp\
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationOutputWorker.cpp\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.cpp\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.cpp\
+
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
@@ -547,5 +549,6 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/windLab/widgets/rpswlaccuracycomparisontablezoomindialog.ui\
             src/rps/windLab/widgets/rpswlaccuracycomparisonobjectdependencydialog.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.ui\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.ui\
 
 

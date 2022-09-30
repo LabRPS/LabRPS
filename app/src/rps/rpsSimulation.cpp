@@ -14,6 +14,7 @@ RPSSimulation::RPSSimulation(QWidget *parent) : QWidget(parent)
   supportedRandomPhenomena.append(LabRPS::rpsPhenomenonWindVelocity);
   supportedRandomPhenomena.append(LabRPS::rpsPhenomenonSeismicGroundMotion);
   supportedRandomPhenomena.append(LabRPS::rpsPhenomenonSeaSurface);
+  supportedRandomPhenomena.append(LabRPS::rpsPhenomenonUserDefined);
 
   QSettings settings;
 
@@ -30,6 +31,10 @@ RPSSimulation::RPSSimulation(QWidget *parent) : QWidget(parent)
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator = new RPSSeaLabSimulation(this);
+  }
+    else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator = new RPSUserDefinedPhenomenonSimulation(this);
   }
 
   IntallRegistryPlugins();
@@ -239,6 +244,10 @@ void RPSSimulation::runSimulation()
   {
     rpsSeaLabSimulator->runSimulation();
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->runSimulation();
+  }
 }
 void RPSSimulation::pauseSimulation()
 {
@@ -253,6 +262,10 @@ void RPSSimulation::pauseSimulation()
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->pauseSimulation();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->pauseSimulation();
   }
 }
 
@@ -270,6 +283,10 @@ void RPSSimulation::stopSimulation()
   {
     rpsSeaLabSimulator->stopSimulation();
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->stopSimulation();
+  }
 }
 
 void RPSSimulation::simulationOptions()
@@ -286,6 +303,10 @@ void RPSSimulation::simulationOptions()
   {
     rpsSeaLabSimulator->simulationOptions();
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->simulationOptions();
+  }
 }
 void RPSSimulation::simulate()
 {
@@ -301,6 +322,10 @@ void RPSSimulation::simulate()
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->runSimulation();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->runSimulation();
   }
 }
 
@@ -325,6 +350,10 @@ void RPSSimulation::compareAccuracy()
   {
     rpsSeaLabSimulator->compareAccuracy();
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->compareAccuracy();
+  }
 }
 
 void RPSSimulation::compareComputationTime()
@@ -341,6 +370,10 @@ void RPSSimulation::compareComputationTime()
   {
     rpsSeaLabSimulator->compareComputationTime();
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->compareComputationTime();
+  }
 }
 
 void RPSSimulation::compareMemoryUsage()
@@ -356,6 +389,10 @@ void RPSSimulation::compareMemoryUsage()
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     rpsSeaLabSimulator->compareMemoryUsage();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->compareMemoryUsage();
   }
 }
 
@@ -487,7 +524,6 @@ void RPSSimulation::freqCurrentIndexChanged(int index)
 }
 void RPSSimulation::timCurrentIndexChanged(int index)
 {
-
   if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
   {
     rpsWindLabSimulator->timCurrentIndexChanged(index);
@@ -499,6 +535,42 @@ void RPSSimulation::timCurrentIndexChanged(int index)
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     // rpsSeaLabSimulator->timCurrentIndexChanged(index);
+  }
+}
+
+void RPSSimulation::fillPhenomenonComboBox()
+{
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->fillPhenomenonComboBox(app->getComboxboxPhenstatusbarbtn());
+  }
+}
+
+void RPSSimulation::fillIndexSetComboBox()
+{
+  ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->fillIndexSetComboBox(app->getComboxboxIndexstatusbarbtn());
+  }
+}
+
+void RPSSimulation::phenomenonCurrentIndexChanged(int index)
+{
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->phenomenonCurrentIndexChanged(index);
+  }
+}
+
+void RPSSimulation::indexSetCurrentIndexChanged(int index)
+{
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    rpsUserDefinedPhenomenonSimulator->indexSetCurrentIndexChanged(index);
   }
 }
 

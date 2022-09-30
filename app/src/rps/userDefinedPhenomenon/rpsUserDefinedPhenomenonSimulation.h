@@ -98,6 +98,14 @@ public:
   void fillTimeComboBox(QComboBox *timeComboBox);
   void locJCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
+  void phenomenonCurrentIndexChanged(int index);
+  void indexSetCurrentIndexChanged(int index);
+  void fillPhenomenonComboBox(QComboBox *phenomenonComboBox);
+  void fillIndexSetComboBox(QComboBox *indexSetComboBox);
+
+  void compareAccuracy();
+  void compareComputationTime();
+  void compareMemoryUsage();
 };
 
 #endif // RPSUDERDEFINEDPHENOMENONSIMULATION_H

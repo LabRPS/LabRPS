@@ -3,6 +3,7 @@
 #include "RPSUserDefinedPhenomenonAPI.h"
 #include "rps/RPSpluginManager.h"
 #include "rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.h"
+#include "rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.h"
 #include "rps/rpsSimulation.h"
 #include "ApplicationWindow.h"
 #include "future/lib/XmlStreamReader.h"
@@ -23,7 +24,7 @@ RPSUserDefinedPhenomenonSimulation::RPSUserDefinedPhenomenonSimulation(QWidget *
     phenomenonIndex = 0;
     indexSetIndex = 0;
 
-	// initialized windLab simulation data
+	// initialize simulation data
 	simuDataInitialize();
 }
 
@@ -34,20 +35,26 @@ RPSUserDefinedPhenomenonSimulation::~RPSUserDefinedPhenomenonSimulation()
 
 void RPSUserDefinedPhenomenonSimulation::userDefinedPhenomenon()
 {
-//	std::unique_ptr<RPSWindVelocityDefinitionDlg> dlg(new RPSWindVelocityDefinitionDlg(this));
+	std::unique_ptr<RPSUserDefinedPhenomenonDefinitionDlg> dlg(new RPSUserDefinedPhenomenonDefinitionDlg(this));
 
-//	if (dlg->exec() == QDialog::Accepted)
-//	{
-//		GetUserDefinedPhenomenonSimulationData().numberOfSample = dlg->numberOfSample;
-//		GetUserDefinedPhenomenonSimulationData().stationarity = dlg->stationarity;
-//		GetUserDefinedPhenomenonSimulationData().gaussianity = dlg->gaussianity;
+	if (dlg->exec() == QDialog::Accepted)
+	{
+		GetUserDefinedPhenomenonSimulationData().numberOfSample = dlg->numberOfSample;
+		GetUserDefinedPhenomenonSimulationData().stationarity = dlg->stationarity;
+		GetUserDefinedPhenomenonSimulationData().gaussianity = dlg->gaussianity;
+        GetUserDefinedPhenomenonSimulationData().numberOfProcess = dlg->numberOfProcess;
+        GetUserDefinedPhenomenonSimulationData().indexSetSize = dlg->indexSetSize;
+        GetUserDefinedPhenomenonSimulationData().indexIncrement = dlg->indexIncrement;
+        GetUserDefinedPhenomenonSimulationData().minIndexSetValue = dlg->minIndexSetValue;
+        GetUserDefinedPhenomenonSimulationData().maxIndexSetValue = dlg->maxIndexSetValue;
+        GetUserDefinedPhenomenonSimulationData().userDefinedPhenomenon = dlg->userDefinedPhenomenon;
 
-//		// update the statusbar combobox content
+		// update the statusbar combobox content
 
-//		RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
-//		rpsSimulator->fillLocationJComboBox();
-//		rpsSimulator->fillTimeComboBox();
-//	}
+		RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+		rpsSimulator->fillLocationJComboBox();
+		rpsSimulator->fillTimeComboBox();
+	}
 }
 
 void RPSUserDefinedPhenomenonSimulation::userDefinedPhenomenonOutput()
@@ -81,6 +88,7 @@ RPSUserDefinedPhenomenonSimulationWorker *RPSUserDefinedPhenomenonSimulation::Ge
 
 void RPSUserDefinedPhenomenonSimulation::simuDataInitialize()
 {
+    simuData.numberOfProcess = 3;
 	simuData.numberOfSample = 1;
     simuData.simulationApproach = ("Spectral Representation Approach");
 	simuData.simulationMethod = ("Deodatis et al 1987");
@@ -92,6 +100,11 @@ void RPSUserDefinedPhenomenonSimulation::simuDataInitialize()
 	simuData.comparisonType = 1;
 	simuData.isInterruptionRequested = false;
 	simuData.isSimulationSuccessful = false;
+    simuData.indexSetSize = 1000;
+    simuData.indexIncrement = 0.001;
+    simuData.minIndexSetValue = 0;
+    simuData.maxIndexSetValue = 1000;
+
 }
 
 void RPSUserDefinedPhenomenonSimulation::runSimulation()
@@ -184,6 +197,87 @@ void RPSUserDefinedPhenomenonSimulation::simulationOptions()
 	}
 }
 
+void RPSUserDefinedPhenomenonSimulation::compareAccuracy()
+{
+	// std::unique_ptr<RPSWLAccuracyComparisonDialog> dlg(new RPSWLAccuracyComparisonDialog(this));
+	// if (dlg->exec() == QDialog::Accepted)
+	// {
+	// 	comparisonCategory = dlg->comparisonCategory;
+	// 	comparisonFunction = dlg->comparisonFunction;
+	// 	comparisonCandidate = dlg->comparisonCandidate;
+	// 	// resultOutputType = dlg->resultOutputType;
+	// 	GetWindLabData().comparisonType = 1;
+	// }
+}
+void RPSUserDefinedPhenomenonSimulation::compareComputationTime()
+{
+	// mcompareComputationTime = true;
+	// std::unique_ptr<RPSWLComparisonDialog> dlg(new RPSWLComparisonDialog(this));
+	// if (dlg->exec() == QDialog::Accepted)
+	// {
+	// 	mcompareComputationTime = dlg->compareComputationTime;
+	// 	mcompareMemoryUsage = dlg->compareMemoryUsage;
+	// 	comparisonCategory = dlg->comparisonCategory;
+	// 	comparisonFunction = dlg->comparisonFunction;
+	// 	comparisonCandidate = dlg->comparisonCandidate;
+	// 	minNumberOfLocation = dlg->minNumberOfLocation;
+	// 	minNumberOfFrequency = dlg->minNumberOfFrequency;
+	// 	minNumberOfTime = dlg->minNumberOfTime;
+	// 	numberOfLocationIncrement = dlg->numberOfLocationIncrement;
+	// 	numberOfFrequencyIncrement = dlg->numberOfFrequencyIncrement;
+	// 	numberOfTimeIncrement = dlg->numberOfTimeIncrement;
+	// 	totalNumber = dlg->totalNumber;
+	// 	resultOutputType = dlg->resultOutputType;
+		
+	// 	GetWindLabData().comparisonType = 2;
+
+	// 	coherence = dlg->coherence;
+	// 	correlation = dlg->correlation;
+	// 	frequency = dlg->frequency;
+	// 	mean = dlg->mean;
+	// 	modulation = dlg->modulation;
+	// 	decomposition = dlg->decomposition;
+	// 	simulation = dlg->simulation;
+	// 	spatial = dlg->spatial;
+	// 	randomness = dlg->randomness;
+	// 	spectrum = dlg->spectrum;
+	// }
+}
+void RPSUserDefinedPhenomenonSimulation::compareMemoryUsage()
+{
+	// mcompareMemoryUsage = true;
+	// std::unique_ptr<RPSWLComparisonDialog> dlg(new RPSWLComparisonDialog(this));
+	// if (dlg->exec() == QDialog::Accepted)
+	// {
+	// 	mcompareComputationTime = dlg->compareComputationTime;
+	// 	mcompareMemoryUsage = dlg->compareMemoryUsage;
+	// 	comparisonCategory = dlg->comparisonCategory;
+	// 	comparisonFunction = dlg->comparisonFunction;
+	// 	comparisonCandidate = dlg->comparisonCandidate;
+	// 	minNumberOfLocation = dlg->minNumberOfLocation;
+	// 	minNumberOfFrequency = dlg->minNumberOfFrequency;
+	// 	minNumberOfTime = dlg->minNumberOfTime;
+	// 	numberOfLocationIncrement = dlg->numberOfLocationIncrement;
+	// 	numberOfFrequencyIncrement = dlg->numberOfFrequencyIncrement;
+	// 	numberOfTimeIncrement = dlg->numberOfTimeIncrement;
+	// 	totalNumber = dlg->totalNumber;
+	// 	resultOutputType = dlg->resultOutputType;
+		
+	// 	GetWindLabData().comparisonType = 3;
+
+	// 	coherence = dlg->coherence;
+	// 	correlation = dlg->correlation;
+	// 	frequency = dlg->frequency;
+	// 	mean = dlg->mean;
+	// 	modulation = dlg->modulation;
+	// 	decomposition = dlg->decomposition;
+	// 	simulation = dlg->simulation;
+	// 	spatial = dlg->spatial;
+	// 	randomness = dlg->randomness;
+	// 	spectrum = dlg->spectrum;
+	// }
+}
+
 QStringList RPSUserDefinedPhenomenonSimulation::FindAllSimulationMethods()
 {
 	QStringList theList;
@@ -252,6 +346,62 @@ void RPSUserDefinedPhenomenonSimulation::progressBarResetSL()
 	// QMessageBox::warning(0, "1", "in reset");
 	emit progressBarReset();
 }
+
+void RPSUserDefinedPhenomenonSimulation::phenomenonCurrentIndexChanged(int index)
+{
+	phenomenonIndex = index;
+
+    if (0 == index || GetUserDefinedPhenomenonSimulationData().numberOfProcess + 1 == index)
+	{
+		GetUserDefinedPhenomenonSimulationData().phenomenonIndex = 0;
+	}
+	else if (index > 0 &&
+             index <= GetUserDefinedPhenomenonSimulationData().numberOfProcess)
+	{
+		GetUserDefinedPhenomenonSimulationData().phenomenonIndex = index - 1;
+	}
+}
+
+void RPSUserDefinedPhenomenonSimulation::indexSetCurrentIndexChanged(int index)
+{
+	indexSetIndex = index;
+
+	if (0 == index || GetUserDefinedPhenomenonSimulationData().indexSetSize + 1 == index)
+	{
+		GetUserDefinedPhenomenonSimulationData().indexSetIndex = 0;
+	}
+	else if (index > 0 &&
+			 index <= GetUserDefinedPhenomenonSimulationData().indexSetSize)
+	{
+		GetUserDefinedPhenomenonSimulationData().indexSetIndex = index - 1;
+	}
+}
+
+void RPSUserDefinedPhenomenonSimulation::fillIndexSetComboBox(QComboBox *indexSetComboBox)
+{
+	indexSetComboBox->clear();
+
+	indexSetComboBox->addItem("None");
+	for (int i = 0; i < GetUserDefinedPhenomenonSimulationData().indexSetSize; i++)
+	{
+		indexSetComboBox->addItem(QString::number(i + 1));
+	}
+	indexSetComboBox->addItem("All");
+}
+
+void RPSUserDefinedPhenomenonSimulation::fillPhenomenonComboBox(QComboBox *phenomenonComboBox)
+{
+	phenomenonComboBox->clear();
+
+	phenomenonComboBox->addItem("None");
+    for (int i = 0; i < GetUserDefinedPhenomenonSimulationData().numberOfProcess; i++)
+	{
+		phenomenonComboBox->addItem(QString::number(i + 1));
+	}
+	phenomenonComboBox->addItem("All");
+}
+
+
 void RPSUserDefinedPhenomenonSimulation::fillLocationJComboBox(QComboBox *locationJComboBox)
 {
 //	locationJComboBox->clear();

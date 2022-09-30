@@ -57,6 +57,7 @@ const char* LabRPS::download_Uri =
   QString LabRPS::rpsPhenomenonWindVelocity = "Wind Velocity";
   QString LabRPS::rpsPhenomenonSeaSurface = "Sea Surface";
   QString LabRPS::rpsPhenomenonSeismicGroundMotion = "Seismic Ground Motion";
+  QString LabRPS::rpsPhenomenonUserDefined = "User Defined Phenomenon";
 
   // object groups
   QString LabRPS::objGroupLocationDistribution = "Location Distributions";

@@ -5,6 +5,7 @@
 #include "rps/seaLab/rpsSeaLabSimulation.h"
 #include "rps/seismicLab/rpsSeismicLabSimulation.h"
 #include "rps/windLab/rpsWindLabSimulation.h"
+#include "rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulation.h"
 
 class MyWidget;
 
@@ -25,6 +26,7 @@ public:
   RPSSeaLabSimulation *rpsSeaLabSimulator;
   RPSSeismicLabSimulation *rpsSeismicLabSimulator;
   RPSWindLabSimulation *rpsWindLabSimulator;
+  RPSUserDefinedPhenomenonSimulation *rpsUserDefinedPhenomenonSimulator;
 
 public:
   QString getSelectedRandomPhenomenon();
@@ -60,6 +62,10 @@ public:
   void freqCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
   void wavCurrentIndexChanged(int index);
+  void phenomenonCurrentIndexChanged(int index);
+  void indexSetCurrentIndexChanged(int index);
+  void fillPhenomenonComboBox();
+  void fillIndexSetComboBox();
 
   signals:
   void pluginModified(MyWidget *widget);

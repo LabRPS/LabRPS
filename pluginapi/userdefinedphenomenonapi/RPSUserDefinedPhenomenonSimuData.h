@@ -22,16 +22,16 @@ class RPS_CORE_API CRPSUserDefinedPhenomenonSimuData
 	int numberOfSample;
 
 	// Nunber of index increments
-	int indexSet;
+	int indexSetSize;
 
 	// index increment
 	double indexIncrement;
 
 	// Minimum index value, 0 by default
-	double minIndexSet;
+	double minIndexSetValue;
 
 	// Maximum index value
-	double maxIndexSet;
+	double maxIndexSetValue;
 
 	// Stationarity
 	bool stationarity;
@@ -58,7 +58,7 @@ class RPS_CORE_API CRPSUserDefinedPhenomenonSimuData
 	QString workingDirPath;
 
 	// The name of the phenonmenon
-	QString phenomenon;
+	QString userDefinedPhenomenon;
 
     int phenomenonIndex;
 
@@ -67,7 +67,10 @@ class RPS_CORE_API CRPSUserDefinedPhenomenonSimuData
 	bool isInterruptionRequested;
 
     QString comparisonCategory;
+
     int comparisonType;
+
+
 
 
 };

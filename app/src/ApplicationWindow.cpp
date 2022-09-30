@@ -244,6 +244,7 @@ ApplicationWindow::ApplicationWindow()
   comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("windvelocity", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(0));
   comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("seismicgroundmotion", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(1));
   comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("seawave", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(2));
+  comboxbox_simu_toolbarbtn_->addItem(IconLoader::load("windvelocity", IconLoader::General), rpsSimulator->supportedRandomPhenomena.at(3));
 
   comboxbox_simu_toolbarbtn_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
@@ -329,6 +330,14 @@ ApplicationWindow::ApplicationWindow()
     actionCoherenceSeaOutput = new QAction(tr("&Coherence"), this);
     actionCorrelationSeaOutput = new QAction(tr("Co&rrelation"), this);
     actionModulationSeaOutput = new QAction(tr("&Modulation"), this);
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
+  {
+    // userDefinedPhenomenon input
+    actionUserDefinedPhenomenon = new QAction(tr("&User Defined Phenomenon..."), this);
+ 
+    // userDefinedPhenomenon output
+    actionUserDefinedPhenomenonOutput = new QAction(tr("&User Defined Phenomenon"), this);
   }
 
   QSettings settings;
@@ -1079,8 +1088,16 @@ ApplicationWindow::ApplicationWindow()
 
   //progress bar on status bar
   progressBar = new QProgressBar(statusBar());
- 
-  // comboboxes on status bar
+  progressBar->setAlignment(Qt::AlignRight);
+  progressBar->setMinimumSize(400, 15);
+  statusBar()->addPermanentWidget(progressBar);
+  progressBar->setMinimum(0);
+  progressBar->setMaximum(0); 
+  progressBar->hide();
+
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
+  {
+    // comboboxes on status bar
   comboxbox_LocJ_statusbarbtn_ = new QComboBox(statusBar()) ;
   comboxbox_LocK_statusbarbtn_ = new QComboBox(statusBar()) ;
   comboxbox_Freq_statusbarbtn_ = new QComboBox(statusBar()) ;
@@ -1092,22 +1109,20 @@ ApplicationWindow::ApplicationWindow()
   label_LocK_statusbarbtn_ = new QLabel(tr("Location K: "), statusBar());
   label_Freq_statusbarbtn_ = new QLabel(tr("Frequency: "), statusBar());
   label_Tim_statusbarbtn_ = new QLabel(tr("Time: "), statusBar());
-  // label_Wav_statusbarbtn_ = new QLabel(tr("Wave: "), statusBar());
 
-  progressBar->setAlignment(Qt::AlignRight);
-
-  // comboxbox_LocJ_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // comboxbox_LocK_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // comboxbox_Freq_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // comboxbox_Tim_statusbarbtn_->setAlignment(Qt::AlignRight);
+// output
+  connect(comboxbox_LocJ_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(locJCurrentIndexChanged(int)));
   
-  // label_LocJ_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // label_LocK_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // label_Freq_statusbarbtn_->setAlignment(Qt::AlignRight);
-  // label_Tim_statusbarbtn_->setAlignment(Qt::AlignRight);
+  connect(comboxbox_LocK_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(locKCurrentIndexChanged(int)));
 
-  progressBar->setMinimumSize(400, 15);
-  statusBar()->addPermanentWidget(progressBar);
+  connect(comboxbox_Freq_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(freqCurrentIndexChanged(int)));
+
+  connect(comboxbox_Tim_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(timCurrentIndexChanged(int)));
+
   statusBar()->addPermanentWidget(label_LocJ_statusbarbtn_, 0);
   statusBar()->addPermanentWidget(comboxbox_LocJ_statusbarbtn_, 1);
   statusBar()->addPermanentWidget(label_LocK_statusbarbtn_, 0);
@@ -1116,21 +1131,46 @@ ApplicationWindow::ApplicationWindow()
   statusBar()->addPermanentWidget(comboxbox_Freq_statusbarbtn_, 1);
   statusBar()->addPermanentWidget(label_Tim_statusbarbtn_, 0);
   statusBar()->addPermanentWidget(comboxbox_Tim_statusbarbtn_, 1);
-  // statusBar()->addPermanentWidget(label_Wav_statusbarbtn_, 0);
-  // statusBar()->addPermanentWidget(comboxbox_Wav_statusbarbtn_, 1);
 
-  progressBar->setMinimum(0);
-  progressBar->setMaximum(0); 
-  progressBar->hide();
-  
   rpsSimulator->fillLocationJComboBox();
   rpsSimulator->fillLocationKComboBox();
   rpsSimulator->fillFrequencyComboBox();
   rpsSimulator->fillTimeComboBox();
-  // rpsSimulator->fillWaveNumberComboBox();
 
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
+  {
+       
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeaSurface)
+  {
+      
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
+  {
+   comboxbox_Phenomenon_statusbarbtn_ = new QComboBox(statusBar()) ;
+   comboxbox_IndexSet_statusbarbtn_ = new QComboBox(statusBar()) ;
+ 
+   label_PhenomenonIndex_statusbarbtn_ = new QLabel(tr("Phenomenon: "), statusBar());
+   label_IndexSetIndex_statusbarbtn_ = new QLabel(tr("Index Set: "), statusBar());
 
-  // label_LocJ_statusbarbtn_->setMinimumWidth(120);
+   connect(comboxbox_Phenomenon_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(phenomenonCurrentIndexChanged(int)));
+  
+   connect(comboxbox_IndexSet_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+          rpsSimulator, SLOT(indexSetCurrentIndexChanged(int)));
+
+  statusBar()->addPermanentWidget(label_PhenomenonIndex_statusbarbtn_, 0);
+  statusBar()->addPermanentWidget(comboxbox_Phenomenon_statusbarbtn_, 1);
+
+  statusBar()->addPermanentWidget(label_IndexSetIndex_statusbarbtn_, 0);
+  statusBar()->addPermanentWidget(comboxbox_IndexSet_statusbarbtn_, 1);
+
+  rpsSimulator->fillPhenomenonComboBox();
+  rpsSimulator->fillIndexSetComboBox();
+
+  }
+ 
 
   // Create central MdiArea
   d_workspace->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1267,6 +1307,16 @@ ApplicationWindow::ApplicationWindow()
     connect(actionModulationSeaOutput, &QAction::triggered, rpsSimulator->rpsSeaLabSimulator,
             &RPSSeaLabSimulation::modulationSeaOutput);
   }
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
+  {
+    // userDefinedPhemenon input
+    connect(actionUserDefinedPhenomenon, &QAction::triggered, rpsSimulator->rpsUserDefinedPhenomenonSimulator,
+            &RPSUserDefinedPhenomenonSimulation::userDefinedPhenomenon);
+
+    // userDefinedPhemenon output
+    connect(actionUserDefinedPhenomenonOutput, &QAction::triggered, rpsSimulator->rpsUserDefinedPhenomenonSimulator,
+            &RPSUserDefinedPhenomenonSimulation::userDefinedPhenomenonOutput);
+  }
 
   // Simulation
   connect(ui_->actionRunSimulation, SIGNAL(triggered()), rpsSimulator, SLOT(runSimulation()));
@@ -1278,22 +1328,6 @@ ApplicationWindow::ApplicationWindow()
   connect(ui_->actionCompareComputationTime, SIGNAL(triggered()), rpsSimulator, SLOT(compareComputationTime()));
   connect(ui_->actionCompareMemoryUsage, SIGNAL(triggered()), rpsSimulator, SLOT(compareMemoryUsage()));
   connect(rpsSimulator, &RPSSimulation::pluginModified, pluginpropertyeditor, &PluginPropertyEditor::populateObjectBrowser);
-
-  // output
-  connect(comboxbox_LocJ_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(locJCurrentIndexChanged(int)));
-  
-  connect(comboxbox_LocK_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(locKCurrentIndexChanged(int)));
-
-  connect(comboxbox_Freq_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(freqCurrentIndexChanged(int)));
-
-  connect(comboxbox_Tim_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(timCurrentIndexChanged(int)));
-
-  //  connect(comboxbox_Wav_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-  //         rpsSimulator, SLOT(wavCurrentIndexChanged(int)));
 
 }
 
@@ -1479,7 +1513,7 @@ void ApplicationWindow::makeToolBars()
   simulationToolbar->addSeparator();
   simulationToolbar->addAction(ui_->actionPlugins);
 
-    if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
      // input toolbar
     inputToolbar->addAction(actionWindVelocity);
@@ -1586,6 +1620,29 @@ void ApplicationWindow::makeToolBars()
     btn_output_->setMenu(menu_output);
     simulationToolbar->addSeparator();
     simulationToolbar->addWidget(btn_output_);    
+  }
+  if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
+  {
+    // input toolbar
+    inputToolbar->addAction(actionUserDefinedPhenomenon);
+
+    // output toolbar
+    outputToolbar->addAction(actionUserDefinedPhenomenonOutput);
+
+    QMenu *menu_input = new QMenu(this);
+    menu_input->addAction(actionUserDefinedPhenomenon);
+
+    btn_input_->setMenu(menu_input);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_input_);
+
+    QMenu *menu_output = new QMenu(this);
+    menu_output->addAction(actionUserDefinedPhenomenonOutput);
+
+    btn_output_->setMenu(menu_output);
+    simulationToolbar->addSeparator();
+    simulationToolbar->addWidget(btn_output_);
+
   }
 
   // Matrix tools toolbar
@@ -1783,6 +1840,18 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
     ui_->menuOutput->addAction(actionCoherenceSeaOutput);
     ui_->menuOutput->addAction(actionCorrelationSeaOutput);
     ui_->menuOutput->addAction(actionModulationSeaOutput);
+
+    menuBar()->addMenu(ui_->menuOutput);
+  }
+  else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
+  {
+    ui_->menuInput->addAction(actionUserDefinedPhenomenon);
+
+    menuBar()->addMenu(ui_->menuInput);
+
+    menuBar()->addMenu(ui_->menuSimulation);
+
+    ui_->menuOutput->addAction(actionUserDefinedPhenomenonOutput);
 
     menuBar()->addMenu(ui_->menuOutput);
   }
@@ -11983,6 +12052,14 @@ QString ApplicationWindow::qStringListToString(QStringList qStringList)
   QComboBox* ApplicationWindow::getComboxboxTimstatusbarbtn()
   {
     return comboxbox_Tim_statusbarbtn_;
+  }
+    QComboBox* ApplicationWindow::getComboxboxPhenstatusbarbtn()
+  {
+    return comboxbox_Phenomenon_statusbarbtn_;
+  }
+  QComboBox* ApplicationWindow::getComboxboxIndexstatusbarbtn()
+  {
+    return comboxbox_IndexSet_statusbarbtn_;
   }
 
   //   QComboBox* ApplicationWindow::getComboxboxWavstatusbarbtn()

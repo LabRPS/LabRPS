@@ -1144,6 +1144,9 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionCorrelationSeismic;
   QAction* actionModulationSeismic;
 
+  //userDefinedPhenomenon input
+  QAction* actionUserDefinedPhenomenon;
+
    //seaLab output
   QAction* actionSeaSurfaceOutput;
   QAction* actionFrequencyDistributionSeaOutput;
@@ -1153,7 +1156,7 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionCorrelationSeaOutput;
   QAction* actionModulationSeaOutput;
 
-     //windLab output
+  //windLab output
   QAction* actionWindVelocityOutput;
   QAction* actionFrequencyDistributionWindOutput;
   QAction* actionLocationDistributionWindOutput;
@@ -1165,7 +1168,7 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionMeanWindVelocityOutput;
   QAction* actionRandomPhaseWindOutput;
 
-     //seismicLab output
+  //seismicLab output
   QAction* actionGroundMotionOutput;
   QAction* actionFrequencyDistributionSeismicOutput;
   QAction* actionLocationDistributionSeismicOutput;
@@ -1173,6 +1176,9 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionCoherenceSeismicOutput;
   QAction* actionCorrelationSeismicOutput;
   QAction* actionModulationSeismicOutput;
+
+  //userDefinedPhenomenon output
+  QAction* actionUserDefinedPhenomenonOutput;
 
 
   // Manages connection between 2dplot actions (not used by all 2dplot actions).
@@ -1191,6 +1197,7 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionShowResultsLog;
   QAction* actionShowConsole;
   
+  //windLab
   QComboBox* comboxbox_simu_toolbarbtn_;
   QComboBox* comboxbox_LocJ_statusbarbtn_;
   QComboBox* comboxbox_LocK_statusbarbtn_;
@@ -1204,6 +1211,13 @@ class ApplicationWindow : public QMainWindow,
   QLabel* label_Freq_statusbarbtn_;
   QLabel* label_Tim_statusbarbtn_;
   // QLabel* label_Wav_statusbarbtn_;
+
+  //windLab
+  QComboBox* comboxbox_Phenomenon_statusbarbtn_;
+  QComboBox* comboxbox_IndexSet_statusbarbtn_;
+
+  QLabel* label_PhenomenonIndex_statusbarbtn_;
+  QLabel* label_IndexSetIndex_statusbarbtn_;
 
 
   QToolButton* btn_new_aspect_;
@@ -1256,6 +1270,8 @@ public:
   QComboBox* getComboxboxLocKstatusbarbtn();
   QComboBox* getComboxboxFreqstatusbarbtn();
   QComboBox* getComboxboxTimstatusbarbtn();
+  QComboBox* getComboxboxPhenstatusbarbtn();
+  QComboBox* getComboxboxIndexstatusbarbtn();
   // QComboBox* getComboxboxWavstatusbarbtn();
 
 

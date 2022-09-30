@@ -64,6 +64,7 @@ class LabRPS : public QObject {
   static QString rpsPhenomenonWindVelocity;
   static QString rpsPhenomenonSeaSurface;
   static QString rpsPhenomenonSeismicGroundMotion;
+  static QString rpsPhenomenonUserDefined;
 
   // object groups
   static QString objGroupLocationDistribution;
