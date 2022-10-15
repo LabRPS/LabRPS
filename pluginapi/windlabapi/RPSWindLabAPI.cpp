@@ -54,32 +54,32 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 	
-	void CrpsCoherenceFactory::InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+    void CrpsCoherenceFactory::InitializeCoherence(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
-		mTobeInstalledObjectsMap[name] = description;
+        mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
 
 	}
 
 	void CrpsCoherenceFactory::RegisterCoherence(const QString &name, const QString &pluginName, const QString &description, CreateCoherenceCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
 		mCoherences[name] = cb;
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
-		SetOwnerPlugin(pluginName);
+		
 	}
 
 	void CrpsCoherenceFactory::UnregisterCoherence(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mCoherences.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -184,20 +184,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsLocationDistributionFactory::InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsLocationDistributionFactory::InitializeLocationDistribution(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsLocationDistributionFactory::RegisterLocationDistribution(const QString &name, const QString &pluginName, const QString &description, CreateLocDistrCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -206,14 +207,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsLocationDistributionFactory::UnregisterLocationDistribution(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mLocationDistributions.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -311,19 +312,20 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsMeanFactory::InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsMeanFactory::InitializeMean(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 	}
 
 	void CrpsMeanFactory::RegisterMean(const QString &name, const QString &pluginName, const QString &description, CreateMeanCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -332,13 +334,13 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 	}
 
 	void CrpsMeanFactory::UnregisterMean(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mMeans.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -439,20 +441,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsXSpectrumFactory::InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsXSpectrumFactory::InitializeXSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsXSpectrumFactory::RegisterXSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateXSpectrumCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -461,14 +464,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsXSpectrumFactory::UnregisterXSpectrum(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mXSpectrums.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -568,20 +571,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsZSpectrumFactory::InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsZSpectrumFactory::InitializeZSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsZSpectrumFactory::RegisterZSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateZSpectrumCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -590,14 +594,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsZSpectrumFactory::UnregisterZSpectrum(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mZSpectrums.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -697,20 +701,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsYSpectrumFactory::InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsYSpectrumFactory::InitializeYSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsYSpectrumFactory::RegisterYSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateYSpectrumCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -719,14 +724,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsYSpectrumFactory::UnregisterYSpectrum(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mYSpectrums.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -829,20 +834,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsSimuMethodFactory::InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsSimuMethodFactory::InitializeSimuMethod(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsSimuMethodFactory::RegisterSimuMethod(const QString &name, const QString &pluginName, const QString &description, CreateSimuMethodCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -851,14 +857,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsSimuMethodFactory::UnregisterSimuMethod(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mSimuMethods.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -959,20 +965,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsFrequencyDistributionFactory::RegisterFrequencyDistribution(const QString &name, const QString &pluginName, const QString &description, CreateFrequencyDistributionCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -981,14 +988,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsFrequencyDistributionFactory::UnregisterFrequencyDistribution(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mFrequencyDistributions.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1087,20 +1094,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsRandomnessFactory::InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsRandomnessFactory::InitializeRandomness(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsRandomnessFactory::RegisterRandomness(const QString &name, const QString &pluginName, const QString &description, CreateRandomnessCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -1109,14 +1117,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsRandomnessFactory::UnregisterRandomness(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mRandomness.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1216,20 +1224,20 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
 
 	}
 
 	void CrpsPSDdecomMethodFactory::RegisterPSDdecomMethod(const QString &name, const QString &pluginName, const QString &description, CreatePSDdecomMethodCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -1238,14 +1246,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsPSDdecomMethodFactory::UnregisterPSDdecomMethod(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mPSDdecomMethods.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1344,20 +1352,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsCorrelationFactory::InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsCorrelationFactory::InitializeCorrelation(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsCorrelationFactory::RegisterCorrelation(const QString &name, const QString &pluginName, const QString &description, CreateCorrelationCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -1366,14 +1375,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsCorrelationFactory::UnregisterCorrelation(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mCorrelations.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1471,20 +1480,21 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 
-	void CrpsModulationFactory::InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsModulationFactory::InitializeModulation(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsModulationFactory::RegisterModulation(const QString &name, const QString &pluginName, const QString &description, CreateModulationCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
@@ -1493,14 +1503,14 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
 
-		SetOwnerPlugin(pluginName);
+		
 		//SetDescription(description);
 
 	}
 
 	void CrpsModulationFactory::UnregisterModulation(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mModulations.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1600,32 +1610,33 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 	
-	void CrpsTableToolFactory::InitializeTableTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsTableToolFactory::InitializeTableTool(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsTableToolFactory::RegisterTableTool(const QString &name, const QString &pluginName, const QString &description, CreateTableToolCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
 		mTableTools[name] = cb;
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
-		SetOwnerPlugin(pluginName);
+		
 	}
 
 	void CrpsTableToolFactory::UnregisterTableTool(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mTableTools.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1731,32 +1742,33 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 	
-	void CrpsMatrixToolFactory::InitializeMatrixTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsMatrixToolFactory::InitializeMatrixTool(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsMatrixToolFactory::RegisterMatrixTool(const QString &name, const QString &pluginName, const QString &description, CreateMatrixToolCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
 		mMatrixTools[name] = cb;
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
-		SetOwnerPlugin(pluginName);
+		
 	}
 
 	void CrpsMatrixToolFactory::UnregisterMatrixTool(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mMatrixTools.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1862,32 +1874,33 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 		mOwnerPlugin = ownerPlugin;
 	}
 	
-	void CrpsUserDefinedRPSObjectFactory::InitializeUserDefinedRPSObject(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsUserDefinedRPSObjectFactory::InitializeUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
 		mDateMap[name] = publicationDate;
-		mVersionMap[name] = version;
+		mVersionMap[name] = version; 
+
 
 	}
 
 	void CrpsUserDefinedRPSObjectFactory::RegisterUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedRPSObjectCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+		if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
 		mUserDefinedRPSObjects[name] = cb;
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
-		SetOwnerPlugin(pluginName);
+		
 	}
 
 	void CrpsUserDefinedRPSObjectFactory::UnregisterUserDefinedRPSObject(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
 		{
 			mUserDefinedRPSObjects.erase(name);
 			mOjectDescriptionMap.erase(name);
@@ -1959,7 +1972,6 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 	{
 		return mVersionMap;
 	}
-
 
     std::map<const QString, QString> &  CrpsUserDefinedRPSObjectFactory::GetOjectsSkipDuringUnintallationMap()
     {

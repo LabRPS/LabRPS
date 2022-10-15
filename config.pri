@@ -78,12 +78,12 @@ contains(PRESET, linux_all_dynamic) {
   INCLUDEPATH   = "$(HOME)/usr/include" $$INCLUDEPATH
   QMAKE_LIBDIR  = "$(HOME)/usr/lib" $$QMAKE_LIBDIR
 
-  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
+  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
 }
 
 contains(PRESET, linux_static) {
   ### Link statically and dynamically against rest.
-  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
+  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
 }
 
 contains(PRESET, linux_all_static) {
@@ -91,7 +91,7 @@ contains(PRESET, linux_all_static) {
   message(Build configuration: Linux all static)
 
   LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
-  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a /usr/lib/libuserdefinedphenomenonapi.a
+  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a /usr/lib/libuserdefinedphenomenonapi.a /usr/lib/librpsTools.a
 }
 
 contains(PRESET, osx_dist) {
@@ -100,7 +100,7 @@ contains(PRESET, osx_dist) {
 
   INCLUDEPATH  += /usr/local/include
   QMAKE_LIBDIR += /usr/local/lib
-  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi
+  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
 }
 
 win32: {
@@ -110,6 +110,7 @@ win32: {
 
     isEmpty(LIBPATH): LIBPATH = ../3rdparty
     isEmpty(APILIBPATH): APILIBPATH = ../pluginapi
+    isEmpty(TOOLSPATH): TOOLSPATH = ../libraries
 
     INCLUDEPATH  += "$${LIBPATH}/gsl/include"
     INCLUDEPATH  += "$${APILIBPATH}/sealabapi"
@@ -118,6 +119,7 @@ win32: {
     INCLUDEPATH  += "$${APILIBPATH}/userdefinedphenomenonapi"
 
     INCLUDEPATH  += "$${LIBPATH}/Eigen/Core"
+    INCLUDEPATH  += "$${TOOLSPATH}/rpsTools"
 
 
     LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
@@ -126,6 +128,7 @@ win32: {
     LIBS         += "$${APILIBPATH}/seismiclabapi/release/libseismiclabapi.a"
     LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
     LIBS         += "$${APILIBPATH}/userdefinedphenomenonapi/release/libuserdefinedphenomenonapi.a"
+    LIBS         += "$${TOOLSPATH}/rpsTools/release/librpsTools.a"
 
   }
 }
@@ -137,7 +140,7 @@ mxe {
   QMAKE_CXXFLAGS +=-g
   DEFINES        += CONSOLE
   
-  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi libuserdefinedphenomenonapi
+  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi libuserdefinedphenomenonapi librpsTools
 
   # Qt libs specified here to get around a dependency bug in qmake
   LIBS += -lQt5OpenGL -lQt5Gui -lQt5Widgets -lQt5Network -lQt5Core -lQt5Svg

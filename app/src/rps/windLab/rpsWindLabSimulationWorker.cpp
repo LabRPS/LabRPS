@@ -96,13 +96,13 @@ void RPSWindLabSimulationWorker::windVelocityOutp()
         return;
 	}
 	
-    m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
-
+    //m_ResultMatrix.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+    m_ResultMatrix = Eigen::MatrixXd::Zero(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
         QTime t;
         t.start();
 
 	// simulation
-    currentSimuMethod->Simulate(m_windLabData, m_ResultMatrix, minStep, maxStep, currentStep, m_information);
+    currentSimuMethod->Simulate(m_windLabData, m_ResultMatrix, m_information);
 	
     m_information.append(tr("The simulation took %1 ms").arg(QString::number(t.elapsed())));
 

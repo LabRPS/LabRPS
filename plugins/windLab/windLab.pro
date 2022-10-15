@@ -19,14 +19,14 @@ DEFINES += WINDLAB_LIBRARY
 contains(PRESET, linux_all_dynamic) {
 
   LIBS         +=  -libwindlabapi
-  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -librpsTools
 
 }
 
 contains(PRESET, linux_static) {
   ### Link statically and dynamically against rest.
   LIBS         +=  -libwindlabapi
-  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -librpsTools
 
 }
 
@@ -35,7 +35,7 @@ contains(PRESET, linux_all_static) {
   message(Build configuration: Linux all static)
 
   LIBS         += /usr/lib/libwindlabapi.a
-  LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
+  LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a /usr/lib/librpsTools.a
 
 }
 
@@ -44,7 +44,7 @@ contains(PRESET, osx_dist) {
   message(Build configuration: OSX Distro)
 
   LIBS         += -libwindlabapi
-  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi
+  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -librpsTools
  
 }
 
@@ -55,13 +55,18 @@ win32: {
     
     isEmpty(LIBPATH): LIBPATH = E:/LabRPS/3rdparty
     isEmpty(APILIBPATH): APILIBPATH =E:/LabRPS/pluginapi
+    isEmpty(LIBRARIESPATH): LIBRARIESPATH = E:/LabRPS/libraries
 
     INCLUDEPATH  += "$${APILIBPATH}/windlabapi"
     INCLUDEPATH  += "$${LIBPATH}/gsl/include"
+    INCLUDEPATH  += "$${LIBRARIESPATH}/rpsTools/rpsTools/src/windVelocity/spectrum"
+    INCLUDEPATH  += "$${LIBRARIESPATH}/rpsTools"
 
-    LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
+    LIBS         += "$${APILIBPATH}/windlabapi/debug/libwindlabapi.a"
     LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
     LIBS         += "$${LIBPATH}/gsl/lib/libgslcblas.a"
+    LIBS         += "$${LIBRARIESPATH}/rpsTools/debug/librpsTools.a"
+
    }
 }
 

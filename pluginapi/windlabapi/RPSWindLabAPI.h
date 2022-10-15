@@ -42,7 +42,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLCoherence *(*CreateCoherenceCallback)();
 
-		static void InitializeCoherence(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeCoherence(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterCoherence(const QString &name, const QString &pluginName, const QString &description, CreateCoherenceCallback cb);
 
@@ -94,7 +94,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
 
-		static void InitializeLocationDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeLocationDistribution(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterLocationDistribution(const QString &name, const QString &pluginName, const QString &description, CreateLocDistrCallback cb);
 
@@ -145,7 +145,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLMean *(*CreateMeanCallback)();
 
-		static void InitializeMean(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeMean(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterMean(const QString &name, const QString &pluginName, const QString &description, CreateMeanCallback cb);
 
@@ -193,7 +193,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLXSpectrum *(*CreateXSpectrumCallback)();
 
-		static void InitializeXSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeXSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterXSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateXSpectrumCallback cb);
 
@@ -241,7 +241,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLZSpectrum *(*CreateZSpectrumCallback)();
 
-		static void InitializeZSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeZSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterZSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateZSpectrumCallback cb);
 
@@ -289,7 +289,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLYSpectrum *(*CreateYSpectrumCallback)();
 
-		static void InitializeYSpectrum(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeYSpectrum(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterYSpectrum(const QString &name, const QString &pluginName, const QString &description, CreateYSpectrumCallback cb);
 
@@ -339,7 +339,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLSimuMethod *(*CreateSimuMethodCallback)();
 
-		static void InitializeSimuMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeSimuMethod(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterSimuMethod(const QString &name, const QString &pluginName, const QString &description, CreateSimuMethodCallback cb);
 
@@ -387,7 +387,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLFrequencyDistribution *(*CreateFrequencyDistributionCallback)();
 
-		static void InitializeFrequencyDistribution(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeFrequencyDistribution(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterFrequencyDistribution(const QString &name, const QString &pluginName, const QString &description, CreateFrequencyDistributionCallback cb);
 
@@ -435,7 +435,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLRandomness *(*CreateRandomnessCallback)();
 
-		static void InitializeRandomness(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeRandomness(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterRandomness(const QString &name, const QString &pluginName, const QString &description, CreateRandomnessCallback cb);
 
@@ -483,7 +483,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLPSDdecompositionMethod *(*CreatePSDdecomMethodCallback)();
 
-		static void InitializePSDdecomMethod(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializePSDdecomMethod(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterPSDdecomMethod(const QString &name, const QString &pluginName, const QString &description, CreatePSDdecomMethodCallback cb);
 
@@ -530,7 +530,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLCorrelation *(*CreateCorrelationCallback)();
 
-		static void InitializeCorrelation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeCorrelation(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterCorrelation(const QString &name, const QString &pluginName, const QString &description, CreateCorrelationCallback cb);
 
@@ -577,7 +577,7 @@ class RPS_CORE_API CrpsCoherenceFactory
 	public:
 		typedef IrpsWLModulation *(*CreateModulationCallback)();
 
-		static void InitializeModulation(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeModulation(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterModulation(const QString &name, const QString &pluginName, const QString &description, CreateModulationCallback cb);
 
@@ -624,7 +624,7 @@ class RPS_CORE_API CrpsTableToolFactory
 	public:
 		typedef IrpsWLTableTool *(*CreateTableToolCallback)();
 
-		static void InitializeTableTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeTableTool(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
         static void RegisterTableTool(const QString &name, const QString &pluginName, const QString &description, CreateTableToolCallback cb);
 
@@ -675,7 +675,7 @@ class RPS_CORE_API CrpsMatrixToolFactory
 	public:
 		typedef IrpsWLMatrixTool *(*CreateMatrixToolCallback)();
 
-		static void InitializeMatrixTool(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeMatrixTool(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
         static void RegisterMatrixTool(const QString &name, const QString &pluginName, const QString &description, CreateMatrixToolCallback cb);
 
@@ -726,7 +726,7 @@ class RPS_CORE_API CrpsUserDefinedRPSObjectFactory
 	public:
 		typedef IrpsWLUserDefinedRPSObject *(*CreateUserDefinedRPSObjectCallback)();
 
-		static void InitializeUserDefinedRPSObject(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
         static void RegisterUserDefinedRPSObject(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedRPSObjectCallback cb);
 

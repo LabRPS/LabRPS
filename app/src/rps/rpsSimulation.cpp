@@ -65,6 +65,10 @@ bool RPSSimulation::GetToBeInstalledObjectsList(QStringList &lstObject, QString 
   {
     return rpsSeaLabSimulator->GetToBeInstalledObjectsList(lstObject, pluginName);
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    return rpsUserDefinedPhenomenonSimulator->GetToBeInstalledObjectsList(lstObject, pluginName);
+  }
 
   return false;
 }
@@ -82,6 +86,10 @@ bool RPSSimulation::GetToBeUninstalledObjectsList(QStringList &lstObject, QStrin
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->GetToBeUninstalledObjectsList(lstObject, pluginName);
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    return rpsUserDefinedPhenomenonSimulator->GetToBeUninstalledObjectsList(lstObject, pluginName);
   }
 
   return false;
@@ -101,6 +109,11 @@ bool RPSSimulation::IsObjectInstalled(QString &object)
   {
     return rpsSeaLabSimulator->IsObjectInstalled(object);
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    return rpsUserDefinedPhenomenonSimulator->IsObjectInstalled(object);
+  }
+
 
   return false;
 }
@@ -118,6 +131,10 @@ bool RPSSimulation::UpdateToBeInstalledObjectsMap(const QString &lstObject)
   else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
   {
     return rpsSeaLabSimulator->UpdateToBeInstalledObjectsMap(lstObject);
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    return rpsUserDefinedPhenomenonSimulator->UpdateToBeInstalledObjectsMap(lstObject);
   }
 
   return false;
@@ -137,6 +154,11 @@ bool RPSSimulation::UpdateToBeUninstalledObjectsMap(const QString name, const QS
   {
     return rpsSeaLabSimulator->UpdateToBeUninstalledObjectsMap(name, pluginName);
   }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+    return rpsUserDefinedPhenomenonSimulator->UpdateToBeUninstalledObjectsMap(name, pluginName);
+  }
+
 
   return false;
 }

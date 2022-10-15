@@ -3,6 +3,7 @@
 #include "RPSWindLabFramework.h"
 #include "meanwindlogprofildialog.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/meanWindSpeed/LogarithmicMeanWindSpeed.h"
 
 // The terrain roughness length
 static double dterrainRoughness = 0.01;
@@ -15,6 +16,7 @@ static double VonKarmanConst = 0.4;
 
 void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
+    rps::WindVelocity::LogarithmicMeanWindSpeed logarithmicMeanWindSpeed;
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
@@ -24,11 +26,13 @@ void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsim
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
 	{
-		dMeanSpeedVector(loop) = log(dLocCoord(loop, 2) / dterrainRoughness)*dshearVelocity / VonKarmanConst;
+        dMeanSpeedVector(loop) = logarithmicMeanWindSpeed.computeMeanWindSpeed(dLocCoord(loop, 2), dterrainRoughness, dshearVelocity);
 	}
 }
 void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
+    rps::WindVelocity::LogarithmicMeanWindSpeed logarithmicMeanWindSpeed;
+
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
@@ -38,11 +42,13 @@ void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsim
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
 	{
-        dMeanSpeedVector(loop) = log(dLocCoord(Data.locationJ, 2) / dterrainRoughness)*dshearVelocity / VonKarmanConst;
+        dMeanSpeedVector(loop) = logarithmicMeanWindSpeed.computeMeanWindSpeed(dLocCoord(Data.locationJ, 2), dterrainRoughness, dshearVelocity);
 	}
 }
 void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuData &Data, mat &dMeanSpeedMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::LogarithmicMeanWindSpeed logarithmicMeanWindSpeed;
+
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
 	// Compute the location coordinate array
@@ -54,7 +60,7 @@ void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsi
 		// Compute the mean wind speed matrix
 		for (int loop2 = 0; loop2 < Data.numberOfTimeIncrements; loop2++)
 		{
-			dMeanSpeedMatrix(loop2, loop1) = log(dLocCoord(loop1, 2) / dterrainRoughness) * dshearVelocity / VonKarmanConst;
+            dMeanSpeedMatrix(loop2, loop1) = logarithmicMeanWindSpeed.computeMeanWindSpeed(dLocCoord(loop1, 2), dterrainRoughness, dshearVelocity);
 		}
 	}
 }
@@ -75,10 +81,13 @@ bool CRPSLogarithmicLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data
 
 void CRPSLogarithmicLowProfile::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dTime, QStringList &strInformation)
 {
+    rps::WindVelocity::LogarithmicMeanWindSpeed logarithmicMeanWindSpeed;
+
 	if (dLocationzCoord < 0)
 	{
 		strInformation.append("Negative height detected. The computation fails.");
 		return;
 	}
-	dValue = log(dLocationzCoord / dterrainRoughness)*dshearVelocity / VonKarmanConst;
+    dValue = logarithmicMeanWindSpeed.computeMeanWindSpeed(dLocationzCoord, dterrainRoughness, dshearVelocity);
+
 }

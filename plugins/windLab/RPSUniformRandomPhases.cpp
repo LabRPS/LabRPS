@@ -3,6 +3,7 @@
 #include "RPSWindLabTools.h"
 #include "minmaxvaluesdlg.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/general/UniformRandomPhaseMatrixGenerator.h"
 
 static double minValue = 0;
 static double maxValue = 6.28;
@@ -21,9 +22,8 @@ bool CRPSUniformRandomPhases::OnInitialSetting(const CRPSWindLabsimuData &Data, 
 
 void CRPSUniformRandomPhases::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
 {
-	std::srand((unsigned int) time(0));
-	dRandomValueArray = (maxValue-minValue) * MatrixXd::Random(Data.numberOfFrequency, Data.numberOfSpatialPosition);
-	dRandomValueArray.array() += minValue;
+    rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+    uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(dRandomValueArray, minValue, maxValue);
 }
 
 void CRPSUniformRandomPhases::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)

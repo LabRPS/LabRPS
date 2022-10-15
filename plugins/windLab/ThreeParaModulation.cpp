@@ -2,6 +2,7 @@
 #include "ThreeParaModulation.h"
 #include "threeparamodulationdialog.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ThreeParametersModulation.h"
 
 	static double alpha = 4.98;
 
@@ -27,13 +28,16 @@ bool CThreeParaModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QSt
 
 void CThreeParaModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
-	// compute approximate buffeting force 
-	dValue = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
+    dValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 }
 
 
 void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
 	//  Maximum value of modulation function
 	double max = 0.0;
 	double 	dTime;
@@ -44,7 +48,7 @@ void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &D
 		dTime = Data.minTime + Data.timeIncrement * k;
 
 		// compute approximate buffeting force 
-		dModulationVector(k) = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+        dModulationVector(k) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 
 		// Max
 		if (dModulationVector(k) > max)
@@ -64,8 +68,10 @@ void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &D
 
 void CThreeParaModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+    double modValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfFrequency; k++)
@@ -76,8 +82,10 @@ void CThreeParaModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &D
 }
 void CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+    double modValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfSpatialPosition; k++)
@@ -88,6 +96,8 @@ void CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &D
 }
 void CThreeParaModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -96,14 +106,16 @@ void CThreeParaModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &
 		
 		for (int k2 = 0; k2 < Data.numberOfSpatialPosition; k2++)
 		{
-			dModulationMatrix(k1, k2) = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+            dModulationMatrix(k1, k2) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 		}
 	}
 }
 void CThreeParaModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
 	double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+    double modValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 
 	for (int k1 = 0; k1 < Data.numberOfFrequency; k1++)
 	{		
@@ -115,6 +127,8 @@ void CThreeParaModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &
 }
 void CThreeParaModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -123,12 +137,14 @@ void CThreeParaModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &
 		
 		for (int k2 = 0; k2 < Data.numberOfFrequency; k2++)
 		{
-			dModulationMatrix(k1, k2) = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+            dModulationMatrix(k1, k2) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 		}
 	}
 }
 void CThreeParaModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, cube &dModulationCube, QStringList &strInformation)
 {
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -139,7 +155,7 @@ void CThreeParaModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &D
 		{
 			for (int k3 = 0; k3 < Data.numberOfSpatialPosition; k3++)
 			{
-				dModulationCube(k1, k2, k3) = alpha * (pow(dTime, betta))*(exp(-lambda * dTime));
+                dModulationCube(k1, k2, k3) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 			}
 		}
 	}

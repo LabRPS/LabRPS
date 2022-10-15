@@ -37,11 +37,6 @@ void CRPSRandomPhasesFromFile::GetFilePathButton()
   if (!fn.isEmpty()) {
     QFileInfo fi(fn);
     mstrRPFilePath = fi.absoluteFilePath();
-    // return importImage(fn);
-
-	QMessageBox::warning(
-        0, "Path",
-        mstrRPFilePath);
   }
 }
 

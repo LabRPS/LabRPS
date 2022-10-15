@@ -11,330 +11,235 @@
 //Initial setting
 bool CRPSDeodatis1987::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	QMessageBox::warning(0,"hi", "in Deodatis method");
-	return true;
+    QMessageBox::warning(0,"hi", "in Deodatis method");
+    return true;
 }
 
 // The simulation function 
-bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
+bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation)
 {
-	// Locale array for the Cholesky decomposed cpsd
-	cube dCPSDdecompArray(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, Data.numberOfFrequency) ;
-	
-	//Computing the decomposed psd matrix
-	CRPSWindLabFramework::ComputeCrossSpectrumCubePPF(Data, dCPSDdecompArray, strInformation);
-    
-	// allocate memory for random phases
-	mat  drandomPhase(Data.numberOfFrequency, Data.numberOfSpatialPosition);		
-    
-	// allocate memories for the complex B matrix
-    cx_cube dBMatrix(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, 2 * Data.numberOfFrequency);
-	cx_cube dGMatrix(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, 2 * Data.numberOfFrequency);
-	cx_vec xxx(2 * Data.numberOfFrequency);
-	cx_vec yyy(2 * Data.numberOfFrequency);
-	//std::vector<std::complex<float>> yyy;
-	
-	std::complex<double> ii(0, 1);
+    int n = Data.numberOfSpatialPosition                       ;
+    int N = Data.numberOfFrequency                    ;
+    double dt = Data.timeIncrement            ;
+    double deltaomega = Data.frequencyIncrement           ;
+    int M = 2*N                     ;
 
-	QString SimuMsg;
+    mat PSD1(n,N);
+    cube PSD2(n,n,N);
+    mat PSD3(n,n);
+    mat PSD4(n,n);
+    cube PSD5(n,n,N);
+    cube PSD(n,n,N);
 
-	// Generate random phase angle uniformly distribuated over [0, 2*pi]
-	CRPSWindLabFramework::GenerateRandomArrayFP(Data, drandomPhase, strInformation);
+    cube Kz(n,n,N);
 
-	// fast Fourier transform in process
-	for (int loop = 1; loop <= Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop++)
-	{
-		// Compute matrix B real part and imaginary part separtely
-		for (int l = 1; l <= Data.numberOfFrequency && false == Data.isInterruptionRequested; l++) {
-			for (int m = 1; m <= loop; m++) {
-			
-				dBMatrix(loop - 1, m - 1, l - 1) = 2 * sqrt(Data.frequencyIncrement)*dCPSDdecompArray(loop - 1, m - 1, l - 1) *exp(ii * drandomPhase(l - 1, m - 1));
-			}
-		}
-	}
+    cx_vec xxx(M);
+    cx_vec yyy(M);
 
-	int iNber_Point = Data.numberOfSpatialPosition;
-	int iNber_Frequency = Data.numberOfFrequency;
+    cx_cube B (n,n,M);
+    cx_cube G (n,n,M);
 
-	for (int loop = 1; loop <= iNber_Point && false == Data.isInterruptionRequested; loop++)
-	{
-		// Take the vector corresponding to a row and a column 
-		for (int m = 1; m <= loop && false == Data.isInterruptionRequested; m++) {
+    B.setZero();
+    G.setZero();
 
-			for (int l = 1; l <= iNber_Frequency && false == Data.isInterruptionRequested; l++) {
-	
-				xxx(l - 1) = dBMatrix(loop - 1, m - 1, l - 1);
-			}
+    // local array for the location coordinates
+    mat dLocCoord(n, 3);
+    mat frequencies(N,n);
 
-			// compute psd by Fourier transform of each vector 
-			Eigen::FFT<double> fft;
-			fft.fwd(yyy, xxx);
+    CRPSWindLabFramework:: ComputeFrequenciesMatrixFP(Data, frequencies, strInformation);
+    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
 
-			// Save the transformed vector in the matrix G
-			for (int l = 1; l <= 2 * iNber_Frequency && false == Data.isInterruptionRequested; l++) {
-				
-				dGMatrix(loop - 1, m - 1, l - 1) = (double)(2 * iNber_Frequency) * yyy(l - 1);
+    mat thet(N, n);
+    CRPSWindLabFramework::GenerateRandomArrayFP(Data, thet, strInformation);
 
-			}
-		}
+    std::complex<double> i2(0, 1);
+    Eigen::FFT<double> fft;
 
-	}
+    for (int i = 1; i <= n && false == Data.isInterruptionRequested; i++)
+    {
+        // Simulation starts
+        for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+        {
+            for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+            {
+                // compute auto spectrum Sj(w)
+                CRPSWindLabFramework::ComputeCrossSpectrumValue(Data,
+                                                                 PSD1(j-1, l-1),
+                                                                 dLocCoord(j-1,0),
+                                                                 dLocCoord(j-1,1),
+                                                                 dLocCoord(j-1,2),
+                                                                 dLocCoord(j-1,0),
+                                                                 dLocCoord(j-1,1),
+                                                                 dLocCoord(j-1,2),
+                                                                 frequencies(l - 1,j-1),
+                                                                 0,
+                                                                 strInformation);
 
-	int q = 0;
-	QString msg1, msg2;
+                // compte cross coherence Cohjm(w)
+                for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                {
+
+                    CRPSWindLabFramework::ComputeCoherenceValue(Data, Kz(j-1, m-1, l-1),
+                                                                dLocCoord(j-1,0),
+                                                                dLocCoord(j-1,1),
+                                                                dLocCoord(j-1,2),
+                                                                dLocCoord(m-1,0),
+                                                                dLocCoord(m-1,1),
+                                                                dLocCoord(m-1,2),
+                                                                frequencies(l - 1,m-1),
+                                                                0,
+                                                                strInformation);
 
 
-	for (int loop = 1; loop <= iNber_Point && false == Data.isInterruptionRequested; loop++)
-	{
-		// compute random wind velocity as function of time. (see Shinozuka)
-		for (int time = 1; time <= Data.numberOfTimeIncrements && false == Data.isInterruptionRequested; time++) {
-			q = fmod(time - 1, 2 * iNber_Frequency);
+                    PSD2(j-1, m-1, l-1) = sqrt(PSD1(j-1, l-1)*PSD1(m-1, l-1))*Kz(j-1, m-1, l-1);
 
-			for (int m = 1; m <= loop; m++) {
-				dVelocityArray(time - 1, loop - 1) += real(dGMatrix(loop - 1, m - 1, q)*exp(ii*(double)((time - 1)*Data.timeIncrement*m*Data.timeIncrement / iNber_Point)));
-				
-			}
-		}
-	}
+                    PSD3(j-1, m-1) = PSD2(j-1, m-1, l-1);
 
-	return true;		
+                }
+
+            }
+
+            CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, PSD4, PSD3, strInformation);
+
+            for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+            {
+                for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                {
+
+                    PSD5(j-1, m-1, l-1) =  PSD4(j-1, m-1);
+                }
+
+                 PSD(j-1, i-1, l-1) =  PSD5(j-1, i-1, l-1);
+            }
+
+        }
+
+        for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+        {
+            for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+            {
+                 B(i-1, ii-1, l-1) = 2*sqrt(deltaomega)*abs(PSD(i-1, ii-1, l-1))*exp(i2*thet(l - 1,ii - 1));
+            }
+        }
+
+        for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+        {
+            for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+            {
+                xxx(l-1) =B(i-1, ii-1, l-1);
+
+            }
+
+            yyy = (double)(M) *fft.inv(xxx);
+
+
+            for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+            {
+                G(i-1, ii-1, l-1) = yyy(l-1);
+
+            }
+
+        }
+
+        int q = 0;
+        // Generate the wind velocity
+        for (int p = 1; p <= M*n && false == Data.isInterruptionRequested; p++) {
+            q = fmod(p-1,M);
+            for (int k = 1; k <= i && false == Data.isInterruptionRequested; k++) {
+
+                dVelocityArray(p - 1, i - 1)=dVelocityArray(p - 1, i - 1)+real(G(i-1,k - 1,q)*exp(i2*((k)*deltaomega*(p-1)*dt/n)));
+            }
+        }
+    }
+    return true;
 }
 
 // The simulation function in large scale mode
-bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
+bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, QStringList &strInformation)
 {
-	return true;
+    return true;
 }
-
-// The simulation function in comparison mode
-bool CRPSDeodatis1987::SimulateInComparisonMode(const CRPSWindLabsimuData &Data, mat &dRandomPhaseArray, mat &dVelocityArray, int &minProgress, int &maxProgress, int &currentProgress, QStringList &strInformation)
-{
-	// // Locale array for the Cholesky decomposed cpsd
-	// cube dCPSDdecompArray;
-	// try
-	// {
-	// 	dCPSDdecompArray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, Data.numberOfFrequency);
-	// }
-	// catch (CMemoryException* pEx)
-	// {
-	// 	// Simply show an error message to the user.
-	// 	pEx->ReportError();
-	// 	pEx->Delete();
-	// 	return false;
-	// }
-	// catch (bad_alloc &ba)
-	// {
-	// 	QString msg(ba.what());
-	// 	AfxMessageBox(msg);
-	// 	return false;
-	// }
-
-	// //Computing the decomposed psd matrix
-	// // Compute the decomposed cpsd 
-	// ComputeCPSDDecom3DMatrice(Data, dCPSDdecompArray, strInformation);
-
-
-	// cx_vec xxx;
-	// cx_vec yyy;
-	// cx_cube  dBMatrix;
-	// cx_cube  dGMatrix;
-
-	// try
-	// {
-	// 	dBMatrix.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, 2 * Data.numberOfFrequency);
-	// 	dGMatrix.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, 2 * Data.numberOfFrequency);
-	// 	xxx.zeros(2 * Data.numberOfFrequency);
-	// 	yyy.set_size(2 * Data.numberOfFrequency);
-	// }
-	// catch (CMemoryException* pEx)
-	// {
-	// 	// Simply show an error message to the user.
-	// 	pEx->ReportError();
-	// 	pEx->Delete();
-	// 	return false;
-	// }
-	// catch (bad_alloc &ba)
-	// {
-	// 	QString msg(ba.what());
-	// 	AfxMessageBox(msg);
-	// 	return false;
-	// }
-
-	// std::complex<double> ii(0, 1);
-
-	// QString SimuMsg;
-	
-
-	// //CRPSsimulationTools::SimulationProcess(Data.numberOfSpatialPosition, 0);
-	// // Fast Fourier transform in process
-	// for (int loop = 1; loop <= Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop++)
-	// {
-	// 	// Compute matrix B real part and imaginary part separtely
-	// 	for (int l = 1; l <= Data.numberOfFrequency && false == Data.isInterruptionRequested; l++) {
-	// 		for (int m = 1; m <= loop; m++) {
-
-	// 			dBMatrix(loop - 1, m - 1, l - 1) = 2 * sqrt(Data.frequencyIncrement)*dCPSDdecompArray(loop - 1, m - 1, l - 1) *exp(ii * dRandomPhaseArray(l - 1, m - 1));
-	// 		}
-	// 	}
-	// 	//SimuMsg.Format(("We are on the %d simulation"), loop);
-	// 	CRPSWindLabTools::UpdateProgress(loop);
-	// }
-
-	// if (!dCPSDdecompArray.is_empty())
-	// {
-	// 	dCPSDdecompArray.reset();
-	// }
-
-	// int iNber_Point = Data.numberOfSpatialPosition;
-	// int iNber_Frequency = Data.numberOfFrequency;
-
-	// for (int loop = 1; loop <= iNber_Point && false == Data.isInterruptionRequested; loop++)
-	// {
-	// 	// Take the vector corresponding to a row and a column 
-	// 	for (int m = 1; m <= loop && false == Data.isInterruptionRequested; m++) {
-
-	// 		for (int l = 1; l <= iNber_Frequency && false == Data.isInterruptionRequested; l++) {
-
-	// 			xxx(l - 1) = dBMatrix(loop - 1, m - 1, l - 1);
-	// 		}
-
-	// 		// compute psd by Fourier transform of each vector 
-	// 		yyy = ifft(xxx);
-
-	// 		// Save the transformed vector in the matrix G
-	// 		for (int l = 1; l <= 2 * iNber_Frequency && false == Data.isInterruptionRequested; l++) {
-
-	// 			dGMatrix(loop - 1, m - 1, l - 1) = (double)(2 * iNber_Frequency) * yyy(l - 1);
-
-	// 		}
-	// 	}
-
-	// }
-
-	// //Delete the memory allocated 
-	// if (!xxx.is_empty())
-	// {
-	// 	xxx.reset();
-	// }
-
-	// if (!yyy.is_empty())
-	// {
-	// 	yyy.reset();
-	// }
-
-	// if (!dBMatrix.is_empty())
-	// {
-	// 	dBMatrix.reset();
-	// }
-
-	// int q = 0;
-	// QString aa, bb;
-	// for (int loop = 1; loop <= iNber_Point && false == Data.isInterruptionRequested; loop++)
-	// {
-	// 	// compute random wind velocity as function of time. (see Shinozuka)
-	// 	for (int time = 1; time <= Data.m_iNumberOfTimeIncrements && false == Data.isInterruptionRequested; time++) {
-	// 		q = fmod(time - 1, 2 * iNber_Frequency);
-
-	// 		for (int m = 1; m <= loop; m++) {
-	// 			/*aa.Format(("loop - 1 =  %d, m - 1 =  %d, tme - 1 =  %d, q =  %d"), loop - 1, m - 1, time - 1, q);
-	// 			AfxMessageBox(aa);*/
-	// 			dVelocityArray(time - 1, loop - 1) += real(dGMatrix(loop - 1, m - 1, q)*exp(ii*(double)((time - 1)*Data.m_dTimeIncrement*m*Data.m_dTimeIncrement / iNber_Point)));
-
-	// 		}
-
-	// 	}
-
-	// }
-
-	// if (!dGMatrix.is_empty())
-	// {
-	// 	dGMatrix.reset();
-	// }
-
-	return true;
-}
-
 
 void CRPSDeodatis1987::ComputeCPSDDecom3DMatrice(const CRPSWindLabsimuData &Data, cube &dCPSDDecomMatrice, QStringList &strInformation)
 {
-	// // Local array for the frequencies vector
-	// vec dFrequencies;
+    // // Local array for the frequencies vector
+    // vec dFrequencies;
 
-	// // Local array for the cpsd
-	// mat dCPSDarray;
+    // // Local array for the cpsd
+    // mat dCPSDarray;
 
-	// // Local 2D array for the decomposed cpsd
-	// mat dCPSDdecomarray;
+    // // Local 2D array for the decomposed cpsd
+    // mat dCPSDdecomarray;
 
-	// // Local 3D array for the decomposed cpsd
-	// cube dCPSDdecop3Darray;
+    // // Local 3D array for the decomposed cpsd
+    // cube dCPSDdecop3Darray;
 
-	// try
-	// {
-	// 	// Allocate memory for cpsd array
-	// 	dCPSDarray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition);
+    // try
+    // {
+    // 	// Allocate memory for cpsd array
+    // 	dCPSDarray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition);
 
-	// 	// Allocate memory for the 2D cpsd decomposed array
-	// 	dCPSDdecomarray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition);
+    // 	// Allocate memory for the 2D cpsd decomposed array
+    // 	dCPSDdecomarray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition);
 
-	// 	// Allocate memory for the 3D cpsd decomposed array
-	// 	dCPSDdecop3Darray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, Data.numberOfFrequency);
+    // 	// Allocate memory for the 3D cpsd decomposed array
+    // 	dCPSDdecop3Darray.set_size(Data.numberOfSpatialPosition, Data.numberOfSpatialPosition, Data.numberOfFrequency);
 
-	// 	dFrequencies.set_size(Data.numberOfFrequency);
+    // 	dFrequencies.set_size(Data.numberOfFrequency);
 
-	// }
-	// catch (CMemoryException* pEx)
-	// {
-	// 	// Simply show an error message to the user.
-	// 	pEx->ReportError();
-	// 	pEx->Delete();
-	// 	return;
-	// }
-	// catch (bad_alloc &ba)
-	// {
-	// 	QString msg(ba.what());
-	// 	AfxMessageBox(msg);
-	// 	return;
-	// }
-	
-	// QString msg = ("");
+    // }
+    // catch (CMemoryException* pEx)
+    // {
+    // 	// Simply show an error message to the user.
+    // 	pEx->ReportError();
+    // 	pEx->Delete();
+    // 	return;
+    // }
+    // catch (bad_alloc &ba)
+    // {
+    // 	QString msg(ba.what());
+    // 	AfxMessageBox(msg);
+    // 	return;
+    // }
 
-	// for (int loop = 1; loop <= Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop++)
-	// {
-	// 	// Compute the single index frequency (Shinozuka)
-	// 	CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFrequencies, strInformation);
+    // QString msg = ("");
 
-	// 	// For each frequency increment
-	// 	for (int loop3 = 0; loop3 < Data.numberOfFrequency && false == Data.isInterruptionRequested; loop3++)
-	// 	{
-	// 		// Compute psd matrix for each fequency increment
-	// 		CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(Data, dCPSDarray, strInformation);
+    // for (int loop = 1; loop <= Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop++)
+    // {
+    // 	// Compute the single index frequency (Shinozuka)
+    // 	CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFrequencies, strInformation);
 
-	// 		// Compute the cholesky decomposition of the psd matrix
-	// 		//CRPSWindLabTools::RPSComputeCholeskyDecomposition(dCPSDarray, Data.numberOfSpatialPosition, dCPSDdecomarray);
-	// 		dCPSDdecomarray = chol(dCPSDarray, "lower");
+    // 	// For each frequency increment
+    // 	for (int loop3 = 0; loop3 < Data.numberOfFrequency && false == Data.isInterruptionRequested; loop3++)
+    // 	{
+    // 		// Compute psd matrix for each fequency increment
+    // 		CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(Data, dCPSDarray, strInformation);
 
-	// 		// For each row
-	// 		for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
-	// 		{
-	// 			// For each col
-	// 			for (int loop2 = 0; loop2 <= loop1 && false == Data.isInterruptionRequested; loop2++)
-	// 			{
-	// 				// Save each cholesky decomposed matrix in a 3D matrix
-	// 				dCPSDdecop3Darray(loop1, loop2, loop3) = dCPSDdecomarray(loop1, loop2);
-	// 			}
-	// 		}
-	// 	}
+    // 		// Compute the cholesky decomposition of the psd matrix
+    // 		//CRPSWindLabTools::RPSComputeCholeskyDecomposition(dCPSDarray, Data.numberOfSpatialPosition, dCPSDdecomarray);
+    // 		dCPSDdecomarray = chol(dCPSDarray, "lower");
 
-	// 	// Save only the loop-th colum of each 3D decomposed psd matrix
-	// 	for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
-	// 	{
-	// 		// For each col
-	// 		for (int loop2 = 0; loop2 < Data.numberOfFrequency && false == Data.isInterruptionRequested; loop2++)
-	// 		{
-	// 			dCPSDDecomMatrice(loop1, loop - 1, loop2) = dCPSDdecop3Darray(loop1, loop - 1, loop2);
-	// 		}
-	// 	}
-	// }
+    // 		// For each row
+    // 		for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
+    // 		{
+    // 			// For each col
+    // 			for (int loop2 = 0; loop2 <= loop1 && false == Data.isInterruptionRequested; loop2++)
+    // 			{
+    // 				// Save each cholesky decomposed matrix in a 3D matrix
+    // 				dCPSDdecop3Darray(loop1, loop2, loop3) = dCPSDdecomarray(loop1, loop2);
+    // 			}
+    // 		}
+    // 	}
+
+    // 	// Save only the loop-th colum of each 3D decomposed psd matrix
+    // 	for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; loop1++)
+    // 	{
+    // 		// For each col
+    // 		for (int loop2 = 0; loop2 < Data.numberOfFrequency && false == Data.isInterruptionRequested; loop2++)
+    // 		{
+    // 			dCPSDDecomMatrice(loop1, loop - 1, loop2) = dCPSDdecop3Darray(loop1, loop - 1, loop2);
+    // 		}
+    // 	}
+    // }
 
 }

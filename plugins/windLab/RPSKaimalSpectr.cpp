@@ -4,6 +4,7 @@
 #include "kaimalpsdshearvelocitydialog.h"
 #include "RPSWindLabTools.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/spectrum/KaimalSpectrum.h"
 
 // The shear velocity of the flow
 static double dShearVecForSpec = 1.76;
@@ -281,17 +282,9 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumCubePPT(const CRPSWindLabsimuData &D
 
 double CRPSKaimalSpectr::ComputeTargetAutoSpectrumValue(const CRPSWindLabsimuData &Data, double dFrequency, double dHeight, double dMeanSpeed)
 {
-	dBuf1 = 1.0 + Par2 * dFrequency * dHeight / (2.0 * PI * dMeanSpeed);
-
-	dBuf = pow(dBuf1, 5.0 / 3.0);
-
-	dPSD = Par1 * dShearVecForSpec * dShearVecForSpec * dHeight / dMeanSpeed;
-
-	dPSD /= dBuf;			// (rad/s)
-
-	dPSD /= 2.0*PI;
-
-	return dPSD;
+    rps::WindVelocity::KaimalSpectrum kaimalPSD;
+    double psd = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, dHeight, dMeanSpeed, dShearVecForSpec);
+    return psd;
 }
 
 //Initial setting
@@ -316,15 +309,6 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumValue(const CRPSWindLabsimuData &Dat
 	double dMeanSpeed = 0.0;
 	CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dTime, strInformation);
 
-	dBuf1 = 1.0 + Par2 * dFrequency * dLocationJzCoord / (2.0 * PI * dMeanSpeed);
-
-	dBuf = pow(dBuf1, 5.0 / 3.0);
-
-	dPSD = Par1 * dShearVecForSpec * dShearVecForSpec * dLocationJzCoord / dMeanSpeed;
-
-	dPSD /= dBuf;			// (rad/s)
-
-	dPSD /= 2.0*PI;
-
-	dValue =  dPSD;
+    rps::WindVelocity::KaimalSpectrum kaimalPSD;
+    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, dLocationJzCoord, dMeanSpeed, dShearVecForSpec);
 }

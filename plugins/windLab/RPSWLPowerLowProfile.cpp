@@ -4,6 +4,7 @@
 #include "meanwindpowerprofildialog.h"
 #include "RPSWindLabTools.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/meanWindSpeed/PowerLawMeanWindSpeed.h"
 
 
 // The mean speed reference height
@@ -18,6 +19,8 @@ static double dDimensionlessPower = 0.12;
 
 void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
+    rps::WindVelocity::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
+
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
@@ -26,11 +29,13 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuDat
 
 	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
 	{
-		dMeanSpeedVector(loop) = pow(dLocCoord(loop, 2) / dreferenceHeight, dDimensionlessPower) * dreferenceSpeed;
+        dMeanSpeedVector(loop) = powerLawMeanWindSpeed.computeMeanWindSpeed(dLocCoord(loop, 2), dreferenceHeight, dreferenceSpeed);
 	}
 }
 void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dMeanSpeedVector, QStringList &strInformation)
 {
+    rps::WindVelocity::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
+
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
@@ -39,12 +44,14 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuDat
 
 	for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
 	{
-		dMeanSpeedVector(loop) = pow(dLocCoord(Data.locationJ, 2) / dreferenceHeight, dDimensionlessPower) * dreferenceSpeed;
+        dMeanSpeedVector(loop) = powerLawMeanWindSpeed.computeMeanWindSpeed(dLocCoord(Data.locationJ, 2), dreferenceHeight, dreferenceSpeed);
 	}
 
 }
 void CRPSWLPowerLowProfile::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuData &Data, mat &dMeanSpeedMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
+
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
@@ -55,7 +62,7 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedMatrixTP(const CRPSWindLabsimuDa
 	{
 		for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition; loop2++)
 		{
-			dMeanSpeedMatrix(loop1, loop2) = pow(dLocCoord(loop2, 2) / dreferenceHeight, dDimensionlessPower) * dreferenceSpeed;
+            dMeanSpeedMatrix(loop1, loop2) = powerLawMeanWindSpeed.computeMeanWindSpeed(dLocCoord(loop2, 2), dreferenceHeight, dreferenceSpeed);
 		}
 	}
 }
@@ -77,11 +84,14 @@ bool CRPSWLPowerLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data, QS
 
 void CRPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dTime, QStringList &strInformation)
 {
+    rps::WindVelocity::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
+
 	if (dLocationzCoord < 0)
 	{
 		strInformation.append("Negative height detected. The computation fails.");
 		return;
 	}
 
-	dValue = pow(dLocationzCoord / dreferenceHeight, dDimensionlessPower) * dreferenceSpeed;
+    dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(dLocationzCoord, dreferenceHeight, dreferenceSpeed);
+
 }

@@ -2,6 +2,7 @@
 #include "RPSDavenportCoherence.h"
 #include "davenportcoherencedialog.h"
 #include "RPSWindLabFramework.h"
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/coherence/DavenportCoherence.h"
 
 #include <QMessageBox>
 
@@ -18,21 +19,12 @@ void CRPSDavenportCoherence::ComputeCoherenceValue(const CRPSWindLabsimuData &Da
 {
 	double dMeanSpeed1 = 0.0;
 	double dMeanSpeed2 = 0.0;
+    rps::WindVelocity::DavenportCoherence davenportCoherence;
 
 	CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed1, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dTime, strInformation);
 	CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed2, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dTime, strInformation);
 
-	dValue = (dExponentialDecayCx * dExponentialDecayCx * (dLocationJxCoord - dLocationKxCoord) * (dLocationJxCoord - dLocationKxCoord) +
-			  dExponentialDecayCy * dExponentialDecayCy * (dLocationJyCoord - dLocationKyCoord) * (dLocationJyCoord - dLocationKyCoord) +
-			  dExponentialDecayCz * dExponentialDecayCz * (dLocationJzCoord - dLocationKzCoord) * (dLocationJzCoord - dLocationKzCoord));
-
-	dValue = sqrt(dValue);
-
-	dValue = dValue / 2.0 / 3.14;
-
-	dValue = -2 * dValue / (dMeanSpeed1 + dMeanSpeed2);
-
-	dValue = exp(dValue * dFrequency);
+    dValue = davenportCoherence.computeCoherenceValue(dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dMeanSpeed1, dMeanSpeed2);
 }
 
 bool CRPSDavenportCoherence::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)

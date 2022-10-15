@@ -54,15 +54,14 @@ RPSUserDefinedPhenomenonDefinitionDlg::RPSUserDefinedPhenomenonDefinitionDlg(QWi
 	ui->comboBoxWindSpationDistr->addItem(noSelection);
 
     /////******spatial location distribution start*******/////////
-    typedef IrpsUserDefinedPhenomenon *(*CreateLocDistrCallback)();
-	std::map<const QString, CreateLocDistrCallback> ::iterator locIt;
+    typedef IrpsUserDefinedPhenomenon *(*CreateUserDefinedPhenomenonCallback)();
+	std::map<const QString, CreateUserDefinedPhenomenonCallback> ::iterator userPhenIt;
 		
     // Iterate though the map and show all the registed spatial distribution in the combo box
-    for (locIt = CrpsUserDefinedPhenomenonFactory::GetUserDefinedPhenomenonNamesMap().begin(); locIt != CrpsUserDefinedPhenomenonFactory::GetUserDefinedPhenomenonNamesMap().end(); ++locIt)
+    for (userPhenIt = CrpsUserDefinedPhenomenonFactory::GetUserDefinedPhenomenonNamesMap().begin(); userPhenIt != CrpsUserDefinedPhenomenonFactory::GetUserDefinedPhenomenonNamesMap().end(); ++userPhenIt)
 	{
 		// Add it to the combo box
-		ui->comboBoxWindSpationDistr->addItem(locIt->first);
-
+		ui->comboBoxWindSpationDistr->addItem(userPhenIt->first);
 	}
 
 	// Show the current selected randomness
@@ -75,13 +74,11 @@ RPSUserDefinedPhenomenonDefinitionDlg::RPSUserDefinedPhenomenonDefinitionDlg(QWi
 		// Select the corresponding randomness in the combox based on the index
         ui->comboBoxWindSpationDistr->setCurrentText(userDefinedPhenomenon);
 	}
-	else if ((nDex == ui->comboBoxWindSpationDistr->findText(noSelection)))
+    else if (nDex == ui->comboBoxWindSpationDistr->findText(noSelection))
 	{
 		// Select the none text then
 		ui->comboBoxWindSpationDistr->setCurrentText(noSelection);
 	}
-
-    /////******spatial location distribution end*******/////////
 
     // connection
     connect( ui->comboBoxWindSpationDistr, SIGNAL( currentIndexChanged( int ) ),

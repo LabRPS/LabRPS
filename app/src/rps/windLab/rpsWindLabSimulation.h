@@ -236,6 +236,8 @@ void WLReadAllTobeInstallObjVersionToRegistry();
   void simulationMethodInital(QString currentSelected);
   void spectrumModelInital(QString currentSelected);
   void randomnessProviderInital(QString currentSelected);
+  void locationDistributionFunctionInital(QString currentSelected);
+
   void candidateInitialData(QString category, QString currentSelected);
 
   void createOutputWorker();

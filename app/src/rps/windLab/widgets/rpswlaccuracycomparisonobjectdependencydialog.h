@@ -17,6 +17,16 @@ public:
 
 public slots:
     void acceptInput();
+    void OnBnClickedCoherenceInit( );
+    void OnBnClickedCorrelationInit( );
+    void OnBnClickedFrequencyDistrInit( );
+    void OnBnClickedSpatialDistrInit( );
+    void OnBnClickedMeanWindInit( );
+    void OnBnClickedModulationInit( );
+    void OnBnClickedSimuMethodInit( );
+    void OnBnClickedRandomnessInit( );
+    void OnBnClickedSpectrumDecompInit( );
+    void OnBnClickedSpectrumInit( );
 
 private:
     Ui::RPSWLAccuracyComparisonObjectDependencyDialog *ui;

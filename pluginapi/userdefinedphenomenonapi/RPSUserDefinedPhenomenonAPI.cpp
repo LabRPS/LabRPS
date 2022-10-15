@@ -39,9 +39,9 @@ const char * RPSUserDefinedPhenomenonAPIInfo::getUserDefinedPhenomenonAPIVersion
 		mOwnerPlugin = ownerPlugin;
 	}
 	
-	void CrpsUserDefinedPhenomenonFactory::InitializeUserDefinedPhenomenon(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+	void CrpsUserDefinedPhenomenonFactory::InitializeUserDefinedPhenomenon(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
 	{		
-		mTobeInstalledObjectsMap[name] = description;
+		mTobeInstalledObjectsMap[name] = pluginName;
 		mTitleMap[name] = publicationTitle;
 		mLinkMap[name] = publicationLink;
 		mAuthorMap[name] = publicationAuthor;
@@ -52,20 +52,19 @@ const char * RPSUserDefinedPhenomenonAPIInfo::getUserDefinedPhenomenonAPIVersion
 
     void CrpsUserDefinedPhenomenonFactory::RegisterUserDefinedPhenomenon(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedPhenomenonCallback cb)
 	{
-		if ((!mOwnerPlugin.isEmpty()) & (mOwnerPlugin != pluginName))
+        if (mTobeInstalledObjectsMap[name] != pluginName)
 		{
 			return;
 		}
 		mUserDefinedPhenomena[name] = cb;
 		mOjectDescriptionMap[name] = description;
 		mOjectAndPluginMap[name] = pluginName;
-		SetOwnerPlugin(pluginName);
 	}
 
 	void CrpsUserDefinedPhenomenonFactory::UnregisterUserDefinedPhenomenon(const QString &name, const QString &pluginName)
 	{
-		if (pluginName == GetOwnerPlugin() && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
-		{
+        if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+        {
 			mUserDefinedPhenomena.erase(name);
 			mOjectDescriptionMap.erase(name);
 			mOjectAndPluginMap.erase(name);

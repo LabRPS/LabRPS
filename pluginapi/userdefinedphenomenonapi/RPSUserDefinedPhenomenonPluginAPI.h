@@ -99,7 +99,7 @@ RPS_CORE_FUNC void RegisterUserDefinedPhenomenon(const QString name, const QStri
 	UserDefinedPhenomenonFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeUserDefinedPhenomenon(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeUserDefinedPhenomenon(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterUserDefinedPhenomenon(const QString name, const QString &pluginName);

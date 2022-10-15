@@ -65,31 +65,46 @@ class PluginPropertyEditor : public QDockWidget {
   void datetimeValueChange(QtProperty *prop, const QDateTime &datetime);
 
   void selectObjectItem(QTreeWidgetItem *item);
-  void windLabSelectObjectItem(QTreeWidgetItem *item);
   void seaLabSelectObjectItem(QTreeWidgetItem *item);
   void seismicLabSelectObjectItem(QTreeWidgetItem *item);
 
   void objectschanged();
 
-  // properties block handler
+  // windLab
     void WindLabPluginPropertyBlock(CPluginDescription *description);
     void WindLabParentObjectPropertyBlock(const QString &name, const int &number);
-    void WindLabObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object);
+    void WindLabObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object); 
+    ObjectDescription GetWindLabPluggedObjectDescription(const QString &itemText, const QString &objectName);
+    QString  GetWindLabObjectSelectionState(const QString &objectGroup, const QString &objectName, const CRPSWindLabsimuData &windLabsimuData);
+    int GetNumberOfWindLabPlggedObject(const QString &objectGroup, const QString &parenttext);
+    void windLabSelectObjectItem(QTreeWidgetItem *item);
 
-  // 
-ObjectDescription GetWindLabPluggedObjectDescription(const QString &itemText, const QString &objectName);
-QString  GetWindLabObjectSelectionState(const QString &objectGroup, const QString &objectName, const CRPSWindLabsimuData &windLabsimuData);
-int GetNumberOfWindLabPlggedObject(const QString &objectGroup, const QString &parenttext);
-
+// userDefinedPhenomenon
+    void UserDefinedPhenomenonPluginPropertyBlock(CPluginDescription *description);
+    void UserDefinedPhenomenonParentObjectPropertyBlock(const QString &name, const int &number);
+    void UserDefinedPhenomenonObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object); 
+    ObjectDescription GetUserDefinedPhenomenonPluggedObjectDescription(const QString &itemText, const QString &objectName);
+    QString  GetUserDefinedPhenomenonObjectSelectionState(const QString &objectGroup, const QString &objectName, const CRPSUserDefinedPhenomenonSimuData &userDefinedPhenomenonSimuData);
+    int GetNumberOfUserDefinedPhenomenonPlggedObject(const QString &objectGroup, const QString &parenttext);
+    void userDefinedPhenomenonSelectObjectItem(QTreeWidgetItem *item);
 
 
  signals:
 
  public slots:
   void populateObjectBrowser(MyWidget *widget);
+  
+  //WindLab
   void windLabPopulateObjectBrowser(MyWidget *widget);
+  
+  //SeaLab
   void seaLabPopulateObjectBrowser(MyWidget *widget);
+  
+  //SeismicLab
   void seismicLabPopulateObjectBrowser(MyWidget *widget);
+
+  //UserDefinedPhenomenon
+  void userDefinedPhenomenonPopulateObjectBrowser(MyWidget *widget);
 
 
 

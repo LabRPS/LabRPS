@@ -115,25 +115,25 @@
     <rect>
      <x>20</x>
      <y>190</y>
-     <width>91</width>
+     <width>121</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Comparison</string>
+    <string>Comparison Mode</string>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBoxLargeScaleMode">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>170</x>
      <y>190</y>
-     <width>91</width>
+     <width>121</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Large Scale</string>
+    <string>Large Scale Mode</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBoxSimuMode">

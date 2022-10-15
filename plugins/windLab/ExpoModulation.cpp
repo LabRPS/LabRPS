@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 #include "expomodulationdialog.h"
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ExponentialModulation.h"
 
 // The decay coefficient Cx
 static double timeOfMax = 300;
@@ -27,27 +28,29 @@ bool CExpoModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringL
 
 void CExpoModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
-	dValue = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
+    dValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 }
 
 void CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	double 	dTime;
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
 
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
-		dTime = Data.minTime + Data.timeIncrement * k;
-
-		// compute approximate buffeting force 
-		dModulationVector(k) = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
-
+		dTime = Data.minTime + Data.timeIncrement * k;       
+        dModulationVector(k) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 	}
 }
 void CExpoModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+    double modValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfFrequency; k++)
@@ -58,8 +61,10 @@ void CExpoModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, 
 }
 void CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+    double modValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfSpatialPosition; k++)
@@ -70,6 +75,8 @@ void CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, 
 }
 void CExpoModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -78,14 +85,16 @@ void CExpoModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data,
 		
 		for (int k2 = 0; k2 < Data.numberOfSpatialPosition; k2++)
 		{
-			dModulationMatrix(k1, k2) = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+            dModulationMatrix(k1, k2) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 		}
 	}
 }
 void CExpoModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
 	double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+    double modValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 
 	for (int k1 = 0; k1 < Data.numberOfFrequency; k1++)
 	{		
@@ -97,6 +106,8 @@ void CExpoModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data,
 }
 void CExpoModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -105,12 +116,14 @@ void CExpoModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data,
 		
 		for (int k2 = 0; k2 < Data.numberOfFrequency; k2++)
 		{
-			dModulationMatrix(k1, k2) = exp(-(dTime - timeOfMax)*(dTime - timeOfMax) / (2 * stormLength*stormLength));
+            dModulationMatrix(k1, k2) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 		}
 	}
 }
 void CExpoModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, cube &dModulationCube, QStringList &strInformation)
 {
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -121,7 +134,7 @@ void CExpoModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, 
 		{
 			for (int k3 = 0; k3 < Data.numberOfSpatialPosition; k3++)
 			{
-				dModulationCube(k1, k2, k3) = exp(-(dTime - timeOfMax) * (dTime - timeOfMax) / (2 * stormLength * stormLength));
+                dModulationCube(k1, k2, k3) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 			}
 		}
 	}

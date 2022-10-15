@@ -28,7 +28,7 @@ class RPS_CORE_API CrpsUserDefinedPhenomenonFactory
 	public:
 		typedef IrpsUserDefinedPhenomenon *(*CreateUserDefinedPhenomenonCallback)();
 
-		static void InitializeUserDefinedPhenomenon(const QString &name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+		static void InitializeUserDefinedPhenomenon(const QString &name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 		static void RegisterUserDefinedPhenomenon(const QString &name, const QString &pluginName, const QString &description, CreateUserDefinedPhenomenonCallback cb);
 

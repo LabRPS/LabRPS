@@ -3,6 +3,7 @@
 #include "RPSWindLabTools.h"
 #include "RPSWindLabFramework.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/general/CholeskyDecomposition.h"
 
 void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
@@ -88,11 +89,8 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorP(const CRPSWin
 
 void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
 {
-	// LLT<mat> lltOfdPSDMatrix(dPSDMatrix); // compute the Cholesky decomposition of dPSDMatrix
-	// dCPSDDecomMatrix = lltOfdPSDMatrix.matrixL(); // retrieve factor L  in the decomposition
-
-	// The previous two lines can also be written as "dCPSDDecomMatrix = dPSDMatrix.llt().matrixL()"
-	dCPSDDecomMatrix = dPSDMatrix.llt().matrixL();
+    rps::General::CholeskyDecomposition decomposition;
+    decomposition.computeCholeskyDecomposition(dPSDMatrix, dCPSDDecomMatrix);
 }
 void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixTP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
@@ -235,11 +233,11 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumCubePPT(const CRPSWin
 
 bool CCholeskyDecomposition::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	QMessageBox::warning(0, "Cholesky Decomposition", "Please, note that the lowwe triangular matrix will be computed.");
+    QMessageBox::warning(0, "Cholesky Decomposition", "Please, note that the lower triangular matrix will be computed.");
 	return true;
 }
 
 void CCholeskyDecomposition::ComputeDecomposedPSDValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
-	strInformation.append("This function is not implemented.");
+    strInformation.append("ComputeDecomposedPSDValue function is not implemented.");
 }

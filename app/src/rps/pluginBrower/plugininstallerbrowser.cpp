@@ -6,6 +6,9 @@
 #include "rps/sealab/rpsSeaLabSimulation.h"
 #include "RPSWindLabAPI.h"
 #include "RPSWindLabpluginAPI.h"
+#include "RPSUserDefinedPhenomenonAPI.h""
+#include "RPSUserDefinedPhenomenonpluginAPI.h"
+
 #include "globals.h"
 
 #include <QMessageBox>
@@ -107,6 +110,22 @@ void PluginInstallerBrowser::install()
 	}
 	else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
 	{
+	}
+	else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+	{
+        if (RPSUserDefinedPhenomenonAPIInfo::getUserDefinedPhenomenonAPIVersion() != LabRPS::userDefinedPhenomenonAPIVersionString())
+        {
+            QMessageBox::critical(0, "Error",
+                                  "Sorry, couldn't install the plugin. Your plugin was developed with a core api whose version is not compatible with the one in the current version of LabRPS.");
+            return;
+        }
+
+        if (RPSUserDefinedPhenomenonPluginAPIInfo::getUserDefinedPhenomenonPluginAPIVersion() != LabRPS::userDefinedPhenomenonPluginAPIVersionString())
+        {
+            QMessageBox::critical(0, "Error",
+                                  "Sorry, couldn't install the plugin. Your plugin was developed with a plugin api whose version is not compatible with the one in the current version of LabRPS.");
+            return;
+        }
 	}
 
 	pluginInstallationType = 1; // installation

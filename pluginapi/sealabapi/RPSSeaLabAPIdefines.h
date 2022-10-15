@@ -1,8 +1,8 @@
 
-#ifndef Sea_DEFINES_H
-#define Sea_DEFINES_H
+#ifndef DEFINES_H
+#define DEFINES_H
 
-#if defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(__CYGWIN__)
+#ifdef _WIN32
 #ifdef RPS_BUILDING_CORE
 #define RPS_CORE_API   __declspec(dllexport)
 #define RPS_PLUGIN_API __declspec(dllimport)

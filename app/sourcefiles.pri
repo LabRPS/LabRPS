@@ -478,8 +478,13 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationOutputWorker.h\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.h\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.h\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisondialog.h\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisontablezoomindialog.h\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.h\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.h\
+            src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.h\
 
-SOURCES  += src/rps/RPSpluginManager.cpp \
+SOURCES  += src/rps/RPSpluginManager.cpp\
             src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.cpp\
             src/rps/sealab/widgets/rpsselcoherencedlg.cpp\
@@ -520,7 +525,11 @@ SOURCES  += src/rps/RPSpluginManager.cpp \
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulationOutputWorker.cpp\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.cpp\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.cpp\
-
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisondialog.cpp\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisontablezoomindialog.cpp\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.cpp\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.cpp\
+            src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.cpp\
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
@@ -550,5 +559,8 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/windLab/widgets/rpswlaccuracycomparisonobjectdependencydialog.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonsimuoptionsdlg.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenondefinitiondlg.ui\
-
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisondialog.ui\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisontablezoomindialog.ui\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.ui\
+            src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.ui\
 

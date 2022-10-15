@@ -2,6 +2,7 @@
 #include "SineModulation.h"
 #include "sinemodulationdialog.h"
 #include <QMessageBox>
+#include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/SineModulation.h"
 
 static double pulseDuration = 150;
 
@@ -27,20 +28,22 @@ void CSineModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, do
 void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
 	double 	dTime;
+    rps::WindVelocity::SineModulation sineModulation;
 
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
 		dTime = Data.minTime + Data.timeIncrement * k;
 
-		dModulationVector(k) = sin(3.14*dTime / pulseDuration);
-
+        dModulationVector(k) = sineModulation.computeModulation(dTime, pulseDuration);
 	}
 }
 void CSineModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = sin(3.14*dTime / pulseDuration);
+    double modValue = sineModulation.computeModulation(dTime, pulseDuration);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfFrequency; k++)
@@ -51,8 +54,10 @@ void CSineModulation::ComputeModulationVectorF(const CRPSWindLabsimuData &Data, 
 }
 void CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
     double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = sin(3.14*dTime / pulseDuration);
+    double modValue = sineModulation.computeModulation(dTime, pulseDuration);
 	
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfSpatialPosition; k++)
@@ -63,6 +68,8 @@ void CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, 
 }
 void CSineModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -71,14 +78,16 @@ void CSineModulation::ComputeModulationMatrixTP(const CRPSWindLabsimuData &Data,
 		
 		for (int k2 = 0; k2 < Data.numberOfSpatialPosition; k2++)
 		{
-			dModulationMatrix(k1, k2) = sin(3.14*dTime / pulseDuration);
+            dModulationMatrix(k1, k2) = sineModulation.computeModulation(dTime, pulseDuration);
 		}
 	}
 }
 void CSineModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
 	double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    double modValue = sin(3.14*dTime / pulseDuration);
+    double modValue = sineModulation.computeModulation(dTime, pulseDuration);
 
 	for (int k1 = 0; k1 < Data.numberOfFrequency; k1++)
 	{		
@@ -90,6 +99,8 @@ void CSineModulation::ComputeModulationMatrixFP(const CRPSWindLabsimuData &Data,
 }
 void CSineModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data, mat &dModulationMatrix, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -98,12 +109,14 @@ void CSineModulation::ComputeModulationMatrixTF(const CRPSWindLabsimuData &Data,
 		
 		for (int k2 = 0; k2 < Data.numberOfFrequency; k2++)
 		{
-			dModulationMatrix(k1, k2) = sin(3.14*dTime / pulseDuration);
+            dModulationMatrix(k1, k2) = sineModulation.computeModulation(dTime, pulseDuration);
 		}
 	}
 }
 void CSineModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, cube &dModulationCube, QStringList &strInformation)
 {
+    rps::WindVelocity::SineModulation sineModulation;
+
 	double dTime;
 
 	for (int k1 = 0; k1 < Data.numberOfTimeIncrements; k1++)
@@ -114,7 +127,7 @@ void CSineModulation::ComputeModulationCubeTFP(const CRPSWindLabsimuData &Data, 
 		{
 			for (int k3 = 0; k3 < Data.numberOfSpatialPosition; k3++)
 			{
-				dModulationCube(k1, k2, k3) = sin(3.14*dTime / pulseDuration);
+                dModulationCube(k1, k2, k3) = sineModulation.computeModulation(dTime, pulseDuration);
 			}
 		}
 	}

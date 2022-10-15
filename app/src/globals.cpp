@@ -41,6 +41,8 @@ const int LabRPS::LabRPS_versionNo = 00012023;
 const char* LabRPS::LabRPS_version = "0.001";
 const char* LabRPS::LabRPS_Windlab_api_version = "0.001";
 const char* LabRPS::LabRPS_Windlab_plugin_api_version = "0.001";
+const char* LabRPS::LabRPS_UserDefinedPhenomenon_api_version = "0.001";
+const char* LabRPS::LabRPS_UserDefinedPhenomenon_plugin_api_version = "0.001";
 const char* LabRPS::extra_version = "stable";
 const QDate LabRPS::release_date =
     QDate::fromString(QString("01-01-2023"), "dd-MM-yyyy");
@@ -75,6 +77,7 @@ const char* LabRPS::download_Uri =
   QString LabRPS::objGroupTableTool = "Table Tool";
   QString LabRPS::objGroupMatrixTool = "Matrix Tool";
   QString LabRPS::objGroupUserDefinedRPSObject = "User Defined RPS object";
+  QString LabRPS::objGroupUserDefinedPhenomenonObject = "User Defined Phenomenon";
 
 
   QString LabRPS::ComputeCrossCoherenceVectorF = "ComputeCrossCoherenceVectorF";
@@ -100,7 +103,7 @@ const char* LabRPS::download_Uri =
 	QString LabRPS::ComputeZCrossSpectrumVectorF = "ComputeZCrossSpectrumVectorF";
 	QString LabRPS::ComputeZCrossSpectrumVectorT = "ComputeZCrossSpectrumVectorT";
 	QString LabRPS::ComputeZCrossSpectrumVectorP = "ComputeZCrossSpectrumVectorP";
-    QString LabRPS::UserDefinedRPSObjectComputePFT = "UserDefinedRPSObjectComputePFT";
+  QString LabRPS::UserDefinedRPSObjectComputePFT = "UserDefinedRPSObjectComputePFT";
 
 
 
@@ -117,6 +120,9 @@ QString LabRPS::schemaVersion() {
 QString LabRPS::versionString() { return LabRPS_version; }
 QString LabRPS::windLabAPIVersionString() { return LabRPS_Windlab_api_version; }
 QString LabRPS::windLabPluginAPIVersionString() { return LabRPS_Windlab_plugin_api_version; }
+QString LabRPS::userDefinedPhenomenonAPIVersionString() { return LabRPS_UserDefinedPhenomenon_api_version; }
+QString LabRPS::userDefinedPhenomenonPluginAPIVersionString() { return LabRPS_UserDefinedPhenomenon_plugin_api_version; }
+
 
 QString LabRPS::extraVersion() { return QString(extra_version); }
 

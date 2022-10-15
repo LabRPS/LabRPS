@@ -64,7 +64,16 @@ RPSWLComparisonObjectDependencyDialog::RPSWLComparisonObjectDependencyDialog(QWi
     ui->comboBoxSpectrum->setCurrentText(rpsWindLabcomparisonDlg->spectrum);
 
     connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(acceptInput()));
-
+    connect( ui->pushButtonCoherenceInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedCoherenceInit( ) ) );
+    connect( ui->pushButtonCorrelationInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedCorrelationInit( ) ) );
+    connect( ui->pushButtonFrequencyDistrInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedFrequencyDistrInit( ) ) );
+    connect( ui->pushButtonSpatialDistrInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedSpatialDistrInit( ) ) );
+    connect( ui->pushButtonMeanWindInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedMeanWindInit( ) ) );
+    connect( ui->pushButtonModulationInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedModulationInit( ) ) );
+    connect( ui->pushButtonSimuMethodInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedSimuMethodInit( ) ) );
+    connect( ui->pushButtonRandomnessProInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedRandomnessInit( ) ) );
+    connect( ui->pushButtonSpectrumDecompInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedSpectrumDecompInit( ) ) );
+    connect( ui->pushButtonSpectrumInit, SIGNAL( clicked() ), this, SLOT( OnBnClickedSpectrumInit( ) ) );
 }
 
 RPSWLComparisonObjectDependencyDialog::~RPSWLComparisonObjectDependencyDialog()
@@ -85,5 +94,56 @@ void RPSWLComparisonObjectDependencyDialog::acceptInput()
      randomness = ui->comboBoxRandomness->currentText();
      spectrum = ui->comboBoxSpectrum->currentText();
 
+}
+
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedCoherenceInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->CoherenceFunctionInital(ui->comboBoxCoherence->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedCorrelationInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->correlationFunctionInital(ui->comboBoxCorrelation->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedFrequencyDistrInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->frequencyDistributionInital(ui->comboBoxFrequency->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedSpatialDistrInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->locationDistributionFunctionInital(ui->comboBoxSpatial->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedMeanWindInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->meanWindProfilInital(ui->comboBoxMean->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedModulationInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->modulationFunctionInital(ui->comboBoxModulation->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedSimuMethodInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->simulationMethodInital(ui->comboBoxSimuMethod->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedRandomnessInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->randomnessProviderInital(ui->comboBoxRandomness->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedSpectrumDecompInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->psdDecompositionMethodInital(ui->comboBoxDecomposition->currentText());
+}
+void RPSWLComparisonObjectDependencyDialog::OnBnClickedSpectrumInit( )
+{
+    RPSWindLabSimulation *rpsWindLabSimulator = qobject_cast<RPSWindLabSimulation *>(this->parent()->parent());
+    rpsWindLabSimulator->spectrumModelInital(ui->comboBoxSpectrum->currentText());
 }
 

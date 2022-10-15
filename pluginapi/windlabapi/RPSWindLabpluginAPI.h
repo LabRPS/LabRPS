@@ -115,7 +115,7 @@ RPS_CORE_FUNC void RegisterCoherence(const QString name, const QString &descript
 	CoherenceFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeCoherence(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeCoherence(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterCoherence(const QString name, const QString &pluginName);
@@ -135,7 +135,7 @@ RPS_CORE_FUNC void RegisterLocationDistribution(const QString name, const QStrin
 	LocationDistributionFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeLocationDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeLocationDistribution(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterLocationDistribution(const QString name, const QString &pluginName);
@@ -159,7 +159,7 @@ RPS_CORE_FUNC void RegisterMean(const QString name, const QString &pluginName, c
 	MeanFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeMean(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeMean(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterMean(const QString name, const QString &pluginName);
@@ -180,7 +180,7 @@ RPS_CORE_FUNC void RegisterXSpectrum(const QString name, const QString &pluginNa
 	XSpectrumFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeXSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeXSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterXSpectrum(const QString name, const QString &pluginName);
@@ -201,7 +201,7 @@ RPS_CORE_FUNC void RegisterZSpectrum(const QString name, const QString &pluginNa
 	ZSpectrumFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeZSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeZSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterZSpectrum(const QString name, const QString &pluginName);
@@ -222,7 +222,7 @@ RPS_CORE_FUNC void RegisterYSpectrum(const QString name, const QString &pluginNa
 	YSpectrumFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeYSpectrum(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeYSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterYSpectrum(const QString name, const QString &pluginName);
@@ -242,7 +242,7 @@ RPS_CORE_FUNC void RegisterSimuMethod(const QString name, const QString &pluginN
 	SimuMethodFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeSimuMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeSimuMethod(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterSimuMethod(const QString name, const QString &pluginName);
@@ -263,7 +263,7 @@ RPS_CORE_FUNC void RegisterFrequencyDistribution(const QString name, const QStri
 	FrequencyDistributionFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeFrequencyDistribution(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeFrequencyDistribution(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterFrequencyDistribution(const QString name, const QString &pluginName);
@@ -285,7 +285,7 @@ RPS_CORE_FUNC void RegisterRandomness(const QString name, const QString &pluginN
 	RandomnessFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeRandomness(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeRandomness(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterRandomness(const QString name, const QString &pluginName);
@@ -306,7 +306,7 @@ RPS_CORE_FUNC void RegisterPSDdecomMethod(const QString name, const QString &plu
 	PSDdecomMethodFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializePSDdecomMethod(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializePSDdecomMethod(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterPSDdecomMethod(const QString name, const QString &pluginName);
@@ -327,7 +327,7 @@ RPS_CORE_FUNC void RegisterCorrelation(const QString name, const QString &plugin
 	CorrelationFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeCorrelation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeCorrelation(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterCorrelation(const QString name, const QString &pluginName);
@@ -348,7 +348,7 @@ RPS_CORE_FUNC void RegisterModulation(const QString name, const QString &pluginN
 	ModulationFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeModulation(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeModulation(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterModulation(const QString name, const QString &pluginName);
@@ -370,7 +370,7 @@ RPS_CORE_FUNC void RegisterTableTool(const QString name, const QString &descript
 	TableToolFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeTableTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeTableTool(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterTableTool(const QString name, const QString &pluginName);
@@ -390,7 +390,7 @@ RPS_CORE_FUNC void RegisterMatrixTool(const QString name, const QString &descrip
 	MatrixToolFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeMatrixTool(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeMatrixTool(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterMatrixTool(const QString name, const QString &pluginName);
@@ -410,7 +410,7 @@ RPS_CORE_FUNC void RegisterUserDefinedRPSObject(const QString name, const QStrin
 	UserDefinedRPSObjectFreeFunc free_cb);
 
 /// A routine to let a plugin install new location distribution
-RPS_CORE_FUNC void InitializeUserDefinedRPSObject(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
+RPS_CORE_FUNC void InitializeUserDefinedRPSObject(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version);
 
 /// This uninstall the location distribution
 RPS_CORE_FUNC void UnregisterUserDefinedRPSObject(const QString name, const QString &pluginName);

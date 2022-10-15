@@ -267,11 +267,41 @@ void RPSWindLabSimulationOutputWorker::frequencyDistributionOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+        m_locationJ = 1;
+        m_locationK = 0;
+        m_frequencyIndex = 1;
+        m_timeIndex = 0;
+
+        // Build an coherence function and frequency distribution functions
+        IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good coherence object
+        if (NULL == currentFreqDistr)
+        {
+            m_information.append("Invalid mean wind profil");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector, m_information);
+        m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentFreqDistr;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
+
 
     emit showFrequencyDistributionOutput();
 }
@@ -571,14 +601,53 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+        
+        // Build the psd model and the frequency distribution functions
+        IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(m_windLabData.spectrumModel);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeXCrossSpectrumVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
     }
 
     emit showXSpectrumOutput();
-}
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
+    }
+
 void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
 {
     if (m_locationJ > 0 &&
@@ -846,10 +915,47 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+           // Build the psd model and the frequency distribution functions
+        IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(m_windLabData.spectrumModel);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeYCrossSpectrumVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
 
     emit showYSpectrumOutput();
@@ -1121,10 +1227,46 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+          // Build the psd model and the frequency distribution functions
+        IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(m_windLabData.spectrumModel);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum model");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeZCrossSpectrumVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
 
     emit showZSpectrumOutput();
@@ -1411,10 +1553,47 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+         // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(m_windLabData.cpsdDecompositionMethod);
+        IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            m_information.append("Invalid spectrum decomposition method");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentPSD;
+        delete currentFrequencyDistribution;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
 
     emit showDecomposedSpectrumOutput();
@@ -1501,11 +1680,37 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        delete currentCoherenceFunction;
-        return;
+         IrpsWLFrequencyDistribution *currentFrequencyDistribution = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(m_windLabData.freqencyDistribution);
+
+        // Check whether good frequency object
+        if (NULL == currentFrequencyDistribution)
+        {
+            m_information.append("Invalid frequency distribution");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector2.resize(m_windLabData.numberOfFrequency);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector, m_information);
+        currentFrequencyDistribution->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_information);
+
+        m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentFrequencyDistribution;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // delete currentCoherenceFunction;
+        // return;
     }
 
     // Delete the object
@@ -1736,10 +1941,35 @@ void RPSWindLabSimulationOutputWorker::modulationOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+         // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(m_windLabData.modulationFunction);
+
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            m_information.append("Invalid modulation function");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentModulationFtn;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
 
     emit showModulationOutput();
@@ -1842,10 +2072,35 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
     }
     else
     {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
+        // Build an coherence function and frequency distribution functions
+        IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(m_windLabData.meanFunction);
+
+        // Check whether good coherence object
+        if (NULL == currentMeanWindProfil)
+        {
+            m_information.append("Invalid mean wind profil");
+            emit sendInformation(m_information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        m_ResultVector.resize(m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
+
+        delete currentMeanWindProfil;
+
+        // m_information.append("Sorry, there is no function that meet your requirements.");
+        // emit sendInformation(m_information);
+        // emit progressBarHide();
+        // return;
     }
 
     emit showMeanWindVelocityOutput();
@@ -1853,11 +2108,11 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
 
 void RPSWindLabSimulationOutputWorker::randomPhaseOutp()
 {
-    if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
-        m_locationK == 0 &&
-        m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
-        m_timeIndex == 0)
-    {
+    // if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
+    //     m_locationK == 0 &&
+    //     m_frequencyIndex == m_windLabData.numberOfFrequency + 1 &&
+    //     m_timeIndex == 0)
+    // {
 
         // Build an coherence function and frequency distribution functions
         IrpsWLRandomness *currentRandomnessProvider = CrpsRandomnessFactory::BuildRandomness(m_windLabData.randomnessProvider);
@@ -1883,14 +2138,14 @@ void RPSWindLabSimulationOutputWorker::randomPhaseOutp()
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentRandomnessProvider;
-    }
-    else
-    {
-        m_information.append("Sorry, there is no function that meet your requirements.");
-        emit sendInformation(m_information);
-        emit progressBarHide();
-        return;
-    }
+    // }
+    // else
+    // {
+    //     // m_information.append("Sorry, there is no function that meet your requirements.");
+    //     // emit sendInformation(m_information);
+    //     // emit progressBarHide();
+    //     // return;
+    // }
 
     emit showRandomPhaseOutput();
 }

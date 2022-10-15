@@ -548,6 +548,18 @@ void CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const CRPSWindLabsimuDat
 }
 void CRPSWindLabFramework::ComputeXCrossSpectrumVectorP(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
 {
+    IrpsWLXSpectrum * SelectedXSpectrumObject = CrpsXSpectrumFactory::BuildXSpectrum(Data.spectrumModel);
+
+    if (NULL == SelectedXSpectrumObject)
+    {
+        return;
+    }
+
+    // Compute the frequency distribution object
+    SelectedXSpectrumObject->ComputeXCrossSpectrumVectorP(Data, dPSDVector, strInformation);
+
+    // Delete the object
+    delete SelectedXSpectrumObject;
 
 }
 void CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
@@ -1231,6 +1243,23 @@ void CRPSWindLabFramework::ComputeCrossSpectrumCubePPT(const CRPSWindLabsimuData
 		CRPSWindLabFramework::ComputeZCrossSpectrumCubePPT(Data, dPSDCube, strInformation);
 	}
 }
+
+void CRPSWindLabFramework::ComputeCrossSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+{
+	if (Data.direction == 1)
+	{
+		CRPSWindLabFramework::ComputeXCrossSpectrumValue(Data, dValue, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dTime, strInformation);
+	}
+	else if (Data.direction == 2)
+	{
+		CRPSWindLabFramework::ComputeYCrossSpectrumValue(Data, dValue, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dTime, strInformation);
+	}
+	else if (Data.direction == 3)
+	{
+		CRPSWindLabFramework::ComputeZCrossSpectrumValue(Data, dValue, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dTime, strInformation);
+	}
+}
+
 
 ObjectDescription CRPSWindLabFramework::getSpatialDistributionObjDescription(const QString &objectName)
 {

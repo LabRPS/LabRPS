@@ -32,6 +32,7 @@
 
 #include "rps/RPSpluginManager.h"
 #include "RPSWindLabAPI.h"
+#include "RPSUserDefinedPhenomenonAPI.h"
 #include "globals.h"
 
 
@@ -171,6 +172,10 @@ void PluginPropertyEditor::selectObjectItem(QTreeWidgetItem *item)
         else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
         {
                 seaLabSelectObjectItem(item);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+        {
+                userDefinedPhenomenonSelectObjectItem(item);
         }
 }
 
@@ -588,6 +593,58 @@ void PluginPropertyEditor::seismicLabSelectObjectItem(QTreeWidgetItem *item)
 
 }
 
+void PluginPropertyEditor::userDefinedPhenomenonSelectObjectItem(QTreeWidgetItem *item)
+{
+        MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType bb = static_cast<MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType>(
+            item->data(0, Qt::UserRole).value<int>());
+
+        if (!item)
+        {
+                return;
+        }
+        switch (static_cast<MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType>(
+            item->data(0, Qt::UserRole).value<int>()))
+        {
+        case MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType::UserDefinedPhenomenonPlugin:
+        {
+                QString selectedPluginName = item->data(0, Qt::UserRole + 1).value<QString>();
+                CPluginDescription *selectedPlugin = PluginManager::GetInstance().GetPluginDescriptionsMap()[selectedPluginName];
+                UserDefinedPhenomenonPluginPropertyBlock(selectedPlugin);
+        }
+        break;
+        case MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType::UserDefinedPhenomenon:
+        {
+                // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+               
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+                
+                // object group 
+                QString itemGroup = LabRPS::objGroupUserDefinedPhenomenonObject;
+                
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+                
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfUserDefinedPhenomenonPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            UserDefinedPhenomenonParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetUserDefinedPhenomenonPluggedObjectDescription(itemGroup, itemtext);
+                   UserDefinedPhenomenonObjectPropertyBlock(itemGroup, objectDescription);
+                }
+        }    
+        break;
+        }
+}
 void PluginPropertyEditor::objectschanged() {
   MyWidget *mywidget = app_->getactiveMyWidget();
   populateObjectBrowser(mywidget);
@@ -608,6 +665,10 @@ void PluginPropertyEditor::populateObjectBrowser(MyWidget *widget)
         else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
         {
                 seaLabPopulateObjectBrowser(widget);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+        {
+                userDefinedPhenomenonPopulateObjectBrowser(widget);
         }
 }
 
@@ -1456,7 +1517,127 @@ void PluginPropertyEditor::seismicLabPopulateObjectBrowser(MyWidget *widget)
                 // objectbrowser_->expandAll();
         }
 }
+void PluginPropertyEditor::userDefinedPhenomenonPopulateObjectBrowser(MyWidget *widget)
+{
+         // delete all TreeWidgetItems
+        objectbrowser_->blockSignals(true);
+        while (objectbrowser_->topLevelItemCount())
+        {
+                QTreeWidgetItemIterator itr(objectbrowser_,
+                                            QTreeWidgetItemIterator::NoChildren);
+                while (*itr)
+                {
+                        delete (*itr);
+                        ++itr;
+                }
+        }
+        objectbrowser_->clear();
+        objectitems_.clear();
+        propertybrowser_->clear();
+        objectbrowser_->blockSignals(false);
 
+        /////////////*********rps********///////////////////////////
+        objectbrowser_->setHeaderLabel("Plugins");
+        objectbrowser_->headerItem()->setIcon(
+            0, IconLoader::load("simulation-plugins", IconLoader::General));
+        // installed plugins
+        {
+                // get the path to the plugin folder
+                QString strPath = PluginManager::GetInstance().GetPluginLacotionPath();
+
+                // search and find all available plugin and save their descriptions
+                PluginManager::GetInstance().SearchForAllPlugins(strPath);
+
+                if (PluginManager::GetInstance().GetPluginDescriptionsMap().size() <= 0)
+                {
+                        objectbrowser_->setHeaderLabel("(none)");
+                        objectbrowser_->headerItem()->setIcon(
+                            0, IconLoader::load("clear-loginfo", IconLoader::General));
+                        return;
+                }
+
+                // an iterator
+                std::map<QString, CPluginDescription *>::iterator it;
+
+                // iterate through all plugins
+                for (it = PluginManager::GetInstance().GetPluginDescriptionsMap().begin(); it != PluginManager::GetInstance().GetPluginDescriptionsMap().end(); ++it)
+                {
+                        // the name of the plugin
+                        QString installedpluginitemtext = it->second->name;
+
+                        // create the plugin note item
+                        QTreeWidgetItem *installedpluginitem = new QTreeWidgetItem(
+                            static_cast<QTreeWidget *>(nullptr), QStringList(installedpluginitemtext));
+
+                        // set tooltip and icon
+                        installedpluginitem->setToolTip(0, installedpluginitemtext);
+                        installedpluginitem->setIcon(0,
+                                                     IconLoader::load("goto-cell", IconLoader::LightDark));
+                        // set firt data to the item
+                        installedpluginitem->setData(
+                            0, Qt::UserRole,
+                            static_cast<int>(MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType::UserDefinedPhenomenonPlugin));
+
+                        // set second data to the item
+                        installedpluginitem->setData(0, Qt::UserRole + 1,
+                                                     QVariant(installedpluginitemtext));
+
+                        // add the plugin node item to the tree
+                        objectitems_.append(installedpluginitem);
+
+                        //////////////////UserDefinedPhenomenon////////////////////////////////////////////////////////////
+                        // an iterator to iterate through the map
+                        std::map<const QString, QString>::iterator it;
+
+                        // location distribution
+                        if (!CrpsUserDefinedPhenomenonFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupUserDefinedPhenomenonObject;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType::UserDefinedPhenomenon));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsUserDefinedPhenomenonFactory::GetOjectAndPluginMap().begin(); it != CrpsUserDefinedPhenomenonFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::UserDefinedPhenomenonObjectPropertyItemType::UserDefinedPhenomenon));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+
+                        }
+                }
+
+                // add to Tree
+                objectbrowser_->addTopLevelItems(objectitems_);
+                objectbrowser_->insertTopLevelItems(0, objectitems_);
+                // objectbrowser_->expandAll();
+        }
+        // tableConnections(table);
+}
 void PluginPropertyEditor::setObjectPropertyId()
 {}
 
@@ -1576,7 +1757,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsLocationDistributionFactory::GetOwnerPlugin();
+            pluginName = CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsLocationDistributionFactory::GetOjectDescriptionMap()[objectName];
 			
 			pubTitle = CrpsLocationDistributionFactory::GetTitleMap()[objectName];
@@ -1590,7 +1771,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsMeanFactory::GetOwnerPlugin();
+            pluginName = CrpsMeanFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsMeanFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsMeanFactory::GetTitleMap()[objectName];
@@ -1604,7 +1785,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsXSpectrumFactory::GetOwnerPlugin();
+            pluginName = CrpsXSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsXSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsXSpectrumFactory::GetTitleMap()[objectName];
@@ -1618,7 +1799,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsYSpectrumFactory::GetOwnerPlugin();
+            pluginName = CrpsYSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsYSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsYSpectrumFactory::GetTitleMap()[objectName];
@@ -1632,7 +1813,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsZSpectrumFactory::GetOwnerPlugin();
+            pluginName = CrpsZSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsZSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsZSpectrumFactory::GetTitleMap()[objectName];
@@ -1647,7 +1828,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsPSDdecomMethodFactory::GetOwnerPlugin();
+            pluginName = CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsPSDdecomMethodFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsPSDdecomMethodFactory::GetTitleMap()[objectName];
@@ -1662,7 +1843,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsCoherenceFactory::GetOwnerPlugin();
+            pluginName = CrpsCoherenceFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsCoherenceFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsCoherenceFactory::GetTitleMap()[objectName];
@@ -1676,7 +1857,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsSimuMethodFactory::GetOwnerPlugin();
+            pluginName = CrpsSimuMethodFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsSimuMethodFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsSimuMethodFactory::GetTitleMap()[objectName];
@@ -1691,7 +1872,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsFrequencyDistributionFactory::GetOwnerPlugin();
+            pluginName = CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsFrequencyDistributionFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsFrequencyDistributionFactory::GetTitleMap()[objectName];
@@ -1706,7 +1887,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsRandomnessFactory::GetOwnerPlugin();
+            pluginName = CrpsRandomnessFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsRandomnessFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsRandomnessFactory::GetTitleMap()[objectName];
@@ -1721,7 +1902,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 	{
 		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
 		{
-			pluginName = CrpsModulationFactory::GetOwnerPlugin();
+            pluginName = CrpsModulationFactory::GetTobeInstalledObjectsMap()[objectName];
 			descrip = CrpsModulationFactory::GetOjectDescriptionMap()[objectName];
 
 			pubTitle = CrpsModulationFactory::GetTitleMap()[objectName];
@@ -1938,4 +2119,180 @@ int PluginPropertyEditor::GetNumberOfWindLabPlggedObject(const QString &itemText
 	}
 
 	return 0;
+}
+
+//userDefinedPhenomenon
+
+void PluginPropertyEditor::UserDefinedPhenomenonPluginPropertyBlock(CPluginDescription *description)
+{
+        propertybrowser_->clear();
+        propertybrowser_->addProperty(pluginfileitem_);
+        propertybrowser_->addProperty(pluginnameitem_);
+        propertybrowser_->addProperty(plugintypeitem_);
+        propertybrowser_->addProperty(pluginreleasedateitem_);
+        propertybrowser_->addProperty(pluginauthorsitem_);
+        propertybrowser_->addProperty(pluginversionitem_);
+        propertybrowser_->addProperty(pluginstatusitem_);
+        propertybrowser_->addProperty(plugindescriptionitem_);
+
+        stringManager_->setValue(pluginfileitem_, description->fileName);
+        stringManager_->setValue(pluginnameitem_, description->name);
+        stringManager_->setValue(plugintypeitem_, description->type);
+        stringManager_->setValue(pluginreleasedateitem_, description->releaseDate);
+        stringManager_->setValue(pluginauthorsitem_, description->authors);
+        stringManager_->setValue(pluginversionitem_, description->version);
+        stringManager_->setValue(plugindescriptionitem_, description->description);
+
+        if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
+        {
+                if (PluginManager::GetInstance().GetInstalledPluginsMap().find(description->fullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
+                {
+                        stringManager_->setValue(pluginstatusitem_, "Installed");
+                }
+                else
+                {
+                        stringManager_->setValue(pluginstatusitem_, "Not installed");
+                }
+        }
+        else
+        {
+                stringManager_->setValue(pluginstatusitem_, "Not installed");
+        }
+}
+
+void PluginPropertyEditor::UserDefinedPhenomenonParentObjectPropertyBlock(const QString &name, const int &number)
+{
+        propertybrowser_->clear();
+        propertybrowser_->addProperty(parentobjectnameitem_);
+        propertybrowser_->addProperty(parentobjectnumberofobjectitem_);
+
+        stringManager_->setValue(parentobjectnameitem_, name);
+        intManager_->setValue(parentobjectnumberofobjectitem_, number);
+
+}
+
+void PluginPropertyEditor::UserDefinedPhenomenonObjectPropertyBlock(const QString &objectGroup, const ObjectDescription &object)
+{
+ propertybrowser_->clear();
+ propertybrowser_->addProperty(objecttypeitem_);
+ propertybrowser_->addProperty(objectnameitem_);
+ propertybrowser_->addProperty(objectselecteditem_);
+ propertybrowser_->addProperty(objectpluginitem_);
+ propertybrowser_->addProperty(objectAuthoritem_);
+ propertybrowser_->addProperty(objectpathitem_);
+ propertybrowser_->addProperty(objectpluginversionitem_);
+ propertybrowser_->addProperty(objectLabrpsversionitem_);
+ propertybrowser_->addProperty(objectapiversionitem_);
+ propertybrowser_->addProperty(objectreleasedateitem_);
+ propertybrowser_->addProperty(objectdescriptionitem_);
+ propertybrowser_->addProperty(objectpublicationtitleitem_);
+ propertybrowser_->addProperty(objectlinktopublicationitem_);
+ propertybrowser_->addProperty(objectpublicationdateitem_);
+ propertybrowser_->addProperty(objectpublicationauthoritem_);
+ propertybrowser_->addProperty(objectversionitem_);
+
+
+QString isSelected = GetUserDefinedPhenomenonObjectSelectionState(objectGroup, object.m_objectName, app_->rpsSimulator->rpsUserDefinedPhenomenonSimulator->GetUserDefinedPhenomenonSimulationData());
+stringManager_->setValue(objecttypeitem_, "Object");
+stringManager_->setValue(objectnameitem_, object.m_objectName);
+stringManager_->setValue(objectselecteditem_, isSelected);
+stringManager_->setValue(objectAuthoritem_, object.m_author);
+stringManager_->setValue(objectpathitem_, object.m_path);
+stringManager_->setValue(objectpluginversionitem_, object.m_pluginVersion);
+stringManager_->setValue(objectapiversionitem_, object.m_apiVersion);
+stringManager_->setValue(objectreleasedateitem_, object.m_releaseDate);
+stringManager_->setValue(objectdescriptionitem_, object.m_description);
+stringManager_->setValue(objectpublicationtitleitem_, object.m_publicationTitle);
+stringManager_->setValue(objectlinktopublicationitem_, object.m_publicationLink);
+stringManager_->setValue(objectpublicationdateitem_, object.m_publicationDate);
+stringManager_->setValue(objectpluginitem_, object.m_pluginName);
+stringManager_->setValue(objectpublicationauthoritem_, object.m_publicationAuthor);
+stringManager_->setValue(objectversionitem_, object.m_version);
+stringManager_->setValue(objectLabrpsversionitem_, object.m_labRPSVersion);
+
+
+}
+
+ObjectDescription PluginPropertyEditor::GetUserDefinedPhenomenonPluggedObjectDescription(const QString &objectGroup, const QString &objectName)
+{
+    ObjectDescription pluggedObjectDescription;
+
+    QString pluginName = QString("");
+    QString descrip = QString("");
+    QString pubTitle = QString("");
+    QString pubLink = QString("");
+    QString pubAuthor = QString("");
+    QString pubDate = QString("");
+    QString version = QString("");
+
+
+    if (objectGroup == LabRPS::objGroupUserDefinedPhenomenonObject)
+    {
+        if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
+        {
+            pluginName = CrpsUserDefinedPhenomenonFactory::GetTobeInstalledObjectsMap()[objectName];
+            descrip = CrpsUserDefinedPhenomenonFactory::GetOjectDescriptionMap()[objectName];
+
+            pubTitle = CrpsUserDefinedPhenomenonFactory::GetTitleMap()[objectName];
+            pubLink = CrpsUserDefinedPhenomenonFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsUserDefinedPhenomenonFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsUserDefinedPhenomenonFactory::GetDateMap()[objectName];
+            version = CrpsUserDefinedPhenomenonFactory::GetVersionMap()[objectName];
+        }
+    }
+
+
+    if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(pluginName) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
+    {
+        pluggedObjectDescription.m_pluginName = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetDisplayName();
+        pluggedObjectDescription.m_releaseDate = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginReleaseDate();
+        pluggedObjectDescription.m_path = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginSubFolder();
+        pluggedObjectDescription.m_author = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginAuthor();
+        pluggedObjectDescription.m_pluginVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginVersion();
+        pluggedObjectDescription.m_labRPSVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetLabRPSVersion();
+        pluggedObjectDescription.m_apiVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetAPIVersion();
+        pluggedObjectDescription.m_objectName = objectName;
+        pluggedObjectDescription.m_version = version;
+        pluggedObjectDescription.m_description = descrip;
+        pluggedObjectDescription.m_publicationTitle = pubTitle;
+        pluggedObjectDescription.m_publicationLink = pubLink;
+        pluggedObjectDescription.m_publicationAuthor = pubAuthor;
+        pluggedObjectDescription.m_publicationDate = pubDate;
+
+    }
+
+        return pluggedObjectDescription;
+}
+
+QString  PluginPropertyEditor::GetUserDefinedPhenomenonObjectSelectionState(const QString &objectGroup, const QString &objectName, const CRPSUserDefinedPhenomenonSimuData &userDefinedPhenomenonSimuData)
+{
+    QString yesResult = QString("Yes");
+    QString noResult = QString("No");
+
+    if (objectGroup == LabRPS::objGroupUserDefinedPhenomenonObject)
+    {
+        return objectName == userDefinedPhenomenonSimuData.userDefinedPhenomenon ? yesResult : noResult;
+    }
+
+    return noResult;
+}
+
+int PluginPropertyEditor::GetNumberOfUserDefinedPhenomenonPlggedObject(const QString &itemText, const QString &parenttext)
+{
+        std::map<const QString, QString>::iterator it;
+        int count = 0;
+
+    if (itemText == LabRPS::objGroupUserDefinedPhenomenonObject)
+    {
+                 for (it = CrpsUserDefinedPhenomenonFactory::GetOjectAndPluginMap().begin(); it != CrpsUserDefinedPhenomenonFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+
+    return 0;
 }

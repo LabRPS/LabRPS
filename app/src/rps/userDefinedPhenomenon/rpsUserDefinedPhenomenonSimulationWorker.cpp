@@ -6,12 +6,12 @@
 
 RPSUserDefinedPhenomenonSimulationWorker::RPSUserDefinedPhenomenonSimulationWorker(CRPSUserDefinedPhenomenonSimuData simuData,
                                                                    QStringList information,
-                                                                   int locationJ,
-                                                                   int timeIndex) : m_simuData(simuData),
+                                                                   int phenomenonIndex,
+                                                                   int indexSetIndex) : m_simuData(simuData),
                                                                                     m_information(information),
-                                                                                    m_locationJ(locationJ),
-                                                                                    m_timeIndex(timeIndex),
-                                                                                    stopped(true)
+                                                                                    stopped(true),
+                                                                                    m_phenomenonIndex(phenomenonIndex),
+                                                                                    m_indexSetIndex(indexSetIndex)
 {
     minStep = 0;
     maxStep = 0;
@@ -33,7 +33,7 @@ void RPSUserDefinedPhenomenonSimulationWorker::simulate()
     if (isStopped())
     {
         stopped = false;
-        windVelocityOutp();
+        userDefinedPhenomenonOutp();
     }
 
     stopped = true;
@@ -77,7 +77,7 @@ bool RPSUserDefinedPhenomenonSimulationWorker::isStopped()
     }
 
     
-void RPSUserDefinedPhenomenonSimulationWorker::windVelocityOutp()
+void RPSUserDefinedPhenomenonSimulationWorker::userDefinedPhenomenonOutp()
 {
     // Build an object
     IrpsUserDefinedPhenomenon *currentUserDefinedPhenomenon = CrpsUserDefinedPhenomenonFactory::BuildUserDefinedPhenomenon(m_simuData.simulationMethod);
@@ -117,7 +117,7 @@ void RPSUserDefinedPhenomenonSimulationWorker::windVelocityOutp()
 
     m_simuData.isSimulationSuccessful = true;
 
-    emit showWindVelocityOutput();
+    emit showUserDefinedPhenomenonOutput();
 }
 
 QStringList RPSUserDefinedPhenomenonSimulationWorker::getInformation()

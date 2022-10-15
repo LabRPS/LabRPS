@@ -20,9 +20,9 @@ const char * RPSUserDefinedPhenomenonPluginAPIInfo::getUserDefinedPhenomenonPlug
 	 (void)free_cb; // we never free these objects
  }
 
- void InitializeUserDefinedPhenomenon(const QString name, const QString &description, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ void InitializeUserDefinedPhenomenon(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsUserDefinedPhenomenonFactory::InitializeUserDefinedPhenomenon(name, description, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+	 CrpsUserDefinedPhenomenonFactory::InitializeUserDefinedPhenomenon(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterUserDefinedPhenomenon(const QString name, const QString &pluginName)

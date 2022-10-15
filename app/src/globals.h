@@ -82,10 +82,11 @@ class LabRPS : public QObject {
   static QString objGroupTableTool;
   static QString objGroupMatrixTool;
   static QString objGroupUserDefinedRPSObject;
+  static QString objGroupUserDefinedPhenomenonObject;
 
   // available comparison categories
   static QString ComputeCrossCoherenceVectorF;
-	static QString ComputeCrossCorrelationVectorT;
+  static QString ComputeCrossCorrelationVectorT;
 	static QString ComputeCrossCorrelationVectorP;
 	static QString ComputeFrequenciesVectorF;
 	static QString ComputeMeanWindSpeedVectorP;
@@ -107,7 +108,7 @@ class LabRPS : public QObject {
 	static QString ComputeZCrossSpectrumVectorF;
 	static QString ComputeZCrossSpectrumVectorT;
 	static QString ComputeZCrossSpectrumVectorP;
-    static QString UserDefinedRPSObjectComputePFT;
+  static QString UserDefinedRPSObjectComputePFT;
 
   //! Types of plot designations
   enum PlotDesignation {
@@ -151,6 +152,8 @@ class LabRPS : public QObject {
   static QString versionString();
   static QString windLabAPIVersionString();
   static QString windLabPluginAPIVersionString();
+  static QString userDefinedPhenomenonAPIVersionString();
+  static QString userDefinedPhenomenonPluginAPIVersionString();
 
   // Return the extra version as a string
   static QString extraVersion();
@@ -175,6 +178,8 @@ class LabRPS : public QObject {
   static const char* LabRPS_version;
   static const char* LabRPS_Windlab_api_version;
   static const char* LabRPS_Windlab_plugin_api_version;
+  static const char* LabRPS_UserDefinedPhenomenon_api_version;
+  static const char* LabRPS_UserDefinedPhenomenon_plugin_api_version;
 
   // Extra version information string (like "-alpha", "-beta", "-rc1", etc...)
   static const char* extra_version;

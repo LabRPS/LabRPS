@@ -13,8 +13,8 @@ class RPSUserDefinedPhenomenonSimulationWorker : public QObject
 public:
     RPSUserDefinedPhenomenonSimulationWorker(CRPSUserDefinedPhenomenonSimuData simuData,
                                      QStringList information,
-                                     int locationJ,
-                                     int timeIndex);
+                                     int phenomenonIndex,
+                                     int indexSetIndex);
     ~RPSUserDefinedPhenomenonSimulationWorker();
     bool isStopped();
 
@@ -25,7 +25,7 @@ public slots:
 
 
 signals:
-    void showWindVelocityOutput();
+    void showUserDefinedPhenomenonOutput();
     void sendInformation(QStringList infoList);
     void progressBarShow();
     void progressBarHide();
@@ -36,7 +36,7 @@ signals:
     void finished();
 
 public:
-void windVelocityOutp();
+void userDefinedPhenomenonOutp();
     
 private:
     CRPSUserDefinedPhenomenonSimuData m_simuData;
@@ -48,8 +48,8 @@ private:
     int currentStep;
     int maxStepOld;
 
-    int m_locationJ;
-    int m_timeIndex;
+    int m_phenomenonIndex;
+    int m_indexSetIndex;
 
 public:
     vec m_ResultVector;

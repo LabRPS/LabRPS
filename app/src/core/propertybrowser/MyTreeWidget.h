@@ -81,6 +81,11 @@ class MyTreeWidget : public QTreeWidget {
     
   };
 
+  enum class UserDefinedPhenomenonObjectPropertyItemType : int {
+    UserDefinedPhenomenonPlugin = 0,
+    UserDefinedPhenomenon = 1,
+  };
+
   MyTreeWidget(QWidget *parent = nullptr);
   ~MyTreeWidget();
 

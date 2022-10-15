@@ -703,13 +703,14 @@ void RPSWindLabComparisonWorker::Simulate(const QString &name, mat &result, int 
         return;
     }
 
-    result.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+    //result.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
+    result = Eigen::MatrixXd::Zero(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
 
     QTime t;
     t.start();
 
     // simulation
-    currentSimuMethod->Simulate(m_windLabData, result, minStep, maxStep, currentStep, information);
+    currentSimuMethod->Simulate(m_windLabData, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the simulation method (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -747,7 +748,7 @@ void RPSWindLabComparisonWorker::SimulateInLargeScaleMode(const QString &name, Q
     t.start();
 
     // simulation
-    currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, strFileName, minStep, maxStep, currentStep, information);
+    currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, strFileName, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the simulation method (%1) took %2 ms").arg(name).arg(QString::number(time)));
