@@ -5,6 +5,7 @@
 #include "rps/windLab/rpsWindLabSimulation.h"
 #include "rpswlaccuracycomparisonobjectdependencydialog.h"
 #include "rpswlaccuracycomparisontablezoomindialog.h"
+#include <QMessageBox>
 
 
 RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
@@ -14,7 +15,6 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     ui->setupUi(this);
 
     QString noSelection = "<None>";
-
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
     comparisonCategory = rpsWindLabSimulator->comparisonCategory;
     comparisonFunction = rpsWindLabSimulator->comparisonFunction;
@@ -299,6 +299,8 @@ void RPSWLAccuracyComparisonDialog::saveTableItemsToList(std::vector<QString> &i
 
 void RPSWLAccuracyComparisonDialog::readTableItemsFromList(std::vector<QString> itemList)
 {
+    if(itemList.empty()){return;}
+
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
     int row = rpsWindLabSimulator->numberOfCandidate;
     int col = 13;

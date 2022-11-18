@@ -12,21 +12,16 @@ void CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuDa
 
 	strInformation.append("Frequency distribution successfully computed");
 }
-void CRPSSingleIndexFrequency::ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation)
-{
-	for (int i = 0; i < Data.numberOfFrequency; i++)
-	{
-		for (int j = 0; j < Data.numberOfSpatialPosition; j++)
-		{
-			dFrequencyMatrix(i, j) = Data.minFrequency + i * Data.frequencyIncrement;
-		}
-	}
-}
 
 bool CRPSSingleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
     QMessageBox::warning(0,"Frequency Distribution", "This is the single index frequency distribution. No additional input needed.");
 
 	return true;
+}
+
+void CRPSSingleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)
+{
+    dValue = Data.minFrequency + frequencyIndex * Data.frequencyIncrement;
 }
 

@@ -13,10 +13,5 @@ public:
 	// The simulation function in large scale mode 
     bool SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, QStringList &strInformation);
 
-	void ComputeCPSDDecom3DMatrice(const CRPSWindLabsimuData &Data, cube &dCPSDDecomMatrice, QStringList &strInformation);
-
-public:
-
-
 };
 

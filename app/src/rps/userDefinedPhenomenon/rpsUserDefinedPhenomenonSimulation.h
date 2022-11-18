@@ -174,7 +174,6 @@ void ClearMapFromRegistry(QString &settingsGroupt);
   void createSimulationWorker();
   void createComparisonWorker();
 
-
   void fillLocationJComboBox(QComboBox *locationJComboBox);
   void fillTimeComboBox(QComboBox *timeComboBox);
   void locJCurrentIndexChanged(int index);
@@ -194,7 +193,7 @@ void ClearMapFromRegistry(QString &settingsGroupt);
   bool UpdateToBeUninstalledObjectsMap(const QString name, const QString pluginName);
   bool IsThisObjectInstalled(std::map<const QString, QString> &map, QString &object);
   bool UpdateObjectToSkipMap(std::map<const QString, QString> &map, const QString name, const QString pluginName);
-
+  void saveLineEditIndexes();
 
 };
 

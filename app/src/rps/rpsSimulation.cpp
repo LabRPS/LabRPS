@@ -1,4 +1,4 @@
-#include "rpsSimulation.h"
+﻿#include "rpsSimulation.h"
 #include "rps/pluginBrower/RPSPluginsBrowser.h"
 #include "rps/RPSpluginManager.h"
 #include "rps/pluginBrower/plugininstallerbrowser.h"
@@ -162,6 +162,25 @@ bool RPSSimulation::UpdateToBeUninstalledObjectsMap(const QString name, const QS
 
   return false;
 }
+
+
+void RPSSimulation::emptyAllToBeUninstalledObjectsMap()
+{
+  if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+  {
+    rpsWindLabSimulator->emptyAllToBeUninstalledObjectsMap();
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
+  {
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
+  {
+  }
+  else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonUserDefined)
+  {
+  }
+}
+
 
 int RPSSimulation::RPSWriteInstalledPluginsToRegistry()
 {
@@ -645,4 +664,79 @@ void RPSSimulation::WLReadAllTobeInstalledPluginsFromRegistry(const QStringList 
 
   // // end
   // settings.endGroup();
+}
+
+void RPSSimulation::convertTableToEigenMatrix(Table* table, mat &eigenMatrix)
+{
+    for (int i = 0; i < table->numRows() ; i++)
+    {
+        for (int j = 0; j < table->numCols() ; j++)
+        {
+            eigenMatrix(i,j) =  table->cell(i,j);
+        }
+    }
+
+}
+void RPSSimulation::convertMatrixToEigenMatrix(Matrix* matrix, mat &eigenMatrix)
+{
+
+    eigenMatrix.resize(matrix->numRows(),matrix->numCols());
+
+    for (int i = 0; i < matrix->numRows() ; i++)
+    {
+        for (int j = 0; j < matrix->numCols() ; j++)
+        {
+            eigenMatrix(i,j) =  matrix->cell(i,j);
+        }
+    }
+}
+
+void RPSSimulation::runTool()
+{
+    ApplicationWindow *app = (ApplicationWindow *)this->parent();
+
+    if(app->isActiveSubWindowATable())
+    {
+        Table *table = qobject_cast<Table *>(app->d_workspace->activeSubWindow());
+
+        mat activeTable(table->numRows(),table->numCols());
+
+        convertTableToEigenMatrix(table, activeTable);
+
+        if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+        {
+          rpsWindLabSimulator->runTableTool(activeTable);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
+        {
+          // rpsSeismicLabSimulator->runTableTool(table);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
+        {
+          // rpsSeaLabSimulator->runTableTool(table);
+        }
+    }
+    else if(app->isActiveSubWindowAMatrix())
+    {
+        Matrix *matrix = qobject_cast<Matrix *>(app->d_workspace->activeSubWindow());
+
+        mat activeMatrix(matrix->numRows(),matrix->numCols());
+
+        convertMatrixToEigenMatrix(matrix, activeMatrix);
+
+        if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonWindVelocity)
+        {
+          rpsWindLabSimulator->runMatrixTool(activeMatrix);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeismicGroundMotion)
+        {
+          // rpsSeismicLabSimulator->runTableTool(activeMatrix);
+        }
+        else if (selectedRandomPhenomenon == LabRPS::rpsPhenomenonSeaSurface)
+        {
+          // rpsSeaLabSimulator->runTableTool(activeMatrix);
+        }
+    }
+
+
 }

@@ -14,7 +14,7 @@ PowerLawMeanWindSpeed::~PowerLawMeanWindSpeed()
 
 }
 
-double  PowerLawMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &referenceHeight, const double &referenceMeanSpeed)
+double  PowerLawMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &referenceHeight, const double &referenceMeanSpeed, const double &zeroPlanDisplacement, const double &dimensionlessPower)
 {
-    return pow(height / referenceHeight, 0.12) * referenceMeanSpeed;
+    return pow((height - zeroPlanDisplacement) / referenceHeight, dimensionlessPower) * referenceMeanSpeed;
 }

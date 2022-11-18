@@ -1,32 +1,3 @@
-/***************************************************************************
-    File                 : globals.cpp
-    Description          : Definition of global constants and enums
-    --------------------------------------------------------------------
-    Copyright            : (C) 2006-2009 Tilman Benkert (thzs*gmx.net)
-    Copyright            : (C) 2006-2007 Ion Vasilief (ion_vasilief*yahoo.fr)
-                           (replace * with @ in the email addresses)
-
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *  This program is free software; you can redistribute it and/or modify   *
- *  it under the terms of the GNU General Public License as published by   *
- *  the Free Software Foundation; either version 2 of the License, or      *
- *  (at your option) any later version.                                    *
- *                                                                         *
- *  This program is distributed in the hope that it will be useful,        *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
- *  GNU General Public License for more details.                           *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the Free Software           *
- *   Foundation, Inc., 51 Franklin Street, Fifth Floor,                    *
- *   Boston, MA  02110-1301  USA                                           *
- *                                                                         *
- ***************************************************************************/
-
 #include "globals.h"
 
 #include <QDate>
@@ -82,28 +53,16 @@ const char* LabRPS::download_Uri =
 
   QString LabRPS::ComputeCrossCoherenceVectorF = "ComputeCrossCoherenceVectorF";
 	QString LabRPS::ComputeCrossCorrelationVectorT = "ComputeCrossCorrelationVectorT";
-	QString LabRPS::ComputeCrossCorrelationVectorP = "ComputeCrossCorrelationVectorP";
 	QString LabRPS::ComputeFrequenciesVectorF = "ComputeFrequenciesVectorF";
 	QString LabRPS::ComputeMeanWindSpeedVectorP = "ComputeMeanWindSpeedVectorP";
-	QString LabRPS::ComputeMeanWindSpeedVectorT = "ComputeMeanWindSpeedVectorT";
 	QString LabRPS::ComputeModulationVectorT = "ComputeModulationVectorT";
-	QString LabRPS::ComputeModulationVectorF = "ComputeModulationVectorF";
-	QString LabRPS::ComputeModulationVectorP = "ComputeModulationVectorP";
 	QString LabRPS::ComputeDecomposedCrossSpectrumVectorF = "ComputeDecomposedCrossSpectrumVectorF";
-	QString LabRPS::ComputeDecomposedCrossSpectrumVectorT = "ComputeDecomposedCrossSpectrumVectorT";
-	QString LabRPS::ComputeDecomposedCrossSpectrumVectorP = "ComputeDecomposedCrossSpectrumVectorP";
 	QString LabRPS::Simulate = "Simulate";
 	QString LabRPS::SimulateInLargeScaleMode = "SimulateInLargeScaleMode";
-	QString LabRPS::ComputeXCrossSpectrumVectorF = "ComputeXCrossSpectrumVectorF";
-	QString LabRPS::ComputeXCrossSpectrumVectorT = "ComputeXCrossSpectrumVectorT";
-	QString LabRPS::ComputeXCrossSpectrumVectorP = "ComputeXCrossSpectrumVectorP";
-	QString LabRPS::ComputeYCrossSpectrumVectorF = "ComputeYCrossSpectrumVectorF";
-	QString LabRPS::ComputeYCrossSpectrumVectorT = "ComputeYCrossSpectrumVectorT";
-	QString LabRPS::ComputeYCrossSpectrumVectorP = "ComputeYCrossSpectrumVectorP";
-	QString LabRPS::ComputeZCrossSpectrumVectorF = "ComputeZCrossSpectrumVectorF";
-	QString LabRPS::ComputeZCrossSpectrumVectorT = "ComputeZCrossSpectrumVectorT";
-	QString LabRPS::ComputeZCrossSpectrumVectorP = "ComputeZCrossSpectrumVectorP";
-  QString LabRPS::UserDefinedRPSObjectComputePFT = "UserDefinedRPSObjectComputePFT";
+    QString LabRPS::ComputeXAutoSpectrumVectorF = "ComputeXAutoSpectrumVectorF";
+    QString LabRPS::ComputeYAutoSpectrumVectorF = "ComputeYAutoSpectrumVectorF";
+    QString LabRPS::ComputeZAutoSpectrumVectorF = "ComputeZAutoSpectrumVectorF";
+    QString LabRPS::UserDefinedRPSObjectCompute = "UserDefinedRPSObjectCompute";
 
 
 

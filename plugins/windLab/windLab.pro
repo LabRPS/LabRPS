@@ -108,6 +108,17 @@ SOURCES += \
     generaldistributiondialog.cpp\
     GeneralSpatialDistribution.cpp\
     minmaxvaluesdlg.cpp\
+    RPSKaimalAcrossSpectr.cpp\
+    RPSKaimalVerticalSpectr.cpp\
+    RPSDavenportSpectrum.cpp\
+    RPSHarrisSpectrum.cpp\
+    RPSSimuAlongWindSpectrum.cpp\
+    RPSSimuAcrossWindSpectrum.cpp\
+    RPSSimuVerticalWindSpectrum.cpp\
+    RPSvonKarmanAlongWindSpectrum.cpp\
+    RPSvonKarmanAcrossWindSpectrum.cpp\
+    RPSvonKarmanVerticalWindSpectrum.cpp\
+    vonKarmanpsdinputsdialog.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -137,6 +148,17 @@ HEADERS += \
     generaldistributiondialog.h\
     GeneralSpatialDistribution.h\
     minmaxvaluesdlg.h\
+    RPSKaimalAcrossSpectr.h\
+    RPSKaimalVerticalSpectr.h\
+    RPSDavenportSpectrum.h\
+    RPSHarrisSpectrum.h\
+    RPSSimuAlongWindSpectrum.h\
+    RPSSimuAcrossWindSpectrum.h\
+    RPSSimuVerticalWindSpectrum.h\
+    RPSvonKarmanAlongWindSpectrum.h\
+    RPSvonKarmanAcrossWindSpectrum.h\
+    RPSvonKarmanVerticalWindSpectrum.h\
+    vonKarmanpsdinputsdialog.h\
 
 FORMS  += meanwindlogprofildialog.ui\
           meanwindpowerprofildialog.ui\
@@ -149,6 +171,7 @@ FORMS  += meanwindlogprofildialog.ui\
           threeparamodulationdialog.ui\
           generaldistributiondialog.ui\
           minmaxvaluesdlg.ui\
+          vonKarmanpsdinputsdialog.ui\
 
 
 

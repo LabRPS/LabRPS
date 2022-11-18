@@ -59,13 +59,24 @@ RPSUserDefinedPhenomenonComparisonDialog::RPSUserDefinedPhenomenonComparisonDial
     rpsUserDefinedPhenomenonSimulator->fillCategoryComboBox(ui->comboBoxCategory);
     rpsUserDefinedPhenomenonSimulator->fillFunctionAndCandidateComboBoxes(rpsUserDefinedPhenomenonSimulator->comparisonCategory, ui->comboBoxFunction, ui->comboBoxCandidate);
 
-    ui->lineEditLocMin->setText(QString::number(minNumberOfProcess));
-    ui->lineEditFreqMin->setText(QString::number(minNumberOfIndexSetIndex));
-    ui->lineEditTimMin->setText(QString::number(minNumberOfSample));
-    ui->lineEditLocIncr->setText(QString::number(numberOfProcessIncrement));
-    ui->lineEditFreqIncr->setText(QString::number(numberOfIndexSetIndexIncrement));
-    ui->lineEditTimIncr->setText(QString::number(numberOfSampleIncrement));
-    ui->lineEditTotalNumber->setText(QString::number(totalNumber));
+    int min = 1;
+    int max = 10000000;
+
+    ui->lineEditLocMin->setRange(min, max);
+    ui->lineEditFreqMin->setRange(min, max);
+    ui->lineEditTimMin->setRange(min, max);
+    ui->lineEditLocIncr->setRange(min, max);
+    ui->lineEditFreqIncr->setRange(min, max);
+    ui->lineEditTimIncr->setRange(min, max);
+    ui->lineEditTotalNumber->setRange(min, max);
+
+    ui->lineEditLocMin->setValue(minNumberOfProcess);
+    ui->lineEditFreqMin->setValue(minNumberOfIndexSetIndex);
+    ui->lineEditTimMin->setValue(minNumberOfSample);
+    ui->lineEditLocIncr->setValue(numberOfProcessIncrement);
+    ui->lineEditFreqIncr->setValue(numberOfIndexSetIndexIncrement);
+    ui->lineEditTimIncr->setValue(numberOfSampleIncrement);
+    ui->lineEditTotalNumber->setValue(totalNumber);
 
     if (1 == resultOutputType)
     {
@@ -234,13 +245,13 @@ void RPSUserDefinedPhenomenonComparisonDialog::acceptInput()
 {
     RPSUserDefinedPhenomenonSimulation *rpsUserDefinedPhenomenonSimulator = (RPSUserDefinedPhenomenonSimulation *)this->parent();
 
-    minNumberOfProcess = ui->lineEditLocMin->text().toDouble();
-    minNumberOfIndexSetIndex = ui->lineEditFreqMin->text().toDouble();
-    minNumberOfSample = ui->lineEditTimMin->text().toDouble();
-    numberOfProcessIncrement = ui->lineEditLocIncr->text().toDouble();
-    numberOfIndexSetIndexIncrement = ui->lineEditFreqIncr->text().toDouble();
-    numberOfSampleIncrement = ui->lineEditTimIncr->text().toDouble();
-    totalNumber = ui->lineEditTotalNumber->text().toDouble();
+    minNumberOfProcess = ui->lineEditLocMin->value();
+    minNumberOfIndexSetIndex = ui->lineEditFreqMin->value();
+    minNumberOfSample = ui->lineEditTimMin->value();
+    numberOfProcessIncrement = ui->lineEditLocIncr->value();
+    numberOfIndexSetIndexIncrement = ui->lineEditFreqIncr->value();
+    numberOfSampleIncrement = ui->lineEditTimIncr->value();
+    totalNumber = ui->lineEditTotalNumber->value();
 
     comparisonCategory = ui->comboBoxCategory->currentText();
     comparisonFunction = ui->comboBoxFunction->currentText();

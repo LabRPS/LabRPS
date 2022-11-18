@@ -97,14 +97,14 @@
   <widget class="QPushButton" name="pushButtonFunctionInit">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>160</y>
-     <width>31</width>
+     <x>170</x>
+     <y>280</y>
+     <width>141</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>...</string>
+    <string>View Candidates List</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBoxCategory">
@@ -112,7 +112,7 @@
     <rect>
      <x>20</x>
      <y>90</y>
-     <width>241</width>
+     <width>291</width>
      <height>22</height>
     </rect>
    </property>
@@ -120,14 +120,14 @@
   <widget class="QPushButton" name="pushButtonCategoryInit">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>90</y>
-     <width>31</width>
+     <x>20</x>
+     <y>280</y>
+     <width>131</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>...</string>
+    <string>Add Dependencies</string>
    </property>
   </widget>
   <widget class="QComboBox" name="comboBoxFunction">
@@ -135,7 +135,7 @@
     <rect>
      <x>20</x>
      <y>160</y>
-     <width>241</width>
+     <width>291</width>
      <height>22</height>
     </rect>
    </property>
@@ -171,7 +171,7 @@
     <rect>
      <x>20</x>
      <y>230</y>
-     <width>241</width>
+     <width>251</width>
      <height>22</height>
     </rect>
    </property>
@@ -180,7 +180,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>280</y>
+     <y>320</y>
      <width>311</width>
      <height>141</height>
     </rect>
@@ -280,13 +280,13 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEditLocMin"/>
+      <widget class="QSpinBox" name="lineEditLocMin"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditFreqMin"/>
+      <widget class="QSpinBox" name="lineEditFreqMin"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditTimMin"/>
+      <widget class="QSpinBox" name="lineEditTimMin"/>
      </item>
     </layout>
    </widget>
@@ -304,17 +304,17 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEditLocIncr"/>
+      <widget class="QSpinBox" name="lineEditLocIncr"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditFreqIncr"/>
+      <widget class="QSpinBox" name="lineEditFreqIncr"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditTimIncr"/>
+      <widget class="QSpinBox" name="lineEditTimIncr"/>
      </item>
     </layout>
    </widget>
-   <widget class="QLineEdit" name="lineEditTotalNumber">
+   <widget class="QSpinBox" name="lineEditTotalNumber">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -323,67 +323,6 @@
       <height>22</height>
      </rect>
     </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>420</y>
-     <width>311</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Results</string>
-   </property>
-   <widget class="QRadioButton" name="radioButtonByLoc">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By location</string>
-    </property>
-    <attribute name="buttonGroup">
-     <string notr="true">buttonGroup</string>
-    </attribute>
-   </widget>
-   <widget class="QRadioButton" name="radioButtonByFreq">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>30</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By frequency</string>
-    </property>
-    <attribute name="buttonGroup">
-     <string notr="true">buttonGroup</string>
-    </attribute>
-   </widget>
-   <widget class="QRadioButton" name="radioButtonByTim">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>30</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By time</string>
-    </property>
-    <attribute name="buttonGroup">
-     <string notr="true">buttonGroup</string>
-    </attribute>
    </widget>
   </widget>
   <widget class="QPushButton" name="pushButtonAdd">
@@ -416,9 +355,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>490</y>
+     <y>470</y>
      <width>311</width>
-     <height>111</height>
+     <height>131</height>
     </rect>
    </property>
   </widget>

@@ -51,6 +51,7 @@
      <addaction name="actionNewGraph"/>
      <addaction name="actionNewFunctionPlot"/>
      <addaction name="actionNew3DSurfacePlot"/>
+     <addaction name="actionNew3DScene"/>
     </widget>
     <widget class="QMenu" name="menuRecentProjects">
      <property name="title">
@@ -486,6 +487,7 @@
     <addaction name="menuCompare"/>
     <addaction name="separator"/>
     <addaction name="actionPlugins"/>
+    <addaction name="actionRunTool"/>
    </widget>
    <widget class="QMenu" name="menuOutput">
     <property name="title">
@@ -1751,6 +1753,16 @@
    </property>
    <property name="text">
     <string>output</string>
+   </property>
+  </action>
+  <action name="actionRunTool">
+   <property name="text">
+    <string>Run Tool</string>
+   </property>
+  </action>
+  <action name="actionNew3DScene">
+   <property name="text">
+    <string>New 3D Scene</string>
    </property>
   </action>
  </widget>

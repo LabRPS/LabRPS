@@ -1,19 +1,3 @@
-/* This file is part of LabRPS.
-   Copyright 2016 - 2020, Arun Narayanankutty <n.arun.lifescience@gmail.com>
-
-   LabRPS is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   LabRPS is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU General Public License
-   along with LabRPS.  If not, see <http://www.gnu.org/licenses/>.
-
-   Description : PluginPropertyEditor */
-
 #ifndef PLUGINPROPERTYEDITOR_H
 #define PLUGINPROPERTYEDITOR_H
 
@@ -120,6 +104,7 @@ class PluginPropertyEditor : public QDockWidget {
   QtAbstractPropertyBrowser *propertybrowser_;
   QList<QTreeWidgetItem *> objectitems_;
   QWidget *previouswidget_;
+
   // Property
   QtGroupPropertyManager *groupManager_;
   QtBoolPropertyManager *boolManager_;
@@ -128,13 +113,15 @@ class PluginPropertyEditor : public QDockWidget {
   QtStringPropertyManager *stringManager_;
   QtEnumPropertyManager *enumManager_;
   QtDateTimePropertyManager *datetimeManager_;
+
   // Property Widget Factory
   QtCheckBoxFactory *checkBoxFactory_;
   QtSpinBoxFactory *spinBoxFactory_;
   QtDoubleSpinBoxFactory *doubleSpinBoxFactory_;
   QtEnumEditorFactory *comboBoxFactory_;
   QtDateTimeEditFactory *datetimeFactory_;
-  
+  QtLineEditFactory *lineEditFactory_;
+
   // plugin property
   QtProperty *pluginfileitem_;
   QtProperty *pluginnameitem_;

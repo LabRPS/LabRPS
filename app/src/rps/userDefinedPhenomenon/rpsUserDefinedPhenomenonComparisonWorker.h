@@ -112,9 +112,9 @@ public:
     QString windVelocityFileName1;
     QString windVelocityFileName2;
 
-   std::vector<int> m_resultVectorVariableVec;
-   std::vector<int> m_resultVectorCandidate1Vec;
-   std::vector<int> m_resultVectorCandidate2Vec;
+//    std::vector<int> m_resultVectorVariableVec;
+//    std::vector<int> m_resultVectorCandidate1Vec;
+//    std::vector<int> m_resultVectorCandidate2Vec;
 
 
 public:

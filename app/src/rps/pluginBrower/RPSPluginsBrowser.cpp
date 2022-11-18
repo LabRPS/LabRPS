@@ -266,6 +266,8 @@ bool ObjectSelectionPage::validatePage()
     {
         // now the install the selected objects
         PluginManager::GetInstance().UnInstallPlugin(InstallingPluginFullPath, remove);
+        rpsSimulator->emptyAllToBeUninstalledObjectsMap();
+
     }
     else if (3 == InstallationType)
     {

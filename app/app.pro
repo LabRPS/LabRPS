@@ -5,11 +5,11 @@ DEFINES += QCUSTOMPLOT_USE_OPENGL
 DEFINES += RPS_BUILDING_CORE
 
 # Qt modules
-QT += core gui widgets opengl network svg
+QT += core gui widgets opengl network svg xml
 QT += script scripttools printsupport datavisualization
 
 # enable C++11 support
-CONFIG += c++14
+CONFIG += c++17
 CONFIG += qt warn_on exceptions opengl thread
 
 

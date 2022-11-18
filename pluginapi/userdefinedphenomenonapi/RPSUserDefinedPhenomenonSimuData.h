@@ -70,6 +70,8 @@ class RPS_CORE_API CRPSUserDefinedPhenomenonSimuData
 
     int comparisonType;
 
+	int indexControls;
+
 
 
 

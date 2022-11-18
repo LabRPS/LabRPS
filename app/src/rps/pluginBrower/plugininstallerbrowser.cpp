@@ -6,7 +6,7 @@
 #include "rps/sealab/rpsSeaLabSimulation.h"
 #include "RPSWindLabAPI.h"
 #include "RPSWindLabpluginAPI.h"
-#include "RPSUserDefinedPhenomenonAPI.h""
+#include "RPSUserDefinedPhenomenonAPI.h"
 #include "RPSUserDefinedPhenomenonpluginAPI.h"
 
 #include "globals.h"
@@ -270,22 +270,18 @@ void PluginInstallerBrowser::fillLocalPluginsList()
 		ui->tableWidget->setItem(i, 5, new QTableWidgetItem(Descript->version));
 		ui->tableWidget->setItem(i, 7, new QTableWidgetItem(Descript->description));
 
-		if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
-		{
-			if (PluginManager::GetInstance().GetInstalledPluginsMap().find(Descript->fullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
-			{
-				ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Installed"));
-			}
-			else
-			{
-				ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
-			}
-		}
-		else
-		{
-			ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
-		}
+        RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
 
+        if (rpsSimu->rpsWindLabSimulator->isThisPluginInstalled(Descript->name))
+        {
+            ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Installed"));
+        }
+        else
+        {
+            ui->tableWidget->setItem(i, 6, new QTableWidgetItem("Not installed"));
+        }
+
+		
 		i++;
 	}
 }

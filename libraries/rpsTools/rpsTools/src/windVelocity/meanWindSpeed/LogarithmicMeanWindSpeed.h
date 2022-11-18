@@ -14,7 +14,7 @@ public:
     ~LogarithmicMeanWindSpeed();
 
     //this computes the along wind spectrum
-    double  computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity);
+    double  computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &zeroPlanDisplacement = 0);
 
 };
 

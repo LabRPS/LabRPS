@@ -14,7 +14,7 @@ public:
     ~PowerLawMeanWindSpeed();
 
     //this computes the along wind spectrum
-    double  computeMeanWindSpeed(const double &height, const double &referenceHeight, const double &referenceMeanSpeed);
+    double  computeMeanWindSpeed(const double &height, const double &referenceHeight, const double &referenceMeanSpeed, const double &zeroPlanDisplacement = 0, const double &dimensionlessPower = 0.12);
 
 };
 

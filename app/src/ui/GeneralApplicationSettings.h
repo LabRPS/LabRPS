@@ -25,6 +25,11 @@ class ApplicationSettingsPage : public SettingsPage {
   void pickColor();
   void pickApplicationFont();
   void insertLanguagesList();
+
+  void chooseWorkingDirectory();
+  void comboBoxRadioButtonToggled(bool);
+  void editBoxRadioButtonToggled(bool);
+
   Ui_ApplicationSettingsPage *ui;
   bool glowstatus_;
   QColor glowcolor_;
@@ -36,6 +41,11 @@ class ApplicationSettingsPage : public SettingsPage {
   int undolimit_;
   QFont applicationfont_;
   bool autosearchupdates_;
+
+  QString workingdirectory_;
+  int indexcontrols_;
+  int comboboxitemscountlimit_;
+
 };
 
 #endif  // APPLICATIONSETTINGSPAGE_H

@@ -14,7 +14,7 @@ LogarithmicMeanWindSpeed::~LogarithmicMeanWindSpeed()
 
 }
 
-double  LogarithmicMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity)
+double  LogarithmicMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &zeroPlanDisplacement)
 {
-    return log(height / terrainRoughness)*shearVelocity / 0.4;
+    return log((height - zeroPlanDisplacement) / terrainRoughness)*shearVelocity / 0.4;
 }

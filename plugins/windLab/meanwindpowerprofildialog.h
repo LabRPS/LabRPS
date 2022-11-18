@@ -12,7 +12,7 @@ class MeanWindPowerProfilDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit MeanWindPowerProfilDialog(double referenceHeight, double referenceSpeed, double dimensionlessPower, QWidget *parent = nullptr);
+    explicit MeanWindPowerProfilDialog(double referenceHeight, double referenceSpeed, double dimensionlessPower, double zeroPlanDisplacement, QWidget *parent = nullptr);
     ~MeanWindPowerProfilDialog();
 
 private:
@@ -26,6 +26,7 @@ public:
     double m_referenceHeight;
     double m_referenceSpeed;
     double m_dimensionlessPower;
+    double m_zeroPlanDisplacement;
 };
 
 #endif // MEANWINDPOWERPROFILDIALOG_H

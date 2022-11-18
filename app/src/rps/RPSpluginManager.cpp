@@ -375,7 +375,7 @@ bool PluginManager::InstallPlugin(const QString &name)
 
 	// success! add the plugin to the installed plugins map
 	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
-	allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
+	// allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	return true;
 }
@@ -394,7 +394,7 @@ bool PluginManager::InstallPluginInReg(const QString &name)
 
 	// Success! add the plugin to the installed plugins map
 	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
-	allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
+	// allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
 
 	return true;
 }
@@ -416,17 +416,17 @@ bool PluginManager::UnInstallPlugin(const QString &name, bool remove)
 		}
 	}
 
-	if (allInstalledPluginsNamesMap.find(filename) != allInstalledPluginsNamesMap.end())
-	{
-		// Uninstall the plugin its corresponding map
-		allInstalledPluginsNamesMap[filename]->Unload();
+	// if (allInstalledPluginsNamesMap.find(filename) != allInstalledPluginsNamesMap.end())
+	// {
+	// 	// Uninstall the plugin its corresponding map
+	// 	allInstalledPluginsNamesMap[filename]->Unload();
 
-		if (remove)
-		{
-			// Set it as not installed
-			allInstalledPluginsNamesMap.erase(filename);
-		}
-	}
+	// 	if (remove)
+	// 	{
+	// 		// Set it as not installed
+	// 		allInstalledPluginsNamesMap.erase(filename);
+	// 	}
+	// }
 
 	return true;
 }

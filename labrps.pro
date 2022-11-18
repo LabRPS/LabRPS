@@ -10,6 +10,7 @@ SUBDIRS += libraries/rpsTools\
            pluginapi/seismiclabapi\
            pluginapi/sealabapi\
            pluginapi/userdefinedphenomenonapi\
+           3rdparty/QGLViewer\
            app\
            plugins/windLab\
            plugins/seismicLab\ 
@@ -17,6 +18,9 @@ SUBDIRS += libraries/rpsTools\
            plugins/myWindVelocity\
            plugins/windSimulationMethodWWYang1997\   
            plugins/windSimulationMethodWWYang1997Ind\   
-
+           plugins/correlationTool\
+           plugins/spectrumTool\
+           plugins/rpsCholeskyDecomposition\
+           plugins/ergodicityCheckToolPlugin\
 
 CONFIG += ordered

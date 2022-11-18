@@ -32,14 +32,14 @@
   <widget class="QPushButton" name="pushButtonCategoryInit">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>30</y>
-     <width>31</width>
+     <x>20</x>
+     <y>220</y>
+     <width>141</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>...</string>
+    <string>Add Dependencies</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBoxCategory">
@@ -73,7 +73,7 @@
     <rect>
      <x>20</x>
      <y>100</y>
-     <width>251</width>
+     <width>291</width>
      <height>22</height>
     </rect>
    </property>
@@ -94,14 +94,14 @@
   <widget class="QPushButton" name="pushButtonFunctionInit">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>100</y>
-     <width>31</width>
+     <x>180</x>
+     <y>220</y>
+     <width>131</width>
      <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>...</string>
+    <string>View Candidates List</string>
    </property>
   </widget>
   <widget class="QGroupBox" name="groupBoxCandidate">
@@ -132,62 +132,10 @@
     <rect>
      <x>20</x>
      <y>30</y>
-     <width>251</width>
+     <width>291</width>
      <height>22</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>210</y>
-     <width>311</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Results</string>
-   </property>
-   <widget class="QRadioButton" name="radioButtonByLoc">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By location</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButtonByFreq">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>20</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By frequency</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButtonByTim">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>20</y>
-      <width>89</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>By time</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QPushButton" name="pushButtonCandidateInit">
    <property name="geometry">
@@ -219,9 +167,9 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>280</y>
+     <y>250</y>
      <width>311</width>
-     <height>111</height>
+     <height>141</height>
     </rect>
    </property>
   </widget>
@@ -235,7 +183,6 @@
   <zorder>groupBoxCandidate</zorder>
   <zorder>comboBoxCandidate</zorder>
   <zorder>comboBoxCategory</zorder>
-  <zorder>groupBox_3</zorder>
   <zorder>pushButtonCandidateInit</zorder>
   <zorder>pushButtonDelete</zorder>
   <zorder>tableWidget</zorder>

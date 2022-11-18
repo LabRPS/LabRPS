@@ -9,7 +9,7 @@ public:
 
     virtual ~IrpsWLUserDefinedRPSObject() {};
 
-	virtual void UserDefinedRPSObjectComputePFT(const CRPSWindLabsimuData &Data, cube &dresultCube, QStringList &strInformation) = 0;
+    virtual void UserDefinedRPSObjectCompute(const CRPSWindLabsimuData &Data, cube &dresult, QStringList &strInformation) = 0;
 
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 };

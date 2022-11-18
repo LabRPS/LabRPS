@@ -41,13 +41,19 @@ RPSUserDefinedPhenomenonDefinitionDlg::RPSUserDefinedPhenomenonDefinitionDlg(QWi
 	   ui->radioButtonNonGaussion->setChecked(Qt::Checked);
 
 	}
+     int min = 1;
+     int max = 10000000;
 
-    ui->lineEditNberOfLocation->setText(QString::number(numberOfProcess));
-    ui->lineEditNberOfTimeIncr->setText(QString::number(indexSetSize));
+     ui->lineEditNberOfLocation->setRange(min, max);
+     ui->lineEditNberOfTimeIncr->setRange(min, max);
+     ui->lineEditNumberOfSample->setRange(min, max);
+
+    ui->lineEditNberOfLocation->setValue(numberOfProcess);
+    ui->lineEditNberOfTimeIncr->setValue(indexSetSize);
     ui->lineEditTimeIncreValue->setText(QString::number(indexIncrement));
     ui->lineEditMinTimeValue->setText(QString::number(minIndexSetValue));
     ui->lineEditMaxTimeValue->setText(QString::number(minIndexSetValue + (indexSetSize*indexIncrement)));
-    ui->lineEditNumberOfSample->setText(QString::number(numberOfSample));
+    ui->lineEditNumberOfSample->setValue(numberOfSample);
 
     ui->comboBoxWindSpationDistr->clear();
 

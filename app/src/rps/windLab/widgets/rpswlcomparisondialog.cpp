@@ -60,26 +60,37 @@ RPSWLComparisonDialog::RPSWLComparisonDialog(QWidget *parent) : QDialog(parent),
     rpsWindLabSimulator->fillCategoryComboBox(ui->comboBoxCategory);
     rpsWindLabSimulator->fillFunctionAndCandidateComboBoxes(rpsWindLabSimulator->comparisonCategory, ui->comboBoxFunction, ui->comboBoxCandidate);
 
-    ui->lineEditLocMin->setText(QString::number(minNumberOfLocation));
-    ui->lineEditFreqMin->setText(QString::number(minNumberOfFrequency));
-    ui->lineEditTimMin->setText(QString::number(minNumberOfTime));
-    ui->lineEditLocIncr->setText(QString::number(numberOfLocationIncrement));
-    ui->lineEditFreqIncr->setText(QString::number(numberOfFrequencyIncrement));
-    ui->lineEditTimIncr->setText(QString::number(numberOfTimeIncrement));
-    ui->lineEditTotalNumber->setText(QString::number(totalNumber));
+    int min = 1;
+    int max = 10000000;
 
-    if (1 == resultOutputType)
-    {
-        ui->radioButtonByLoc->setChecked(Qt::Checked);
-    }
-    else if (2 == resultOutputType)
-    {
-        ui->radioButtonByFreq->setChecked(Qt::Checked);
-    }
-    else if (3 == resultOutputType)
-    {
-        ui->radioButtonByTim->setChecked(Qt::Checked);
-    }
+    ui->lineEditLocMin->setRange(min, max);
+    ui->lineEditFreqMin->setRange(min, max);
+    ui->lineEditTimMin->setRange(min, max);
+    ui->lineEditLocIncr->setRange(min, max);
+    ui->lineEditFreqIncr->setRange(min, max);
+    ui->lineEditTimIncr->setRange(min, max);
+    ui->lineEditTotalNumber->setRange(min, max);
+
+    ui->lineEditLocMin->setValue(minNumberOfLocation);
+    ui->lineEditFreqMin->setValue(minNumberOfFrequency);
+    ui->lineEditTimMin->setValue(minNumberOfTime);
+    ui->lineEditLocIncr->setValue(numberOfLocationIncrement);
+    ui->lineEditFreqIncr->setValue(numberOfFrequencyIncrement);
+    ui->lineEditTimIncr->setValue(numberOfTimeIncrement);
+    ui->lineEditTotalNumber->setValue(totalNumber);
+
+//    if (1 == resultOutputType)
+//    {
+//        ui->radioButtonByLoc->setChecked(Qt::Checked);
+//    }
+//    else if (2 == resultOutputType)
+//    {
+//        ui->radioButtonByFreq->setChecked(Qt::Checked);
+//    }
+//    else if (3 == resultOutputType)
+//    {
+//        ui->radioButtonByTim->setChecked(Qt::Checked);
+//    }
 
     QStringList tableHeader;
     ui->tableWidget->setColumnCount(13);
@@ -146,14 +157,14 @@ RPSWLComparisonDialog::RPSWLComparisonDialog(QWidget *parent) : QDialog(parent),
     connect(ui->pushButtonCandidateInit, SIGNAL(clicked()),
             this, SLOT(OnBnClickedCadidateInit()));
 
-    connect(ui->radioButtonByLoc, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByLocationToggled(bool)));
+//    connect(ui->radioButtonByLoc, SIGNAL(toggled(bool)),
+//            this, SLOT(radioButtonByLocationToggled(bool)));
 
-    connect(ui->radioButtonByFreq, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByFrequencyToggled(bool)));
+//    connect(ui->radioButtonByFreq, SIGNAL(toggled(bool)),
+//            this, SLOT(radioButtonByFrequencyToggled(bool)));
 
-    connect(ui->radioButtonByTim, SIGNAL(toggled(bool)),
-            this, SLOT(radioButtonByTimeWindToggled(bool)));
+//    connect(ui->radioButtonByTim, SIGNAL(toggled(bool)),
+//            this, SLOT(radioButtonByTimeWindToggled(bool)));
 
     connect(ui->pushButtonAdd, SIGNAL(clicked()),
             this, SLOT(OnBnClickedTableAddRow()));
@@ -384,6 +395,8 @@ void RPSWLComparisonDialog::saveTableItemsToList(std::vector<QString> &itemList)
 
 void RPSWLComparisonDialog::readTableItemsFromList(std::vector<QString> itemList)
 {
+    if(itemList.empty()){return;}
+
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
     int row = rpsWindLabSimulator->numberOfCandidate;
     int col = 13;

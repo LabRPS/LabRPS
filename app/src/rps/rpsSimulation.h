@@ -2,6 +2,8 @@
 #define RPSSIMULATION_H
 
 #include <QWidget>
+#include "Table.h"
+#include "Matrix.h"
 #include "rps/seaLab/rpsSeaLabSimulation.h"
 #include "rps/seismicLab/rpsSeismicLabSimulation.h"
 #include "rps/windLab/rpsWindLabSimulation.h"
@@ -42,6 +44,9 @@ public:
   void WLWriteAllTobeInstalledPluginsToRegistry();
   void WLReadAllTobeInstalledPluginsFromRegistry(const QStringList &pluginList);
   void simulate();
+  void convertTableToEigenMatrix(Table* table, mat &eigenMatrix);
+  void convertMatrixToEigenMatrix(Matrix* matrix, mat &eigenMatrix);
+  void emptyAllToBeUninstalledObjectsMap();
 
   public slots:
   void runSimulation();
@@ -66,6 +71,7 @@ public:
   void indexSetCurrentIndexChanged(int index);
   void fillPhenomenonComboBox();
   void fillIndexSetComboBox();
+  void runTool();
 
   signals:
   void pluginModified(MyWidget *widget);

@@ -282,9 +282,9 @@ void RPSUserDefinedPhenomenonComparisonWorker::timeOutp()
         {
             m_userDefinedPhenomenonData.numberOfProcess = m_minNumberOfProcess + i*m_numberOfProcessIncrement;
             workerComparing();
-            m_resultVectorVariableVec.push_back(m_userDefinedPhenomenonData.numberOfProcess);
-            m_resultVectorCandidate1Vec.push_back(computationTime1);
-            m_resultVectorCandidate2Vec.push_back(computationTime2);
+            m_resultVectorVariable(i) = m_userDefinedPhenomenonData.numberOfProcess;
+            m_resultVectorCandidate1(i) = computationTime1;
+            m_resultVectorCandidate2(i) = computationTime2;
         }
     }
     else if (2 == m_resultOutputType)
@@ -293,9 +293,9 @@ void RPSUserDefinedPhenomenonComparisonWorker::timeOutp()
         {
             m_userDefinedPhenomenonData.indexSetSize = m_minNumberOfIndexSetIndex + i*m_numberOfIndexSetIndexIncrement;
             workerComparing();
-            m_resultVectorVariableVec.push_back(m_userDefinedPhenomenonData.indexSetSize);
-            m_resultVectorCandidate1Vec.push_back(computationTime1);
-            m_resultVectorCandidate2Vec.push_back(computationTime2);
+            m_resultVectorVariable(i) = m_userDefinedPhenomenonData.indexSetSize;
+            m_resultVectorCandidate1(i) = computationTime1;
+            m_resultVectorCandidate2(i) = computationTime2;
         }
     }
     else if (3 == m_resultOutputType)
@@ -304,9 +304,9 @@ void RPSUserDefinedPhenomenonComparisonWorker::timeOutp()
         {
             m_userDefinedPhenomenonData.numberOfSample = m_minNumberOfSample + i*m_numberOfSampleIncrement;
             workerComparing();
-            m_resultVectorVariableVec.push_back(m_userDefinedPhenomenonData.numberOfSample);
-            m_resultVectorCandidate1Vec.push_back(computationTime1);
-            m_resultVectorCandidate2Vec.push_back(computationTime2);
+            m_resultVectorVariable(i) = m_userDefinedPhenomenonData.numberOfSample;
+            m_resultVectorCandidate1(i) = computationTime1;
+            m_resultVectorCandidate2(i) = computationTime2;
         }
     }
 

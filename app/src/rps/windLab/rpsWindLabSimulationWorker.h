@@ -27,7 +27,7 @@ public slots:
 
 
 signals:
-    void showWindVelocityOutput();
+    void showWindVelocityOutput(bool);
     void sendInformation(QStringList infoList);
     void progressBarShow();
     void progressBarHide();
@@ -39,7 +39,9 @@ signals:
 
 public:
 void windVelocityOutp();
-    
+void windVelocityLargeScale();
+void windVelocityNotLargeScale();
+
 private:
     CRPSWindLabsimuData m_windLabData;
     QStringList m_information;
@@ -54,6 +56,7 @@ private:
     int m_locationK;
     int m_frequencyIndex;
     int m_timeIndex;
+    double m_simulationTime;
 
 public:
     vec m_ResultVector;
@@ -64,6 +67,9 @@ public:
 
 public:
     QStringList getInformation();
+    CRPSWindLabsimuData &getSimulationWorkerWindLabData();
+    double getSimulationTime();
+
 };
 
 #endif // RPSWINDLABSIMULATIONWORKER_H

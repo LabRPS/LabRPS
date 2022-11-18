@@ -5,6 +5,7 @@
 #include <QFontDialog>
 #include <QSettings>
 #include <QTranslator>
+#include <QFileDialog>
 
 #include "../core/IconLoader.h"
 #include "globals.h"
@@ -36,6 +37,7 @@ ApplicationSettingsPage::ApplicationSettingsPage(SettingsDialog *dialog)
   ui->saveSpinBox->setRange(1, 120);
   ui->saveSpinBox->setSuffix(tr(" minutes"));
   ui->undoSpinBox->setRange(1, 1000);
+  ui->comboBoxItemsCountLimitSpinBox->setRange(1, 10000000);
   ui->versionCheckBox->hide();
 #ifdef SEARCH_FOR_UPDATES
   ui->versionCheckBox->show();
@@ -50,6 +52,13 @@ ApplicationSettingsPage::ApplicationSettingsPage(SettingsDialog *dialog)
           &ApplicationSettingsPage::pickApplicationFont);
   connect(ui->glowColorButton, &QToolButton::clicked, this,
           &ApplicationSettingsPage::pickColor);
+  connect(ui->workingDirectoryButton, &QToolButton::clicked, this,
+          &ApplicationSettingsPage::chooseWorkingDirectory);
+  connect( ui->comboBoxRadioButton, &QRadioButton::toggled,
+             this, &ApplicationSettingsPage::comboBoxRadioButtonToggled );
+  connect( ui->editBoxRadioButton, &QRadioButton::toggled,
+             this, &ApplicationSettingsPage::editBoxRadioButtonToggled );
+
 
   insertLanguagesList();
   Load();
@@ -73,6 +82,20 @@ void ApplicationSettingsPage::Load() {
   ui->saveCheckBox->setChecked(autosave_);
   ui->saveSpinBox->setValue(autosavetime_);
   ui->undoSpinBox->setValue(undolimit_);
+  ui->workingDirectorylineEdit->setText(workingdirectory_);
+  ui->comboBoxItemsCountLimitSpinBox->setValue(comboboxitemscountlimit_);
+
+  if(1 == indexcontrols_)
+	{
+		ui->comboBoxRadioButton->setChecked(Qt::Checked);
+	}
+  else if(2 == indexcontrols_)
+	{
+		ui->editBoxRadioButton->setChecked(Qt::Checked);
+	}
+
+
+
 #ifdef SEARCH_FOR_UPDATES
   ui->versionCheckBox->setChecked(autosearchupdates_);
 #endif
@@ -92,6 +115,10 @@ void ApplicationSettingsPage::LoadDefault() {
   ui->saveCheckBox->setChecked(true);
   ui->saveSpinBox->setValue(15);
   ui->undoSpinBox->setValue(10);
+  ui->workingDirectorylineEdit->setText(QCoreApplication::instance()->applicationDirPath());
+	ui->comboBoxRadioButton->setChecked(Qt::Checked);
+  ui->comboBoxItemsCountLimitSpinBox->setValue(6144);
+
 #ifdef SEARCH_FOR_UPDATES
   ui->versionCheckBox->setChecked(false);
 #endif
@@ -116,6 +143,10 @@ void ApplicationSettingsPage::Save() {
   settings.setValue("AutoSaveTime", ui->saveSpinBox->value());
   settings.setValue("UndoLimit", ui->undoSpinBox->value());
   settings.setValue("ScriptingLang", defaultscriptinglang_);
+  settings.setValue("WorkingDirectory", ui->workingDirectorylineEdit->text());
+  settings.setValue("IndexControls", indexcontrols_);
+  settings.setValue("ComboBoxItemsCountLimit", ui->comboBoxItemsCountLimitSpinBox->value());
+
 #ifdef SEARCH_FOR_UPDATES
   settings.setValue("AutoSearchUpdates", ui->versionCheckBox->isChecked());
 #endif
@@ -162,6 +193,10 @@ void ApplicationSettingsPage::loadQsettingsValues() {
   autosave_ = settings.value("AutoSave", true).toBool();
   autosavetime_ = settings.value("AutoSaveTime", 15).toInt();
   undolimit_ = settings.value("UndoLimit", 10).toInt();
+  workingdirectory_ = settings.value("WorkingDirectory", QCoreApplication::instance()->applicationDirPath()).toString();
+  indexcontrols_ = settings.value("IndexControls", 1).toInt();
+  comboboxitemscountlimit_ = settings.value("ComboBoxItemsCountLimit", 6144).toInt();
+
   QStringList applicationFont = settings.value("Font").toStringList();
   if (applicationFont.size() == 4)
     applicationfont_ =
@@ -193,6 +228,30 @@ void ApplicationSettingsPage::pickApplicationFont() {
                                   .arg(applicationfont_.family())
                                   .arg(applicationfont_.pointSize()));
 }
+
+void ApplicationSettingsPage::chooseWorkingDirectory() {
+   QString filter = "Text files (*.txt)";
+
+  QString fn = QFileDialog::getExistingDirectory(this,
+                                                 "Browse for Folder",
+                                                  "Work",
+                                                   QFileDialog::ShowDirsOnly
+                                                 |QFileDialog::DontResolveSymlinks);
+  if (!fn.isEmpty()) {
+    ui->workingDirectorylineEdit->setText(fn);
+  }
+
+
+}
+
+void ApplicationSettingsPage::comboBoxRadioButtonToggled(bool) {
+indexcontrols_ = 1;
+}
+
+void ApplicationSettingsPage::editBoxRadioButtonToggled(bool) {
+indexcontrols_ = 2;
+}
+
 
 void ApplicationSettingsPage::insertLanguagesList() {
   ui->languageComboBox->clear();

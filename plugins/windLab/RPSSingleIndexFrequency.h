@@ -5,12 +5,11 @@
 class CRPSSingleIndexFrequency : public IrpsWLFrequencyDistribution
 {
 
-	void ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation);
+    void ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation);
 
-	void ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation);
+    void ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation);
 
-	//Initial setting
-	bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);
+    bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);
 
 };
 

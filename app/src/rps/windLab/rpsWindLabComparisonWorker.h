@@ -114,7 +114,7 @@ private:
     int m_frequencyIndex;
     int m_timeIndex;
 
-  std::vector<QString> m_candidateList;
+
   int m_resultOutputType;
   int m_minNumberOfLocation;
   int m_minNumberOfFrequency;
@@ -138,12 +138,25 @@ private:
 
 
 public:
-    vec m_resultVectorVariable;
-    vec m_resultVectorCandidate1;
-    vec m_resultVectorCandidate2;
 
-    mat m_resultCandidate1;
-    mat m_resultCandidate2;
+    std::vector<QString> m_candidateList;
+
+    vec m_locationVectorVariable;
+    vec m_frequencyVectorVariable;
+    vec m_timeVectorVariable;
+    vec m_computationTimeResultVectorCandidate1;
+    vec m_computationTimeResultVectorCandidate2;
+
+    vec m_memoryComsumptionResultVectorVariable;
+    vec m_memoryComsumptionResultVectorCandidate1;
+    vec m_memoryComsumptionResultVectorCandidate2;
+
+    vec m_resultValueResultVectorVariable;
+    vec m_resultValueResultVectorCandidate1;
+    vec m_resultValueResultVectorCandidate2;
+
+    mat m_resultValueMatrixCandidate1;
+    mat m_resultValueMatrixCandidate2;
 
     int computationTime1;
     int computationTime2;
@@ -154,13 +167,17 @@ public:
     QString windVelocityFileName1;
     QString windVelocityFileName2;
 
-   std::vector<int> m_resultVectorVariableVec;
-   std::vector<int> m_resultVectorCandidate1Vec;
-   std::vector<int> m_resultVectorCandidate2Vec;
+    double accuracy;
+    bool isComparisonSuccessful;
+
+//   std::vector<int> m_resultVectorVariableVec;
+//   std::vector<int> m_resultVectorCandidate1Vec;
+//   std::vector<int> m_resultVectorCandidate2Vec;
 
 
 public:
     QStringList getInformation();
+    double computeAccuracyValue();
 };
 
 #endif // RPSWINDLABCOMPARISONWORKER_H

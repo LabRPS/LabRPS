@@ -35,7 +35,7 @@ HEADERS  += src/ApplicationWindow.h \
             src/ImageExportDlg.h\
             src/analysis/FilterDialog.h\
             src/analysis/FFTDialog.h\
-            src/Note.h\
+            src/Note.h\          
             src/Folder.h\
             src/FindDialog.h\
             src/scripting/ScriptingEnv.h\
@@ -97,7 +97,8 @@ HEADERS  += src/ApplicationWindow.h \
             src/About.h \
             src/core/AprojHandler.h \
             src/future/lib/XmlStreamWriter.h \
-
+            src/3DScene/RPSScene.h\
+            src/3DScene/SceneView.h \
 
 ###################### SOURCES ##############################################
 
@@ -128,7 +129,7 @@ SOURCES  += src/ApplicationWindow.cpp \
             src/MyWidget.cpp\
             src/analysis/FilterDialog.cpp\
             src/analysis/FFTDialog.cpp\
-            src/Note.cpp\
+            src/Note.cpp\            
             src/Folder.cpp\
             src/FindDialog.cpp\
             src/TextFormatButtons.cpp\
@@ -194,7 +195,8 @@ SOURCES  += src/ApplicationWindow.cpp \
             src/main.cpp \
             src/core/AprojHandler.cpp \
             src/future/lib/XmlStreamWriter.cpp \
-
+            src/3DScene/RPSScene.cpp\
+            src/3DScene/SceneView.cpp \
 
 ###################### FORMS ##############################################
 FORMS        += src/ApplicationWindow.ui \
@@ -275,6 +277,7 @@ HEADERS     += src/future/core/AbstractAspect.h \
                src/future/table/AsciiTableImportFilter.h \
                src/future/core/AbstractImportFilter.h \
                src/future/core/interfaces.h \
+
 
 SOURCES     += src/future/core/AbstractAspect.cpp \
                src/future/core/AbstractPart.cpp \
@@ -483,6 +486,9 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.h\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.h\
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.h\
+            src/rps/windLab/widgets/crpswlruntabletoolsdlg.h\
+            src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.h\
+
 
 SOURCES  += src/rps/RPSpluginManager.cpp\
             src/rps/sealab/widgets/rpsseawavedefinitiondlg.cpp\
@@ -530,6 +536,9 @@ SOURCES  += src/rps/RPSpluginManager.cpp\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.cpp\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.cpp\
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.cpp\
+            src/rps/windLab/widgets/crpswlruntabletoolsdlg.cpp\
+            src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.cpp\
+
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
@@ -563,4 +572,7 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenonaccuracycomparisontablezoomindialog.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisondialog.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.ui\
+            src/rps/windLab/widgets/crpswlruntabletoolsdlg.ui\
+            src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.ui\
+
 

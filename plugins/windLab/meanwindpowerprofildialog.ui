@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>249</width>
-    <height>137</height>
+    <width>268</width>
+    <height>164</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-100</x>
-     <y>100</y>
+     <x>-80</x>
+     <y>130</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,59 +29,97 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QLineEdit" name="lineEditDimensionlessPower">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>231</width>
-     <height>91</height>
+     <x>150</x>
+     <y>70</y>
+     <width>109</width>
+     <height>22</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
-      <item>
-       <widget class="QLabel" name="labelReferenceHeight">
-        <property name="text">
-         <string>Reference height       </string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditReferenceHeight"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_8">
-      <item>
-       <widget class="QLabel" name="labelReferenceSpeed">
-        <property name="text">
-         <string>Rreference speed       </string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditReferenceSpeed"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_9">
-      <item>
-       <widget class="QLabel" name="labelDimensionlessPower">
-        <property name="text">
-         <string>Dimensionless power</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditDimensionlessPower"/>
-      </item>
-     </layout>
-    </item>
-   </layout>
+  </widget>
+  <widget class="QLineEdit" name="lineEditReferenceSpeed">
+   <property name="geometry">
+    <rect>
+     <x>149</x>
+     <y>38</y>
+     <width>110</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelReferenceSpeed">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>38</y>
+     <width>111</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Rreference speed       </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelDimensionlessPower">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>69</y>
+     <width>112</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Dimensionless power</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelReferenceHeight">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>6</y>
+     <width>110</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reference height       </string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditReferenceHeight">
+   <property name="geometry">
+    <rect>
+     <x>148</x>
+     <y>7</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelZeroPlanDisplacement">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>100</y>
+     <width>131</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Zero Plan Displacement</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditZeroPlanDisplacement">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>101</y>
+     <width>109</width>
+     <height>22</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

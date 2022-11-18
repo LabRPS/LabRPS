@@ -84,7 +84,7 @@
     <string notr="true">buttonGroup</string>
    </attribute>
   </widget>
-  <widget class="QLineEdit" name="lineEditNberOfTimeIncr">
+  <widget class="QSpinBox" name="lineEditNberOfTimeIncr">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -94,7 +94,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEditNumberOfSample">
+  <widget class="QSpinBox" name="lineEditNumberOfSample">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -148,7 +148,7 @@
    <property name="title">
     <string>Spatial Distribution</string>
    </property>
-   <widget class="QLineEdit" name="lineEditNberOfLocation">
+   <widget class="QSpinBox" name="lineEditNberOfLocation">
     <property name="geometry">
      <rect>
       <x>140</x>

@@ -10,16 +10,6 @@ void CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuDa
 		dFrequencyVector(l) = Data.minFrequency + l * Data.frequencyIncrement + (Data.locationJ + 1)*Data.frequencyIncrement / Data.numberOfSpatialPosition;
 	}
 }
-void CRPSDoubleIndexFrequency::ComputeFrequenciesMatrixFP(const CRPSWindLabsimuData &Data, mat &dFrequencyMatrix, QStringList &strInformation)
-{
-	for (int i = 0; i < Data.numberOfFrequency; i++)
-	{
-		for (int j = 0; j < Data.numberOfSpatialPosition; j++)
-		{
-			dFrequencyMatrix(i, j) = Data.minFrequency + i * Data.frequencyIncrement + (j + 1) * Data.frequencyIncrement / Data.numberOfSpatialPosition;
-		}
-	}
-}
 
 bool CRPSDoubleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
@@ -28,3 +18,7 @@ bool CRPSDoubleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data,
 	return true;
 }
 
+void CRPSDoubleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)
+{
+    dValue = Data.minFrequency + frequencyIndex * Data.frequencyIncrement + (locationIndex + 1)*Data.frequencyIncrement / Data.numberOfSpatialPosition;
+}

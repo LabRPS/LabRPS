@@ -1,19 +1,3 @@
-/* This file is part of LabRPS.
-   Copyright 2016, Arun Narayanankutty <n.arun.lifescience@gmail.com>
-
-   LabRPS is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   LabRPS is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU General Public License
-   along with LabRPS.  If not, see <http://www.gnu.org/licenses/>.
-
-   Description : PluginPropertyEditor */
-
 #include "pluginpropertyeditor.h"
 
 #include <QDebug>
@@ -55,6 +39,7 @@ PluginPropertyEditor::PluginPropertyEditor(QWidget *parent, ApplicationWindow *a
       enumManager_(new QtEnumPropertyManager(propertybrowser_)),
       datetimeManager_(new QtDateTimePropertyManager(propertybrowser_)),
       // Property Widget factory
+      lineEditFactory_(new QtLineEditFactory(propertybrowser_)),
       checkBoxFactory_(new QtCheckBoxFactory(propertybrowser_)),
       spinBoxFactory_(new QtSpinBoxFactory(propertybrowser_)),
       doubleSpinBoxFactory_(new QtDoubleSpinBoxFactory(propertybrowser_)),
@@ -80,6 +65,7 @@ PluginPropertyEditor::PluginPropertyEditor(QWidget *parent, ApplicationWindow *a
   propertybrowser_->setFactoryForManager(doubleManager_, doubleSpinBoxFactory_);
   propertybrowser_->setFactoryForManager(enumManager_, comboBoxFactory_);
   propertybrowser_->setFactoryForManager(datetimeManager_, datetimeFactory_);
+  propertybrowser_->setFactoryForManager(stringManager_, lineEditFactory_);
 
 
   // Layout Properties
@@ -578,6 +564,102 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
                 {
                    ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
                    WindLabObjectPropertyBlock(itemGroup, objectDescription);     
+                }
+
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabTableTool:
+        {
+                // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupTableTool;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabMatrixTool:
+        {
+                // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupMatrixTool;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabUserDefinedRPSObject:
+        {
+                // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupUserDefinedRPSObject;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
                 }
 
         }
@@ -1670,16 +1752,9 @@ void PluginPropertyEditor::WindLabPluginPropertyBlock(CPluginDescription *descri
         stringManager_->setValue(pluginversionitem_, description->version);
         stringManager_->setValue(plugindescriptionitem_, description->description);
 
-        if (!PluginManager::GetInstance().GetInstalledPluginsMap().empty())
+        if (app_->rpsSimulator->rpsWindLabSimulator->isThisPluginInstalled(description->name))
         {
-                if (PluginManager::GetInstance().GetInstalledPluginsMap().find(description->fullPath) != PluginManager::GetInstance().GetInstalledPluginsMap().end())
-                {
-                        stringManager_->setValue(pluginstatusitem_, "Installed");
-                }
-                else
-                {
-                        stringManager_->setValue(pluginstatusitem_, "Not installed");
-                }
+                stringManager_->setValue(pluginstatusitem_, "Installed");
         }
         else
         {
@@ -1913,6 +1988,51 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 
 		}
 	}
+        else if (objectGroup == LabRPS::objGroupTableTool)
+        {
+            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
+            {
+                pluginName = CrpsTableToolFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsTableToolFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsTableToolFactory::GetTitleMap()[objectName];
+                pubLink = CrpsTableToolFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsTableToolFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsTableToolFactory::GetDateMap()[objectName];
+                version = CrpsTableToolFactory::GetVersionMap()[objectName];
+
+            }
+        }
+        else if (objectGroup == LabRPS::objGroupMatrixTool)
+        {
+            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
+            {
+                pluginName = CrpsMatrixToolFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsMatrixToolFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsMatrixToolFactory::GetTitleMap()[objectName];
+                pubLink = CrpsMatrixToolFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsMatrixToolFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsMatrixToolFactory::GetDateMap()[objectName];
+                version = CrpsMatrixToolFactory::GetVersionMap()[objectName];
+
+            }
+        }
+        else if (objectGroup == LabRPS::objGroupUserDefinedRPSObject)
+        {
+            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
+            {
+                pluginName = CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsUserDefinedRPSObjectFactory::GetTitleMap()[objectName];
+                pubLink = CrpsUserDefinedRPSObjectFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsUserDefinedRPSObjectFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsUserDefinedRPSObjectFactory::GetDateMap()[objectName];
+                version = CrpsUserDefinedRPSObjectFactory::GetVersionMap()[objectName];
+
+            }
+        }
 
 	if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(pluginName) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
 	{
@@ -1924,7 +2044,7 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 		pluggedObjectDescription.m_labRPSVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetLabRPSVersion();
 		pluggedObjectDescription.m_apiVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetAPIVersion();
 		pluggedObjectDescription.m_objectName = objectName;
-                pluggedObjectDescription.m_version = version;
+        pluggedObjectDescription.m_version = version;
 		pluggedObjectDescription.m_description = descrip;
 		pluggedObjectDescription.m_publicationTitle = pubTitle;
 		pluggedObjectDescription.m_publicationLink = pubLink;
@@ -1985,6 +2105,18 @@ QString  PluginPropertyEditor::GetWindLabObjectSelectionState(const QString &obj
 	{
 		return objectName == windLabsimuData.modulationFunction ? yesResult : noResult;
 	}
+    else if (objectGroup == LabRPS::objGroupTableTool)
+    {
+        return objectName == windLabsimuData.tableTool ? yesResult : noResult;
+    }
+    else if (objectGroup == LabRPS::objGroupMatrixTool)
+    {
+        return objectName == windLabsimuData.matrixTool ? yesResult : noResult;
+    }
+    else if (objectGroup == LabRPS::objGroupUserDefinedRPSObject)
+    {
+        return objectName == windLabsimuData.userDefinedRPSObject ? yesResult : noResult;
+    }
 
 	return noResult;
 }
@@ -2117,6 +2249,39 @@ int PluginPropertyEditor::GetNumberOfWindLabPlggedObject(const QString &itemText
                 }
                 return count;
 	}
+    else if (itemText == LabRPS::objGroupTableTool)
+    {
+                 for (it = CrpsTableToolFactory::GetOjectAndPluginMap().begin(); it != CrpsTableToolFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupMatrixTool)
+    {
+                 for (it = CrpsMatrixToolFactory::GetOjectAndPluginMap().begin(); it != CrpsMatrixToolFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupUserDefinedRPSObject)
+    {
+                 for (it = CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap().begin(); it != CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
 
 	return 0;
 }

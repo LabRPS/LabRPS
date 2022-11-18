@@ -1,22 +1,3 @@
-/* This file is part of LabRPS.
-   Copyright 2016 - 2020, Arun Narayanankutty <n.arun.lifescience@gmail.com>
-   Copyright 2006 - 2007, Ion Vasilief <ion_vasilief@yahoo.fr>
-   Copyright 2006 - 2009, Knut Franke <knut.franke@gmx.de>
-   Copyright 2006 - 2009, Tilman Benkert <thzs@gmx.net>
-
-   LabRPS is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   LabRPS is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU General Public License
-   along with LabRPS.  If not, see <http://www.gnu.org/licenses/>.
-
-   Description : Main part of UI & project management related stuff */
-
 #include "ApplicationWindow.h"
 
 #include "2Dplot/TextItem2D.h"
@@ -156,6 +137,10 @@
 #include "rps/pluginBrower/RPSPluginsBrowser.h"
 #include "rps/pluginBrower/plugininstallerbrowser.h"
 #include "RPS.h"
+#include "3DScene/SceneView.h"
+
+#include <cmath>
+#include <matplot/matplot.h>
 
 ApplicationWindow::ApplicationWindow()
     : scripted(ScriptingLangManager::newEnv(this)),
@@ -505,8 +490,12 @@ ApplicationWindow::ApplicationWindow()
   propertyeditor->show();
 
   pluginpropertyeditor->setObjectName("pluginpropertyeditorWindow");
-  addDockWidget(Qt::LeftDockWidgetArea, pluginpropertyeditor);
+  addDockWidget(Qt::RightDockWidgetArea, pluginpropertyeditor);
   pluginpropertyeditor->show();
+
+  QMainWindow::tabifyDockWidget(propertyeditor,pluginpropertyeditor);
+  QMainWindow::tabifyDockWidget(ui_->explorerWindow,consoleWindow);
+  QMainWindow::tabifyDockWidget(ui_->explorerWindow,ui_->logWindow);
 
   disableActions();
   // After initialization of QDockWidget, for toggleViewAction() to work
@@ -529,6 +518,8 @@ ApplicationWindow::ApplicationWindow()
           SLOT(functionDialog()));
   connect(ui_->actionNew3DSurfacePlot, SIGNAL(triggered()), this,
           SLOT(newSurfacePlot()));
+          connect(ui_->actionNew3DScene, SIGNAL(triggered()), this,
+                  SLOT(newScene()));
   connect(ui_->actionOpenAproj, SIGNAL(triggered()), this, SLOT(openAproj()));
   connect(ui_->actionOpenImage, SIGNAL(triggered()), this, SLOT(loadImage()));
   connect(ui_->actionImportImage, SIGNAL(triggered()), this,
@@ -1097,45 +1088,80 @@ ApplicationWindow::ApplicationWindow()
 
   if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
-    // comboboxes on status bar
-  comboxbox_LocJ_statusbarbtn_ = new QComboBox(statusBar()) ;
-  comboxbox_LocK_statusbarbtn_ = new QComboBox(statusBar()) ;
-  comboxbox_Freq_statusbarbtn_ = new QComboBox(statusBar()) ;
-  comboxbox_Tim_statusbarbtn_ = new QComboBox(statusBar()) ;
-  // comboxbox_Wav_statusbarbtn_ = new QComboBox(statusBar()) ;
+      if(2 == rpsSimulator->rpsWindLabSimulator->GetWindLabData().indexControls)
+      {
+          lineedit_LocJ_statusbarbtn_ = new QLineEdit(statusBar()) ;
+          lineedit_LocK_statusbarbtn_ = new QLineEdit(statusBar()) ;
+          lineedit_Freq_statusbarbtn_ = new QLineEdit(statusBar()) ;
+          lineedit_Tim_statusbarbtn_ = new QLineEdit(statusBar()) ;
+          // comboxbox_Wav_statusbarbtn_ = new QComboBox(statusBar()) ;
 
-  // label near each status bar combobox
-  label_LocJ_statusbarbtn_ = new QLabel(tr("Location J: "), statusBar());
-  label_LocK_statusbarbtn_ = new QLabel(tr("Location K: "), statusBar());
-  label_Freq_statusbarbtn_ = new QLabel(tr("Frequency: "), statusBar());
-  label_Tim_statusbarbtn_ = new QLabel(tr("Time: "), statusBar());
+          // label near each status bar combobox
+          label_LocJ_statusbarbtn_ = new QLabel(tr("Location J: "), statusBar());
+          label_LocK_statusbarbtn_ = new QLabel(tr("Location K: "), statusBar());
+          label_Freq_statusbarbtn_ = new QLabel(tr("Frequency: "), statusBar());
+          label_Tim_statusbarbtn_ = new QLabel(tr("Time: "), statusBar());
 
-// output
-  connect(comboxbox_LocJ_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(locJCurrentIndexChanged(int)));
-  
-  connect(comboxbox_LocK_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(locKCurrentIndexChanged(int)));
+          statusBar()->addPermanentWidget(label_LocJ_statusbarbtn_, 0);
+          statusBar()->addPermanentWidget(lineedit_LocJ_statusbarbtn_, 1);
+          statusBar()->addPermanentWidget(label_LocK_statusbarbtn_, 0);
+          statusBar()->addPermanentWidget(lineedit_LocK_statusbarbtn_, 1);
+          statusBar()->addPermanentWidget(label_Freq_statusbarbtn_, 0);
+          statusBar()->addPermanentWidget(lineedit_Freq_statusbarbtn_, 1);
+          statusBar()->addPermanentWidget(label_Tim_statusbarbtn_, 0);
+          statusBar()->addPermanentWidget(lineedit_Tim_statusbarbtn_, 1);
 
-  connect(comboxbox_Freq_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(freqCurrentIndexChanged(int)));
+          lineedit_LocJ_statusbarbtn_->setText("0") ;
+          lineedit_LocK_statusbarbtn_->setText("0") ;
+          lineedit_Freq_statusbarbtn_->setText("0") ;
+          lineedit_Tim_statusbarbtn_->setText("0") ;
 
-  connect(comboxbox_Tim_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(timCurrentIndexChanged(int)));
 
-  statusBar()->addPermanentWidget(label_LocJ_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_LocJ_statusbarbtn_, 1);
-  statusBar()->addPermanentWidget(label_LocK_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_LocK_statusbarbtn_, 1);
-  statusBar()->addPermanentWidget(label_Freq_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_Freq_statusbarbtn_, 1);
-  statusBar()->addPermanentWidget(label_Tim_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_Tim_statusbarbtn_, 1);
+      }
+      else
+      {
+          // comboboxes on status bar
+        comboxbox_LocJ_statusbarbtn_ = new QComboBox(statusBar()) ;
+        comboxbox_LocK_statusbarbtn_ = new QComboBox(statusBar()) ;
+        comboxbox_Freq_statusbarbtn_ = new QComboBox(statusBar()) ;
+        comboxbox_Tim_statusbarbtn_ = new QComboBox(statusBar()) ;
+        // comboxbox_Wav_statusbarbtn_ = new QComboBox(statusBar()) ;
 
-  rpsSimulator->fillLocationJComboBox();
-  rpsSimulator->fillLocationKComboBox();
-  rpsSimulator->fillFrequencyComboBox();
-  rpsSimulator->fillTimeComboBox();
+        // label near each status bar combobox
+        label_LocJ_statusbarbtn_ = new QLabel(tr("Location J: "), statusBar());
+        label_LocK_statusbarbtn_ = new QLabel(tr("Location K: "), statusBar());
+        label_Freq_statusbarbtn_ = new QLabel(tr("Frequency: "), statusBar());
+        label_Tim_statusbarbtn_ = new QLabel(tr("Time: "), statusBar());
+
+      // output
+        connect(comboxbox_LocJ_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                rpsSimulator, SLOT(locJCurrentIndexChanged(int)));
+
+        connect(comboxbox_LocK_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                rpsSimulator, SLOT(locKCurrentIndexChanged(int)));
+
+        connect(comboxbox_Freq_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                rpsSimulator, SLOT(freqCurrentIndexChanged(int)));
+
+        connect(comboxbox_Tim_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                rpsSimulator, SLOT(timCurrentIndexChanged(int)));
+
+
+        statusBar()->addPermanentWidget(label_LocJ_statusbarbtn_, 0);
+        statusBar()->addPermanentWidget(comboxbox_LocJ_statusbarbtn_, 1);
+        statusBar()->addPermanentWidget(label_LocK_statusbarbtn_, 0);
+        statusBar()->addPermanentWidget(comboxbox_LocK_statusbarbtn_, 1);
+        statusBar()->addPermanentWidget(label_Freq_statusbarbtn_, 0);
+        statusBar()->addPermanentWidget(comboxbox_Freq_statusbarbtn_, 1);
+        statusBar()->addPermanentWidget(label_Tim_statusbarbtn_, 0);
+        statusBar()->addPermanentWidget(comboxbox_Tim_statusbarbtn_, 1);
+
+        rpsSimulator->fillLocationJComboBox();
+        rpsSimulator->fillLocationKComboBox();
+        rpsSimulator->fillFrequencyComboBox();
+        rpsSimulator->fillTimeComboBox();
+      }
+
 
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
@@ -1148,26 +1174,48 @@ ApplicationWindow::ApplicationWindow()
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonUserDefined)
   {
-   comboxbox_Phenomenon_statusbarbtn_ = new QComboBox(statusBar()) ;
-   comboxbox_IndexSet_statusbarbtn_ = new QComboBox(statusBar()) ;
- 
-   label_PhenomenonIndex_statusbarbtn_ = new QLabel(tr("Phenomenon: "), statusBar());
-   label_IndexSetIndex_statusbarbtn_ = new QLabel(tr("Index Set: "), statusBar());
+      if(2 == rpsSimulator->rpsUserDefinedPhenomenonSimulator->GetUserDefinedPhenomenonSimulationData().indexControls)
+      {
+          lineedit_Phenomenon_statusbarbtn_ = new QLineEdit(statusBar()) ;
+          lineedit_IndexSet_statusbarbtn_ = new QLineEdit(statusBar()) ;
 
-   connect(comboxbox_Phenomenon_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(phenomenonCurrentIndexChanged(int)));
-  
-   connect(comboxbox_IndexSet_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
-          rpsSimulator, SLOT(indexSetCurrentIndexChanged(int)));
+          label_PhenomenonIndex_statusbarbtn_ = new QLabel(tr("Phenomenon: "), statusBar());
+          label_IndexSetIndex_statusbarbtn_ = new QLabel(tr("Index Set: "), statusBar());
 
-  statusBar()->addPermanentWidget(label_PhenomenonIndex_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_Phenomenon_statusbarbtn_, 1);
+         statusBar()->addPermanentWidget(label_PhenomenonIndex_statusbarbtn_, 0);
+         statusBar()->addPermanentWidget(lineedit_Phenomenon_statusbarbtn_, 1);
 
-  statusBar()->addPermanentWidget(label_IndexSetIndex_statusbarbtn_, 0);
-  statusBar()->addPermanentWidget(comboxbox_IndexSet_statusbarbtn_, 1);
+         statusBar()->addPermanentWidget(label_IndexSetIndex_statusbarbtn_, 0);
+         statusBar()->addPermanentWidget(lineedit_IndexSet_statusbarbtn_, 1);
 
-  rpsSimulator->fillPhenomenonComboBox();
-  rpsSimulator->fillIndexSetComboBox();
+         lineedit_Phenomenon_statusbarbtn_->setText("0") ;
+         lineedit_IndexSet_statusbarbtn_->setText("0") ;
+
+      }
+      else
+      {
+          comboxbox_Phenomenon_statusbarbtn_ = new QComboBox(statusBar()) ;
+          comboxbox_IndexSet_statusbarbtn_ = new QComboBox(statusBar()) ;
+
+          label_PhenomenonIndex_statusbarbtn_ = new QLabel(tr("Phenomenon: "), statusBar());
+          label_IndexSetIndex_statusbarbtn_ = new QLabel(tr("Index Set: "), statusBar());
+
+          connect(comboxbox_Phenomenon_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                 rpsSimulator, SLOT(phenomenonCurrentIndexChanged(int)));
+
+          connect(comboxbox_IndexSet_statusbarbtn_, SIGNAL(currentIndexChanged(int)),
+                 rpsSimulator, SLOT(indexSetCurrentIndexChanged(int)));
+
+         statusBar()->addPermanentWidget(label_PhenomenonIndex_statusbarbtn_, 0);
+         statusBar()->addPermanentWidget(comboxbox_Phenomenon_statusbarbtn_, 1);
+
+         statusBar()->addPermanentWidget(label_IndexSetIndex_statusbarbtn_, 0);
+         statusBar()->addPermanentWidget(comboxbox_IndexSet_statusbarbtn_, 1);
+
+         rpsSimulator->fillPhenomenonComboBox();
+         rpsSimulator->fillIndexSetComboBox();
+      }
+
 
   }
  
@@ -1328,6 +1376,7 @@ ApplicationWindow::ApplicationWindow()
   connect(ui_->actionCompareComputationTime, SIGNAL(triggered()), rpsSimulator, SLOT(compareComputationTime()));
   connect(ui_->actionCompareMemoryUsage, SIGNAL(triggered()), rpsSimulator, SLOT(compareMemoryUsage()));
   connect(rpsSimulator, &RPSSimulation::pluginModified, pluginpropertyeditor, &PluginPropertyEditor::populateObjectBrowser);
+  connect(ui_->actionRunTool, SIGNAL(triggered()), rpsSimulator, SLOT(runTool()));
 
 }
 
@@ -1692,13 +1741,14 @@ void ApplicationWindow::makeToolBars()
 
   // Add toolbars
   addToolBar(Qt::TopToolBarArea, fileToolbar);
-  addToolBar(editToolbar);
+//  addToolBar(editToolbar);
   addToolBar(simulationToolbar);
   addToolBar(inputToolbar);
   addToolBar(outputToolbar);
   addToolBar(graphToolsToolbar);
   addToolBar(Qt::LeftToolBarArea, plot2DToolbar);
-  addToolBar(Qt::TopToolBarArea, tableToolbar);
+  addToolBar(Qt::LeftToolBarArea, editToolbar);
+  addToolBar(Qt::BottomToolBarArea, tableToolbar);
   addToolBar(Qt::BottomToolBarArea, graph3DToolbar);
   addToolBar(Qt::BottomToolBarArea, matrix3DPlotToolbar);
 
@@ -1975,7 +2025,7 @@ void ApplicationWindow::customToolBars(QMdiSubWindow *subwindow)
       ui_->actionPlot3DTrajectory->setEnabled(false);
       ui_->actionPlot3DBar->setEnabled(false);
       // } else
-      plot2DToolbar->setEnabled(false);
+      plot2DToolbar->setEnabled(true);
     }
     else if (isActiveSubWindow(subwindow, SubWindowType::TableSubWindow))
     {
@@ -1988,7 +2038,7 @@ void ApplicationWindow::customToolBars(QMdiSubWindow *subwindow)
       graph3DToolbar->setEnabled(false);
       matrix3DPlotToolbar->setEnabled(false);
 
-      plot2DToolbar->setEnabled(true);
+      plot2DToolbar->setEnabled(false);
       // plot tools managed by d_plot_mapper
       for (int i = 0; i <= static_cast<int>(Graph::VerticalSteps); i++)
       {
@@ -2041,12 +2091,12 @@ void ApplicationWindow::customToolBars(QMdiSubWindow *subwindow)
     // graph3DToolbar->setEnabled(false);
     // matrix3DPlotToolbar->setEnabled(false);
     
-    editToolbar->setVisible(false);
-    graphToolsToolbar->setVisible(false);
-    tableToolbar->setVisible(false);
-    plot2DToolbar->setVisible(false);
-    matrix3DPlotToolbar->setVisible(false);
-    graph3DToolbar->setVisible(false);
+    // editToolbar->setVisible(false);
+    // graphToolsToolbar->setVisible(false);
+    // tableToolbar->setVisible(false);
+    // plot2DToolbar->setVisible(false);
+    // matrix3DPlotToolbar->setVisible(false);
+    // graph3DToolbar->setVisible(false);
   }
 }
 
@@ -2616,6 +2666,54 @@ Matrix *ApplicationWindow::importImage()
   else
     return nullptr;
 }
+
+
+void ApplicationWindow::initScene(RPSScene *scene, const QString &caption)
+{
+  QString name = caption;
+  while (name.isEmpty() || alreadyUsedName(name))
+    name = generateUniqueName(tr("Scenes"));
+
+  scene->setWindowTitle(name);
+  scene->setName(name);
+  scene->setWindowIcon(IconLoader::load("edit-scene", IconLoader::LightDark));
+  scene->askOnCloseEvent(confirmCloseNotes);
+  scene->setFolder(current_folder);
+
+  current_folder->addWindow(scene);
+  d_workspace->addSubWindow(scene);
+  addListViewItem(scene);
+
+  connect(scene, SIGNAL(modifiedWindow(MyWidget *)), this,
+          SLOT(modifiedProject(MyWidget *)));
+  connect(scene, SIGNAL(closedWindow(MyWidget *)), this,
+          SLOT(closeWindow(MyWidget *)));
+  connect(scene, SIGNAL(hiddenWindow(MyWidget *)), this,
+          SLOT(hideWindow(MyWidget *)));
+  connect(scene, SIGNAL(statusChanged(MyWidget *)), this,
+          SLOT(updateWindowStatus(MyWidget *)));
+  connect(scene, SIGNAL(showTitleBarMenu()), this,
+          SLOT(showWindowTitleBarMenu()));
+  connect(scene, &Note::mousepressevent, [=](MyWidget *widget)
+          {
+    if (d_workspace->activeSubWindow() == widget) return;
+    widget->setNormal();
+    d_workspace->setActiveSubWindow(widget); });
+
+  emit modified();
+}
+
+RPSScene *ApplicationWindow::newScene(const QString &caption)
+{
+    RPSScene *scene = new RPSScene(scriptEnv, "", d_workspace);
+    if (caption.isEmpty())
+      initScene(scene, generateUniqueName(tr("Scenes")));
+    else
+      initScene(scene, caption);
+    scene->showNormal();
+    return scene;
+}
+
 
 void ApplicationWindow::loadImage()
 {
@@ -3549,6 +3647,8 @@ void ApplicationWindow::updateGeneralConfirmOptions()
   bool nconfirmClosePlot2D = settings.value("Plot2D", true).toBool();
   bool nconfirmClosePlot3D = settings.value("Plot3D", true).toBool();
   bool nconfirmCloseNotes = settings.value("Note", true).toBool();
+  bool nconfirmCloseScenes = settings.value("Scene", true).toBool();
+
   settings.endGroup(); // Confirmations
 
   confirmCloseFolder = nconfirmCloseFolder;
@@ -3610,7 +3710,19 @@ void ApplicationWindow::updateGeneralConfirmOptions()
             ->askOnCloseEvent(confirmCloseNotes);
     }
   }
+
+  if (confirmCloseScenes != nconfirmCloseScenes)
+  {
+    confirmCloseScenes = nconfirmCloseScenes;
+    for (int i = 0; i < int(subwindowlist.count()); i++)
+    {
+      if (isActiveSubWindow(subwindowlist.at(i), SubWindowType::SceneSubWindow))
+        qobject_cast<MyWidget *>(subwindowlist.at(i))
+            ->askOnCloseEvent(confirmCloseScenes);
+    }
+  }
 }
+
 
 void ApplicationWindow::updateGeneralAppearanceOptions()
 {
@@ -4423,17 +4535,17 @@ void ApplicationWindow::loadSettings()
   ui_->actionShowFileToolbar->setChecked(
       settings.value("FileToolbar", true).toBool());
   ui_->actionShowEditToolbar->setChecked(
-      settings.value("EditToolbar", false).toBool());
+      settings.value("EditToolbar", true).toBool());
   ui_->actionShowGraphToolbar->setChecked(
-      settings.value("GraphToolbar", false).toBool());
+      settings.value("GraphToolbar", true).toBool());
   ui_->actionShowPlotToolbar->setChecked(
-      settings.value("PlotToolbar", false).toBool());
+      settings.value("PlotToolbar", true).toBool());
   ui_->actionShowTableToolbar->setChecked(
-      settings.value("TableToolbar", false).toBool());
+      settings.value("TableToolbar", true).toBool());
   ui_->actionShowMatrixPlotToolbar->setChecked(
-      settings.value("MatrixPlotToolbar", false).toBool());
+      settings.value("MatrixPlotToolbar", true).toBool());
   ui_->actionShow3DSurfacePlotToolbar->setChecked(
-      settings.value("3DSurfacePlotToolbar", false).toBool());
+      settings.value("3DSurfacePlotToolbar", true).toBool());
   ui_->actionShowSimulationToolbar->setChecked(
       settings.value("SimulationToolbar", true).toBool());
   ui_->actionShowInputToolbar->setChecked(
@@ -5263,6 +5375,16 @@ void ApplicationWindow::saveNoteAs()
   if (!isActiveSubWindow(w, SubWindowType::NoteSubWindow))
     return;
   w->exportASCII();
+}
+
+void ApplicationWindow::saveSceneAs()
+{
+  if (!d_workspace->activeSubWindow())
+    return;
+  RPSScene *w = qobject_cast<RPSScene *>(d_workspace->activeSubWindow());
+  if (!isActiveSubWindow(w, SubWindowType::SceneSubWindow))
+    return;
+  //start saving codes from here
 }
 
 void ApplicationWindow::saveAsTemplate()
@@ -7322,6 +7444,8 @@ void ApplicationWindow::showListViewPopupMenu(const QPoint &p)
   window.addAction(ui_->actionNewGraph);
   window.addAction(ui_->actionNewFunctionPlot);
   window.addAction(ui_->actionNew3DSurfacePlot);
+  window.addAction(ui_->actionNew3DScene);
+
   cm.addMenu(&window);
 
   cm.addAction(IconLoader::load("folder-explorer", IconLoader::LightDark),
@@ -8612,6 +8736,9 @@ void ApplicationWindow::updateGeneralApplicationOptions()
   bool nautosave = settings.value("AutoSave", true).toBool();
   int nautosavetime = settings.value("AutoSaveTime", 15).toInt();
   int nundolimit = settings.value("UndoLimit", 10).toInt();
+  QString workingdirector = settings.value("WorkingDirectory", QCoreApplication::instance()->applicationDirPath()).toString();
+  int indexcontrols = settings.value("IndexControls", 1).toInt();
+
   QStringList applicationFont = settings.value("Font").toStringList();
   if (applicationFont.size() == 4)
     QFont napplicationfont_ =
@@ -8647,6 +8774,10 @@ void ApplicationWindow::updateGeneralApplicationOptions()
   {
     changeAppFont(applicationfontfont);
   }
+
+  rpsSimulator->rpsWindLabSimulator->GetWindLabData().workingDirPath = workingdirector;
+  rpsSimulator->rpsWindLabSimulator->GetWindLabData().indexControls = indexcontrols;
+
 }
 
 void ApplicationWindow::fitMultiPeakGaussian()
@@ -9211,6 +9342,7 @@ void ApplicationWindow::showFolderPopupMenu(QTreeWidgetItem *it,
     window.addAction(ui_->actionNewGraph);
     window.addAction(ui_->actionNewFunctionPlot);
     window.addAction(ui_->actionNew3DSurfacePlot);
+    window.addAction(ui_->actionNew3DScene);
     cm.addMenu(&window);
   }
 
@@ -11317,6 +11449,8 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("graph2d-function-xy", IconLoader::LightDark));
   ui_->actionNew3DSurfacePlot->setIcon(
       IconLoader::load("graph3d-function-xyz", IconLoader::LightDark));
+  ui_->actionNew3DScene->setIcon(
+      IconLoader::load("graph3d-function-xyz", IconLoader::LightDark));
   ui_->actionOpenAproj->setIcon(
       IconLoader::load("project-open", IconLoader::LightDark));
   ui_->actionOpenImage->setIcon(QIcon());
@@ -11688,6 +11822,8 @@ void ApplicationWindow::loadIcons()
       IconLoader::load("compare-time", IconLoader::General));
   ui_->actionCompareAccuracy->setIcon(
       IconLoader::load("compare-accuracy", IconLoader::General));
+ui_->actionRunTool->setIcon(
+      IconLoader::load("compare-accuracy", IconLoader::General));
 
   if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
@@ -12005,6 +12141,47 @@ Note *ApplicationWindow::getNoteHandle()
   return nullptr;
 }
 
+RPSScene *ApplicationWindow::getSceneHandle()
+{
+  if (context()->argumentCount() != 1 || !context()->argument(0).isString())
+  {
+    context()->throwError(tr("getSceneHandle(string) take one argument!"));
+  }
+
+  bool namedWidgetPresent = false;
+  QList<QMdiSubWindow *> subwindowlist = subWindowsList();
+  foreach (QMdiSubWindow *subwindow, subwindowlist)
+  {
+    if (subwindow->objectName() == context()->argument(0).toString())
+    {
+      if (qobject_cast<RPSScene *>(subwindow))
+      {
+        namedWidgetPresent = true;
+        RPSScene *scene = qobject_cast<RPSScene *>(subwindow);
+        if (!scene)
+        {
+          context()->throwError(tr("Unable to get Note handle!"));
+        }
+        return scene;
+      }
+      else
+      {
+        context()->throwError(context()->argument(0).toString() +
+                              tr(" is not a valid Note object name!"));
+      }
+    }
+  }
+
+  if (!namedWidgetPresent)
+  {
+    context()->throwError(context()->argument(0).toString() +
+                          tr(" is not a valid Note object name!"));
+  }
+
+  // will never reach here
+  return nullptr;
+}
+
 void ApplicationWindow::savePhenomenon(int index)
 {
 
@@ -12062,7 +12239,43 @@ QString ApplicationWindow::qStringListToString(QStringList qStringList)
     return comboxbox_IndexSet_statusbarbtn_;
   }
 
+  /////
+  QLineEdit* ApplicationWindow::getLineEditLocJstatusbarbtn()
+  {
+    return lineedit_LocJ_statusbarbtn_;
+  }
+  QLineEdit* ApplicationWindow::getLineEditLocKstatusbarbtn()
+  {
+    return lineedit_LocK_statusbarbtn_;
+  }
+  QLineEdit* ApplicationWindow::getLineEditFreqstatusbarbtn()
+  {
+    return lineedit_Freq_statusbarbtn_;
+  }
+  QLineEdit* ApplicationWindow::getLineEditTimstatusbarbtn()
+  {
+    return lineedit_Tim_statusbarbtn_;
+  }
+   QLineEdit* ApplicationWindow::getLineEditPhenstatusbarbtn()
+  {
+    return lineedit_Phenomenon_statusbarbtn_;
+  }
+  QLineEdit* ApplicationWindow::getLineEditIndexstatusbarbtn()
+  {
+    return lineedit_IndexSet_statusbarbtn_;
+  }
+
+
   //   QComboBox* ApplicationWindow::getComboxboxWavstatusbarbtn()
   // {
   //   return comboxbox_Wav_statusbarbtn_;
   // }
+
+  bool ApplicationWindow::isActiveSubWindowATable()
+  {
+    return (isActiveSubWindow(d_workspace->activeSubWindow(), SubWindowType::TableSubWindow));
+  }
+  bool ApplicationWindow::isActiveSubWindowAMatrix()
+  {
+      return (isActiveSubWindow(d_workspace->activeSubWindow(), SubWindowType::MatrixSubWindow));
+  }

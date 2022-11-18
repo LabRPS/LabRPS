@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>220</width>
-    <height>130</height>
+    <width>271</width>
+    <height>150</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>-130</x>
-     <y>90</y>
+     <x>-80</x>
+     <y>110</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,45 +29,74 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QWidget" name="verticalLayoutWidget">
+  <widget class="QLineEdit" name="lineEditShearVelocity">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>50</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditTerrainRoughness">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>20</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelTerrainRoughness">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>16</y>
+     <width>93</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Terrain roughness</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelShearVelocity">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>47</y>
+     <width>91</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Shear velocity      </string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEditZeroPlanDisplacement">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>80</y>
+     <width>111</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelZeroPlanDisplacement">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>10</y>
-     <width>201</width>
-     <height>71</height>
+     <y>80</y>
+     <width>131</width>
+     <height>24</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="labelTerrainRoughness">
-        <property name="text">
-         <string>Terrain roughness</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditTerrainRoughness"/>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item>
-       <widget class="QLabel" name="labelShearVelocity">
-        <property name="text">
-         <string>Shear velocity      </string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditShearVelocity"/>
-      </item>
-     </layout>
-    </item>
-   </layout>
+   <property name="text">
+    <string>Zero Plan Displacement</string>
+   </property>
   </widget>
  </widget>
  <resources/>

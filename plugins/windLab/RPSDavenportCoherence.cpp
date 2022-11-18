@@ -84,32 +84,3 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimu
 		}
 	}
 }
-
-void CRPSDavenportCoherence::ComputeCoherenceCubePPF(const CRPSWindLabsimuData &Data, cube &dCoherenceCube, QStringList &strInformation)
-{
-	mat dLocCoord(Data.numberOfSpatialPosition, 3);
-	vec dFrequencies(Data.numberOfFrequency);
-
-	// Compute location coordinates
-	CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-	CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFrequencies, strInformation);
-
-	double coherence = 0.0;
-	double dTime = Data.timeIncrement * (Data.timeIndex -1);
-	double frequency = 0.0;
-
-	for (int loop3 = 0; loop3 < Data.numberOfFrequency; loop3++)
-	{
-		frequency = dFrequencies(loop3);
-
-		for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition; loop1++)
-		{
-			for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition; loop2++)
-			{
-				ComputeCoherenceValue(Data, coherence, dLocCoord(loop1, 0), dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop2, 0), dLocCoord(loop2, 1), dLocCoord(loop2, 2), frequency, dTime, strInformation);
-
-				dCoherenceCube(loop1, loop2, loop3) = coherence;
-			}
-		}
-	}
-}

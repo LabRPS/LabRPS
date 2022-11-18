@@ -8,11 +8,66 @@ DEFINES += RPSTOOLS_LIBRARY
 DEFINES += RPS_BUILDING_CORE
 
 CONFIG += c++17
+QMAKE_CXXFLAGS +=-Wall
 
+################################################################################
+### Dependencies                                                               #
+################################################################################
+
+contains(PRESET, linux_all_dynamic) {
+
+  LIBS         += -lgsl -lgslcblas
+
+}
+
+contains(PRESET, linux_static) {
+  ### Link statically and dynamically against rest.
+  LIBS         += -lgsl -lgslcblas
+
+}
+
+contains(PRESET, linux_all_static) {
+  ### mostly static linking, for self-contained binaries
+  message(Build configuration: Linux all static)
+
+  LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
+
+}
+
+contains(PRESET, osx_dist) {
+  # Uses HomeBrew supplied versions of the dependencies
+  message(Build configuration: OSX Distro)
+
+  LIBS         += -lgsl -lgslcblas
+
+}
+
+win32: {
+  !mxe {
+    ### Static linking mostly.
+    message(Build configuration: Win32)
+
+    isEmpty(LIBPATH): LIBPATH = E:/LabRPS/3rdparty
+
+    INCLUDEPATH  += "$${LIBPATH}/gsl/include"
+
+    LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
+    LIBS         += "$${LIBPATH}/gsl/lib/libgslcblas.a"
+
+   }
+}
+
+mxe {
+  ### Mingw cross compilation environment on Linux.
+  message(Build configuration: Mxe all static)
+
+  LIBS           += -lgsl -lgslcblas
+}
 SOURCES += \
     rpsTools/RPSTools.cpp\
     rpsTools/src/general/CholeskyDecomposition.cpp\
     rpsTools/src/general/UniformRandomPhaseMatrixGenerator.cpp\
+    rpsTools/src/general/AvailableWindows.cpp\
     rpsTools/src/windVelocity/spectrum/WindSpectrum.cpp\
     rpsTools/src/windVelocity/spectrum/KaimalSpectrum.cpp\
     rpsTools/src/windVelocity/spectrum/SimuSpectrum.cpp\
@@ -33,6 +88,7 @@ HEADERS += \
     rpsTools/RPSToolsDefines.h\
     rpsTools/src/general/CholeskyDecomposition.h\
     rpsTools/src/general/UniformRandomPhaseMatrixGenerator.h\
+    rpsTools/src/general/AvailableWindows.h\
     rpsTools/src/windVelocity/spectrum/WindSpectrum.h\
     rpsTools/src/windVelocity/spectrum/KaimalSpectrum.h\
     rpsTools/src/windVelocity/spectrum/SimuSpectrum.h\

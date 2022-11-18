@@ -1,22 +1,3 @@
-/* This file is part of LabRPS.
-   Copyright 2016 - 2020, Arun Narayanankutty <n.arun.lifescience@gmail.com>
-   Copyright 2006 - 2007, Ion Vasilief <ion_vasilief@yahoo.fr>
-   Copyright 2006 - 2009, Knut Franke <knut.franke@gmx.de>
-   Copyright 2006 - 2009, Tilman Benkert <thzs@gmx.net>
-
-   LabRPS is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   LabRPS is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU General Public License
-   along with LabRPS.  If not, see <http://www.gnu.org/licenses/>.
-
-   Description : Main part of UI & project management related stuff */
-
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
@@ -32,6 +13,8 @@
 
 #include "Table.h"
 #include "Matrix.h"
+#include "3DScene/RPSScene.h"
+
 // Scripting
 #include "../3rdparty/qcustomplot/qcustomplot.h"
 #include "2Dplot/Graph2DCommon.h"
@@ -153,6 +136,8 @@ class ApplicationWindow : public QMainWindow,
     NoteSubWindow,
     Plot2DSubWindow,
     Plot3DSubWindow,
+    SceneSubWindow,
+
   };
 
   enum class Graph {
@@ -315,6 +300,7 @@ class ApplicationWindow : public QMainWindow,
                       const double xl, const double xr, const double yl,
                       const double yr, const double zl, const double zr);
   void newSurfacePlot();
+  //Scene *newScene();
   void editSurfacePlot();
   void add3DData();
   void change3DData();
@@ -721,6 +707,10 @@ class ApplicationWindow : public QMainWindow,
   Note* newNote(const QString& caption = QString());
   void initNote(Note* note, const QString& caption);
   void saveNoteAs();
+
+  RPSScene* newScene(const QString& caption = QString());
+  void initScene(RPSScene* scene, const QString& caption);
+  void saveSceneAs();
   //@}
 
   //! \name Folders
@@ -939,6 +929,7 @@ class ApplicationWindow : public QMainWindow,
   bool confirmClosePlot3D;
   bool confirmCloseFolder;
   bool confirmCloseNotes;
+  bool confirmCloseScenes;
   bool canvasFrameOn;
   bool titleOn;
   bool autoSave;
@@ -1110,6 +1101,7 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionClearTable;
   QAction* actionGoToCell;
   QAction* actionSaveNote;
+  QAction* actionSaveScene;
   QAction* actionplot3dAnimate_;
   QAction* actionResetCameraFront_;
   QAction* actionResetZoomfactor_;
@@ -1205,6 +1197,11 @@ class ApplicationWindow : public QMainWindow,
   QComboBox* comboxbox_Tim_statusbarbtn_;
   // QComboBox* comboxbox_Wav_statusbarbtn_;
 
+  QLineEdit* lineedit_LocJ_statusbarbtn_;
+  QLineEdit* lineedit_LocK_statusbarbtn_;
+  QLineEdit* lineedit_Freq_statusbarbtn_;
+  QLineEdit* lineedit_Tim_statusbarbtn_;
+
 
   QLabel* label_LocJ_statusbarbtn_;
   QLabel* label_LocK_statusbarbtn_;
@@ -1215,6 +1212,8 @@ class ApplicationWindow : public QMainWindow,
   //windLab
   QComboBox* comboxbox_Phenomenon_statusbarbtn_;
   QComboBox* comboxbox_IndexSet_statusbarbtn_;
+  QLineEdit* lineedit_Phenomenon_statusbarbtn_;
+  QLineEdit* lineedit_IndexSet_statusbarbtn_;
 
   QLabel* label_PhenomenonIndex_statusbarbtn_;
   QLabel* label_IndexSetIndex_statusbarbtn_;
@@ -1254,11 +1253,16 @@ class ApplicationWindow : public QMainWindow,
   Table* getTableHandle();
   Matrix* getMatrixHandle();
   Note* getNoteHandle();
+  RPSScene* getSceneHandle();
 
   public:
 
   RPSSimulation* rpsSimulator; 
   QStringList information;
+
+  public:
+  bool isActiveSubWindowATable();
+  bool isActiveSubWindowAMatrix();
 
   public slots:
   void savePhenomenon(int index);
@@ -1273,6 +1277,14 @@ public:
   QComboBox* getComboxboxPhenstatusbarbtn();
   QComboBox* getComboxboxIndexstatusbarbtn();
   // QComboBox* getComboxboxWavstatusbarbtn();
+
+  QLineEdit* getLineEditLocJstatusbarbtn();
+  QLineEdit* getLineEditLocKstatusbarbtn();
+  QLineEdit* getLineEditFreqstatusbarbtn();
+  QLineEdit* getLineEditTimstatusbarbtn();
+  QLineEdit* getLineEditPhenstatusbarbtn();
+  QLineEdit* getLineEditIndexstatusbarbtn();
+
 
 
 

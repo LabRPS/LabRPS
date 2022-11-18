@@ -280,13 +280,13 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEditLocMin"/>
+      <widget class="QSpinBox" name="lineEditLocMin"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditFreqMin"/>
+      <widget class="QSpinBox" name="lineEditFreqMin"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditTimMin"/>
+      <widget class="QSpinBox" name="lineEditTimMin"/>
      </item>
     </layout>
    </widget>
@@ -304,17 +304,17 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="QLineEdit" name="lineEditLocIncr"/>
+      <widget class="QSpinBox" name="lineEditLocIncr"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditFreqIncr"/>
+      <widget class="QSpinBox" name="lineEditFreqIncr"/>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditTimIncr"/>
+      <widget class="QSpinBox" name="lineEditTimIncr"/>
      </item>
     </layout>
    </widget>
-   <widget class="QLineEdit" name="lineEditTotalNumber">
+   <widget class="QSpinBox" name="lineEditTotalNumber">
     <property name="geometry">
      <rect>
       <x>70</x>

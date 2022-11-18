@@ -12,7 +12,7 @@ class MeanWindLogProfilDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit MeanWindLogProfilDialog(double terrainRoughness, double shearVelocity, QWidget *parent = nullptr);
+    explicit MeanWindLogProfilDialog(double terrainRoughness, double shearVelocity, double zeroPlanDisplacement, QWidget *parent = nullptr);
     ~MeanWindLogProfilDialog();
 
 private:
@@ -24,6 +24,7 @@ private slots:
 public:
     double m_terrainRoughness;
     double m_shearVelocity;
+    double m_zeroPlanDisplacement;
 };
 
 #endif // MEANWINDLOGPROFILDIALOG_H

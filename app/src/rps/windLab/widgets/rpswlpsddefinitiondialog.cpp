@@ -25,7 +25,12 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	 cpsdDecompositionMethod = rpsWindLabSimulator->GetWindLabData().cpsdDecompositionMethod;
 	 freqencyDistribution = rpsWindLabSimulator->GetWindLabData().freqencyDistribution;
 
-     ui->lineEditNberOfFreqIncr->setText(QString::number(numberOfFrequency));
+     int min = 1;
+     int max = 10000000;
+
+     ui->lineEditNberOfFreqIncr->setRange(min, max);
+
+     ui->lineEditNberOfFreqIncr->setValue(numberOfFrequency);
      ui->lineEditMinFreq->setText(QString::number(minFrequency));
      ui->lineEditMaxFreq->setText(QString::number(maxFrequency));
      ui->lineEditFreqIncr->setText(QString::number(frequencyIncrement));
@@ -243,16 +248,16 @@ RPSWLPSDDefinitionDialog::~RPSWLPSDDefinitionDialog()
 
 void RPSWLPSDDefinitionDialog::comboBoxPSDModelIndexChanged(int index)
 {
-    // spectrumModel = ui->comboBoxSpectrumModel->currentText();
+    spectrumModel = ui->comboBoxSpectrumModel->currentText();
 }
 void RPSWLPSDDefinitionDialog::comboBoxPSDdecompIndexChanged(int index)
 {
-
+    spectrumModel = ui->comboBoxSpectrumModel->currentText();
 }
 
 void RPSWLPSDDefinitionDialog::comboBoxFrequencyDistrIndexChanged(int index)
 {
-
+    spectrumModel = ui->comboBoxSpectrumModel->currentText();
 }
 
 void RPSWLPSDDefinitionDialog::OnBnClickedPSDModelInit()

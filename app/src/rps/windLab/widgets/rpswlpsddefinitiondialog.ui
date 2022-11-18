@@ -235,7 +235,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QLineEdit" name="lineEditNberOfFreqIncr">
+  <widget class="QSpinBox" name="lineEditNberOfFreqIncr">
    <property name="geometry">
     <rect>
      <x>150</x>

@@ -42,12 +42,19 @@ RPSWindVelocityDefinitionDlg::RPSWindVelocityDefinitionDlg(QWidget *parent) :
 
 	}
 
-    ui->lineEditNberOfLocation->setText(QString::number(numberOfSpatialPosition));
-    ui->lineEditNberOfTimeIncr->setText(QString::number(numberOfTimeIncrements));
+     int min = 1;
+     int max = 10000000;
+
+     ui->lineEditNberOfLocation->setRange(min, max);
+     ui->lineEditNberOfTimeIncr->setRange(min, max);
+     ui->lineEditNumberOfSample->setRange(min, max);
+
+    ui->lineEditNberOfLocation->setValue(numberOfSpatialPosition);
+    ui->lineEditNberOfTimeIncr->setValue(numberOfTimeIncrements);
     ui->lineEditTimeIncreValue->setText(QString::number(timeIncrement));
     ui->lineEditMinTimeValue->setText(QString::number(minTime));
     ui->lineEditMaxTimeValue->setText(QString::number(minTime + (numberOfTimeIncrements*timeIncrement)));
-    ui->lineEditNumberOfSample->setText(QString::number(numberOfSample));
+    ui->lineEditNumberOfSample->setValue(numberOfSample);
 
     ui->comboBoxWindSpationDistr->clear();
 
@@ -160,10 +167,10 @@ void RPSWindVelocityDefinitionDlg::OnBnClickedSpatialDistrInit()
 
  void RPSWindVelocityDefinitionDlg::acceptInput()
  {
-    numberOfSpatialPosition = ui->lineEditNberOfLocation->text().toDouble();
-    numberOfTimeIncrements = ui->lineEditNberOfTimeIncr->text().toDouble();
+    numberOfSpatialPosition = ui->lineEditNberOfLocation->text().toInt();
+    numberOfTimeIncrements = ui->lineEditNberOfTimeIncr->text().toInt();
     timeIncrement = ui->lineEditTimeIncreValue->text().toDouble();
     minTime = ui->lineEditMinTimeValue->text().toDouble();
     maxTime = ui->lineEditMaxTimeValue->text().toDouble();
-	numberOfSample = ui->lineEditNumberOfSample->text().toDouble();
+    numberOfSample = ui->lineEditNumberOfSample->text().toInt();
  }

@@ -142,6 +142,12 @@ void RPSUserDefinedPhenomenonSimulation::simuDataInitialize()
     simuData.minIndexSetValue = 0;
     simuData.maxIndexSetValue = 1000;
 
+  QSettings settings;
+  settings.beginGroup("General");
+  simuData.workingDirPath = settings.value("WorkingDirectory", QCoreApplication::instance()->applicationDirPath()).toString();
+  simuData.indexControls = settings.value("IndexControls", 1).toInt();
+  settings.endGroup();
+
 }
 
 void RPSUserDefinedPhenomenonSimulation::WriteMapToRegistry(std::map<const QString, QString> &map, QString &settingsGroup, int &count)
@@ -962,9 +968,9 @@ void RPSUserDefinedPhenomenonSimulation::displayTComparisonResults(const QString
     // fill the table with computed coherence
     for (int i = 0; i < row; i++)
     {
-        table->setCellValue(i, 0, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorVariableVec.at(i));
-        table->setCellValue(i, 1, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorCandidate1Vec.at(i));
-        table->setCellValue(i, 2, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorCandidate2Vec.at(i));
+        table->setCellValue(i, 0, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorVariable(i));
+        table->setCellValue(i, 1, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorCandidate1(i));
+        table->setCellValue(i, 2, GetUserDefinedPhenomenonComparisonWorker()->m_resultVectorCandidate2(i));
     }
 
     table->showNormal();
@@ -1431,6 +1437,11 @@ void RPSUserDefinedPhenomenonSimulation::fillFunctionAndCandidateComboBoxes(QStr
 
 void RPSUserDefinedPhenomenonSimulation::createOutputWorker()
 {
+    if(2 == simuData.indexControls)
+    {
+        saveLineEditIndexes();
+    }
+
 	// create a worker
     simulationOutputWorker = new RPSUserDefinedPhenomenonSimulationOutputWorker(simuData, information, phenomenonIndex, indexSetIndex);
 
@@ -1451,6 +1462,11 @@ void RPSUserDefinedPhenomenonSimulation::createOutputWorker()
 
 void RPSUserDefinedPhenomenonSimulation::createSimulationWorker()
 {
+    if(2 == simuData.indexControls)
+    {
+        saveLineEditIndexes();
+    }
+
 	// create a worker
     simulationWorker = new RPSUserDefinedPhenomenonSimulationWorker(simuData, information, phenomenonIndex, indexSetIndex);
 
@@ -1478,6 +1494,10 @@ void RPSUserDefinedPhenomenonSimulation::createSimulationWorker()
 
 void RPSUserDefinedPhenomenonSimulation::createComparisonWorker()
 {
+    if(2 == simuData.indexControls)
+    {
+        saveLineEditIndexes();
+    }
     // create a worker
     comparisonWorker = new RPSUserDefinedPhenomenonComparisonWorker(simuData,
                                                       information,
@@ -1513,3 +1533,15 @@ void RPSUserDefinedPhenomenonSimulation::createComparisonWorker()
     connect(comparisonWorker, SIGNAL(finished()), comparisonWorker, SLOT(deleteLater()));
 }
 
+void RPSUserDefinedPhenomenonSimulation::saveLineEditIndexes()
+{
+	RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
+	ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();
+
+    phenomenonIndex = app->getLineEditPhenstatusbarbtn()->text().toDouble();
+    indexSetIndex = app->getLineEditIndexstatusbarbtn()->text().toDouble();
+
+    GetUserDefinedPhenomenonSimulationData().phenomenonIndex = phenomenonIndex;
+    GetUserDefinedPhenomenonSimulationData().indexSetIndex = indexSetIndex;
+
+}

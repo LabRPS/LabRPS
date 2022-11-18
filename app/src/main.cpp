@@ -1,22 +1,3 @@
-/* This file is part of LabRPS.
-
-   Copyright 2006 by Ion Vasilief, Tilman Benkert
-   Copyright 2016, Arun Narayanankutty <n.arun.lifescience@gmail.com>
-
-   LabRPS is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-   LabRPS is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-   You should have received a copy of the GNU General Public License
-   along with LabRPS.  If not, see <http://www.gnu.org/licenses/>.
-
-   Description : LabRPS main function
-*/
-
 #include <QAction>
 #include <QApplication>
 #include <QSplashScreen>
@@ -180,5 +161,6 @@ int main(int argc, char** argv) {
   splash->finish(mw);
 
   app->connect(app, &Application::lastWindowClosed, app, &Application::quit);
+  mw->showMaximized();
   return app->exec();
 }

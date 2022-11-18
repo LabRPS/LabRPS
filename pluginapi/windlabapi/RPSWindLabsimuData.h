@@ -138,6 +138,9 @@ class RPS_CORE_API CRPSWindLabsimuData
 	//comparison type: 1 for accuracy, 2 for time and 3 for memory
 	int comparisonType;
 
+    int indexControls;
+
+
 };
 
 #endif  // CRPSWINDLABDATA_H

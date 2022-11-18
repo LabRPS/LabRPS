@@ -63,6 +63,8 @@ public slots:
   void pauseSimulation();
   void stopSimulation();
   void simulationOptions();
+  void runTableTool(const mat &table);
+  void runMatrixTool(const mat &matrix);
 
   void receiveInformation(QStringList infoList);
   void progressBarShowSL();
@@ -73,7 +75,7 @@ public slots:
   void progressBarResetSL();
 
   // display output
-  void displayWindVelocity();
+  void displayWindVelocity(bool simulationStatus);
   void displayFrequencyDistribution();
   void displayLocationDistribution();
   void displaySpectrum();
@@ -96,9 +98,11 @@ public slots:
   void displayAComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
   void displayTComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
   
-  void displayWindVelocitySimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
-  void displayWindVelocityLargeScaleSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  void displayWindVelocityASimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  void displayWindVelocityALargeScaleSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
 
+  void displayWindVelocityTSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
+  void displayWindVelocityTLargeScaleSimComparisonResults(const QString &candidat1, const QString &candidat2, const QString &tableName, const QString &variableName, const int &row);
 
 
 private:
@@ -208,6 +212,9 @@ void WLReadAllTobeInstallObjVersionToRegistry();
   bool UpdateToBeUninstalledObjectsMap(const QString name, const QString pluginName);
   bool IsThisObjectInstalled(std::map<const QString, QString> &map, QString &object);
   bool UpdateObjectToSkipMap(std::map<const QString, QString> &map, const QString name, const QString pluginName);
+  bool isThisPluginInstalled(const QString &pluginName);
+  bool IsThisObjectGroupPluggedInThisPlugin(const std::map<const QString, QString> &map, const QString &pluginName);
+  void emptyAllToBeUninstalledObjectsMap();
 
   void compareAccuracy();
   void compareComputationTime();
@@ -236,6 +243,9 @@ void WLReadAllTobeInstallObjVersionToRegistry();
   void simulationMethodInital(QString currentSelected);
   void spectrumModelInital(QString currentSelected);
   void randomnessProviderInital(QString currentSelected);
+  void matrixToolInital(QString currentSelected);
+  void tableToolInital(QString currentSelected);
+
   void locationDistributionFunctionInital(QString currentSelected);
 
   void candidateInitialData(QString category, QString currentSelected);
@@ -252,6 +262,14 @@ void WLReadAllTobeInstallObjVersionToRegistry();
   void locKCurrentIndexChanged(int index);
   void freqCurrentIndexChanged(int index);
   void timCurrentIndexChanged(int index);
+
+  void saveLineEditIndexes();
+  QString logSimulationInfo(bool status, const QString &name);
+  QString logTimeComparisonInfo(bool status, const QString &name);
+  QString logAccuracyComparisonInfo(bool status, const QString &name);
+
+
+
 };
 
 #endif // RPSWINDLABSIMULATION_H

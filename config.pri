@@ -78,12 +78,12 @@ contains(PRESET, linux_all_dynamic) {
   INCLUDEPATH   = "$(HOME)/usr/include" $$INCLUDEPATH
   QMAKE_LIBDIR  = "$(HOME)/usr/lib" $$QMAKE_LIBDIR
 
-  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
+  LIBS         += -lGLU -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools -libQGLViewer2 -libmatplot.a -libnodesoup.a
 }
 
 contains(PRESET, linux_static) {
   ### Link statically and dynamically against rest.
-  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
+  LIBS         += -lgsl -lgslcblas -lGLU -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools -libQGLViewer2 -libmatplot.a -libnodesoup.a
 }
 
 contains(PRESET, linux_all_static) {
@@ -91,7 +91,7 @@ contains(PRESET, linux_all_static) {
   message(Build configuration: Linux all static)
 
   LIBS         += /usr/lib/libgsl.a /usr/lib/libgslcblas.a
-  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a /usr/lib/libuserdefinedphenomenonapi.a /usr/lib/librpsTools.a
+  LIBS         += /usr/lib/libsealabapi.a /usr/lib/libseismiclabapi.a /usr/lib/libwindlabapi.a /usr/lib/libuserdefinedphenomenonapi.a /usr/lib/librpsTools.a /usr/lib/libQGLViewer2.a /usr/lib/libmatplot.a /usr/lib/libnodesoup.a
 }
 
 contains(PRESET, osx_dist) {
@@ -100,7 +100,7 @@ contains(PRESET, osx_dist) {
 
   INCLUDEPATH  += /usr/local/include
   QMAKE_LIBDIR += /usr/local/lib
-  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools
+  LIBS         += -lgsl -lgslcblas -libsealabapi -libseismiclabapi -libwindlabapi -libuserdefinedphenomenonapi -librpsTools -libQGLViewer2 -libmatplot.a -libnodesoup.a
 }
 
 win32: {
@@ -120,7 +120,9 @@ win32: {
 
     INCLUDEPATH  += "$${LIBPATH}/Eigen/Core"
     INCLUDEPATH  += "$${TOOLSPATH}/rpsTools"
-
+    INCLUDEPATH  += "$${LIBPATH}/QGLViewer"
+    INCLUDEPATH  += "$${LIBPATH}/QGLViewer/VRender"
+    INCLUDEPATH  += "$${LIBPATH}/MatPlot/include"
 
     LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
     LIBS         += "$${LIBPATH}/gsl/lib/libgslcblas.a"
@@ -129,6 +131,11 @@ win32: {
     LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
     LIBS         += "$${APILIBPATH}/userdefinedphenomenonapi/release/libuserdefinedphenomenonapi.a"
     LIBS         += "$${TOOLSPATH}/rpsTools/release/librpsTools.a"
+    LIBS         += "$${LIBPATH}/QGLViewer/libQGLViewer2.a"
+    LIBS         += "$${LIBPATH}/MatPlot/lib/libmatplot.a"
+    LIBS         += "$${LIBPATH}/MatPlot/lib/libnodesoup.a"
+
+
 
   }
 }
@@ -140,7 +147,7 @@ mxe {
   QMAKE_CXXFLAGS +=-g
   DEFINES        += CONSOLE
   
-  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi libuserdefinedphenomenonapi librpsTools
+  LIBS           +=  -mwindows -lgsl -lgslcblas libsealabapi libseismiclabapi libwindlabapi libuserdefinedphenomenonapi librpsTools libQGLViewer2 libmatplot
 
   # Qt libs specified here to get around a dependency bug in qmake
   LIBS += -lQt5OpenGL -lQt5Gui -lQt5Widgets -lQt5Network -lQt5Core -lQt5Svg
@@ -150,3 +157,19 @@ mxe {
   LIBS += -ljpeg -lpng -lmng -ltiff -llzma -llcms2
   LIBS += -lopengl32 -lglu32 
 }
+
+# include openGL & glu
+     win32: LIBS += -lopengl32 -lglu32
+else:unix:  LIBS += -lGLU
+
+## add the proper include path for libraries
+#     win32:CONFIG(build32bit): LIBS += -L$$PWD/libs_windows_32bit
+#else:win32:CONFIG(build64bit): LIBS += -L$$PWD/libs_windows_64bit
+#else:unix: CONFIG(build32bit): LIBS += -L$$PWD/libs_unix_32bit
+#else:unix: CONFIG(build64bit): LIBS += -L$$PWD/libs_unix_64bit
+
+## includes QGLViewer
+#INCLUDEPATH += QGLViewer_headers
+#     win32:CONFIG(release, debug|release): LIBS += -lQGLViewer2
+#else:win32:CONFIG(debug,   debug|release): LIBS += -lQGLViewerd2
+#else:unix: LIBS += -lQGLViewer

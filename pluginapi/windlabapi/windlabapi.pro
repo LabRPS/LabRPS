@@ -37,6 +37,9 @@ HEADERS += \
     RPSWindLabTools.h\
     RPS.h\
     ObjectDescription.h\
+    IrpsWLMatrixTool.h\
+    IrpsWLTableTool.h\
+    IrpsWLUserDefinedRPSObject.h\
 
 
 # Default rules for deployment.

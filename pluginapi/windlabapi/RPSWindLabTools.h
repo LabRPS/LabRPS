@@ -4,9 +4,6 @@
 #include "RPSWindLabAPIdefines.h"
 #include "RPSWindLabsimuData.h"
 
-
-using namespace std;
-
 class RPS_CORE_API CRPSWindLabTools
 {
 public:

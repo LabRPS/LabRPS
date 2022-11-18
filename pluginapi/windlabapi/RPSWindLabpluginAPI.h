@@ -1,7 +1,7 @@
 
 
-#ifndef RPSPLUGINAPI_H
-#define RPSPLUGINAPI_H
+#ifndef RPSWINDLABPLUGINAPI_H
+#define RPSWINDLABPLUGINAPI_H
 
 #include "RPSWindLabAPIdefines.h"
 #include "IrpsWLLocationDistribution.h"

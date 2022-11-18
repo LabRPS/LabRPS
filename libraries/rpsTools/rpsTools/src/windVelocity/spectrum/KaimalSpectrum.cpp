@@ -18,8 +18,8 @@ double  KaimalSpectrum::computeAlongWindAutoSpectrum(const double &frequency, co
 {
     double dBuf1, dBuf2;
     double dPSD = 0.0;
-    double Par1 = 105.0;
-    double Par2 = 33.0;
+    double Par1 = 200.0;
+    double Par2 = 50.0;
     double PI = 22.0 / 7.0;
 
     dBuf1 = 1.0 + Par2 * frequency * height / (2.0 * PI *meanSpeed);
