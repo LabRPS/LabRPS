@@ -15,7 +15,7 @@ public:
     ~DavenportSpectrum();
 
     //this computes the along wind spectrum
-    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed);
+    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed10 = 30.0);
 
 };
 

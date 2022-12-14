@@ -1,7 +1,6 @@
 
 #include "RPSUniformRandomPhases.h"
-#include "RPSWindLabTools.h"
-#include "minmaxvaluesdlg.h"
+#include "widgets/minmaxvaluesdlg.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/general/UniformRandomPhaseMatrixGenerator.h"
 
@@ -28,5 +27,6 @@ void CRPSUniformRandomPhases::GenerateRandomArrayFP(const CRPSWindLabsimuData &D
 
 void CRPSUniformRandomPhases::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
 {
-
+    rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+    uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseValue(dValue, minValue, maxValue);
 }

@@ -1367,6 +1367,8 @@
     <file>pixmap/transparent-background.png</file>
     <file>splash/splash.png</file>
 
+    <file>pixmap/watermark1.png</file>
+
     <file>icons/images/background.png</file>
     <file>icons/images/banner.png</file>
     <file>icons/images/logo1.png</file>

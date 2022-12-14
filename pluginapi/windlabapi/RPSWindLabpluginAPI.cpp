@@ -23,18 +23,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsCoherenceFactory::RegisterCoherence(name, pluginName, description, init_cb);
+     CrpsCoherenceFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeCoherence(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsCoherenceFactory::InitializeCoherence(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsCoherenceFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterCoherence(const QString name, const QString &pluginName)
  {
-	 CrpsCoherenceFactory::UnregisterCoherence(name, pluginName);
+     CrpsCoherenceFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////Location Distribution//////////////////////////////////////////
@@ -46,18 +46,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsLocationDistributionFactory::RegisterLocationDistribution(name, pluginName, description, init_cb);
+     CrpsLocationDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeLocationDistribution(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsLocationDistributionFactory::InitializeLocationDistribution(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsLocationDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterLocationDistribution(const QString name, const QString &pluginName)
  {
-	 CrpsLocationDistributionFactory::UnregisterLocationDistribution(name, pluginName);
+     CrpsLocationDistributionFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -70,18 +70,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsMeanFactory::RegisterMean(name, pluginName, description, init_cb);
+     CrpsMeanFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeMean(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsMeanFactory::InitializeMean(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsMeanFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterMean(const QString name, const QString &pluginName)
  {
-	 CrpsMeanFactory::UnregisterMean(name, pluginName);
+     CrpsMeanFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -94,18 +94,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsXSpectrumFactory::RegisterXSpectrum(name, pluginName, description, init_cb);
+     CrpsXSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeXSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsXSpectrumFactory::InitializeXSpectrum(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsXSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterXSpectrum(const QString name, const QString &pluginName)
  {
-	 CrpsXSpectrumFactory::UnregisterXSpectrum(name, pluginName);
+     CrpsXSpectrumFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -118,18 +118,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsZSpectrumFactory::RegisterZSpectrum(name, pluginName, description, init_cb);
+     CrpsZSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeZSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsZSpectrumFactory::InitializeZSpectrum(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsZSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterZSpectrum(const QString name, const QString &pluginName)
  {
-	 CrpsZSpectrumFactory::UnregisterZSpectrum(name, pluginName);
+     CrpsZSpectrumFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////Across wind target spectrum//////////////////////////////////////////
@@ -141,18 +141,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsYSpectrumFactory::RegisterYSpectrum(name, pluginName, description, init_cb);
+     CrpsYSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeYSpectrum(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsYSpectrumFactory::InitializeYSpectrum(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsYSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterYSpectrum(const QString name, const QString &pluginName)
  {
-	 CrpsYSpectrumFactory::UnregisterYSpectrum(name, pluginName);
+     CrpsYSpectrumFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////Simulation method//////////////////////////////////////////
@@ -165,18 +165,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsSimuMethodFactory::RegisterSimuMethod(name, pluginName, description, init_cb);
+     CrpsSimuMethodFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeSimuMethod(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsSimuMethodFactory::InitializeSimuMethod(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsSimuMethodFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterSimuMethod(const QString name, const QString &pluginName)
  {
-	 CrpsSimuMethodFactory::UnregisterSimuMethod(name, pluginName);
+     CrpsSimuMethodFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -190,18 +190,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsFrequencyDistributionFactory::RegisterFrequencyDistribution(name, pluginName, description, init_cb);
+     CrpsFrequencyDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeFrequencyDistribution(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsFrequencyDistributionFactory::InitializeFrequencyDistribution(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsFrequencyDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterFrequencyDistribution(const QString name, const QString &pluginName)
  {
-	 CrpsFrequencyDistributionFactory::UnregisterFrequencyDistribution(name, pluginName);
+     CrpsFrequencyDistributionFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -215,18 +215,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsRandomnessFactory::RegisterRandomness(name, pluginName, description, init_cb);
+     CrpsRandomnessFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeRandomness(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsRandomnessFactory::InitializeRandomness(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsRandomnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterRandomness(const QString name, const QString &pluginName)
  {
-	 CrpsRandomnessFactory::UnregisterRandomness(name, pluginName);
+     CrpsRandomnessFactory::UnregisterObject(name, pluginName);
  }
 
 
@@ -240,18 +240,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsPSDdecomMethodFactory::RegisterPSDdecomMethod(name, pluginName, description, init_cb);
+     CrpsPSDdecomMethodFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializePSDdecomMethod(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsPSDdecomMethodFactory::InitializePSDdecomMethod(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsPSDdecomMethodFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterPSDdecomMethod(const QString name, const QString &pluginName)
  {
-	 CrpsPSDdecomMethodFactory::UnregisterPSDdecomMethod(name, pluginName);
+     CrpsPSDdecomMethodFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////Correlation//////////////////////////////////////////
@@ -264,18 +264,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsCorrelationFactory::RegisterCorrelation(name, pluginName, description, init_cb);
+     CrpsCorrelationFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeCorrelation(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsCorrelationFactory::InitializeCorrelation(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsCorrelationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterCorrelation(const QString name, const QString &pluginName)
  {
-	 CrpsCorrelationFactory::UnregisterCorrelation(name, pluginName);
+     CrpsCorrelationFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////Modulation//////////////////////////////////////////
@@ -288,18 +288,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 		 return;
 	 }
 
-	 CrpsModulationFactory::RegisterModulation(name, pluginName, description, init_cb);
+     CrpsModulationFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeModulation(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsModulationFactory::InitializeModulation(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsModulationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterModulation(const QString name, const QString &pluginName)
  {
-	 CrpsModulationFactory::UnregisterModulation(name, pluginName);
+     CrpsModulationFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////table tool object//////////////////////////////////////////
@@ -311,18 +311,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsTableToolFactory::RegisterTableTool(name, pluginName, description, init_cb);
+     CrpsTableToolFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeTableTool(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsTableToolFactory::InitializeTableTool(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsTableToolFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterTableTool(const QString name, const QString &pluginName)
  {
-	 CrpsTableToolFactory::UnregisterTableTool(name, pluginName);
+     CrpsTableToolFactory::UnregisterObject(name, pluginName);
  }
 
 ////////////////////////////////////matrix tools object//////////////////////////////////////////
@@ -334,18 +334,18 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsMatrixToolFactory::RegisterMatrixTool(name, pluginName, description, init_cb);
+     CrpsMatrixToolFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeMatrixTool(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsMatrixToolFactory::InitializeMatrixTool(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsMatrixToolFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterMatrixTool(const QString name, const QString &pluginName)
  {
-	 CrpsMatrixToolFactory::UnregisterMatrixTool(name, pluginName);
+     CrpsMatrixToolFactory::UnregisterObject(name, pluginName);
  }
 
  ////////////////////////////////////user defined rps object//////////////////////////////////////////
@@ -357,18 +357,315 @@ const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 	 {
 		 return;
 	 }
-	 CrpsUserDefinedRPSObjectFactory::RegisterUserDefinedRPSObject(name, pluginName, description, init_cb);
+     CrpsUserDefinedRPSObjectFactory::RegisterObject(name, pluginName, description, init_cb);
 	 (void)free_cb; // we never free these objects
  }
 
  void InitializeUserDefinedRPSObject(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
  {
-	 CrpsUserDefinedRPSObjectFactory::InitializeUserDefinedRPSObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+     CrpsUserDefinedRPSObjectFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
  }
 
  void UnregisterUserDefinedRPSObject(const QString name, const QString &pluginName)
  {
-	 CrpsUserDefinedRPSObjectFactory::UnregisterUserDefinedRPSObject(name, pluginName);
+     CrpsUserDefinedRPSObjectFactory::UnregisterObject(name, pluginName);
  }
 
+
+/////////////////////cumulative probability distribution///////////////
+
+ void RegisterCumulativeProbabilityDistribution(const QString name, const QString &pluginName, const QString &description, CumulativeProbabilityDistributionInitFunc init_cb, CumulativeProbabilityDistributionFreeFunc free_cb)
+ {
+	 if (CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsCumulativeProbabilityDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeCumulativeProbabilityDistribution(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsCumulativeProbabilityDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterCumulativeProbabilityDistribution(const QString name, const QString &pluginName)
+ {
+     CrpsCumulativeProbabilityDistributionFactory::UnregisterObject(name, pluginName);
+ }
  
+ /////////////////////Gust factor///////////////
+
+ void RegisterGustFactor(const QString name, const QString &pluginName, const QString &description, GustFactorInitFunc init_cb, GustFactorFreeFunc free_cb)
+ {
+	 if (CrpsGustFactorFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsGustFactorFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsGustFactorFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeGustFactor(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsGustFactorFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterGustFactor(const QString name, const QString &pluginName)
+ {
+     CrpsGustFactorFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ /////////////////////Kurtosis/////////////////////////////
+
+ void RegisterKurtosis(const QString name, const QString &pluginName, const QString &description, KurtosisInitFunc init_cb, KurtosisFreeFunc free_cb)
+ {
+	 if (CrpsKurtosisFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsKurtosisFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsKurtosisFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeKurtosis(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsKurtosisFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterKurtosis(const QString name, const QString &pluginName)
+ {
+     CrpsKurtosisFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Peak factor//////////////////////////
+
+ void RegisterPeakFactor(const QString name, const QString &pluginName, const QString &description, PeakFactorInitFunc init_cb, PeakFactorFreeFunc free_cb)
+ {
+	 if (CrpsPeakFactorFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsPeakFactorFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsPeakFactorFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializePeakFactor(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsPeakFactorFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterPeakFactor(const QString name, const QString &pluginName)
+ {
+     CrpsPeakFactorFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Probability density function///////////////
+
+ void RegisterProbabilityDensityFunction(const QString name, const QString &pluginName, const QString &description, ProbabilityDensityFunctionInitFunc init_cb, ProbabilityDensityFunctionFreeFunc free_cb)
+ {
+	 if (CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsProbabilityDensityFunctionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeProbabilityDensityFunction(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsProbabilityDensityFunctionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterProbabilityDensityFunction(const QString name, const QString &pluginName)
+ {
+     CrpsProbabilityDensityFunctionFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Roughness///////////////
+
+ void RegisterRoughness(const QString name, const QString &pluginName, const QString &description, RoughnessInitFunc init_cb, RoughnessFreeFunc free_cb)
+ {
+	 if (CrpsRoughnessFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsRoughnessFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsRoughnessFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeRoughness(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsRoughnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterRoughness(const QString name, const QString &pluginName)
+ {
+     CrpsRoughnessFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Shear velocity of the flow///////////////
+
+ void RegisterShearVelocityOfFlow(const QString name, const QString &pluginName, const QString &description, ShearVelocityOfFlowInitFunc init_cb, ShearVelocityOfFlowFreeFunc free_cb)
+ {
+	 if (CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsShearVelocityOfFlowFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeShearVelocityOfFlow(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsShearVelocityOfFlowFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterShearVelocityOfFlow(const QString name, const QString &pluginName)
+ {
+     CrpsShearVelocityOfFlowFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Skewness///////////////
+
+ void RegisterSkewness(const QString name, const QString &pluginName, const QString &description, SkewnessInitFunc init_cb, SkewnessFreeFunc free_cb)
+ {
+	 if (CrpsSkewnessFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsSkewnessFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsSkewnessFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeSkewness(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsSkewnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterSkewness(const QString name, const QString &pluginName)
+ {
+     CrpsSkewnessFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Standard deviation///////////////
+
+ void RegisterStandardDeviation(const QString name, const QString &pluginName, const QString &description, StandardDeviationInitFunc init_cb, StandardDeviationFreeFunc free_cb)
+ {
+	 if (CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsStandardDeviationFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeStandardDeviation(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsStandardDeviationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterStandardDeviation(const QString name, const QString &pluginName)
+ {
+     CrpsStandardDeviationFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Turbulence intensity///////////////
+
+ void RegisterTurbulenceIntensity(const QString name, const QString &pluginName, const QString &description, TurbulenceIntensityInitFunc init_cb, TurbulenceIntensityFreeFunc free_cb)
+ {
+	 if (CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsTurbulenceIntensityFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeTurbulenceIntensity(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsTurbulenceIntensityFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterTurbulenceIntensity(const QString name, const QString &pluginName)
+ {
+     CrpsTurbulenceIntensityFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Variance///////////////
+
+ void RegisterTurbulenceScale(const QString name, const QString &pluginName, const QString &description, TurbulenceScaleInitFunc init_cb, TurbulenceScaleFreeFunc free_cb)
+ {
+	 if (CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsTurbulenceScaleFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeTurbulenceScale(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsTurbulenceScaleFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterTurbulenceScale(const QString name, const QString &pluginName)
+ {
+     CrpsTurbulenceScaleFactory::UnregisterObject(name, pluginName);
+ }
+
+  void RegisterVariance(const QString name, const QString &pluginName, const QString &description, VarianceInitFunc init_cb, VarianceFreeFunc free_cb)
+ {
+	 if (CrpsVarianceFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsVarianceFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsVarianceFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeVariance(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsVarianceFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterVariance(const QString name, const QString &pluginName)
+ {
+     CrpsVarianceFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Wave passage effect///////////////
+
+ void RegisterWavePassageEffect(const QString name, const QString &pluginName, const QString &description, WavePassageEffectInitFunc init_cb, WavePassageEffectFreeFunc free_cb)
+ {
+	 if (CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsWavePassageEffectFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; // we never free these objects
+ }
+
+ void InitializeWavePassageEffect(const QString name, const QString &pluginName, const QString &publicationTitle, const QString &publicationLink, const QString &publicationAuthor, const QString &publicationDate, const QString &version)
+ {
+     CrpsWavePassageEffectFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version);
+ }
+
+ void UnregisterWavePassageEffect(const QString name, const QString &pluginName)
+ {
+     CrpsWavePassageEffectFactory::UnregisterObject(name, pluginName);
+ }

@@ -24,7 +24,7 @@ RPSWLMeanDlg::RPSWLMeanDlg(QWidget *parent) :
 	std::map<const QString, CreateMeanCallback> ::iterator meanIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (meanIt = CrpsMeanFactory::GetMeanNamesMap().begin(); meanIt != CrpsMeanFactory::GetMeanNamesMap().end(); ++meanIt)
+    for (meanIt = CrpsMeanFactory::GetObjectNamesMap().begin(); meanIt != CrpsMeanFactory::GetObjectNamesMap().end(); ++meanIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxMeanFunc->addItem(meanIt->first);
@@ -73,7 +73,7 @@ void RPSWLMeanDlg::OnBnClickedMeanFnInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLMean* currentSelection = CrpsMeanFactory::BuildMean(meanFunction);
+    IrpsWLMean* currentSelection = CrpsMeanFactory::BuildObject(meanFunction);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }

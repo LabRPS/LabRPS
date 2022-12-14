@@ -1,7 +1,6 @@
  
 #include "WLVerticalUniformDistribution.h"
-#include "wlvertdistrdialog.h"
-#include "RPSWindLabTools.h"
+#include "widgets/wlvertdistrdialog.h"
 #include <QMessageBox>
 
 // Spacing along vertical line

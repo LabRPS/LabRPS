@@ -14,23 +14,14 @@ HarrisSpectrum::~HarrisSpectrum()
 
 }
 
-double  HarrisSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &shearVelocity)
+double  HarrisSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &shearVelocity, const double &meanSpeed10)
 {
-    double dBuf1, dBuf2;
-    double dPSD = 0.0;
-    double Par1 = 1800.0;
-    double Par2 = 1800.0;
-    double PI = 22.0 / 7.0;
-
-    dBuf1 = 2.0 + Par2 * Par2 * frequency * frequency / (2.0 * PI * 2.0 * PI);
-
-    dBuf2 = pow(dBuf1, 5.0 / 6.0);
-
-    dPSD = 4.0 * shearVelocity * shearVelocity * Par1 / (2.0 * PI * meanSpeed);
-
-    dPSD /= dBuf2;			// (rad/s)
-
-    dPSD /= 2.0 * PI;
-
-    return dPSD;
+    const double towPi = 2*22.0/7.0;
+    const double a = 1800.0;
+    const double K = 0.4; //Karman constant
+    const double freq = (a*frequency / meanSpeed10)/towPi;
+    const double numer = std::pow(freq,2);
+    const double denom = std::pow(2+numer, 5.0/6.0);
+    const double dPSD = 4.0 * K * shearVelocity * shearVelocity*(numer/denom);
+    return dPSD/towPi;
 }

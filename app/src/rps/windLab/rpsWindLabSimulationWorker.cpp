@@ -11,11 +11,11 @@ RPSWindLabSimulationWorker::RPSWindLabSimulationWorker(CRPSWindLabsimuData windL
                                                                    int frequencyIndex,
                                                                    int timeIndex) : m_windLabData(windLabData),
                                                                                     m_information(information),
+                                                                                    stopped(true),
                                                                                     m_locationJ(locationJ),
                                                                                     m_locationK(locationK),
                                                                                     m_frequencyIndex(frequencyIndex),
-                                                                                    m_timeIndex(timeIndex),
-                                                                                    stopped(true)
+                                                                                    m_timeIndex(timeIndex)
 {
     minStep = 0;
     maxStep = 0;
@@ -84,7 +84,7 @@ bool RPSWindLabSimulationWorker::isStopped()
 void RPSWindLabSimulationWorker::windVelocityLargeScale()
 {
     // Build an object
-	IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(m_windLabData.simulationMethod);
+    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildObject(m_windLabData.simulationMethod);
 
 	// Check whether good object
 	if (NULL == currentSimuMethod)
@@ -127,7 +127,7 @@ void RPSWindLabSimulationWorker::windVelocityLargeScale()
 void RPSWindLabSimulationWorker::windVelocityNotLargeScale()
 {
     // Build an object
-    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(m_windLabData.simulationMethod);
+    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildObject(m_windLabData.simulationMethod);
 
     // Check whether good object
     if (NULL == currentSimuMethod)

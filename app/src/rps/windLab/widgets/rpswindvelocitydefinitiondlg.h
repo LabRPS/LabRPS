@@ -19,6 +19,8 @@ public:
 void comboBoxSpatialDistrIndexChanged(int index);
 void radioButtonStationarityToggled(bool);
 void radioButtonNonStationarityToggled(bool);
+void radioButtonUniformModulationToggled(bool);
+void radioButtonNonGeneralModulationToggled(bool);
 void radioButtonGaussianityToggled(bool);
 void radioButtonNonGaussianityToggled(bool);
 void OnBnClickedSpatialDistrInit();
@@ -38,6 +40,7 @@ public:
 	 double maxTime;
 	 int numberOfSample;
 	 bool stationarity;
+     bool uniformModulation;
 	 bool gaussianity;
 	 QString spatialDistribution;
 };

@@ -15,7 +15,7 @@ public:
     ~HarrisSpectrum();
 
     //this computes the along wind spectrum
-    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &shearVelocity);
+    double computeAlongWindAutoSpectrum(const double &frequency, const double &shearVelocity, const double &meanSpeed10 = 30.0);
 
 };
 

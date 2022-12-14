@@ -53,7 +53,7 @@ PRSWLSimuOptionsDlg::PRSWLSimuOptionsDlg(QWidget *parent) :
 	std::map<const QString, CreateSimuMethodCallback> ::iterator simuMethIt;
 		
     // Iterate though the map and show all the registed randomness providers in the combo box
-	for (simuMethIt = CrpsSimuMethodFactory::GetSimuMethodNamesMap().begin(); simuMethIt != CrpsSimuMethodFactory::GetSimuMethodNamesMap().end(); ++simuMethIt)
+    for (simuMethIt = CrpsSimuMethodFactory::GetObjectNamesMap().begin(); simuMethIt != CrpsSimuMethodFactory::GetObjectNamesMap().end(); ++simuMethIt)
 	{ 
 
 		// Add it to the combo box
@@ -85,7 +85,7 @@ PRSWLSimuOptionsDlg::PRSWLSimuOptionsDlg(QWidget *parent) :
 	std::map<const QString, CreateRandomnessCallback> ::iterator randIt;
 		
     // Iterate though the map and show all the registed randomness providers in the combo box
-	for (randIt = CrpsRandomnessFactory::GetRandomnessNamesMap().begin(); randIt != CrpsRandomnessFactory::GetRandomnessNamesMap().end(); ++randIt)
+    for (randIt = CrpsRandomnessFactory::GetObjectNamesMap().begin(); randIt != CrpsRandomnessFactory::GetObjectNamesMap().end(); ++randIt)
 	{
 
 		// Add it to the combo box
@@ -174,7 +174,7 @@ void PRSWLSimuOptionsDlg::OnBnClickedRandomnessInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLRandomness* currentRndProvider = CrpsRandomnessFactory::BuildRandomness(currentRandomnessProvider);
+    IrpsWLRandomness* currentRndProvider = CrpsRandomnessFactory::BuildObject(currentRandomnessProvider);
 
 	// Check whether good object
 	if (NULL == currentRndProvider) { return; }

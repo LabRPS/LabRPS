@@ -14,7 +14,6 @@ SOURCES += \
     RPSWindLabFramework.cpp\
     RPSWindLabpluginAPI.cpp\
     RPSWindLabsimuData.cpp\
-    RPSWindLabTools.cpp\
     ObjectDescription.cpp\
 
 HEADERS += \
@@ -30,16 +29,29 @@ HEADERS += \
     IrpsWLYSpectrum.h\
     IrpsWLSimuMethod.h\
     IrpsWLZSpectrum.h\
+    RPSWindLabAPI.h\
     RPSWindLabAPIdefines.h\
     RPSWindLabFramework.h\
     RPSWindLabpluginAPI.h\
     RPSWindLabsimuData.h\
-    RPSWindLabTools.h\
     RPS.h\
     ObjectDescription.h\
     IrpsWLMatrixTool.h\
     IrpsWLTableTool.h\
     IrpsWLUserDefinedRPSObject.h\
+    IrpsWLCumulativeProbabilityDistribution.h\
+    IrpsWLGustFactor.h\
+    IrpsWLKurtosis.h\
+    IrpsWLPeakFactor.h\
+    IrpsWLProbabilityDensityFunction.h\
+    IrpsWLRoughness.h\
+    IrpsWLShearVelocityOfFlow.h\
+    IrpsWLSkewness.h\
+    IrpsWLStandardDeviation.h\
+    IrpsWLTurbulenceIntensity.h\
+    IrpsWLTurbulenceScale.h\
+    IrpsWLVariance.h\
+    IrpsWLWavePassageEffect.h\
 
 
 # Default rules for deployment.

@@ -1,6 +1,6 @@
 
 #include "ThreeParaModulation.h"
-#include "threeparamodulationdialog.h"
+#include "widgets/threeparamodulationdialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ThreeParametersModulation.h"
 
@@ -34,26 +34,26 @@ void CThreeParaModulation::ComputeModulationValue(const CRPSWindLabsimuData &Dat
 }
 
 
-void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
+void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
 
 	//  Maximum value of modulation function
 	double max = 0.0;
-	double 	dTime;
+	//double 	dTime;
 
 	// For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
-		dTime = Data.minTime + Data.timeIncrement * k;
-
+		const double dTime = Data.minTime + Data.timeIncrement * k;
+		dVarVector(k) = dTime;
 		// compute approximate buffeting force 
-        dModulationVector(k) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
+        dValVector(k) = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
 
 		// Max
-		if (dModulationVector(k) > max)
+		if (dValVector(k) > max)
 		{
-			max = dModulationVector(k);
+			max = dValVector(k);
 		}
 	}
 
@@ -61,7 +61,38 @@ void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &D
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
 		// Normalizing the modulation function 
-		dModulationVector(k) /= max;
+		dValVector(k) /= max;
 	}
 
+}
+
+void CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
+
+    //  Maximum value of modulation function
+    double max = 0.0;
+    const double dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
+    const double dModValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
+
+    // For each time increment
+    for (int k = 0; k < Data.numberOfSpatialPosition; k++)
+    {
+        dVarVector(k) = k+1;
+        // compute approximate buffeting force
+        dValVector(k) = dModValue;
+
+        // Max
+        if (dValVector(k) > max)
+        {
+            max = dValVector(k);
+        }
+    }
+
+    // For each time increment
+    for (int k = 0; k < Data.numberOfSpatialPosition; k++)
+    {
+        // Normalizing the modulation function
+        dValVector(k) /= max;
+    }
 }

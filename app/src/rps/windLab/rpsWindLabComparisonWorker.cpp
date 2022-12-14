@@ -30,32 +30,58 @@ RPSWindLabComparisonWorker::RPSWindLabComparisonWorker(CRPSWindLabsimuData windL
                                                        QString simulation,
                                                        QString spatial,
                                                        QString randomness,
-                                                       QString spectrum) : m_windLabData(windLabData),
-                                                                   m_information(information),
-                                                                   m_locationJ(locationJ),
-                                                                   m_locationK(locationK),
-                                                                   m_frequencyIndex(frequencyIndex),
-                                                                   m_timeIndex(timeIndex),
-                                                                   stopped(true),
-                                                                   m_candidateList(candidateList),
-                                                                   m_resultOutputType(resultOutputType),
-                                                                   m_minNumberOfLocation(minNumberOfLocation),
-                                                                   m_minNumberOfFrequency(minNumberOfFrequency),
-                                                                   m_minNumberOfTime(minNumberOfTime),
-                                                                   m_numberOfLocationIncrement(numberOfLocationIncrement),
-                                                                   m_numberOfFrequencyIncrement(numberOfFrequencyIncrement),
-                                                                   m_numberOfTimeIncrement(numberOfTimeIncrement),
-                                                                   m_totalNumber(totalNumber),
-                                                                   m_coherence(coherence),
-                                                                   m_correlation(correlation),
-                                                                   m_frequency(frequency),
-                                                                   m_mean(mean),
-                                                                   m_modulation(modulation),
-                                                                   m_decomposition(decomposition),
-                                                                   m_simulation(simulation),
-                                                                   m_spatial(spatial),
-                                                                   m_randomness(randomness),
-                                                                   m_spectrum(spectrum)
+                                                       QString spectrum,
+                                                       QString cumulativeProbabilityDistribution,
+                                                       QString gustFactor,
+                                                       QString kurtosis,
+                                                       QString peakFactor,
+                                                       QString probabilityDensityFunction,
+                                                       QString roughness,
+                                                       QString shearVelocityOfFlow,
+                                                       QString skewness,
+                                                       QString standardDeviation,
+                                                       QString turbulenceIntensity,
+                                                       QString turbulenceScale,
+                                                       QString variance,
+                                                       QString wavePassageEffect) : m_windLabData(windLabData),
+    m_information(information),
+    m_locationJ(locationJ),
+    m_locationK(locationK),
+    m_frequencyIndex(frequencyIndex),
+    m_timeIndex(timeIndex),
+    stopped(true),
+    m_candidateList(candidateList),
+    m_resultOutputType(resultOutputType),
+    m_minNumberOfLocation(minNumberOfLocation),
+    m_minNumberOfFrequency(minNumberOfFrequency),
+    m_minNumberOfTime(minNumberOfTime),
+    m_numberOfLocationIncrement(numberOfLocationIncrement),
+    m_numberOfFrequencyIncrement(numberOfFrequencyIncrement),
+    m_numberOfTimeIncrement(numberOfTimeIncrement),
+    m_totalNumber(totalNumber),
+    m_coherence(coherence),
+    m_correlation(correlation),
+    m_frequency(frequency),
+    m_mean(mean),
+    m_modulation(modulation),
+    m_decomposition(decomposition),
+    m_simulation(simulation),
+    m_spatial(spatial),
+    m_randomness(randomness),
+    m_spectrum(spectrum),
+    m_cumulativeProbabilityDistribution(cumulativeProbabilityDistribution),
+    m_gustFactor(gustFactor),
+    m_kurtosis(kurtosis),
+    m_peakFactor(peakFactor),
+    m_probabilityDensityFunction(probabilityDensityFunction),
+    m_roughness(roughness),
+    m_shearVelocityOfFlow(shearVelocityOfFlow),
+    m_skewness(skewness),
+    m_standardDeviation(standardDeviation),
+    m_turbulenceIntensity(turbulenceIntensity),
+    m_turbulenceScale(turbulenceScale),
+    m_variance(variance),
+    m_wavePassageEffect(wavePassageEffect)
 {
     minStep = 0;
     maxStep = 0;
@@ -140,10 +166,10 @@ void RPSWindLabComparisonWorker::progressBarMinMaxValue()
     mutex.unlock();
 }
 
-void RPSWindLabComparisonWorker::ComputeFrequenciesVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeFrequenciesVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build an coherence function and frequency distribution functions
-    IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(name);
+    IrpsWLFrequencyDistribution *currentFreqDistr = CrpsFrequencyDistributionFactory::BuildObject(name);
 
     // Check whether good coherence object
     if (NULL == currentFreqDistr)
@@ -159,17 +185,17 @@ void RPSWindLabComparisonWorker::ComputeFrequenciesVectorF(const QString &name, 
     t.start();
 
     // running the computation
-    currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, result, information);
+    currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, resultVar, result, information);
     time = t.elapsed();
     information.append(tr("The computation of the frequencies (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentFreqDistr;
 }
 
-void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build an coherence function and frequency distribution functions
-    IrpsWLCoherence *currentCoherenceFunction = CrpsCoherenceFactory::BuildCoherence(name);
+    IrpsWLCoherence *currentCoherenceFunction = CrpsCoherenceFactory::BuildObject(name);
 
     // Check whether good coherence object
     if (NULL == currentCoherenceFunction)
@@ -180,24 +206,47 @@ void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorF(const QString &nam
         return;
     }
 
-    // allocate memories to receive the computed coherence and frequencies
-    result.resize(m_windLabData.numberOfFrequency);
-
     QTime t;
     t.start();
 
     // running the computation
-    currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, result, information);
+    currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, resultVar, result, information);
     time = t.elapsed();
     information.append(tr("The computation of the coherence function (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentCoherenceFunction;
 }
 
-void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build an coherence function and frequency distribution functions
-    IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(name);
+    IrpsWLCoherence *currentCoherenceFunction = CrpsCoherenceFactory::BuildObject(name);
+
+    // Check whether good coherence object
+    if (NULL == currentCoherenceFunction)
+    {
+        information.append("Invalid coherence function");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentCoherenceFunction->ComputeCrossCoherenceVectorT(m_windLabData, resultVar, result, information);
+    time = t.elapsed();
+    information.append(tr("The computation of the coherence function (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentCoherenceFunction;
+}
+
+void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build an coherence function and frequency distribution functions
+    IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildObject(name);
 
     // Check whether good coherence object
     if (NULL == currentMeanWindProfil)
@@ -215,7 +264,7 @@ void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorP(const QString &name
     t.start();
 
     // running the computation
-    currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, result, information);
+    currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the mean wind (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -223,40 +272,40 @@ void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorP(const QString &name
     delete currentMeanWindProfil;
 }
 
-void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // allocate memories to receive the computed coherence and frequencies
-//    // Build an coherence function and frequency distribution functions
-//    IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildMean(name);
+        // allocate memories to receive the computed coherence and frequencies
+        // Build an coherence function and frequency distribution functions
+        IrpsWLMean *currentMeanWindProfil = CrpsMeanFactory::BuildObject(name);
 
-//    // Check whether good coherence object
-//    if (NULL == currentMeanWindProfil)
-//    {
-//        information.append("Invalid mean wind profil");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good coherence object
+        if (NULL == currentMeanWindProfil)
+        {
+            information.append("Invalid mean wind profil");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfTimeIncrements);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, result, information);
+        // running the computation
+        currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the mean wind (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the mean wind (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentMeanWindProfil;
+        delete currentMeanWindProfil;
 }
 
-void RPSWindLabComparisonWorker::ComputeModulationVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeModulationVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build an coherence function and frequency distribution functions
-    IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(name);
+    IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildObject(name);
 
     // Check whether good coherence object
     if (NULL == currentModulationFtn)
@@ -274,7 +323,7 @@ void RPSWindLabComparisonWorker::ComputeModulationVectorT(const QString &name, v
     t.start();
 
     // running the computation
-    currentModulationFtn->ComputeModulationVectorT(m_windLabData, result, information);
+    currentModulationFtn->ComputeModulationVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -282,68 +331,68 @@ void RPSWindLabComparisonWorker::ComputeModulationVectorT(const QString &name, v
     delete currentModulationFtn;
 }
 
-void RPSWindLabComparisonWorker::ComputeModulationVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeModulationVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build an coherence function and frequency distribution functions
-//    IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(name);
+//        // Build an coherence function and frequency distribution functions
+//        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildObject(name);
 
-//    // Check whether good coherence object
-//    if (NULL == currentModulationFtn)
-//    {
-//        information.append("Invalid modulation function");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+//        // Check whether good coherence object
+//        if (NULL == currentModulationFtn)
+//        {
+//            information.append("Invalid modulation function");
+//            emit sendInformation(information);
+//            emit progressBarHide();
+//            return;
+//        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfFrequency);
+//        // allocate memories to receive the computed coherence and frequencies
+//        result.resize(m_windLabData.numberOfFrequency);
 
-//    QTime t;
-//    t.start();
+//        QTime t;
+//        t.start();
 
-//    // running the computation
-//    currentModulationFtn->ComputeModulationVectorF(m_windLabData, result, information);
+//        // running the computation
+//        currentModulationFtn->ComputeModulationVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
+//        time = t.elapsed();
+//        information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentModulationFtn;
+//        delete currentModulationFtn;
 }
 
-void RPSWindLabComparisonWorker::ComputeModulationVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeModulationVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build an coherence function and frequency distribution functions
-//    IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildModulation(name);
+        // Build an coherence function and frequency distribution functions
+        IrpsWLModulation *currentModulationFtn = CrpsModulationFactory::BuildObject(name);
 
-//    // Check whether good coherence object
-//    if (NULL == currentModulationFtn)
-//    {
-//        information.append("Invalid modulation function");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good coherence object
+        if (NULL == currentModulationFtn)
+        {
+            information.append("Invalid modulation function");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfSpatialPosition);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfSpatialPosition);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentModulationFtn->ComputeModulationVectorP(m_windLabData, result, information);
+        // running the computation
+        currentModulationFtn->ComputeModulationVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentModulationFtn;
+        delete currentModulationFtn;
 }
 
-void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
-    IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(name);
+    IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildObject(name);
 
     // Check whether good frequency object
     if (NULL == currentPSD)
@@ -361,7 +410,7 @@ void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorF(const QSt
     t.start();
 
     // running the computation
-    currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, result, information);
+    currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -369,68 +418,68 @@ void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorF(const QSt
     delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(name);
+        // Build the psd model and the frequency distribution functions
+        IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildObject(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum decomposition method");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            information.append("Invalid spectrum decomposition method");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfTimeIncrements);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, result, information);
+        // running the computation
+        currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+        delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(name);
+    //    // Build the psd model and the frequency distribution functions
+    //    IrpsWLPSDdecompositionMethod *currentPSD = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum decomposition method");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+    //    // Check whether good frequency object
+    //    if (NULL == currentPSD)
+    //    {
+    //        information.append("Invalid spectrum decomposition method");
+    //        emit sendInformation(information);
+    //        emit progressBarHide();
+    //        return;
+    //    }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfSpatialPosition);
+    //    // allocate memories to receive the computed coherence and frequencies
+    //    result.resize(m_windLabData.numberOfSpatialPosition);
 
-//    QTime t;
-//    t.start();
+    //    QTime t;
+    //    t.start();
 
-//    // running the computation
-//    currentPSD->ComputeDecomposedCrossSpectrumVectorP(m_windLabData, result, information);
+    //    // running the computation
+    //    currentPSD->ComputeDecomposedCrossSpectrumVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    //    time = t.elapsed();
+    //    information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+    //    delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
-    IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(name);
+    IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildObject(name);
 
     // Check whether good frequency object
     if (NULL == currentPSD)
@@ -448,7 +497,7 @@ void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, result, information);
+    currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -456,68 +505,68 @@ void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorF(const QString &nam
     delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(name);
+        // Build the psd model and the frequency distribution functions
+        IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildObject(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            information.append("Invalid spectrum model");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfTimeIncrements);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentPSD->ComputeXCrossSpectrumVectorT(m_windLabData, result, information);
+        // running the computation
+        currentPSD->ComputeXAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+        delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(name);
+    //    // Build the psd model and the frequency distribution functions
+    //    IrpsWLXSpectrum *currentPSD = CrpsXSpectrumFactory::BuildXSpectrum(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+    //    // Check whether good frequency object
+    //    if (NULL == currentPSD)
+    //    {
+    //        information.append("Invalid spectrum model");
+    //        emit sendInformation(information);
+    //        emit progressBarHide();
+    //        return;
+    //    }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfSpatialPosition);
+    //    // allocate memories to receive the computed coherence and frequencies
+    //    result.resize(m_windLabData.numberOfSpatialPosition);
 
-//    QTime t;
-//    t.start();
+    //    QTime t;
+    //    t.start();
 
-//    // running the computation
-//    currentPSD->ComputeXCrossSpectrumVectorP(m_windLabData, result, information);
+    //    // running the computation
+    //    currentPSD->ComputeXCrossSpectrumVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    //    time = t.elapsed();
+    //    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+    //    delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
-    IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(name);
+    IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildObject(name);
 
     // Check whether good frequency object
     if (NULL == currentPSD)
@@ -535,7 +584,7 @@ void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, result, information);
+    currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -543,68 +592,68 @@ void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorF(const QString &nam
     delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(name);
+        // Build the psd model and the frequency distribution functions
+        IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildObject(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            information.append("Invalid spectrum model");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfTimeIncrements);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentPSD->ComputeYCrossSpectrumVectorT(m_windLabData, result, information);
+        // running the computation
+        currentPSD->ComputeYAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+        delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(name);
+    //    // Build the psd model and the frequency distribution functions
+    //    IrpsWLYSpectrum *currentPSD = CrpsYSpectrumFactory::BuildYSpectrum(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+    //    // Check whether good frequency object
+    //    if (NULL == currentPSD)
+    //    {
+    //        information.append("Invalid spectrum model");
+    //        emit sendInformation(information);
+    //        emit progressBarHide();
+    //        return;
+    //    }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfSpatialPosition);
+    //    // allocate memories to receive the computed coherence and frequencies
+    //    result.resize(m_windLabData.numberOfSpatialPosition);
 
-//    QTime t;
-//    t.start();
+    //    QTime t;
+    //    t.start();
 
-//    // running the computation
-//    currentPSD->ComputeYCrossSpectrumVectorP(m_windLabData, result, information);
+    //    // running the computation
+    //    currentPSD->ComputeYCrossSpectrumVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    //    time = t.elapsed();
+    //    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+    //    delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
-    IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(name);
+    IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildObject(name);
 
     // Check whether good frequency object
     if (NULL == currentPSD)
@@ -622,7 +671,7 @@ void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, result, information);
+    currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -630,68 +679,461 @@ void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorF(const QString &nam
     delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(name);
+        // Build the psd model and the frequency distribution functions
+        IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildObject(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+        // Check whether good frequency object
+        if (NULL == currentPSD)
+        {
+            information.append("Invalid spectrum model");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfTimeIncrements);
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfTimeIncrements);
 
-//    QTime t;
-//    t.start();
+        QTime t;
+        t.start();
 
-//    // running the computation
-//    currentPSD->ComputeZCrossSpectrumVectorT(m_windLabData, result, information);
+        // running the computation
+        currentPSD->ComputeZAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        time = t.elapsed();
+        information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+        delete currentPSD;
 }
 
-void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
-//    // Build the psd model and the frequency distribution functions
-//    IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(name);
+    //    // Build the psd model and the frequency distribution functions
+    //    IrpsWLZSpectrum *currentPSD = CrpsZSpectrumFactory::BuildZSpectrum(name);
 
-//    // Check whether good frequency object
-//    if (NULL == currentPSD)
-//    {
-//        information.append("Invalid spectrum model");
-//        emit sendInformation(information);
-//        emit progressBarHide();
-//        return;
-//    }
+    //    // Check whether good frequency object
+    //    if (NULL == currentPSD)
+    //    {
+    //        information.append("Invalid spectrum model");
+    //        emit sendInformation(information);
+    //        emit progressBarHide();
+    //        return;
+    //    }
 
-//    // allocate memories to receive the computed coherence and frequencies
-//    result.resize(m_windLabData.numberOfSpatialPosition);
+    //    // allocate memories to receive the computed coherence and frequencies
+    //    result.resize(m_windLabData.numberOfSpatialPosition);
 
-//    QTime t;
-//    t.start();
+    //    QTime t;
+    //    t.start();
 
-//    // running the computation
-//    currentPSD->ComputeZCrossSpectrumVectorP(m_windLabData, result, information);
+    //    // running the computation
+    //    currentPSD->ComputeZCrossSpectrumVectorP(m_windLabData, resultVar, result, information);
 
-//    time = t.elapsed();
-//    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    //    time = t.elapsed();
+    //    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
-//    delete currentPSD;
+    //    delete currentPSD;
+}
+
+void RPSWindLabComparisonWorker::ComputeCDFVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+        // Build the psd model and the frequency distribution functions
+        IrpsWLCumulativeProbabilityDistribution *currentObject = CrpsCumulativeProbabilityDistributionFactory::BuildObject(name);
+
+        // Check whether good frequency object
+        if (NULL == currentObject)
+        {
+            information.append("Invalid cumulative probability distribution");
+            emit sendInformation(information);
+            emit progressBarHide();
+            return;
+        }
+
+        // allocate memories to receive the computed coherence and frequencies
+        result.resize(m_windLabData.numberOfSpatialPosition);
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeCDFVectorP(m_windLabData, resultVar, result, information);
+
+        time = t.elapsed();
+        information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+        delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeGustFactorVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLGustFactor *currentObject = CrpsGustFactorFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid gust factor");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeGustFactorVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeKurtosisVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLKurtosis *currentObject = CrpsKurtosisFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Kurtosis");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeKurtosisVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputePeakFactorVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLPeakFactor *currentObject = CrpsPeakFactorFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid peak factor");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputePeakFactorVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputePDFVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLProbabilityDensityFunction *currentObject = CrpsProbabilityDensityFunctionFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid probability distribution function");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputePDFVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeRoughnessVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLRoughness *currentObject = CrpsRoughnessFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Roughness");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLRoughness *currentObject = CrpsRoughnessFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid shear velocity");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeSkewnessVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLSkewness *currentObject = CrpsSkewnessFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Skewness");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeSkewnessVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeStandardDeviationVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLStandardDeviation *currentObject = CrpsStandardDeviationFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Standard deviation");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeStandardDeviationVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeTurbulenceIntensityVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLTurbulenceIntensity *currentObject = CrpsTurbulenceIntensityFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid turbulence intensity");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeTurbulenceScaleVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLTurbulenceScale *currentObject = CrpsTurbulenceScaleFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid turbulence scale");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeVarianceVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLVariance *currentObject = CrpsVarianceFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid variance");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeVarianceVectorP(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLWavePassageEffect *currentObject = CrpsWavePassageEffectFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid wave passage effect");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeWavePassageEffectVectorF(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLWavePassageEffect *currentObject = CrpsWavePassageEffectFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid wave passage effect");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfSpatialPosition);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeWavePassageEffectVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
 }
 
 void RPSWindLabComparisonWorker::Simulate(const QString &name, mat &result, int &time, int &memory, QStringList &information)
 {
     // Build an object
-    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(name);
+    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildObject(name);
 
     // Check whether good object
     if (NULL == currentSimuMethod)
@@ -732,7 +1174,7 @@ void RPSWindLabComparisonWorker::Simulate(const QString &name, mat &result, int 
 void RPSWindLabComparisonWorker::SimulateInLargeScaleMode(const QString &name, QString &strFileName, int &time, int &memory, QStringList &information)
 {
     // Build an object
-    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildSimuMethod(name);
+    IrpsWLSimuMethod *currentSimuMethod = CrpsSimuMethodFactory::BuildObject(name);
 
     // Check whether good object
     if (NULL == currentSimuMethod)
@@ -791,7 +1233,7 @@ void RPSWindLabComparisonWorker::workerComparing()
 {
     int count = m_candidateList.size();
 
-    if (count < 26)
+    if (count < 52)
     {
         m_information.append("Please you need at least two candidates to run the comparison.");
         emit sendInformation(m_information);
@@ -813,34 +1255,80 @@ void RPSWindLabComparisonWorker::workerComparing()
     QString spatial1 = m_candidateList[10];
     QString randomness1 = m_candidateList[11];
     QString spectrum1 = m_candidateList[12];
+
+    QString cumulativeProbabilityDistribution1 = m_candidateList[13];
+    QString gustFactor1 = m_candidateList[14];
+    QString kurtosis1 = m_candidateList[15];
+    QString peakFactor1 = m_candidateList[16];
+    QString probabilityDensityFunction1 = m_candidateList[17];
+    QString roughness1 = m_candidateList[18];
+    QString shearVelocityOfFlow1 = m_candidateList[19];
+    QString skewness1 = m_candidateList[20];
+    QString standardDeviation1 = m_candidateList[21];
+    QString turbulenceIntensity1 = m_candidateList[22];
+    QString turbulenceScale1 = m_candidateList[23];
+    QString variance1 = m_candidateList[24];
+    QString wavePassageEffect1 = m_candidateList[25];
     
-    QString candidate2 = m_candidateList[13];
-    QString coherence2 = m_candidateList[16];
-    QString correlation2 = m_candidateList[17];
-    QString frequency2 = m_candidateList[18];
-    QString mean2 = m_candidateList[19];
-    QString modulation2 = m_candidateList[20];
-    QString decomposition2 = m_candidateList[21];
-    QString simulation2 = m_candidateList[22];
-    QString spatial2 = m_candidateList[23];
-    QString randomness2 = m_candidateList[24];
-    QString spectrum2 = m_candidateList[25];
+    QString candidate2 = m_candidateList[26];
+    QString comparisonCategory2 = m_candidateList[27];
+    QString comparisonFunction2 = m_candidateList[28];
+    QString coherence2 = m_candidateList[29];
+    QString correlation2 = m_candidateList[30];
+    QString frequency2 = m_candidateList[31];
+    QString mean2 = m_candidateList[32];
+    QString modulation2 = m_candidateList[33];
+    QString decomposition2 = m_candidateList[34];
+    QString simulation2 = m_candidateList[35];
+    QString spatial2 = m_candidateList[36];
+    QString randomness2 = m_candidateList[37];
+    QString spectrum2 = m_candidateList[38];
+
+    QString cumulativeProbabilityDistribution2 = m_candidateList[39];
+    QString gustFactor2 = m_candidateList[40];
+    QString kurtosis2 = m_candidateList[41];
+    QString peakFactor2 = m_candidateList[42];
+    QString probabilityDensityFunction2 = m_candidateList[43];
+    QString roughness2 = m_candidateList[44];
+    QString shearVelocityOfFlow2 = m_candidateList[45];
+    QString skewness2 = m_candidateList[46];
+    QString standardDeviation2 = m_candidateList[47];
+    QString turbulenceIntensity2 = m_candidateList[48];
+    QString turbulenceScale2 = m_candidateList[49];
+    QString variance2 = m_candidateList[50];
+    QString wavePassageEffect2 = m_candidateList[51];
 
     if (comparisonCategory == LabRPS::objGroupCoherenceFunction)
     {
         if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
+
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
-
-            ComputeFrequenciesVectorF(m_windLabData.freqencyDistribution, m_resultValueResultVectorVariable, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate1();
-            ComputeCrossCoherenceVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
-           
+            ComputeCrossCoherenceVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
             setOjectDependencyForCanditate2();
-            ComputeCrossCoherenceVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeCrossCoherenceVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeCrossCoherenceVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+            
+            setOjectDependencyForCanditate1();
+            ComputeCrossCoherenceVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeCrossCoherenceVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -850,23 +1338,21 @@ void RPSWindLabComparisonWorker::workerComparing()
         if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
         {
         }
-
     }
     else if (comparisonCategory == LabRPS::objGroupFrequencyDistribution)
     {
         if (comparisonFunction == LabRPS::ComputeFrequenciesVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
-
-            fillVectorWithNumbers(m_resultValueResultVectorVariable, m_windLabData.numberOfFrequency);
             
             setOjectDependencyForCanditate1();
-            ComputeFrequenciesVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeFrequenciesVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeFrequenciesVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeFrequenciesVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -875,17 +1361,31 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorP)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
-
-            fillVectorWithNumbers(m_resultValueResultVectorVariable, m_windLabData.numberOfSpatialPosition);
             
             setOjectDependencyForCanditate1();
-            ComputeMeanWindSpeedVectorP(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeMeanWindSpeedVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeMeanWindSpeedVectorP(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeMeanWindSpeedVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeMeanWindSpeedVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+            
+            setOjectDependencyForCanditate1();
+            ComputeMeanWindSpeedVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            
+            setOjectDependencyForCanditate2();
+            ComputeMeanWindSpeedVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -895,17 +1395,31 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeModulationVectorT)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
-
-            fillVectorWithTimeIncrements(m_resultValueResultVectorVariable);
             
             setOjectDependencyForCanditate1();
-            ComputeModulationVectorT(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeModulationVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeModulationVectorT(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeModulationVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeModulationVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+            
+            setOjectDependencyForCanditate1();
+            ComputeModulationVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            
+            setOjectDependencyForCanditate2();
+            ComputeModulationVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -915,17 +1429,31 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
-
-            ComputeFrequenciesVectorF(m_windLabData.freqencyDistribution, m_resultValueResultVectorVariable, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate1();
-            ComputeDecomposedCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeDecomposedCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeDecomposedCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeDecomposedCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeDecomposedCrossSpectrumVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+            
+            setOjectDependencyForCanditate1();
+            ComputeDecomposedCrossSpectrumVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            
+            setOjectDependencyForCanditate2();
+            ComputeDecomposedCrossSpectrumVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -934,11 +1462,8 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::Simulate)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfTimeIncrements);
             m_resultValueMatrixCandidate1.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
             m_resultValueMatrixCandidate2.resize(m_windLabData.numberOfTimeIncrements, m_windLabData.numberOfSpatialPosition);
-
-            fillVectorWithNumbers(m_resultValueResultVectorVariable, m_windLabData.numberOfTimeIncrements);
             
             setOjectDependencyForCanditate1();
             Simulate(candidate1, m_resultValueMatrixCandidate1, computationTime1, memoryConsumption1, m_information);
@@ -951,8 +1476,6 @@ void RPSWindLabComparisonWorker::workerComparing()
         }
         else if (comparisonFunction == LabRPS::SimulateInLargeScaleMode && m_windLabData.largeScaleSimulationMode)
         {
-            fillVectorWithNumbers(m_resultValueResultVectorVariable, m_windLabData.numberOfTimeIncrements);
-            
             setOjectDependencyForCanditate1();
             SimulateInLargeScaleMode(candidate1, windVelocityFileName1, computationTime1, memoryConsumption1, m_information);
             
@@ -964,17 +1487,31 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeXAutoSpectrumVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
-
-            ComputeFrequenciesVectorF(m_windLabData.freqencyDistribution, m_resultValueResultVectorVariable, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate1();
-            ComputeXCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
-           
+            ComputeXCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
             setOjectDependencyForCanditate2();
-            ComputeXCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeXCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeXAutoSpectrumVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+            
+            setOjectDependencyForCanditate1();
+            ComputeXCrossSpectrumVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeXCrossSpectrumVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -984,17 +1521,31 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeYAutoSpectrumVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
 
-            ComputeFrequenciesVectorF(m_windLabData.freqencyDistribution, m_resultValueResultVectorVariable, computationTime1, memoryConsumption1, m_information);
-           
             setOjectDependencyForCanditate1();
-            ComputeYCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeYCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeYCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeYCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeYAutoSpectrumVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+
+            setOjectDependencyForCanditate1();
+            ComputeYCrossSpectrumVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            
+            setOjectDependencyForCanditate2();
+            ComputeYCrossSpectrumVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -1004,22 +1555,304 @@ void RPSWindLabComparisonWorker::workerComparing()
     {
         if (comparisonFunction == LabRPS::ComputeZAutoSpectrumVectorF)
         {
-            m_resultValueResultVectorVariable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfFrequency);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfFrequency);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfFrequency);
-
-            ComputeFrequenciesVectorF(m_windLabData.freqencyDistribution, m_resultValueResultVectorVariable, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate1();
-            ComputeZCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeZCrossSpectrumVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
             
             setOjectDependencyForCanditate2();
-            ComputeZCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeZCrossSpectrumVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        if (comparisonFunction == LabRPS::ComputeZAutoSpectrumVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfTimeIncrements);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfTimeIncrements);
+            
+            setOjectDependencyForCanditate1();
+            ComputeZCrossSpectrumVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            
+            setOjectDependencyForCanditate2();
+            ComputeZCrossSpectrumVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
 
     }
+    else if (comparisonCategory == LabRPS::objGroupCumulativeProbabilityDistribution)
+    {
+        if (comparisonFunction == LabRPS::ComputeCDFVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeCDFVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeCDFVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupGustFactor)
+    {
+        if (comparisonFunction == LabRPS::ComputeGustFactorVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeGustFactorVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeGustFactorVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupGustFactor)
+    {
+        if (comparisonFunction == LabRPS::ComputeGustFactorVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeGustFactorVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeGustFactorVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupKurtosis)
+    {
+        if (comparisonFunction == LabRPS::ComputeKurtosisVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeKurtosisVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeKurtosisVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupPeakFactor)
+    {
+        if (comparisonFunction == LabRPS::ComputePeakFactorVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeKurtosisVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeKurtosisVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupProbabilityDensityFunction)
+    {
+        if (comparisonFunction == LabRPS::ComputePDFVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputePDFVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputePDFVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupRoughness)
+    {
+        if (comparisonFunction == LabRPS::ComputeRoughnessVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeRoughnessVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeRoughnessVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupShearVelocityOfFlow)
+    {
+        if (comparisonFunction == LabRPS::ComputeShearVelocityOfFlowVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeShearVelocityOfFlowVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeShearVelocityOfFlowVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupSkewness)
+    {
+        if (comparisonFunction == LabRPS::ComputeSkewnessVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeSkewnessVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeSkewnessVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupStandardDeviation)
+    {
+        if (comparisonFunction == LabRPS::ComputeStandardDeviationVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeStandardDeviationVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeStandardDeviationVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupTurbulenceIntensity)
+    {
+        if (comparisonFunction == LabRPS::ComputeTurbulenceIntensityVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeTurbulenceIntensityVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeTurbulenceIntensityVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupTurbulenceScale)
+    {
+        if (comparisonFunction == LabRPS::ComputeTurbulenceScaleVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeTurbulenceScaleVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeTurbulenceScaleVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupVariance)
+    {
+        if (comparisonFunction == LabRPS::ComputeVarianceVectorP)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeVarianceVectorP(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeVarianceVectorP(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+    else if (comparisonCategory == LabRPS::objGroupWavePassageEffect)
+    {
+        if (comparisonFunction == LabRPS::ComputeWavePassageEffectVectorF)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeWavePassageEffectVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeWavePassageEffectVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+        else if (comparisonFunction == LabRPS::ComputeWavePassageEffectVectorT)
+        {
+            m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+
+            setOjectDependencyForCanditate1();
+            ComputeWavePassageEffectVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+
+            setOjectDependencyForCanditate2();
+            ComputeWavePassageEffectVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+
+            computeAccuracyValue();
+        }
+    }
+
 
     if (m_windLabData.comparisonType == 1) // accuracy
     {
@@ -1054,48 +1887,48 @@ void RPSWindLabComparisonWorker::timeOutp()
 
     }
 
-//    if (1 == m_resultOutputType)
-//    {
+    //    if (1 == m_resultOutputType)
+    //    {
 
-//        for (int i = 0; i < m_totalNumber; i ++)
-//        {
-//            m_windLabData.numberOfSpatialPosition = m_minNumberOfLocation + i*m_numberOfLocationIncrement;
-//            m_windLabData.numberOfFrequency = m_minNumberOfFrequency + i*m_numberOfFrequencyIncrement;
-//            m_windLabData.numberOfTimeIncrements = m_minNumberOfTime + i*m_numberOfTimeIncrement;
+    //        for (int i = 0; i < m_totalNumber; i ++)
+    //        {
+    //            m_windLabData.numberOfSpatialPosition = m_minNumberOfLocation + i*m_numberOfLocationIncrement;
+    //            m_windLabData.numberOfFrequency = m_minNumberOfFrequency + i*m_numberOfFrequencyIncrement;
+    //            m_windLabData.numberOfTimeIncrements = m_minNumberOfTime + i*m_numberOfTimeIncrement;
 
-//            workerComparing();
+    //            workerComparing();
 
-//            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfSpatialPosition;
-//            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfFrequency;
-//            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfTimeIncrements;
+    //            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfSpatialPosition;
+    //            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfFrequency;
+    //            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfTimeIncrements;
 
-//            m_computationTimeResultVectorCandidate1(i) = computationTime1;
-//            m_computationTimeResultVectorCandidate2(i) = computationTime2;
+    //            m_computationTimeResultVectorCandidate1(i) = computationTime1;
+    //            m_computationTimeResultVectorCandidate2(i) = computationTime2;
 
-//        }
-//    }
-//    else if (2 == m_resultOutputType)
-//    {
-//        for (int i = 0; i < m_totalNumber; i++ )
-//        {
-//            m_windLabData.numberOfFrequency = m_minNumberOfFrequency + i*m_numberOfFrequencyIncrement;
-//            workerComparing();
-//            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfFrequency;
-//            m_computationTimeResultVectorCandidate1(i) = computationTime1;
-//            m_computationTimeResultVectorCandidate2(i) = computationTime2;
-//        }
-//    }
-//    else if (3 == m_resultOutputType)
-//    {
-//        for (int i = 0; i < m_totalNumber; i++ )
-//        {
-//            m_windLabData.numberOfTimeIncrements = m_minNumberOfTime + i*m_numberOfTimeIncrement;
-//            workerComparing();
-//            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfTimeIncrements;
-//            m_computationTimeResultVectorCandidate1(i) = computationTime1;
-//            m_computationTimeResultVectorCandidate2(i) = computationTime2;
-//        }
-//    }
+    //        }
+    //    }
+    //    else if (2 == m_resultOutputType)
+    //    {
+    //        for (int i = 0; i < m_totalNumber; i++ )
+    //        {
+    //            m_windLabData.numberOfFrequency = m_minNumberOfFrequency + i*m_numberOfFrequencyIncrement;
+    //            workerComparing();
+    //            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfFrequency;
+    //            m_computationTimeResultVectorCandidate1(i) = computationTime1;
+    //            m_computationTimeResultVectorCandidate2(i) = computationTime2;
+    //        }
+    //    }
+    //    else if (3 == m_resultOutputType)
+    //    {
+    //        for (int i = 0; i < m_totalNumber; i++ )
+    //        {
+    //            m_windLabData.numberOfTimeIncrements = m_minNumberOfTime + i*m_numberOfTimeIncrement;
+    //            workerComparing();
+    //            m_computationTimeResultVectorVariable(i) = m_windLabData.numberOfTimeIncrements;
+    //            m_computationTimeResultVectorCandidate1(i) = computationTime1;
+    //            m_computationTimeResultVectorCandidate2(i) = computationTime2;
+    //        }
+    //    }
 
     if (m_windLabData.comparisonType == 2) // time
     {
@@ -1117,6 +1950,9 @@ void RPSWindLabComparisonWorker::setOjectDependencyForCanditate1()
 {
     QString noSelection = "<None>";
 
+    QString candidate1 = m_candidateList[0];
+    QString comparisonCategory = m_candidateList[1];
+    QString comparisonFunction = m_candidateList[2];
     QString coherence1 = m_candidateList[3];
     QString correlation1 = m_candidateList[4];
     QString frequency1 = m_candidateList[5];
@@ -1127,6 +1963,20 @@ void RPSWindLabComparisonWorker::setOjectDependencyForCanditate1()
     QString spatial1 = m_candidateList[10];
     QString randomness1 = m_candidateList[11];
     QString spectrum1 = m_candidateList[12];
+
+    QString cumulativeProbabilityDistribution1 = m_candidateList[13];
+    QString gustFactor1 = m_candidateList[14];
+    QString kurtosis1 = m_candidateList[15];
+    QString peakFactor1 = m_candidateList[16];
+    QString probabilityDensityFunction1 = m_candidateList[17];
+    QString roughness1 = m_candidateList[18];
+    QString shearVelocityOfFlow1 = m_candidateList[19];
+    QString skewness1 = m_candidateList[20];
+    QString standardDeviation1 = m_candidateList[21];
+    QString turbulenceIntensity1 = m_candidateList[22];
+    QString turbulenceScale1 = m_candidateList[23];
+    QString variance1 = m_candidateList[24];
+    QString wavePassageEffect1 = m_candidateList[25];
 
     if (noSelection != coherence1)
     {
@@ -1175,17 +2025,33 @@ void RPSWindLabComparisonWorker::setOjectDependencyForCanditate2()
 {
     QString noSelection = "<None>";
     
-    QString candidate2 = m_candidateList[13];
-    QString coherence2 = m_candidateList[16];
-    QString correlation2 = m_candidateList[17];
-    QString frequency2 = m_candidateList[18];
-    QString mean2 = m_candidateList[19];
-    QString modulation2 = m_candidateList[20];
-    QString decomposition2 = m_candidateList[21];
-    QString simulation2 = m_candidateList[22];
-    QString spatial2 = m_candidateList[23];
-    QString randomness2 = m_candidateList[24];
-    QString spectrum2 = m_candidateList[25];
+    QString candidate2 = m_candidateList[26];
+    QString comparisonCategory2 = m_candidateList[27];
+    QString comparisonFunction2 = m_candidateList[28];
+    QString coherence2 = m_candidateList[29];
+    QString correlation2 = m_candidateList[30];
+    QString frequency2 = m_candidateList[31];
+    QString mean2 = m_candidateList[32];
+    QString modulation2 = m_candidateList[33];
+    QString decomposition2 = m_candidateList[34];
+    QString simulation2 = m_candidateList[35];
+    QString spatial2 = m_candidateList[36];
+    QString randomness2 = m_candidateList[37];
+    QString spectrum2 = m_candidateList[38];
+
+    QString cumulativeProbabilityDistribution2 = m_candidateList[39];
+    QString gustFactor2 = m_candidateList[40];
+    QString kurtosis2 = m_candidateList[41];
+    QString peakFactor2 = m_candidateList[42];
+    QString probabilityDensityFunction2 = m_candidateList[43];
+    QString roughness2 = m_candidateList[44];
+    QString shearVelocityOfFlow2 = m_candidateList[45];
+    QString skewness2 = m_candidateList[46];
+    QString standardDeviation2 = m_candidateList[47];
+    QString turbulenceIntensity2 = m_candidateList[48];
+    QString turbulenceScale2 = m_candidateList[49];
+    QString variance2 = m_candidateList[50];
+    QString wavePassageEffect2 = m_candidateList[51];
 
     if (noSelection != coherence2)
     {
@@ -1234,15 +2100,15 @@ double RPSWindLabComparisonWorker::computeAccuracyValue()
     double accur = 0;
     int n = m_resultValueResultVectorCandidate1.rows();
 
-//    if (m_windLabData.comparisonType == 1) // accuracy
-//    {
-//        vec diff(n);
-//        for (int i = 0; i < n; i ++)
-//        {
-//            diff(i) = (m_resultValueResultVectorCandidate1(i)-m_resultValueResultVectorCandidate2(i))*100/m_resultValueResultVectorCandidate1(i);
-//            accur += diff(i);
-//        }
-//    }
+    //    if (m_windLabData.comparisonType == 1) // accuracy
+    //    {
+    //        vec diff(n);
+    //        for (int i = 0; i < n; i ++)
+    //        {
+    //            diff(i) = (m_resultValueResultVectorCandidate1(i)-m_resultValueResultVectorCandidate2(i))*100/m_resultValueResultVectorCandidate1(i);
+    //            accur += diff(i);
+    //        }
+    //    }
 
 
     isComparisonSuccessful = true;

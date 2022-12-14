@@ -24,7 +24,7 @@ RPSWLCoherenceDlg::RPSWLCoherenceDlg(QWidget *parent) :
 	std::map<const QString, CreateCoherenceCallback> ::iterator cohIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (cohIt = CrpsCoherenceFactory::GetCoherenceNamesMap().begin(); cohIt != CrpsCoherenceFactory::GetCoherenceNamesMap().end(); ++cohIt)
+    for (cohIt = CrpsCoherenceFactory::GetObjectNamesMap().begin(); cohIt != CrpsCoherenceFactory::GetObjectNamesMap().end(); ++cohIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxCoherenceFunc->addItem(cohIt->first);
@@ -73,7 +73,7 @@ void RPSWLCoherenceDlg::OnBnClickedCoherenceFnInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLCoherence* currentSelection = CrpsCoherenceFactory::BuildCoherence(coherenceFunction);
+    IrpsWLCoherence* currentSelection = CrpsCoherenceFactory::BuildObject(coherenceFunction);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }

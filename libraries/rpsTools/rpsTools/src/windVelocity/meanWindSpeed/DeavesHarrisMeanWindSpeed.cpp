@@ -14,9 +14,13 @@ DeavesHarrisMeanWindSpeed::~DeavesHarrisMeanWindSpeed()
 
 }
 
-double  DeavesHarrisMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &heightOfABL)
+double  DeavesHarrisMeanWindSpeed::computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &zeroPlanDisplacement, const double &latitude, const double &earthAngularVelocity, const double &beta)
 {
-    double ratio = (height/heightOfABL);
-    double meanSpeed = shearVelocity * (log(ratio) + 5.75 * ratio - 1.88 * pow(ratio, 2) - 1.33 * pow(ratio, 3) + 0.25 * pow(ratio, 4)) * 0.4;
+    const double coriolisParameter = 2 * earthAngularVelocity * std::sin(latitude);
+    const double gradientHeight = shearVelocity/(beta * coriolisParameter);
+    const double ratio1 = (height - zeroPlanDisplacement)/terrainRoughness;
+    const double ratio2 = (height - zeroPlanDisplacement)/gradientHeight;
+
+    double meanSpeed = shearVelocity * (log(ratio1) + 5.75 * ratio2 - 1.88 * pow(ratio2, 2) - 1.33 * pow(ratio2, 3) + 0.25 * pow(ratio2, 4)) / 0.4;
     return meanSpeed;
 }

@@ -1,7 +1,6 @@
 
 #include "RPSDeodatis1987.h"
 #include "RPSWindLabFramework.h"
-#include "RPSWindLabTools.h"
 #include <../../3rdparty/eigen-3.4.0/unsupported/Eigen/FFT>
 
 #include <QMessageBox>
@@ -96,7 +95,7 @@ bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityA
                 for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
                 {
 
-                    CRPSWindLabFramework::ComputeCoherenceValue(Data, Kz(j-1, m-1, l-1),
+                    CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
                                                                 dLocCoord(j-1,0),
                                                                 dLocCoord(j-1,1),
                                                                 dLocCoord(j-1,2),
@@ -255,7 +254,7 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
                      for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
                      {
 
-                         CRPSWindLabFramework::ComputeCoherenceValue(Data, Kz(j-1, m-1, l-1),
+                         CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
                                                                      dLocCoord(j-1,0),
                                                                      dLocCoord(j-1,1),
                                                                      dLocCoord(j-1,2),

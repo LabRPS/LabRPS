@@ -19,7 +19,7 @@ CRPSWLRunMatrixToolsDlg::CRPSWLRunMatrixToolsDlg(QWidget *parent) :
     std::map<const QString, CreateMatrixToolCallback> ::iterator matrixToolIt;
 
     // Iterate though the map and show all the registed spatial distribution in the combo box
-    for (matrixToolIt = CrpsMatrixToolFactory::GetMatrixToolNamesMap().begin(); matrixToolIt != CrpsMatrixToolFactory::GetMatrixToolNamesMap().end(); ++matrixToolIt)
+    for (matrixToolIt = CrpsMatrixToolFactory::GetObjectNamesMap().begin(); matrixToolIt != CrpsMatrixToolFactory::GetObjectNamesMap().end(); ++matrixToolIt)
     {
         // Add it to the combo box
         ui->comboBoxTools->addItem(matrixToolIt->first);

@@ -14,8 +14,8 @@ class RPSWLAccuracyComparisonDialog : public QDialog
 public:
     explicit RPSWLAccuracyComparisonDialog(QWidget *parent = nullptr);
     ~RPSWLAccuracyComparisonDialog();
-   void saveTableItemsToList(std::vector<QString> &itemList);
-   void readTableItemsFromList(std::vector<QString> itemList);
+    void saveTableItemsToList(std::vector<QString> &itemList);
+    void readTableItemsFromList(std::vector<QString> itemList);
 
 private:
     Ui::RPSWLAccuracyComparisonDialog *ui;
@@ -36,6 +36,20 @@ public:
     QString spatial;
     QString randomness;
     QString spectrum;
+
+    QString cumulativeProbabilityDistribution;
+    QString gustFactor;
+    QString kurtosis;
+    QString peakFactor;
+    QString probabilityDensityFunction;
+    QString roughness;
+    QString shearVelocityOfFlow;
+    QString skewness;
+    QString standardDeviation;
+    QString turbulenceIntensity;
+    QString turbulenceScale;
+    QString variance;
+    QString wavePassageEffect;
 
 
 public slots:

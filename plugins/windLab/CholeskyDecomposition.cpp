@@ -1,11 +1,10 @@
 
 #include "CholeskyDecomposition.h"
-#include "RPSWindLabTools.h"
 #include "RPSWindLabFramework.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/general/CholeskyDecomposition.h"
 
-void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dPSDVector, QStringList &strInformation)
+void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     ObjectDescription description = CRPSWindLabFramework::getFrequencyDistributionObjDescription(Data.freqencyDistribution);
     if(Data.freqencyDistribution != "Double Index Frequency" || description.m_pluginName != "windLab" || description.m_publicationAuthor != "Koffi Daniel")
@@ -47,6 +46,8 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWin
         return;
     }
 
+    const double dTime = Data.maxTime + Data.timeIncrement * Data.timeIndex;
+
 
     CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
 
@@ -58,6 +59,8 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWin
             CRPSWindLabFramework::ComputeFrequencyValue(Data, frequencies(l - 1, m-1), m-1, l - 1, strInformation);
         }
     }
+
+    dVarVector = frequencies;
 
     for (int i = 1; i <= n && false == Data.isInterruptionRequested; i++)
     {
@@ -73,10 +76,10 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWin
                                                                dLocCoord(j-1,1),
                                                                dLocCoord(j-1,2),
                                                                frequencies(l - 1,j-1),
-                                                               0,
+                                                               dTime,
                                                                strInformation);
 
-                CRPSWindLabFramework::ComputeCoherenceValue(Data, Kz(j-1, i-1, l-1),
+                CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, i-1, l-1),
                                                             dLocCoord(j-1,0),
                                                             dLocCoord(j-1,1),
                                                             dLocCoord(j-1,2),
@@ -84,7 +87,7 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWin
                                                             dLocCoord(i-1,1),
                                                             dLocCoord(i-1,2),
                                                             frequencies(l - 1,i-1),
-                                                            0,
+                                                            dTime,
                                                             strInformation);
 
 
@@ -111,9 +114,15 @@ void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const CRPSWin
 
         for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
         {
-            dPSDVector(l-1) = PSD(Data.locationJ, Data.locationK, l-1);
+            dVarVector(l-1) = frequencies(l - 1,Data.locationJ);
+            dValVector(l-1) = PSD(Data.locationJ, Data.locationK, l-1);
         }
     }
+}
+
+void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+
 }
 void CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dCPSDDecomMatrix, mat &dPSDMatrix, QStringList &strInformation)
 {

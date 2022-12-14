@@ -24,7 +24,7 @@ RPSWLCorrelationDlg::RPSWLCorrelationDlg(QWidget *parent) :
 	std::map<const QString, CreateCorrelationCallback> ::iterator corrIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (corrIt = CrpsCorrelationFactory::GetCorrelationNamesMap().begin(); corrIt != CrpsCorrelationFactory::GetCorrelationNamesMap().end(); ++corrIt)
+    for (corrIt = CrpsCorrelationFactory::GetObjectNamesMap().begin(); corrIt != CrpsCorrelationFactory::GetObjectNamesMap().end(); ++corrIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxCorrelationFunc->addItem(corrIt->first);
@@ -74,7 +74,7 @@ void RPSWLCorrelationDlg::OnBnClickedCorrelationFnInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLCorrelation* currentSelection = CrpsCorrelationFactory::BuildCorrelation(correlationFunction);
+    IrpsWLCorrelation* currentSelection = CrpsCorrelationFactory::BuildObject(correlationFunction);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }

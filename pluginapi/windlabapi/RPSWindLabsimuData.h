@@ -140,6 +140,21 @@ class RPS_CORE_API CRPSWindLabsimuData
 
     int indexControls;
 
+   QString cumulativeProbabilityDistribution;
+   QString gustFactor;
+   QString kurtosis;
+   QString peakFactor;
+   QString probabilityDensityFunction;
+   QString roughness;
+   QString shearVelocityOfFlow;
+   QString skewness;
+   QString standardDeviation;
+   QString turbulenceIntensity;
+   QString turbulenceScale;
+   QString variance;
+   QString wavePassageEffect;
+
+   bool uniformModulation;
 
 };
 

@@ -1,6 +1,6 @@
 
 #include "SineModulation.h"
-#include "sinemodulationdialog.h"
+#include "widgets/sinemodulationdialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/SineModulation.h"
 
@@ -25,16 +25,31 @@ void CSineModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, do
 	dValue = sin(3.14*dTime / pulseDuration);
 }
 
-void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
+void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
-	double 	dTime;
+	//double 	dTime;
     rps::WindVelocity::SineModulation sineModulation;
 
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
-		dTime = Data.minTime + Data.timeIncrement * k;
-
-        dModulationVector(k) = sineModulation.computeModulation(dTime, pulseDuration);
+		const double dTime = Data.minTime + Data.timeIncrement * k;
+		dVarVector(k) = dTime;	
+        dValVector(k) = sineModulation.computeModulation(dTime, pulseDuration);
 	}
+}
+
+void CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    //double 	dTime;
+    rps::WindVelocity::SineModulation sineModulation;
+    const double dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
+    const double dModValue = sineModulation.computeModulation(dTime, pulseDuration);
+
+     //For each time increment
+    for (int k = 0; k < Data.numberOfSpatialPosition; k++)
+    {
+        dVarVector(k) = k+1;
+        dValVector(k) = dModValue;
+    }
 }

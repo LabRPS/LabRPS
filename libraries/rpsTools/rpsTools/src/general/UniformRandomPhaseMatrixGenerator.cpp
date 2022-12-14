@@ -14,6 +14,12 @@ UniformRandomPhaseMatrixGenerator::~UniformRandomPhaseMatrixGenerator()
 
 }
 
+void UniformRandomPhaseMatrixGenerator::generateUniformRandomPhaseValue(double &value, const double &min, const double &max)
+{
+    std::srand((unsigned int) time(0));
+    value = (std::rand()*(max-min)) + min;
+}
+
 void UniformRandomPhaseMatrixGenerator::generateUniformRandomPhaseMatrix(mat &randomPhaseMatrix, const double &min, const double &max)
 {
     std::srand((unsigned int) time(0));

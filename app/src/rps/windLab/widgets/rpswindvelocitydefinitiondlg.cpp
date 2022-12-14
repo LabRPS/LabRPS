@@ -20,17 +20,32 @@ RPSWindVelocityDefinitionDlg::RPSWindVelocityDefinitionDlg(QWidget *parent) :
 	 maxTime = rpsWindLabSimulator->GetWindLabData().maxTime;
 	 numberOfSample = rpsWindLabSimulator->GetWindLabData().numberOfSample;
 	 stationarity = rpsWindLabSimulator->GetWindLabData().stationarity;
+     uniformModulation = rpsWindLabSimulator->GetWindLabData().uniformModulation;
 	 gaussianity = rpsWindLabSimulator->GetWindLabData().gaussianity;
 	 spatialDistribution = rpsWindLabSimulator->GetWindLabData().spatialDistribution;
 
      if(true == stationarity)
 	{
 		ui->radioButtonStationary->setChecked(Qt::Checked);
+        ui->radioButtonUniformModulation->setEnabled(false);
+        ui->radioButtonGeneralModulation->setEnabled(false);
+
 	}
 	else
 	{
 		ui->radioButtonNonStationary->setChecked(Qt::Checked);
+        ui->radioButtonUniformModulation->setEnabled(true);
+        ui->radioButtonGeneralModulation->setEnabled(true);
 	}
+
+     if(true == uniformModulation)
+    {
+        ui->radioButtonUniformModulation->setChecked(Qt::Checked);
+    }
+    else
+    {
+        ui->radioButtonGeneralModulation->setChecked(Qt::Checked);
+    }
 
 	 if(true == gaussianity)
 	{
@@ -65,7 +80,7 @@ RPSWindVelocityDefinitionDlg::RPSWindVelocityDefinitionDlg(QWidget *parent) :
 	std::map<const QString, CreateLocDistrCallback> ::iterator locIt;
 		
     // Iterate though the map and show all the registed spatial distribution in the combo box
-	for (locIt = CrpsLocationDistributionFactory::GetLocDistrNamesMap().begin(); locIt != CrpsLocationDistributionFactory::GetLocDistrNamesMap().end(); ++locIt)
+    for (locIt = CrpsLocationDistributionFactory::GetObjectNamesMap().begin(); locIt != CrpsLocationDistributionFactory::GetObjectNamesMap().end(); ++locIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxWindSpationDistr->addItem(locIt->first);
@@ -99,6 +114,12 @@ RPSWindVelocityDefinitionDlg::RPSWindVelocityDefinitionDlg(QWidget *parent) :
   
     connect( ui->radioButtonNonStationary, SIGNAL(  toggled(bool) ),
              this, SLOT( radioButtonNonStationarityToggled(bool) ) );
+
+    connect( ui->radioButtonUniformModulation, SIGNAL(  toggled(bool) ),
+             this, SLOT( radioButtonUniformModulationToggled(bool) ) );
+
+    connect( ui->radioButtonGeneralModulation, SIGNAL(  toggled(bool) ),
+             this, SLOT( radioButtonNonGeneralModulationToggled(bool) ) );
    
     connect( ui->radioButtonGaussion, SIGNAL(  toggled(bool) ),
              this, SLOT( radioButtonGaussianityToggled( bool) ) );
@@ -127,11 +148,24 @@ void RPSWindVelocityDefinitionDlg::comboBoxSpatialDistrIndexChanged(int index)
 void RPSWindVelocityDefinitionDlg::radioButtonStationarityToggled(bool)
 {
     stationarity = true;
+    ui->radioButtonUniformModulation->setEnabled(false);
+    ui->radioButtonGeneralModulation->setEnabled(false);
 }
 
 void RPSWindVelocityDefinitionDlg::radioButtonNonStationarityToggled(bool)
 {
     stationarity = false;
+    ui->radioButtonUniformModulation->setEnabled(true);
+    ui->radioButtonGeneralModulation->setEnabled(true);
+}
+
+void RPSWindVelocityDefinitionDlg::radioButtonUniformModulationToggled(bool)
+{
+    uniformModulation = true;
+}
+void RPSWindVelocityDefinitionDlg::radioButtonNonGeneralModulationToggled(bool)
+{
+    uniformModulation = false;
 }
 
 void RPSWindVelocityDefinitionDlg::radioButtonGaussianityToggled(bool)
@@ -149,7 +183,7 @@ void RPSWindVelocityDefinitionDlg::OnBnClickedSpatialDistrInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLLocationDistribution* currentSpatialDistr = CrpsLocationDistributionFactory::BuildLocationDistribution(spatialDistribution);
+    IrpsWLLocationDistribution* currentSpatialDistr = CrpsLocationDistributionFactory::BuildObject(spatialDistribution);
 
 	// Check whether good object
 	if (NULL == currentSpatialDistr) { return; }

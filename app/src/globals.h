@@ -53,20 +53,54 @@ public:
     static QString objGroupMatrixTool;
     static QString objGroupUserDefinedRPSObject;
     static QString objGroupUserDefinedPhenomenonObject;
+    static QString objGroupCumulativeProbabilityDistribution;
+    static QString objGroupGustFactor;
+    static QString objGroupKurtosis;
+    static QString objGroupPeakFactor;
+    static QString objGroupProbabilityDensityFunction;
+    static QString objGroupRoughness;
+    static QString objGroupShearVelocityOfFlow;
+    static QString objGroupSkewness;
+    static QString objGroupStandardDeviation;
+    static QString objGroupTurbulenceIntensity;
+    static QString objGroupTurbulenceScale;
+    static QString objGroupVariance;
+    static QString objGroupWavePassageEffect;
 
     // available comparison categories
     static QString ComputeCrossCoherenceVectorF;
+    static QString ComputeCrossCoherenceVectorT;
     static QString ComputeCrossCorrelationVectorT;
     static QString ComputeFrequenciesVectorF;
     static QString ComputeMeanWindSpeedVectorP;
+    static QString ComputeMeanWindSpeedVectorT;
     static QString ComputeModulationVectorT;
+    static QString ComputeModulationVectorP;
     static QString ComputeDecomposedCrossSpectrumVectorF;
+    static QString ComputeDecomposedCrossSpectrumVectorT;
     static QString Simulate;
     static QString SimulateInLargeScaleMode;
     static QString ComputeXAutoSpectrumVectorF;
     static QString ComputeYAutoSpectrumVectorF;
     static QString ComputeZAutoSpectrumVectorF;
+    static QString ComputeXAutoSpectrumVectorT;
+    static QString ComputeYAutoSpectrumVectorT;
+    static QString ComputeZAutoSpectrumVectorT;
     static QString UserDefinedRPSObjectCompute;
+    static QString ComputeCDFVectorP;
+    static QString ComputeGustFactorVectorP;
+    static QString ComputeKurtosisVectorP;
+    static QString ComputePeakFactorVectorP;
+    static QString ComputePDFVectorP;
+    static QString ComputeRoughnessVectorP;
+    static QString ComputeShearVelocityOfFlowVectorP;
+    static QString ComputeSkewnessVectorP;
+    static QString ComputeStandardDeviationVectorP;
+    static QString ComputeTurbulenceIntensityVectorP;
+    static QString ComputeTurbulenceScaleVectorP;
+    static QString ComputeVarianceVectorP;
+    static QString ComputeWavePassageEffectVectorF;
+    static QString ComputeWavePassageEffectVectorT;
 
     //! Types of plot designations
     enum PlotDesignation {

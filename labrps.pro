@@ -22,5 +22,11 @@ SUBDIRS += libraries/rpsTools\
            plugins/spectrumTool\
            plugins/rpsCholeskyDecomposition\
            plugins/ergodicityCheckToolPlugin\
+           plugins/rpsRandomnessProviders\
+           plugins/pdfCheckToolPlugin\
+           plugins/generalizedSpectrum\
+           plugins/resultCheckingToolPlugin\
+           plugins/resultCheckingToolPlugin2\
+
 
 CONFIG += ordered

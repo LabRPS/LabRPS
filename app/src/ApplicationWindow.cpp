@@ -267,6 +267,19 @@ ApplicationWindow::ApplicationWindow()
     actionCorrelationWind = new QAction(tr("Co&rrelation..."), this);
     actionModulationWind = new QAction(tr("&Modulation..."), this);
     actionMeanWindVelocity = new QAction(tr("M&ean Wind..."), this);
+    actionCumulativeProbabilityDistribution = new QAction(tr("CPD..."), this);
+   actionGustFactor = new QAction(tr("Gust Factor..."), this);
+   actionKurtosis = new QAction(tr("Kurtosis..."), this);
+   actionPeakFactor = new QAction(tr("Peak Factor..."), this);
+   actionProbabilityDensityFunction = new QAction(tr("PDF..."), this);
+   actionRoughness = new QAction(tr("Roughness..."), this);
+   actionShearVelocityOfFlow = new QAction(tr("Shear Velocity..."), this);
+   actionSkewness = new QAction(tr("Skewness..."), this);
+   actionStandardDeviation = new QAction(tr("Standard Deviation..."), this);
+   actionTurbulenceIntensity = new QAction(tr("Turbulence Intensity..."), this);
+   actionTurbulenceScale = new QAction(tr("Turbulence Scale..."), this);
+   actionVariance = new QAction(tr("Variance..."), this);
+   actionWavePassageEffect = new QAction(tr("Wave Passage Effect..."), this);
 
     // windLab output
     actionWindVelocityOutput = new QAction(tr("&Wind Velocity"), this);
@@ -279,6 +292,19 @@ ApplicationWindow::ApplicationWindow()
     actionMeanWindVelocityOutput = new QAction(tr("M&ean Wind"), this);
     actionDecomposedSpectrumWindOutput = new QAction(tr("&Decomposed PSD"), this);
     actionRandomPhaseWindOutput = new QAction(tr("&Random Phase"), this);
+    actionCumulativeProbabilityDistributionOutput = new QAction(tr("CPD"), this);
+   actionGustFactorOutput = new QAction(tr("Gust Factor"), this);
+   actionKurtosisOutput = new QAction(tr("Kurtosis"), this);
+   actionPeakFactorOutput = new QAction(tr("Peak Factor"), this);
+   actionProbabilityDensityFunctionOutput = new QAction(tr("PDF"), this);
+   actionRoughnessOutput = new QAction(tr("Roughness"), this);
+   actionShearVelocityOfFlowOutput = new QAction(tr("Shear Velocity"), this);
+   actionSkewnessOutput = new QAction(tr("Skewness"), this);
+   actionStandardDeviationOutput = new QAction(tr("Standard Deviation"), this);
+   actionTurbulenceIntensityOutput = new QAction(tr("Turbulence Intensity"), this);
+   actionTurbulenceScaleOutput = new QAction(tr("Turbulence Scale"), this);
+   actionVarianceOutput = new QAction(tr("Variance"), this);
+   actionWavePassageEffectOutput = new QAction(tr("Wave Passage Effect"), this);
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {
@@ -1261,6 +1287,35 @@ ApplicationWindow::ApplicationWindow()
             &RPSWindLabSimulation::modulationWind);
     connect(actionMeanWindVelocity, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::meanWindVelocity);
+
+
+   connect(actionCumulativeProbabilityDistribution, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::cumulativeProbabilityDistribution); 
+   connect(actionGustFactor, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::gustFactor); 
+   connect(actionKurtosis, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::kurtosis);
+   connect(actionPeakFactor, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::peakFactor);  
+   connect(actionProbabilityDensityFunction, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::probabilityDensityFunction); 
+   connect(actionRoughness, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::roughness); 
+   connect(actionShearVelocityOfFlow, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::shearVelocityOfFlow);
+   connect(actionSkewness, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::skewness); 
+     connect(actionStandardDeviation, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::standardDeviation); 
+   connect(actionTurbulenceIntensity, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::turbulenceIntensity); 
+   connect(actionTurbulenceScale, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::turbulenceScale);
+   connect(actionVariance, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::variance); 
+   connect(actionWavePassageEffect, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::wavePassageEffect); 
+
  
     // windLab output
     connect(actionWindVelocityOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
@@ -1283,6 +1338,33 @@ ApplicationWindow::ApplicationWindow()
             &RPSWindLabSimulation::meanWindVelocityOutput);
     connect(actionRandomPhaseWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::randomPhaseWindOutput);
+
+    connect(actionCumulativeProbabilityDistributionOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::cumulativeProbabilityDistributionOutput); 
+   connect(actionGustFactorOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::gustFactorOutput); 
+   connect(actionKurtosisOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::kurtosisOutput);
+   connect(actionPeakFactorOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::peakFactorOutput);  
+   connect(actionProbabilityDensityFunctionOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::probabilityDensityFunctionOutput); 
+   connect(actionRoughnessOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::roughnessOutput); 
+   connect(actionShearVelocityOfFlowOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::shearVelocityOfFlowOutput);
+   connect(actionSkewnessOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::skewnessOutput); 
+  connect(actionStandardDeviationOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::standardDeviationOutput); 
+   connect(actionTurbulenceIntensityOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::turbulenceIntensityOutput); 
+   connect(actionTurbulenceScaleOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::turbulenceScaleOutput);
+   connect(actionVarianceOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::varianceOutput); 
+   connect(actionWavePassageEffectOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            &RPSWindLabSimulation::wavePassageEffectOutput); 
     
      //receiving information messages from simulators
     connect(rpsSimulator->rpsWindLabSimulator, SIGNAL(sendInformation(QStringList)), this, SLOT(recieveInformation(QStringList)), Qt::QueuedConnection);
@@ -1572,6 +1654,21 @@ void ApplicationWindow::makeToolBars()
     inputToolbar->addAction(actionModulationWind);
     inputToolbar->addAction(actionMeanWindVelocity);
 
+    inputToolbar->addAction(actionCumulativeProbabilityDistribution);
+    inputToolbar->addAction(actionGustFactor);
+    inputToolbar->addAction(actionKurtosis);
+    inputToolbar->addAction(actionPeakFactor);
+    inputToolbar->addAction(actionProbabilityDensityFunction);
+    inputToolbar->addAction(actionRoughness);
+    inputToolbar->addAction(actionShearVelocityOfFlow);
+    inputToolbar->addAction(actionSkewness);
+    inputToolbar->addAction(actionStandardDeviation);
+    inputToolbar->addAction(actionTurbulenceIntensity);
+    inputToolbar->addAction(actionTurbulenceScale);
+    inputToolbar->addAction(actionVariance);
+    inputToolbar->addAction(actionWavePassageEffect);
+
+
   // output toolbar
     outputToolbar->addAction(actionWindVelocityOutput);
     outputToolbar->addAction(actionFrequencyDistributionWindOutput);
@@ -1584,6 +1681,21 @@ void ApplicationWindow::makeToolBars()
     outputToolbar->addAction(actionMeanWindVelocityOutput);
     outputToolbar->addAction(actionRandomPhaseWindOutput);
 
+    outputToolbar->addAction(actionCumulativeProbabilityDistributionOutput);
+    outputToolbar->addAction(actionGustFactorOutput);
+    outputToolbar->addAction(actionKurtosisOutput);
+    outputToolbar->addAction(actionPeakFactorOutput);
+    outputToolbar->addAction(actionProbabilityDensityFunctionOutput);
+    outputToolbar->addAction(actionRoughnessOutput);
+    outputToolbar->addAction(actionShearVelocityOfFlowOutput);
+    outputToolbar->addAction(actionSkewnessOutput);
+    outputToolbar->addAction(actionStandardDeviationOutput);
+    outputToolbar->addAction(actionTurbulenceIntensityOutput);
+    outputToolbar->addAction(actionTurbulenceScaleOutput);
+    outputToolbar->addAction(actionVarianceOutput);
+    outputToolbar->addAction(actionWavePassageEffectOutput);
+
+   
     QMenu *menu_input = new QMenu(this);
     menu_input->addAction(actionWindVelocity);
     menu_input->addAction(actionSpectrumWind);
@@ -1591,6 +1703,21 @@ void ApplicationWindow::makeToolBars()
     menu_input->addAction(actionCorrelationWind);
     menu_input->addAction(actionModulationWind);
     menu_input->addAction(actionMeanWindVelocity);
+    
+    menu_input->addAction(actionCumulativeProbabilityDistribution);
+    menu_input->addAction(actionGustFactor);
+    menu_input->addAction(actionKurtosis);
+    menu_input->addAction(actionPeakFactor);
+    menu_input->addAction(actionProbabilityDensityFunction);
+    menu_input->addAction(actionRoughness);
+    menu_input->addAction(actionShearVelocityOfFlow);
+    menu_input->addAction(actionSkewness);
+    menu_input->addAction(actionStandardDeviation);
+    menu_input->addAction(actionTurbulenceIntensity);
+    menu_input->addAction(actionTurbulenceScale);
+    menu_input->addAction(actionVariance);
+    menu_input->addAction(actionWavePassageEffect);
+
 
     btn_input_->setMenu(menu_input);
     simulationToolbar->addSeparator();
@@ -1607,6 +1734,20 @@ void ApplicationWindow::makeToolBars()
     menu_output->addAction(actionModulationWindOutput);
     menu_output->addAction(actionMeanWindVelocityOutput);
     menu_output->addAction(actionRandomPhaseWindOutput);
+
+    menu_output->addAction(actionCumulativeProbabilityDistributionOutput);
+    menu_output->addAction(actionGustFactorOutput);
+    menu_output->addAction(actionKurtosisOutput);
+    menu_output->addAction(actionPeakFactorOutput);
+    menu_output->addAction(actionProbabilityDensityFunctionOutput);
+    menu_output->addAction(actionRoughnessOutput);
+    menu_output->addAction(actionShearVelocityOfFlowOutput);
+    menu_output->addAction(actionSkewnessOutput);
+    menu_output->addAction(actionStandardDeviationOutput);
+    menu_output->addAction(actionTurbulenceIntensityOutput);
+    menu_output->addAction(actionTurbulenceScaleOutput);
+    menu_output->addAction(actionVarianceOutput);
+    menu_output->addAction(actionWavePassageEffectOutput);
 
     btn_output_->setMenu(menu_output);
     simulationToolbar->addSeparator();
@@ -1830,6 +1971,20 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
     ui_->menuInput->addAction(actionCoherenceWind);
     ui_->menuInput->addAction(actionCorrelationWind);
     ui_->menuInput->addAction(actionModulationWind);
+    
+    ui_->menuInput->addAction(actionCumulativeProbabilityDistribution);
+    ui_->menuInput->addAction(actionGustFactor);
+    ui_->menuInput->addAction(actionKurtosis);
+    ui_->menuInput->addAction(actionPeakFactor);
+    ui_->menuInput->addAction(actionProbabilityDensityFunction);
+    ui_->menuInput->addAction(actionRoughness);
+    ui_->menuInput->addAction(actionShearVelocityOfFlow);
+    ui_->menuInput->addAction(actionSkewness);
+    ui_->menuInput->addAction(actionStandardDeviation);
+    ui_->menuInput->addAction(actionTurbulenceIntensity);
+    ui_->menuInput->addAction(actionTurbulenceScale);
+    ui_->menuInput->addAction(actionVariance);
+    ui_->menuInput->addAction(actionWavePassageEffect);
 
     menuBar()->addMenu(ui_->menuInput);
 
@@ -1845,6 +2000,20 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
     ui_->menuOutput->addAction(actionCorrelationWindOutput);
     ui_->menuOutput->addAction(actionModulationWindOutput);
     ui_->menuOutput->addAction(actionRandomPhaseWindOutput);
+
+    ui_->menuOutput->addAction(actionCumulativeProbabilityDistributionOutput);
+    ui_->menuOutput->addAction(actionGustFactorOutput);
+    ui_->menuOutput->addAction(actionKurtosisOutput);
+    ui_->menuOutput->addAction(actionPeakFactorOutput);
+    ui_->menuOutput->addAction(actionProbabilityDensityFunctionOutput);
+    ui_->menuOutput->addAction(actionRoughnessOutput);
+    ui_->menuOutput->addAction(actionShearVelocityOfFlowOutput);
+    ui_->menuOutput->addAction(actionSkewnessOutput);
+    ui_->menuOutput->addAction(actionStandardDeviationOutput);
+    ui_->menuOutput->addAction(actionTurbulenceIntensityOutput);
+    ui_->menuOutput->addAction(actionTurbulenceScaleOutput);
+    ui_->menuOutput->addAction(actionVarianceOutput);
+    ui_->menuOutput->addAction(actionWavePassageEffectOutput);
 
 
     menuBar()->addMenu(ui_->menuOutput);
@@ -11859,6 +12028,62 @@ ui_->actionRunTool->setIcon(
       IconLoader::load("output-locations", IconLoader::General));
   actionRandomPhaseWindOutput->setIcon(
       IconLoader::load("output-randomphase", IconLoader::General));
+
+  actionCumulativeProbabilityDistribution->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionGustFactor->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionKurtosis->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionPeakFactor->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionProbabilityDensityFunction->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionRoughness->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionShearVelocityOfFlow->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionSkewness->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionStandardDeviation->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionTurbulenceIntensity->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionTurbulenceScale->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionVariance->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionWavePassageEffect->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+
+      actionCumulativeProbabilityDistributionOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionGustFactorOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionKurtosisOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionPeakFactorOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionProbabilityDensityFunctionOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionRoughnessOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionShearVelocityOfFlowOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionSkewnessOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionStandardDeviationOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionTurbulenceIntensityOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionTurbulenceScaleOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionVarianceOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+      actionWavePassageEffectOutput->setIcon(
+      IconLoader::load("input-mean", IconLoader::General));
+
+
   }
   else if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonSeismicGroundMotion)
   {

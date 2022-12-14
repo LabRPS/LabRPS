@@ -46,7 +46,7 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
     // }
 
     QStringList tableHeader;
-    ui->tableWidget->setColumnCount(13);
+    ui->tableWidget->setColumnCount(26);
     tableHeader << "Candidate"
                 << "Category"
                 << "Function"
@@ -55,11 +55,24 @@ RPSWLAccuracyComparisonDialog::RPSWLAccuracyComparisonDialog(QWidget *parent) :
                 << "Frequency distribution"
                 << "Mean profile"
                 << "Modulation Function"
-                << "PSDd decomposition method"
+                << "PSD decomposition method"
                 << "Simulation method"
                 << "Spatial distribution"
                 << "Randomness provider"
-                << "Spectrum model";
+                << "Spectrum model"
+                << "Cumulative Probability Distribution"
+                << "Gust Factor"
+                << "Kurtosis"
+                << "Peak Factor"
+                << "Probability Density Function"
+                << "Roughness"
+                << "Shear Velocity of Flow"
+                << "Skewness"
+                << "Standard Deviation"
+                << "Turbulence Intensity"
+                << "Turbulence Scale"
+                << "Variance"
+                << "Wave Passage Effect";
 
     ui->tableWidget->setHorizontalHeaderLabels(tableHeader);
     //ui->tableWidget->verticalHeader()->setVisible(false);
@@ -133,11 +146,16 @@ void RPSWLAccuracyComparisonDialog::comboBoxCategoryCurrentIndexChanged(int)
     rpsWindLabSimulator->fillFunctionAndCandidateComboBoxes(cat, ui->comboBoxFunction, ui->comboBoxCandidate);
 
     ui->tableWidget->setRowCount(0);
+
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->pushButtonAdd->setEnabled(true);
 }
 
 void RPSWLAccuracyComparisonDialog::comboBoxFunctionCurrentIndexChanged(int)
 {
     ui->tableWidget->setRowCount(0);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    ui->pushButtonAdd->setEnabled(true);
 }
 
 void RPSWLAccuracyComparisonDialog::OnBnClickedFunctionInit()
@@ -162,6 +180,20 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedCategoryInit()
      spatial = dlg->spatial;
      randomness = dlg->randomness;
      spectrum = dlg->spectrum;
+
+     cumulativeProbabilityDistribution = dlg->cumulativeProbabilityDistribution;
+     gustFactor = dlg->gustFactor;
+     kurtosis = dlg->kurtosis;
+     peakFactor = dlg->peakFactor;
+     probabilityDensityFunction = dlg->probabilityDensityFunction;
+     roughness = dlg->roughness;
+     shearVelocityOfFlow = dlg->shearVelocityOfFlow;
+     skewness = dlg->skewness;
+     standardDeviation = dlg->standardDeviation;
+     turbulenceIntensity = dlg->turbulenceIntensity;
+     turbulenceScale = dlg->turbulenceScale;
+     variance = dlg->variance;
+     wavePassageEffect = dlg->wavePassageEffect;
 
 	}
 }
@@ -217,6 +249,19 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedTableAddRow()
     QTableWidgetItem *item11 = new QTableWidgetItem();
     QTableWidgetItem *item12 = new QTableWidgetItem();
     QTableWidgetItem *item13 = new QTableWidgetItem();
+    QTableWidgetItem *item14 = new QTableWidgetItem();
+    QTableWidgetItem *item15 = new QTableWidgetItem();
+    QTableWidgetItem *item16 = new QTableWidgetItem();
+    QTableWidgetItem *item17 = new QTableWidgetItem();
+    QTableWidgetItem *item18 = new QTableWidgetItem();
+    QTableWidgetItem *item19 = new QTableWidgetItem();
+    QTableWidgetItem *item20 = new QTableWidgetItem();
+    QTableWidgetItem *item21 = new QTableWidgetItem();
+    QTableWidgetItem *item22 = new QTableWidgetItem();
+    QTableWidgetItem *item23 = new QTableWidgetItem();
+    QTableWidgetItem *item24 = new QTableWidgetItem();
+    QTableWidgetItem *item25 = new QTableWidgetItem();
+    QTableWidgetItem *item26 = new QTableWidgetItem();
 
     item1->setText(ui->comboBoxCandidate->currentText());
     item2->setText(ui->comboBoxCategory->currentText());
@@ -230,8 +275,20 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedTableAddRow()
     item10->setText(simulation);
     item11->setText(spatial);
     item12->setText(randomness);
-    item13->setText(spectrum);
-
+    item13->setText(spectrum); 
+    item14->setText(cumulativeProbabilityDistribution);
+    item15->setText(gustFactor);
+    item16->setText(kurtosis);
+    item17->setText(peakFactor);
+    item18->setText(probabilityDensityFunction);
+    item19->setText(roughness);
+    item20->setText(shearVelocityOfFlow);
+    item21->setText(skewness);
+    item22->setText(standardDeviation);
+    item23->setText(turbulenceIntensity);
+    item24->setText(turbulenceScale);
+    item25->setText(variance);
+    item26->setText(wavePassageEffect);
 
     ui->tableWidget->setItem(row, 0, item1);
     ui->tableWidget->setItem(row, 1, item2);
@@ -246,6 +303,19 @@ void RPSWLAccuracyComparisonDialog::OnBnClickedTableAddRow()
     ui->tableWidget->setItem(row, 10, item11);
     ui->tableWidget->setItem(row, 11, item12);
     ui->tableWidget->setItem(row, 12, item13);
+    ui->tableWidget->setItem(row, 13, item14);
+    ui->tableWidget->setItem(row, 14, item15);
+    ui->tableWidget->setItem(row, 15, item16);
+    ui->tableWidget->setItem(row, 16, item17);
+    ui->tableWidget->setItem(row, 17, item18);
+    ui->tableWidget->setItem(row, 18, item19);
+    ui->tableWidget->setItem(row, 19, item20);
+    ui->tableWidget->setItem(row, 20, item21);
+    ui->tableWidget->setItem(row, 21, item22);
+    ui->tableWidget->setItem(row, 22, item23);
+    ui->tableWidget->setItem(row, 23, item24);
+    ui->tableWidget->setItem(row, 24, item25);
+    ui->tableWidget->setItem(row, 25, item26);
 
     if(ui->tableWidget->rowCount() == 2)
     {
@@ -303,7 +373,7 @@ void RPSWLAccuracyComparisonDialog::readTableItemsFromList(std::vector<QString> 
 
     RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
     int row = rpsWindLabSimulator->numberOfCandidate;
-    int col = 13;
+    int col = 26;
     //ui->tableWidget->insertRow(row);
     ui->tableWidget->setRowCount(row);
     ui->tableWidget->setColumnCount(col);

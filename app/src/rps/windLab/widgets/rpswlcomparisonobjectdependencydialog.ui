@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>662</width>
-    <height>352</height>
+    <width>1320</width>
+    <height>368</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>310</x>
-     <y>310</y>
+     <x>960</x>
+     <y>320</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -29,127 +29,29 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBoxFunction">
+  <widget class="QComboBox" name="comboBoxskewness">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>311</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Coherence functions</string>
-   </property>
-   <widget class="QPushButton" name="pushButtonCoherenceInit">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>20</y>
-      <width>31</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>...</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QComboBox" name="comboBoxCoherence">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
+     <x>1010</x>
      <y>30</y>
      <width>251</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_2">
+  <widget class="QGroupBox" name="groupBoxFunction_19">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>70</y>
-     <width>311</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Correlation functions</string>
-   </property>
-   <widget class="QPushButton" name="pushButtonCorrelationInit">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>20</y>
-      <width>31</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>...</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QComboBox" name="comboBoxCorrelation">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>90</y>
-     <width>251</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>130</y>
-     <width>311</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Frequency distributions</string>
-   </property>
-   <widget class="QPushButton" name="pushButtonFrequencyDistrInit">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>20</y>
-      <width>31</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>...</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QComboBox" name="comboBoxFrequency">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>150</y>
-     <width>251</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
+     <x>670</x>
      <y>190</y>
      <width>311</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Mean wind profiles</string>
+    <string>Peak Factor</string>
    </property>
-   <widget class="QPushButton" name="pushButtonMeanWindInit">
+   <widget class="QPushButton" name="pushButtonPeakFactor">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -163,39 +65,29 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBoxMean">
+  <widget class="QComboBox" name="comboBoxPeakFactor">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>680</x>
      <y>210</y>
      <width>251</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBoxSpatial">
+  <widget class="QGroupBox" name="groupBoxFunction_18">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>30</y>
-     <width>251</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_7">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>250</y>
+     <x>1000</x>
+     <y>130</y>
      <width>311</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Modulation functions</string>
+    <string>Turbulence Intensity</string>
    </property>
-   <widget class="QPushButton" name="pushButtonModulationInit">
+   <widget class="QPushButton" name="pushButtonTurbulenceIntensity">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -209,11 +101,325 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBoxModulation">
+  <widget class="QComboBox" name="comboBoxTurbulenceIntensity">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>1010</x>
+     <y>150</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_22">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>250</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Variance</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonVariance">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxKurtosis">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>150</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxCumulativeProbabilityDistribution">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>30</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxStandardDeviation">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>90</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_23">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>310</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Roughness</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonRoughness">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_14">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>10</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Skewness</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonSkewness">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_17">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>130</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Kurtosis</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonKurtosis">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_21">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>250</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Probability Density Function</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonProbabilityDensityFunction">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxVariance">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
      <y>270</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_9">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>10</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Cumulative Probability Distribution</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonCumulativeProbabilityDistribution">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_16">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>70</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Standard Deviation</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonStandardDeviation">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxProbabilityDensityFunction">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>270</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxRoughness">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>330</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxTurbulenceScale">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>210</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_13">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>70</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Gust Factor</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonGustFactor">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_20">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>190</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Turbulence Scale</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonTurbulenceScale">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxGustFactor">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>90</y>
      <width>251</width>
      <height>22</height>
     </rect>
@@ -245,19 +451,29 @@
     </property>
    </widget>
   </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_6">
+  <widget class="QComboBox" name="comboBoxCoherence">
    <property name="geometry">
     <rect>
-     <x>340</x>
-     <y>130</y>
+     <x>20</x>
+     <y>30</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_24">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
      <width>311</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Randomness providers</string>
+    <string>Wave Passage Effect</string>
    </property>
-   <widget class="QPushButton" name="pushButtonRandomnessProInit">
+   <widget class="QPushButton" name="pushButtonWavePassageEffect">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -271,25 +487,31 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBoxSpectrum">
+  <widget class="QGroupBox" name="groupBoxFunction_2">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>210</y>
-     <width>251</width>
-     <height>22</height>
+     <x>10</x>
+     <y>70</y>
+     <width>311</width>
+     <height>51</height>
     </rect>
    </property>
-  </widget>
-  <widget class="QComboBox" name="comboBoxSimuMethod">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>90</y>
-     <width>251</width>
-     <height>22</height>
-    </rect>
+   <property name="title">
+    <string>Correlation functions</string>
    </property>
+   <widget class="QPushButton" name="pushButtonCorrelationInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QComboBox" name="comboBoxRandomness">
    <property name="geometry">
@@ -301,19 +523,55 @@
     </rect>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_10">
+  <widget class="QGroupBox" name="groupBoxFunction_11">
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>250</y>
+     <y>190</y>
      <width>311</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Spectrum decomposition methods</string>
+    <string>Spectrum models</string>
    </property>
-   <widget class="QPushButton" name="pushButtonSpectrumDecompInit">
+   <widget class="QPushButton" name="pushButtonSpectrumInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxSimuMethod">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>90</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_6">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>130</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Randomness providers</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonRandomnessProInit">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -353,29 +611,39 @@
     </property>
    </widget>
   </widget>
-  <widget class="QComboBox" name="comboBoxDecomposition">
+  <widget class="QComboBox" name="comboBoxShearVelocityOfFlow">
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>270</y>
+     <y>330</y>
      <width>251</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
-  <widget class="QGroupBox" name="groupBoxFunction_11">
+  <widget class="QComboBox" name="comboBoxMean">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>210</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_10">
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>190</y>
+     <y>250</y>
      <width>311</width>
      <height>51</height>
     </rect>
    </property>
    <property name="title">
-    <string>Spectrum models</string>
+    <string>Spectrum decomposition methods</string>
    </property>
-   <widget class="QPushButton" name="pushButtonSpectrumInit">
+   <widget class="QPushButton" name="pushButtonSpectrumDecompInit">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -389,27 +657,253 @@
     </property>
    </widget>
   </widget>
-  <zorder>groupBoxFunction_11</zorder>
-  <zorder>groupBoxFunction_5</zorder>
-  <zorder>groupBoxFunction_8</zorder>
-  <zorder>buttonBox</zorder>
-  <zorder>groupBoxFunction</zorder>
-  <zorder>comboBoxCoherence</zorder>
-  <zorder>groupBoxFunction_2</zorder>
-  <zorder>comboBoxCorrelation</zorder>
-  <zorder>groupBoxFunction_3</zorder>
-  <zorder>comboBoxFrequency</zorder>
-  <zorder>groupBoxFunction_4</zorder>
-  <zorder>comboBoxMean</zorder>
-  <zorder>comboBoxSpatial</zorder>
-  <zorder>groupBoxFunction_7</zorder>
-  <zorder>comboBoxModulation</zorder>
+  <widget class="QComboBox" name="comboBoxWavePassageEffect">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>330</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Frequency distributions</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonFrequencyDistrInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxDecomposition">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>270</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxSpectrum">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>210</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxCorrelation">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Mean wind profiles</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonMeanWindInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QComboBox" name="comboBoxModulation">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>270</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxSpatial">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>30</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxFrequency">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>150</y>
+     <width>251</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_12">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>310</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Shear Velocity Of Flow</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonShearVelocityOfFlow">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Modulation functions</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonModulationInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBoxFunction">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>311</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Coherence functions</string>
+   </property>
+   <widget class="QPushButton" name="pushButtonCoherenceInit">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>20</y>
+      <width>31</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+   </widget>
+  </widget>
+  <zorder>groupBoxFunction_20</zorder>
+  <zorder>groupBoxFunction_16</zorder>
+  <zorder>groupBoxFunction_14</zorder>
+  <zorder>groupBoxFunction_17</zorder>
+  <zorder>groupBoxFunction_9</zorder>
+  <zorder>groupBoxFunction_12</zorder>
   <zorder>groupBoxFunction_6</zorder>
-  <zorder>comboBoxSpectrum</zorder>
-  <zorder>comboBoxSimuMethod</zorder>
+  <zorder>groupBoxFunction_5</zorder>
+  <zorder>groupBoxFunction_7</zorder>
+  <zorder>groupBoxFunction_4</zorder>
+  <zorder>groupBoxFunction</zorder>
+  <zorder>buttonBox</zorder>
+  <zorder>comboBoxskewness</zorder>
+  <zorder>groupBoxFunction_19</zorder>
+  <zorder>comboBoxPeakFactor</zorder>
+  <zorder>groupBoxFunction_18</zorder>
+  <zorder>comboBoxTurbulenceIntensity</zorder>
+  <zorder>groupBoxFunction_22</zorder>
+  <zorder>comboBoxKurtosis</zorder>
+  <zorder>comboBoxCumulativeProbabilityDistribution</zorder>
+  <zorder>comboBoxStandardDeviation</zorder>
+  <zorder>groupBoxFunction_23</zorder>
+  <zorder>groupBoxFunction_21</zorder>
+  <zorder>comboBoxVariance</zorder>
+  <zorder>comboBoxProbabilityDensityFunction</zorder>
+  <zorder>comboBoxRoughness</zorder>
+  <zorder>comboBoxTurbulenceScale</zorder>
+  <zorder>groupBoxFunction_13</zorder>
+  <zorder>comboBoxGustFactor</zorder>
+  <zorder>groupBoxFunction_8</zorder>
+  <zorder>comboBoxCoherence</zorder>
+  <zorder>groupBoxFunction_24</zorder>
+  <zorder>groupBoxFunction_2</zorder>
   <zorder>comboBoxRandomness</zorder>
+  <zorder>groupBoxFunction_11</zorder>
+  <zorder>comboBoxSimuMethod</zorder>
+  <zorder>comboBoxShearVelocityOfFlow</zorder>
+  <zorder>comboBoxMean</zorder>
   <zorder>groupBoxFunction_10</zorder>
+  <zorder>comboBoxWavePassageEffect</zorder>
+  <zorder>groupBoxFunction_3</zorder>
   <zorder>comboBoxDecomposition</zorder>
+  <zorder>comboBoxSpectrum</zorder>
+  <zorder>comboBoxCorrelation</zorder>
+  <zorder>comboBoxModulation</zorder>
+  <zorder>comboBoxSpatial</zorder>
+  <zorder>comboBoxFrequency</zorder>
  </widget>
  <resources/>
  <connections>

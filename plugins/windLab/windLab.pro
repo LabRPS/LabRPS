@@ -96,18 +96,18 @@ SOURCES += \
     WindLab.cpp\
     WLHorizontalUniformDistribution.cpp\
     WLVerticalUniformDistribution.cpp\
-    meanwindlogprofildialog.cpp\
-    meanwindpowerprofildialog.cpp\
-    davenportcoherencedialog.cpp\
-    wlvertdistrdialog.cpp\
-    cwlhorizontallocdistr.cpp\
-    kaimalpsdshearvelocitydialog.cpp\
-    expomodulationdialog.cpp\
-    sinemodulationdialog.cpp\
-    threeparamodulationdialog.cpp\
-    generaldistributiondialog.cpp\
+    widgets/meanwindlogprofildialog.cpp\
+    widgets/meanwindpowerprofildialog.cpp\
+    widgets/davenportcoherencedialog.cpp\
+    widgets/wlvertdistrdialog.cpp\
+    widgets/cwlhorizontallocdistr.cpp\
+    widgets/kaimalpsdshearvelocitydialog.cpp\
+    widgets/expomodulationdialog.cpp\
+    widgets/sinemodulationdialog.cpp\
+    widgets/threeparamodulationdialog.cpp\
+    widgets/generaldistributiondialog.cpp\
     GeneralSpatialDistribution.cpp\
-    minmaxvaluesdlg.cpp\
+    widgets/minmaxvaluesdlg.cpp\
     RPSKaimalAcrossSpectr.cpp\
     RPSKaimalVerticalSpectr.cpp\
     RPSDavenportSpectrum.cpp\
@@ -118,7 +118,9 @@ SOURCES += \
     RPSvonKarmanAlongWindSpectrum.cpp\
     RPSvonKarmanAcrossWindSpectrum.cpp\
     RPSvonKarmanVerticalWindSpectrum.cpp\
-    vonKarmanpsdinputsdialog.cpp\
+    widgets/vonKarmanpsdinputsdialog.cpp\
+    widgets/meanwindDHprofildialog.cpp\
+    RPSDHLowProfile.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -136,18 +138,18 @@ HEADERS += \
     ThreeParaModulation.h\
     WLHorizontalUniformDistribution.h\
     WLVerticalUniformDistribution.h\
-    meanwindlogprofildialog.h\
-    meanwindpowerprofildialog.h\
-    davenportcoherencedialog.h\
-    wlvertdistrdialog.h\
-    cwlhorizontallocdistr.h\
-    kaimalpsdshearvelocitydialog.h\
-    expomodulationdialog.h\
-    sinemodulationdialog.h\
-    threeparamodulationdialog.h\
-    generaldistributiondialog.h\
+    widgets/meanwindlogprofildialog.h\
+    widgets/meanwindpowerprofildialog.h\
+    widgets/davenportcoherencedialog.h\
+    widgets/wlvertdistrdialog.h\
+    widgets/cwlhorizontallocdistr.h\
+    widgets/kaimalpsdshearvelocitydialog.h\
+    widgets/expomodulationdialog.h\
+    widgets/sinemodulationdialog.h\
+    widgets/threeparamodulationdialog.h\
+    widgets/generaldistributiondialog.h\
     GeneralSpatialDistribution.h\
-    minmaxvaluesdlg.h\
+    widgets/minmaxvaluesdlg.h\
     RPSKaimalAcrossSpectr.h\
     RPSKaimalVerticalSpectr.h\
     RPSDavenportSpectrum.h\
@@ -158,20 +160,24 @@ HEADERS += \
     RPSvonKarmanAlongWindSpectrum.h\
     RPSvonKarmanAcrossWindSpectrum.h\
     RPSvonKarmanVerticalWindSpectrum.h\
-    vonKarmanpsdinputsdialog.h\
+    widgets/vonKarmanpsdinputsdialog.h\
+    widgets/meanwindDHprofildialog.h\
+    RPSDHLowProfile.h\
 
-FORMS  += meanwindlogprofildialog.ui\
-          meanwindpowerprofildialog.ui\
-          davenportcoherencedialog.ui\
-          wlvertdistrdialog.ui\
-          cwlhorizontallocdistr.ui\
-          kaimalpsdshearvelocitydialog.ui\
-          expomodulationdialog.ui\
-          sinemodulationdialog.ui\
-          threeparamodulationdialog.ui\
-          generaldistributiondialog.ui\
-          minmaxvaluesdlg.ui\
-          vonKarmanpsdinputsdialog.ui\
+
+FORMS  += widgets/meanwindlogprofildialog.ui\
+          widgets/meanwindpowerprofildialog.ui\
+          widgets/davenportcoherencedialog.ui\
+          widgets/wlvertdistrdialog.ui\
+          widgets/cwlhorizontallocdistr.ui\
+          widgets/kaimalpsdshearvelocitydialog.ui\
+          widgets/expomodulationdialog.ui\
+          widgets/sinemodulationdialog.ui\
+          widgets/threeparamodulationdialog.ui\
+          widgets/generaldistributiondialog.ui\
+          widgets/minmaxvaluesdlg.ui\
+          widgets/vonKarmanpsdinputsdialog.ui\
+          widgets/meanwindDHprofildialog.ui\
 
 
 

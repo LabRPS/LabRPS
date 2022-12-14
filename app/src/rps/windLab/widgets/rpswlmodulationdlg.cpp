@@ -24,7 +24,7 @@ RPSWLModulationDlg::RPSWLModulationDlg(QWidget *parent) :
 	std::map<const QString, CreateModulationCallback> ::iterator cohIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (cohIt = CrpsModulationFactory::GetModulationNamesMap().begin(); cohIt != CrpsModulationFactory::GetModulationNamesMap().end(); ++cohIt)
+    for (cohIt = CrpsModulationFactory::GetObjectNamesMap().begin(); cohIt != CrpsModulationFactory::GetObjectNamesMap().end(); ++cohIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxModulationFunc->addItem(cohIt->first);
@@ -73,7 +73,7 @@ void RPSWLModulationDlg::OnBnClickedModulationFnInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLModulation* currentSelection = CrpsModulationFactory::BuildModulation(modulationFunction);
+    IrpsWLModulation* currentSelection = CrpsModulationFactory::BuildObject(modulationFunction);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }

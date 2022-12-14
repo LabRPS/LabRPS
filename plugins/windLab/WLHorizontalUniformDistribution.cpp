@@ -1,7 +1,6 @@
 
 #include "WLHorizontalUniformDistribution.h"
-#include "RPSWindLabTools.h"
-#include "cwlhorizontallocdistr.h"
+#include "widgets/cwlhorizontallocdistr.h"
 #include <QMessageBox>
 
 

@@ -20,9 +20,9 @@ double  SimuSpectrum::computeAlongWindAutoSpectrum(const double &frequency, cons
     double dPSD = 0.0;
     double Par1 = 105.0;
     double Par2 = 33.0;
-    double PI = 22.0 / 7.0;
+    const double towPi = 2*22.0/7.0;
 
-    dBuf1 = 1.0 + Par2 * frequency * height / (2.0 * PI *meanSpeed);
+    dBuf1 = 1.0 + (Par2 * frequency * height / meanSpeed)/towPi;
 
     dBuf2 = pow(dBuf1, 5.0 / 3.0);
 
@@ -30,7 +30,7 @@ double  SimuSpectrum::computeAlongWindAutoSpectrum(const double &frequency, cons
 
     dPSD /= dBuf2;			// (rad/s)
 
-    dPSD /= 2.0*PI;
+    dPSD /= towPi;
 
     return dPSD;
 }
@@ -41,9 +41,9 @@ double SimuSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, cons
     double dPSD = 0.0;
     double Par1 = 17.0;
     double Par2 = 9.5;
-    double PI = 22.0 / 7.0;
+    const double towPi = 2*22.0/7.0;
 
-    dBuf1 = 1.0 + Par2 * frequency * height / (2.0 * PI *meanSpeed);
+    dBuf1 = 1.0 + (Par2 * frequency * height / meanSpeed)/towPi;
 
     dBuf2 = pow(dBuf1, 5.0 / 3.0);
 
@@ -51,7 +51,7 @@ double SimuSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, cons
 
     dPSD /= dBuf2;			// (rad/s)
 
-    dPSD /= 2.0*PI;
+    dPSD /= towPi;
 
     return dPSD;
 }
@@ -62,9 +62,9 @@ double SimuSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, co
     double dPSD = 0.0;
     double Par1 = 2.0;
     double Par2 = 5.3;
-    double PI = 22.0 / 7.0;
+    const double towPi = 2*22.0/7.0;
 
-    dBuf1 = frequency * height / (2.0 * PI *meanSpeed);
+    dBuf1 = (frequency * height / meanSpeed)/towPi;
 
     dBuf2 = 1.0 + Par2 *pow(dBuf1, 5.0 / 3.0);
 
@@ -72,7 +72,7 @@ double SimuSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, co
 
     dPSD /= dBuf2;			// (rad/s)
 
-    dPSD /= 2.0*PI;
+    dPSD /= towPi;
 
     return dPSD;
 }

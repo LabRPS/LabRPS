@@ -81,6 +81,8 @@ SOURCES += \
     rpsTools/src/windVelocity/modulation/ExponentialModulation.cpp\
     rpsTools/src/windVelocity/modulation/SineModulation.cpp\
     rpsTools/src/windVelocity/modulation/ThreeParametersModulation.cpp\
+    rpsTools/src/windVelocity/spectrum/GeneralizedKaimalSpectrum.cpp\
+    rpsTools/src/windVelocity/spectrum/GeneralizedVonKarmanSpectrum.cpp\
 
 
 HEADERS += \
@@ -102,6 +104,8 @@ HEADERS += \
     rpsTools/src/windVelocity/modulation/ExponentialModulation.h\
     rpsTools/src/windVelocity/modulation/SineModulation.h\
     rpsTools/src/windVelocity/modulation/ThreeParametersModulation.h\
+    rpsTools/src/windVelocity/spectrum/GeneralizedKaimalSpectrum.h\
+    rpsTools/src/windVelocity/spectrum/GeneralizedVonKarmanSpectrum.h\
 
 # Default rules for deployment.
 unix {

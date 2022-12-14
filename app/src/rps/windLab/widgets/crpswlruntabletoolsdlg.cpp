@@ -19,7 +19,7 @@ CRPSWLRunTableToolsDlg::CRPSWLRunTableToolsDlg(QWidget *parent) :
     std::map<const QString, CreateTableToolCallback> ::iterator tableToolIt;
 
     // Iterate though the map and show all the registed spatial distribution in the combo box
-    for (tableToolIt = CrpsTableToolFactory::GetTableToolNamesMap().begin(); tableToolIt != CrpsTableToolFactory::GetTableToolNamesMap().end(); ++tableToolIt)
+    for (tableToolIt = CrpsTableToolFactory::GetObjectNamesMap().begin(); tableToolIt != CrpsTableToolFactory::GetObjectNamesMap().end(); ++tableToolIt)
     {
         // Add it to the combo box
         ui->comboBoxTools->addItem(tableToolIt->first);

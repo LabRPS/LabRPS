@@ -35,7 +35,20 @@ public:
                                QString simulation,
                                QString spatial,
                                QString randomness,
-                               QString spectrum);
+                               QString spectrum,
+                                  QString cumulativeProbabilityDistribution,
+   QString gustFactor,
+   QString kurtosis,
+   QString peakFactor,
+   QString probabilityDensityFunction,
+   QString roughness,
+   QString shearVelocityOfFlow,
+   QString skewness,
+   QString standardDeviation,
+   QString turbulenceIntensity,
+   QString turbulenceScale,
+   QString variance,
+   QString wavePassageEffect);
 
 
     ~RPSWindLabComparisonWorker();
@@ -71,25 +84,42 @@ void accuracyOutp();
 void timeOutp();
 void memoryOutp();
 
-void ComputeFrequenciesVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeCrossCoherenceVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeMeanWindSpeedVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeMeanWindSpeedVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeModulationVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeModulationVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeModulationVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeDecomposedCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeDecomposedCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeDecomposedCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeXCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeXCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeXCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeYCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeYCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeYCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeZCrossSpectrumVectorF(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeZCrossSpectrumVectorT(const QString &name, vec &result, int &time, int &memory, QStringList &information);
-void ComputeZCrossSpectrumVectorP(const QString &name, vec &result, int &time, int &memory, QStringList &information);
+void ComputeFrequenciesVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeCrossCoherenceVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeCrossCoherenceVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeMeanWindSpeedVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeMeanWindSpeedVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeModulationVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeModulationVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeModulationVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeDecomposedCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeDecomposedCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeDecomposedCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeXCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeXCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeXCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeYCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeYCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeYCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeZCrossSpectrumVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeZCrossSpectrumVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeZCrossSpectrumVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+
+void ComputeCDFVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeGustFactorVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeKurtosisVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputePeakFactorVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputePDFVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeRoughnessVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeShearVelocityOfFlowVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeSkewnessVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeStandardDeviationVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeTurbulenceIntensityVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeTurbulenceScaleVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeVarianceVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+void ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
+  
 void Simulate(const QString &name, mat &result, int &time, int &memory, QStringList &information);
 void SimulateInLargeScaleMode(const QString &name, QString &strFileName, int &time, int &memory, QStringList &information);
 
@@ -134,7 +164,19 @@ private:
     QString m_spatial;
     QString m_randomness;
     QString m_spectrum;
-
+    QString m_cumulativeProbabilityDistribution;
+   QString m_gustFactor;
+   QString m_kurtosis;
+   QString m_peakFactor;
+   QString m_probabilityDensityFunction;
+   QString m_roughness;
+   QString m_shearVelocityOfFlow;
+   QString m_skewness;
+   QString m_standardDeviation;
+   QString m_turbulenceIntensity;
+   QString m_turbulenceScale;
+   QString m_variance;
+   QString m_wavePassageEffect;
 
 
 public:
@@ -151,7 +193,9 @@ public:
     vec m_memoryComsumptionResultVectorCandidate1;
     vec m_memoryComsumptionResultVectorCandidate2;
 
-    vec m_resultValueResultVectorVariable;
+    vec m_resultValueResultVectorCandidate1Variable;
+    vec m_resultValueResultVectorCandidate2Variable;
+
     vec m_resultValueResultVectorCandidate1;
     vec m_resultValueResultVectorCandidate2;
 

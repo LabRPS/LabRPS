@@ -14,7 +14,7 @@ public:
     ~DeavesHarrisMeanWindSpeed();
 
     //this computes the along wind spectrum
-    double computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &heightOfABL);
+    double computeMeanWindSpeed(const double &height, const double &terrainRoughness, const double &shearVelocity, const double &zeroPlanDisplacement, const double &latitude, const double &earthAngularVelocity = 0.0000729, const double &beta = 6);
 
 };
 

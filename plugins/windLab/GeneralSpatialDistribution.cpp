@@ -1,7 +1,6 @@
 
 #include "GeneralSpatialDistribution.h"
-#include "RPSWindLabTools.h"
-#include "generaldistributiondialog.h"
+#include "widgets/generaldistributiondialog.h"
 #include <QMessageBox>
 
 

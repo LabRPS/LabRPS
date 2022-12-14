@@ -49,21 +49,56 @@ const char* LabRPS::download_Uri =
   QString LabRPS::objGroupMatrixTool = "Matrix Tool";
   QString LabRPS::objGroupUserDefinedRPSObject = "User Defined RPS object";
   QString LabRPS::objGroupUserDefinedPhenomenonObject = "User Defined Phenomenon";
+  QString LabRPS::objGroupCumulativeProbabilityDistribution = "Cumulative Probability Distribution";
+  QString LabRPS::objGroupGustFactor = "Gust Factor";
+  QString LabRPS::objGroupKurtosis = "Kurtosis";
+  QString LabRPS::objGroupPeakFactor = "Peak Factor";
+  QString LabRPS::objGroupProbabilityDensityFunction = "Probability Density Function";
+  QString LabRPS::objGroupRoughness = "Roughness";
+  QString LabRPS::objGroupShearVelocityOfFlow = "Shear Velocity of Flow";
+  QString LabRPS::objGroupSkewness = "Skewness";
+  QString LabRPS::objGroupStandardDeviation = "Standard Deviation";
+  QString LabRPS::objGroupTurbulenceIntensity = "Turbulence Intensity";
+  QString LabRPS::objGroupTurbulenceScale = "Turbulence Scale";
+  QString LabRPS::objGroupVariance = "Variance";
+  QString LabRPS::objGroupWavePassageEffect = "Wave Passage Effect";
 
 
   QString LabRPS::ComputeCrossCoherenceVectorF = "ComputeCrossCoherenceVectorF";
+  QString LabRPS::ComputeCrossCoherenceVectorT = "ComputeCrossCoherenceVectorT";
 	QString LabRPS::ComputeCrossCorrelationVectorT = "ComputeCrossCorrelationVectorT";
 	QString LabRPS::ComputeFrequenciesVectorF = "ComputeFrequenciesVectorF";
 	QString LabRPS::ComputeMeanWindSpeedVectorP = "ComputeMeanWindSpeedVectorP";
+    QString LabRPS::ComputeMeanWindSpeedVectorT = "ComputeMeanWindSpeedVectorT";
 	QString LabRPS::ComputeModulationVectorT = "ComputeModulationVectorT";
+    QString LabRPS::ComputeModulationVectorP = "ComputeModulationVectorP";
 	QString LabRPS::ComputeDecomposedCrossSpectrumVectorF = "ComputeDecomposedCrossSpectrumVectorF";
+    QString LabRPS::ComputeDecomposedCrossSpectrumVectorT = "ComputeDecomposedCrossSpectrumVectorT";
+
 	QString LabRPS::Simulate = "Simulate";
 	QString LabRPS::SimulateInLargeScaleMode = "SimulateInLargeScaleMode";
     QString LabRPS::ComputeXAutoSpectrumVectorF = "ComputeXAutoSpectrumVectorF";
     QString LabRPS::ComputeYAutoSpectrumVectorF = "ComputeYAutoSpectrumVectorF";
     QString LabRPS::ComputeZAutoSpectrumVectorF = "ComputeZAutoSpectrumVectorF";
+    QString LabRPS::ComputeXAutoSpectrumVectorT = "ComputeXAutoSpectrumVectorT";
+    QString LabRPS::ComputeYAutoSpectrumVectorT = "ComputeYAutoSpectrumVectorT";
+    QString LabRPS::ComputeZAutoSpectrumVectorT = "ComputeZAutoSpectrumVectorT";
     QString LabRPS::UserDefinedRPSObjectCompute = "UserDefinedRPSObjectCompute";
 
+QString LabRPS::ComputeCDFVectorP = "ComputeCDFVectorP";
+QString LabRPS::ComputeGustFactorVectorP = "ComputeGustFactorVectorP";
+QString LabRPS::ComputeKurtosisVectorP = "ComputeKurtosisVectorP";
+QString LabRPS::ComputePeakFactorVectorP = "ComputePeakFactorVectorP";
+QString LabRPS::ComputePDFVectorP = "ComputePDFVectorP";
+QString LabRPS::ComputeRoughnessVectorP = "ComputeRoughnessVectorP";
+QString LabRPS::ComputeShearVelocityOfFlowVectorP = "ComputeShearVelocityOfFlowVectorP";
+QString LabRPS::ComputeSkewnessVectorP = "ComputeSkewnessVectorP";
+QString LabRPS::ComputeStandardDeviationVectorP = "ComputeStandardDeviationVectorP";
+QString LabRPS::ComputeTurbulenceIntensityVectorP = "ComputeTurbulenceIntensityVectorP";
+QString LabRPS::ComputeTurbulenceScaleVectorP = "ComputeTurbulenceScaleVectorP";
+QString LabRPS::ComputeVarianceVectorP = "ComputeVarianceVectorP";
+QString LabRPS::ComputeWavePassageEffectVectorF = "ComputeWavePassageEffectVectorF";
+QString LabRPS::ComputeWavePassageEffectVectorT = "ComputeWavePassageEffectVectorT";
 
 
 QStringList LabRPS::locales_ = QStringList();

@@ -30,7 +30,9 @@ IntroPage::IntroPage(int installationType, QString installingPluginName, QWidget
     : QWizardPage(parent)
 {
     setTitle(tr("Welcome to RPS Plugin Installer"));
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(":icons/images/watermark1.png"));
+    QPixmap pixmap(":pixmap/watermark1.png");
+
+    setPixmap(QWizard::WatermarkPixmap, pixmap);
 
     label = new QLabel(tr("This wizard will guide you through the installation "
                           "of plugins or objecs. Please, click next to continue."));

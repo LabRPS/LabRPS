@@ -35,8 +35,8 @@ PluginInstallerBrowser::PluginInstallerBrowser(QWidget *parent) : QDialog(parent
 	ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	ui->tableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
-	ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
-	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+//	ui->tableWidget->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+//	ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	ui->tableWidget->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 	ui->tableWidget->verticalHeader()->setDefaultAlignment(Qt::AlignHCenter);

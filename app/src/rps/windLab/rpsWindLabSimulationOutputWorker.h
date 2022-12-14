@@ -39,6 +39,23 @@ public slots:
     void meanWindVelocityOut();
     void randomPhaseOut();
 
+    void cumulativeProbabilityDistributionOutp();
+    void gustFactorOutp();
+    void kurtosisOutp();
+    void peakFactorOutp();
+    void probabilityDensityFunctionOutp();
+    void roughnessOutp();
+    void shearVelocityOfFlowOutp();
+    void skewnessOutp();
+    void standardDeviationOutp();
+    void turbulenceIntensityOutp();
+    void turbulenceScaleOutp();
+    void varianceOutp();
+    void wavePassageEffectOutp();
+
+
+
+
 signals:
     void sendInformation(QStringList infoList);
     void progressBarShow();
@@ -62,6 +79,20 @@ signals:
     void showModulationOutput();
     void showMeanWindVelocityOutput();
     void showRandomPhaseOutput();
+
+    void showCumulativeProbabilityDistributionOutput();
+    void showGustFactorOutput();
+    void showKurtosisOutput();
+    void showPeakFactorOutput();
+    void showProbabilityDensityFunctionOutput();
+    void showRoughnessOutput();
+    void showShearVelocityOfFlowOutput();
+    void showSkewnessOutput();
+    void showStandardDeviationOutput();
+    void showTurbulenceIntensityOutput();
+    void showTurbulenceScaleOutput();
+    void showVarianceOutput();
+    void showWavePassageEffectOutput();
 
 public:
     // output
@@ -99,9 +130,15 @@ public:
 
     mat m_ResultMatrix;
     mat m_ResultMatrix2;
+    int workerOutputType;
 
 public:
     QStringList getInformation();
+
+    QString tableName;
+    QString plotTitle;
+    QString plotxlable;
+    QString plotylabel;
 };
 
 #endif // RPSWINDLABSIMULATIONOUTPUTWORKER_H

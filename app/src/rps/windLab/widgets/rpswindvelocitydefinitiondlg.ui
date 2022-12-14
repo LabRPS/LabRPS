@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>302</width>
+    <width>303</width>
     <height>566</height>
    </rect>
   </property>
@@ -35,20 +35,52 @@
      <x>10</x>
      <y>120</y>
      <width>281</width>
-     <height>71</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="title">
     <string>Stationarity</string>
    </property>
+   <widget class="QRadioButton" name="radioButtonUniformModulation">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>70</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Uniform Modulation</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup_3</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="radioButtonGeneralModulation">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>70</y>
+      <width>131</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>General Modulation</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup_3</string>
+    </attribute>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBoxGaussianity">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>210</y>
+     <y>230</y>
      <width>281</width>
-     <height>71</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="title">
@@ -71,7 +103,7 @@
   <widget class="QRadioButton" name="radioButtonStationary">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>150</y>
      <width>89</width>
      <height>20</height>
@@ -107,7 +139,7 @@
   <widget class="QRadioButton" name="radioButtonNonStationary">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>160</x>
      <y>150</y>
      <width>101</width>
      <height>20</height>
@@ -123,8 +155,8 @@
   <widget class="QRadioButton" name="radioButtonGaussion">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>240</y>
+     <x>20</x>
+     <y>250</y>
      <width>89</width>
      <height>20</height>
     </rect>
@@ -293,8 +325,8 @@
   <widget class="QRadioButton" name="radioButtonNonGaussion">
    <property name="geometry">
     <rect>
-     <x>180</x>
-     <y>240</y>
+     <x>160</x>
+     <y>250</y>
      <width>101</width>
      <height>20</height>
     </rect>
@@ -374,5 +406,6 @@
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>

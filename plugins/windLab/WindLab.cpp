@@ -27,7 +27,7 @@
 #include "RPSvonKarmanAlongWindSpectrum.h"
 #include "RPSvonKarmanAcrossWindSpectrum.h"
 #include "RPSvonKarmanVerticalWindSpectrum.h"
-
+#include "RPSDHLowProfile.h"
 
 #include "RPSWindLabpluginAPI.h"
 
@@ -107,6 +107,17 @@ RPS_PLUGIN_FUNC void DestroyRPSLogarithmicLowProfile(IrpsWLMean *r)
     delete r;
 }
 
+///////////////////////mean wind speed D&H low profile/////////////////
+
+RPS_PLUGIN_FUNC IrpsWLMean *BuildRPSDHLowProfile()
+{
+    return new CRPSDHLowProfile;
+}
+
+RPS_PLUGIN_FUNC void DestroyRPSDHLowProfile(IrpsWLMean *r)
+{
+    delete r;
+}
 
 ////////////////////////Double Index Freq//////////////////////////////////////////
 RPS_PLUGIN_FUNC IrpsWLFrequencyDistribution *BuildRPSDoubleIndexFreq()
@@ -350,6 +361,7 @@ PLUGIN_INIT()
     InitializeLocationDistribution("Vertical Distribution", strPluginName, "LabRPS", "LabRPS", "LabRPS", "01/01/2023", "1.00");
     InitializeMean("RPS Power Low", strPluginName, "Analysis of the wind field characteristics induced by the 2019 Typhoon Bailu for the high-speed railway bridge crossing China’s southeast bay", "https://doi.org/10.1016/j.jweia.2021.104557", "Gonglian Dai, Zhiwei Xu, Y. Frank Chen, Richard G.J. Flay, Huiming Rao", "01/01/2023", "1.00");
     InitializeMean("RPS Logarithmic Low", strPluginName, "Analysis of the wind field characteristics induced by the 2019 Typhoon Bailu for the high-speed railway bridge crossing China’s southeast bay", "https://doi.org/10.1016/j.jweia.2021.104557", "Gonglian Dai, Zhiwei Xu, Y. Frank Chen, Richard G.J. Flay, Huiming Rao", "01/01/2023", "1.00");
+    InitializeMean("RPS Deaves and Harris", strPluginName, "Advanced Structural Wind Engineering", "https://link.springer.com/book/10.1007/978-4-431-54337-4", "Yukio Tamura, Ahsan Kareem", " Springer Japan 2013", "1.00");
     InitializeXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName, "Spectral characteristics of surface-layer turbulence", "To be given", "Kaimal, J. C. et al", "In 1972", "1.00");
     InitializeYSpectrum(("Kaimal Across Wind Spectrum"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "01/01/2023", "1.00");
     InitializeZSpectrum(("Kaimal Vertical Wind Spectrum"), strPluginName, ("Uniform Random Phases"), ("Uniform Random Phases"), ("Uniform Random Phases"), "01/01/2023", "1.00");
@@ -384,6 +396,8 @@ INSTALL_PLUGIN()
     RegisterLocationDistribution(("Vertical Distribution"), strPluginName, ("This object allows you to define a set of locations which are uniformly disctributed along a vertical axis"), BuildVerticalDistr, DestroyVerticalDistr);
     RegisterMean(("RPS Power Low"), strPluginName, ("This is the power low mean wind profile"), BuildRPSPowerLowProfile, DestroyRPSPowerLowProfile);
     RegisterMean(("RPS Logarithmic Low"), strPluginName, ("This is the logarithmic low mean wind profile"), BuildRPSLogarithmicLowProfile, DestroyRPSLogarithmicLowProfile);
+    RegisterMean("RPS Deaves and Harris", strPluginName, ("This is the Deaves and Harris model for mean wind profile"), BuildRPSDHLowProfile, DestroyRPSDHLowProfile);
+
     RegisterXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName, ("Allow wind spectrum according to Kaimal"), BuildRPSKaimalSpectr, DestroyRPSKaimalSpectr);
     RegisterYSpectrum(("Kaimal Across Wind Spectrum"), strPluginName, ("Allow wind spectrum according to Kaimal"), BuildRPSKaimalAcrossSpectr, DestroyRPSKaimalAcrossSpectr);
     RegisterZSpectrum(("Kaimal Vertical Wind Spectrum"), strPluginName, ("Allow wind spectrum according to Kaimal"), BuildRPSKaimalVerticalSpectr, DestroyRPSKaimalVerticalSpectr);
@@ -418,6 +432,7 @@ UNINSTALL_PLUGIN()
     UnregisterLocationDistribution(("Vertical Distribution"), strPluginName);
     UnregisterMean(("RPS Power Low"), strPluginName);
     UnregisterMean(("RPS Logarithmic Low"), strPluginName);
+    UnregisterMean("RPS Deaves and Harris", strPluginName);
     UnregisterXSpectrum(("Kaimal Along Wind Spectrum"), strPluginName);
     UnregisterYSpectrum(("Kaimal Across Wind Spectrum"), strPluginName);
     UnregisterZSpectrum(("Kaimal Vertical Wind Spectrum"), strPluginName);

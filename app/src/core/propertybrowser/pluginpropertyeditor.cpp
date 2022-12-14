@@ -664,8 +664,437 @@ void PluginPropertyEditor::windLabSelectObjectItem(QTreeWidgetItem *item)
 
         }
         break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabCumulativeProbabilityDistribution:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupCumulativeProbabilityDistribution;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabGustFactor:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupGustFactor;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabKurtosis:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupKurtosis;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabPeakFactor:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupPeakFactor;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabProbabilityDensityFunction:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupProbabilityDensityFunction;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabRoughness:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupRoughness;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabShearVelocityOfFlow:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupShearVelocityOfFlow;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabSkewness:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupSkewness;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabStandardDeviation:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupStandardDeviation;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceIntensity:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupTurbulenceIntensity;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceScale:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupTurbulenceScale;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabVariance:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupVariance;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }
+
+    
+        }
+        break;
+        case MyTreeWidget::WindLabObjectPropertyItemType::WindLabWavePassageEffect:
+        {
+                  // parent text of the selected item
+                QString selectedItemParentText = item->parent()->text(0);
+
+                // text of the selected item
+                QString itemtext = item->data(0, Qt::UserRole + 1).value<QString>();
+
+                // object group
+                QString itemGroup = LabRPS::objGroupWavePassageEffect;
+
+                // iterator to search trough the map
+                std::map<const QString, QString>::iterator it;
+
+                // get the number of object in location distribution objects group
+                int count = GetNumberOfWindLabPlggedObject(itemGroup, selectedItemParentText);
+
+                // check if the seclected item is the location distribution objects group
+                if (itemtext == itemGroup)
+                {
+                        if (count > 0)
+                        {
+                            WindLabParentObjectPropertyBlock(itemGroup, count);
+                        }
+                }else if(selectedItemParentText == itemGroup) // check if the parent of the seclected item is the location distribution objects group
+                {
+                   ObjectDescription objectDescription = GetWindLabPluggedObjectDescription(itemGroup, itemtext);
+                   WindLabObjectPropertyBlock(itemGroup, objectDescription);
+                }    
+        }
+        break;
         }
 }
+
+ 
 void PluginPropertyEditor::seaLabSelectObjectItem(QTreeWidgetItem *item)
 {
 
@@ -1415,7 +1844,7 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
                                               IconLoader::load("graph2d-layout", IconLoader::LightDark));
                                 groupItem->setData(
                                     0, Qt::UserRole,
-                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabCoherence));
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabUserDefinedRPSObject));
                                 groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
    
                                 // Iterate though the map and show all the registed location distribution in the combo box
@@ -1440,6 +1869,526 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
                                 }
                                 
                         }
+                        // user defined rps object
+                        if (!CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap().empty())
+                        {
+                             QString itemtext = LabRPS::objGroupCumulativeProbabilityDistribution;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabCumulativeProbabilityDistribution));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap().begin(); it != CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabCumulativeProbabilityDistribution));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }   
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsGustFactorFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupGustFactor;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabGustFactor));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsGustFactorFactory::GetOjectAndPluginMap().begin(); it != CrpsGustFactorFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabGustFactor));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsKurtosisFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupKurtosis;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabKurtosis));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsKurtosisFactory::GetOjectAndPluginMap().begin(); it != CrpsKurtosisFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabKurtosis));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsPeakFactorFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupPeakFactor;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabPeakFactor));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsPeakFactorFactory::GetOjectAndPluginMap().begin(); it != CrpsPeakFactorFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabPeakFactor));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupProbabilityDensityFunction;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabProbabilityDensityFunction));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap().begin(); it != CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabProbabilityDensityFunction));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsRoughnessFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupRoughness;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabRoughness));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsRoughnessFactory::GetOjectAndPluginMap().begin(); it != CrpsRoughnessFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabRoughness));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupShearVelocityOfFlow;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabShearVelocityOfFlow));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap().begin(); it != CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabShearVelocityOfFlow));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsSkewnessFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupSkewness;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabSkewness));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsSkewnessFactory::GetOjectAndPluginMap().begin(); it != CrpsSkewnessFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabSkewness));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsStandardDeviationFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupStandardDeviation;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabStandardDeviation));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsStandardDeviationFactory::GetOjectAndPluginMap().begin(); it != CrpsStandardDeviationFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabStandardDeviation));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupTurbulenceIntensity;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceIntensity));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap().begin(); it != CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceIntensity));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsTurbulenceScaleFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupTurbulenceScale;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceScale));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsTurbulenceScaleFactory::GetOjectAndPluginMap().begin(); it != CrpsTurbulenceScaleFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabTurbulenceScale));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsVarianceFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupVariance;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabVariance));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsVarianceFactory::GetOjectAndPluginMap().begin(); it != CrpsVarianceFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabVariance));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
+                        // user defined rps object
+                        if (!CrpsWavePassageEffectFactory::GetOjectAndPluginMap().empty())
+                        {
+                                QString itemtext = LabRPS::objGroupWavePassageEffect;
+
+                                // create a new node that will be added under the plugin node
+                                QTreeWidgetItem *groupItem = new QTreeWidgetItem(
+                                    static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                // set tooltip and icon
+                                groupItem->setToolTip(0, itemtext);
+                                groupItem->setIcon(0,
+                                              IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                groupItem->setData(
+                                    0, Qt::UserRole,
+                                    static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabWavePassageEffect));
+                                groupItem->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+   
+                                // Iterate though the map and show all the registed location distribution in the combo box
+                                for (it = CrpsWavePassageEffectFactory::GetOjectAndPluginMap().begin(); it != CrpsWavePassageEffectFactory::GetOjectAndPluginMap().end(); ++it)
+                                {
+                                       if(it->second == installedpluginitemtext)
+                                       {
+                                        QString itemtext = it->first;
+                                        QTreeWidgetItem *item = new QTreeWidgetItem(
+                                            static_cast<QTreeWidget *>(nullptr), QStringList(itemtext));
+
+                                        item->setToolTip(0, itemtext);
+                                        item->setIcon(0,
+                                                      IconLoader::load("graph2d-layout", IconLoader::LightDark));
+                                        item->setData(
+                                            0, Qt::UserRole,
+                                            static_cast<int>(MyTreeWidget::WindLabObjectPropertyItemType::WindLabWavePassageEffect));
+                                        item->setData(0, Qt::UserRole + 1, QVariant(itemtext));
+                                        installedpluginitem->addChild(groupItem);
+                                        groupItem->addChild(item);
+                                       }
+                                }
+                        
+                        }
                 }
 
                 // add to Tree
@@ -1449,6 +2398,7 @@ void PluginPropertyEditor::windLabPopulateObjectBrowser(MyWidget *widget)
         }
         // tableConnections(table);
 }
+
 void PluginPropertyEditor::seaLabPopulateObjectBrowser(MyWidget *widget)
 {
         // delete all TreeWidgetItems
@@ -1830,229 +2780,334 @@ ObjectDescription PluginPropertyEditor::GetWindLabPluggedObjectDescription(const
 
         if (objectGroup == LabRPS::objGroupLocationDistribution)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsLocationDistributionFactory::GetOjectDescriptionMap()[objectName];
-			
-			pubTitle = CrpsLocationDistributionFactory::GetTitleMap()[objectName];
-			pubLink = CrpsLocationDistributionFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsLocationDistributionFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsLocationDistributionFactory::GetDateMap()[objectName];
-			version = CrpsLocationDistributionFactory::GetVersionMap()[objectName];
-		}
+            descrip = CrpsLocationDistributionFactory::GetOjectDescriptionMap()[objectName];
+
+            pubTitle = CrpsLocationDistributionFactory::GetTitleMap()[objectName];
+            pubLink = CrpsLocationDistributionFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsLocationDistributionFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsLocationDistributionFactory::GetDateMap()[objectName];
+            version = CrpsLocationDistributionFactory::GetVersionMap()[objectName];
+
 	}
 	else if (objectGroup == LabRPS::objGroupMeanWindProfile)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsMeanFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsMeanFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsMeanFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsMeanFactory::GetTitleMap()[objectName];
-			pubLink = CrpsMeanFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsMeanFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsMeanFactory::GetDateMap()[objectName];
-			version = CrpsMeanFactory::GetVersionMap()[objectName];
-		}
+            pubTitle = CrpsMeanFactory::GetTitleMap()[objectName];
+            pubLink = CrpsMeanFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsMeanFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsMeanFactory::GetDateMap()[objectName];
+            version = CrpsMeanFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupAlongWindSpectrum)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsXSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsXSpectrumFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsXSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsXSpectrumFactory::GetTitleMap()[objectName];
-			pubLink = CrpsXSpectrumFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsXSpectrumFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsXSpectrumFactory::GetDateMap()[objectName];
-			version = CrpsXSpectrumFactory::GetVersionMap()[objectName];
-		}
+            pubTitle = CrpsXSpectrumFactory::GetTitleMap()[objectName];
+            pubLink = CrpsXSpectrumFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsXSpectrumFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsXSpectrumFactory::GetDateMap()[objectName];
+            version = CrpsXSpectrumFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupAcrossWindSpectrum)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsYSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsYSpectrumFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsYSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsYSpectrumFactory::GetTitleMap()[objectName];
-			pubLink = CrpsYSpectrumFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsYSpectrumFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsYSpectrumFactory::GetDateMap()[objectName];
-			version = CrpsYSpectrumFactory::GetVersionMap()[objectName];
-		}
+            pubTitle = CrpsYSpectrumFactory::GetTitleMap()[objectName];
+            pubLink = CrpsYSpectrumFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsYSpectrumFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsYSpectrumFactory::GetDateMap()[objectName];
+            version = CrpsYSpectrumFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupVerticalWindSpectrum)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsZSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsZSpectrumFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsZSpectrumFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsZSpectrumFactory::GetTitleMap()[objectName];
-			pubLink = CrpsZSpectrumFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsZSpectrumFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsZSpectrumFactory::GetDateMap()[objectName];
-			version = CrpsZSpectrumFactory::GetVersionMap()[objectName];
-
-		}
+            pubTitle = CrpsZSpectrumFactory::GetTitleMap()[objectName];
+            pubLink = CrpsZSpectrumFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsZSpectrumFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsZSpectrumFactory::GetDateMap()[objectName];
+            version = CrpsZSpectrumFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupSpectrumDecompositionMethod)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsPSDdecomMethodFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsPSDdecomMethodFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsPSDdecomMethodFactory::GetTitleMap()[objectName];
-			pubLink = CrpsPSDdecomMethodFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsPSDdecomMethodFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsPSDdecomMethodFactory::GetDateMap()[objectName];
-			version = CrpsPSDdecomMethodFactory::GetVersionMap()[objectName];
-
-		}
+            pubTitle = CrpsPSDdecomMethodFactory::GetTitleMap()[objectName];
+            pubLink = CrpsPSDdecomMethodFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsPSDdecomMethodFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsPSDdecomMethodFactory::GetDateMap()[objectName];
+            version = CrpsPSDdecomMethodFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupCoherenceFunction)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsCoherenceFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsCoherenceFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsCoherenceFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsCoherenceFactory::GetTitleMap()[objectName];
-			pubLink = CrpsCoherenceFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsCoherenceFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsCoherenceFactory::GetDateMap()[objectName];
-			version = CrpsCoherenceFactory::GetVersionMap()[objectName];
-		}
+            pubTitle = CrpsCoherenceFactory::GetTitleMap()[objectName];
+            pubLink = CrpsCoherenceFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsCoherenceFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsCoherenceFactory::GetDateMap()[objectName];
+            version = CrpsCoherenceFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupSimulationMethod)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsSimuMethodFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsSimuMethodFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsSimuMethodFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsSimuMethodFactory::GetTitleMap()[objectName];
-			pubLink = CrpsSimuMethodFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsSimuMethodFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsSimuMethodFactory::GetDateMap()[objectName];
-			version = CrpsSimuMethodFactory::GetVersionMap()[objectName];
-
-		}
+            pubTitle = CrpsSimuMethodFactory::GetTitleMap()[objectName];
+            pubLink = CrpsSimuMethodFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsSimuMethodFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsSimuMethodFactory::GetDateMap()[objectName];
+            version = CrpsSimuMethodFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupFrequencyDistribution)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsFrequencyDistributionFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsFrequencyDistributionFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsFrequencyDistributionFactory::GetTitleMap()[objectName];
-			pubLink = CrpsFrequencyDistributionFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsFrequencyDistributionFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsFrequencyDistributionFactory::GetDateMap()[objectName];
-			version = CrpsFrequencyDistributionFactory::GetVersionMap()[objectName];
-
-		}
+            pubTitle = CrpsFrequencyDistributionFactory::GetTitleMap()[objectName];
+            pubLink = CrpsFrequencyDistributionFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsFrequencyDistributionFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsFrequencyDistributionFactory::GetDateMap()[objectName];
+            version = CrpsFrequencyDistributionFactory::GetVersionMap()[objectName];
 	}
 	else if (objectGroup == LabRPS::objGroupRandomnessProvider)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsRandomnessFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsRandomnessFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsRandomnessFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsRandomnessFactory::GetTitleMap()[objectName];
-			pubLink = CrpsRandomnessFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsRandomnessFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsRandomnessFactory::GetDateMap()[objectName];
-			version = CrpsRandomnessFactory::GetVersionMap()[objectName];
+            pubTitle = CrpsRandomnessFactory::GetTitleMap()[objectName];
+            pubLink = CrpsRandomnessFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsRandomnessFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsRandomnessFactory::GetDateMap()[objectName];
+            version = CrpsRandomnessFactory::GetVersionMap()[objectName];
 
-		}
 	}
 	else if (objectGroup == LabRPS::objGroupModulationFunction)
 	{
-		if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-		{
             pluginName = CrpsModulationFactory::GetTobeInstalledObjectsMap()[objectName];
-			descrip = CrpsModulationFactory::GetOjectDescriptionMap()[objectName];
+            descrip = CrpsModulationFactory::GetOjectDescriptionMap()[objectName];
 
-			pubTitle = CrpsModulationFactory::GetTitleMap()[objectName];
-			pubLink = CrpsModulationFactory::GetLinkMap()[objectName];
-			pubAuthor = CrpsModulationFactory::GetAuthorMap()[objectName];
-			pubDate = CrpsModulationFactory::GetDateMap()[objectName];
-			version = CrpsModulationFactory::GetVersionMap()[objectName];
-
-		}
+            pubTitle = CrpsModulationFactory::GetTitleMap()[objectName];
+            pubLink = CrpsModulationFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsModulationFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsModulationFactory::GetDateMap()[objectName];
+            version = CrpsModulationFactory::GetVersionMap()[objectName];
 	}
         else if (objectGroup == LabRPS::objGroupTableTool)
         {
-            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-            {
-                pluginName = CrpsTableToolFactory::GetTobeInstalledObjectsMap()[objectName];
-                descrip = CrpsTableToolFactory::GetOjectDescriptionMap()[objectName];
+            pluginName = CrpsTableToolFactory::GetTobeInstalledObjectsMap()[objectName];
+            descrip = CrpsTableToolFactory::GetOjectDescriptionMap()[objectName];
 
-                pubTitle = CrpsTableToolFactory::GetTitleMap()[objectName];
-                pubLink = CrpsTableToolFactory::GetLinkMap()[objectName];
-                pubAuthor = CrpsTableToolFactory::GetAuthorMap()[objectName];
-                pubDate = CrpsTableToolFactory::GetDateMap()[objectName];
-                version = CrpsTableToolFactory::GetVersionMap()[objectName];
+            pubTitle = CrpsTableToolFactory::GetTitleMap()[objectName];
+            pubLink = CrpsTableToolFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsTableToolFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsTableToolFactory::GetDateMap()[objectName];
+            version = CrpsTableToolFactory::GetVersionMap()[objectName];
 
-            }
         }
         else if (objectGroup == LabRPS::objGroupMatrixTool)
         {
-            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-            {
-                pluginName = CrpsMatrixToolFactory::GetTobeInstalledObjectsMap()[objectName];
-                descrip = CrpsMatrixToolFactory::GetOjectDescriptionMap()[objectName];
+            pluginName = CrpsMatrixToolFactory::GetTobeInstalledObjectsMap()[objectName];
+            descrip = CrpsMatrixToolFactory::GetOjectDescriptionMap()[objectName];
 
-                pubTitle = CrpsMatrixToolFactory::GetTitleMap()[objectName];
-                pubLink = CrpsMatrixToolFactory::GetLinkMap()[objectName];
-                pubAuthor = CrpsMatrixToolFactory::GetAuthorMap()[objectName];
-                pubDate = CrpsMatrixToolFactory::GetDateMap()[objectName];
-                version = CrpsMatrixToolFactory::GetVersionMap()[objectName];
+            pubTitle = CrpsMatrixToolFactory::GetTitleMap()[objectName];
+            pubLink = CrpsMatrixToolFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsMatrixToolFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsMatrixToolFactory::GetDateMap()[objectName];
+            version = CrpsMatrixToolFactory::GetVersionMap()[objectName];
 
-            }
         }
         else if (objectGroup == LabRPS::objGroupUserDefinedRPSObject)
         {
-            if (!PluginManager::GetInstance().GetInstalledPluginsNameMap().empty())
-            {
-                pluginName = CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap()[objectName];
-                descrip = CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap()[objectName];
+            pluginName = CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap()[objectName];
+            descrip = CrpsUserDefinedRPSObjectFactory::GetOjectDescriptionMap()[objectName];
 
-                pubTitle = CrpsUserDefinedRPSObjectFactory::GetTitleMap()[objectName];
-                pubLink = CrpsUserDefinedRPSObjectFactory::GetLinkMap()[objectName];
-                pubAuthor = CrpsUserDefinedRPSObjectFactory::GetAuthorMap()[objectName];
-                pubDate = CrpsUserDefinedRPSObjectFactory::GetDateMap()[objectName];
-                version = CrpsUserDefinedRPSObjectFactory::GetVersionMap()[objectName];
+            pubTitle = CrpsUserDefinedRPSObjectFactory::GetTitleMap()[objectName];
+            pubLink = CrpsUserDefinedRPSObjectFactory::GetLinkMap()[objectName];
+            pubAuthor = CrpsUserDefinedRPSObjectFactory::GetAuthorMap()[objectName];
+            pubDate = CrpsUserDefinedRPSObjectFactory::GetDateMap()[objectName];
+            version = CrpsUserDefinedRPSObjectFactory::GetVersionMap()[objectName];
 
-            }
+        }
+        else if (objectGroup == LabRPS::objGroupCumulativeProbabilityDistribution)
+        {
+                pluginName = CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsCumulativeProbabilityDistributionFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsCumulativeProbabilityDistributionFactory::GetTitleMap()[objectName];
+                pubLink = CrpsCumulativeProbabilityDistributionFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsCumulativeProbabilityDistributionFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsCumulativeProbabilityDistributionFactory::GetDateMap()[objectName];
+                version = CrpsCumulativeProbabilityDistributionFactory::GetVersionMap()[objectName];
+        }
+        else if (objectGroup == LabRPS::objGroupGustFactor)
+        {
+                pluginName = CrpsGustFactorFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsGustFactorFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsGustFactorFactory::GetTitleMap()[objectName];
+                pubLink = CrpsGustFactorFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsGustFactorFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsGustFactorFactory::GetDateMap()[objectName];
+                version = CrpsGustFactorFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupKurtosis)
+        {
+                pluginName = CrpsKurtosisFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsKurtosisFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsKurtosisFactory::GetTitleMap()[objectName];
+                pubLink = CrpsKurtosisFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsKurtosisFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsKurtosisFactory::GetDateMap()[objectName];
+                version = CrpsKurtosisFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupPeakFactor)
+        {
+                pluginName = CrpsPeakFactorFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsPeakFactorFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsPeakFactorFactory::GetTitleMap()[objectName];
+                pubLink = CrpsPeakFactorFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsPeakFactorFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsPeakFactorFactory::GetDateMap()[objectName];
+                version = CrpsPeakFactorFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupProbabilityDensityFunction)
+        {
+                pluginName = CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsProbabilityDensityFunctionFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsProbabilityDensityFunctionFactory::GetTitleMap()[objectName];
+                pubLink = CrpsProbabilityDensityFunctionFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsProbabilityDensityFunctionFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsProbabilityDensityFunctionFactory::GetDateMap()[objectName];
+                version = CrpsProbabilityDensityFunctionFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupRoughness)
+        {
+                pluginName = CrpsRoughnessFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsRoughnessFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsRoughnessFactory::GetTitleMap()[objectName];
+                pubLink = CrpsRoughnessFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsRoughnessFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsRoughnessFactory::GetDateMap()[objectName];
+                version = CrpsRoughnessFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupShearVelocityOfFlow)
+        {
+                pluginName = CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsShearVelocityOfFlowFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsShearVelocityOfFlowFactory::GetTitleMap()[objectName];
+                pubLink = CrpsShearVelocityOfFlowFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsShearVelocityOfFlowFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsShearVelocityOfFlowFactory::GetDateMap()[objectName];
+                version = CrpsShearVelocityOfFlowFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupSkewness)
+        {
+                pluginName = CrpsSkewnessFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsSkewnessFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsSkewnessFactory::GetTitleMap()[objectName];
+                pubLink = CrpsSkewnessFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsSkewnessFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsSkewnessFactory::GetDateMap()[objectName];
+                version = CrpsSkewnessFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupStandardDeviation)
+        {
+                pluginName = CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsStandardDeviationFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsStandardDeviationFactory::GetTitleMap()[objectName];
+                pubLink = CrpsStandardDeviationFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsStandardDeviationFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsStandardDeviationFactory::GetDateMap()[objectName];
+                version = CrpsStandardDeviationFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupTurbulenceIntensity)
+        {
+                pluginName = CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsTurbulenceIntensityFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsTurbulenceIntensityFactory::GetTitleMap()[objectName];
+                pubLink = CrpsTurbulenceIntensityFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsTurbulenceIntensityFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsTurbulenceIntensityFactory::GetDateMap()[objectName];
+                version = CrpsTurbulenceIntensityFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupTurbulenceScale)
+        {
+                pluginName = CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsTurbulenceScaleFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsTurbulenceScaleFactory::GetTitleMap()[objectName];
+                pubLink = CrpsTurbulenceScaleFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsTurbulenceScaleFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsTurbulenceScaleFactory::GetDateMap()[objectName];
+                version = CrpsTurbulenceScaleFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupVariance)
+        {
+                pluginName = CrpsVarianceFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsVarianceFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsVarianceFactory::GetTitleMap()[objectName];
+                pubLink = CrpsVarianceFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsVarianceFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsVarianceFactory::GetDateMap()[objectName];
+                version = CrpsVarianceFactory::GetVersionMap()[objectName];
+            
+        }
+        else if (objectGroup == LabRPS::objGroupWavePassageEffect)
+        {
+                pluginName = CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap()[objectName];
+                descrip = CrpsWavePassageEffectFactory::GetOjectDescriptionMap()[objectName];
+
+                pubTitle = CrpsWavePassageEffectFactory::GetTitleMap()[objectName];
+                pubLink = CrpsWavePassageEffectFactory::GetLinkMap()[objectName];
+                pubAuthor = CrpsWavePassageEffectFactory::GetAuthorMap()[objectName];
+                pubDate = CrpsWavePassageEffectFactory::GetDateMap()[objectName];
+                version = CrpsWavePassageEffectFactory::GetVersionMap()[objectName];
+            
         }
 
-	if (PluginManager::GetInstance().GetInstalledPluginsNameMap().find(pluginName) != PluginManager::GetInstance().GetInstalledPluginsNameMap().end())
-	{
-		pluggedObjectDescription.m_pluginName = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetDisplayName();
-		pluggedObjectDescription.m_releaseDate = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginReleaseDate();
-		pluggedObjectDescription.m_path = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginSubFolder();
-		pluggedObjectDescription.m_author = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginAuthor();
-		pluggedObjectDescription.m_pluginVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginVersion();
-		pluggedObjectDescription.m_labRPSVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetLabRPSVersion();
-		pluggedObjectDescription.m_apiVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetAPIVersion();
-		pluggedObjectDescription.m_objectName = objectName;
+        pluggedObjectDescription.m_pluginName = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetDisplayName();
+        pluggedObjectDescription.m_releaseDate = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginReleaseDate();
+        pluggedObjectDescription.m_path = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginSubFolder();
+        pluggedObjectDescription.m_author = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginAuthor();
+        pluggedObjectDescription.m_pluginVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetPluginVersion();
+        pluggedObjectDescription.m_labRPSVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetLabRPSVersion();
+        pluggedObjectDescription.m_apiVersion = PluginManager::GetInstance().GetInstalledPluginsNameMap()[pluginName]->GetAPIVersion();
+        pluggedObjectDescription.m_objectName = objectName;
         pluggedObjectDescription.m_version = version;
-		pluggedObjectDescription.m_description = descrip;
-		pluggedObjectDescription.m_publicationTitle = pubTitle;
-		pluggedObjectDescription.m_publicationLink = pubLink;
-		pluggedObjectDescription.m_publicationAuthor = pubAuthor;
-		pluggedObjectDescription.m_publicationDate = pubDate;
+        pluggedObjectDescription.m_description = descrip;
+        pluggedObjectDescription.m_publicationTitle = pubTitle;
+        pluggedObjectDescription.m_publicationLink = pubLink;
+        pluggedObjectDescription.m_publicationAuthor = pubAuthor;
+        pluggedObjectDescription.m_publicationDate = pubDate;
 
-	}
-	
         return pluggedObjectDescription;
 }
 
@@ -2117,6 +3172,74 @@ QString  PluginPropertyEditor::GetWindLabObjectSelectionState(const QString &obj
     {
         return objectName == windLabsimuData.userDefinedRPSObject ? yesResult : noResult;
     }
+    else if (objectGroup == LabRPS::objGroupCumulativeProbabilityDistribution)
+        {
+          return objectName == windLabsimuData.cumulativeProbabilityDistribution ? yesResult : noResult;
+
+        }
+        else if (objectGroup == LabRPS::objGroupGustFactor)
+        {
+                          return objectName == windLabsimuData.gustFactor ? yesResult : noResult;
+
+                            
+        }
+        else if (objectGroup == LabRPS::objGroupKurtosis)
+        {
+                          return objectName == windLabsimuData.kurtosis ? yesResult : noResult;
+
+                           
+        }
+        else if (objectGroup == LabRPS::objGroupPeakFactor)
+        {
+                          return objectName == windLabsimuData.peakFactor ? yesResult : noResult;
+
+                           
+        }
+        else if (objectGroup == LabRPS::objGroupProbabilityDensityFunction)
+        {
+                      return objectName == windLabsimuData.probabilityDensityFunction ? yesResult : noResult;
+               
+        }
+        else if (objectGroup == LabRPS::objGroupRoughness)
+        {
+                     return objectName == windLabsimuData.roughness ? yesResult : noResult;
+               
+        }
+        else if (objectGroup == LabRPS::objGroupShearVelocityOfFlow)
+        {
+                        return objectName == windLabsimuData.shearVelocityOfFlow ? yesResult : noResult;
+             
+        }
+        else if (objectGroup == LabRPS::objGroupSkewness)
+        {
+                       return objectName == windLabsimuData.skewness ? yesResult : noResult;
+             
+        }
+        else if (objectGroup == LabRPS::objGroupStandardDeviation)
+        {
+                       return objectName == windLabsimuData.standardDeviation ? yesResult : noResult;
+             
+        }
+        else if (objectGroup == LabRPS::objGroupTurbulenceIntensity)
+        {
+                      return objectName == windLabsimuData.turbulenceIntensity ? yesResult : noResult;
+
+        }
+        else if (objectGroup == LabRPS::objGroupTurbulenceScale)
+        {
+                       return objectName == windLabsimuData.turbulenceScale ? yesResult : noResult;
+            
+        }
+        else if (objectGroup == LabRPS::objGroupVariance)
+        {
+                        return objectName == windLabsimuData.variance ? yesResult : noResult;
+             
+        }
+        else if (objectGroup == LabRPS::objGroupWavePassageEffect)
+        {
+                       return objectName == windLabsimuData.wavePassageEffect ? yesResult : noResult;
+             
+        }
 
 	return noResult;
 }
@@ -2191,7 +3314,7 @@ int PluginPropertyEditor::GetNumberOfWindLabPlggedObject(const QString &itemText
                         }
                 }
                 return count;
-		return CrpsPSDdecomMethodFactory::GetPSDdecomMethodNamesMap().size();
+        return CrpsPSDdecomMethodFactory::GetObjectNamesMap().size();
 	}
 	else if (itemText == LabRPS::objGroupCoherenceFunction)
 	{
@@ -2214,7 +3337,7 @@ int PluginPropertyEditor::GetNumberOfWindLabPlggedObject(const QString &itemText
                         }
                 }
                 return count;
-		return CrpsSimuMethodFactory::GetSimuMethodNamesMap().size();
+        return CrpsSimuMethodFactory::GetObjectNamesMap().size();
 	}
 	else if (itemText == LabRPS::objGroupFrequencyDistribution)
 	{
@@ -2283,8 +3406,155 @@ int PluginPropertyEditor::GetNumberOfWindLabPlggedObject(const QString &itemText
                 return count;
     }
 
+
+    else if (itemText == LabRPS::objGroupCumulativeProbabilityDistribution)
+    {
+                 for (it = CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap().begin(); it != CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupGustFactor)
+    {
+                 for (it = CrpsGustFactorFactory::GetOjectAndPluginMap().begin(); it != CrpsGustFactorFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupKurtosis)
+    {
+                 for (it = CrpsKurtosisFactory::GetOjectAndPluginMap().begin(); it != CrpsKurtosisFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupPeakFactor)
+    {
+                 for (it = CrpsPeakFactorFactory::GetOjectAndPluginMap().begin(); it != CrpsPeakFactorFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupProbabilityDensityFunction)
+    {
+                 for (it = CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap().begin(); it != CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupRoughness)
+    {
+                 for (it = CrpsRoughnessFactory::GetOjectAndPluginMap().begin(); it != CrpsRoughnessFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupShearVelocityOfFlow)
+    {
+                 for (it = CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap().begin(); it != CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupSkewness)
+    {
+                 for (it = CrpsSkewnessFactory::GetOjectAndPluginMap().begin(); it != CrpsSkewnessFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupStandardDeviation)
+    {
+                 for (it = CrpsStandardDeviationFactory::GetOjectAndPluginMap().begin(); it != CrpsStandardDeviationFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupTurbulenceIntensity)
+    {
+                 for (it = CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap().begin(); it != CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupTurbulenceScale)
+    {
+                 for (it = CrpsTurbulenceScaleFactory::GetOjectAndPluginMap().begin(); it != CrpsTurbulenceScaleFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupVariance)
+    {
+                 for (it = CrpsVarianceFactory::GetOjectAndPluginMap().begin(); it != CrpsVarianceFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+    else if (itemText == LabRPS::objGroupWavePassageEffect)
+    {
+                 for (it = CrpsWavePassageEffectFactory::GetOjectAndPluginMap().begin(); it != CrpsWavePassageEffectFactory::GetOjectAndPluginMap().end(); ++it)
+                {
+                        if (it->second == parenttext)
+                        {
+                                count++;
+                        }
+                }
+                return count;
+    }
+
 	return 0;
 }
+
+ 
 
 //userDefinedPhenomenon
 

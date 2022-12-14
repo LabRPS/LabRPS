@@ -15,6 +15,7 @@ public:
     ~UniformRandomPhaseMatrixGenerator();
 
 void generateUniformRandomPhaseMatrix(mat &randomPhaseMatrix, const double &min, const double &max);
+void generateUniformRandomPhaseValue(double &value, const double &min, const double &max);
 
 };
 

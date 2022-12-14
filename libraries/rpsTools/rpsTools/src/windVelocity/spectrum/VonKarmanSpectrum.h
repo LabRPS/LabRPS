@@ -15,13 +15,13 @@ public:
     ~VonKarmanSpectrum();
 
     //this computes the along wind spectrum
-    double computeAlongWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, const double &integralLengthScale, const double &standardDeviation);
+    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation);
 
     //this computes the across wind spectrum
-    double computeAcrossWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, const double &integralLengthScale, const double &standardDeviation);
+    double computeAcrossWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation);
 
     //this computes the vertical wind spectrum
-    double computeVerticalWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, const double &integralLengthScale, const double &standardDeviation);
+    double computeVerticalWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation);
 
 };
 

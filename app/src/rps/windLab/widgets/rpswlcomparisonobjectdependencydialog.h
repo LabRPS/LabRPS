@@ -27,6 +27,20 @@ public slots:
     void OnBnClickedRandomnessInit( );
     void OnBnClickedSpectrumDecompInit( );
     void OnBnClickedSpectrumInit( );
+    void OnBnClickedCumulativeProbabilityDistribution( );
+    void OnBnClickedGustFactor( );
+    void OnBnClickedKurtosis( );
+    void OnBnClickedPeakFactor( );
+    void OnBnClickedProbabilityDensityFunction( );
+    void OnBnClickedRoughness( );
+    void OnBnClickedShearVelocityOfFlow( );
+    void OnBnClickedSkewness( );
+    void OnBnClickedStandardDeviation( );
+    void OnBnClickedTurbulenceIntensity( );
+    void OnBnClickedTurbulenceScale( );
+    void OnBnClickedVariance( );
+    void OnBnClickedWavePassageEffect( );
+
 private:
     Ui::RPSWLComparisonObjectDependencyDialog *ui;
 
@@ -43,6 +57,20 @@ public:
     QString spatial;
     QString randomness;
     QString spectrum;
+
+    QString cumulativeProbabilityDistribution;
+    QString gustFactor;
+    QString kurtosis;
+    QString peakFactor;
+    QString probabilityDensityFunction;
+    QString roughness;
+    QString shearVelocityOfFlow;
+    QString skewness;
+    QString standardDeviation;
+    QString turbulenceIntensity;
+    QString turbulenceScale;
+    QString variance;
+    QString wavePassageEffect;
 };
 
 #endif // RPSWLCOMPARISONOBJECTDEPENDENCYDIALOG_H

@@ -2,7 +2,7 @@
 #include "ExpoModulation.h"
 #include <QMessageBox>
 
-#include "expomodulationdialog.h"
+#include "widgets/expomodulationdialog.h"
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ExponentialModulation.h"
 
 // The decay coefficient Cx
@@ -33,15 +33,29 @@ void CExpoModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, do
     dValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 }
 
-void CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dModulationVector, QStringList &strInformation)
+void CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
-	double 	dTime;
+
     rps::WindVelocity::ExponentialModulation exponentialModulation;
 
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements; k++)
 	{
-		dTime = Data.minTime + Data.timeIncrement * k;       
-        dModulationVector(k) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
+		const double 	dTime = Data.minTime + Data.timeIncrement * k;       
+        dVarVector(k) = dTime;
+		dValVector(k) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 	}
+}
+
+void CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    rps::WindVelocity::ExponentialModulation exponentialModulation;
+    const double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
+    const double modulationValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
+     //For each time increment
+    for (int k = 0; k < Data.numberOfSpatialPosition; k++)
+    {
+        dVarVector(k) = k+1;
+        dValVector(k) = modulationValue;
+    }
 }

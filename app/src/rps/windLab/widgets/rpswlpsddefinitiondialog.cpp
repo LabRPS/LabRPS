@@ -65,7 +65,7 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	std::map<const QString, CreateXSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsXSpectrumFactory::GetXSpectrumNamesMap().begin(); psdIt != CrpsXSpectrumFactory::GetXSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsXSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsXSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);
@@ -96,7 +96,7 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	std::map<const QString, CreateYSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsYSpectrumFactory::GetYSpectrumNamesMap().begin(); psdIt != CrpsYSpectrumFactory::GetYSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsYSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsYSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);
@@ -127,7 +127,7 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	std::map<const QString, CreateZSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsZSpectrumFactory::GetZSpectrumNamesMap().begin(); psdIt != CrpsZSpectrumFactory::GetZSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsZSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsZSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);
@@ -157,7 +157,7 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	std::map<const QString, CreatePSDdecomMethodCallback> ::iterator psdDecIt;
 		
     // Iterate though the map and show all the registed spatial distribution in the combo box
-	for (psdDecIt = CrpsPSDdecomMethodFactory::GetPSDdecomMethodNamesMap().begin(); psdDecIt != CrpsPSDdecomMethodFactory::GetPSDdecomMethodNamesMap().end(); ++psdDecIt)
+    for (psdDecIt = CrpsPSDdecomMethodFactory::GetObjectNamesMap().begin(); psdDecIt != CrpsPSDdecomMethodFactory::GetObjectNamesMap().end(); ++psdDecIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxCpsdDecomp->addItem(psdDecIt->first);
@@ -185,7 +185,7 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	std::map<const QString, CreateFrequencyDistributionCallback> ::iterator freqDistrIt;
 		
     // Iterate though the map and show all the registed spatial distribution in the combo box
-	for (freqDistrIt = CrpsFrequencyDistributionFactory::GetFrequencyDistributionNamesMap().begin(); freqDistrIt != CrpsFrequencyDistributionFactory::GetFrequencyDistributionNamesMap().end(); ++freqDistrIt)
+    for (freqDistrIt = CrpsFrequencyDistributionFactory::GetObjectNamesMap().begin(); freqDistrIt != CrpsFrequencyDistributionFactory::GetObjectNamesMap().end(); ++freqDistrIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxFreqDistr->addItem(freqDistrIt->first);
@@ -269,7 +269,7 @@ void RPSWLPSDDefinitionDialog::OnBnClickedPSDModelInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLXSpectrum* currentSelection = CrpsXSpectrumFactory::BuildXSpectrum(spectrumModel);
+    IrpsWLXSpectrum* currentSelection = CrpsXSpectrumFactory::BuildObject(spectrumModel);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }
@@ -286,7 +286,7 @@ void RPSWLPSDDefinitionDialog::OnBnClickedPSDModelInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLYSpectrum* currentSelection = CrpsYSpectrumFactory::BuildYSpectrum(spectrumModel);
+    IrpsWLYSpectrum* currentSelection = CrpsYSpectrumFactory::BuildObject(spectrumModel);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }
@@ -303,7 +303,7 @@ void RPSWLPSDDefinitionDialog::OnBnClickedPSDModelInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLZSpectrum* currentSelection = CrpsZSpectrumFactory::BuildZSpectrum(spectrumModel);
+    IrpsWLZSpectrum* currentSelection = CrpsZSpectrumFactory::BuildObject(spectrumModel);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }
@@ -321,7 +321,7 @@ void RPSWLPSDDefinitionDialog::OnBnClickedPSDdecompInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLPSDdecompositionMethod* currentSelection = CrpsPSDdecomMethodFactory::BuildPSDdecomMethod(cpsdDecompositionMethod);
+    IrpsWLPSDdecompositionMethod* currentSelection = CrpsPSDdecomMethodFactory::BuildObject(cpsdDecompositionMethod);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }
@@ -338,7 +338,7 @@ void RPSWLPSDDefinitionDialog::OnBnClickedFrequencyDistrInit()
 	RPSWindLabSimulation *rpsWindLabSimulator = (RPSWindLabSimulation *)this->parent();
 
 	// Build an object
-	IrpsWLFrequencyDistribution* currentSelection = CrpsFrequencyDistributionFactory::BuildFrequencyDistribution(freqencyDistribution);
+    IrpsWLFrequencyDistribution* currentSelection = CrpsFrequencyDistributionFactory::BuildObject(freqencyDistribution);
 
 	// Check whether good object
 	if (NULL == currentSelection) { return; }
@@ -378,7 +378,7 @@ void RPSWLPSDDefinitionDialog::radioButtonAlongWindToggled(bool)
 	std::map<const QString, CreateXSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsXSpectrumFactory::GetXSpectrumNamesMap().begin(); psdIt != CrpsXSpectrumFactory::GetXSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsXSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsXSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);
@@ -418,7 +418,7 @@ void RPSWLPSDDefinitionDialog::radioButtonCrossWindToggled(bool)
 	std::map<const QString, CreateYSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsYSpectrumFactory::GetYSpectrumNamesMap().begin(); psdIt != CrpsYSpectrumFactory::GetYSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsYSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsYSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);
@@ -457,7 +457,7 @@ void RPSWLPSDDefinitionDialog::radioButtonVerticalWindToggled(bool)
 	std::map<const QString, CreateZSpectrumCallback> ::iterator psdIt;
 		
     // Iterate though the map and show all the registed spectrum models in the combo box
-	for (psdIt = CrpsZSpectrumFactory::GetZSpectrumNamesMap().begin(); psdIt != CrpsZSpectrumFactory::GetZSpectrumNamesMap().end(); ++psdIt)
+    for (psdIt = CrpsZSpectrumFactory::GetObjectNamesMap().begin(); psdIt != CrpsZSpectrumFactory::GetObjectNamesMap().end(); ++psdIt)
 	{
 		// Add it to the combo box
 		ui->comboBoxSpectrumModel->addItem(psdIt->first);

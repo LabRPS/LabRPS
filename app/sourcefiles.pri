@@ -488,6 +488,19 @@ HEADERS  += src/rps/RPSdefines.h \
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.h\
             src/rps/windLab/widgets/crpswlruntabletoolsdlg.h\
             src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.h\
+            src/rps/windLab/widgets/rpswlcumulativeprobabilitydistributiondlg.h\
+            src/rps/windLab/widgets/rpswlgustfactordlg.h\
+            src/rps/windLab/widgets/rpswlkurtosisdlg.h\
+            src/rps/windLab/widgets/rpswlpeakfactordlg.h\
+            src/rps/windLab/widgets/rpswlprobabilitydensityfunctiondlg.h\
+            src/rps/windLab/widgets/rpswlroughnessdlg.h\
+            src/rps/windLab/widgets/rpswlshearvelocityofflowdlg.h\
+            src/rps/windLab/widgets/rpswlskewnessdlg.h\
+            src/rps/windLab/widgets/rpswlstandarddeviationdlg.h\
+            src/rps/windLab/widgets/rpswlturbulenceintensitydlg.h\
+            src/rps/windLab/widgets/rpswlturbulencescaledlg.h\
+            src/rps/windLab/widgets/rpswlvariancedlg.h\
+            src/rps/windLab/widgets/rpswlwavepassageeffectdlg.h\
 
 
 SOURCES  += src/rps/RPSpluginManager.cpp\
@@ -538,7 +551,19 @@ SOURCES  += src/rps/RPSpluginManager.cpp\
             src/rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonComparisonWorker.cpp\
             src/rps/windLab/widgets/crpswlruntabletoolsdlg.cpp\
             src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.cpp\
-
+            src/rps/windLab/widgets/rpswlcumulativeprobabilitydistributiondlg.cpp\
+            src/rps/windLab/widgets/rpswlgustfactordlg.cpp\
+            src/rps/windLab/widgets/rpswlkurtosisdlg.cpp\
+            src/rps/windLab/widgets/rpswlpeakfactordlg.cpp\
+            src/rps/windLab/widgets/rpswlprobabilitydensityfunctiondlg.cpp\
+            src/rps/windLab/widgets/rpswlroughnessdlg.cpp\
+            src/rps/windLab/widgets/rpswlshearvelocityofflowdlg.cpp\
+            src/rps/windLab/widgets/rpswlskewnessdlg.cpp\
+            src/rps/windLab/widgets/rpswlstandarddeviationdlg.cpp\
+            src/rps/windLab/widgets/rpswlturbulenceintensitydlg.cpp\
+            src/rps/windLab/widgets/rpswlturbulencescaledlg.cpp\
+            src/rps/windLab/widgets/rpswlvariancedlg.cpp\
+            src/rps/windLab/widgets/rpswlwavepassageeffectdlg.cpp\
 
 FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/sealab/widgets/rpsselpsddefinitiondialog.ui\
@@ -574,5 +599,17 @@ FORMS    += src/rps/sealab/widgets/rpsseawavedefinitiondlg.ui\
             src/rps/userDefinedPhenomenon/widgets/rpsuserdefinedphenomenoncomparisontablezoomindialog.ui\
             src/rps/windLab/widgets/crpswlruntabletoolsdlg.ui\
             src/rps/windLab/widgets/crpswlrunmatrixtoolsdlg.ui\
-
+            src/rps/windLab/widgets/rpswlcumulativeprobabilitydistributiondlg.ui\
+            src/rps/windLab/widgets/rpswlgustfactordlg.ui\
+            src/rps/windLab/widgets/rpswlkurtosisdlg.ui\
+            src/rps/windLab/widgets/rpswlpeakfactordlg.ui\
+            src/rps/windLab/widgets/rpswlprobabilitydensityfunctiondlg.ui\
+            src/rps/windLab/widgets/rpswlroughnessdlg.ui\
+            src/rps/windLab/widgets/rpswlshearvelocityofflowdlg.ui\
+            src/rps/windLab/widgets/rpswlskewnessdlg.ui\
+            src/rps/windLab/widgets/rpswlstandarddeviationdlg.ui\
+            src/rps/windLab/widgets/rpswlturbulenceintensitydlg.ui\
+            src/rps/windLab/widgets/rpswlturbulencescaledlg.ui\
+            src/rps/windLab/widgets/rpswlvariancedlg.ui\
+            src/rps/windLab/widgets/rpswlwavepassageeffectdlg.ui\
 

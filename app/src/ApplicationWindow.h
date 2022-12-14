@@ -1128,6 +1128,19 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionCorrelationWind;
   QAction* actionModulationWind;
   QAction* actionMeanWindVelocity;
+  QAction* actionCumulativeProbabilityDistribution;
+   QAction* actionGustFactor;
+   QAction* actionKurtosis;
+   QAction* actionPeakFactor;
+   QAction* actionProbabilityDensityFunction;
+   QAction* actionRoughness;
+   QAction* actionShearVelocityOfFlow;
+   QAction* actionSkewness;
+   QAction* actionStandardDeviation;
+   QAction* actionTurbulenceIntensity;
+   QAction* actionTurbulenceScale;
+   QAction* actionVariance;
+   QAction* actionWavePassageEffect;
 
     //seismicLab input
   QAction* actionGroundMotion;
@@ -1147,7 +1160,20 @@ class ApplicationWindow : public QMainWindow,
   QAction* actionCoherenceSeaOutput;
   QAction* actionCorrelationSeaOutput;
   QAction* actionModulationSeaOutput;
-
+  QAction* actionCumulativeProbabilityDistributionOutput;
+   QAction* actionGustFactorOutput;
+   QAction* actionKurtosisOutput;
+   QAction* actionPeakFactorOutput;
+   QAction* actionProbabilityDensityFunctionOutput;
+   QAction* actionRoughnessOutput;
+   QAction* actionShearVelocityOfFlowOutput;
+   QAction* actionSkewnessOutput;
+   QAction* actionStandardDeviationOutput;
+   QAction* actionTurbulenceIntensityOutput;
+   QAction* actionTurbulenceScaleOutput;
+   QAction* actionVarianceOutput;
+   QAction* actionWavePassageEffectOutput;
+    
   //windLab output
   QAction* actionWindVelocityOutput;
   QAction* actionFrequencyDistributionWindOutput;

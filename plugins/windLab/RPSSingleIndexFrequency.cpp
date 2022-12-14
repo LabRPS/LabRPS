@@ -3,11 +3,12 @@
 #include <QMessageBox>
 
 
-void CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dFrequencyVector, QStringList &strInformation)
+void CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 	for (int l = 0; l < Data.numberOfFrequency; l++)
 	{
-		dFrequencyVector(l) = Data.minFrequency + l * Data.frequencyIncrement;
+		dVarVector(l) = l+1;
+		dValVector(l) = Data.minFrequency + l * Data.frequencyIncrement;
 	}
 
 	strInformation.append("Frequency distribution successfully computed");
