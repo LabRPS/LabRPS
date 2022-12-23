@@ -102,6 +102,18 @@ public:
     static QString ComputeWavePassageEffectVectorF;
     static QString ComputeWavePassageEffectVectorT;
 
+    static QString ComputeGustFactorVectorT;
+    static QString ComputeKurtosisVectorT;
+    static QString ComputePeakFactorVectorT;
+    static QString ComputeRoughnessVectorT;
+    static QString ComputeShearVelocityOfFlowVectorT;
+    static QString ComputeSkewnessVectorT;
+    static QString ComputeStandardDeviationVectorT;
+    static QString ComputeTurbulenceIntensityVectorT;
+    static QString ComputeTurbulenceScaleVectorT;
+    static QString ComputeVarianceVectorT;
+
+
     //! Types of plot designations
     enum PlotDesignation {
         noDesignation = 0,  //!< no plot designation

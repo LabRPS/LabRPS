@@ -14,8 +14,36 @@ bool CRPSDeodatis1987::OnInitialSetting(const CRPSWindLabsimuData &Data, QString
     return true;
 }
 
-// The simulation function 
 bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation)
+{
+   const bool simResult = stationaryWind(Data, dVelocityArray, strInformation);
+
+   if(!simResult)
+   {
+       return simResult;
+   }
+
+   if(!Data.stationarity)
+   {
+       vec modulationVar(Data.numberOfTimeIncrements);
+       vec modulationVal(Data.numberOfTimeIncrements);
+
+       for (int j = 0; j < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; j++)
+       {
+           CRPSWindLabFramework::ComputeModulationVectorT(Data, modulationVar, modulationVal, strInformation);
+
+           for (int i = 0; i < Data.numberOfTimeIncrements && false == Data.isInterruptionRequested; i++)
+           {
+              dVelocityArray(i,j) = modulationVal(i) * dVelocityArray(i,j);
+           }
+       }
+   }
+
+   return true;
+}
+
+// The simulation function
+bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation)
 {
     ObjectDescription frequencyDistrDescription = CRPSWindLabFramework::getFrequencyDistributionObjDescription(Data.freqencyDistribution);
 

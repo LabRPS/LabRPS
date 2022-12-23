@@ -136,7 +136,6 @@ win32: {
     LIBS         += "$${LIBPATH}/MatPlot/lib/libnodesoup.a"
 
 
-
   }
 }
 

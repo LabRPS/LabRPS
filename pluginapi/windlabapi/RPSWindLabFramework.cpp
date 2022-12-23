@@ -1146,6 +1146,22 @@ void CRPSWindLabFramework::ComputeGustFactorVectorP(const CRPSWindLabsimuData &D
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeGustFactorVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLGustFactor * SelectedObject = CrpsGustFactorFactory::BuildObject(Data.gustFactor);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeGustFactorVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
 void CRPSWindLabFramework::ComputeKurtosisValue(const CRPSWindLabsimuData &Data, double &dValue, const double &x, QStringList &strInformation)
 {
     // Build the object
@@ -1178,6 +1194,22 @@ void CRPSWindLabFramework::ComputeKurtosisVectorP(const CRPSWindLabsimuData &Dat
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeKurtosisVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLKurtosis * SelectedObject = CrpsKurtosisFactory::BuildObject(Data.kurtosis);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeKurtosisVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
 void CRPSWindLabFramework::ComputePeakFactorValue(const CRPSWindLabsimuData &Data, double &dValue, const double &x, QStringList &strInformation)
 {
     // Build the object
@@ -1206,6 +1238,22 @@ void CRPSWindLabFramework::ComputePeakFactorVectorP(const CRPSWindLabsimuData &D
 
     // Compute the value
     SelectedObject->ComputePeakFactorVectorP(Data,dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
+void CRPSWindLabFramework::ComputePeakFactorVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLPeakFactor * SelectedObject = CrpsPeakFactorFactory::BuildObject(Data.peakFactor);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputePeakFactorVectorT(Data,dVarVector, dValVector, strInformation);
 
     // Delete the object
     delete SelectedObject;
@@ -1274,6 +1322,22 @@ void CRPSWindLabFramework::ComputeRoughnessVectorP(const CRPSWindLabsimuData &Da
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeRoughnessVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLRoughness * SelectedObject = CrpsRoughnessFactory::BuildObject(Data.roughness);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeRoughnessVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
 void CRPSWindLabFramework::ComputeShearVelocityOfFlowValue(const CRPSWindLabsimuData &Data, double &dValue, const double &x, QStringList &strInformation)
 {
     // Build the object
@@ -1302,6 +1366,22 @@ void CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorP(const CRPSWindLabsi
 
     // Compute the value
     SelectedObject->ComputeShearVelocityOfFlowVectorP(Data,dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
+void CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLShearVelocityOfFlow * SelectedObject = CrpsShearVelocityOfFlowFactory::BuildObject(Data.shearVelocityOfFlow);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeShearVelocityOfFlowVectorT(Data,dVarVector, dValVector, strInformation);
 
     // Delete the object
     delete SelectedObject;
@@ -1338,6 +1418,22 @@ void CRPSWindLabFramework::ComputeSkewnessVectorP(const CRPSWindLabsimuData &Dat
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeSkewnessVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLSkewness * SelectedObject = CrpsSkewnessFactory::BuildObject(Data.skewness);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeSkewnessVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
 void CRPSWindLabFramework::ComputeStandardDeviationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &x, QStringList &strInformation)
 {
     // Build the object
@@ -1366,6 +1462,22 @@ void CRPSWindLabFramework::ComputeStandardDeviationVectorP(const CRPSWindLabsimu
 
     // Compute the value
     SelectedObject->ComputeStandardDeviationVectorP(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
+void CRPSWindLabFramework::ComputeStandardDeviationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLStandardDeviation * SelectedObject = CrpsStandardDeviationFactory::BuildObject(Data.standardDeviation);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeStandardDeviationVectorT(Data, dVarVector, dValVector, strInformation);
 
     // Delete the object
     delete SelectedObject;
@@ -1402,6 +1514,22 @@ void CRPSWindLabFramework::ComputeTurbulenceIntensityVectorP(const CRPSWindLabsi
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeTurbulenceIntensityVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLTurbulenceIntensity * SelectedObject = CrpsTurbulenceIntensityFactory::BuildObject(Data.turbulenceIntensity);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeTurbulenceIntensityVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
 void CRPSWindLabFramework::ComputeTurbulenceScaleValue(const CRPSWindLabsimuData &Data, double &dValue, const double &x, QStringList &strInformation)
 {
     // Build the object
@@ -1430,6 +1558,22 @@ void CRPSWindLabFramework::ComputeTurbulenceScaleVectorP(const CRPSWindLabsimuDa
 
     // Compute the value
     SelectedObject->ComputeTurbulenceScaleVectorP(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
+void CRPSWindLabFramework::ComputeTurbulenceScaleVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLTurbulenceScale * SelectedObject = CrpsTurbulenceScaleFactory::BuildObject(Data.turbulenceScale);
+
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeTurbulenceScaleVectorT(Data, dVarVector, dValVector, strInformation);
 
     // Delete the object
     delete SelectedObject;
@@ -1466,8 +1610,23 @@ void CRPSWindLabFramework::ComputeVarianceVectorP(const CRPSWindLabsimuData &Dat
     // Delete the object
     delete SelectedObject;
 }
+void CRPSWindLabFramework::ComputeVarianceVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+{
+    // Build the object
+    IrpsWLVariance * SelectedObject = CrpsVarianceFactory::BuildObject(Data.variance);
 
-void CRPSWindLabFramework::ComputeWavePassageEffectValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+    if (NULL == SelectedObject)
+    {
+        return;
+    }
+
+    // Compute the value
+    SelectedObject->ComputeVarianceVectorT(Data, dVarVector, dValVector, strInformation);
+
+    // Delete the object
+    delete SelectedObject;
+}
+void CRPSWindLabFramework::ComputeWavePassageEffectValue(const CRPSWindLabsimuData &Data, double &dRValue, double &dIValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	// Build the object
     IrpsWLWavePassageEffect * SelectedObject = CrpsWavePassageEffectFactory::BuildObject(Data.wavePassageEffect);
@@ -1478,13 +1637,13 @@ void CRPSWindLabFramework::ComputeWavePassageEffectValue(const CRPSWindLabsimuDa
     }
 
 	// Compute the frequency distribution object
-	SelectedObject->ComputeWavePassageEffectValue(Data, dValue, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dTime, strInformation);
+    SelectedObject->ComputeWavePassageEffectValue(Data, dRValue, dIValue, dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dTime, strInformation);
 
 	// Delete the object
 	delete SelectedObject;
 }
 
-void CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+void CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, cx_vec &dValVector, QStringList &strInformation)
 {
     // Build the object
     IrpsWLWavePassageEffect * SelectedObject = CrpsWavePassageEffectFactory::BuildObject(Data.wavePassageEffect);
@@ -1501,7 +1660,7 @@ void CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const CRPSWindLabsimu
     delete SelectedObject;
 }
 
-void CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+void CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const CRPSWindLabsimuData &Data, vec &cVarVector, cx_vec &cValVector, QStringList &strInformation)
 {
     // Build the object
     IrpsWLWavePassageEffect * SelectedObject = CrpsWavePassageEffectFactory::BuildObject(Data.wavePassageEffect);
@@ -1512,13 +1671,13 @@ void CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const CRPSWindLabsimu
     }
 
     // Compute the frequency distribution object
-    SelectedObject->ComputeWavePassageEffectVectorT(Data, dVarVector, dValVector, strInformation);
+    SelectedObject->ComputeWavePassageEffectVectorT(Data, cVarVector, cValVector, strInformation);
 
     // Delete the object
     delete SelectedObject;
 }
 
-void CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const CRPSWindLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation)
+void CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const CRPSWindLabsimuData &Data, cx_mat &cMatrix, QStringList &strInformation)
 {
     // Build the object
     IrpsWLWavePassageEffect * SelectedObject = CrpsWavePassageEffectFactory::BuildObject(Data.wavePassageEffect);
@@ -1529,7 +1688,7 @@ void CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const CRPSWindLabsim
     }
 
     // Compute the frequency distribution object
-    SelectedObject->ComputeWavePassageEffectMatrixPP(Data, dCoherenceMatrix, strInformation);
+    SelectedObject->ComputeWavePassageEffectMatrixPP(Data, cMatrix, strInformation);
 
     // Delete the object
     delete SelectedObject;

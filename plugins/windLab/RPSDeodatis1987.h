@@ -13,5 +13,7 @@ public:
 	// The simulation function in large scale mode 
     bool SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, QStringList &strInformation);
 
+    bool stationaryWind(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation);
+
 };
 

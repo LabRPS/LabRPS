@@ -117,9 +117,20 @@ void ComputeStandardDeviationVectorP(const QString &name, vec &resultVar, vec &r
 void ComputeTurbulenceIntensityVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
 void ComputeTurbulenceScaleVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
 void ComputeVarianceVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
-void ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
-void ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information);
-  
+void ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, cx_vec &result, int &time, int &memory, QStringList &information);
+void ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, cx_vec &result, int &time, int &memory, QStringList &information);
+
+void ComputeGustFactorVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeKurtosisVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputePeakFactorVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeRoughnessVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeShearVelocityOfFlowVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeSkewnessVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeStandardDeviationVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeTurbulenceIntensityVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeTurbulenceScaleVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+void ComputeVarianceVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information) ;
+
 void Simulate(const QString &name, mat &result, int &time, int &memory, QStringList &information);
 void SimulateInLargeScaleMode(const QString &name, QString &strFileName, int &time, int &memory, QStringList &information);
 
@@ -198,6 +209,9 @@ public:
 
     vec m_resultValueResultVectorCandidate1;
     vec m_resultValueResultVectorCandidate2;
+
+    cx_vec m_resultValueResultVectorCandidate1_xc;
+    cx_vec m_resultValueResultVectorCandidate2_xc;
 
     mat m_resultValueMatrixCandidate1;
     mat m_resultValueMatrixCandidate2;

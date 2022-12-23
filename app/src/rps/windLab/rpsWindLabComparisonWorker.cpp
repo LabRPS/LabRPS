@@ -761,7 +761,7 @@ void RPSWindLabComparisonWorker::ComputeCDFVectorP(const QString &name, vec &res
         currentObject->ComputeCDFVectorP(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
-        information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+        information.append(tr("The computation of the CDF (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
         delete currentObject;
 }
@@ -789,7 +789,35 @@ void RPSWindLabComparisonWorker::ComputeGustFactorVectorP(const QString &name, v
     currentObject->ComputeGustFactorVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the gust factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeGustFactorVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLGustFactor *currentObject = CrpsGustFactorFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid gust factor");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeGustFactorVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the gust factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -817,7 +845,36 @@ void RPSWindLabComparisonWorker::ComputeKurtosisVectorP(const QString &name, vec
     currentObject->ComputeKurtosisVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the kurtosis (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+
+void RPSWindLabComparisonWorker::ComputeKurtosisVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLKurtosis *currentObject = CrpsKurtosisFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Kurtosis");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeKurtosisVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the kurtosis (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -845,7 +902,35 @@ void RPSWindLabComparisonWorker::ComputePeakFactorVectorP(const QString &name, v
     currentObject->ComputePeakFactorVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the peak factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputePeakFactorVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLPeakFactor *currentObject = CrpsPeakFactorFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid peak factor");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputePeakFactorVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the peak factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -873,7 +958,7 @@ void RPSWindLabComparisonWorker::ComputePDFVectorP(const QString &name, vec &res
     currentObject->ComputePDFVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the PDF (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -901,14 +986,42 @@ void RPSWindLabComparisonWorker::ComputeRoughnessVectorP(const QString &name, ve
     currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the roughtness (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeRoughnessVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLRoughness *currentObject = CrpsRoughnessFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Roughness");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeRoughnessVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the roughtness (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
 void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorP(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
-    IrpsWLRoughness *currentObject = CrpsRoughnessFactory::BuildObject(name);
+    IrpsWLShearVelocityOfFlow *currentObject = CrpsShearVelocityOfFlowFactory::BuildObject(name);
 
     // Check whether good frequency object
     if (NULL == currentObject)
@@ -926,10 +1039,38 @@ void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorP(const QString
     t.start();
 
     // running the computation
-    currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
+    currentObject->ComputeShearVelocityOfFlowVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the shear velocity (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLShearVelocityOfFlow *currentObject = CrpsShearVelocityOfFlowFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid shear velocity");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the shear velocity (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -957,7 +1098,35 @@ void RPSWindLabComparisonWorker::ComputeSkewnessVectorP(const QString &name, vec
     currentObject->ComputeSkewnessVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the skewness (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeSkewnessVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLSkewness *currentObject = CrpsSkewnessFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Skewness");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeSkewnessVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the skewness (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -985,7 +1154,35 @@ void RPSWindLabComparisonWorker::ComputeStandardDeviationVectorP(const QString &
     currentObject->ComputeStandardDeviationVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the standard deviation (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeStandardDeviationVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLStandardDeviation *currentObject = CrpsStandardDeviationFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid Standard deviation");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeStandardDeviationVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the standard deviation (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -1013,7 +1210,35 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceIntensityVectorP(const QString
     currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the turbulence intensity (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeTurbulenceIntensityVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLTurbulenceIntensity *currentObject = CrpsTurbulenceIntensityFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid turbulence intensity");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the turbulence intensity (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -1041,7 +1266,35 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceScaleVectorP(const QString &na
     currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the turbulence scale (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeTurbulenceScaleVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLTurbulenceScale *currentObject = CrpsTurbulenceScaleFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid turbulence scale");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the turbulence scale (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -1069,11 +1322,39 @@ void RPSWindLabComparisonWorker::ComputeVarianceVectorP(const QString &name, vec
     currentObject->ComputeVarianceVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the variance (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
-void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeVarianceVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+{
+    // Build the psd model and the frequency distribution functions
+    IrpsWLVariance *currentObject = CrpsVarianceFactory::BuildObject(name);
+
+    // Check whether good frequency object
+    if (NULL == currentObject)
+    {
+        information.append("Invalid variance");
+        emit sendInformation(information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    result.resize(m_windLabData.numberOfTimeIncrements);
+
+    QTime t;
+    t.start();
+
+    // running the computation
+    currentObject->ComputeVarianceVectorT(m_windLabData, resultVar, result, information);
+
+    time = t.elapsed();
+    information.append(tr("The computation of the variance (%1) took %2 ms").arg(name).arg(QString::number(time)));
+
+    delete currentObject;
+}
+void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorF(const QString &name, vec &resultVar, cx_vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
     IrpsWLWavePassageEffect *currentObject = CrpsWavePassageEffectFactory::BuildObject(name);
@@ -1097,11 +1378,11 @@ void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorF(const QString &
     currentObject->ComputeWavePassageEffectVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the wave passage effect (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
-void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, vec &result, int &time, int &memory, QStringList &information)
+void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &name, vec &resultVar, cx_vec &result, int &time, int &memory, QStringList &information)
 {
     // Build the psd model and the frequency distribution functions
     IrpsWLWavePassageEffect *currentObject = CrpsWavePassageEffectFactory::BuildObject(name);
@@ -1116,7 +1397,7 @@ void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &
     }
 
     // allocate memories to receive the computed coherence and frequencies
-    result.resize(m_windLabData.numberOfSpatialPosition);
+    result.resize(m_windLabData.numberOfTimeIncrements);
 
     QTime t;
     t.start();
@@ -1125,7 +1406,7 @@ void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &
     currentObject->ComputeWavePassageEffectVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
-    information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
+    information.append(tr("The computation of the wave passage effect (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
     delete currentObject;
 }
@@ -1825,14 +2106,14 @@ void RPSWindLabComparisonWorker::workerComparing()
         {
             m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
             m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
-            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
-            m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1_xc.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate2_xc.resize(m_windLabData.numberOfSpatialPosition);
 
             setOjectDependencyForCanditate1();
-            ComputeWavePassageEffectVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeWavePassageEffectVectorF(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1_xc, computationTime1, memoryConsumption1, m_information);
 
             setOjectDependencyForCanditate2();
-            ComputeWavePassageEffectVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeWavePassageEffectVectorF(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2_xc, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }
@@ -1840,14 +2121,14 @@ void RPSWindLabComparisonWorker::workerComparing()
         {
             m_resultValueResultVectorCandidate1Variable.resize(m_windLabData.numberOfSpatialPosition);
             m_resultValueResultVectorCandidate2Variable.resize(m_windLabData.numberOfSpatialPosition);
-            m_resultValueResultVectorCandidate1.resize(m_windLabData.numberOfSpatialPosition);
+            m_resultValueResultVectorCandidate1_xc.resize(m_windLabData.numberOfSpatialPosition);
             m_resultValueResultVectorCandidate2.resize(m_windLabData.numberOfSpatialPosition);
 
             setOjectDependencyForCanditate1();
-            ComputeWavePassageEffectVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1, computationTime1, memoryConsumption1, m_information);
+            ComputeWavePassageEffectVectorT(candidate1, m_resultValueResultVectorCandidate1Variable, m_resultValueResultVectorCandidate1_xc, computationTime1, memoryConsumption1, m_information);
 
             setOjectDependencyForCanditate2();
-            ComputeWavePassageEffectVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2, computationTime2, memoryConsumption2, m_information);
+            ComputeWavePassageEffectVectorT(candidate2, m_resultValueResultVectorCandidate2Variable, m_resultValueResultVectorCandidate2_xc, computationTime2, memoryConsumption2, m_information);
 
             computeAccuracyValue();
         }

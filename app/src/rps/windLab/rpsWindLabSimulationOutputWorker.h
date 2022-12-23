@@ -127,9 +127,12 @@ private:
 public:
     vec m_ResultVector;
     vec m_ResultVector2;
+    cx_vec m_ResultVector3;
 
     mat m_ResultMatrix;
     mat m_ResultMatrix2;
+    cx_mat m_ResultMatrix3;
+
     int workerOutputType;
 
 public:

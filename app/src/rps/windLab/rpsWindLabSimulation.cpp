@@ -37,7 +37,6 @@
 #include "src/rps/windLab/widgets/rpswlvariancedlg.h"
 #include "src/rps/windLab/widgets/rpswlwavepassageeffectdlg.h"
 
-
 #include <QSettings>
 #include <QString>
 #include <QMessageBox>
@@ -3139,14 +3138,17 @@ void RPSWindLabSimulation::comparisonInitial()
     functions.clear();
 
     functions.append(LabRPS::ComputeGustFactorVectorP);
+    functions.append(LabRPS::ComputeGustFactorVectorT);
     categoryFunctionListMap[categories.at(11)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeKurtosisVectorP);
+    functions.append(LabRPS::ComputeKurtosisVectorT);
     categoryFunctionListMap[categories.at(12)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputePeakFactorVectorP);
+    functions.append(LabRPS::ComputePeakFactorVectorT);
     categoryFunctionListMap[categories.at(13)] = functions;
     functions.clear();
 
@@ -3155,30 +3157,37 @@ void RPSWindLabSimulation::comparisonInitial()
     functions.clear();
 
     functions.append(LabRPS::ComputeRoughnessVectorP);
+    functions.append(LabRPS::ComputeRoughnessVectorT);
     categoryFunctionListMap[categories.at(15)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeShearVelocityOfFlowVectorP);
+    functions.append(LabRPS::ComputeShearVelocityOfFlowVectorT);
     categoryFunctionListMap[categories.at(16)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeSkewnessVectorP);
+    functions.append(LabRPS::ComputeSkewnessVectorT);
     categoryFunctionListMap[categories.at(17)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeStandardDeviationVectorP);
+    functions.append(LabRPS::ComputeStandardDeviationVectorT);
     categoryFunctionListMap[categories.at(18)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeTurbulenceIntensityVectorP);
+    functions.append(LabRPS::ComputeTurbulenceIntensityVectorT);
     categoryFunctionListMap[categories.at(19)] = functions;
     functions.clear();
 
+    functions.append(LabRPS::ComputeTurbulenceScaleVectorT);
     functions.append(LabRPS::ComputeTurbulenceScaleVectorP);
     categoryFunctionListMap[categories.at(20)] = functions;
     functions.clear();
 
     functions.append(LabRPS::ComputeVarianceVectorP);
+    functions.append(LabRPS::ComputeVarianceVectorT);
     categoryFunctionListMap[categories.at(21)] = functions;
     functions.clear();
 
@@ -5415,6 +5424,10 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "GustFactor", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeGustFactorVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "GustFactor", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupKurtosis)
     {
@@ -5422,12 +5435,20 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "Kurtosis", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeKurtosisVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "Kurtosis", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupPeakFactor)
     {
         if (comparisonFunction == LabRPS::ComputePeakFactorVectorP)
         {
             displayAComparisonResults(candidate1, candidate2, "PeakFactor", "Numbering", GetWindLabData().numberOfSpatialPosition);
+        }
+        else if (comparisonFunction == LabRPS::ComputePeakFactorVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "GustFactor", "Time", GetWindLabData().numberOfTimeIncrements);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupProbabilityDensityFunction)
@@ -5443,12 +5464,21 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "Roughness", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeRoughnessVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "Roughness", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
+
     }
     else if (comparisonCategory == LabRPS::objGroupShearVelocityOfFlow)
     {
         if (comparisonFunction == LabRPS::ComputeShearVelocityOfFlowVectorP)
         {
             displayAComparisonResults(candidate1, candidate2, "ShearVelocity", "Numbering", GetWindLabData().numberOfSpatialPosition);
+        }
+        else if (comparisonFunction == LabRPS::ComputeShearVelocityOfFlowVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "ShearVelocity", "Time", GetWindLabData().numberOfTimeIncrements);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupSkewness)
@@ -5457,12 +5487,20 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "Skewness", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeSkewnessVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "Skewness", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupStandardDeviation)
     {
         if (comparisonFunction == LabRPS::ComputeStandardDeviationVectorP)
         {
             displayAComparisonResults(candidate1, candidate2, "StandardDeviation", "Numbering", GetWindLabData().numberOfSpatialPosition);
+        }
+        else if (comparisonFunction == LabRPS::ComputeStandardDeviationVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "StandardDeviation", "Time", GetWindLabData().numberOfTimeIncrements);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupTurbulenceIntensity)
@@ -5471,6 +5509,10 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "TurbulenceIntensity", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeTurbulenceIntensityVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "TurbulenceIntensity", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupTurbulenceScale)
     {
@@ -5478,12 +5520,20 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
         {
             displayAComparisonResults(candidate1, candidate2, "TurbulenceScale", "Numbering", GetWindLabData().numberOfSpatialPosition);
         }
+        else if (comparisonFunction == LabRPS::ComputeTurbulenceScaleVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "TurbulenceScale", "Time", GetWindLabData().numberOfTimeIncrements);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupVariance)
     {
         if (comparisonFunction == LabRPS::ComputeVarianceVectorP)
         {
             displayAComparisonResults(candidate1, candidate2, "Variance", "Numbering", GetWindLabData().numberOfSpatialPosition);
+        }
+        else if (comparisonFunction == LabRPS::ComputeVarianceVectorT)
+        {
+            displayAComparisonResults(candidate1, candidate2, "Variance", "Time", GetWindLabData().numberOfTimeIncrements);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupWavePassageEffect)
@@ -5701,6 +5751,10 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeGustFactorVectorP)
         {
+            displayTComparisonResults(candidate1, candidate2, "GustFactorP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeKurtosisVectorT)
+        {
             displayTComparisonResults(candidate1, candidate2, "GustFactorT", variableName, totalNumber);
         }
     }
@@ -5710,10 +5764,18 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
         {
             displayTComparisonResults(candidate1, candidate2, "KurtosisT", variableName, totalNumber);
         }
+        else if (comparisonFunction == LabRPS::ComputeKurtosisVectorT)
+        {
+            displayTComparisonResults(candidate1, candidate2, "KurtosisT", variableName, totalNumber);
+        }
     }
     else if (comparisonCategory == LabRPS::objGroupPeakFactor)
     {
         if (comparisonFunction == LabRPS::ComputePeakFactorVectorP)
+        {
+            displayTComparisonResults(candidate1, candidate2, "PeakFactorP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputePeakFactorVectorT)
         {
             displayTComparisonResults(candidate1, candidate2, "PeakFactorT", variableName, totalNumber);
         }
@@ -5729,12 +5791,20 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeRoughnessVectorP)
         {
+            displayTComparisonResults(candidate1, candidate2, "RoughnessP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeRoughnessVectorT)
+        {
             displayTComparisonResults(candidate1, candidate2, "RoughnessT", variableName, totalNumber);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupShearVelocityOfFlow)
     {
         if (comparisonFunction == LabRPS::ComputeShearVelocityOfFlowVectorP)
+        {
+            displayTComparisonResults(candidate1, candidate2, "ShearVelocityP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeShearVelocityOfFlowVectorT)
         {
             displayTComparisonResults(candidate1, candidate2, "ShearVelocityT", variableName, totalNumber);
         }
@@ -5743,12 +5813,20 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeSkewnessVectorP)
         {
+            displayTComparisonResults(candidate1, candidate2, "SkewnessP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeSkewnessVectorT)
+        {
             displayTComparisonResults(candidate1, candidate2, "SkewnessT", variableName, totalNumber);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupStandardDeviation)
     {
         if (comparisonFunction == LabRPS::ComputeStandardDeviationVectorP)
+        {
+            displayTComparisonResults(candidate1, candidate2, "StandardDeviationP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeStandardDeviationVectorT)
         {
             displayTComparisonResults(candidate1, candidate2, "StandardDeviationT", variableName, totalNumber);
         }
@@ -5757,6 +5835,10 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeTurbulenceIntensityVectorP)
         {
+            displayTComparisonResults(candidate1, candidate2, "TurbulenceIntensityP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeTurbulenceIntensityVectorT)
+        {
             displayTComparisonResults(candidate1, candidate2, "TurbulenceIntensityT", variableName, totalNumber);
         }
     }
@@ -5764,12 +5846,20 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeTurbulenceScaleVectorP)
         {
+            displayTComparisonResults(candidate1, candidate2, "TurbulenceScaleP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeTurbulenceScaleVectorT)
+        {
             displayTComparisonResults(candidate1, candidate2, "TurbulenceScaleT", variableName, totalNumber);
         }
     }
     else if (comparisonCategory == LabRPS::objGroupVariance)
     {
         if (comparisonFunction == LabRPS::ComputeVarianceVectorP)
+        {
+            displayTComparisonResults(candidate1, candidate2, "VarianceP", variableName, totalNumber);
+        }
+        else if (comparisonFunction == LabRPS::ComputeVarianceVectorT)
         {
             displayTComparisonResults(candidate1, candidate2, "VarianceT", variableName, totalNumber);
         }
@@ -7205,7 +7295,22 @@ void RPSWindLabSimulation::runTableTool(const mat &table)
 
         mat outputResult(table.rows(),table.cols());
 
-        currentTableTool->TableToolCompute(GetWindLabData(),table, outputResult, information);
+        try {
+            currentTableTool->TableToolCompute(GetWindLabData(),table, outputResult, information);
+        }
+        catch(const std::exception &e)
+        {
+            QString errorMsg = e.what();
+        }
+        catch(const std::bad_alloc &)
+        {
+            QString errorMsg = "e.what()";
+        }
+        catch (...) {
+            information.append("Sorry, something went wrong with the " + GetWindLabData().tableTool + " object.");
+            emit sendInformation(information);
+            information.clear();
+        }
 
         RPSSimulation *rpsSimulator = (RPSSimulation *)this->parent();
         ApplicationWindow *app = (ApplicationWindow *)rpsSimulator->parent();

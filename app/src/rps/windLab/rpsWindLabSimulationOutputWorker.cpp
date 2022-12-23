@@ -1419,6 +1419,29 @@ void RPSWindLabSimulationOutputWorker::gustFactorOutp()
     currentObject->ComputeGustFactorVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeGustFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
 
     delete currentObject;
 
@@ -1426,7 +1449,6 @@ void RPSWindLabSimulationOutputWorker::gustFactorOutp()
 
     tableName = "GustFactor";
     plotTitle = "Gust Factor";
-    plotxlable = "x";
     plotylabel = "Gust Factor";
 }
 
@@ -1457,11 +1479,34 @@ void RPSWindLabSimulationOutputWorker::kurtosisOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeKurtosisVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
+
     delete currentObject;
 
     tableName = "Kurtosis";
     plotTitle = "Kurtosis";
-    plotxlable = "x";
     plotylabel = "Kurtosis";
 
     emit showKurtosisOutput();
@@ -1493,11 +1538,33 @@ void RPSWindLabSimulationOutputWorker::peakFactorOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputePeakFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "PeackFactor";
     plotTitle = "Peack Factor";
-    plotxlable = "x";
     plotylabel = "Peack Factor";
 
     emit showPeakFactorOutput();
@@ -1566,11 +1633,33 @@ void RPSWindLabSimulationOutputWorker::roughnessOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeRoughnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "Roughness";
     plotTitle = "Roughness";
-    plotxlable = "x";
     plotylabel = "Roughness";
 
     emit showRoughnessOutput();
@@ -1602,6 +1691,29 @@ void RPSWindLabSimulationOutputWorker::shearVelocityOfFlowOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "Shear Velocity";
@@ -1638,11 +1750,33 @@ void RPSWindLabSimulationOutputWorker::skewnessOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeSkewnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "Skewness";
     plotTitle = "Skewness";
-    plotxlable = "x";
     plotylabel = "Skewness";
 
     emit showSkewnessOutput();
@@ -1674,11 +1808,33 @@ void RPSWindLabSimulationOutputWorker::standardDeviationOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    plotxlable = "Location";
+
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeStandardDeviationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "StandardDeviation";
     plotTitle = "Standard Deviation";
-    plotxlable = "x";
     plotylabel = "Standard Deviation";
 
     emit showStandardDeviationOutput();
@@ -1710,11 +1866,31 @@ void RPSWindLabSimulationOutputWorker::turbulenceIntensityOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "TurbulenceIntensity";
     plotTitle = "Turbulence Intensity";
-    plotxlable = "x";
     plotylabel = "Turbulence Intensity";
 
     emit showTurbulenceIntensityOutput();
@@ -1746,11 +1922,31 @@ void RPSWindLabSimulationOutputWorker::turbulenceScaleOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "TurbulenceScale";
     plotTitle = "Turbulence Scale";
-    plotxlable = "x";
     plotylabel = "Turbulence Scale";
 
     emit showTurbulenceScaleOutput();
@@ -1782,11 +1978,31 @@ void RPSWindLabSimulationOutputWorker::varianceOutp()
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
+    if (m_locationJ > 0 &&
+             m_locationJ <= m_windLabData.numberOfSpatialPosition &&
+             m_locationK == 0 &&
+             m_frequencyIndex == 0 &&
+             m_timeIndex == m_windLabData.numberOfTimeIncrements + 1)
+    {
+        // allocate memories
+        m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+        m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+        workerOutputType = 1;
+
+        QTime t;
+        t.start();
+
+        // running the computation
+        currentObject->ComputeVarianceVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+        m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
+        plotxlable = "Time(s)";
+
+    }
     delete currentObject;
 
     tableName = "Variance";
     plotTitle = "Variance";
-    plotxlable = "x";
     plotylabel = "Variance";
 
     emit showVarianceOutput();
@@ -1815,7 +2031,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
             m_timeIndex <= m_windLabData.numberOfTimeIncrements)
     {
         // allocate memories to receive the computed wave passage effect and frequencies
-        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector3.resize(m_windLabData.numberOfFrequency);
         m_ResultVector2.resize(m_windLabData.numberOfFrequency);
         workerOutputType = 1;
 
@@ -1823,7 +2039,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1850,13 +2066,13 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        currentObject->ComputeWavePassageEffectVectorT(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 
         tableName = "WavePassage";
         plotTitle = "Wave Passage Effect";
-        plotxlable = "Time";
+        plotxlable = "Time(s)";
         plotylabel = "Wave Passage Effect";
     }
     else if (m_locationJ == m_windLabData.numberOfSpatialPosition + 1 &&
@@ -1867,20 +2083,20 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
              m_timeIndex <= m_windLabData.numberOfTimeIncrements)
     {
         // allocate memories to receive the computed wave passage effect and frequencies
-        m_ResultMatrix.resize(m_windLabData.numberOfSpatialPosition, m_windLabData.numberOfSpatialPosition);
+        m_ResultMatrix3.resize(m_windLabData.numberOfSpatialPosition, m_windLabData.numberOfSpatialPosition);
         workerOutputType = 2;
 
         QTime t;
         t.start();
         // running the computation
-        currentObject->ComputeWavePassageEffectMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+        currentObject->ComputeWavePassageEffectMatrixPP(m_windLabData, m_ResultMatrix3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
     }
     else
     {
         // allocate memories to receive the computed wave passage effect and frequencies
-        m_ResultVector.resize(m_windLabData.numberOfFrequency);
+        m_ResultVector3.resize(m_windLabData.numberOfFrequency);
         m_ResultVector2.resize(m_windLabData.numberOfFrequency);
         workerOutputType = 1;
 
@@ -1888,7 +2104,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 

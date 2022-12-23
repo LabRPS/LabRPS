@@ -68,6 +68,7 @@ SOURCES += \
     rpsTools/src/general/CholeskyDecomposition.cpp\
     rpsTools/src/general/UniformRandomPhaseMatrixGenerator.cpp\
     rpsTools/src/general/AvailableWindows.cpp\
+    rpsTools/src/general/Exception.cpp\
     rpsTools/src/windVelocity/spectrum/WindSpectrum.cpp\
     rpsTools/src/windVelocity/spectrum/KaimalSpectrum.cpp\
     rpsTools/src/windVelocity/spectrum/SimuSpectrum.cpp\
@@ -91,6 +92,7 @@ HEADERS += \
     rpsTools/src/general/CholeskyDecomposition.h\
     rpsTools/src/general/UniformRandomPhaseMatrixGenerator.h\
     rpsTools/src/general/AvailableWindows.h\
+    rpsTools/src/general/Exception.h\
     rpsTools/src/windVelocity/spectrum/WindSpectrum.h\
     rpsTools/src/windVelocity/spectrum/KaimalSpectrum.h\
     rpsTools/src/windVelocity/spectrum/SimuSpectrum.h\

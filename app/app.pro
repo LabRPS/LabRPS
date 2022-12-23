@@ -3,6 +3,7 @@ DEFINES += LEGACY_CODE_0_2_x
 # Enable OpenGL for QCustomPlot
 DEFINES += QCUSTOMPLOT_USE_OPENGL
 DEFINES += RPS_BUILDING_CORE
+DEFINES +=  EIGEN_NO_DEBUG
 
 # Qt modules
 QT += core gui widgets opengl network svg xml

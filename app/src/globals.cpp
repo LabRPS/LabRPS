@@ -100,6 +100,17 @@ QString LabRPS::ComputeVarianceVectorP = "ComputeVarianceVectorP";
 QString LabRPS::ComputeWavePassageEffectVectorF = "ComputeWavePassageEffectVectorF";
 QString LabRPS::ComputeWavePassageEffectVectorT = "ComputeWavePassageEffectVectorT";
 
+QString LabRPS::ComputeGustFactorVectorT = "ComputeGustFactorVectorT";
+QString LabRPS::ComputeKurtosisVectorT = "ComputeKurtosisVectorT";
+QString LabRPS::ComputePeakFactorVectorT = "ComputePeakFactorVectorT";
+QString LabRPS::ComputeRoughnessVectorT = "ComputeRoughnessVectorT";
+QString LabRPS::ComputeShearVelocityOfFlowVectorT = "ComputeShearVelocityOfFlowVectorT";
+QString LabRPS::ComputeSkewnessVectorT = "ComputeSkewnessVectorT";
+QString LabRPS::ComputeStandardDeviationVectorT = "ComputeStandardDeviationVectorT";
+QString LabRPS::ComputeTurbulenceIntensityVectorT = "ComputeTurbulenceIntensityVectorT";
+QString LabRPS::ComputeTurbulenceScaleVectorT = "ComputeTurbulenceScaleVectorT";
+QString LabRPS::ComputeVarianceVectorT = "ComputeVarianceVectorT";
+
 
 QStringList LabRPS::locales_ = QStringList();
 
