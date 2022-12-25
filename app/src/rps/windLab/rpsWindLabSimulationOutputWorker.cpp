@@ -21,7 +21,7 @@ RPSWindLabSimulationOutputWorker::RPSWindLabSimulationOutputWorker(CRPSWindLabsi
     currentStep = 0;
     maxStepOld = 0;
     workerOutputType = 1; // vector and 2 for matrix
-
+    iscomputationSuccessful = false;
 }
 
 RPSWindLabSimulationOutputWorker::~RPSWindLabSimulationOutputWorker()
@@ -234,7 +234,7 @@ void RPSWindLabSimulationOutputWorker::frequencyDistributionOutp()
         t.start();
 
         // running the computation
-        currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
         m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentFreqDistr;
@@ -266,7 +266,7 @@ void RPSWindLabSimulationOutputWorker::frequencyDistributionOutp()
         t.start();
 
         // running the computation
-        currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
         m_information.append(tr("The computation of the frequencies took %1 ms").arg(QString::number(t.elapsed())));
 
         delete currentFreqDistr;
@@ -299,7 +299,7 @@ void RPSWindLabSimulationOutputWorker::locationDistributionOutp()
     t.start();
 
     // running the computation
-    currentLocationDistribution->ComputeLocationCoordinateMatrixP3(m_windLabData, m_ResultMatrix, m_information);
+    iscomputationSuccessful = currentLocationDistribution->ComputeLocationCoordinateMatrixP3(m_windLabData, m_ResultMatrix, m_information);
 
     m_information.append(tr("The computation of the spatial distribution took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -346,7 +346,7 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -388,7 +388,7 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeXAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeXAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -426,7 +426,7 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeXCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+        iscomputationSuccessful = currentPSD->ComputeXCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -459,7 +459,7 @@ void RPSWindLabSimulationOutputWorker::spectrumXModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -511,7 +511,7 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -551,7 +551,7 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeYAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeYAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -590,7 +590,7 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeYCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+        iscomputationSuccessful = currentPSD->ComputeYCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -623,7 +623,7 @@ void RPSWindLabSimulationOutputWorker::spectrumYModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -670,7 +670,7 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -711,7 +711,7 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeZAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeZAutoSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -750,7 +750,7 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeZCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+        iscomputationSuccessful = currentPSD->ComputeZCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -782,7 +782,7 @@ void RPSWindLabSimulationOutputWorker::spectrumZModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -831,7 +831,7 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -873,7 +873,7 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -925,7 +925,7 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeDecomposedCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix2, m_ResultMatrix, m_information);
+        iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumMatrixPP(m_windLabData, m_ResultMatrix2, m_ResultMatrix, m_information);
 
         m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -958,7 +958,7 @@ void RPSWindLabSimulationOutputWorker::decomposedSpectrumModelOutp()
         t.start();
 
         // running the computation
-        currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the decomposed spectrum took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1005,7 +1005,7 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
         t.start();
 
         // running the computation
-        currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1031,7 +1031,7 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
         t.start();
 
         // running the computation
-        currentCoherenceFunction->ComputeCrossCoherenceVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1053,7 +1053,7 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
         QTime t;
         t.start();
         // running the computation
-        currentCoherenceFunction->ComputeCrossCoherenceMatrixPP(m_windLabData, m_ResultMatrix, m_information);
+        iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceMatrixPP(m_windLabData, m_ResultMatrix, m_information);
 
         m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1072,7 +1072,7 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
         t.start();
 
         // running the computation
-        currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the coherence function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1120,7 +1120,7 @@ void RPSWindLabSimulationOutputWorker::modulationOutp()
         t.start();
 
         // running the computation
-        currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1158,7 +1158,7 @@ void RPSWindLabSimulationOutputWorker::modulationOutp()
         t.start();
 
         // running the computation
-        currentModulationFtn->ComputeModulationVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentModulationFtn->ComputeModulationVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1191,7 +1191,7 @@ void RPSWindLabSimulationOutputWorker::modulationOutp()
         t.start();
 
         // running the computation
-        currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentModulationFtn->ComputeModulationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1235,7 +1235,7 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
         t.start();
 
         // running the computation
-        currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1273,7 +1273,7 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
         t.start();
 
         // running the computation
-        currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1307,7 +1307,7 @@ void RPSWindLabSimulationOutputWorker::meanWindVelocityOutp()
         t.start();
 
         // running the computation
-        currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the mean wind took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1344,7 +1344,7 @@ void RPSWindLabSimulationOutputWorker::randomPhaseOutp()
     t.start();
 
     // running the computation
-    currentRandomnessProvider->GenerateRandomArrayFP(m_windLabData, m_ResultMatrix, m_information);
+    iscomputationSuccessful = currentRandomnessProvider->GenerateRandomArrayFP(m_windLabData, m_ResultMatrix, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1380,7 +1380,7 @@ void RPSWindLabSimulationOutputWorker::cumulativeProbabilityDistributionOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeCDFVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeCDFVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1416,7 +1416,7 @@ void RPSWindLabSimulationOutputWorker::gustFactorOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeGustFactorVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeGustFactorVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
     plotxlable = "Location";
@@ -1436,7 +1436,7 @@ void RPSWindLabSimulationOutputWorker::gustFactorOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeGustFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeGustFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1475,7 +1475,7 @@ void RPSWindLabSimulationOutputWorker::kurtosisOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeKurtosisVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeKurtosisVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1496,7 +1496,7 @@ void RPSWindLabSimulationOutputWorker::kurtosisOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeKurtosisVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeKurtosisVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1534,7 +1534,7 @@ void RPSWindLabSimulationOutputWorker::peakFactorOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputePeakFactorVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputePeakFactorVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1555,7 +1555,7 @@ void RPSWindLabSimulationOutputWorker::peakFactorOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputePeakFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputePeakFactorVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1592,7 +1592,7 @@ void RPSWindLabSimulationOutputWorker::probabilityDensityFunctionOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputePDFVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputePDFVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1629,7 +1629,7 @@ void RPSWindLabSimulationOutputWorker::roughnessOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeRoughnessVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeRoughnessVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1650,7 +1650,7 @@ void RPSWindLabSimulationOutputWorker::roughnessOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeRoughnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeRoughnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1687,7 +1687,7 @@ void RPSWindLabSimulationOutputWorker::shearVelocityOfFlowOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeShearVelocityOfFlowVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeShearVelocityOfFlowVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1708,7 +1708,7 @@ void RPSWindLabSimulationOutputWorker::shearVelocityOfFlowOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1746,7 +1746,7 @@ void RPSWindLabSimulationOutputWorker::skewnessOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeSkewnessVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeSkewnessVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1767,7 +1767,7 @@ void RPSWindLabSimulationOutputWorker::skewnessOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeSkewnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeSkewnessVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1804,7 +1804,7 @@ void RPSWindLabSimulationOutputWorker::standardDeviationOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeStandardDeviationVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeStandardDeviationVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1825,7 +1825,7 @@ void RPSWindLabSimulationOutputWorker::standardDeviationOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeStandardDeviationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeStandardDeviationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1862,7 +1862,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceIntensityOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1881,7 +1881,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceIntensityOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1918,7 +1918,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceScaleOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1937,7 +1937,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceScaleOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -1974,7 +1974,7 @@ void RPSWindLabSimulationOutputWorker::varianceOutp()
     t.start();
 
     // running the computation
-    currentObject->ComputeVarianceVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+    iscomputationSuccessful = currentObject->ComputeVarianceVectorP(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
     m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -1993,7 +1993,7 @@ void RPSWindLabSimulationOutputWorker::varianceOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeVarianceVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+        iscomputationSuccessful = currentObject->ComputeVarianceVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
 
         m_information.append(tr("The computation of the random phase took %1 ms").arg(QString::number(t.elapsed())));
         plotxlable = "Time(s)";
@@ -2039,7 +2039,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
+        iscomputationSuccessful = currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -2066,7 +2066,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorT(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
+        iscomputationSuccessful = currentObject->ComputeWavePassageEffectVectorT(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 
@@ -2089,7 +2089,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         QTime t;
         t.start();
         // running the computation
-        currentObject->ComputeWavePassageEffectMatrixPP(m_windLabData, m_ResultMatrix3, m_information);
+        iscomputationSuccessful = currentObject->ComputeWavePassageEffectMatrixPP(m_windLabData, m_ResultMatrix3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
     }
@@ -2104,7 +2104,7 @@ void RPSWindLabSimulationOutputWorker::wavePassageEffectOutp()
         t.start();
 
         // running the computation
-        currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
+        iscomputationSuccessful = currentObject->ComputeWavePassageEffectVectorF(m_windLabData, m_ResultVector2, m_ResultVector3, m_information);
 
         m_information.append(tr("The computation of the wave passage effect took %1 ms").arg(QString::number(t.elapsed())));
 

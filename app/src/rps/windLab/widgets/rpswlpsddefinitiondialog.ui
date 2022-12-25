@@ -178,7 +178,7 @@
      <string>Min Frequency</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditMinFreq">
+   <widget class="QDoubleSpinBox" name="lineEditMinFreq">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -201,7 +201,7 @@
      <string>Max Frequency</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditMaxFreq">
+   <widget class="QDoubleSpinBox" name="lineEditMaxFreq">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -224,7 +224,7 @@
      <string>Increment</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditFreqIncr">
+   <widget class="QDoubleSpinBox" name="lineEditFreqIncr">
     <property name="geometry">
      <rect>
       <x>140</x>

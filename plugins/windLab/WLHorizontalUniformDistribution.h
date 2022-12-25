@@ -6,7 +6,7 @@ class CWLHorizontalUniformDistribution : public IrpsWLLocationDistribution
 public:
 	~CWLHorizontalUniformDistribution() {};
 
-	void ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation);
+	bool ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation);
 
 	//Initial setting
 	bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);

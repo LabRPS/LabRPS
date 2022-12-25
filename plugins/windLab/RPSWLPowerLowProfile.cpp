@@ -18,13 +18,20 @@ static double dDimensionlessPower = 0.12;
 static double dzeroPlanDisplacement = 0;
 
 
-void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     // local array for the location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
     // Compute the location coordinate array
-    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    const bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+
     const double dTime = Data.minTime + Data.timeIncrement*Data.timeIndex;
 
     // Compute the mean wind speed matrix
@@ -33,15 +40,22 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const CRPSWindLabsimuDat
         dVarVector(loop) = loop+1;
         ComputeMeanWindSpeedValue(Data, dValVector(loop), dLocCoord(loop, 0), dLocCoord(loop, 1), dLocCoord(loop, 2), dTime, strInformation);
     }
+
+    return true;
 }
-void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     // local array for the location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition, 3);
 
     // Compute the location coordinate array
-    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    const bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
 
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
     // Compute the mean wind speed matrix
     for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
     {
@@ -49,6 +63,8 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuDat
         ComputeMeanWindSpeedValue(Data, dValVector(loop), dLocCoord(Data.locationJ, 0), dLocCoord(Data.locationJ, 1), dLocCoord(Data.locationJ, 2), dTime, strInformation);
         dVarVector(loop) = dTime;
     }
+
+    return true;
 }
 bool CRPSWLPowerLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
@@ -66,14 +82,14 @@ bool CRPSWLPowerLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data, QS
 	return true;
 }
 
-void CRPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dTime, QStringList &strInformation)
+bool CRPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dTime, QStringList &strInformation)
 {
     rps::WindVelocity::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
 
 	if (dLocationzCoord < 0)
 	{
 		strInformation.append("Negative height detected. The computation fails.");
-		return;
+		return false;
 	}
 
 
@@ -84,7 +100,14 @@ void CRPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const CRPSWindLabsimuData 
     else if(!Data.stationarity && Data.uniformModulation)
     {
         double dModValue = 0.0;
-        CRPSWindLabFramework::ComputeModulationValue(Data, dModValue, dLocationxCoord, dLocationxCoord, dLocationxCoord, 0, dTime, strInformation);
+        const bool returnResult = CRPSWindLabFramework::ComputeModulationValue(Data, dModValue, dLocationxCoord, dLocationxCoord, dLocationxCoord, 0, dTime, strInformation);
+        if(!returnResult)
+    {
+       strInformation.append("The computation of the modulation value has failed.") ;
+       return false;
+    }
         dValue = dModValue * powerLawMeanWindSpeed.computeMeanWindSpeed(dLocationzCoord, dreferenceHeight, dreferenceSpeed, dDimensionlessPower, dzeroPlanDisplacement);
     }
+
+    return true;
 }

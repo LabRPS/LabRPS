@@ -58,17 +58,23 @@ RPSWindVelocityDefinitionDlg::RPSWindVelocityDefinitionDlg(QWidget *parent) :
 	}
 
      int min = 1;
-     int max = 10000000;
+     //int max = 10000000;
 
-     ui->lineEditNberOfLocation->setRange(min, max);
-     ui->lineEditNberOfTimeIncr->setRange(min, max);
-     ui->lineEditNumberOfSample->setRange(min, max);
+     ui->lineEditNberOfLocation->setRange(min, std::numeric_limits<int>::max());
+     ui->lineEditNberOfTimeIncr->setRange(min, std::numeric_limits<int>::max());
+     ui->lineEditNumberOfSample->setRange(min, std::numeric_limits<int>::max());
+     ui->lineEditTimeIncreValue->setMinimum(-INFINITY);
+     ui->lineEditTimeIncreValue->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditMinTimeValue->setMinimum(-INFINITY);
+     ui->lineEditMinTimeValue->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditMaxTimeValue->setMinimum(-INFINITY);
+     ui->lineEditMaxTimeValue->setMaximum(std::numeric_limits<double>::max());
 
     ui->lineEditNberOfLocation->setValue(numberOfSpatialPosition);
     ui->lineEditNberOfTimeIncr->setValue(numberOfTimeIncrements);
-    ui->lineEditTimeIncreValue->setText(QString::number(timeIncrement));
-    ui->lineEditMinTimeValue->setText(QString::number(minTime));
-    ui->lineEditMaxTimeValue->setText(QString::number(minTime + (numberOfTimeIncrements*timeIncrement)));
+    ui->lineEditTimeIncreValue->setValue(timeIncrement);
+    ui->lineEditMinTimeValue->setValue(minTime);
+    ui->lineEditMaxTimeValue->setValue(minTime + numberOfTimeIncrements*timeIncrement);
     ui->lineEditNumberOfSample->setValue(numberOfSample);
 
     ui->comboBoxWindSpationDistr->clear();

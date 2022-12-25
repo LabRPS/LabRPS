@@ -121,6 +121,8 @@ SOURCES += \
     widgets/vonKarmanpsdinputsdialog.cpp\
     widgets/meanwindDHprofildialog.cpp\
     RPSDHLowProfile.cpp\
+    myWidgets/IconLoader.cpp\
+    myWidgets/RPSAlongWindKaimalDialog.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -163,7 +165,8 @@ HEADERS += \
     widgets/vonKarmanpsdinputsdialog.h\
     widgets/meanwindDHprofildialog.h\
     RPSDHLowProfile.h\
-
+    myWidgets/IconLoader.h\
+    myWidgets/RPSAlongWindKaimalDialog.h\
 
 FORMS  += widgets/meanwindlogprofildialog.ui\
           widgets/meanwindpowerprofildialog.ui\
@@ -178,8 +181,11 @@ FORMS  += widgets/meanwindlogprofildialog.ui\
           widgets/minmaxvaluesdlg.ui\
           widgets/vonKarmanpsdinputsdialog.ui\
           widgets/meanwindDHprofildialog.ui\
+          myWidgets/RPSAlongWindKaimalDialog.ui\
 
 
+###################### ICONS ################################################
+RESOURCES      += data/icons.qrc
 
 DISTFILES += windLab.json
 

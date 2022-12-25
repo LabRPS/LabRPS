@@ -4,15 +4,15 @@
 class CRPSRandomPhasesFromFile : public IrpsWLRandomness
 {
 public:
-	void GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation);
+	bool GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation);
 
-	void ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation);
+	bool ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation);
 
 	bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation);
 
 	// Read random phase angle from file
 	int ReadPhaseAngleFromFile(const CRPSWindLabsimuData &Data, QString strFilePath, mat &dRandomValueArray, QStringList &strInformation);
 
-	void GetFilePathButton();
+	bool GetFilePathButton();
 };
 

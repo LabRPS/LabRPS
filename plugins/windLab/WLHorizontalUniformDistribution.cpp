@@ -16,7 +16,7 @@ static double stmdHeight = 40;
 //Length
 static double stmdLength = 10;
 
-void CWLHorizontalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
+bool CWLHorizontalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
 	// Computing the location coordinates
 	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
@@ -24,7 +24,9 @@ void CWLHorizontalUniformDistribution::ComputeLocationCoordinateMatrixP3(const C
 		dLocCoord(loop, 0) = loop * stmdSpacing;
 		dLocCoord(loop, 1) = 0.0;
 		dLocCoord(loop, 2) = stmdHeight;
-	}	
+	}
+
+	return true;	
 }
 
 

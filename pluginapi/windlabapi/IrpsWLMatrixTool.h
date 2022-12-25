@@ -9,7 +9,7 @@ public:
 
     virtual ~IrpsWLMatrixTool() {};
 
-	virtual void MatrixToolCompute(const CRPSWindLabsimuData &Data, const mat &inputMatrix, mat &outputMatrix, QStringList &strInformation) = 0;
+    virtual bool MatrixToolCompute(const CRPSWindLabsimuData &Data, const mat &inputMatrix, mat &outputMatrix, QStringList &strInformation) = 0;
 
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 };

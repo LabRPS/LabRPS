@@ -4,21 +4,41 @@
 #include "widgets/kaimalpsdshearvelocitydialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/spectrum/KaimalSpectrum.h"
+#include "myWidgets/RPSAlongWindKaimalDialog.h"
 
 // The shear velocity of the flow
 static double dShearVecForSpec = 1.76;
+static double constant1 = 100;
+static double constant2 = 50;
 
 
-void CRPSKaimalSpectr::ComputeXAutoSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSKaimalSpectr::ComputeXAutoSpectrumVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 	// Local array for location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 	vec dcoherenceVector(Data.numberOfFrequency);
     vec dFrequencies(Data.numberOfFrequency);
 
-	CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-    CRPSWindLabFramework::ComputeCrossCoherenceVectorF(Data, dFrequencies, dcoherenceVector, strInformation);
-    CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFrequencies, dVarVector, strInformation);
+	bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+	   
+    returnResult = CRPSWindLabFramework::ComputeCrossCoherenceVectorF(Data, dFrequencies, dcoherenceVector, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the coherence vector has failed.") ;
+       return false;
+    }
+    
+    returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFrequencies, dVarVector, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies vector has failed.") ;
+       return false;
+    }
 
 	//double dFrequency = 0.0;
 	double dTime = Data.minTime + Data.timeIncrement*Data.timeIndex;
@@ -36,8 +56,10 @@ void CRPSKaimalSpectr::ComputeXAutoSpectrumVectorF(const CRPSWindLabsimuData &Da
 
         dValVector(loop) = sqrt(PSDj*PSDk)*dcoherenceVector(loop);
      }
+
+     return true;
 }
-void CRPSKaimalSpectr::ComputeXAutoSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSKaimalSpectr::ComputeXAutoSpectrumVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition, 3);
@@ -45,9 +67,26 @@ void CRPSKaimalSpectr::ComputeXAutoSpectrumVectorT(const CRPSWindLabsimuData &Da
     vec dFrequencies(Data.numberOfFrequency);
     vec dFreqVar(Data.numberOfFrequency);
 
-    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-    CRPSWindLabFramework::ComputeCrossCoherenceVectorF(Data, dFrequencies, dcoherenceVector, strInformation);
-    CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFreqVar, dFrequencies, strInformation);
+    bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+	   
+    returnResult = CRPSWindLabFramework::ComputeCrossCoherenceVectorF(Data, dFrequencies, dcoherenceVector, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the coherence vector has failed.") ;
+       return false;
+    }
+    
+    returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, dFreqVar, dFrequencies, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies vector has failed.") ;
+       return false;
+    }
 
     //double dFrequency = 0.0;
     const double dFrequency = dFrequencies(Data.frequencyIndex);
@@ -57,18 +96,20 @@ void CRPSKaimalSpectr::ComputeXAutoSpectrumVectorT(const CRPSWindLabsimuData &Da
     double PSDk = 0.0;
     double Coh = 0.0;
 
-    for (int loop = 0; loop < Data.numberOfTimeIncrements; loop++)
+    for (int loop = 0; loop < Data.numberOfTimeIncrements && true == returnResult; loop++)
     {
         double dTime = Data.minTime + Data.timeIncrement*loop;
         ComputeXAutoSpectrumValue(Data, PSDj, dLocCoord(loop1, 0), dLocCoord(loop1, 1), dLocCoord(loop1, 2), dFrequency, dTime, strInformation);
         ComputeXAutoSpectrumValue(Data, PSDk, dLocCoord(loop2, 0), dLocCoord(loop2, 1), dLocCoord(loop2, 2), dFrequency, dTime, strInformation);
-        CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Coh, dLocCoord(loop1, 0), dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop2, 0), dLocCoord(loop2, 1), dLocCoord(loop2, 2), dFrequency, dTime, strInformation);
+        returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Coh, dLocCoord(loop1, 0), dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop2, 0), dLocCoord(loop2, 1), dLocCoord(loop2, 2), dFrequency, dTime, strInformation);
 
         dVarVector(loop) = dTime;
         dValVector(loop) = sqrt(PSDj*PSDk)*Coh;
      }
+
+     return true;
 }
-void CRPSKaimalSpectr::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
+bool CRPSKaimalSpectr::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &Data, mat &dPSDMatrix, QStringList &strInformation)
 {
 	// Local array for location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
@@ -77,9 +118,26 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &
 	vec dFrequencies(Data.numberOfFrequency);
     vec varialble(Data.numberOfFrequency);
 
-	CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-	CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(Data, dcoherenceArray, strInformation);
-    CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, varialble, dFrequencies, strInformation);
+	bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+	   
+	returnResult = CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(Data, dcoherenceArray, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the coherence vector has failed.") ;
+       return false;
+    }
+    
+    returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, varialble, dFrequencies, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies vector has failed.") ;
+       return false;
+    }
 
 	double dFrequency = dFrequencies(Data.frequencyIndex);
 	double dTime = Data.minTime + Data.timeIncrement*(Data.timeIndex);
@@ -97,30 +155,50 @@ void CRPSKaimalSpectr::ComputeXCrossSpectrumMatrixPP(const CRPSWindLabsimuData &
             dPSDMatrix(loop1, loop2) = sqrt(PSDj*PSDk)*dcoherenceArray(loop1, loop2);
 		}
 	}
+
+    return true;
 }
 
 //Initial setting
 bool CRPSKaimalSpectr::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
 	
-	// the input diolag
-	std::unique_ptr<KaimalPSDShearVelocityDialog> dlg(new KaimalPSDShearVelocityDialog(dShearVecForSpec));
+//	// the input diolag
+//	std::unique_ptr<KaimalPSDShearVelocityDialog> dlg(new KaimalPSDShearVelocityDialog(dShearVecForSpec));
 
-	if (dlg->exec() == QDialog::Accepted) //
-	{
-		dShearVecForSpec = dlg->m_shearVelocity;
-	}
+//	if (dlg->exec() == QDialog::Accepted) //
+//	{
+//		dShearVecForSpec = dlg->m_shearVelocity;
+//	}
 	
-	return true;
+//	return true;
+
+    // the input diolag
+    std::unique_ptr<RPSAlongWindKaimalDialog> dlg(new RPSAlongWindKaimalDialog(constant1, constant2));
+
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+        constant1 = dlg->m_constant1;
+        constant2 = dlg->m_constant2;
+    }
+
+    return true;
 }
 
 
-void CRPSKaimalSpectr::ComputeXAutoSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &xCoord, const double &yCoord, const double &zCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+bool CRPSKaimalSpectr::ComputeXAutoSpectrumValue(const CRPSWindLabsimuData &Data, double &dValue, const double &xCoord, const double &yCoord, const double &zCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 
 	double dMeanSpeed = 0.0;
-    CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed, xCoord, yCoord, zCoord, dTime, strInformation);
+    const bool returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed, xCoord, yCoord, zCoord, dTime, strInformation);
 
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the mean wind speed has failed.") ;
+       return false;
+    }
+    
     rps::WindVelocity::KaimalSpectrum kaimalPSD;
-    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, zCoord, dMeanSpeed, dShearVecForSpec);
+    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, zCoord, dMeanSpeed, dShearVecForSpec, constant1, constant2);
+    return true;
 }

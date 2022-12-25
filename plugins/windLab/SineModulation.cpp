@@ -20,12 +20,13 @@ bool CSineModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringL
 }
 
 
-void CSineModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+bool CSineModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	dValue = sin(3.14*dTime / pulseDuration);
+	return true;
 }
 
-void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 	//double 	dTime;
     rps::WindVelocity::SineModulation sineModulation;
@@ -37,9 +38,10 @@ void CSineModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, 
 		dVarVector(k) = dTime;	
         dValVector(k) = sineModulation.computeModulation(dTime, pulseDuration);
 	}
+	return true;
 }
 
-void CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     //double 	dTime;
     rps::WindVelocity::SineModulation sineModulation;
@@ -52,4 +54,6 @@ void CSineModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, 
         dVarVector(k) = k+1;
         dValVector(k) = dModValue;
     }
+
+	return true;
 }

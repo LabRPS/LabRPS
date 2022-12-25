@@ -26,14 +26,16 @@ bool CExpoModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringL
 	return true;
 }
 
-void CExpoModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+bool CExpoModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
     rps::WindVelocity::ExponentialModulation exponentialModulation;
 
     dValue = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
+
+	return true;
 }
 
-void CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 
     rps::WindVelocity::ExponentialModulation exponentialModulation;
@@ -45,9 +47,11 @@ void CExpoModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, 
         dVarVector(k) = dTime;
 		dValVector(k) = exponentialModulation.computeModulation(dTime, timeOfMax, stormLength);
 	}
+
+	return true;
 }
 
-void CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     rps::WindVelocity::ExponentialModulation exponentialModulation;
     const double 	dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
@@ -58,4 +62,6 @@ void CExpoModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, 
         dVarVector(k) = k+1;
         dValVector(k) = modulationValue;
     }
+
+	return true;
 }

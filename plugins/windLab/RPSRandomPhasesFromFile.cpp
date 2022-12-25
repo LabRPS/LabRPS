@@ -10,14 +10,15 @@
 // the path to the file 
 QString mstrRPFilePath;
 
-void CRPSRandomPhasesFromFile::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
+bool CRPSRandomPhasesFromFile::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
 {
 	ReadPhaseAngleFromFile(Data, mstrRPFilePath, dRandomValueArray, strInformation);
+  return true;
 
 }
-void CRPSRandomPhasesFromFile::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
+bool CRPSRandomPhasesFromFile::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
 {
-
+return false;
 }
 
 bool CRPSRandomPhasesFromFile::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
@@ -28,7 +29,7 @@ bool CRPSRandomPhasesFromFile::OnInitialSetting(const CRPSWindLabsimuData &Data,
 }
 
 
-void CRPSRandomPhasesFromFile::GetFilePathButton()
+bool CRPSRandomPhasesFromFile::GetFilePathButton()
 {
   QString filter = "Text files (*.txt)";
 
@@ -38,6 +39,8 @@ void CRPSRandomPhasesFromFile::GetFilePathButton()
     QFileInfo fi(fn);
     mstrRPFilePath = fi.absoluteFilePath();
   }
+
+  return true;
 }
 
 int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const CRPSWindLabsimuData &Data, QString file_path, mat &dRandomValueArray, QStringList &strInformation)

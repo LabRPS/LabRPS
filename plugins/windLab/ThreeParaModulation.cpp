@@ -26,15 +26,17 @@ bool CThreeParaModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QSt
 	return true;
 }
 
-void CThreeParaModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+bool CThreeParaModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
     rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
 
     dValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
+
+	return true;
 }
 
 
-void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
 
@@ -64,9 +66,11 @@ void CThreeParaModulation::ComputeModulationVectorT(const CRPSWindLabsimuData &D
 		dValVector(k) /= max;
 	}
 
+	return true;
+
 }
 
-void CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     rps::WindVelocity::ThreeParametersModulation threeParametersModulation;
 
@@ -95,4 +99,6 @@ void CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &D
         // Normalizing the modulation function
         dValVector(k) /= max;
     }
+
+	return true;
 }

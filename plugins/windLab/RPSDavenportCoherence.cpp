@@ -15,7 +15,7 @@ static double dExponentialDecayCy = 7;
 // The decay coefficient Cy
 static double dExponentialDecayCz = 6;
 
-void CRPSDavenportCoherence::ComputeCrossCoherenceValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationJxCoord, const double &dLocationJyCoord, const double &dLocationJzCoord, const double &dLocationKxCoord, const double &dLocationKyCoord, const double &dLocationKzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
 {
 	double dMeanSpeed1 = 0.0;
 	double dMeanSpeed2 = 0.0;
@@ -25,6 +25,8 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceValue(const CRPSWindLabsimuDat
 	CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed2, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dTime, strInformation);
 
     dValue = davenportCoherence.computeCoherenceValue(dLocationJxCoord, dLocationJyCoord, dLocationJzCoord, dLocationKxCoord, dLocationKyCoord, dLocationKzCoord, dFrequency, dMeanSpeed1, dMeanSpeed2);
+
+	return true;
 }
 
 bool CRPSDavenportCoherence::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
@@ -42,7 +44,7 @@ bool CRPSDavenportCoherence::OnInitialSetting(const CRPSWindLabsimuData &Data, Q
 	return true;
 }
 
-void CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 	// The coherence value
 	double dCoherenceValue = 0.0;
@@ -60,9 +62,11 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuD
 
 		dValVector(loop3) = dCoherenceValue;
 	}
+
+	return true;
 }
 
-void CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
     // The coherence value
     double dCoherenceValue = 0.0;
@@ -70,9 +74,21 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const CRPSWindLabsimuD
     vec dFrequencies(Data.numberOfFrequency);
     vec freqVar(Data.numberOfFrequency);
 
-    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-    CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, freqVar, dFrequencies, strInformation);
-    const double dfrequency = dFrequencies(Data.frequencyIndex);
+    bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+	
+	returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, freqVar, dFrequencies, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies vector has failed.") ;
+       return false;
+    }
+	
+	const double dfrequency = dFrequencies(Data.frequencyIndex);
 
     for (int loop3 = 0; loop3 < Data.numberOfTimeIncrements; loop3++)
     {
@@ -82,18 +98,30 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const CRPSWindLabsimuD
 
         dValVector(loop3) = dCoherenceValue;
     }
+
+	return true;
 }
 
-void CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimuData &Data, mat &dCoherenceMatrix, QStringList &strInformation)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition, 3);
 	vec dFrequencies(Data.numberOfFrequency);
     vec variables(Data.numberOfFrequency);
 
 	// Compute location coordinates
-	CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
-    CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, variables, dFrequencies, strInformation);
-
+	bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
+	
+	returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, variables, dFrequencies, strInformation);
+if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies vector has failed.") ;
+       return false;
+    }
 	double coherence = 0.0;
 	double dTime = Data.timeIncrement * (Data.timeIndex);
 	double frequency = dFrequencies(Data.frequencyIndex);
@@ -107,4 +135,6 @@ void CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const CRPSWindLabsimu
 			dCoherenceMatrix(loop1, loop2) = coherence;
 		}
 	}
+
+	return true;
 }

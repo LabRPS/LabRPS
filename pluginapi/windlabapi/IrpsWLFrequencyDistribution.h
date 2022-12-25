@@ -8,9 +8,9 @@ class IrpsWLFrequencyDistribution
 public:
     virtual ~IrpsWLFrequencyDistribution() {};
 
-    virtual void ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation) = 0;
+    virtual bool ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation) = 0;
 
-	virtual void ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data,  vec &dVarVector, vec &dValVector, QStringList &strInformation) = 0;
+    virtual bool ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data,  vec &dVarVector, vec &dValVector, QStringList &strInformation) = 0;
 
 	virtual bool OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation) = 0;
 

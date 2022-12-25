@@ -22,7 +22,6 @@ RPSWindLabSimulationWorker::RPSWindLabSimulationWorker(CRPSWindLabsimuData windL
     currentStep = 0;
     maxStepOld = 0;
     m_windLabData.isInterruptionRequested = false;
-
 }
  
 RPSWindLabSimulationWorker::~RPSWindLabSimulationWorker() 
@@ -102,7 +101,7 @@ void RPSWindLabSimulationWorker::windVelocityLargeScale()
     QString fn = m_windLabData.workingDirPath + "/windVelocities.txt";
 
     // simulation
-    currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, fn, m_information);
+    m_windLabData.isSimulationSuccessful = currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, fn, m_information);
 	
     m_information.append(tr("The simulation took %1 ms").arg(QString::number(t.elapsed())));
 

@@ -19,14 +19,16 @@ bool CRPSUniformRandomPhases::OnInitialSetting(const CRPSWindLabsimuData &Data, 
 	return true;
 }
 
-void CRPSUniformRandomPhases::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
+bool CRPSUniformRandomPhases::GenerateRandomArrayFP(const CRPSWindLabsimuData &Data, mat &dRandomValueArray, QStringList &strInformation)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(dRandomValueArray, minValue, maxValue);
+return true;
 }
 
-void CRPSUniformRandomPhases::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
+bool CRPSUniformRandomPhases::ComputeRandomValue(const CRPSWindLabsimuData &Data, double &dValue, QStringList &strInformation)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseValue(dValue, minValue, maxValue);
+    return true;
 }

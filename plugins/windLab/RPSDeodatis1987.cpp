@@ -17,9 +17,11 @@ bool CRPSDeodatis1987::OnInitialSetting(const CRPSWindLabsimuData &Data, QString
 bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityArray, QStringList &strInformation)
 {
    const bool simResult = stationaryWind(Data, dVelocityArray, strInformation);
+   bool returnResult = true;
 
    if(!simResult)
    {
+       strInformation.append("The simulation has failed.");
        return simResult;
    }
 
@@ -28,15 +30,22 @@ bool CRPSDeodatis1987::Simulate(const CRPSWindLabsimuData &Data, mat &dVelocityA
        vec modulationVar(Data.numberOfTimeIncrements);
        vec modulationVal(Data.numberOfTimeIncrements);
 
-       for (int j = 0; j < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested; j++)
+       for (int j = 0; j < Data.numberOfSpatialPosition && false == Data.isInterruptionRequested && true == returnResult; j++)
        {
-           CRPSWindLabFramework::ComputeModulationVectorT(Data, modulationVar, modulationVal, strInformation);
+           returnResult = CRPSWindLabFramework::ComputeModulationVectorT(Data, modulationVar, modulationVal, strInformation);
 
            for (int i = 0; i < Data.numberOfTimeIncrements && false == Data.isInterruptionRequested; i++)
            {
               dVelocityArray(i,j) = modulationVal(i) * dVelocityArray(i,j);
            }
        }
+
+       if(!returnResult)
+    {
+       strInformation.append("The computation of the modulation function has failed.") ;
+       return false;
+    }
+
    }
 
    return true;
@@ -47,6 +56,11 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
 {
     ObjectDescription frequencyDistrDescription = CRPSWindLabFramework::getFrequencyDistributionObjDescription(Data.freqencyDistribution);
 
+//if(NULL = frequencyDistrDescription)
+//    {
+//       strInformation.append("Invalid frequency distribution. The simulation has failed.") ;
+//       return false;
+//    }
     if(Data.freqencyDistribution != "Double Index Frequency" ||
        frequencyDistrDescription.m_pluginName != "windLab")
     {
@@ -86,31 +100,48 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
     mat dLocCoord(n, 3);
     mat frequencies(N,n);
 
-    CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+    }
 
     mat thet(N, n);
-    CRPSWindLabFramework::GenerateRandomArrayFP(Data, thet, strInformation);
+    returnResult = CRPSWindLabFramework::GenerateRandomArrayFP(Data, thet, strInformation);
+    
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the random phase matrix has failed.") ;
+       return false;
+    }
 
     std::complex<double> i2(0, 1);
     Eigen::FFT<double> fft;
 
-    for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+    for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
     {
-        for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+        for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
         {
-           CRPSWindLabFramework::ComputeFrequencyValue(Data, frequencies(l - 1, m-1), m-1, l - 1, strInformation);
+           returnResult = CRPSWindLabFramework::ComputeFrequencyValue(Data, frequencies(l - 1, m-1), m-1, l - 1, strInformation);
         }
     }
 
-    for (int i = 1; i <= n && false == Data.isInterruptionRequested; i++)
+   if(!returnResult)
+    {
+       strInformation.append("The computation of the frequencies matrix has failed.") ;
+       return false;
+    }
+
+    for (int i = 1; i <= n && false == Data.isInterruptionRequested && true == returnResult; i++)
     {
         // Simulation starts
-        for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+        for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
         {
-            for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+            for (int j = 1; j <= n && false == Data.isInterruptionRequested && true == returnResult; j++)
             {
                 // compute auto spectrum Sj(w)
-                CRPSWindLabFramework::ComputeAutoSpectrumValue(Data,
+                returnResult = CRPSWindLabFramework::ComputeAutoSpectrumValue(Data,
                                                                  PSD1(j-1, l-1),
                                                                  dLocCoord(j-1,0),
                                                                  dLocCoord(j-1,1),
@@ -120,10 +151,10 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
                                                                  strInformation);
 
                 // compte cross coherence Cohjm(w)
-                for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
                 {
 
-                    CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
+                    returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
                                                                 dLocCoord(j-1,0),
                                                                 dLocCoord(j-1,1),
                                                                 dLocCoord(j-1,2),
@@ -143,11 +174,11 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
 
             }
 
-            CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, PSD4, PSD3, strInformation);
+            returnResult = CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, PSD4, PSD3, strInformation);
 
-            for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+            for (int j = 1; j <= n && false == Data.isInterruptionRequested && true == returnResult; j++)
             {
-                for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
                 {
 
                     PSD5(j-1, m-1, l-1) =  PSD4(j-1, m-1);
@@ -158,17 +189,17 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
 
         }
 
-        for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+        for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
         {
-            for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+            for (int ii = 1; ii <= i && false == Data.isInterruptionRequested && true == returnResult; ii++)
             {
                  B(i-1, ii-1, l-1) = 2*sqrt(deltaomega)*abs(PSD(i-1, ii-1, l-1))*exp(i2*thet(l - 1,ii - 1));
             }
         }
 
-        for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+        for (int ii = 1; ii <= i && false == Data.isInterruptionRequested && true == returnResult; ii++)
         {
-            for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+            for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
             {
                 xxx(l-1) =B(i-1, ii-1, l-1);
 
@@ -187,20 +218,36 @@ bool CRPSDeodatis1987::stationaryWind(const CRPSWindLabsimuData &Data, mat &dVel
 
         int q = 0;
         // Generate the wind velocity
-        for (int p = 1; p <= T && false == Data.isInterruptionRequested; p++) {
+        for (int p = 1; p <= T && false == Data.isInterruptionRequested && true == returnResult; p++) {
             q = fmod(p-1,M);
-            for (int k = 1; k <= i && false == Data.isInterruptionRequested; k++) {
+            for (int k = 1; k <= i && false == Data.isInterruptionRequested && true == returnResult; k++) {
 
-                dVelocityArray(p - 1, i - 1)=dVelocityArray(p - 1, i - 1)+real(G(i-1,k - 1,q)*exp(i2*((k)*deltaomega*(p-1)*dt/n)));
+                dVelocityArray(p - 1, i - 1) = dVelocityArray(p - 1, i - 1) + real(G(i-1,k - 1,q) * exp(i2*((k)*deltaomega*(p-1)*dt/n)));
             }
         }
     }
-    return true;
+
+    return returnResult;
 }
 
 // The simulation function in large scale mode
 bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data, QString &strFileName, QStringList &strInformation)
 {
+    ObjectDescription frequencyDistrDescription = CRPSWindLabFramework::getFrequencyDistributionObjDescription(Data.freqencyDistribution);
+
+//if(NULL == &frequencyDistrDescription)
+//    {
+//       strInformation.append("Invalid frequency distribution. The simulation has failed.") ;
+//       return false;
+//    }
+    
+    if(Data.freqencyDistribution != "Double Index Frequency" ||
+       frequencyDistrDescription.m_pluginName != "windLab")
+    {
+        strInformation.append("This tool required the wind velocity to be simulated with the double index frequency distribution implemented by the windLab plugin.");
+        return false;
+    }
+
          // Define an output stream
          std::ofstream fout;
 
@@ -245,31 +292,41 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
          mat dLocCoord(n, 3);
          mat frequencies(N,n);
 
-         CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
+         bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord, strInformation);
 
+       if(!returnResult)
+       {
+       strInformation.append("The computation of the location coordinates matrix has failed.") ;
+       return false;
+       }
          mat thet(N, n);
-         CRPSWindLabFramework::GenerateRandomArrayFP(Data, thet, strInformation);
-
+         returnResult = CRPSWindLabFramework::GenerateRandomArrayFP(Data, thet, strInformation);
+       
+       if(!returnResult)
+       {
+       strInformation.append("The computation of the random phase matrix has failed.") ;
+       return false;
+       }
          std::complex<double> i2(0, 1);
          Eigen::FFT<double> fft;
 
-         for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+         for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
          {
-             for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+             for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
              {
-                CRPSWindLabFramework::ComputeFrequencyValue(Data, frequencies(l - 1, m-1), m-1, l - 1, strInformation);
+                returnResult = CRPSWindLabFramework::ComputeFrequencyValue(Data, frequencies(l - 1, m-1), m-1, l - 1, strInformation);
              }
          }
 
-         for (int i = 1; i <= n && false == Data.isInterruptionRequested; i++)
+         for (int i = 1; i <= n && false == Data.isInterruptionRequested && true == returnResult; i++)
          {
              // Simulation starts
-             for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+             for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
              {
-                 for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+                 for (int j = 1; j <= n && false == Data.isInterruptionRequested && true == returnResult; j++)
                  {
                      // compute auto spectrum Sj(w)
-                     CRPSWindLabFramework::ComputeAutoSpectrumValue(Data,
+                     returnResult = CRPSWindLabFramework::ComputeAutoSpectrumValue(Data,
                                                                       PSD1(j-1, l-1),
                                                                       dLocCoord(j-1,0),
                                                                       dLocCoord(j-1,1),
@@ -279,10 +336,10 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
                                                                       strInformation);
 
                      // compte cross coherence Cohjm(w)
-                     for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                     for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
                      {
 
-                         CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
+                         returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, Kz(j-1, m-1, l-1),
                                                                      dLocCoord(j-1,0),
                                                                      dLocCoord(j-1,1),
                                                                      dLocCoord(j-1,2),
@@ -302,11 +359,11 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
 
                  }
 
-                 CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, PSD4, PSD3, strInformation);
+                 returnResult = CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, PSD4, PSD3, strInformation);
 
-                 for (int j = 1; j <= n && false == Data.isInterruptionRequested; j++)
+                 for (int j = 1; j <= n && false == Data.isInterruptionRequested && true == returnResult; j++)
                  {
-                     for (int m = 1; m <= n && false == Data.isInterruptionRequested; m++)
+                     for (int m = 1; m <= n && false == Data.isInterruptionRequested && true == returnResult; m++)
                      {
 
                          PSD5(j-1, m-1, l-1) =  PSD4(j-1, m-1);
@@ -317,17 +374,17 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
 
              }
 
-             for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+             for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
              {
-                 for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+                 for (int ii = 1; ii <= i && false == Data.isInterruptionRequested && true == returnResult; ii++)
                  {
                       B(i-1, ii-1, l-1) = 2*sqrt(deltaomega)*abs(PSD(i-1, ii-1, l-1))*exp(i2*thet(l - 1,ii - 1));
                  }
              }
 
-             for (int ii = 1; ii <= i && false == Data.isInterruptionRequested; ii++)
+             for (int ii = 1; ii <= i && false == Data.isInterruptionRequested && true == returnResult; ii++)
              {
-                 for (int l = 1; l <= N && false == Data.isInterruptionRequested; l++)
+                 for (int l = 1; l <= N && false == Data.isInterruptionRequested && true == returnResult; l++)
                  {
                      xxx(l-1) =B(i-1, ii-1, l-1);
 
@@ -336,7 +393,7 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
                  yyy = (double)(M) *fft.inv(xxx);
 
 
-                 for (int l = 1; l <= M && false == Data.isInterruptionRequested; l++)
+                 for (int l = 1; l <= M && false == Data.isInterruptionRequested && true == returnResult; l++)
                  {
                      G(i-1, ii-1, l-1) = yyy(l-1);
 
@@ -346,15 +403,14 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
 
              int q = 0;
              // Generate the wind velocity
-             for (int p = 1; p <= T && false == Data.isInterruptionRequested; p++) {
+             for (int p = 1; p <= T && false == Data.isInterruptionRequested && true == returnResult; p++) {
                  q = fmod(p-1,M);
                  value = 0.0;
-                 for (int k = 1; k <= i && false == Data.isInterruptionRequested; k++) {
-                     value = value +real(G(i-1,k - 1,q)*exp(i2*((k)*deltaomega*(p-1)*dt/n)));
+                 for (int k = 1; k <= i && false == Data.isInterruptionRequested && true == returnResult; k++) {
+                     value = value + real(G(i-1,k - 1,q)*exp(i2*((k)*deltaomega*(p-1)*dt/n)));
                  }
 
                  fout << value << "\t";
-
              }
 
              fout << std::endl;	// New colum
@@ -362,5 +418,5 @@ bool CRPSDeodatis1987::SimulateInLargeScaleMode(const CRPSWindLabsimuData &Data,
 
          fout.close();
 
-         return true;
+         return returnResult;
 }

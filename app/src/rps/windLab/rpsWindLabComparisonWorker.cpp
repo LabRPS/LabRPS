@@ -88,6 +88,7 @@ RPSWindLabComparisonWorker::RPSWindLabComparisonWorker(CRPSWindLabsimuData windL
     currentStep = 0;
     maxStepOld = 0;
     m_windLabData.isInterruptionRequested = false;
+    iscomputationSuccessful = false;
 }
 
 RPSWindLabComparisonWorker::~RPSWindLabComparisonWorker()
@@ -185,7 +186,7 @@ void RPSWindLabComparisonWorker::ComputeFrequenciesVectorF(const QString &name, 
     t.start();
 
     // running the computation
-    currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentFreqDistr->ComputeFrequenciesVectorF(m_windLabData, resultVar, result, information);
     time = t.elapsed();
     information.append(tr("The computation of the frequencies (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
@@ -210,7 +211,7 @@ void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceVectorF(m_windLabData, resultVar, result, information);
     time = t.elapsed();
     information.append(tr("The computation of the coherence function (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
@@ -236,7 +237,7 @@ void RPSWindLabComparisonWorker::ComputeCrossCoherenceVectorT(const QString &nam
     t.start();
 
     // running the computation
-    currentCoherenceFunction->ComputeCrossCoherenceVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentCoherenceFunction->ComputeCrossCoherenceVectorT(m_windLabData, resultVar, result, information);
     time = t.elapsed();
     information.append(tr("The computation of the coherence function (%1) took %2 ms").arg(name).arg(QString::number(time)));
 
@@ -264,7 +265,7 @@ void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorP(const QString &name
     t.start();
 
     // running the computation
-    currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentMeanWindProfil->ComputeMeanWindSpeedVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the mean wind (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -294,7 +295,7 @@ void RPSWindLabComparisonWorker::ComputeMeanWindSpeedVectorT(const QString &name
         t.start();
 
         // running the computation
-        currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentMeanWindProfil->ComputeMeanWindSpeedVectorT(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the mean wind (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -323,7 +324,7 @@ void RPSWindLabComparisonWorker::ComputeModulationVectorT(const QString &name, v
     t.start();
 
     // running the computation
-    currentModulationFtn->ComputeModulationVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentModulationFtn->ComputeModulationVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -381,7 +382,7 @@ void RPSWindLabComparisonWorker::ComputeModulationVectorP(const QString &name, v
         t.start();
 
         // running the computation
-        currentModulationFtn->ComputeModulationVectorP(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentModulationFtn->ComputeModulationVectorP(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the modulation function (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -410,7 +411,7 @@ void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorF(const QSt
     t.start();
 
     // running the computation
-    currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -439,7 +440,7 @@ void RPSWindLabComparisonWorker::ComputeDecomposedCrossSpectrumVectorT(const QSt
         t.start();
 
         // running the computation
-        currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentPSD->ComputeDecomposedCrossSpectrumVectorT(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the decomposed spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -497,7 +498,7 @@ void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentPSD->ComputeXAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -526,7 +527,7 @@ void RPSWindLabComparisonWorker::ComputeXCrossSpectrumVectorT(const QString &nam
         t.start();
 
         // running the computation
-        currentPSD->ComputeXAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentPSD->ComputeXAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -584,7 +585,7 @@ void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentPSD->ComputeYAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -613,7 +614,7 @@ void RPSWindLabComparisonWorker::ComputeYCrossSpectrumVectorT(const QString &nam
         t.start();
 
         // running the computation
-        currentPSD->ComputeYAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentPSD->ComputeYAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -671,7 +672,7 @@ void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorF(const QString &nam
     t.start();
 
     // running the computation
-    currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentPSD->ComputeZAutoSpectrumVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -700,7 +701,7 @@ void RPSWindLabComparisonWorker::ComputeZCrossSpectrumVectorT(const QString &nam
         t.start();
 
         // running the computation
-        currentPSD->ComputeZAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentPSD->ComputeZAutoSpectrumVectorT(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the spectrum (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -758,7 +759,7 @@ void RPSWindLabComparisonWorker::ComputeCDFVectorP(const QString &name, vec &res
         t.start();
 
         // running the computation
-        currentObject->ComputeCDFVectorP(m_windLabData, resultVar, result, information);
+        iscomputationSuccessful = currentObject->ComputeCDFVectorP(m_windLabData, resultVar, result, information);
 
         time = t.elapsed();
         information.append(tr("The computation of the CDF (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -786,7 +787,7 @@ void RPSWindLabComparisonWorker::ComputeGustFactorVectorP(const QString &name, v
     t.start();
 
     // running the computation
-    currentObject->ComputeGustFactorVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeGustFactorVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the gust factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -814,7 +815,7 @@ void RPSWindLabComparisonWorker::ComputeGustFactorVectorT(const QString &name, v
     t.start();
 
     // running the computation
-    currentObject->ComputeGustFactorVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeGustFactorVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the gust factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -842,7 +843,7 @@ void RPSWindLabComparisonWorker::ComputeKurtosisVectorP(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeKurtosisVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeKurtosisVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the kurtosis (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -871,7 +872,7 @@ void RPSWindLabComparisonWorker::ComputeKurtosisVectorT(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeKurtosisVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeKurtosisVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the kurtosis (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -899,7 +900,7 @@ void RPSWindLabComparisonWorker::ComputePeakFactorVectorP(const QString &name, v
     t.start();
 
     // running the computation
-    currentObject->ComputePeakFactorVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputePeakFactorVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the peak factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -927,7 +928,7 @@ void RPSWindLabComparisonWorker::ComputePeakFactorVectorT(const QString &name, v
     t.start();
 
     // running the computation
-    currentObject->ComputePeakFactorVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputePeakFactorVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the peak factor (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -955,7 +956,7 @@ void RPSWindLabComparisonWorker::ComputePDFVectorP(const QString &name, vec &res
     t.start();
 
     // running the computation
-    currentObject->ComputePDFVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputePDFVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the PDF (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -983,7 +984,7 @@ void RPSWindLabComparisonWorker::ComputeRoughnessVectorP(const QString &name, ve
     t.start();
 
     // running the computation
-    currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeRoughnessVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the roughtness (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1011,7 +1012,7 @@ void RPSWindLabComparisonWorker::ComputeRoughnessVectorT(const QString &name, ve
     t.start();
 
     // running the computation
-    currentObject->ComputeRoughnessVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeRoughnessVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the roughtness (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1039,7 +1040,7 @@ void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorP(const QString
     t.start();
 
     // running the computation
-    currentObject->ComputeShearVelocityOfFlowVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeShearVelocityOfFlowVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the shear velocity (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1067,7 +1068,7 @@ void RPSWindLabComparisonWorker::ComputeShearVelocityOfFlowVectorT(const QString
     t.start();
 
     // running the computation
-    currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeShearVelocityOfFlowVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the shear velocity (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1095,7 +1096,7 @@ void RPSWindLabComparisonWorker::ComputeSkewnessVectorP(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeSkewnessVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeSkewnessVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the skewness (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1123,7 +1124,7 @@ void RPSWindLabComparisonWorker::ComputeSkewnessVectorT(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeSkewnessVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeSkewnessVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the skewness (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1151,7 +1152,7 @@ void RPSWindLabComparisonWorker::ComputeStandardDeviationVectorP(const QString &
     t.start();
 
     // running the computation
-    currentObject->ComputeStandardDeviationVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeStandardDeviationVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the standard deviation (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1179,7 +1180,7 @@ void RPSWindLabComparisonWorker::ComputeStandardDeviationVectorT(const QString &
     t.start();
 
     // running the computation
-    currentObject->ComputeStandardDeviationVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeStandardDeviationVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the standard deviation (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1207,7 +1208,7 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceIntensityVectorP(const QString
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceIntensityVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the turbulence intensity (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1235,7 +1236,7 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceIntensityVectorT(const QString
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceIntensityVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the turbulence intensity (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1263,7 +1264,7 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceScaleVectorP(const QString &na
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceScaleVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the turbulence scale (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1291,7 +1292,7 @@ void RPSWindLabComparisonWorker::ComputeTurbulenceScaleVectorT(const QString &na
     t.start();
 
     // running the computation
-    currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeTurbulenceScaleVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the turbulence scale (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1319,7 +1320,7 @@ void RPSWindLabComparisonWorker::ComputeVarianceVectorP(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeVarianceVectorP(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeVarianceVectorP(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the variance (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1347,7 +1348,7 @@ void RPSWindLabComparisonWorker::ComputeVarianceVectorT(const QString &name, vec
     t.start();
 
     // running the computation
-    currentObject->ComputeVarianceVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeVarianceVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the variance (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1375,7 +1376,7 @@ void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorF(const QString &
     t.start();
 
     // running the computation
-    currentObject->ComputeWavePassageEffectVectorF(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeWavePassageEffectVectorF(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the wave passage effect (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1403,7 +1404,7 @@ void RPSWindLabComparisonWorker::ComputeWavePassageEffectVectorT(const QString &
     t.start();
 
     // running the computation
-    currentObject->ComputeWavePassageEffectVectorT(m_windLabData, resultVar, result, information);
+    iscomputationSuccessful = currentObject->ComputeWavePassageEffectVectorT(m_windLabData, resultVar, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the wave passage effect (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1433,7 +1434,7 @@ void RPSWindLabComparisonWorker::Simulate(const QString &name, mat &result, int 
     t.start();
 
     // simulation
-    currentSimuMethod->Simulate(m_windLabData, result, information);
+    iscomputationSuccessful = currentSimuMethod->Simulate(m_windLabData, result, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the simulation method (%1) took %2 ms").arg(name).arg(QString::number(time)));
@@ -1471,7 +1472,7 @@ void RPSWindLabComparisonWorker::SimulateInLargeScaleMode(const QString &name, Q
     t.start();
 
     // simulation
-    currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, strFileName, information);
+    iscomputationSuccessful = currentSimuMethod->SimulateInLargeScaleMode(m_windLabData, strFileName, information);
 
     time = t.elapsed();
     information.append(tr("The computation of the simulation method (%1) took %2 ms").arg(name).arg(QString::number(time)));

@@ -26,14 +26,20 @@ RPSWLPSDDefinitionDialog::RPSWLPSDDefinitionDialog(QWidget *parent) :
 	 freqencyDistribution = rpsWindLabSimulator->GetWindLabData().freqencyDistribution;
 
      int min = 1;
-     int max = 10000000;
+     //int max = 10000000;
 
-     ui->lineEditNberOfFreqIncr->setRange(min, max);
+     ui->lineEditNberOfFreqIncr->setRange(min, std::numeric_limits<int>::max());
+     ui->lineEditMinFreq->setMinimum(-INFINITY);
+     ui->lineEditMinFreq->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditMaxFreq->setMinimum(-INFINITY);
+     ui->lineEditMaxFreq->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditFreqIncr->setMinimum(-INFINITY);
+     ui->lineEditFreqIncr->setMaximum(std::numeric_limits<double>::max());
 
      ui->lineEditNberOfFreqIncr->setValue(numberOfFrequency);
-     ui->lineEditMinFreq->setText(QString::number(minFrequency));
-     ui->lineEditMaxFreq->setText(QString::number(maxFrequency));
-     ui->lineEditFreqIncr->setText(QString::number(frequencyIncrement));
+     ui->lineEditMinFreq->setValue(minFrequency);
+     ui->lineEditMaxFreq->setValue(maxFrequency);
+     ui->lineEditFreqIncr->setValue(frequencyIncrement);
      
      if(1 == windDirection)
 	{

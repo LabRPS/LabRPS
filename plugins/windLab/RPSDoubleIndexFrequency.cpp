@@ -3,13 +3,14 @@
 #include <QMessageBox>
 
 
-void CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
+bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
 	for (int l = 0; l < Data.numberOfFrequency; l++)
 	{
 		dVarVector(l) = l+1;
 		dValVector(l) = Data.minFrequency + l * Data.frequencyIncrement + (Data.locationJ + 1)*Data.frequencyIncrement / Data.numberOfSpatialPosition;
 	}
+	return true;
 }
 
 bool CRPSDoubleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
@@ -19,7 +20,8 @@ bool CRPSDoubleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data,
 	return true;
 }
 
-void CRPSDoubleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)
+bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)
 {
     dValue = Data.minFrequency + frequencyIndex * Data.frequencyIncrement + (locationIndex + 1)*Data.frequencyIncrement / Data.numberOfSpatialPosition;
+return true;
 }

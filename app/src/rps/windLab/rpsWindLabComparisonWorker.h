@@ -227,6 +227,7 @@ public:
 
     double accuracy;
     bool isComparisonSuccessful;
+    bool iscomputationSuccessful;
 
 //   std::vector<int> m_resultVectorVariableVec;
 //   std::vector<int> m_resultVectorCandidate1Vec;

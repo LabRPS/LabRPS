@@ -134,6 +134,7 @@ public:
     cx_mat m_ResultMatrix3;
 
     int workerOutputType;
+    bool iscomputationSuccessful;
 
 public:
     QStringList getInformation();

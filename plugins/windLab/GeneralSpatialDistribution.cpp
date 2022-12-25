@@ -10,9 +10,10 @@ using namespace std;
 //spacing between two adjacent points
 static mat pointsMatrix;
 
-void GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
+bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
 	dLocCoord = pointsMatrix;
+	return true;
 }
 
 

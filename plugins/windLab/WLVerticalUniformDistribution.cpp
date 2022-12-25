@@ -15,7 +15,7 @@ static double vstmdHeightHo = 25;
 //The length on which the locations are vertically distributed
 static double vstmLength = 10;
 
-void CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
+bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRPSWindLabsimuData &Data, mat &dLocCoord, QStringList &strInformation)
 {
 	// Computing the location coordinates
 	for (int loop = 0; loop < Data.numberOfSpatialPosition; loop++)
@@ -24,7 +24,7 @@ void CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const CRP
 		dLocCoord(loop, 1) = 0.0;
 		dLocCoord(loop, 2) = vstmdHeightHo + loop * vstmdSpacing;
 	}
-
+return true;
 }
 
 
