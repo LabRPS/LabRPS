@@ -126,7 +126,7 @@ void PluginInstallerBrowser::install()
                                   "Sorry, couldn't install the plugin. Your plugin was developed with a plugin api whose version is not compatible with the one in the current version of LabRPS.");
             return;
         }
-	}
+    }
 
 	pluginInstallationType = 1; // installation
 
@@ -157,7 +157,21 @@ void PluginInstallerBrowser::install()
 		CPluginDescription *InstallingPluginDescription = PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
 		QString InstallingPluginFullPath = InstallingPluginDescription->fullPath;
 
-		PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType);
+        QString info;
+
+        const bool result = PluginManager::GetInstance().InitializePlugin(InstallingPluginFullPath, pluginInstallationType, info);
+
+        if(!result)
+        {
+            if(!info.isNull())
+            {
+                QMessageBox::critical(0, "Error",
+                                      info);
+                return;
+            }
+
+            return;
+        }
 
 		RPSSimulation *rpsSimu = (RPSSimulation *)this->parent();
 

@@ -12,6 +12,7 @@
 #include <QFileInfo>
 #include <QCoreApplication>
 #include <QFile>
+#include <QSettings>
 
 
 using namespace std;
@@ -58,7 +59,7 @@ public:
 
 	// the flag to show whether the plugin is installed
 	bool isPluginInstalled;
-	
+
 	QLibrary library;
 
     typedef const int (*MyPrototypeOne)();
@@ -94,7 +95,22 @@ public:
 			return NULL;
 		return fptr;
 	}
-	
+
+    QString getLabRPSVersion()
+    {
+        return "0.001";
+    }
+
+    QString getLabRPSWindLabAPIVersion()
+    {
+        return "0.001";
+    }
+
+    QString getLabRPSUserDefinedPhenomenonAPIVersion()
+    {
+        return "0.001";
+    }
+
 };
 
 
@@ -110,13 +126,54 @@ PluginInstance::~PluginInstance()
 	delete mImpl;
 }
 
-bool PluginInstance::Initialize()
+bool PluginInstance::Initialize(QString &information)
 {
 	//load the plugin
 	if (!mImpl->Load())
 	{
 		return false;
 	}
+
+    const QString labRPSVersion = GetStringFromDllFunct("Labrpsversion");
+    const QString apiVersion = GetStringFromDllFunct("Apiversion");
+
+    //take only plugin for current random phenomenon
+    QSettings settings;
+    QString selectedRandomPhenomenon = settings.value("rpsPhenomenon", "Wind Velocity").toString();
+
+    if(mImpl->getLabRPSVersion() != labRPSVersion)
+    {
+        information.append(mImpl->systemName + ": the installation failed due to incompatible LabRPS version.");
+        return false;
+    }
+
+    if(selectedRandomPhenomenon == "Wind Velocity")
+    {
+        if(mImpl->getLabRPSWindLabAPIVersion() != apiVersion)
+        {
+            information.append(mImpl->systemName + ": the installation failed due to incompatible WindLab API version.");
+            return false;
+        }
+    }
+    else if(selectedRandomPhenomenon == "Sea Surface")
+    {
+
+    }
+    else if(selectedRandomPhenomenon == "Seismic Ground Motion")
+    {
+
+    }
+    else if(selectedRandomPhenomenon == "User Defined Phenomenon")
+    {
+        if(mImpl->getLabRPSWindLabAPIVersion() != apiVersion)
+        {
+            information.append(mImpl->systemName + ": the installation failed due to incompatible User Defined Phenomenon API version.");
+            return false;
+        }
+    }
+
+
+
 
 	// get the plugin initialization function
 	Impl::MyPrototypeOne init_func = mImpl->GetFunctionPrototypeOne("PluginInit");
@@ -136,19 +193,19 @@ bool PluginInstance::Load()
 	{		
 		return false;
 	}
-    
-	// if the plugin is successfuly loaded
-	// Call functions from the plungin (dll) to get information about the plugin
-	mImpl->displayName = GetStringFromDllFunct("PluginDisplayName");
-	mImpl->systemName = GetStringFromDllFunct("PluginSystemName");
-	mImpl->randomPhenomenon = GetStringFromDllFunct("Phenomenon");
-	mImpl->pluginAuthor = GetStringFromDllFunct("PluginAuthor");
-	mImpl->pluginDescription = GetStringFromDllFunct("PluginDescription");
-	mImpl->pluginVersion = GetStringFromDllFunct("PluginCurrentVersion");
-	mImpl->pluginReleaseDate = GetStringFromDllFunct("PluginReleaseDate");
-	mImpl->labRPSVersion = GetStringFromDllFunct("Labrpsversion");
-	mImpl->apiVersion = GetStringFromDllFunct("Apiversion");
 
+    // if the plugin is successfuly loaded
+    // Call functions from the plungin (dll) to get information about the plugin
+    mImpl->displayName = GetStringFromDllFunct("PluginDisplayName");
+    mImpl->systemName = GetStringFromDllFunct("PluginSystemName");
+    mImpl->randomPhenomenon = GetStringFromDllFunct("Phenomenon");
+    mImpl->pluginAuthor = GetStringFromDllFunct("PluginAuthor");
+    mImpl->pluginDescription = GetStringFromDllFunct("PluginDescription");
+    mImpl->pluginVersion = GetStringFromDllFunct("PluginCurrentVersion");
+    mImpl->pluginReleaseDate = GetStringFromDllFunct("PluginReleaseDate");
+    mImpl->labRPSVersion = GetStringFromDllFunct("Labrpsversion");
+    mImpl->apiVersion = GetStringFromDllFunct("Apiversion");
+    
 	// get the plugin installation function
 	Impl::MyPrototypeOne install_func = mImpl->GetFunctionPrototypeOne("InstallPlugin");
 	if (!install_func)
@@ -338,7 +395,7 @@ void PluginInstance::SetInstallationState(bool state)
    isInstalled = state;
 }
 
-bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd)
+bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd, QString &information)
 {
 		// have we already loaded this plugin?
 		static std::set<QString> loaded;
@@ -348,7 +405,7 @@ bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd)
 			// try to load this plugin
 			PluginInstance *pi = new PluginInstance(name);
 			
-			if (!pi->Initialize())
+            if (!pi->Initialize(information))
 			{
 				delete pi;
 				return false;
@@ -367,6 +424,7 @@ bool PluginManager::InstallPlugin(const QString &name)
 	
 	// try to load this plugin
 	PluginInstance *pi = new PluginInstance(name);
+
 	if (!pi->Load())
 	{
 		delete pi;
@@ -498,6 +556,16 @@ bool PluginManager::ReadPlgTXT(const QString &path)
 	// Save the plugin full path
 	Description->fullPath = fullpah;
 
+    //take only plugin for current random phenomenon
+    QSettings settings;
+    QString selectedRandomPhenomenon = settings.value("rpsPhenomenon", "Wind Velocity").toString();
+
+    if(Description->type != selectedRandomPhenomenon)
+    {
+        return false;
+    }
+
+
 	pluginDescriptionMap[Description->fileName] = Description;
 
 	return true;
@@ -536,7 +604,9 @@ void PluginManager::PrintDirs()
 
 
 QString PluginManager::SearchForAllPlugins(QString pstr)
-{	
+{
+    pluginDescriptionMap.clear();
+
     QString nameFilter( "*.txt" ); 
 
 	 QStringList filter;

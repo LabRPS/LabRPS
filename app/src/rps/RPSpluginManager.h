@@ -49,7 +49,7 @@ public:
 	~PluginInstance();
 
 	// Initialize the plugin
-	bool Initialize();
+    bool Initialize(QString &information);
 
 	// Load the plugin
 	bool Load();
@@ -107,8 +107,8 @@ public:
 
 private:
 	// Make this object be noncopyable as it holds a pointer
-	PluginInstance(const PluginInstance &);
-	const PluginInstance &operator =(const PluginInstance &);
+    PluginInstance(const PluginInstance &);
+    const PluginInstance &operator =(const PluginInstance &);
 
 	class Impl;
 	Impl *mImpl;
@@ -146,7 +146,7 @@ public:
 	void SearchPlugin();
 
 	// this function install a plugin
-	bool InitializePlugin(const QString &name, int instUninstMOd);
+    bool InitializePlugin(const QString &name, int instUninstMOd, QString &information);
 
 	// This function install a plugin
 	bool InstallPlugin(const QString &name);

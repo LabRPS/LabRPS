@@ -115,7 +115,6 @@
      <addaction name="actionShow3DSurfacePlotToolbar"/>
      <addaction name="actionShowInputToolbar"/>
      <addaction name="actionShowSimulationToolbar"/>
-     <addaction name="actionShowOutputToolbar"/>
     </widget>
     <addaction name="actionPlotWizard"/>
     <addaction name="separator"/>

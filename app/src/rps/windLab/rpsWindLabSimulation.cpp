@@ -487,7 +487,12 @@ void RPSWindLabSimulation::coherenceWindOutput()
 }
 void RPSWindLabSimulation::correlationWindOutput()
 {
-    QMessageBox::warning(0, "windLab", "Output correlation");
+    createOutputWorker();
+    connect(simulationOutputThread, SIGNAL(started()), simulationOutputWorker, SLOT(correlationOut()));
+    connect(simulationOutputWorker, SIGNAL(showCorrelationOutput()), this, SLOT(displayOutputResults()));
+
+    emit progressBarShow();
+    simulationOutputThread->start();
 }
 void RPSWindLabSimulation::modulationWindOutput()
 {
@@ -4740,6 +4745,9 @@ void RPSWindLabSimulation::displayOutputVectorResults()
 
     const int rws = GetWindLabSimulationOutputWorker()->m_ResultVector.rows();
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
+
     // allocate memory for the table
     Table *table = app->newTable(arrayName, rws, 2);
 
@@ -4761,6 +4769,7 @@ void RPSWindLabSimulation::displayOutputVectorResults()
     std::string_view Xlabel = strxlabel;
     std::string_view Ylabel = strylabel;
 
+
     using namespace matplot;
     auto f = figure(true);
     plot(GetWindLabSimulationOutputWorker()->m_ResultVector2,GetWindLabSimulationOutputWorker()->m_ResultVector)->line_width(2);
@@ -4768,6 +4777,8 @@ void RPSWindLabSimulation::displayOutputVectorResults()
     ylabel(Ylabel);
     title(Title);
     f->draw();
+
+    QApplication::restoreOverrideCursor();
 
     information.append(tr("The results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
@@ -4803,6 +4814,8 @@ void RPSWindLabSimulation::displayOutputMatrixResults()
     const int rws = GetWindLabSimulationOutputWorker()->m_ResultMatrix.rows();
     const int cls = GetWindLabSimulationOutputWorker()->m_ResultMatrix.cols();
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
     // allocate memory for the table
     Table *table = app->newTable(arrayName, rws, cls);
 
@@ -4817,6 +4830,28 @@ void RPSWindLabSimulation::displayOutputMatrixResults()
 
 
     table->showNormal();
+
+    // Either this if you use UTF-8 anywhere
+    std::string strTitle = GetWindLabSimulationOutputWorker()->plotTitle.toUtf8().constData();
+    std::string strxlabel = GetWindLabSimulationOutputWorker()->plotxlable.toUtf8().constData();
+    std::string strylabel = GetWindLabSimulationOutputWorker()->plotylabel.toUtf8().constData();
+
+    std::string_view Title = strTitle;
+    std::string_view Xlabel = strxlabel;
+    std::string_view Ylabel = strylabel;
+
+    vec colAt = GetWindLabSimulationOutputWorker()->m_ResultMatrix.col(GetWindLabData().locationJ);
+
+    using namespace matplot;
+    auto f = figure(true);
+    plot(colAt)->line_width(2);
+    xlabel(Xlabel);
+    ylabel(Ylabel);
+    title(Title);
+    f->draw();
+
+    QApplication::restoreOverrideCursor();
+
     information.append(tr("The results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
     // send info the main window to show it
@@ -4851,6 +4886,8 @@ void RPSWindLabSimulation::displayOutputMatrix2Results()
     const int rws = GetWindLabSimulationOutputWorker()->m_ResultMatrix2.rows();
     const int cls = GetWindLabSimulationOutputWorker()->m_ResultMatrix2.cols();
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
     // allocate memory for the table
     Table *table = app->newTable(arrayName, rws, cls);
 
@@ -4864,8 +4901,29 @@ void RPSWindLabSimulation::displayOutputMatrix2Results()
         }
     }
 
-
     table->showNormal();
+
+    // Either this if you use UTF-8 anywhere
+    std::string strTitle = GetWindLabSimulationOutputWorker()->plotTitle.toUtf8().constData();
+    std::string strxlabel = GetWindLabSimulationOutputWorker()->plotxlable.toUtf8().constData();
+    std::string strylabel = GetWindLabSimulationOutputWorker()->plotylabel.toUtf8().constData();
+
+    std::string_view Title = strTitle;
+    std::string_view Xlabel = strxlabel;
+    std::string_view Ylabel = strylabel;
+
+    vec colAt = GetWindLabSimulationOutputWorker()->m_ResultMatrix2.col(GetWindLabData().locationJ);
+
+    using namespace matplot;
+    auto f = figure(true);
+    plot(colAt)->line_width(2);
+    xlabel(Xlabel);
+    ylabel(Ylabel);
+    title(Title);
+    f->draw();
+
+    QApplication::restoreOverrideCursor();
+
     information.append(tr("The results took %1 ms to be displayed").arg(QString::number(t.elapsed())));
 
     // send info the main window to show it
@@ -4895,6 +4953,8 @@ void RPSWindLabSimulation::displayAComparisonResults(const QString &candidat1, c
 
     QTime t;
     t.start();
+
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // allocate memory for the table
     Table *table = app->newTable(tableName, row, 4);
@@ -4927,6 +4987,7 @@ void RPSWindLabSimulation::displayAComparisonResults(const QString &candidat1, c
     std::string_view Xlabel = strxlabel;
     std::string_view Ylabel = strylabel;
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
     using namespace matplot;
     auto f = figure(true);
     auto p1 = plot(GetWindLabComparisonWorker()->m_resultValueResultVectorCandidate1Variable, GetWindLabComparisonWorker()->m_resultValueResultVectorCandidate1);
@@ -4943,6 +5004,8 @@ void RPSWindLabSimulation::displayAComparisonResults(const QString &candidat1, c
     ylabel(Ylabel);
     title(Title);
     f->draw();
+
+    QApplication::restoreOverrideCursor();
 
     // send info the main window to show it
     emit sendInformation(information);
@@ -4993,6 +5056,7 @@ void RPSWindLabSimulation::displayWindVelocityASimComparisonResults(const QStrin
     QTime t;
     t.start();
 
+    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
     // allocate memory for the table
     Table *table = app->newTable(tableName, row, 3);
@@ -5048,6 +5112,9 @@ void RPSWindLabSimulation::displayWindVelocityASimComparisonResults(const QStrin
     ylabel(Ylabel);
     title(Title);
     f->show();
+
+    QApplication::restoreOverrideCursor();
+
     // send info the main window to show it
     emit sendInformation(information);
 
@@ -5323,6 +5390,8 @@ void RPSWindLabSimulation::displayAccuracyComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
         {
+            displayAComparisonResults(candidate1, candidate2, "CorrelationT", "Time Lag", GetWindLabData().numberOfTimeIncrements);
+
         }
 
     }
@@ -5647,6 +5716,7 @@ void RPSWindLabSimulation::displayTimeComparisonResults()
     {
         if (comparisonFunction == LabRPS::ComputeCrossCorrelationVectorT)
         {
+            displayTComparisonResults(candidate1, candidate2, "CorrelationT", variableName, totalNumber);
         }
 
     }
@@ -5936,6 +6006,8 @@ void RPSWindLabSimulation::displayWindVelocity(bool simulationStatus)
         QTime t;
         t.start();
 
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
         // prepare the name of the table
         QString arrayName = tr("RandomVelocity (%1, None, None, All)").arg(locationJ);
 
@@ -5971,6 +6043,8 @@ void RPSWindLabSimulation::displayWindVelocity(bool simulationStatus)
         ylabel("Velocity(m/s)");
         f->show();
 
+        QApplication::restoreOverrideCursor();
+
         information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
     }
     else /*if (locationJ == GetWindLabData().numberOfSpatialPosition + 1 &&
@@ -6000,6 +6074,8 @@ void RPSWindLabSimulation::displayWindVelocity(bool simulationStatus)
         std::vector<double> Y(GetWindLabData().numberOfTimeIncrements);
         std::vector<double> Z(GetWindLabData().numberOfTimeIncrements);
 
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
         // fill the table with computed coherence
         for (int i = 0; i < GetWindLabData().numberOfTimeIncrements; i++)
         {
@@ -6014,6 +6090,7 @@ void RPSWindLabSimulation::displayWindVelocity(bool simulationStatus)
         }
 
         table->showNormal();
+
 
         using namespace matplot;
         auto f = figure(true);
@@ -6038,6 +6115,8 @@ void RPSWindLabSimulation::displayWindVelocity(bool simulationStatus)
         zlabel("Velocity(m/s)");
         hold(off);
         f->draw();
+
+        QApplication::restoreOverrideCursor();
 
         information.append(tr("The wind velocity simulation took %1 ms to be displayed").arg(QString::number(t.elapsed())));
     }
@@ -7284,12 +7363,15 @@ void RPSWindLabSimulation::runTableTool(const mat &table)
 
     if (dlg->exec() == QDialog::Accepted)
     {
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
         GetWindLabData().tableTool = dlg->tableTool;
 
         IrpsWLTableTool *currentTableTool = CrpsTableToolFactory::BuildObject(GetWindLabData().tableTool);
 
         if (NULL == currentTableTool)
         {
+            QApplication::restoreOverrideCursor();
             return;
         }
 
@@ -7330,6 +7412,8 @@ void RPSWindLabSimulation::runTableTool(const mat &table)
         emit sendInformation(information);
         information.clear();
 
+        QApplication::restoreOverrideCursor();
+
     }
 
 }
@@ -7340,12 +7424,15 @@ void RPSWindLabSimulation::runMatrixTool(const mat &matrix)
 
     if (dlg->exec() == QDialog::Accepted)
     {
+        QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+
         GetWindLabData().matrixTool = dlg->matrixTool;
 
         IrpsWLMatrixTool *currentMatrixTool = CrpsMatrixToolFactory::BuildObject(GetWindLabData().matrixTool);
 
         if (NULL == currentMatrixTool)
         {
+            QApplication::restoreOverrideCursor();
             return;
         }
 
@@ -7372,6 +7459,7 @@ void RPSWindLabSimulation::runMatrixTool(const mat &matrix)
         matrix->showNormal();
         emit sendInformation(information);
         information.clear();
+        QApplication::restoreOverrideCursor();
 
     }
 

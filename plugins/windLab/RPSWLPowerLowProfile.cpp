@@ -4,7 +4,7 @@
 #include "widgets/meanwindpowerprofildialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/meanWindSpeed/PowerLawMeanWindSpeed.h"
-
+#include "myWidgets/RPSMeanProfileDialog.h"
 
 // The mean speed reference height
 static double dreferenceHeight = 10.0;
@@ -69,14 +69,14 @@ bool CRPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsimuDat
 bool CRPSWLPowerLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
 	// the input diolag
-    std::unique_ptr<MeanWindPowerProfilDialog> dlg(new MeanWindPowerProfilDialog(dreferenceHeight, dreferenceSpeed, dDimensionlessPower, dzeroPlanDisplacement));
+    std::unique_ptr<RPSMeanProfileDialog> dlg(new RPSMeanProfileDialog(dreferenceHeight, dreferenceSpeed, dDimensionlessPower, dzeroPlanDisplacement, 0.0, 0.0, 2));
 
 	if (dlg->exec() == QDialog::Accepted) //
 	{
-		dreferenceHeight = dlg->m_referenceHeight;
-		dreferenceSpeed = dlg->m_referenceSpeed;
-		dDimensionlessPower = dlg->m_dimensionlessPower;
-        dzeroPlanDisplacement = dlg->m_zeroPlanDisplacement;
+        dreferenceHeight = dlg->m_para1;
+        dreferenceSpeed = dlg->m_para2;
+        dDimensionlessPower = dlg->m_para3;
+        dzeroPlanDisplacement = dlg->m_para4;
 	}
 	
 	return true;

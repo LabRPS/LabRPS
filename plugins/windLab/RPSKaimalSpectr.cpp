@@ -174,12 +174,13 @@ bool CRPSKaimalSpectr::OnInitialSetting(const CRPSWindLabsimuData &Data, QString
 //	return true;
 
     // the input diolag
-    std::unique_ptr<RPSAlongWindKaimalDialog> dlg(new RPSAlongWindKaimalDialog(constant1, constant2));
+    std::unique_ptr<RPSAlongWindKaimalDialog> dlg(new RPSAlongWindKaimalDialog(constant1, constant2, dShearVecForSpec, 1));
 
     if (dlg->exec() == QDialog::Accepted) //
     {
         constant1 = dlg->m_constant1;
         constant2 = dlg->m_constant2;
+        dShearVecForSpec = dlg->m_shearVelocity;
     }
 
     return true;
@@ -190,11 +191,22 @@ bool CRPSKaimalSpectr::ComputeXAutoSpectrumValue(const CRPSWindLabsimuData &Data
 {
 
 	double dMeanSpeed = 0.0;
-    const bool returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed, xCoord, yCoord, zCoord, dTime, strInformation);
+    bool returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, dMeanSpeed, xCoord, yCoord, zCoord, dTime, strInformation);
 
     if(!returnResult)
     {
        strInformation.append("The computation of the mean wind speed has failed.") ;
+       return false;
+    }
+
+    if(dShearVecForSpec == 0 )
+    {
+        returnResult = CRPSWindLabFramework::ComputeShearVelocityOfFlowValue(Data, dShearVecForSpec, zCoord, strInformation);
+    }
+
+    if(!returnResult)
+    {
+       strInformation.append("The computation of the shear velocity has failded.") ;
        return false;
     }
     

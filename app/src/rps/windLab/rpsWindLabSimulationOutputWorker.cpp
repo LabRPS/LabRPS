@@ -1089,6 +1089,40 @@ void RPSWindLabSimulationOutputWorker::coherenceOutp()
 }
 void RPSWindLabSimulationOutputWorker::correlationOutp()
 {
+    // Build an coherence function and frequency distribution functions
+    IrpsWLCorrelation *currentCorrelationFtn = CrpsCorrelationFactory::BuildObject(m_windLabData.correlationFunction);
+
+    // Check whether good coherence object
+    if (NULL == currentCorrelationFtn)
+    {
+        m_information.append("Invalid correlation function");
+        emit sendInformation(m_information);
+        emit progressBarHide();
+        return;
+    }
+
+    // allocate memories to receive the computed coherence and frequencies
+    m_ResultVector.resize(m_windLabData.numberOfTimeIncrements);
+    m_ResultVector2.resize(m_windLabData.numberOfTimeIncrements);
+    workerOutputType = 1;
+    QTime t;
+    t.start();
+
+    // running the computation
+    iscomputationSuccessful = currentCorrelationFtn->ComputeCrossCorrelationVectorT(m_windLabData, m_ResultVector2, m_ResultVector, m_information);
+
+    m_information.append(tr("The computation of the modulation function took %1 ms").arg(QString::number(t.elapsed())));
+
+    delete currentCorrelationFtn;
+
+    tableName = "Correlation";
+    plotTitle = "Correlation";
+    plotxlable = "Time Lag";
+    plotylabel = "Correlation";
+
+    emit showCorrelationOutput();
+
+
 }
 
 void RPSWindLabSimulationOutputWorker::modulationOutp()
@@ -1401,7 +1435,7 @@ void RPSWindLabSimulationOutputWorker::gustFactorOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid gust factor");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1460,7 +1494,7 @@ void RPSWindLabSimulationOutputWorker::kurtosisOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid kurtosis");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1519,7 +1553,7 @@ void RPSWindLabSimulationOutputWorker::peakFactorOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid peak factor");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1577,7 +1611,7 @@ void RPSWindLabSimulationOutputWorker::probabilityDensityFunctionOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid probability density function");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1614,7 +1648,7 @@ void RPSWindLabSimulationOutputWorker::roughnessOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid roughness");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1672,7 +1706,7 @@ void RPSWindLabSimulationOutputWorker::shearVelocityOfFlowOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid shear velocity of flow");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1731,7 +1765,7 @@ void RPSWindLabSimulationOutputWorker::skewnessOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid skewness");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1789,7 +1823,7 @@ void RPSWindLabSimulationOutputWorker::standardDeviationOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid standard deviation");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1847,7 +1881,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceIntensityOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid turbulence intensity");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1903,7 +1937,7 @@ void RPSWindLabSimulationOutputWorker::turbulenceScaleOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid turbulence scale");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;
@@ -1959,7 +1993,7 @@ void RPSWindLabSimulationOutputWorker::varianceOutp()
     // Check whether good object
     if (NULL == currentObject)
     {
-        m_information.append("Invalid cumulative probability distribution");
+        m_information.append("Invalid variance");
         emit sendInformation(m_information);
         emit progressBarHide();
         return;

@@ -3,6 +3,8 @@
 #include "widgets/davenportcoherencedialog.h"
 #include "RPSWindLabFramework.h"
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/coherence/DavenportCoherence.h"
+#include "myWidgets/RPSDavenportCoherenceDialog.h"
+
 
 #include <QMessageBox>
 
@@ -31,17 +33,29 @@ bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const CRPSWindLabsimuDat
 
 bool CRPSDavenportCoherence::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	// the input diolag
-	std::unique_ptr<DavenportCoherenceDialog> dlg(new DavenportCoherenceDialog(dExponentialDecayCx, dExponentialDecayCy, dExponentialDecayCz));
+//	// the input diolag
+//	std::unique_ptr<DavenportCoherenceDialog> dlg(new DavenportCoherenceDialog(dExponentialDecayCx, dExponentialDecayCy, dExponentialDecayCz));
 
-	if (dlg->exec() == QDialog::Accepted) //
-	{
-		dExponentialDecayCx = dlg->m_decayCx;
-		dExponentialDecayCy = dlg->m_decayCy;
-		dExponentialDecayCz = dlg->m_decayCz;
-	}
+//	if (dlg->exec() == QDialog::Accepted) //
+//	{
+//		dExponentialDecayCx = dlg->m_decayCx;
+//		dExponentialDecayCy = dlg->m_decayCy;
+//		dExponentialDecayCz = dlg->m_decayCz;
+//	}
 
-	return true;
+//	return true;
+
+    // the input diolag
+    std::unique_ptr<RPSDavenportCoherenceDialog> dlg(new RPSDavenportCoherenceDialog(dExponentialDecayCx, dExponentialDecayCy, dExponentialDecayCz));
+
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+        dExponentialDecayCx = dlg->m_constant1;
+        dExponentialDecayCy = dlg->m_constant2;
+        dExponentialDecayCz = dlg->m_constant3;
+    }
+
+    return true;
 }
 
 bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)

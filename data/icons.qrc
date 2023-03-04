@@ -262,6 +262,94 @@
     <file>icons/common/128/preferences-table-font.png</file>
     <file>icons/common/128/preferences-fitting.png</file>
     <file>icons/common/128/rps-logo.png</file>
+<file>icons/common/16/CoherenceObj.png</file>
+<file>icons/common/16/CorrelationObj.png</file>
+<file>icons/common/16/CPDObj.png</file>
+<file>icons/common/16/GustFactorObj.png</file>
+<file>icons/common/16/KurtosisObj.png</file>
+<file>icons/common/16/MeanObj.png</file>
+<file>icons/common/16/PDFObj.png</file>
+<file>icons/common/16/PeakFactorObj.png</file>
+<file>icons/common/16/RoughnessObj.png</file>
+<file>icons/common/16/ShearVelocityObj.png</file>
+<file>icons/common/16/SkewnessObj.png</file>
+<file>icons/common/16/SpectrumObj.png</file>
+<file>icons/common/16/StandardDeviationObj.png</file>
+<file>icons/common/16/TurbulenceIntensityObj.png</file>
+<file>icons/common/16/TurbulenceScaleObj.png</file>
+<file>icons/common/16/VarianceObj.png</file>
+<file>icons/common/16/WavePassageObj.png</file>
+<file>icons/common/16/ModulationObj.png</file>
+<file>icons/common/16/DecomposedSpectrumObj.png</file>
+<file>icons/common/16/FrequencyObj.png</file>
+<file>icons/common/16/LocationObj.png</file>
+<file>icons/common/16/RandomnessProviderObj.png</file>
+  <file>icons/common/22/CoherenceObj.png</file>
+  <file>icons/common/22/CorrelationObj.png</file>
+  <file>icons/common/22/CPDObj.png</file>
+  <file>icons/common/22/GustFactorObj.png</file>
+  <file>icons/common/22/KurtosisObj.png</file>
+  <file>icons/common/22/MeanObj.png</file>
+  <file>icons/common/22/PDFObj.png</file>
+  <file>icons/common/22/PeakFactorObj.png</file>
+  <file>icons/common/22/RoughnessObj.png</file>
+  <file>icons/common/22/ShearVelocityObj.png</file>
+  <file>icons/common/22/SkewnessObj.png</file>
+  <file>icons/common/22/SpectrumObj.png</file>
+  <file>icons/common/22/StandardDeviationObj.png</file>
+  <file>icons/common/22/TurbulenceIntensityObj.png</file>
+  <file>icons/common/22/TurbulenceScaleObj.png</file>
+  <file>icons/common/22/VarianceObj.png</file>
+  <file>icons/common/22/WavePassageObj.png</file>
+<file>icons/common/22/ModulationObj.png</file>
+<file>icons/common/22/DecomposedSpectrumObj.png</file>
+<file>icons/common/22/FrequencyObj.png</file>
+<file>icons/common/22/LocationObj.png</file>
+<file>icons/common/22/RandomnessProviderObj.png</file>
+ <file>icons/common/24/CoherenceObj.png</file>
+  <file>icons/common/24/CorrelationObj.png</file>
+  <file>icons/common/24/CPDObj.png</file>
+  <file>icons/common/24/GustFactorObj.png</file>
+  <file>icons/common/24/KurtosisObj.png</file>
+  <file>icons/common/24/MeanObj.png</file>
+  <file>icons/common/24/PDFObj.png</file>
+  <file>icons/common/24/PeakFactorObj.png</file>
+  <file>icons/common/24/RoughnessObj.png</file>
+  <file>icons/common/24/ShearVelocityObj.png</file>
+  <file>icons/common/24/SkewnessObj.png</file>
+  <file>icons/common/24/SpectrumObj.png</file>
+  <file>icons/common/24/StandardDeviationObj.png</file>
+  <file>icons/common/24/TurbulenceIntensityObj.png</file>
+  <file>icons/common/24/TurbulenceScaleObj.png</file>
+  <file>icons/common/24/VarianceObj.png</file>
+  <file>icons/common/24/WavePassageObj.png</file>
+<file>icons/common/24/ModulationObj.png</file>
+<file>icons/common/24/DecomposedSpectrumObj.png</file>
+<file>icons/common/24/FrequencyObj.png</file>
+<file>icons/common/24/LocationObj.png</file>
+<file>icons/common/24/RandomnessProviderObj.png</file>
+ <file>icons/common/32/CoherenceObj.png</file>
+  <file>icons/common/32/CorrelationObj.png</file>
+  <file>icons/common/32/CPDObj.png</file>
+  <file>icons/common/32/GustFactorObj.png</file>
+  <file>icons/common/32/KurtosisObj.png</file>
+  <file>icons/common/32/MeanObj.png</file>
+  <file>icons/common/32/PDFObj.png</file>
+  <file>icons/common/32/PeakFactorObj.png</file>
+  <file>icons/common/32/RoughnessObj.png</file>
+  <file>icons/common/32/ShearVelocityObj.png</file>
+  <file>icons/common/32/SkewnessObj.png</file>
+  <file>icons/common/32/SpectrumObj.png</file>
+  <file>icons/common/32/StandardDeviationObj.png</file>
+  <file>icons/common/32/TurbulenceIntensityObj.png</file>
+  <file>icons/common/32/TurbulenceScaleObj.png</file>
+  <file>icons/common/32/VarianceObj.png</file>
+  <file>icons/common/32/WavePassageObj.png</file>
+<file>icons/common/32/ModulationObj.png</file>
+<file>icons/common/32/DecomposedSpectrumObj.png</file>
+<file>icons/common/32/FrequencyObj.png</file>
+<file>icons/common/32/LocationObj.png</file>
+<file>icons/common/32/RandomnessProviderObj.png</file>
     <file>icons/light/16/drag-move.png</file>
     <file>icons/light/16/edit-copy.png</file>
     <file>icons/light/16/edit-cut.png</file>

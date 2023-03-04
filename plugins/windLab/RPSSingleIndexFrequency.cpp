@@ -1,7 +1,7 @@
 
 #include "RPSSingleIndexFrequency.h"
 #include <QMessageBox>
-
+#include "myWidgets/RPSFrequencyDistributionDialog.h"
 
 bool CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
@@ -17,9 +17,14 @@ bool CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuDa
 
 bool CRPSSingleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-    QMessageBox::warning(0,"Frequency Distribution", "This is the single index frequency distribution. No additional input needed.");
+    // the input diolag
+    std::unique_ptr<RPSFrequencyDistributionDialog> dlg(new RPSFrequencyDistributionDialog(1));
 
-	return true;
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+    }
+
+    return true;
 }
 
 bool CRPSSingleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)

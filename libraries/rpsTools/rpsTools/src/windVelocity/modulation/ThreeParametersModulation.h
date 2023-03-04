@@ -13,7 +13,7 @@ public:
     ThreeParametersModulation();
     ~ThreeParametersModulation();
 
-    double computeModulation(const double &alpha, const double &betta, const double &lambda, const double &time);
+    double computeModulation(const double &time, const double &alpha, const double &betta, const double &lambda);
 
 };
 

@@ -197,7 +197,7 @@
      <string>Increment</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditTimeIncreValue">
+   <widget class="QDoubleSpinBox" name="lineEditTimeIncreValue">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -207,7 +207,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditMinTimeValue">
+   <widget class="QDoubleSpinBox" name="lineEditMinTimeValue">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -230,7 +230,7 @@
      <string>Minimum</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEditMaxTimeValue">
+   <widget class="QDoubleSpinBox" name="lineEditMaxTimeValue">
     <property name="geometry">
      <rect>
       <x>140</x>

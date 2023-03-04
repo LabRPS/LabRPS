@@ -1,7 +1,7 @@
 
 #include "RPSDoubleIndexFrequency.h"
 #include <QMessageBox>
-
+#include "myWidgets/RPSFrequencyDistributionDialog.h"
 
 bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuData &Data, vec &dVarVector, vec &dValVector, QStringList &strInformation)
 {
@@ -15,9 +15,14 @@ bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const CRPSWindLabsimuDa
 
 bool CRPSDoubleIndexFrequency::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	QMessageBox::warning(0,"Frequency Distribution", "This is the double index frequency distribution (see Deodatis et al, 1987). No additional input needed.");
+    // the input diolag
+    std::unique_ptr<RPSFrequencyDistributionDialog> dlg(new RPSFrequencyDistributionDialog(2));
 
-	return true;
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+    }
+
+    return true;
 }
 
 bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const CRPSWindLabsimuData &Data, double &dValue, const int &locationIndex, const int &frequencyIndex, QStringList &strInformation)

@@ -53,19 +53,19 @@ win32: {
     ### Static linking mostly.
     message(Build configuration: Win32)
     
-    isEmpty(LIBPATH): LIBPATH = E:/LabRPS/3rdparty
-    isEmpty(APILIBPATH): APILIBPATH =E:/LabRPS/pluginapi
-    isEmpty(LIBRARIESPATH): LIBRARIESPATH = E:/LabRPS/libraries
+    isEmpty(LIBPATH): LIBPATH = D:/LabRPS/3rdparty
+    isEmpty(APILIBPATH): APILIBPATH =D:/LabRPS/pluginapi
+    isEmpty(LIBRARIESPATH): LIBRARIESPATH = D:/LabRPS/libraries
 
     INCLUDEPATH  += "$${APILIBPATH}/windlabapi"
     INCLUDEPATH  += "$${LIBPATH}/gsl/include"
     INCLUDEPATH  += "$${LIBRARIESPATH}/rpsTools/rpsTools/src/windVelocity/spectrum"
     INCLUDEPATH  += "$${LIBRARIESPATH}/rpsTools"
 
-    LIBS         += "$${APILIBPATH}/windlabapi/debug/libwindlabapi.a"
+    LIBS         += "$${APILIBPATH}/windlabapi/release/libwindlabapi.a"
     LIBS         += "$${LIBPATH}/gsl/lib/libgsl.a"
     LIBS         += "$${LIBPATH}/gsl/lib/libgslcblas.a"
-    LIBS         += "$${LIBRARIESPATH}/rpsTools/debug/librpsTools.a"
+    LIBS         += "$${LIBRARIESPATH}/rpsTools/release/librpsTools.a"
 
    }
 }
@@ -123,6 +123,12 @@ SOURCES += \
     RPSDHLowProfile.cpp\
     myWidgets/IconLoader.cpp\
     myWidgets/RPSAlongWindKaimalDialog.cpp\
+    myWidgets/RPSVonKarmanDialog.cpp\
+    myWidgets/RPSHarrisandDavenportPSDDialog.cpp\
+    myWidgets/RPSModulationDialog.cpp\
+    myWidgets/RPSMeanProfileDialog.cpp\
+    myWidgets/RPSDavenportCoherenceDialog.cpp\
+    myWidgets/RPSFrequencyDistributionDialog.cpp\
 
 HEADERS += \
     CholeskyDecomposition.h\
@@ -167,6 +173,12 @@ HEADERS += \
     RPSDHLowProfile.h\
     myWidgets/IconLoader.h\
     myWidgets/RPSAlongWindKaimalDialog.h\
+    myWidgets/RPSVonKarmanDialog.h\
+    myWidgets/RPSHarrisandDavenportPSDDialog.h\
+    myWidgets/RPSModulationDialog.h\
+    myWidgets/RPSMeanProfileDialog.h\
+    myWidgets/RPSDavenportCoherenceDialog.h\
+    myWidgets/RPSFrequencyDistributionDialog.h\
 
 FORMS  += widgets/meanwindlogprofildialog.ui\
           widgets/meanwindpowerprofildialog.ui\
@@ -182,6 +194,12 @@ FORMS  += widgets/meanwindlogprofildialog.ui\
           widgets/vonKarmanpsdinputsdialog.ui\
           widgets/meanwindDHprofildialog.ui\
           myWidgets/RPSAlongWindKaimalDialog.ui\
+          myWidgets/RPSVonKarmanDialog.ui\
+          myWidgets/RPSHarrisandDavenportPSDDialog.ui\
+          myWidgets/RPSModulationDialog.ui\
+          myWidgets/RPSMeanProfileDialog.ui\
+          myWidgets/RPSDavenportCoherenceDialog.ui\
+          myWidgets/RPSFrequencyDistributionDialog.ui\
 
 
 ###################### ICONS ################################################

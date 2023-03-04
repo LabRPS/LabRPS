@@ -258,12 +258,12 @@ void RPSWLPSDDefinitionDialog::comboBoxPSDModelIndexChanged(int index)
 }
 void RPSWLPSDDefinitionDialog::comboBoxPSDdecompIndexChanged(int index)
 {
-    spectrumModel = ui->comboBoxSpectrumModel->currentText();
+    cpsdDecompositionMethod = ui->comboBoxCpsdDecomp->currentText();
 }
 
 void RPSWLPSDDefinitionDialog::comboBoxFrequencyDistrIndexChanged(int index)
 {
-    spectrumModel = ui->comboBoxSpectrumModel->currentText();
+    freqencyDistribution = ui->comboBoxFreqDistr->currentText();
 }
 
 void RPSWLPSDDefinitionDialog::OnBnClickedPSDModelInit()

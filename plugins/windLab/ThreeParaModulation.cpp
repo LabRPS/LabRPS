@@ -3,6 +3,7 @@
 #include "widgets/threeparamodulationdialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ThreeParametersModulation.h"
+#include "myWidgets/RPSModulationDialog.h"
 
 	static double alpha = 4.98;
 
@@ -13,17 +14,31 @@
 bool CThreeParaModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
 	// the input diolag
-	std::unique_ptr<ThreeParaModulationDialog> dlg(new ThreeParaModulationDialog(alpha, betta, lambda));
+//	std::unique_ptr<ThreeParaModulationDialog> dlg(new ThreeParaModulationDialog(alpha, betta, lambda));
 
-	if (dlg->exec() == QDialog::Accepted) //
-	{
-		alpha = dlg->m_dAlpha;
-		betta = dlg->m_dBeta;
-		lambda = dlg->m_dLambda;
+//	if (dlg->exec() == QDialog::Accepted) //
+//	{
+//		alpha = dlg->m_dAlpha;
+//		betta = dlg->m_dBeta;
+//		lambda = dlg->m_dLambda;
 
-	}
+//	}
 
-	return true;
+//	return true;
+
+    std::unique_ptr<RPSModulationDialog> dlg(new RPSModulationDialog(alpha, betta, lambda, 1));
+
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+        alpha = dlg->m_para1;
+        betta = dlg->m_para2;
+        lambda = dlg->m_para3;
+
+    }
+
+    return true;
+
+
 }
 
 bool CThreeParaModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)
@@ -77,7 +92,7 @@ bool CThreeParaModulation::ComputeModulationVectorP(const CRPSWindLabsimuData &D
     //  Maximum value of modulation function
     double max = 0.0;
     const double dTime = Data.minTime + Data.timeIncrement * Data.timeIndex;
-    const double dModValue = threeParametersModulation.computeModulation(alpha, betta, lambda, dTime);
+    const double dModValue = threeParametersModulation.computeModulation(dTime, alpha, betta, lambda);
 
     // For each time increment
     for (int k = 0; k < Data.numberOfSpatialPosition; k++)

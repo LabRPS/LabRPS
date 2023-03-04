@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBoxCumulativeProbabilityDistribution">
      <property name="title">
-      <string>CumulativeProbabilityDistribution Function</string>
+      <string>Cumulative Probability Distribution Function</string>
      </property>
     </widget>
    </item>

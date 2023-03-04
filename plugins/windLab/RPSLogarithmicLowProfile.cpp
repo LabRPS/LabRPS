@@ -4,6 +4,7 @@
 #include "widgets/meanwindlogprofildialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/meanWindSpeed/LogarithmicMeanWindSpeed.h"
+#include "myWidgets/RPSMeanProfileDialog.h"
 
 // The terrain roughness length
 static double dterrainRoughness = 0.01;
@@ -69,14 +70,13 @@ bool CRPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const CRPSWindLabsim
 bool CRPSLogarithmicLowProfile::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
 	// the input diolag
-    std::unique_ptr<MeanWindLogProfilDialog> dlg(new MeanWindLogProfilDialog(dterrainRoughness, dshearVelocity, dzeroPlanDisplacement));
+    std::unique_ptr<RPSMeanProfileDialog> dlg(new RPSMeanProfileDialog(dshearVelocity, dterrainRoughness, dzeroPlanDisplacement, 0.0, 0.0, 0.0, 1));
 
 	if (dlg->exec() == QDialog::Accepted) //
 	{
-		dterrainRoughness = dlg->m_terrainRoughness;
-		dshearVelocity = dlg->m_shearVelocity;
-        dzeroPlanDisplacement = dlg->m_zeroPlanDisplacement;
-
+        dshearVelocity = dlg->m_para1;
+        dterrainRoughness = dlg->m_para2;
+        dzeroPlanDisplacement = dlg->m_para3;
 	}
 
 	return true;

@@ -14,12 +14,12 @@ SimuSpectrum::~SimuSpectrum()
 
 }
 
-double  SimuSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity)
+double  SimuSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, double Par1, double Par2)
 {
     double dBuf1, dBuf2;
     double dPSD = 0.0;
-    double Par1 = 105.0;
-    double Par2 = 33.0;
+//    double Par1 = 105.0;
+//    double Par2 = 33.0;
     const double towPi = 2*22.0/7.0;
 
     dBuf1 = 1.0 + (Par2 * frequency * height / meanSpeed)/towPi;
@@ -35,12 +35,12 @@ double  SimuSpectrum::computeAlongWindAutoSpectrum(const double &frequency, cons
     return dPSD;
 }
 
-double SimuSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity)
+double SimuSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, double Par1, double Par2)
 {
     double dBuf1, dBuf2;
     double dPSD = 0.0;
-    double Par1 = 17.0;
-    double Par2 = 9.5;
+//    double Par1 = 17.0;
+//    double Par2 = 9.5;
     const double towPi = 2*22.0/7.0;
 
     dBuf1 = 1.0 + (Par2 * frequency * height / meanSpeed)/towPi;
@@ -56,12 +56,12 @@ double SimuSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, cons
     return dPSD;
 }
 
-double SimuSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity)
+double SimuSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, const double &height, const double &meanSpeed, const double &shearVelocity, double Par1, double Par2)
 {
     double dBuf1, dBuf2;
     double dPSD = 0.0;
-    double Par1 = 2.0;
-    double Par2 = 5.3;
+//    double Par1 = 2.0;
+//    double Par2 = 5.3;
     const double towPi = 2*22.0/7.0;
 
     dBuf1 = (frequency * height / meanSpeed)/towPi;

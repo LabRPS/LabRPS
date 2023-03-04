@@ -45,7 +45,7 @@ win32: {
     ### Static linking mostly.
     message(Build configuration: Win32)
 
-    isEmpty(APILIBPATH): APILIBPATH =E:/LabRPS/pluginapi
+    isEmpty(APILIBPATH): APILIBPATH =D:/LabRPS/pluginapi
 
     INCLUDEPATH  += "$${APILIBPATH}/seismiclabapi"
 

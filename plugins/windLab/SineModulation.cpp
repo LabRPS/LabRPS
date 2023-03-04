@@ -3,20 +3,30 @@
 #include "widgets/sinemodulationdialog.h"
 #include <QMessageBox>
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/SineModulation.h"
+#include "myWidgets/RPSModulationDialog.h"
 
 static double pulseDuration = 150;
 
 bool CSineModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	// the input diolag
-	std::unique_ptr<SineModulationDialog> dlg(new SineModulationDialog(pulseDuration));
+//	// the input diolag
+//	std::unique_ptr<SineModulationDialog> dlg(new SineModulationDialog(pulseDuration));
 
-	if (dlg->exec() == QDialog::Accepted) //
-	{
-		pulseDuration = dlg->m_dPulseDuration;
-	}
+//	if (dlg->exec() == QDialog::Accepted) //
+//	{
+//		pulseDuration = dlg->m_dPulseDuration;
+//	}
 
-	return true;
+//	return true;
+
+    std::unique_ptr<RPSModulationDialog> dlg(new RPSModulationDialog(pulseDuration, 0.0, 0.0, 2));
+
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+        pulseDuration = dlg->m_para1;
+    }
+
+    return true;
 }
 
 

@@ -4,26 +4,36 @@
 
 #include "widgets/expomodulationdialog.h"
 #include "../../libraries/rpsTools/rpsTools/src/windVelocity/modulation/ExponentialModulation.h"
+#include "myWidgets/RPSModulationDialog.h"
 
 // The decay coefficient Cx
 static double timeOfMax = 300;
 static double stormLength = 125;
 
 
-
 bool CExpoModulation::OnInitialSetting(const CRPSWindLabsimuData &Data, QStringList &strInformation)
 {
-	// the input diolag
-	std::unique_ptr<ExpoModulationDialog> dlg(new ExpoModulationDialog(timeOfMax, stormLength));
+//	// the input diolag
+//	std::unique_ptr<ExpoModulationDialog> dlg(new ExpoModulationDialog(timeOfMax, stormLength));
 
-	if (dlg->exec() == QDialog::Accepted) //
-	{
-		timeOfMax = dlg->m_dTimeOfMax;
-		stormLength = dlg->m_dStormLength;
+//	if (dlg->exec() == QDialog::Accepted) //
+//	{
+//		timeOfMax = dlg->m_dTimeOfMax;
+//		stormLength = dlg->m_dStormLength;
 
-	}
+//	}
 
-	return true;
+//	return true;
+
+    std::unique_ptr<RPSModulationDialog> dlg(new RPSModulationDialog(timeOfMax, stormLength, 0.0, 3));
+
+    if (dlg->exec() == QDialog::Accepted) //
+    {
+        timeOfMax = dlg->m_para1;
+        stormLength = dlg->m_para2;
+    }
+
+    return true;
 }
 
 bool CExpoModulation::ComputeModulationValue(const CRPSWindLabsimuData &Data, double &dValue, const double &dLocationxCoord, const double &dLocationyCoord, const double &dLocationzCoord, const double &dFrequency, const double &dTime, QStringList &strInformation)

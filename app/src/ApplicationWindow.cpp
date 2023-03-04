@@ -1318,8 +1318,8 @@ ApplicationWindow::ApplicationWindow()
 
  
     // windLab output
-    connect(actionWindVelocityOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
-            &RPSWindLabSimulation::windVelocityOutput);
+    //connect(actionWindVelocityOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
+            //&RPSWindLabSimulation::windVelocityOutput);
     connect(actionFrequencyDistributionWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
             &RPSWindLabSimulation::frequencyDistributionOutput);
     connect(actionLocationDistributionWindOutput, &QAction::triggered, rpsSimulator->rpsWindLabSimulator,
@@ -1670,7 +1670,7 @@ void ApplicationWindow::makeToolBars()
 
 
   // output toolbar
-    outputToolbar->addAction(actionWindVelocityOutput);
+    //outputToolbar->addAction(actionWindVelocityOutput);
     outputToolbar->addAction(actionFrequencyDistributionWindOutput);
     outputToolbar->addAction(actionLocationDistributionWindOutput);
     outputToolbar->addAction(actionSpectrumWindOutput);
@@ -1724,7 +1724,7 @@ void ApplicationWindow::makeToolBars()
     simulationToolbar->addWidget(btn_input_);
 
      QMenu *menu_output = new QMenu(this);
-    menu_output->addAction(actionWindVelocityOutput);
+    //menu_output->addAction(actionWindVelocityOutput);
     menu_output->addAction(actionFrequencyDistributionWindOutput);
     menu_output->addAction(actionLocationDistributionWindOutput);
     menu_output->addAction(actionSpectrumWindOutput);
@@ -1883,16 +1883,16 @@ void ApplicationWindow::makeToolBars()
   // Add toolbars
   addToolBar(Qt::TopToolBarArea, fileToolbar);
 //  addToolBar(editToolbar);
-  addToolBar(simulationToolbar);
-  addToolBar(inputToolbar);
-  addToolBar(outputToolbar);
-  addToolBar(graphToolsToolbar);
+  addToolBar(Qt::TopToolBarArea,simulationToolbar);
+  addToolBarBreak();
+  addToolBar(Qt::TopToolBarArea,inputToolbar);
+  //addToolBar(Qt::TopToolBarArea,outputToolbar);
+  addToolBar(Qt::TopToolBarArea,graphToolsToolbar);
   addToolBar(Qt::LeftToolBarArea, plot2DToolbar);
   addToolBar(Qt::LeftToolBarArea, editToolbar);
   addToolBar(Qt::BottomToolBarArea, tableToolbar);
   addToolBar(Qt::BottomToolBarArea, graph3DToolbar);
   addToolBar(Qt::BottomToolBarArea, matrix3DPlotToolbar);
-
   // Disable toolbars
   graphToolsToolbar->setEnabled(false);
   tableToolbar->setEnabled(false);
@@ -1990,7 +1990,7 @@ void ApplicationWindow::customMenu(QMdiSubWindow *subwindow)
 
     menuBar()->addMenu(ui_->menuSimulation);
 
-    ui_->menuOutput->addAction(actionWindVelocityOutput);
+    //ui_->menuOutput->addAction(actionWindVelocityOutput);
     ui_->menuOutput->addAction(actionFrequencyDistributionWindOutput);
     ui_->menuOutput->addAction(actionLocationDistributionWindOutput);
     ui_->menuOutput->addAction(actionMeanWindVelocityOutput);
@@ -11997,91 +11997,91 @@ ui_->actionRunTool->setIcon(
   if (rpsSimulator->getSelectedRandomPhenomenon() == LabRPS::rpsPhenomenonWindVelocity)
   {
   actionCoherenceWind->setIcon(
-      IconLoader::load("input-coherence", IconLoader::General));
+      IconLoader::load("CoherenceObj", IconLoader::General));
   actionWindVelocity->setIcon(
       IconLoader::load("input-windvelocity", IconLoader::General));
   actionSpectrumWind->setIcon(
-      IconLoader::load("input-spectrum", IconLoader::General));
+      IconLoader::load("SpectrumObj", IconLoader::General));
   actionModulationWind->setIcon(
-      IconLoader::load("input-modulation", IconLoader::General));
+      IconLoader::load("ModulationObj", IconLoader::General));
   actionMeanWindVelocity->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("MeanObj", IconLoader::General));
   actionCorrelationWind->setIcon(
-      IconLoader::load("input-correlation", IconLoader::General));
+      IconLoader::load("CorrelationObj", IconLoader::General));
   actionModulationWindOutput->setIcon(
-      IconLoader::load("output-modulation", IconLoader::General));
+      IconLoader::load("ModulationObj", IconLoader::General));
   actionCorrelationWindOutput->setIcon(
-      IconLoader::load("output-correlation", IconLoader::General));
+      IconLoader::load("CorrelationObj", IconLoader::General));
   actionFrequencyDistributionWindOutput->setIcon(
-      IconLoader::load("output-frequencies", IconLoader::General));
+      IconLoader::load("FrequencyObj", IconLoader::General));
   actionMeanWindVelocityOutput->setIcon(
-      IconLoader::load("output-mean", IconLoader::General));
+      IconLoader::load("MeanObj", IconLoader::General));
   actionCoherenceWindOutput->setIcon(
-      IconLoader::load("output-coherence", IconLoader::General));
+      IconLoader::load("CoherenceObj", IconLoader::General));
   actionDecomposedSpectrumWindOutput->setIcon(
-      IconLoader::load("output-decomposedpsd", IconLoader::General));
+      IconLoader::load("DecomposedSpectrumObj", IconLoader::General));
   actionSpectrumWindOutput->setIcon(
-      IconLoader::load("output-spectrum", IconLoader::General));
+      IconLoader::load("SpectrumObj", IconLoader::General));
   actionWindVelocityOutput->setIcon(
       IconLoader::load("output-windvelocity", IconLoader::General));
   actionLocationDistributionWindOutput->setIcon(
-      IconLoader::load("output-locations", IconLoader::General));
+      IconLoader::load("LocationObj", IconLoader::General));
   actionRandomPhaseWindOutput->setIcon(
-      IconLoader::load("output-randomphase", IconLoader::General));
+      IconLoader::load("RandomnessProviderObj", IconLoader::General));
 
   actionCumulativeProbabilityDistribution->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("CPDObj", IconLoader::General));
       actionGustFactor->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("GustFactorObj", IconLoader::General));
       actionKurtosis->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("KurtosisObj", IconLoader::General));
       actionPeakFactor->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("PeakFactorObj", IconLoader::General));
       actionProbabilityDensityFunction->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("PDFObj", IconLoader::General));
       actionRoughness->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("RoughnessObj", IconLoader::General));
       actionShearVelocityOfFlow->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("ShearVelocityObj", IconLoader::General));
       actionSkewness->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("SkewnessObj", IconLoader::General));
       actionStandardDeviation->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("StandardDeviationObj", IconLoader::General));
       actionTurbulenceIntensity->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("TurbulenceIntensityObj", IconLoader::General));
       actionTurbulenceScale->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("TurbulenceScaleObj", IconLoader::General));
       actionVariance->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("VarianceObj", IconLoader::General));
       actionWavePassageEffect->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("WavePassageObj", IconLoader::General));
 
       actionCumulativeProbabilityDistributionOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("CPDObj", IconLoader::General));
       actionGustFactorOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("GustFactorObj", IconLoader::General));
       actionKurtosisOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("KurtosisObj", IconLoader::General));
       actionPeakFactorOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("PeakFactorObj", IconLoader::General));
       actionProbabilityDensityFunctionOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("PDFObj", IconLoader::General));
       actionRoughnessOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("RoughnessObj", IconLoader::General));
       actionShearVelocityOfFlowOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("ShearVelocityObj", IconLoader::General));
       actionSkewnessOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("SkewnessObj", IconLoader::General));
       actionStandardDeviationOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("StandardDeviationObj", IconLoader::General));
       actionTurbulenceIntensityOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("TurbulenceIntensityObj", IconLoader::General));
       actionTurbulenceScaleOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("TurbulenceScaleObj", IconLoader::General));
       actionVarianceOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("VarianceObj", IconLoader::General));
       actionWavePassageEffectOutput->setIcon(
-      IconLoader::load("input-mean", IconLoader::General));
+      IconLoader::load("WavePassageObj", IconLoader::General));
 
 
   }

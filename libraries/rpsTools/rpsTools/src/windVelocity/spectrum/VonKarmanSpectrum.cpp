@@ -14,12 +14,12 @@ VonKarmanSpectrum::~VonKarmanSpectrum()
 
 }
 
-double  VonKarmanSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation)
+double  VonKarmanSpectrum::computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2)
 {
     double dBuf1, dBuf2, dBuf3;
     double dPSD = 0.0;
-    double Par1 = 4.0;
-    double Par2 = 70.8;
+//    double Par1 = 4.0;
+//    double Par2 = 70.8;
     const double towPi = 2*22.0/7.0;
 
     dBuf3 = integralLengthScale / meanSpeed;
@@ -37,18 +37,18 @@ double  VonKarmanSpectrum::computeAlongWindAutoSpectrum(const double &frequency,
     return dPSD;
 }
 
-double VonKarmanSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation)
+double VonKarmanSpectrum::computeAcrossWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2, double Par3)
 {
     double dBuf1, dBuf2, dBuf3, dBuf4;
     double dPSD = 0.0;
-    double Par1 = 4.0;
-    double Par2 = 283.0;
-    double Par3 = 755.0;
-    //double PI = 22.0 / 7.0;
+//    double Par1 = 4.0;
+//    double Par2 = 283.0;
+//    double Par3 = 755.0;
+    const double towPi = 2*22.0/7.0;
 
     dBuf3 = integralLengthScale / meanSpeed;
  
-    dBuf1 = 1.0 + Par2 * frequency * frequency * dBuf3 * dBuf3;
+    dBuf1 = 1.0 + (Par2 * frequency * frequency * dBuf3 * dBuf3)/(towPi*towPi);
 
     dBuf2 = pow(dBuf1, 11.0 / 6.0);
 
@@ -56,25 +56,25 @@ double VonKarmanSpectrum::computeAcrossWindAutoSpectrum(const double &frequency,
 
     dPSD /= dBuf2;			// (rad/s)
     
-    dBuf4 = 1.0 + Par3 * frequency * frequency * dBuf3 * dBuf3;
+    dBuf4 = 1.0 + (Par3 * frequency * frequency * dBuf3 * dBuf3)/(towPi*towPi);
 
     dPSD *= dBuf4;
 
     return dPSD;
 }
 
-double VonKarmanSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation)
+double VonKarmanSpectrum::computeVerticalWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2, double Par3)
 {
     double dBuf1, dBuf2, dBuf3, dBuf4;
     double dPSD = 0.0;
-    double Par1 = 4.0;
-    double Par2 = 283.0;
-    double Par3 = 755.0;
-    //double PI = 22.0 / 7.0;
+//    double Par1 = 4.0;
+//    double Par2 = 283.0;
+//    double Par3 = 755.0;
+    const double towPi = 2*22.0/7.0;
 
     dBuf3 = integralLengthScale / meanSpeed;
  
-    dBuf1 = 1.0 + Par2 * frequency * frequency * dBuf3 * dBuf3;
+    dBuf1 = 1.0 + (Par2 * frequency * frequency * dBuf3 * dBuf3)/(towPi*towPi);
 
     dBuf2 = pow(dBuf1, 11.0 / 6.0);
 
@@ -82,7 +82,7 @@ double VonKarmanSpectrum::computeVerticalWindAutoSpectrum(const double &frequenc
 
     dPSD /= dBuf2;			// (rad/s)
     
-    dBuf4 = 1.0 + Par3 * frequency * frequency * dBuf3 * dBuf3;
+    dBuf4 = 1.0 + (Par3 * frequency * frequency * dBuf3 * dBuf3)/(towPi*towPi);
 
     dPSD *= dBuf4;
 

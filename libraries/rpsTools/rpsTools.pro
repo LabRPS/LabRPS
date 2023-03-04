@@ -47,7 +47,7 @@ win32: {
     ### Static linking mostly.
     message(Build configuration: Win32)
 
-    isEmpty(LIBPATH): LIBPATH = E:/LabRPS/3rdparty
+    isEmpty(LIBPATH): LIBPATH = D:/LabRPS/3rdparty
 
     INCLUDEPATH  += "$${LIBPATH}/gsl/include"
 
@@ -85,7 +85,6 @@ SOURCES += \
     rpsTools/src/windVelocity/spectrum/GeneralizedKaimalSpectrum.cpp\
     rpsTools/src/windVelocity/spectrum/GeneralizedVonKarmanSpectrum.cpp\
 
-
 HEADERS += \
     rpsTools/RPSTools.h\
     rpsTools/RPSToolsDefines.h\
@@ -108,6 +107,7 @@ HEADERS += \
     rpsTools/src/windVelocity/modulation/ThreeParametersModulation.h\
     rpsTools/src/windVelocity/spectrum/GeneralizedKaimalSpectrum.h\
     rpsTools/src/windVelocity/spectrum/GeneralizedVonKarmanSpectrum.h\
+
 
 # Default rules for deployment.
 unix {

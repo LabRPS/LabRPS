@@ -42,12 +42,12 @@ QString strPluginName = ("windLab");
 
 PLUGIN_DISPLAY_NAME("windLab");
 PLUGIN_SYSTEM_NAME("PRSWindLab");
-RANDOM_PHENOMENON("Random Wind Velocity");
+RANDOM_PHENOMENON("Wind Velocity");
 PLUGIN_AUTHOR("LabRPS Team");
 PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS");
 PLUGIN_VERSION("1.00");
-LABRPS_VERSION("1.00");
-API_VERSION("1.00");
+LABRPS_VERSION("0.001");
+API_VERSION("0.001");
 PLUGIN_RELEASE_DATE("07/01/2021");
 //PLUG_IN_THIS_RP("Random Wind Velocity");
 

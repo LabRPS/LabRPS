@@ -2,6 +2,7 @@
 #include "ui_rpsuserdefinedphenomenondefinitiondlg.h"
 #include "rps/userDefinedPhenomenon/rpsUserDefinedPhenomenonSimulation.h"
 #include "RPSUserDefinedPhenomenonAPI.h"
+#include <cmath>
 
 RPSUserDefinedPhenomenonDefinitionDlg::RPSUserDefinedPhenomenonDefinitionDlg(QWidget *parent) :
     QDialog(parent),
@@ -44,15 +45,23 @@ RPSUserDefinedPhenomenonDefinitionDlg::RPSUserDefinedPhenomenonDefinitionDlg(QWi
      int min = 1;
      int max = 10000000;
 
+     ui->lineEditTimeIncreValue->setMinimum(-INFINITY);
+     ui->lineEditTimeIncreValue->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditMinTimeValue->setMinimum(-INFINITY);
+     ui->lineEditMinTimeValue->setMaximum(std::numeric_limits<double>::max());
+     ui->lineEditMaxTimeValue->setMinimum(-INFINITY);
+     ui->lineEditMaxTimeValue->setMaximum(std::numeric_limits<double>::max());
+
+
      ui->lineEditNberOfLocation->setRange(min, max);
      ui->lineEditNberOfTimeIncr->setRange(min, max);
      ui->lineEditNumberOfSample->setRange(min, max);
 
     ui->lineEditNberOfLocation->setValue(numberOfProcess);
     ui->lineEditNberOfTimeIncr->setValue(indexSetSize);
-    ui->lineEditTimeIncreValue->setText(QString::number(indexIncrement));
-    ui->lineEditMinTimeValue->setText(QString::number(minIndexSetValue));
-    ui->lineEditMaxTimeValue->setText(QString::number(minIndexSetValue + (indexSetSize*indexIncrement)));
+    ui->lineEditTimeIncreValue->setValue(indexIncrement);
+    ui->lineEditMinTimeValue->setValue(minIndexSetValue);
+    ui->lineEditMaxTimeValue->setValue(minIndexSetValue + (indexSetSize*indexIncrement));
     ui->lineEditNumberOfSample->setValue(numberOfSample);
 
     ui->comboBoxWindSpationDistr->clear();
