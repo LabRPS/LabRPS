@@ -12,7 +12,7 @@
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <DeveloperDocu>This is the RPSWindLabFramework class</DeveloperDocu>
-      <UserDocu>This is the WindLab framework class</UserDocu>
+      <UserDocu>This is a helper class for the developer to directly call a member function of a given active feature without an instance of the feature.</UserDocu>
     </Documentation>
     <Methode Name="computeLocationCoordinateMatrixP3">
       <Documentation>
