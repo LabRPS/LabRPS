@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureTableToolPy"
+            Twin="ViewProviderWindLabFeatureTableTool"
+            TwinPointer="ViewProviderWindLabFeatureTableTool"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureTableTool.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureTableTool class</UserDocu>
+        </Documentation>
+      <Methode Name="tableToolCompute">
+        <Documentation>
+          <UserDocu>Run calculation on the active table and return the result</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

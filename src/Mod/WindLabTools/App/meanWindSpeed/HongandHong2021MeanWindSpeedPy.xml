@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="HongandHong2021MeanWindSpeedPy"
+    Twin="HongandHong2021MeanWindSpeed"
+    TwinPointer="HongandHong2021MeanWindSpeed"
+    Include="Mod/WindLabTools/App/meanWindSpeed/HongandHong2021MeanWindSpeed.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute mean wind profile according to Hong P. and Hong HP. (2021)</UserDocu>
+    </Documentation>
+    <Methode Name="computeMeanWindSpeed">
+      <Documentation>
+        <UserDocu>
+          computeMeanWindSpeed(height, xCoordinate, time).
+					height = the heigh at which the mean wind speed is calculated.
+          xCoordinate = the x coordinate of the location.
+          time = the time at which the mean wind speed will be calculated.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

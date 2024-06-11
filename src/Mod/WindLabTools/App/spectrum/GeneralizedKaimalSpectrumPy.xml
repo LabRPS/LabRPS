@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="WindSpectrumPy"
+    Name="GeneralizedKaimalSpectrumPy"
+    Twin="GeneralizedKaimalSpectrum"
+    TwinPointer="GeneralizedKaimalSpectrum"
+    Include="Mod/WindLabTools/App/spectrum/GeneralizedKaimalSpectrum.h"
+    Namespace="WindLabTools"
+    FatherInclude="Mod/WindLabTools/App/spectrum/WindSpectrumPy.h" 
+    FatherNamespace="WindLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the along wind spectrum using the Kaimal Spectrum with flexibility of parameter choice</UserDocu>
+    </Documentation>
+    <Methode Name="computeGeneralizedKaimalWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeGeneralizedKaimalWindAutoSpectrum(frequency,height,meanSpeed,shearVelocity,a = 200.0,b = 1.0,c = 0.0,d = 1.0,e = 1.0,f = 1.0,g = 1.0,h = 50.0,i = 1.0,j = 5.0/3.0);
+					frequency = the frequency value for which the spectrum will be calculated 
+          height = the heigh at which the mean wind speed is calculated
+          meanSpeed = the mean wind speed at the height
+          shearVelocity = the shear velocity of the flow
+          a, b, c, d, e, f, g, h, i, j = some constant parameters
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

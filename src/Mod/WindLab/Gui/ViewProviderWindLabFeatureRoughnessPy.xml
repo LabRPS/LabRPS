@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureRoughnessPy"
+            Twin="ViewProviderWindLabFeatureRoughness"
+            TwinPointer="ViewProviderWindLabFeatureRoughness"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureRoughness.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureRoughness class</UserDocu>
+        </Documentation>
+      <Methode Name="computeRoughnessValue">
+        <Documentation>
+          <UserDocu>Compute the roughness value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeRoughnessVectorP">
+        <Documentation>
+          <UserDocu>Compute the roughness at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeRoughnessVectorT">
+        <Documentation>
+          <UserDocu>Compute the roughness at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+
+ 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureShearVelocityOfFlowPy"
+            Twin="ViewProviderWindLabFeatureShearVelocityOfFlow"
+            TwinPointer="ViewProviderWindLabFeatureShearVelocityOfFlow"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureShearVelocityOfFlow.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureShearVelocityOfFlow class</UserDocu>
+        </Documentation>
+      <Methode Name="computeShearVelocityOfFlowValue">
+        <Documentation>
+          <UserDocu>Compute the shear velocity value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeShearVelocityOfFlowVectorP">
+        <Documentation>
+          <UserDocu>Compute the shear velocity at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeShearVelocityOfFlowVectorT">
+        <Documentation>
+          <UserDocu>Compute the shear velocity at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

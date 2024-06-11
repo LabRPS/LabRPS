@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="DominikEtAl2013Py"
+    Twin="DominikEtAl2013"
+    TwinPointer="DominikEtAl2013"
+    Include="Mod/WindLabTools/App/modulation/DominikEtAl2013.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the modulation according to the publication of Dominik et al 2013 (The method of separation for evolutionary spectral density estimation of
+multi-variate and multi-dimensional non-stationary stochastic processes) </UserDocu>
+    </Documentation>
+    <Methode Name="computeModulationA">
+      <Documentation>
+        <UserDocu>
+          computeModulationA(nonZeroUpperBound)
+          this function compute the modulation function according to Equation 28
+					nonZeroUpperBound = the value after which the moduluation value becomes zero 
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+        <Methode Name="computeModulationB">
+      <Documentation>
+        <UserDocu>
+          computeModulationB(nonZeroUpperBound)
+          this function compute the modulation function according to Equation 29
+          time = the time value for which the modulation function is computed 
+					nonZeroUpperBound = the value after which the moduluation value becomes zero 
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

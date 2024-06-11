@@ -1,0 +1,42 @@
+<RCC>
+    <qresource>
+        <file>icons/WindLabWorkbench.svg</file>
+        <file>icons/WindLab_NewSimulation.svg</file>
+        <file>icons/WindLab_Features.svg</file>
+        <file>icons/WindLab_Examples.svg</file>
+        <file>icons/general/folder.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_CoherenceObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_CorrelationObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_CPDObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_DecomposedSpectrumObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_FrequencyObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_GustFactorObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_KurtosisObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_LocationObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_MeanObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_ModulationObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_PDFObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_PeakFactorObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_RandomnessProviderObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_RoughnessObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_ShearVelocityObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_SkewnessObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_SpectrumXObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_SpectrumYObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_SpectrumZObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_StandardDeviationObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_TurbulenceIntensityObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_TurbulenceScaleObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_WavePassageObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_VarianceObj.svg</file>
+        <file>icons/WindLabFeatures/WindLab_Feature_SimulationMethodObj.svg</file> 
+        <file>icons/WindLabFeatures/WindLab_Feature_UserDefinedObj.svg</file> 
+        <file>icons/WindLabFeatures/WindLab_Feature_TableToolObj.svg</file> 
+        <file>icons/WindLabFeatures/WindLab_Feature_MatrixToolObj.svg</file> 
+ 
+
+                     
+              
+        <file alias="icons/preferences-windlab.svg">icons/WindLabWorkbench.svg</file>
+    </qresource>
+</RCC>

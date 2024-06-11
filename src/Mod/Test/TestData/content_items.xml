@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<package format="1" xmlns="https://wiki.labrps.org/Package_Metadata">
+  <name>Test Workbench</name>
+  <description>A package.xml file for unit testing.</description>
+  <version>1.0.1</version>
+  <date>2022-01-07</date>
+  <maintainer email="developer1@labrps.org">LabRPS Developer 1</maintainer>
+  <maintainer email="developer2@labrps.org">LabRPS Developer 2</maintainer>
+  <author email="developer3@labrps.org">LabRPS Developer 3</author>
+  <author>LabRPS Developer 4</author>
+  <author>LabRPS Developer 5</author>
+  <license file="LICENSE">LGPLv2.1</license>
+  <url type="repository" branch="main">https://github.com/chennes/LabRPS-Package</url>
+  <url type="readme">https://github.com/chennes/LabRPS-Package/blob/main/README.md</url>
+  <url type="documentation">https://github.com/chennes/LabRPS-Package/blob/main/README.md</url>
+  <url type="bugtracker">https://github.com/chennes/LabRPS-Package/issues</url>
+  <icon>Resources/icons/PackageIcon.svg</icon>
+  <tag>Tag0</tag>
+  <tag>Tag1</tag>
+
+	<content>
+		<workbench>
+			<classname>TestWorkbenchA</classname>
+			<labrpsmin>0.20</labrpsmin>
+			<tag>Tag A</tag>
+		</workbench>
+		<workbench>
+			<classname>TestWorkbenchB</classname>
+			<labrpsmin>0.1</labrpsmin>
+			<labrpsmax>0.19</labrpsmax>
+			<tag>Tag B</tag>
+		</workbench>
+		<workbench>
+			<classname>TestWorkbenchC</classname>
+			<tag>Tag C</tag>
+			<tag>Tag D</tag>
+		</workbench>
+		<macro>
+			<name>Macro A</name>
+			<file>Nonexistent File.RPSMacro</file>
+			<labrpsmin>0.20</labrpsmin>
+			<labrpsmax>999.999</labrpsmax>
+		</macro>
+		<macro>
+			<name>Macro B</name>
+			<file>Another Nonexistent File.RPSMacro</file>
+		</macro>
+		<preferencepack>
+			<name>Preference Pack A</name>
+		</preferencepack>
+		<other_content_item>
+			<name>Doesn't Really Matter</name>
+		</other_content_item>
+	</content>
+	
+</package>

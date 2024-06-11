@@ -1,0 +1,31 @@
+diff --git a/src/Ext/labrps/CMakeLists.txt b/src/Ext/labrps/CMakeLists.txt
+index e03b5527e..d9004275b 100644
+--- a/src/Ext/labrps/CMakeLists.txt
++++ b/src/Ext/labrps/CMakeLists.txt
+@@ -5,7 +5,9 @@ SET(PYTHON_MAIN_DIR ${python_libs})
+ 
+ set(NAMESPACE_INIT "${CMAKE_BINARY_DIR}/Ext/labrps/__init__.py")
+ if (WIN32)
+-	set(LABRPS_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_BINDIR})
++	get_filename_component(LABRPS_LIBRARY_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}"
++                       REALPATH BASE_DIR "${CMAKE_INSTALL_PREFIX}")
++	set( ${CMAKE_INSTALL_BINDIR})
+ else()
+ 	set(LABRPS_LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+ endif()
+diff --git a/src/Ext/labrps/__init__.py.template b/src/Ext/labrps/__init__.py.template
+index 68ca151a5..d5360b252 100644
+--- a/src/Ext/labrps/__init__.py.template
++++ b/src/Ext/labrps/__init__.py.template
+@@ -12,9 +12,9 @@ except ModuleNotFoundError:
+     except KeyError:
+ 
+         # 2. we use the default labrps defined for this package
+-        _path_to_labrps_libdir = "${CMAKE_INSTALL_LIBDIR}"
++        _path_to_labrps_libdir = "${LABRPS_LIBRARY_INSTALL_DIR}"
+         print("PATH_TO_LABRPS_LIBDIR not specified, using default \
+-LabRPS version in {}".format( "${LABRPS_LIBRARY_INSTALL_DIR}"))
++LabRPS version in {}".format("${LABRPS_LIBRARY_INSTALL_DIR}"))
+ 
+     _sys.path.append(_path_to_labrps_libdir) # this is the default version
+     import LabRPS as app

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="WindSpectrumPy"
+    Name="GeneralizedVonKarmanSpectrumPy"
+    Twin="GeneralizedVonKarmanSpectrum"
+    TwinPointer="GeneralizedVonKarmanSpectrum"
+    Include="Mod/WindLabTools/App/spectrum/GeneralizedVonKarmanSpectrum.h"
+    Namespace="WindLabTools"
+    FatherInclude="Mod/WindLabTools/App/spectrum/WindSpectrumPy.h" 
+    FatherNamespace="WindLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the along wind spectrum using the von Karman Spectrum with flexibility of parameter choice</UserDocu>
+    </Documentation>
+    <Methode Name="computeGeneralizedVonKarmanWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeGeneralizedVonKarmanWindAutoSpectrum(frequency,integralLengthScale,meanSpeed,standardDeviation,a = 4.0,b = 0.0,c = 1.0,d = 1.0,e = 1.0,f = 1.0,g = 1.0,h = 70.8,i = 2.0,j = 5.0/6.0);
+					frequency = the frequency value for which the spectrum will be calculated 
+          integralLengthScale = the integral length scale
+          meanSpeed = the mean wind speed at the height
+          standardDeviation = the standard deviation
+          a, b, c, d, e, f, g, h, i, j = some constant parameters
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

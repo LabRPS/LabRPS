@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureCoherencePy"
+            Twin="ViewProviderWindLabFeatureCoherence"
+            TwinPointer="ViewProviderWindLabFeatureCoherence"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureCoherence.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureCoherence class</UserDocu>
+        </Documentation>
+      <Methode Name="computeCrossCoherenceVectorF">
+        <Documentation>
+          <UserDocu>Compute the cross coherence between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+            <Methode Name="computeCrossCoherenceVectorT">
+        <Documentation>
+          <UserDocu>Compute the cross coherence between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+            <Methode Name="computeCrossCoherenceMatrixPP">
+        <Documentation>
+          <UserDocu>Compute the cross coherence matrix for a given frequency and a given time instant.</UserDocu>
+        </Documentation>
+      </Methode>
+            <Methode Name="computeCrossCoherenceValue">
+        <Documentation>
+          <UserDocu>Compute the cross coherence value between two locations for a given frequency and a given time instant.</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

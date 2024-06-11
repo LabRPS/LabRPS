@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="WindSpectrumPy"
+    Name="DavenportSpectrumPy"
+    Twin="DavenportSpectrum"
+    TwinPointer="DavenportSpectrum"
+    Include="Mod/WindLabTools/App/spectrum/DavenportSpectrum.h"
+    Namespace="WindLabTools"
+    FatherInclude="Mod/WindLabTools/App/spectrum/WindSpectrumPy.h" 
+    FatherNamespace="WindLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the along wind spectrum using the Davenport wind spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeAlongWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeAlongWindAutoSpectrum(frequency, meanSpeed10 = 30)
+					frequency = the frequency value for which the spectrum will be calculated
+          meanSpeed10 = a mean wind speed taken at a height equal to 10 meter above sea level.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

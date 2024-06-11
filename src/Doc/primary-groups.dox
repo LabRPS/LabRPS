@@ -1,0 +1,15 @@
+/** \defgroup CORE Core 
+    These are the core components of LabRPS.
+
+    It groups the Base classes, and the main components of LabRPS core,
+    spread over their App and Gui sides. Core components are programmed in
+    C++ but provide a broad Python API too. Most of LabRPS functionality,
+    however, is defined in Workbenches.
+ */
+
+/** \defgroup WORKBENCHES Workbenches
+ */
+
+/** \defgroup EMBEDDED Embedded 3rd party libraries
+    Important tools and libraries incorporated to LabRPS.
+ */

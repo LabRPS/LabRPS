@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureWavePassageEffectPy"
+            Twin="ViewProviderWindLabFeatureWavePassageEffect"
+            TwinPointer="ViewProviderWindLabFeatureWavePassageEffect"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureWavePassageEffect.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureWavePassageEffect class</UserDocu>
+        </Documentation>
+      <Methode Name="computeWavePassageEffectVectorF">
+        <Documentation>
+          <UserDocu>Compute the wave passage effect for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeWavePassageEffectVectorT">
+        <Documentation>
+          <UserDocu>Compute the wave passage effect for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeWavePassageEffectMatrixPP">
+        <Documentation>
+          <UserDocu>Compute the wave passage effect matrix for given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeWavePassageEffectValue">
+        <Documentation>
+          <UserDocu>Compute the wave passage effect value</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+

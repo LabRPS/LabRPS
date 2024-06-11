@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Gui::Dialog::DlgPlugin</class>
+ <widget class="QWidget" name="Gui::Dialog::DlgPlugin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>432</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Plugin Source</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Source</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="Gui::PrefRadioButton" name="radioButtonLocal">
+        <property name="toolTip">
+         <string>The plugins will be fetched from this device.</string>
+        </property>
+        <property name="text">
+         <string>From this Device (local)</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>localSource</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Plugin</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="Gui::PrefRadioButton" name="radioButtonLocalAndOnline">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>This will fetch the plugins from GitHub at https://github.com/LabRPS/LabRPS-plugins and from this device.</string>
+        </property>
+        <property name="text">
+         <string>Both (local and online)</string>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>localAndOnlineSources</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Plugin</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="Gui::PrefFileChooser" name="customPluginPath">
+        <property name="toolTip">
+         <string>Set this to a custom folder where the plugin files are located.</string>
+        </property>
+        <property name="mode">
+         <enum>Gui::FileChooser::Directory</enum>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>customPluginPath</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Plugin</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="Gui::PrefRadioButton" name="radioButtonOnline">
+        <property name="toolTip">
+         <string>The plugins will be fetched from GitHub at https://github.com/LabRPS/LabRPS-plugins.</string>
+        </property>
+        <property name="text">
+         <string>From Github (online)</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>onlineSource</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Plugin</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="Gui::PrefRadioButton" name="radioButtonCustomLocation">
+        <property name="toolTip">
+         <string>Set this to a custom folder where the plugins are located.</string>
+        </property>
+        <property name="text">
+         <string>Custom location</string>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>customSource</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Plugin</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>441</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>Gui::FileChooser</class>
+   <extends>QWidget</extends>
+   <header>Gui/FileDialog.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Gui::PrefFileChooser</class>
+   <extends>Gui::FileChooser</extends>
+   <header>Gui/PrefWidgets.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Gui::PrefRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header>Gui/PrefWidgets.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="ExponentialModulationPy"
+    Twin="ExponentialModulation"
+    TwinPointer="ExponentialModulation"
+    Include="Mod/WindLabTools/App/modulation/ExponentialModulation.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute Exponential modulation</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, timeOfMax, stormLength)
+					time = the time value for which the modulation function is computed 
+          timeOfMax = the time at which the maximum modulation value occurs  
+          stormLength = the storm length
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

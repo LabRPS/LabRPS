@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="WindSpectrumPy"
+    Name="SimuSpectrumPy"
+    Twin="SimuSpectrum"
+    TwinPointer="SimuSpectrum"
+    Include="Mod/WindLabTools/App/spectrum/SimuSpectrum.h"
+    Namespace="WindLabTools"
+    FatherInclude="Mod/WindLabTools/App/spectrum/WindSpectrumPy.h" 
+    FatherNamespace="WindLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows the computation of wind spectrum using the Simu spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeAlongWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeAlongWindAutoSpectrum(frequency, height, meanSpeed, shearVelocity, Par1 = 200.0, Par2 = 50.0);
+					frequency = the frequency value for which the spectrum will be calculated
+          height = the height at which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          shearVelocity = the shear velocity of the flow
+          Part1, Part2 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+     <Methode Name="computeAcrossWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeAcrossWindAutoSpectrum(frequency, height, meanSpeed, shearVelocity, Par1 = 17.0, Par2 = 9.5);
+					frequency = the frequency value for which the spectrum will be calculated
+          height = the height at which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          shearVelocity = the shear velocity of the flow
+          Part1, Part2 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+     <Methode Name="computeVerticalWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeVerticalWindAutoSpectrum(frequency, height, meanSpeed, shearVelocity, Par1 = 2.0, Par2 = 5.3);
+					frequency = the frequency value for which the spectrum will be calculated
+          height = the height at which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          shearVelocity = the shear velocity of the flow
+          Part1, Part2 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

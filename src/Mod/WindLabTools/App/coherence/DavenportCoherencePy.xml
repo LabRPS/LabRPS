@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="DavenportCoherencePy"
+    Twin="DavenportCoherence"
+    TwinPointer="DavenportCoherence"
+    Include="Mod/WindLabTools/App/coherence/DavenportCoherence.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the Davenport coherence function</UserDocu>
+    </Documentation>
+    <Methode Name="computeCoherenceValue">
+      <Documentation>
+        <UserDocu>
+        	computeCoherenceValue( locationJxCoord, locationJyCoord, locationJzCoord,locationKxCoord, locationKyCoord, locationKzCoord,frequency, locationJMeanSpeed, locationKMeanSpeed, exponentialDecayCx, exponentialDecayCy, exponentialDecayCz)  -> float\n
+					locationJxCoord = X coordinate of location J 
+          locationJyCoord = Y coordinate of location J  
+          locationJzCoord = Z coordinate of location J 
+          locationKxCoord = X coordinate of location K 
+          locationKyCoord = Y coordinate of location K 
+          locationKzCoord = Z coordinate of location K 
+          frequency = frequency value for which the coherence will be computed
+          locationJMeanSpeed = Mean speed at location J
+          locationKMeanSpeed = Mean speed at location K
+          exponentialDecayCx = Exponential decay Cx
+          exponentialDecayCy = Exponential decay Cy
+          exponentialDecayCz = Exponential decay Cz
+        </UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="computeCrossCoherenceValue">
+      <Documentation>
+        <UserDocu>
+        	setTolerance( locationJ, locationK,frequency, locationJMeanSpeed, locationKMeanSpeed, exponentialDecayCx, exponentialDecayCy, exponentialDecayCz)  -> float\n
+					locationJ = A vector J
+          locationK = A vector K 
+          frequency = frequency value for which the coherence will be computed
+          locationJMeanSpeed = Mean speed at location J
+          locationKMeanSpeed = Mean speed at location K
+          exponentialDecayCx = Exponential decay Cx
+          exponentialDecayCy = Exponential decay Cy
+          exponentialDecayCz = Exponential decay Cz
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

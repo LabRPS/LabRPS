@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureUserDefinedRPSObjectPy"
+            Twin="ViewProviderWindLabFeatureUserDefinedRPSObject"
+            TwinPointer="ViewProviderWindLabFeatureUserDefinedRPSObject"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureUserDefinedRPSObject.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureUserDefinedRPSObject class</UserDocu>
+        </Documentation>
+      <Methode Name="userDefinedRPSObjectCompute">
+        <Documentation>
+          <UserDocu>Run the feature provided by the user defined object</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="WavePassageEffectPy"
+    Twin="WavePassageEffect"
+    TwinPointer="WavePassageEffect"
+    Include="Mod/WindLabTools/App/wavePassageEffect/WavePassageEffect.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the wave passage effect</UserDocu>
+    </Documentation>
+    <Methode Name="computeWavePassageEffect">
+      <Documentation>
+        <UserDocu>
+          computeWavePassageEffect(locationJ, locationK, frequency, apparentWaveVelocity)
+        </UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="computeApparentWaveVelocity">
+      <Documentation>
+        <UserDocu>
+          computeApparentWaveVelocity(velocityJ, velocityK, coefficient)
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

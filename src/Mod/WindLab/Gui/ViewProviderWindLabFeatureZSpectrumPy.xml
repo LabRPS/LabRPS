@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureZSpectrumPy"
+            Twin="ViewProviderWindLabFeatureZSpectrum"
+            TwinPointer="ViewProviderWindLabFeatureZSpectrum"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureZSpectrum.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureZSpectrum class</UserDocu>
+        </Documentation>
+      <Methode Name="computeZCrossSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute vertical wind cross spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZCrossSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute vertical wind cross spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZCrossSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute vertical wind cross spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZCrossSpectrumMatrixPP">
+        <Documentation>
+          <UserDocu>Compute vertical wind cross spectrum matrix for given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZAutoSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute vertical wind auto spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZAutoSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute vertical wind auto spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeZAutoSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute vertical wind auto spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

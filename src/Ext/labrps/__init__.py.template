@@ -1,0 +1,30 @@
+try:
+    import LabRPS as app
+except ModuleNotFoundError:
+    # sys.path modification has not happened yet
+
+    import sys as _sys
+    import os as _os
+
+    # 1. we check if an env-variable "PATH_TO_LABRPS_LIB" is already set
+    try:
+        _path_to_labrps_libdir = _os.environ["PATH_TO_LABRPS_LIBDIR"]
+    except KeyError:
+
+        # 2. we use the default labrps defined for this package
+        _path_to_labrps_libdir = "${LABRPS_LIBRARY_INSTALL_DIR}"
+        print("PATH_TO_LABRPS_LIBDIR not specified, using default \
+LabRPS version in {}".format("${LABRPS_LIBRARY_INSTALL_DIR}"))
+
+    _sys.path.append(_path_to_labrps_libdir) # this is the default version
+    import LabRPS as app
+
+# as this is a namespace-package we need to extend the path
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# TO NOT OVERWRITE THIS FILE, NO OTHER MODULE IS ALLOWED TO      !
+# PROVIDE A labrps/__init__.py FILE                             !
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+from pkgutil import extend_path as _extend_path
+__path__ = _extend_path(__path__, __name__)

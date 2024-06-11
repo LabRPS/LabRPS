@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="SineModulationPy"
+    Twin="SineModulation"
+    TwinPointer="SineModulation"
+    Include="Mod/WindLabTools/App/modulation/SineModulation.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the sine Sine modulation</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, pulseDuration)
+					time = the time at which the modulation function is computed 
+          pulseDuration = the pulse duration  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

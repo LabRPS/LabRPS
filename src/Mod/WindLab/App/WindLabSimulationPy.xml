@@ -1,0 +1,734 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SimulationPy"
+    Name="WindLabSimulationPy"
+    Twin="WindLabSimulation"
+    TwinPointer="WindLabSimulation"
+    Include="Mod/WindLab/App/WindLabSimulation.h"
+    Namespace="WindLab"
+    FatherInclude="App/SimulationPy.h"
+    FatherNamespace="App"
+    Constructor="true">
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle winds</UserDocu>
+    </Documentation>
+    <Methode Name="run">
+      <Documentation>
+        <UserDocu>run the active simulation</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="stop">
+      <Documentation>
+        <UserDocu>stop the running simulation</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="getPhenomenonName">
+      <Documentation>
+        <UserDocu>get the name of the random phenomenon. Here, this will return random wind velocity.</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="getSimulationData">
+      <Documentation>
+        <UserDocu>get simulation data</UserDocu>
+      </Documentation>
+    </Methode>
+  	<Methode Name="getActiveCoherence">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveCorrelation">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveCumulativeProbabilityDistribution">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveFrequencyDistribution">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  <Methode Name="getActiveGustFactor">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveKurtosis">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveLocationDistribution">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveMeanWind">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveModulation">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActivePeakFactor">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveProbabilityDensityFunction">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActivePSDDecompositionMethod">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  <Methode Name="getActiveRandomness">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveRoughness">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveShearVelocityOfFlow">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveSimulationMethod">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveSkewness">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveStandardDeviation">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveTurbulenceIntensity">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveTurbulenceScale">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  <Methode Name="getActiveUserDefinedRPSObject">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveVariance">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveWavePassageEffect">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveXSpectrum">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveYSpectrum">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveZSpectrum">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveMatrixTool">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveTableTool">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+	  <Methode Name="computeCrossCoherenceVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+	
+    <Methode Name="computeCrossCorrelationVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCorrelationMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeFrequenciesVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+  
+    <Methode Name="computeFrequenciesMatrixFP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeLocationCoordinateMatrixP3">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeMeanWindSpeedVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeMeanWindSpeedVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeModulationVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeModulationVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="generateRandomMatrixFP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeXCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeXCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeXCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeXAutoSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    
+    <Methode Name="computeXAutoSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeXAutoSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeYCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeYCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeYCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeYAutoSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    
+    <Methode Name="computeYAutoSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeYAutoSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeZCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeZCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeZCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeZAutoSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    
+    <Methode Name="computeZAutoSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeZAutoSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeAutoSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    
+    <Methode Name="computeAutoSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeAutoSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeCrossCorrelationValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeMeanWindSpeedValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeModulationValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeRandomValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeXCrossSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeYCrossSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeZCrossSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeCrossSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	<Methode Name="computeFrequencyValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+
+    <Methode Name="tableToolCompute">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="matrixToolCompute">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="userDefinedRPSObjectCompute">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCPDValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeCPDVectorX">
+    <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeGustFactorValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeGustFactorVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeGustFactorVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeKurtosisValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeKurtosisVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeKurtosisVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computePeakFactorValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePeakFactorVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePeakFactorVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computePDFValue">
+	<Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePDFVectorX">
+<Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeRoughnessValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeRoughnessVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeRoughnessVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeShearVelocityOfFlowValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeShearVelocityOfFlowVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeShearVelocityOfFlowVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeSkewnessValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeSkewnessVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeSkewnessVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeStandardDeviationValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeStandardDeviationVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeStandardDeviationVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeTurbulenceIntensityValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeTurbulenceIntensityVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeTurbulenceIntensityVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeTurbulenceScaleValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeTurbulenceScaleVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeTurbulenceScaleVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeVarianceValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeVarianceVectorP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeVarianceVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeWavePassageEffectVectorF">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectVectorT">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectMatrixPP">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectValue">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	      <Methode Name="simulate">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	      <Methode Name="simulateInLargeScaleMode">
+		  <Documentation>
+			  <UserDocu>run active feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+	  <Methode Name="findAllPluggedWindLabFeatures">
+		  <Documentation>
+			  <UserDocu>Find all installed feature type</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="findAllWindLabFeaturesOfThisType">
+		  <Documentation>
+			  <UserDocu>Find all created feature of a given type</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getWindLabPluggableFeatures">
+		  <Documentation>
+			  <UserDocu></UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getRPSTypesOfPluggableFeatures">
+		  <Documentation>
+			  <UserDocu>Compute and return the location distribution from the active location distribution feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	   <Methode Name="setActiveFeature">
+		  <Documentation>
+			  <UserDocu>set a feature as active (activate a feature)</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getActiveFeature">
+		  <Documentation>
+			  <UserDocu>Get the active feature of a given name</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getAllFeatures">
+		  <Documentation>
+			  <UserDocu>Get all features of the a given group</UserDocu>
+		  </Documentation>
+	  </Methode>
+  </PythonExport>
+</GenerateModel>
+

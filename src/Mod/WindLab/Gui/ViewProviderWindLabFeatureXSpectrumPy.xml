@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureXSpectrumPy"
+            Twin="ViewProviderWindLabFeatureXSpectrum"
+            TwinPointer="ViewProviderWindLabFeatureXSpectrum"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureXSpectrum.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureXSpectrum class</UserDocu>
+        </Documentation>
+      <Methode Name="computeXCrossSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute along wind cross spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXCrossSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute along wind cross spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXCrossSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute along wind cross spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXCrossSpectrumMatrixPP">
+        <Documentation>
+          <UserDocu>Compute along wind cross spectrum matrix for given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXAutoSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute along wind auto spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXAutoSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute along wind auto spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeXAutoSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute along wind auto spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

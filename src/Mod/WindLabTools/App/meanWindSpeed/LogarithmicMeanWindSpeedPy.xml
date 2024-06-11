@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="LogarithmicMeanWindSpeedPy"
+    Twin="LogarithmicMeanWindSpeed"
+    TwinPointer="LogarithmicMeanWindSpeed"
+    Include="Mod/WindLabTools/App/meanWindSpeed/LogarithmicMeanWindSpeed.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the logarithmic mean wind profile</UserDocu>
+    </Documentation>
+    <Methode Name="computeMeanWindSpeed">
+      <Documentation>
+        <UserDocu>
+          computeMeanWindSpeed(height, terrainRoughness, shearVelocity, zeroPlanDisplacement)
+          computeMeanWindSpeed(height, terrainRoughness, shearVelocity, zeroPlanDisplacement, latitude, earthAngularVelocity, beta)
+					height = the heigh at which the mean wind speed is calculated
+          terrainRoughness = the terrain roughness
+          shearVelocity = the shear velocity of the flow
+          zeroPlanDisplacement = the zero plan displacement
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="ThreeParametersModulationPy"
+    Twin="ThreeParametersModulation"
+    TwinPointer="ThreeParametersModulation"
+    Include="Mod/WindLabTools/App/modulation/ThreeParametersModulation.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the tree parameter modulation function</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, alpha, betta, lambda)
+					time = the time at which the modulation function is computed 
+          alpha, betta, lambda = some constant parameters  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

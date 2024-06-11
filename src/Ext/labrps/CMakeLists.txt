@@ -1,0 +1,32 @@
+EXECUTE_PROCESS(COMMAND ${PYTHON_EXECUTABLE} -c 
+"from distutils.sysconfig import get_python_lib; print(get_python_lib(plat_specific=True))"
+OUTPUT_VARIABLE python_libs OUTPUT_STRIP_TRAILING_WHITESPACE )
+SET(PYTHON_MAIN_DIR ${python_libs})
+
+set(NAMESPACE_DIR "${CMAKE_BINARY_DIR}/Ext/labrps")
+set(NAMESPACE_INIT "${NAMESPACE_DIR}/__init__.py")
+if (WIN32)
+    get_filename_component(LABRPS_LIBRARY_INSTALL_DIR "${CMAKE_INSTALL_BINDIR}"
+                       REALPATH BASE_DIR "${CMAKE_INSTALL_PREFIX}")
+    set( ${CMAKE_INSTALL_BINDIR})
+else()
+    get_filename_component(LABRPS_LIBRARY_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}"
+                       REALPATH BASE_DIR "${CMAKE_INSTALL_PREFIX}")
+endif()
+
+configure_file(__init__.py.template ${NAMESPACE_INIT})
+configure_file(UiTools.py ${NAMESPACE_DIR}/UiTools.py)
+
+if (INSTALL_TO_SITEPACKAGES)
+    SET(SITE_PACKAGE_DIR ${PYTHON_MAIN_DIR}/labrps)
+else ()
+    SET(SITE_PACKAGE_DIR Ext/labrps)
+endif()
+
+INSTALL(
+    FILES
+        ${NAMESPACE_INIT}
+        UiTools.py
+    DESTINATION
+        ${SITE_PACKAGE_DIR}
+)

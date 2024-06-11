@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeaturePeakFactorPy"
+            Twin="ViewProviderWindLabFeaturePeakFactor"
+            TwinPointer="ViewProviderWindLabFeaturePeakFactor"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeaturePeakFactor.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeaturePeakFactor class</UserDocu>
+        </Documentation>
+      <Methode Name="computePeakFactorValue">
+        <Documentation>
+          <UserDocu>Compute the peak factor</UserDocu>
+        </Documentation>
+      </Methode>
+       <Methode Name="computePeakFactorVectorP">
+        <Documentation>
+          <UserDocu>Compute the peak factor at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+       <Methode Name="computePeakFactorVectorT">
+        <Documentation>
+          <UserDocu>Compute the peak factor at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

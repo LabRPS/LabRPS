@@ -1,0 +1,223 @@
+/***************************************************************************
+ *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *                                                                         *
+ *   This file is part of the LabRPS CAx development system.              *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU Library General Public License (LGPL)   *
+ *   as published by the Free Software Foundation; either version 2 of     *
+ *   the License, or (at your option) any later version.                   *
+ *   for detail see the LICENCE text file.                                 *
+ *                                                                         *
+ *   LabRPS is distributed in the hope that it will be useful,            *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with LabRPS; if not, write to the Free Software        *
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+ *   USA                                                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+#include <RPSConfig.h>
+
+#ifdef _PreComp_
+# undef _PreComp_
+#endif
+
+#if defined(FC_OS_LINUX) || defined(FC_OS_BSD)
+# include <unistd.h>
+#endif
+
+#ifdef FC_OS_MACOSX
+# include <mach-o/dyld.h>
+# include <string>
+#endif
+
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <cstdio>
+#include <sstream>
+#include <iostream>
+
+
+// LabRPS Base header
+#include <Base/ConsoleObserver.h>
+#include <Base/Exception.h>
+#include <Base/PyObjectBase.h>
+#include <Base/Sequencer.h>
+#include <App/Application.h>
+
+
+#if defined(FC_OS_WIN32)
+# include <windows.h>
+
+/** DllMain is called when DLL is loaded
+ */
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD  ul_reason_for_call, LPVOID /*lpReserved*/)
+{
+    switch (ul_reason_for_call) {
+    case DLL_PROCESS_ATTACH: {
+        // This name is preliminary, we pass it to Application::init() in initLabRPS()
+        // which does the rest.
+        char  szFileName [MAX_PATH];
+        GetModuleFileNameA((HMODULE)hModule, szFileName, MAX_PATH-1);
+        App::Application::Config()["AppHomePath"] = szFileName;
+    }
+    break;
+    default:
+        break;
+    }
+
+    return true;
+}
+#elif defined(FC_OS_LINUX) || defined(FC_OS_BSD)
+# ifndef GNU_SOURCE
+#   define GNU_SOURCE
+# endif
+# include <dlfcn.h>
+#elif defined(FC_OS_CYGWIN)
+# include <windows.h>
+#endif
+
+PyMOD_INIT_FUNC(LabRPS)
+{
+    // Init phase ===========================================================
+    App::Application::Config()["ExeName"] = "LabRPS";
+    App::Application::Config()["ExeVendor"] = "LabRPS";
+    App::Application::Config()["AppDataSkipVendor"] = "true";
+
+    int    argc=1;
+    char** argv;
+    argv = (char**)malloc(sizeof(char*)* (argc+1));
+
+#if defined(FC_OS_WIN32)
+    argv[0] = (char*)malloc(MAX_PATH);
+    strncpy(argv[0],App::Application::Config()["AppHomePath"].c_str(),MAX_PATH);
+    argv[0][MAX_PATH-1] = '\0'; // ensure null termination
+#elif defined(FC_OS_CYGWIN)
+    HMODULE hModule = GetModuleHandle("LabRPS.dll");
+    char szFileName [MAX_PATH];
+    GetModuleFileNameA(hModule, szFileName, MAX_PATH-1);
+    argv[0] = (char*)malloc(MAX_PATH);
+    strncpy(argv[0],szFileName,MAX_PATH);
+    argv[0][MAX_PATH-1] = '\0'; // ensure null termination
+#elif defined(FC_OS_LINUX) || defined(FC_OS_BSD)
+    putenv("LANG=C");
+    putenv("LC_ALL=C");
+    // get whole path of the library
+    Dl_info info;
+    int ret = dladdr((void*)PyInit_LabRPS, &info);
+    if ((ret == 0) || (!info.dli_fname)) {
+        free(argv);
+        PyErr_SetString(PyExc_ImportError, "Cannot get path of the LabRPS module!");
+        return nullptr;
+    }
+
+    argv[0] = (char*)malloc(PATH_MAX);
+    strncpy(argv[0], info.dli_fname,PATH_MAX);
+    argv[0][PATH_MAX-1] = '\0'; // ensure null termination
+    // this is a workaround to avoid a crash in libuuid.so
+#elif defined(FC_OS_MACOSX)
+
+    // The MacOS approach uses the Python sys.path list to find the path
+    // to LabRPS.so - this should be OS-agnostic, except these two
+    // strings, and the call to access().
+    const static char libName[] = "/LabRPS.so";
+    const static char upDir[] = "/../";
+
+    char *buf = NULL;
+
+    PyObject *pySysPath = PySys_GetObject("path");
+    if ( PyList_Check(pySysPath) ) {
+        int i;
+        // pySysPath should be a *PyList of strings - iterate through it
+        // backwards since the LabRPS path was likely appended just before
+        // we were imported.
+        for (i = PyList_Size(pySysPath) - 1; i >= 0 ; --i) {
+            const char *basePath;
+            PyObject *pyPath = PyList_GetItem(pySysPath, i);
+            long sz = 0;
+
+            if ( PyUnicode_Check(pyPath) ) {
+                // Python 3 string
+                basePath = PyUnicode_AsUTF8AndSize(pyPath, &sz);
+            }
+            else {
+                continue;
+            }
+
+            if (sz + sizeof(libName) > PATH_MAX) {
+                continue;
+            }
+
+            // buf gets assigned to argv[0], which is free'd at the end
+            buf = (char *)malloc(sz + sizeof(libName));
+            if (buf == NULL) {
+                break;
+            }
+
+            strcpy(buf, basePath);
+
+            // append libName to buf
+            strcat(buf, libName);
+            if (access(buf, R_OK | X_OK) == 0) {
+
+                // The LabRPS "home" path is one level up from
+                // libName, so replace libName with upDir.
+                strcpy(buf + sz, upDir);
+                buf[sz + sizeof(upDir)] = '\0';
+                break;
+            }
+        } // end for (i = PyList_Size(pySysPath) - 1; i >= 0 ; --i) {
+    } // end if ( PyList_Check(pySysPath) ) {
+
+    if (buf == NULL) {
+        PyErr_SetString(PyExc_ImportError, "Cannot get path of the LabRPS module!");
+        return 0;
+    }
+
+    argv[0] = buf;
+#else
+# error "Implement: Retrieve the path of the module for your platform."
+#endif
+    argv[argc] = nullptr;
+
+    try {
+        // Inits the Application
+        App::Application::init(argc,argv);
+    }
+    catch (const Base::Exception& e) {
+        std::string appName = App::Application::Config()["ExeName"];
+        std::stringstream msg;
+        msg << "While initializing " << appName << " the following exception occurred: '"
+            << e.what() << "'\n\n";
+        msg << "\nPlease contact the application's support team for more information.\n\n";
+        printf("Initialization of %s failed:\n%s", appName.c_str(), msg.str().c_str());
+    }
+
+    free(argv[0]);
+    free(argv);
+
+    Base::EmptySequencer* seq = new Base::EmptySequencer();
+    (void)seq;
+    static Base::RedirectStdOutput stdcout;
+    static Base::RedirectStdLog    stdclog;
+    static Base::RedirectStdError  stdcerr;
+    std::cout.rdbuf(&stdcout);
+    std::clog.rdbuf(&stdclog);
+    std::cerr.rdbuf(&stdcerr);
+
+    //PyObject* module = _PyImport_FindBuiltin("LabRPS");
+    PyObject* modules = PyImport_GetModuleDict();
+    PyObject* module = PyDict_GetItemString(modules, "LabRPS");
+    if (!module) {
+        PyErr_SetString(PyExc_ImportError, "Failed to load LabRPS module!");
+    }
+    return module;
+}
+

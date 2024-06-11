@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="TurbulenceIntensityPy"
+    Twin="TurbulenceIntensity"
+    TwinPointer="TurbulenceIntensity"
+    Include="Mod/WindLabTools/App/turbulenceIntensity/TurbulenceIntensity.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the turbulence intensity from ASCE-98</UserDocu>
+    </Documentation>
+    <Methode Name="computeASCETurbulenceIntensityValue">
+      <Documentation>
+        <UserDocu>
+        	computeASCETurbulenceIntensityValue(height, intensity10)  -> float\n
+					height = the height of the simulation point
+          intensity10 = turbulence intensity at height equal to 10 m  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+      <Methode Name="computeASNZ1170TurbulenceIntensityValue">
+      <Documentation>
+        <UserDocu>
+        	computeASNZ1170TurbulenceIntensityValue(height, intensity10, exponent)  -> float\n
+					height = the height of the simulation point
+          intensity10 = turbulence intensity at height equal to 10 m 
+          exponent = this the exponent value 
+        </UserDocu>
+      </Documentation>
+    </Methode>
+      <Methode Name="computeEurocodeTurbulenceIntensityValue">
+      <Documentation>
+        <UserDocu>
+        	computeEurocodeTurbulenceIntensityValue(height, referenceHeight)  -> float\n
+					height = the height of the simulation point
+          referenceHeight = a reference height  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+      <Methode Name="computeIS875TurbulenceIntensityValue">
+      <Documentation>
+        <UserDocu>
+        	computeIS875TurbulenceIntensityValue(height, referenceHeight)  -> float\n
+					height = the height of the simulation point
+          referenceHeight = a reference height  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+     <Methode Name="computeISOTurbulenceIntensityValue">
+      <Documentation>
+        <UserDocu>
+        	computeISOTurbulenceIntensityValue(height, referenceHeight)  -> float\n
+					height = the height of the simulation point
+          referenceHeight = a reference height  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

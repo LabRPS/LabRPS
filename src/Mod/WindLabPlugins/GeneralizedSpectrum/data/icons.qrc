@@ -1,0 +1,18 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>icons/light/16/edit-random-dist.png</file>
+    <file>icons/light/16/edit-random-number.png</file>   
+    <file>icons/light/22/edit-random-dist.png</file>
+    <file>icons/light/22/edit-random-number.png</file>  
+    <file>icons/light/24/edit-random-dist.png</file>
+    <file>icons/light/24/edit-random-number.png</file>  
+    <file>icons/dark/16/edit-random-dist.png</file>
+    <file>icons/dark/16/edit-random-number.png</file>   
+    <file>icons/dark/22/edit-random-dist.png</file>
+    <file>icons/dark/22/edit-random-number.png</file>   
+    <file>icons/dark/24/edit-random-dist.png</file>
+    <file>icons/dark/24/edit-random-number.png</file>
+    <file>icons/light/generalSpectrum/generalKaimal.png</file>   
+    <file>icons/light/generalSpectrum/generalVonKarman.png</file>  
+</qresource>
+</RCC>

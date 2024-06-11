@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureTurbulenceIntensityPy"
+            Twin="ViewProviderWindLabFeatureTurbulenceIntensity"
+            TwinPointer="ViewProviderWindLabFeatureTurbulenceIntensity"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureTurbulenceIntensity.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureTurbulenceIntensity class</UserDocu>
+        </Documentation>
+      <Methode Name="computeTurbulenceIntensityValue">
+        <Documentation>
+          <UserDocu>Compute turbulence intensity value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeTurbulenceIntensityVectorP">
+        <Documentation>
+          <UserDocu>Compute turbulence intensity at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeTurbulenceIntensityVectorT">
+        <Documentation>
+          <UserDocu>Compute the turbulence intensity at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+ 

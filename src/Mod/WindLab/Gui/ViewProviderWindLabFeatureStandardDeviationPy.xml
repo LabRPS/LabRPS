@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureStandardDeviationPy"
+            Twin="ViewProviderWindLabFeatureStandardDeviation"
+            TwinPointer="ViewProviderWindLabFeatureStandardDeviation"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureStandardDeviation.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureStandardDeviation class</UserDocu>
+        </Documentation>
+      <Methode Name="computeStandardDeviationValue">
+        <Documentation>
+          <UserDocu>Compute standard deviation value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeStandardDeviationVectorP">
+        <Documentation>
+          <UserDocu>Compute the standard deviation at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeStandardDeviationVectorT">
+        <Documentation>
+          <UserDocu>Compute the standard deviation at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+ 

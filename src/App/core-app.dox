@@ -1,0 +1,16 @@
+/** \defgroup APP App
+ * \ingroup CORE
+ * \brief The part of LabRPS that works without GUI (console or server mode)
+*/
+
+/** \namespace App
+    \ingroup APP
+    \brief The LabRPS Application layer
+
+    This namespace includes Application services of LabRPS like:
+    - The Application class
+    - The Document class
+
+
+*/
+

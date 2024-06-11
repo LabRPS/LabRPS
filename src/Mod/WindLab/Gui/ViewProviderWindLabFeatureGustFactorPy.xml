@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderWindLabFeatureGustFactorPy"
+            Twin="ViewProviderWindLabFeatureGustFactor"
+            TwinPointer="ViewProviderWindLabFeatureGustFactor"
+            Include="Mod/WindLab/Gui/ViewProviderWindLabFeatureGustFactor.h"
+            Namespace="WindLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderWindLabFeatureGustFactor class</UserDocu>
+        </Documentation>
+      <Methode Name="computeGustFactorValue">
+        <Documentation>
+          <UserDocu>Compute the gust factor value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeGustFactorVectorP">
+        <Documentation>
+          <UserDocu>Compute the gust factor at all location</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeGustFactorVectorT">
+        <Documentation>
+          <UserDocu>Compute the gust factor at all time instant</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+
+   

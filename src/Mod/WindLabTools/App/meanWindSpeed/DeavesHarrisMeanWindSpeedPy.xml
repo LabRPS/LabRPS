@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="DeavesHarrisMeanWindSpeedPy"
+    Twin="DeavesHarrisMeanWindSpeed"
+    TwinPointer="DeavesHarrisMeanWindSpeed"
+    Include="Mod/WindLabTools/App/meanWindSpeed/DeavesHarrisMeanWindSpeed.h"
+    Namespace="WindLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the Deaves Harris Mean Wind Speed</UserDocu>
+    </Documentation>
+    <Methode Name="computeMeanWindSpeed">
+      <Documentation>
+        <UserDocu>
+          computeMeanWindSpeed(height, terrainRoughness, shearVelocity, zeroPlanDisplacement, latitude, earthAngularVelocity, beta)
+					height = the heigh at which the mean wind speed is calculated
+          terrainRoughness = the terrain roughness
+          shearVelocity = the shear velocity of the flow
+          zeroPlanDisplacement = the zero plan displacement
+          latitude = the latidude
+          earthAngularVelocity = the earth angular velocity
+          beta = the beta coefficient
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

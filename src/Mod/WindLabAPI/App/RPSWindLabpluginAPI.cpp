@@ -1,0 +1,668 @@
+#include "PreCompiled.h"
+
+#include "RPSWindLabpluginAPI.h"
+#include "RPSWindLabAPI.h"
+
+using namespace WindLabAPI;
+
+const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
+{
+	return "0.001";
+}
+
+
+ /////////////////////////////////////coherence//////////////////////////////////////////
+
+ void RegisterCoherence(const std::string name, const std::string& pluginName, const std::string& description, CoherenceInitFunc init_cb, CoherenceFreeFunc free_cb)
+ {
+	 if (CrpsCoherenceFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsCoherenceFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsCoherenceFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeCoherence(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsCoherenceFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterCoherence(const std::string name, const std::string& pluginName)
+ {
+     CrpsCoherenceFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////Location Distribution//////////////////////////////////////////
+
+ void RegisterLocationDistribution(const std::string name, const std::string& pluginName, const std::string& description, LocationDistributionInitFunc init_cb, LocationDistributionFreeFunc free_cb)
+ {
+	 if (CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsLocationDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeLocationDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsLocationDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterLocationDistribution(const std::string name, const std::string& pluginName)
+ {
+     CrpsLocationDistributionFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////Mean wind profile//////////////////////////////////////////
+
+ void RegisterMean(const std::string name, const std::string& pluginName, const std::string& description,  MeanInitFunc init_cb, MeanFreeFunc free_cb)
+ {
+	 if (CrpsMeanFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsMeanFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsMeanFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeMean(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsMeanFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterMean(const std::string name, const std::string& pluginName)
+ {
+     CrpsMeanFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////Along wind target spectrum//////////////////////////////////////////
+
+ void RegisterXSpectrum(const std::string name, const std::string& pluginName, const std::string& description, XSpectrumInitFunc init_cb, XSpectrumFreeFunc free_cb)
+ {
+	 if (CrpsXSpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsXSpectrumFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsXSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeXSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsXSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterXSpectrum(const std::string name, const std::string& pluginName)
+ {
+     CrpsXSpectrumFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////Vertical wind target spectrum//////////////////////////////////////////
+
+ void RegisterZSpectrum(const std::string name, const std::string& pluginName, const std::string& description, ZSpectrumInitFunc init_cb, ZSpectrumFreeFunc free_cb)
+ {
+	 if (CrpsZSpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsZSpectrumFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsZSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeZSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsZSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterZSpectrum(const std::string name, const std::string& pluginName)
+ {
+     CrpsZSpectrumFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////Across wind target spectrum//////////////////////////////////////////
+
+ void RegisterYSpectrum(const std::string name, const std::string& pluginName, const std::string& description, YSpectrumInitFunc init_cb, YSpectrumFreeFunc free_cb)
+ {
+	 if (CrpsYSpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsYSpectrumFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsYSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeYSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsYSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterYSpectrum(const std::string name, const std::string& pluginName)
+ {
+     CrpsYSpectrumFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////Simulation method//////////////////////////////////////////
+
+ void RegisterSimuMethod(const std::string name, const std::string& pluginName, const std::string& description, SimuMethodInitFunc init_cb, SimuMethodFreeFunc free_cb)
+ {
+	 if (CrpsSimuMethodFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsSimuMethodFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsSimuMethodFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeSimuMethod(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsSimuMethodFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterSimuMethod(const std::string name, const std::string& pluginName)
+ {
+     CrpsSimuMethodFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////Frequency distribution//////////////////////////////////////////
+
+ void RegisterFrequencyDistribution(const std::string name, const std::string& pluginName, const std::string& description, FrequencyDistributionInitFunc init_cb, FrequencyDistributionFreeFunc free_cb)
+ {
+	 if (CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsFrequencyDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeFrequencyDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsFrequencyDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterFrequencyDistribution(const std::string name, const std::string& pluginName)
+ {
+     CrpsFrequencyDistributionFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////Randomness//////////////////////////////////////////
+
+ void RegisterRandomness(const std::string name, const std::string& pluginName, const std::string& description, RandomnessInitFunc init_cb, RandomnessFreeFunc free_cb)
+ {
+	 if (CrpsRandomnessFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsRandomnessFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsRandomnessFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeRandomness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsRandomnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterRandomness(const std::string name, const std::string& pluginName)
+ {
+     CrpsRandomnessFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ ////////////////////////////////////psd decomposition//////////////////////////////////////////
+
+ void RegisterPSDdecomMethod(const std::string name, const std::string& pluginName, const std::string& description, PSDdecomMethodInitFunc init_cb, PSDdecomMethodFreeFunc free_cb)
+ {
+	 if (CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsPSDdecomMethodFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializePSDdecomMethod(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsPSDdecomMethodFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterPSDdecomMethod(const std::string name, const std::string& pluginName)
+ {
+     CrpsPSDdecomMethodFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////Correlation//////////////////////////////////////////
+
+ void RegisterCorrelation(const std::string name, const std::string& pluginName, const std::string& description, CorrelationInitFunc init_cb, CorrelationFreeFunc free_cb)
+ {
+	 if (CrpsCorrelationFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsCorrelationFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsCorrelationFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeCorrelation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsCorrelationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterCorrelation(const std::string name, const std::string& pluginName)
+ {
+     CrpsCorrelationFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////Modulation//////////////////////////////////////////
+
+ void RegisterModulation(const std::string name, const std::string& pluginName, const std::string& description, ModulationInitFunc init_cb, ModulationFreeFunc free_cb)
+ {
+	 if (CrpsModulationFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsModulationFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+
+     CrpsModulationFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeModulation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsModulationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterModulation(const std::string name, const std::string& pluginName)
+ {
+     CrpsModulationFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////table tool object//////////////////////////////////////////
+
+ void RegisterTableTool(const std::string name, const std::string& pluginName, const std::string& description, TableToolInitFunc init_cb, TableToolFreeFunc free_cb)
+ {
+	 if (CrpsTableToolFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTableToolFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsTableToolFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeTableTool(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsTableToolFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterTableTool(const std::string name, const std::string& pluginName)
+ {
+     CrpsTableToolFactory::UnregisterObject(name, pluginName);
+ }
+
+////////////////////////////////////matrix tools object//////////////////////////////////////////
+
+ void RegisterMatrixTool(const std::string name, const std::string& pluginName, const std::string& description, MatrixToolInitFunc init_cb, MatrixToolFreeFunc free_cb)
+ {
+	 if (CrpsMatrixToolFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsMatrixToolFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsMatrixToolFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeMatrixTool(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsMatrixToolFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterMatrixTool(const std::string name, const std::string& pluginName)
+ {
+     CrpsMatrixToolFactory::UnregisterObject(name, pluginName);
+ }
+
+ ////////////////////////////////////user defined rps object//////////////////////////////////////////
+
+ void RegisterUserDefinedRPSObject(const std::string name, const std::string& pluginName, const std::string& description, UserDefinedRPSObjectInitFunc init_cb, UserDefinedRPSObjectFreeFunc free_cb)
+ {
+	 if (CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsUserDefinedRPSObjectFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeUserDefinedRPSObject(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsUserDefinedRPSObjectFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterUserDefinedRPSObject(const std::string name, const std::string& pluginName)
+ {
+     CrpsUserDefinedRPSObjectFactory::UnregisterObject(name, pluginName);
+ }
+
+
+/////////////////////cumulative probability distribution///////////////
+
+ void RegisterCumulativeProbabilityDistribution(const std::string name, const std::string& pluginName, const std::string& description, CumulativeProbabilityDistributionInitFunc init_cb, CumulativeProbabilityDistributionFreeFunc free_cb)
+ {
+	 if (CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsCumulativeProbabilityDistributionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeCumulativeProbabilityDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsCumulativeProbabilityDistributionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterCumulativeProbabilityDistribution(const std::string name, const std::string& pluginName)
+ {
+     CrpsCumulativeProbabilityDistributionFactory::UnregisterObject(name, pluginName);
+ }
+ 
+ /////////////////////Gust factor///////////////
+
+ void RegisterGustFactor(const std::string name, const std::string& pluginName, const std::string& description, GustFactorInitFunc init_cb, GustFactorFreeFunc free_cb)
+ {
+	 if (CrpsGustFactorFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsGustFactorFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsGustFactorFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeGustFactor(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsGustFactorFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterGustFactor(const std::string name, const std::string& pluginName)
+ {
+     CrpsGustFactorFactory::UnregisterObject(name, pluginName);
+ }
+
+
+ /////////////////////Kurtosis/////////////////////////////
+
+ void RegisterKurtosis(const std::string name, const std::string& pluginName, const std::string& description, KurtosisInitFunc init_cb, KurtosisFreeFunc free_cb)
+ {
+	 if (CrpsKurtosisFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsKurtosisFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsKurtosisFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeKurtosis(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsKurtosisFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterKurtosis(const std::string name, const std::string& pluginName)
+ {
+     CrpsKurtosisFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Peak factor//////////////////////////
+
+ void RegisterPeakFactor(const std::string name, const std::string& pluginName, const std::string& description, PeakFactorInitFunc init_cb, PeakFactorFreeFunc free_cb)
+ {
+	 if (CrpsPeakFactorFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsPeakFactorFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsPeakFactorFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializePeakFactor(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsPeakFactorFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterPeakFactor(const std::string name, const std::string& pluginName)
+ {
+     CrpsPeakFactorFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Probability density function///////////////
+
+ void RegisterProbabilityDensityFunction(const std::string name, const std::string& pluginName, const std::string& description, ProbabilityDensityFunctionInitFunc init_cb, ProbabilityDensityFunctionFreeFunc free_cb)
+ {
+	 if (CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsProbabilityDensityFunctionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeProbabilityDensityFunction(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsProbabilityDensityFunctionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterProbabilityDensityFunction(const std::string name, const std::string& pluginName)
+ {
+     CrpsProbabilityDensityFunctionFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Roughness///////////////
+
+ void RegisterRoughness(const std::string name, const std::string& pluginName, const std::string& description, RoughnessInitFunc init_cb, RoughnessFreeFunc free_cb)
+ {
+	 if (CrpsRoughnessFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsRoughnessFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsRoughnessFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeRoughness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsRoughnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterRoughness(const std::string name, const std::string& pluginName)
+ {
+     CrpsRoughnessFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Shear velocity of the flow///////////////
+
+ void RegisterShearVelocityOfFlow(const std::string name, const std::string& pluginName, const std::string& description, ShearVelocityOfFlowInitFunc init_cb, ShearVelocityOfFlowFreeFunc free_cb)
+ {
+	 if (CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsShearVelocityOfFlowFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeShearVelocityOfFlow(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsShearVelocityOfFlowFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterShearVelocityOfFlow(const std::string name, const std::string& pluginName)
+ {
+     CrpsShearVelocityOfFlowFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Skewness///////////////
+
+ void RegisterSkewness(const std::string name, const std::string& pluginName, const std::string& description, SkewnessInitFunc init_cb, SkewnessFreeFunc free_cb)
+ {
+	 if (CrpsSkewnessFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsSkewnessFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsSkewnessFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeSkewness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsSkewnessFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterSkewness(const std::string name, const std::string& pluginName)
+ {
+     CrpsSkewnessFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Standard deviation///////////////
+
+ void RegisterStandardDeviation(const std::string name, const std::string& pluginName, const std::string& description, StandardDeviationInitFunc init_cb, StandardDeviationFreeFunc free_cb)
+ {
+	 if (CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsStandardDeviationFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeStandardDeviation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsStandardDeviationFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterStandardDeviation(const std::string name, const std::string& pluginName)
+ {
+     CrpsStandardDeviationFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Turbulence intensity///////////////
+
+ void RegisterTurbulenceIntensity(const std::string name, const std::string& pluginName, const std::string& description, TurbulenceIntensityInitFunc init_cb, TurbulenceIntensityFreeFunc free_cb)
+ {
+	 if (CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsTurbulenceIntensityFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeTurbulenceIntensity(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsTurbulenceIntensityFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterTurbulenceIntensity(const std::string name, const std::string& pluginName)
+ {
+     CrpsTurbulenceIntensityFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Variance///////////////
+
+ void RegisterTurbulenceScale(const std::string name, const std::string& pluginName, const std::string& description, TurbulenceScaleInitFunc init_cb, TurbulenceScaleFreeFunc free_cb)
+ {
+	 if (CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsTurbulenceScaleFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeTurbulenceScale(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsTurbulenceScaleFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterTurbulenceScale(const std::string name, const std::string& pluginName)
+ {
+     CrpsTurbulenceScaleFactory::UnregisterObject(name, pluginName);
+ }
+
+  void RegisterVariance(const std::string name, const std::string& pluginName, const std::string& description, VarianceInitFunc init_cb, VarianceFreeFunc free_cb)
+ {
+	 if (CrpsVarianceFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsVarianceFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsVarianceFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeVariance(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsVarianceFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterVariance(const std::string name, const std::string& pluginName)
+ {
+     CrpsVarianceFactory::UnregisterObject(name, pluginName);
+ }
+
+ /////////////////////Wave passage effect///////////////
+
+ void RegisterWavePassageEffect(const std::string name, const std::string& pluginName, const std::string& description, WavePassageEffectInitFunc init_cb, WavePassageEffectFreeFunc free_cb)
+ {
+	 if (CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsWavePassageEffectFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeWavePassageEffect(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsWavePassageEffectFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterWavePassageEffect(const std::string name, const std::string& pluginName)
+ {
+     CrpsWavePassageEffectFactory::UnregisterObject(name, pluginName);
+ }

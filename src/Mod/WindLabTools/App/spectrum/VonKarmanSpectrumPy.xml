@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="WindSpectrumPy"
+    Name="VonKarmanSpectrumPy"
+    Twin="VonKarmanSpectrum"
+    TwinPointer="VonKarmanSpectrum"
+    Include="Mod/WindLabTools/App/spectrum/VonKarmanSpectrum.h"
+    Namespace="WindLabTools"
+    FatherInclude="Mod/WindLabTools/App/spectrum/WindSpectrumPy.h" 
+    FatherNamespace="WindLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows the computation of wind spectrum using the von Karman spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeAlongWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeAlongWindAutoSpectrum(frequency, meanSpeed, integralLengthScale, standardDeviation, Par1, Par2);
+					frequency = the frequency value for which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          integralLengthScale = the integral length scale
+          standardDeviation = the standard deviation
+          Part1, Part2 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+     <Methode Name="computeAcrossWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeAcrossWindAutoSpectrum(frequency, meanSpeed, integralLengthScale, standardDeviation, Par1, Par2);
+					frequency = the frequency value for which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          integralLengthScale = the integral length scale
+          standardDeviation = the standard deviation
+          Part1, Part2 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+     <Methode Name="computeVerticalWindAutoSpectrum">
+      <Documentation>
+        <UserDocu>
+          double computeVerticalWindAutoSpectrum(frequency, meanSpeed, integralLengthScale, standardDeviation, Par1, Par2, Part3);
+					frequency = the frequency value for which the spectrum will be calculated
+          meanSpeed = the mean wind speed  
+          integralLengthScale = the integral length scale
+          standardDeviation = the standard deviation
+          Part1, Part2, Part3 = some constants.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

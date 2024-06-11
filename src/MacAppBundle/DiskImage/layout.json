@@ -1,0 +1,20 @@
+{
+
+  "title": "LabRPS",
+
+  "icon": "../LabRPS.app/Contents/Resources/labrps.icns",
+
+  "icon-size": 80,
+
+  "background": "background.png",
+
+  "contents": [
+
+    { "x": 250, "y": 150, "type": "file", "path": "/usr/local/LabRPS.app" },
+    { "x": 475, "y": 150, "type": "link", "path": "/Applications" }
+
+  ],
+
+  "format": "UDZO"
+}
+

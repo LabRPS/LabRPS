@@ -1,0 +1,29 @@
+/** \defgroup GUI Gui
+ *  \ingroup CORE
+ *  \brief The Graphical User Interface of LabRPS and the 3D View
+ */
+
+/** \namespace Gui
+    \brief The LabRPS Graphical interface layer
+
+    This namespace includes the grafical interface of LabRPS like:
+	- The main window
+	- 3D View
+	- Tree
+
+  and so on......
+*/
+
+
+/** \namespace Gui::Dialog
+    \brief The namespace of the LabRPS dialogs.
+*/
+
+
+/** \namespace Gui::DockWnd
+    \brief The namespace of the dockable windows of LabRPS.
+*/
+
+/** \namespace Gui::PropertyEditor
+    \brief The namespace of the property editor for LabRPS.
+*/
