@@ -289,13 +289,13 @@ void GraphvizView::updateSvgItem(const App::Document &doc)
     args << QLatin1String("-Tsvg");
     flatArgs << QLatin1String("-c2 -l2");
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
     QString path = QString::fromUtf8(hGrp->GetASCII("Graphviz", "/usr/bin").c_str());
 #else
     QString path = QString::fromUtf8(hGrp->GetASCII("Graphviz").c_str());
 #endif
     bool pathChanged = false;
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     QString dot = QString::fromLatin1("\"%1/dot\"").arg(path);
     QString unflatten = QString::fromLatin1("\"%1/unflatten\"").arg(path);
 #else
@@ -330,7 +330,7 @@ void GraphvizView::updateSvgItem(const App::Document &doc)
                 return;
             }
             pathChanged = true;
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             dot = QString::fromLatin1("\"%1/dot\"").arg(path);
             unflatten = QString::fromLatin1("\"%1/unflatten\"").arg(path);
 #else
@@ -403,13 +403,13 @@ QByteArray GraphvizView::exportGraph(const QString& format)
     args << QString::fromLatin1("-T%1").arg(format);
     flatArgs << QLatin1String("-c2 -l2");
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
     QString path = QString::fromUtf8(hGrp->GetASCII("Graphviz", "/usr/bin").c_str());
 #else
     QString path = QString::fromUtf8(hGrp->GetASCII("Graphviz").c_str());
 #endif
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     QString exe = QString::fromLatin1("\"%1/dot\"").arg(path);
     QString unflatten = QString::fromLatin1("\"%1/unflatten\"").arg(path);
 #else

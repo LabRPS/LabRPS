@@ -853,16 +853,16 @@ class SpreadsheetCases(unittest.TestCase):
         cylinder.setExpression('Radius', 'cube#Cube.Height')
 
         # Save and close first document
-        self.doc.saveAs(self.TempPath + os.sep + 'cube.fcstd')
+        self.doc.saveAs(self.TempPath + os.sep + 'cube.rpsstd')
         LabRPS.closeDocument(self.doc.Name)
 
         # Save and close second document
-        doc2.saveAs(self.TempPath + os.sep + 'cylinder.fcstd')
+        doc2.saveAs(self.TempPath + os.sep + 'cylinder.rpsstd')
         LabRPS.closeDocument(doc2.Name)
 
         # Open both documents again
-        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'cube.fcstd')
-        doc2 = LabRPS.openDocument(self.TempPath + os.sep + 'cylinder.fcstd')
+        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'cube.rpsstd')
+        doc2 = LabRPS.openDocument(self.TempPath + os.sep + 'cylinder.rpsstd')
 
         # Check reference between them
         self.assertEqual(doc2.getObject('Cylinder').ExpressionEngine[0][1], 'cube#Cube.Height')
@@ -1032,11 +1032,11 @@ class SpreadsheetCases(unittest.TestCase):
         self.doc.recompute()
 
         # Save and close first document
-        self.doc.saveAs(self.TempPath + os.sep + 'conditionals.fcstd')
+        self.doc.saveAs(self.TempPath + os.sep + 'conditionals.rpsstd')
         LabRPS.closeDocument(self.doc.Name)
 
         # Open documents again
-        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'conditionals.fcstd')
+        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'conditionals.rpsstd')
 
         sheet = self.doc.getObject('Spreadsheet')
         self.assertEqual(sheet.getContents('B1'), '=A1 == 1 ? 11 : (A1 == 2 ? 12 : 13)')
@@ -1160,9 +1160,9 @@ class SpreadsheetCases(unittest.TestCase):
         box.Height = 10.00
         square.recompute()
 
-        basePath = self.TempPath + os.sep + 'base.FCStd'
+        basePath = self.TempPath + os.sep + 'base.RPSStd'
         base.saveAs(basePath)
-        squarePath = self.TempPath + os.sep + 'square.FCStd'
+        squarePath = self.TempPath + os.sep + 'square.RPSStd'
         square.saveAs(squarePath)
 
         base.save()
@@ -1205,7 +1205,7 @@ class SpreadsheetCases(unittest.TestCase):
         self.assertEqual(ss2.get("A3"), 3)
         self.assertEqual(ss2.get("A4"), 3)
 
-        project_path = self.TempPath + os.sep + 'alias.FCStd'
+        project_path = self.TempPath + os.sep + 'alias.RPSStd'
         self.doc.saveAs(project_path)
         LabRPS.closeDocument(self.doc.Name)
         self.doc = LabRPS.openDocument(project_path)

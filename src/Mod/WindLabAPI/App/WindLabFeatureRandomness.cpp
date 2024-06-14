@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureRandomness",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureRandomness",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureRandomness, WindLabAPI::WindLabFeature)
 

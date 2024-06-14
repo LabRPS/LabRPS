@@ -378,7 +378,7 @@ public:
     static bool redirected_stderr;
     static PyObject* default_stderr;
     static PyObject* replace_stderr;
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     long logMessageSize = 0;
 #else
     long logMessageSize = 2048;

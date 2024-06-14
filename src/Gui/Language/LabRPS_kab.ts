@@ -6637,8 +6637,8 @@ Veuillez ouvrir une fenêtre de navigateur et saisir : http://localhost:%1.</tra
       <translation>Enregistrer le document %1</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7949,8 +7949,8 @@ Physical path: </translation>
       <translation>Impossible de fusionner le projet avec lui-même.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
   </context>
   <context>

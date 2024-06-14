@@ -1920,7 +1920,7 @@ private:
 #if PY_VERSION_HEX < 0x03090000
             unichars = PyUnicode_AS_UNICODE(p);
 #else
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             //PyUNICODE is only 16 bits on Windows (wchar_t), so passing 32 bit UCS4
             //will result in unknow glyph in even positions, and wrong characters in
             //odd positions.
@@ -1939,7 +1939,7 @@ private:
 #if PY_VERSION_HEX < 0x03090000
             unichars = PyUnicode_AS_UNICODE(intext);
 #else
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             //PyUNICODE is only 16 bits on Windows (wchar_t), so passing 32 bit UCS4
             //will result in unknow glyph in even positions, and wrong characters in
             //odd positions.
@@ -1955,7 +1955,7 @@ private:
 
         try {
             if (useFontSpec) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 //    Windows doesn't do Utf8 by default and FreeType doesn't do wchar. 
 //    this is a hacky work around.
 //    copy fontspec to Ascii temp name

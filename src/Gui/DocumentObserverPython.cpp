@@ -58,33 +58,33 @@ void DocumentObserverPython::removeObserver(const Py::Object& obj)
 
 DocumentObserverPython::DocumentObserverPython(const Py::Object& obj) : inst(obj)
 {
-#define FC_PY_ELEMENT_ARG1(_name1, _name2) do {\
-        FC_PY_GetCallable(obj.ptr(), "slot" #_name1, py##_name1.py);\
+#define RPS_PY_ELEMENT_ARG1(_name1, _name2) do {\
+        RPS_PY_GetCallable(obj.ptr(), "slot" #_name1, py##_name1.py);\
         if (!py##_name1.py.isNone())\
             py##_name1.slot = Application::Instance->signal##_name2.connect(\
                     boost::bind(&DocumentObserverPython::slot##_name1, this, bp::_1));\
     }\
     while(0);
 
-#define FC_PY_ELEMENT_ARG2(_name1, _name2) do {\
-        FC_PY_GetCallable(obj.ptr(), "slot" #_name1, py##_name1.py);\
+#define RPS_PY_ELEMENT_ARG2(_name1, _name2) do {\
+        RPS_PY_GetCallable(obj.ptr(), "slot" #_name1, py##_name1.py);\
         if (!py##_name1.py.isNone())\
             py##_name1.slot = Application::Instance->signal##_name2.connect(\
                     boost::bind(&DocumentObserverPython::slot##_name1, this, bp::_1, bp::_2));\
     }\
     while(0);
 
-    FC_PY_ELEMENT_ARG1(CreatedDocument, NewDocument)
-    FC_PY_ELEMENT_ARG1(DeletedDocument, DeleteDocument)
-    FC_PY_ELEMENT_ARG1(RelabelDocument, RelabelDocument)
-    FC_PY_ELEMENT_ARG1(RenameDocument, RenameDocument)
-    FC_PY_ELEMENT_ARG1(ActivateDocument, ActiveDocument)
-    FC_PY_ELEMENT_ARG1(CreatedObject, NewObject)
-    FC_PY_ELEMENT_ARG1(DeletedObject, DeletedObject)
-    FC_PY_ELEMENT_ARG2(BeforeChangeObject, BeforeChangeObject)
-    FC_PY_ELEMENT_ARG2(ChangedObject, ChangedObject)
-    FC_PY_ELEMENT_ARG1(InEdit, InEdit)
-    FC_PY_ELEMENT_ARG1(ResetEdit, ResetEdit)
+    RPS_PY_ELEMENT_ARG1(CreatedDocument, NewDocument)
+    RPS_PY_ELEMENT_ARG1(DeletedDocument, DeleteDocument)
+    RPS_PY_ELEMENT_ARG1(RelabelDocument, RelabelDocument)
+    RPS_PY_ELEMENT_ARG1(RenameDocument, RenameDocument)
+    RPS_PY_ELEMENT_ARG1(ActivateDocument, ActiveDocument)
+    RPS_PY_ELEMENT_ARG1(CreatedObject, NewObject)
+    RPS_PY_ELEMENT_ARG1(DeletedObject, DeletedObject)
+    RPS_PY_ELEMENT_ARG2(BeforeChangeObject, BeforeChangeObject)
+    RPS_PY_ELEMENT_ARG2(ChangedObject, ChangedObject)
+    RPS_PY_ELEMENT_ARG1(InEdit, InEdit)
+    RPS_PY_ELEMENT_ARG1(ResetEdit, ResetEdit)
 }
 
 DocumentObserverPython::~DocumentObserverPython()

@@ -113,7 +113,7 @@ DlgProjectUtility::DlgProjectUtility(QWidget* parent, Qt::WindowFlags fl)
   : QDialog(parent, fl), ui(new Ui_DlgProjectUtility)
 {
     ui->setupUi(this);
-    ui->extractSource->setFilter(QString::fromLatin1("%1 (*.FCStd)").arg(tr("Project file")));
+    ui->extractSource->setFilter(QString::fromLatin1("%1 (*.RPSStd)").arg(tr("Project file")));
 }
 
 /**
@@ -158,7 +158,7 @@ void DlgProjectUtility::on_createButton_clicked()
         return;
     }
 
-    dest = QDir(dest).absoluteFilePath(QString::fromUtf8("project.fcstd"));
+    dest = QDir(dest).absoluteFilePath(QString::fromUtf8("project.rpsstd"));
 
     std::stringstream str;
     str << doctools << "\n";

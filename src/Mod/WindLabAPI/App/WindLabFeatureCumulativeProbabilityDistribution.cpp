@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureCumulativeProbabilityDistribution",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureCumulativeProbabilityDistribution",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureCumulativeProbabilityDistribution, WindLabAPI::WindLabFeature)
 

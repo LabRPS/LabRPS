@@ -23,13 +23,13 @@
 
 #include "PreCompiled.h"
 
-#ifndef FC_OS_WIN32
+#ifndef RPS_OS_WIN32
 # ifndef GL_GLEXT_PROTOTYPES
 # define GL_GLEXT_PROTOTYPES 1
 # endif
 #endif
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 # include <OpenGL/gl.h>
 # include <OpenGL/glu.h>
 # include <OpenGL/glext.h>

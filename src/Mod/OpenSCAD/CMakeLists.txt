@@ -73,14 +73,14 @@ ADD_CUSTOM_TARGET(OpenSCADTests ALL
     SOURCES ${OpenSCADTests_ALL}
 )
 
-fc_copy_sources(OpenSCAD "${CMAKE_BINARY_DIR}/Mod/OpenSCAD" ${all_files})
+rps_copy_sources(OpenSCAD "${CMAKE_BINARY_DIR}/Mod/OpenSCAD" ${all_files})
 
-fc_copy_sources(OpenSCAD "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/OpenSCAD" ${OpenSCADGuiIcon_SVG})
+rps_copy_sources(OpenSCAD "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/OpenSCAD" ${OpenSCADGuiIcon_SVG})
 
-fc_copy_sources(OpenSCADTests "${CMAKE_BINARY_DIR}/Mod/OpenSCAD" ${OpenSCADTests_ALL})
+rps_copy_sources(OpenSCADTests "${CMAKE_BINARY_DIR}/Mod/OpenSCAD" ${OpenSCADTests_ALL})
 
 IF (BUILD_GUI)
-    fc_target_copy_resource(OpenSCAD
+    rps_target_copy_resource(OpenSCAD
         ${CMAKE_CURRENT_BINARY_DIR}
         ${CMAKE_BINARY_DIR}/Mod/OpenSCAD
         OpenSCAD_rc.py)

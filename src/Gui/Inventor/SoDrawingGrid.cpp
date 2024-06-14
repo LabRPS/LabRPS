@@ -33,7 +33,7 @@
 # include <Inventor/elements/SoViewportRegionElement.h>
 #endif
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>

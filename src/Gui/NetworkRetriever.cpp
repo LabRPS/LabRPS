@@ -319,7 +319,7 @@ bool NetworkRetriever::startDownload( const QString& startUrl )
     // start URL
     wgetArguments << startUrl;
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
     // on Linux it seems that we have to change cwd
     QString cwd = QDir::currentPath ();
     if ( !d->dir.isEmpty() )

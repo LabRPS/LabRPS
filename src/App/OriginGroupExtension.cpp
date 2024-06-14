@@ -32,7 +32,7 @@
 #include "Origin.h"
 
 
-FC_LOG_LEVEL_INIT("App", true, true)
+RPS_LOG_LEVEL_INIT("App", true, true)
 
 using namespace App;
 
@@ -165,7 +165,7 @@ void OriginGroupExtension::extensionOnChanged(const Property* p) {
                     Base::ObjectStatusLocker<Document::Status, Document> guard(
                             Document::Restoring, owner->getDocument(), false);
                     Origin.setValue(owner->getDocument()->addObject("App::Origin", "Origin"));
-                    FC_WARN("Reset origin in " << owner->getFullName());
+                    RPS_WARN("Reset origin in " << owner->getFullName());
                     return;
                 }
             }

@@ -341,7 +341,7 @@ void ExtensionContainer::saveExtensions(Base::Writer& writer) const {
         catch (const char* e) {
             Base::Console().Error("%s\n", e);
         }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
         catch (...) {
             Base::Console().Error("ExtensionContainer::Save: Unknown C++ exception thrown. Try to continue...\n");
         }
@@ -408,7 +408,7 @@ void ExtensionContainer::restoreExtensions(Base::XMLReader& reader) {
         catch (const char* e) {
             Base::Console().Error("%s\n", e);
         }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
         catch (...) {
             Base::Console().Error("ExtensionContainer::Restore: Unknown C++ exception thrown\n");
         }

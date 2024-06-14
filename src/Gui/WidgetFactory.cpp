@@ -27,7 +27,7 @@
 # include <QVBoxLayout>
 #endif
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #undef max
 #undef min
 #ifdef _MSC_VER
@@ -76,7 +76,7 @@ QWidget* WidgetFactoryInst::createWidget (const char* sName, QWidget* parent) co
 
     // this widget class is not registered
     if (!w) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Warning("\"%s\" is not registered\n", sName);
 #else
         Base::Console().Log("\"%s\" is not registered\n", sName);
@@ -85,13 +85,13 @@ QWidget* WidgetFactoryInst::createWidget (const char* sName, QWidget* parent) co
     }
 
     try {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         const char* cName = dynamic_cast<QWidget*>(w)->metaObject()->className();
         Base::Console().Log("Widget of type '%s' created.\n", cName);
 #endif
     }
     catch (...) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Error("%s does not inherit from \"QWidget\"\n", sName);
 #else
         Base::Console().Log("%s does not inherit from \"QWidget\"\n", sName);
@@ -118,7 +118,7 @@ Gui::Dialog::PreferencePage* WidgetFactoryInst::createPreferencePage (const char
 
     // this widget class is not registered
     if (!w) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Warning("Cannot create an instance of \"%s\"\n", sName);
 #else
         Base::Console().Log("Cannot create an instance of \"%s\"\n", sName);
@@ -127,12 +127,12 @@ Gui::Dialog::PreferencePage* WidgetFactoryInst::createPreferencePage (const char
     }
 
     if (qobject_cast<Gui::Dialog::PreferencePage*>(w)) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Log("Preference page of type '%s' created.\n", w->metaObject()->className());
 #endif
     }
     else {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Error("%s does not inherit from 'Gui::Dialog::PreferencePage'\n", sName);
 #endif
         delete w;
@@ -171,7 +171,7 @@ QWidget* WidgetFactoryInst::createPrefWidget(const char* sName, QWidget* parent,
         }
     }
     catch (...) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Error("%s does not inherit from \"PrefWidget\"\n", w->metaObject()->className());
 #endif
         delete w;

@@ -78,7 +78,7 @@ typedef struct _object PyObject;
 
 #endif
 
-#define FC_THROWM(_exception,_msg) do {\
+#define RPS_THROWM(_exception,_msg) do {\
     std::stringstream ss;\
     ss << _msg;\
     THROWM(_exception,ss.str().c_str());\
@@ -745,7 +745,7 @@ inline void Exception::setTranslatable(bool translatable)
     _isTranslatable = translatable;
 }
 
-#if defined(__GNUC__) && defined (FC_OS_LINUX)
+#if defined(__GNUC__) && defined (RPS_OS_LINUX)
 class SignalException
 {
 public:

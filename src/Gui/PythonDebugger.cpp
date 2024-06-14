@@ -264,7 +264,7 @@ void PythonDebugExcept::init_type()
     behaviors().doc("Custom exception handler");
     // you must have overwritten the virtual functions
     behaviors().supportRepr();
-    add_varargs_method("fc_excepthook",&PythonDebugExcept::excepthook,"Custom exception handler");
+    add_varargs_method("rps_excepthook",&PythonDebugExcept::excepthook,"Custom exception handler");
 }
 
 PythonDebugExcept::PythonDebugExcept()
@@ -360,7 +360,7 @@ struct PythonDebuggerP {
         out_n = new PythonDebugStdout();
         err_n = new PythonDebugStderr();
         pypde = new PythonDebugExcept();
-        Py::Object func = pypde->getattr("fc_excepthook");
+        Py::Object func = pypde->getattr("rps_excepthook");
         exc_n = Py::new_reference_to(func);
         pydbg = new PythonDebuggerPy(that);
     }
@@ -424,7 +424,7 @@ void PythonDebugger::runFile(const QString& fn)
     try {
         RunningState state(d->running);
         QByteArray pxFileName = fn.toUtf8();
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         Base::FileInfo fi((const char*)pxFileName);
         FILE *fp = _wfopen(fi.toStdWString().c_str(),L"r");
 #else

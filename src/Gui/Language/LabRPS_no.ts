@@ -6637,8 +6637,8 @@ Please open a browser window and type in: http://localhost:%1.</source>
       <translation>Lagre %1 dokument</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 dokument (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 dokument (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7950,8 +7950,8 @@ Physical path: </translation>
       <translation>Kan ikke flette prosjekt med seg selv.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 dokument (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 dokument (*.RPSStd)</translation>
     </message>
   </context>
   <context>

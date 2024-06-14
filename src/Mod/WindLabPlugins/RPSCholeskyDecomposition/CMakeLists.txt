@@ -63,8 +63,8 @@ set_target_properties(RPSCholeskyDecomposition PROPERTIES FOLDER "Plugins/WindLa
 
 SET_BIN_DIR(RPSCholeskyDecomposition RPSCholeskyDecomposition /Plugins/WindLabWorkbench/RPSCholeskyDecomposition)
 
-# fc_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Workbenches/RPSCholeskyDecomposition" ${RPSCholeskyDecompositionIcon_SVG})
-fc_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition" ${Metadata_Files})
+# rps_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Workbenches/RPSCholeskyDecomposition" ${RPSCholeskyDecompositionIcon_SVG})
+rps_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition" ${Metadata_Files})
 INSTALL(TARGETS RPSCholeskyDecomposition DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition")
 INSTALL(FILES RPSCholeskyDecomposition.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition")
 INSTALL(FILES ${RPSCholeskyDecompositionIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Plugins/WindLab/RPSCholeskyDecomposition/Resources/icons")

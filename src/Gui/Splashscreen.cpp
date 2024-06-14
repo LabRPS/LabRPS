@@ -107,7 +107,7 @@ public:
     }
     void SendLog(const std::string& msg, Base::LogStyle level) override
     {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Log(msg.c_str());
         Q_UNUSED(level)
 #else
@@ -514,14 +514,14 @@ void AboutDialog::showLibraryInformation()
     li.name = QLatin1String("Eigen");
     li.href = baseurl + QLatin1String("#_TocEigen");
     li.url = QLatin1String("https://eigen.tuxfamily.org");
-    li.version = QString::fromLatin1(FC_EIGEN3_VERSION);
+    li.version = QString::fromLatin1(RPS_EIGEN3_VERSION);
     libInfo << li;
 
     // FreeType
     li.name = QLatin1String("FreeType");
     li.href = baseurl + QLatin1String("#_TocFreeType");
     li.url = QLatin1String("https://freetype.org");
-    li.version = QString::fromLatin1(FC_FREETYPE_VERSION);
+    li.version = QString::fromLatin1(RPS_FREETYPE_VERSION);
     libInfo << li;
 
     // KDL
@@ -551,14 +551,14 @@ void AboutDialog::showLibraryInformation()
     li.name = QLatin1String("Point Cloud Library");
     li.href = baseurl + QLatin1String("#_TocPcl");
     li.url = QLatin1String("https://www.pointclouds.org");
-    li.version = QString::fromLatin1(FC_PCL_VERSION);
+    li.version = QString::fromLatin1(RPS_PCL_VERSION);
     libInfo << li;
 
     // PyCXX
     li.name = QLatin1String("PyCXX");
     li.href = baseurl + QLatin1String("#_TocPyCXX");
     li.url = QLatin1String("http://cxx.sourceforge.net");
-    li.version = QString::fromLatin1(FC_PYCXX_VERSION);
+    li.version = QString::fromLatin1(RPS_PYCXX_VERSION);
     libInfo << li;
 
     // Python
@@ -572,7 +572,7 @@ void AboutDialog::showLibraryInformation()
     li.name = QLatin1String("Qt for Python (PySide)");
     li.href = baseurl + QLatin1String("#_TocPySide");
     li.url = QLatin1String("https://wiki.qt.io/Qt_for_Python");
-    li.version = QString::fromLatin1(FC_PYSIDE_VERSION);
+    li.version = QString::fromLatin1(RPS_PYSIDE_VERSION);
     libInfo << li;
 
     // Qt
@@ -593,21 +593,21 @@ void AboutDialog::showLibraryInformation()
     li.name = QLatin1String("Qt for Python (Shiboken)");
     li.href = baseurl + QLatin1String("#_TocPySide");
     li.url = QLatin1String("https://wiki.qt.io/Qt_for_Python");
-    li.version = QString::fromLatin1(FC_SHIBOKEN_VERSION);
+    li.version = QString::fromLatin1(RPS_SHIBOKEN_VERSION);
     libInfo << li;
 
     // vtk
     li.name = QLatin1String("vtk");
     li.href = baseurl + QLatin1String("#_TocVtk");
     li.url = QLatin1String("https://www.vtk.org");
-    li.version = QString::fromLatin1(FC_VTK_VERSION);
+    li.version = QString::fromLatin1(RPS_VTK_VERSION);
     libInfo << li;
 
     // Xerces-C
     li.name = QLatin1String("Xerces-C");
     li.href = baseurl + QLatin1String("#_TocXercesC");
     li.url = QLatin1String("https://xerces.apache.org/xerces-c");
-    li.version = QString::fromLatin1(FC_XERCESC_VERSION);
+    li.version = QString::fromLatin1(RPS_XERCESC_VERSION);
     libInfo << li;
 
     // Zipios++
@@ -730,7 +730,7 @@ void AboutDialog::on_copyButton_clicked()
     str << "Python " << PY_VERSION << ", ";
     str << "Qt " << QT_VERSION_STR << ", ";
     str << "Coin " << COIN_VERSION << ", ";
-    str << "Vtk " << FC_VTK_VERSION << ", ";
+    str << "Vtk " << RPS_VTK_VERSION << ", ";
 #if defined(HAVE_OCC_VERSION)
     str << "OCC "
         << OCC_VERSION_MAJOR << "."

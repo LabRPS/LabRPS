@@ -23,10 +23,10 @@
 #ifndef GUI_SOFCSELECTION_H
 #define GUI_SOFCSELECTION_H
 
-# ifdef FC_OS_MACOSX
+# ifdef RPS_OS_MACOSX
 # include <OpenGL/gl.h>
 # else
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  ifndef NOMINMAX
 #  define NOMINMAX
 #  endif

@@ -45,7 +45,7 @@
 #include "Property.h"
 
 
-FC_LOG_LEVEL_INIT("Expression",true,true)
+RPS_LOG_LEVEL_INIT("Expression",true,true)
 
 using namespace App;
 using namespace Base;
@@ -119,7 +119,7 @@ ObjectIdentifier::ObjectIdentifier(const App::PropertyContainer * _owner,
     if (_owner) {
         const DocumentObject * docObj = labrps_dynamic_cast<const DocumentObject>(_owner);
         if (!docObj)
-            FC_THROWM(Base::RuntimeError,"Property must be owned by a document object.");
+            RPS_THROWM(Base::RuntimeError,"Property must be owned by a document object.");
         owner = const_cast<DocumentObject*>(docObj);
 
         if (property.size() > 0) {
@@ -143,7 +143,7 @@ ObjectIdentifier::ObjectIdentifier(const App::PropertyContainer * _owner, bool l
     if (_owner) {
         const DocumentObject * docObj = labrps_dynamic_cast<const DocumentObject>(_owner);
         if (!docObj)
-            FC_THROWM(Base::RuntimeError,"Property must be owned by a document object.");
+            RPS_THROWM(Base::RuntimeError,"Property must be owned by a document object.");
         owner = const_cast<DocumentObject*>(docObj);
     }
 }
@@ -163,9 +163,9 @@ ObjectIdentifier::ObjectIdentifier(const Property &prop, int index)
     DocumentObject * docObj = labrps_dynamic_cast<DocumentObject>(prop.getContainer());
 
     if (!docObj)
-        FC_THROWM(Base::TypeError, "Property must be owned by a document object.");
+        RPS_THROWM(Base::TypeError, "Property must be owned by a document object.");
     if (!prop.hasName())
-        FC_THROWM(Base::RuntimeError, "Property must have a name.");
+        RPS_THROWM(Base::RuntimeError, "Property must have a name.");
 
     owner = const_cast<DocumentObject*>(docObj);
 
@@ -203,7 +203,7 @@ const App::ObjectIdentifier::Component &App::ObjectIdentifier::getPropertyCompon
 
     i += result.propertyIndex;
     if (i < 0 || i >= static_cast<int>(components.size()))
-        FC_THROWM(Base::ValueError, "Invalid property component index");
+        RPS_THROWM(Base::ValueError, "Invalid property component index");
 
     if (idx)
         *idx = i;
@@ -214,7 +214,7 @@ const App::ObjectIdentifier::Component &App::ObjectIdentifier::getPropertyCompon
 void App::ObjectIdentifier::setComponent(int idx, Component &&comp)
 {
     if (idx < 0 || idx >= static_cast<int>(components.size()))
-        FC_THROWM(Base::ValueError, "Invalid component index");
+        RPS_THROWM(Base::ValueError, "Invalid component index");
     components[idx] = std::move(comp);
     _cache.clear();
 }
@@ -299,12 +299,12 @@ bool ObjectIdentifier::verify(const App::Property &prop, bool silent) const {
     if(components.size() - result.propertyIndex != 1) {
         if(silent)
             return false;
-        FC_THROWM(Base::ValueError,"Invalid property path: single component expected");
+        RPS_THROWM(Base::ValueError,"Invalid property path: single component expected");
     }
     if(!components[result.propertyIndex].isSimple()) {
         if(silent)
             return false;
-        FC_THROWM(Base::ValueError,"Invalid property path: simple component expected");
+        RPS_THROWM(Base::ValueError,"Invalid property path: simple component expected");
     }
     const std::string &name = components[result.propertyIndex].getName();
     CellAddress addr;
@@ -314,7 +314,7 @@ bool ObjectIdentifier::verify(const App::Property &prop, bool silent) const {
     {
         if(silent)
             return false;
-        FC_THROWM(Base::ValueError,"Invalid property path: name mismatch");
+        RPS_THROWM(Base::ValueError,"Invalid property path: name mismatch");
     }
     return true;
 }
@@ -615,14 +615,14 @@ size_t ObjectIdentifier::Component::getIndex(size_t count) const {
         if(idx >= 0)
             return idx;
     }
-    FC_THROWM(Base::IndexError, "Array out of bound: " << begin << ", " << count);
+    RPS_THROWM(Base::IndexError, "Array out of bound: " << begin << ", " << count);
 }
 
 Py::Object ObjectIdentifier::Component::get(const Py::Object &pyobj) const {
     Py::Object res;
     if(isSimple()) {
         if(!pyobj.hasAttr(getName()))
-            FC_THROWM(Base::AttributeError, "No attribute named '" << getName() << "'");
+            RPS_THROWM(Base::AttributeError, "No attribute named '" << getName() << "'");
         res = pyobj.getAttr(getName());
     } else if(isArray()) {
         if(pyobj.isMapping())
@@ -644,7 +644,7 @@ Py::Object ObjectIdentifier::Component::get(const Py::Object &pyobj) const {
     if(!res.ptr())
         Base::PyException::ThrowException();
     if(PyModule_Check(res.ptr()) && !ExpressionParser::isModuleImported(res.ptr()))
-        FC_THROWM(Base::RuntimeError, "Module '" << getName() << "' access denied.");
+        RPS_THROWM(Base::RuntimeError, "Module '" << getName() << "' access denied.");
     return res;
 }
 
@@ -856,7 +856,7 @@ App::DocumentObject * ObjectIdentifier::getDocumentObject(const App::Document * 
         if (strcmp((*j)->Label.getValue(), static_cast<const char*>(name)) == 0) {
             // Found object with matching label
             if (objectByLabel != nullptr)  {
-                FC_WARN("duplicate object label " << doc->getName() << '#' << name);
+                RPS_WARN("duplicate object label " << doc->getName() << '#' << name);
                 return nullptr;
             }
             objectByLabel = *j;
@@ -1218,7 +1218,7 @@ ObjectIdentifier ObjectIdentifier::parse(const DocumentObject *docObj, const std
     if (v)
         return v->getPath();
     else
-        FC_THROWM(Base::RuntimeError,"Invalid property specification.");
+        RPS_THROWM(Base::RuntimeError,"Invalid property specification.");
 }
 
 std::string ObjectIdentifier::resolveErrorString() const
@@ -1417,7 +1417,7 @@ void ObjectIdentifier::setDocumentObjectName(const App::DocumentObject *obj, boo
         ObjectIdentifier::String &&subname, bool checkImport)
 {
     if(!owner || !obj || !obj->getNameInDocument() || !obj->getDocument())
-        FC_THROWM(Base::RuntimeError,"invalid object");
+        RPS_THROWM(Base::RuntimeError,"invalid object");
 
     if(checkImport)
         subname.checkImport(owner,obj);
@@ -1491,7 +1491,7 @@ void ObjectIdentifier::String::checkImport(const App::DocumentObject *owner,
                     std::bitset<32> flags;
                     obj = getDocumentObject(owner->getDocument(),*objName,flags);
                     if (!obj) {
-                        FC_ERR("Cannot find object " << objName->toString());
+                        RPS_ERR("Cannot find object " << objName->toString());
                     }
                 }
 
@@ -1508,7 +1508,7 @@ void ObjectIdentifier::String::checkImport(const App::DocumentObject *owner,
             auto mapped = reader->getName(str.c_str());
             auto objForMapped = owner->getDocument()->getObject(mapped);
             if (!objForMapped) {
-                FC_ERR("Cannot find object " << str);
+                RPS_ERR("Cannot find object " << str);
             }
             else {
                 isString = true;
@@ -1525,7 +1525,7 @@ Py::Object ObjectIdentifier::access(const ResolveResults &result,
     if(!result.resolvedDocumentObject || !result.resolvedProperty ||
        (subObjectName.getString().size() && !result.resolvedSubObject))
     {
-        FC_THROWM(Base::RuntimeError, result.resolveErrorString()
+        RPS_THROWM(Base::RuntimeError, result.resolveErrorString()
            << " in '" << toString() << "'");
     }
 
@@ -1559,7 +1559,7 @@ Py::Object ObjectIdentifier::access(const ResolveResults &result,
         GET_MODULE(Part);
         break;
     case PseudoCadquery:
-        GET_MODULE(labrps.fc_cadquery);
+        GET_MODULE(labrps.rps_cadquery);
         break;
     case PseudoRegex:
         GET_MODULE(re);
@@ -1655,7 +1655,7 @@ Py::Object ObjectIdentifier::access(const ResolveResults &result,
                     && container!=result.resolvedSubObject)
             {
                 if(!container->isDerivedFrom(DocumentObject::getClassTypeId()))
-                    FC_WARN("Invalid property container");
+                    RPS_WARN("Invalid property container");
                 else
                     obj = static_cast<DocumentObject*>(container);
             }
@@ -1818,7 +1818,7 @@ void ObjectIdentifier::setValue(const App::any &value) const
     std::stringstream ss;
     ResolveResults rs(*this);
     if(rs.propertyType)
-        FC_THROWM(Base::RuntimeError,"Cannot set pseudo property");
+        RPS_THROWM(Base::RuntimeError,"Cannot set pseudo property");
 
     Base::PyGILStateLocker lock;
     try {
@@ -1850,7 +1850,7 @@ void ObjectIdentifier::importSubNames(const ObjectIdentifier::SubNameMap &subNam
     if(it!=subNameMap.end()) {
         auto obj = owner->getDocument()->getObject(it->second.c_str());
         if(!obj) {
-            FC_ERR("Failed to find import object " << it->second << " from "
+            RPS_ERR("Failed to find import object " << it->second << " from "
                     << result.resolvedDocumentObject->getFullName());
             return;
         }

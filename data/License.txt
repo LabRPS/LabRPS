@@ -1,9 +1,9 @@
 
 The files:
 
-DrawingExample.FCStd
-PartDesignExample.FCStd
-RobotExample.FCStd
+DrawingExample.RPSStd
+PartDesignExample.RPSStd
+RobotExample.RPSStd
 Schenkel.stp
 
 are
@@ -15,7 +15,7 @@ Creative Commons Attribution Share Alike
 
 The files:
 
-EngineBlock.FCStd
+EngineBlock.RPSStd
 
 are
 (c) 2011 Werner Mayer (wmayer@users.sourceforge.net)

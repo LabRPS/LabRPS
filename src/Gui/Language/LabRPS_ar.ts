@@ -6685,8 +6685,8 @@ Please open a browser window and type in: http://localhost:%1.</source>
       <translation type="unfinished">Save %1 Document</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation type="unfinished">%1 document (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation type="unfinished">%1 document (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -8031,8 +8031,8 @@ Would you like to save the file with a different name?</translation>
       <translation type="unfinished">Cannot merge project with itself.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation type="unfinished">%1 document (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation type="unfinished">%1 document (*.RPSStd)</translation>
     </message>
   </context>
   <context>

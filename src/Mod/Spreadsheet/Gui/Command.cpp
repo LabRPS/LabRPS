@@ -30,7 +30,7 @@
 #endif
 
 #include <ctime>
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
 #include <sys/timeb.h>
 #endif
 

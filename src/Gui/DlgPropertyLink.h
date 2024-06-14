@@ -29,7 +29,7 @@
 #include <QTimer>
 #include "Selection.h"
 
-#define FC_XLINK_VALUE_INDEX 5
+#define RPS_XLINK_VALUE_INDEX 5
 
 namespace Gui { namespace Dialog {
 

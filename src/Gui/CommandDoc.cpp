@@ -66,7 +66,7 @@
 #include "ViewProvider.h"
 #include "WaitCursor.h"
 
-FC_LOG_LEVEL_INIT("Command", false)
+RPS_LOG_LEVEL_INIT("Command", false)
 
 using namespace Gui;
 
@@ -121,7 +121,7 @@ void StdCmdOpen::activated(int iMsg)
     std::map<std::string, std::string>::iterator jt;
     // Make sure the format name for FCStd is the very first in the list
     for (jt=FilterList.begin();jt != FilterList.end();++jt) {
-        if (jt->first.find("*.FCStd") != std::string::npos) {
+        if (jt->first.find("*.RPSStd") != std::string::npos) {
             formatList += QLatin1String(jt->first.c_str());
             formatList += QLatin1String(";;");
             FilterList.erase(jt);
@@ -208,7 +208,7 @@ void StdCmdImport::activated(int iMsg)
     std::map<std::string, std::string>::const_iterator jt;
     for (jt=FilterList.begin();jt != FilterList.end();++jt) {
         // ignore the project file format
-        if (jt->first.find("(*.FCStd)") == std::string::npos) {
+        if (jt->first.find("(*.RPSStd)") == std::string::npos) {
             formatList += QLatin1String(jt->first.c_str());
             formatList += QLatin1String(";;");
         }
@@ -273,7 +273,7 @@ StdCmdExport::StdCmdExport()
 Create a default filename from a user-specified format string
  
 Format options are:
-%F - the basename of the .FCStd file (or the label, if it is not saved yet)
+%F - the basename of the .RPSStd file (or the label, if it is not saved yet)
 %Lx - the label of the selected object(s), separated by character 'x'
 %Px - the label of the selected object(s) and their first parent, separated by character 'x'
 %U - the date and time, in UTC, ISO 8601
@@ -302,7 +302,7 @@ QString createDefaultExportBasename()
 
     // For code simplicity, pull all values we might need
 
-    // %F - the basename of the.FCStd file(or the label, if it is not saved yet)
+    // %F - the basename of the.RPSStd file(or the label, if it is not saved yet)
     QString docFilename = QString::fromUtf8(App::GetApplication().getActiveDocument()->getFileName());
     QFileInfo fi(docFilename);
     QString fcstdBasename = fi.completeBaseName();
@@ -373,7 +373,7 @@ QString createDefaultExportBasename()
                     defaultFilename.append(localISO8601);
                 }
                 else {
-                    FC_WARN("When parsing default export filename format string, %" 
+                    RPS_WARN("When parsing default export filename format string, %" 
                         << QString(formatChar).toStdString() 
                         << " is not a known format string.");
                 }
@@ -410,7 +410,7 @@ void StdCmdExport::activated(int iMsg)
     std::map<std::string, std::string> filterMap = App::GetApplication().getExportFilters();
     for (const auto &filter : filterMap) {
         // ignore the project file format
-        if (filter.first.find("(*.FCStd)") == std::string::npos)
+        if (filter.first.find("(*.RPSStd)") == std::string::npos)
             filterList << QString::fromStdString(filter.first);
     }
     QString formatList = filterList.join(QLatin1String(";;"));
@@ -431,7 +431,7 @@ void StdCmdExport::activated(int iMsg)
     bool filenameWasGenerated = false;
     // We want to generate a new default name in two cases:
     if (defaultFilename.isEmpty() || lastExportUsedGeneratedFilename) {
-        // First, get the name and path of the current .FCStd file, if there is one:
+        // First, get the name and path of the current .RPSStd file, if there is one:
         QString docFilename = QString::fromUtf8(
             App::GetApplication().getActiveDocument()->getFileName());
 
@@ -520,7 +520,7 @@ void StdCmdMergeProjects::activated(int iMsg)
     QString exe = qApp->applicationName();
     QString project = FileDialog::getOpenFileName(Gui::getMainWindow(),
         QString::fromUtf8(QT_TR_NOOP("Merge project")), FileDialog::getWorkingDirectory(),
-        QString::fromUtf8(QT_TR_NOOP("%1 document (*.FCStd)")).arg(exe));
+        QString::fromUtf8(QT_TR_NOOP("%1 document (*.RPSStd)")).arg(exe));
     if (!project.isEmpty()) {
         FileDialog::setWorkingDirectory(project);
         App::Document* doc = App::GetApplication().getActiveDocument();
@@ -1824,7 +1824,7 @@ protected:
         static boost::regex rule("^##@@ ([^ ]+) (\\w+)#(\\w+)\\.(\\w+) [^\n]+\n##@@([^\n]*)\n");
         boost::cmatch m;
         if(!boost::regex_search(tstart,m,rule)) {
-            FC_WARN("No expression header found");
+            RPS_WARN("No expression header found");
             return;
         }
         boost::cmatch m2;
@@ -1840,20 +1840,20 @@ protected:
 
             App::Document *doc = App::GetApplication().getDocument(docName.c_str());
             if(!doc) {
-                FC_WARN("Cannot find document '" << docName << "'");
+                RPS_WARN("Cannot find document '" << docName << "'");
                 continue;
             }
 
             auto obj = doc->getObject(objName.c_str());
             if(!obj) {
-                FC_WARN("Cannot find object '" << docName << '#' << objName << "'");
+                RPS_WARN("Cannot find object '" << docName << '#' << objName << "'");
                 continue;
             }
 
             auto prop = dynamic_cast<App::PropertyExpressionContainer*>(
                     obj->getPropertyByName(propName.c_str()));
             if(!prop) {
-                FC_WARN("Invalid property '" << docName << '#' << objName << '.' << propName << "'");
+                RPS_WARN("Invalid property '" << docName << '#' << objName << '.' << propName << "'");
                 continue;
             }
 
@@ -1871,7 +1871,7 @@ protected:
                 }
                 exprs[doc][prop][App::ObjectIdentifier::parse(obj,pathName)] = std::move(expr);
             } catch(Base::Exception &e) {
-                FC_ERR(e.what() << std::endl << m[0].str());
+                RPS_ERR(e.what() << std::endl << m[0].str());
                 failed = true;
             }
         }

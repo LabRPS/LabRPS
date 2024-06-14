@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2013 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>          *
  *                                                                         *
  *   This file is part of the LabRPS development system.              *
  *                                                                         *

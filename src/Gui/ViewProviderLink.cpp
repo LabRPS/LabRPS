@@ -75,7 +75,7 @@
 #include "Command.h"
 #include "DlgObjectSelection.h"
 
-FC_LOG_LEVEL_INIT("App::Link", true, true)
+RPS_LOG_LEVEL_INIT("App::Link", true, true)
 
 using namespace Gui;
 using namespace Base;
@@ -94,11 +94,11 @@ static inline bool appendPathSafe(SoPath *path, SoNode *node) {
     return true;
 }
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
 #define appendPath(_path,_node)  \
 do{\
     if(!appendPathSafe(_path,_node))\
-        FC_ERR("LinkView: coin path error");\
+        RPS_ERR("LinkView: coin path error");\
 }while(0)
 #else
 #define appendPath(_path, _node) (_path)->append(_node)
@@ -193,7 +193,7 @@ public:
     LinkInfo(ViewProviderDocumentObject *vp)
         :ref(0),pcLinked(vp)
     {
-        FC_LOG("new link to " << pcLinked->getObject()->getFullName());
+        RPS_LOG("new link to " << pcLinked->getObject()->getFullName());
         connChangeIcon = vp->signalChangeIcon.connect(
                 boost::bind(&LinkInfo::slotChangeIcon,this));
         vp->forceUpdate(true);
@@ -242,7 +242,7 @@ public:
     }
 
     void detach(bool unlink) {
-        FC_LOG("link detach " << getLinkedNameSafe());
+        RPS_LOG("link detach " << getLinkedNameSafe());
         auto me = LinkInfoPtr(this);
         if(unlink) {
             while(links.size()) {
@@ -300,7 +300,7 @@ public:
             delete this;
         else if(r==1) {
             if(pcLinked) {
-                FC_LOG("link release " << getLinkedNameSafe());
+                RPS_LOG("link release " << getLinkedNameSafe());
                 auto ext = pcLinked->getExtensionByType<ViewProviderLinkObserver>(true);
                 if(ext && ext->linkInfo == this) {
                     pcLinked->forceUpdate(false);
@@ -620,13 +620,13 @@ public:
 
             auto ssobj = sobj->getSubObject(objname.c_str());
             if(!ssobj) {
-                FC_ERR("invalid sub name " << nextsub << " of object " << sobj->getFullName());
+                RPS_ERR("invalid sub name " << nextsub << " of object " << sobj->getFullName());
                 return false;
             }
             sobj = ssobj;
             auto vp = Application::Instance->getViewProvider(sobj);
             if(!vp) {
-                FC_ERR("cannot find view provider of " << sobj->getFullName());
+                RPS_ERR("cannot find view provider of " << sobj->getFullName());
                 return false;
             }
             if(vp->getChildRoot()) {
@@ -764,7 +764,7 @@ void ViewProviderLinkObserver::extensionUpdateData(const App::Property *prop) {
 
 void ViewProviderLinkObserver::extensionFinishRestoring() {
     if(linkInfo) {
-        FC_TRACE("linked finish restoing");
+        RPS_TRACE("linked finish restoing");
         linkInfo->update();
     }
 }
@@ -1358,7 +1358,7 @@ void LinkView::updateLink() {
         return;
 
     if(linkOwner && linkOwner->isLinked() && linkOwner->pcLinked->isRestoring()) {
-        FC_TRACE("restoring '" << linkOwner->pcLinked->getObject()->getFullName() << "'");
+        RPS_TRACE("restoring '" << linkOwner->pcLinked->getObject()->getFullName() << "'");
         return;
     }
 
@@ -1780,7 +1780,7 @@ void ViewProviderLink::onChanged(const App::Property* prop) {
             if(strcmp(childVp->getTypeId().getName(),getObject()->getViewProviderName())!=0
                     && !childVp->allowOverride(*getObject()))
             {
-                FC_ERR("Child view provider type '" << childVp->getTypeId().getName()
+                RPS_ERR("Child view provider type '" << childVp->getTypeId().getName()
                         << "' does not support " << getObject()->getFullName());
             } else {
                 childVp->setPropertyPrefix("ChildViewProvider.");
@@ -2106,7 +2106,7 @@ void ViewProviderLink::applyMaterial() {
 }
 
 void ViewProviderLink::finishRestoring() {
-    FC_TRACE("finish restoring");
+    RPS_TRACE("finish restoring");
     auto ext = getLinkExtension();
     if(!ext)
         return;
@@ -2692,7 +2692,7 @@ bool ViewProviderLink::initDraggingPlacement() {
                     if(!PyArg_ParseTuple(ret.ptr(),"O!O!O!",&Base::MatrixPy::Type, &pymat,
                                 &Base::PlacementPy::Type, &pypla,
                                 &Base::BoundBoxPy::Type, &pybbox)) {
-                        FC_ERR("initDraggingPlacement() expects return of type tuple(matrix,placement,boundbox)");
+                        RPS_ERR("initDraggingPlacement() expects return of type tuple(matrix,placement,boundbox)");
                         return false;
                     }
                     dragCtx.reset(new DraggerContext);
@@ -2712,16 +2712,16 @@ bool ViewProviderLink::initDraggingPlacement() {
 
     auto ext = getLinkExtension();
     if(!ext) {
-        FC_ERR("no link extension");
+        RPS_ERR("no link extension");
         return false;
     }
     if(!ext->hasPlacement()) {
-        FC_ERR("no placement");
+        RPS_ERR("no placement");
         return false;
     }
     auto doc = Application::Instance->editDocument();
     if(!doc) {
-        FC_ERR("no editing document");
+        RPS_ERR("no editing document");
         return false;
     }
 
@@ -2815,7 +2815,7 @@ ViewProvider *ViewProviderLink::startEditing(int mode) {
     }
 
     if(!linkEdit()) {
-        FC_ERR("unsupported edit mode " << mode);
+        RPS_ERR("unsupported edit mode " << mode);
         return nullptr;
     }
 
@@ -2827,7 +2827,7 @@ ViewProvider *ViewProviderLink::startEditing(int mode) {
     mode &= ~0x8000;
 
     if(!doc) {
-        FC_ERR("no editing document");
+        RPS_ERR("no editing document");
         return nullptr;
     }
 
@@ -2836,13 +2836,13 @@ ViewProvider *ViewProviderLink::startEditing(int mode) {
     Base::Matrix4D mat;
     auto linked = getObject()->getLinkedObject(true,&mat,false);
     if(!linked || linked==getObject()) {
-        FC_ERR("no linked object");
+        RPS_ERR("no linked object");
         return nullptr;
     }
     auto vpd = labrps_dynamic_cast<ViewProviderDocumentObject>(
                 Application::Instance->getViewProvider(linked));
     if(!vpd) {
-        FC_ERR("no linked viewprovider");
+        RPS_ERR("no linked viewprovider");
         return nullptr;
     }
     // Amend the editing transformation with the link transformation.
@@ -2974,7 +2974,7 @@ void ViewProviderLink::updateDraggingPlacement(const Base::Placement &pla, bool 
     if(pcDragger && (force || currentDraggingPlacement()!=pla)) {
         const auto &pos = pla.getPosition();
         const auto &rot = pla.getRotation();
-        FC_LOG("updating dragger placement (" << pos.x << ", " << pos.y << ", " << pos.z << ')');
+        RPS_LOG("updating dragger placement (" << pos.x << ", " << pos.y << ", " << pos.z << ')');
         if(useCenterballDragger) {
             SoCenterballDragger *dragger = static_cast<SoCenterballDragger*>(pcDragger.get());
             SbBool wasenabled = dragger->enableValueChangedCallbacks(FALSE);

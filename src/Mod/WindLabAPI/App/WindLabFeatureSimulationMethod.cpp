@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureSimulationMethod",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureSimulationMethod",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureSimulationMethod, WindLabAPI::WindLabFeature)
 

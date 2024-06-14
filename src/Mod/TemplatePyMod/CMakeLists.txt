@@ -1,6 +1,6 @@
 
 
-fc_copy_to_mod_path("TemplatePyMod" 
+rps_copy_to_mod_path("TemplatePyMod" 
 	InitGui.py
 	Init.py
 	Commands.py

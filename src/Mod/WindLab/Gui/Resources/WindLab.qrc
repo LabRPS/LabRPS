@@ -33,10 +33,7 @@
         <file>icons/WindLabFeatures/WindLab_Feature_UserDefinedObj.svg</file> 
         <file>icons/WindLabFeatures/WindLab_Feature_TableToolObj.svg</file> 
         <file>icons/WindLabFeatures/WindLab_Feature_MatrixToolObj.svg</file> 
- 
-
-                     
-              
+   
         <file alias="icons/preferences-windlab.svg">icons/WindLabWorkbench.svg</file>
     </qresource>
 </RCC>

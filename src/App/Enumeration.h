@@ -44,7 +44,7 @@ namespace App
      *  -# An integer index into that array/vector representing the string
      *  representing the instance's value.
      *
-     * If built with FC_DEBUG defined, some boundaries of passed in pointers
+     * If built with RPS_DEBUG defined, some boundaries of passed in pointers
      * will be checked.  Otherwise, the caller has the responsibility of
      * checking the limits of given indices.
      *

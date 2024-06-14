@@ -76,7 +76,7 @@ target_link_libraries(ImageGui ${ImageGui_LIBS})
 SET_BIN_DIR(ImageGui ImageGui /Mod/Image)
 SET_PYTHON_PREFIX_SUFFIX(ImageGui)
 
-fc_copy_sources(ImageGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Image" ${ImageGuiIcon_SVG})
+rps_copy_sources(ImageGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Image" ${ImageGuiIcon_SVG})
 
 INSTALL(TARGETS ImageGui DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${ImageGuiIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Mod/Image/Resources/icons")

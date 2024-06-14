@@ -639,7 +639,7 @@ PyObject* MatrixPy::invert(PyObject * args)
             Py_Return;
         }
         else {
-            PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot invert singular matrix");
+            PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot invert singular matrix");
             return nullptr;
         }
     }
@@ -658,7 +658,7 @@ PyObject* MatrixPy::inverse(PyObject * args)
             return new MatrixPy(m);
         }
         else {
-            PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot invert singular matrix");
+            PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot invert singular matrix");
             return nullptr;
         }
     }

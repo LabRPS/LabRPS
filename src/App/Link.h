@@ -40,8 +40,8 @@
 #endif
 
 #define LINK_THROW(_type,_msg) do{\
-    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))\
-        FC_ERR(_msg);\
+    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))\
+        RPS_ERR(_msg);\
     throw _type(_msg);\
 }while(0)
 

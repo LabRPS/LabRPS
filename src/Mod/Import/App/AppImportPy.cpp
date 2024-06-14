@@ -273,7 +273,7 @@ private:
             }
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::PyExc_FC_GeneralError, e.GetMessageString());
+            throw Py::Exception(Base::PyExc_RPS_GeneralError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             e.setPyException();
@@ -394,7 +394,7 @@ private:
             hApp->Close(hDoc);
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::PyExc_FC_GeneralError, e.GetMessageString());
+            throw Py::Exception(Base::PyExc_RPS_GeneralError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             e.setPyException();

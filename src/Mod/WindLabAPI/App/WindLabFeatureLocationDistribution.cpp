@@ -34,7 +34,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureLocationDistribution",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureLocationDistribution",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureLocationDistribution, WindLabAPI::WindLabFeature)
 

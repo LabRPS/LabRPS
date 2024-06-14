@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Werner Mayer <werner.wm.mayer@gmx.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS CAx development system.              *
+ *   This file is part of the LabRPS development system.               *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -76,7 +76,7 @@ private:
         if (PyArg_ParseTuple(args.ptr(), "|O!", &(App::DocumentObjectPy::Type), &object) && object) {
             App::DocumentObject* obj = static_cast<App::DocumentObjectPy*>(object)->getDocumentObjectPtr();
             if (!obj || !obj->getTypeId().isDerivedFrom(WindLab::WindLabSimulation::getClassTypeId())) {
-                throw Py::Exception(Base::PyExc_FC_GeneralError, "Active Simulation object have to be of type WindLab::WindLabSimulation!");
+                throw Py::Exception(Base::PyExc_RPS_GeneralError, "Active Simulation object have to be of type WindLab::WindLabSimulation!");
             }
 
             // get the gui document of the Simulation Item

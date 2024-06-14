@@ -405,7 +405,7 @@ int PolyPickerSelection::locationEvent(const SoLocation2Event* const, const QPoi
             if (clPoint.y() > r.bottom())
                 clPoint.setY(r.bottom());
 
-#ifdef FC_OS_WINDOWS
+#ifdef RPS_OS_WINDOWS
             QPoint newPos = _pcView3D->getGLWidget()->mapToGlobal(clPoint);
             QCursor::setPos(newPos);
 #endif

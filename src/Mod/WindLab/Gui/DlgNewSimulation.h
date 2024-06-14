@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -89,8 +89,6 @@ public:
     ~DlgWindLabFeatures();
     void fillRPSFeaturesComboxBoxes( WindLab::WindLabSimulation* sim = nullptr);
     std::vector<QComboBox*> getAllComboBoxes();
-   /* void fillRPSFeaturesComboxBoxes(WindLabApp::Simulation* sim = nullptr);
-    std::vector<QComboBox*> getAllComboBoxes();*/
     void setAllComboBoxesCurrentText( WindLab::WindLabSimulation* sim);
     void saveLabFeatures( WindLab::WindLabSimulation* sim);
 

@@ -637,13 +637,13 @@ class PackageListFilter(QSortFilterProxyModel):
             first_supported_version = data.metadata.getFirstSupportedLabRPSVersion()
             if first_supported_version is not None:
                 required_version = first_supported_version.split(".")
-                fc_major = int(LabRPS.Version()[0])
-                fc_minor = int(LabRPS.Version()[1])
+                rps_major = int(LabRPS.Version()[0])
+                rps_minor = int(LabRPS.Version()[1])
 
-                if int(required_version[0]) > fc_major:
+                if int(required_version[0]) > rps_major:
                     return False
-                elif int(required_version[0]) == fc_major and len(required_version) > 1:
-                    if int(required_version[1]) > fc_minor:
+                elif int(required_version[0]) == rps_major and len(required_version) > 1:
+                    if int(required_version[1]) > rps_minor:
                         return False
 
         name = data.display_name

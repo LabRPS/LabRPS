@@ -324,7 +324,7 @@ PyObject*  BoundBoxPy::getIntersectionPoint(PyObject *args)
         return new VectorPy(point);
     }
     else {
-        PyErr_SetString(Base::PyExc_FC_GeneralError, "No intersection");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError, "No intersection");
         return nullptr;
     }
 }

@@ -237,7 +237,7 @@ TopoShape Extrusion::extrudeShape(const TopoShape& source, const Extrusion::Extr
     if (std::fabs(params.taperAngleFwd) >= Precision::Angular() ||
         std::fabs(params.taperAngleRev) >= Precision::Angular()) {
         //Tapered extrusion!
-#if defined(__GNUC__) && defined (FC_OS_LINUX)
+#if defined(__GNUC__) && defined (RPS_OS_LINUX)
         Base::SignalException se;
 #endif
         TopoDS_Shape myShape = source.getShape();

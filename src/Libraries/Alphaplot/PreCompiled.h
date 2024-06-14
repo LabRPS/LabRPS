@@ -26,7 +26,7 @@
 
 #include <RPSConfig.h>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -53,7 +53,7 @@
 #include <cfloat>
 #include <climits>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #include <Windows.h>
 #include <io.h>
 #include <shellapi.h>
@@ -95,7 +95,7 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
 #include <windows.h>
 #endif  //_PreComp_
 

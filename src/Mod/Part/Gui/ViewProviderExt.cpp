@@ -91,7 +91,7 @@
 #include "TaskFaceColors.h"
 
 
-FC_LOG_LEVEL_INIT("Part", true, true)
+RPS_LOG_LEVEL_INIT("Part", true, true)
 
 using namespace PartGui;
 
@@ -1266,14 +1266,14 @@ void ViewProviderPartExt::updateVisual()
         lineset ->coordIndex  .finishEditing();
     }
     catch (const Standard_Failure& e) {
-        FC_ERR("Cannot compute Inventor representation for the shape of "
+        RPS_ERR("Cannot compute Inventor representation for the shape of "
                << pcObject->getFullName() << ": " << e.GetMessageString());
     }
     catch (...) {
-        FC_ERR("Cannot compute Inventor representation for the shape of " << pcObject->getFullName());
+        RPS_ERR("Cannot compute Inventor representation for the shape of " << pcObject->getFullName());
     }
 
-#   ifdef FC_DEBUG
+#   ifdef RPS_DEBUG
         // printing some information
         Base::Console().Log("ViewProvider update time: %f s\n",Base::TimeInfo::diffTimeF(start_time,Base::TimeInfo()));
         Base::Console().Log("Shape tria info: Faces:%d Edges:%d Nodes:%d Triangles:%d IdxVec:%d\n",numFaces,numEdges,numNodes,numTriangles,numLines);

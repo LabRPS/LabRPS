@@ -28,7 +28,7 @@
 #include <xercesc/util/BinInputStream.hpp>
 #include <xercesc/sax/InputSource.hpp>
 #include <QTextCodec>
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 

@@ -35,7 +35,7 @@ if cfolders:
     if not os.path.isdir(cfolder):
         cfolder = os.path.dirname(cfolder)
     f = unquote(filename).replace("+", " ")
-    if f.lower().endswith(".fcstd"):
+    if f.lower().endswith(".rpsstd"):
         LabRPS.open(os.path.join(cfolder, f))
     else:
         LabRPS.loadFile(os.path.join(cfolder, f))

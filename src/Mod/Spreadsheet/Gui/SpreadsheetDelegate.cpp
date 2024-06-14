@@ -37,7 +37,7 @@
 #include <Gui/ExpressionCompleter.h>
 #include "DlgBindSheet.h"
 
-FC_LOG_LEVEL_INIT("Spreadsheet",true,true)
+RPS_LOG_LEVEL_INIT("Spreadsheet",true,true)
 
 using namespace Spreadsheet;
 using namespace SpreadsheetGui;
@@ -55,7 +55,7 @@ QWidget *SpreadsheetDelegate::createEditor(QWidget *parent,
     App::CellAddress addr(index.row(),index.column());
     App::Range range(addr,addr);
     if(sheet && sheet->getCellBinding(range)) {
-        FC_ERR("Bound cell " << addr.toString() << " cannot be edited");
+        RPS_ERR("Bound cell " << addr.toString() << " cannot be edited");
         return nullptr;
     }
 

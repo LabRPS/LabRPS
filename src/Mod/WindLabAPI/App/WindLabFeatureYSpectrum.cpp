@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureYSpectrum",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureYSpectrum",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureYSpectrum, WindLabAPI::WindLabFeature)
 

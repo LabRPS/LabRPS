@@ -50,7 +50,7 @@
 #include "TaskView/TaskAppearance.h"
 
 
-FC_LOG_LEVEL_INIT("Gui", true, true)
+RPS_LOG_LEVEL_INIT("Gui", true, true)
 
 using namespace Gui;
 
@@ -217,7 +217,7 @@ void ViewProviderDocumentObject::onChanged(const App::Property* prop)
              && !pcDocument->isModified()
              && testStatus(Gui::ViewStatus::TouchDocument)) {
         if (prop)
-            FC_LOG(prop->getFullName() << " changed");
+            RPS_LOG(prop->getFullName() << " changed");
         pcDocument->setModified(true);
     }
 
@@ -521,12 +521,12 @@ int ViewProviderDocumentObject::replaceObject(
     if(!oldObj || !oldObj->getNameInDocument()
             || !newObj || !newObj->getNameInDocument())
     {
-        FC_THROWM(Base::RuntimeError,"Invalid object");
+        RPS_THROWM(Base::RuntimeError,"Invalid object");
     }
 
     auto obj = getObject();
     if(!obj || !obj->getNameInDocument())
-        FC_THROWM(Base::RuntimeError,"View provider not attached");
+        RPS_THROWM(Base::RuntimeError,"View provider not attached");
 
     int res = ViewProvider::replaceObject(oldObj,newObj);
     if(res>=0)

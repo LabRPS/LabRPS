@@ -22,7 +22,7 @@
 
 #ifndef BASE_MEMDEBUG_H
 #define BASE_MEMDEBUG_H
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <crtdbg.h>
 #include <RPSGlobal.h>
 #endif

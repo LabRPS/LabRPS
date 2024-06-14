@@ -38,7 +38,7 @@
 #include "Tree.h"
 
 
-FC_LOG_LEVEL_INIT("PropertyView", true, true)
+RPS_LOG_LEVEL_INIT("PropertyView", true, true)
 
 using namespace Gui::PropertyEditor;
 
@@ -184,7 +184,7 @@ QWidget * PropertyItemDelegate::createEditor (QWidget * parent, const QStyleOpti
     if (childItem->isSeparator())
         return nullptr;
 
-    FC_LOG("create editor " << index.row() << "," << index.column());
+    RPS_LOG("create editor " << index.row() << "," << index.column());
 
     QWidget* editor;
     expressionEditor = nullptr;

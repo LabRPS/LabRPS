@@ -134,7 +134,7 @@ def getInfo(filename):
         descr = ""
 
         # get additional info from fcstd files
-        if filename.lower().endswith(".fcstd"):
+        if filename.lower().endswith(".rpsstd"):
             try:
                 zfile=zipfile.ZipFile(filename)
             except Exception:

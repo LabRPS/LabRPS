@@ -60,7 +60,7 @@ AppExport std::string quote(const std::string &input, bool toPython=false);
 
 // Unfortunately VS2013 does not support default move constructor, so we have
 // to implement them manually
-#define FC_DEFAULT_CTORS(_t) \
+#define RPS_DEFAULT_CTORS(_t) \
     _t(const _t &) = default;\
     _t &operator=(const _t &) = default;\
     _t(_t &&other) { *this = std::move(other); }\
@@ -90,7 +90,7 @@ public:
             : str(std::move(s)), isString(_isRealString), forceIdentifier(_forceIdentifier)
         { }
 
-        FC_DEFAULT_CTORS(String) {
+        RPS_DEFAULT_CTORS(String) {
             str = std::move(other.str);
             isString = other.isString;
             forceIdentifier = other.forceIdentifier;
@@ -156,7 +156,7 @@ public:
     public:
 
         // Constructors
-        FC_DEFAULT_CTORS(Component) {
+        RPS_DEFAULT_CTORS(Component) {
             name = std::move(other.name);
             type = other.type;
             begin = other.begin;
@@ -253,7 +253,7 @@ public:
 
     ObjectIdentifier(const App::Property & prop, int index=INT_MAX);
 
-    FC_DEFAULT_CTORS(ObjectIdentifier) {
+    RPS_DEFAULT_CTORS(ObjectIdentifier) {
         owner = other.owner;
         documentName = std::move(other.documentName);
         documentObjectName = std::move(other.documentObjectName);

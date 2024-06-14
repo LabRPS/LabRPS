@@ -79,7 +79,7 @@
 #   define OCC_COLOR_SPACE Quantity_TOC_RGB
 #endif
 
-FC_LOG_LEVEL_INIT("Import",true,true)
+RPS_LOG_LEVEL_INIT("Import",true,true)
 
 using namespace Import;
 
@@ -123,7 +123,7 @@ static std::string labelName(TDF_Label label) {
 static void printLabel(TDF_Label label, Handle(XCAFDoc_ShapeTool) aShapeTool,
     Handle(XCAFDoc_ColorTool) aColorTool, const char *msg = nullptr) 
 {
-    if(label.IsNull() || !FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
+    if(label.IsNull() || !RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
         return;
     if(!msg) msg = "Label: ";
     TCollection_AsciiString entry;
@@ -213,7 +213,7 @@ ImportOCAF2::~ImportOCAF2()
 
 void ImportOCAF2::setMode(int m) {
     if(m<0 || m>=ModeMax)
-        FC_WARN("Invalid import mode " << m);
+        RPS_WARN("Invalid import mode " << m);
     else
         mode = m;
     if(mode!=SingleDoc) {
@@ -221,7 +221,7 @@ void ImportOCAF2::setMode(int m) {
             Base::FileInfo fi(pDocument->FileName.getValue());
             filePath = fi.dirPath();
         }else
-            FC_WARN("Disable multi-document mode because the input document is not saved.");
+            RPS_WARN("Disable multi-document mode because the input document is not saved.");
     }
 }
 
@@ -355,7 +355,7 @@ bool ImportOCAF2::createObject(App::Document *doc, TDF_Label label,
         const TopoDS_Shape &shape, Info &info, bool newDoc)
 {
     if(shape.IsNull() || !TopExp_Explorer(shape,TopAbs_VERTEX).More()) {
-        FC_WARN(labelName(label) << " has empty shape");
+        RPS_WARN(labelName(label) << " has empty shape");
         return false;
     }
 
@@ -485,7 +485,7 @@ App::Document *ImportOCAF2::getDocument(App::Document *doc, TDF_Label label) {
                 if(!fi2.isDir())
                     continue;
             }else if(!fi2.createDirectory()) {
-                FC_WARN("Failed to create directory " << fi2.filePath());
+                RPS_WARN("Failed to create directory " << fi2.filePath());
                 break;
             }
             path = fi2.filePath();
@@ -494,7 +494,7 @@ App::Document *ImportOCAF2::getDocument(App::Document *doc, TDF_Label label) {
     }
     for(int i=0;i<1000;++i) {
         ss.str("");
-        ss << path << '/' << newDoc->getName() << ".fcstd";
+        ss << path << '/' << newDoc->getName() << ".rpsstd";
         if(i>0) 
             ss << '_' << std::setfill('0') << std::setw(3) << i;
         Base::FileInfo fi(ss.str());
@@ -505,7 +505,7 @@ App::Document *ImportOCAF2::getDocument(App::Document *doc, TDF_Label label) {
         }
     }
 
-    FC_WARN("Cannot save document for part '" << name << "'");
+    RPS_WARN("Cannot save document for part '" << name << "'");
     return doc;
 }
 
@@ -560,13 +560,13 @@ App::DocumentObject* ImportOCAF2::loadShapes()
         return nullptr;
     }
 
-    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
+    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
         dumpLabels(pDoc->Main(),aShapeTool,aColorTool);
 
     TDF_LabelSequence labels;
     aShapeTool->GetShapes(labels);
     Base::SequencerLauncher seq("Importing...",labels.Length());
-    FC_MSG("free shape count " << labels.Length());
+    RPS_MSG("free shape count " << labels.Length());
     sequencer = showProgress?&seq:nullptr;
 
     labels.Clear();
@@ -658,7 +658,7 @@ void ImportOCAF2::getSHUOColors(TDF_Label label,
                 TDF_Label l = shuo->Label().Father();
                 auto it = myNames.find(l);
                 if(it == myNames.end()) {
-                    FC_WARN("Failed to find object of label " << labelName(l));
+                    RPS_WARN("Failed to find object of label " << labelName(l));
                     ss.str("");
                     break;
                 }
@@ -1051,7 +1051,7 @@ void ExportOCAF2::setupObject(TDF_Label label, App::DocumentObject *obj,
                 labels.Append(label);
             nodeLabel = findComponent(v.first.c_str(),label,labels);
             if(nodeLabel.IsNull()) {
-                FC_WARN("Failed to find component " << v.first);
+                RPS_WARN("Failed to find component " << v.first);
                 continue;
             }
         }
@@ -1082,7 +1082,7 @@ void ExportOCAF2::setupObject(TDF_Label label, App::DocumentObject *obj,
                 // OCCT code, XCAFDoc_ShapeTool.cxx and STEPCAFControl_Writer.cxx.
                 if(!warned) {
                     warned = true;
-                    FC_WARN("Current OCCT does not support element color override, for object "
+                    RPS_WARN("Current OCCT does not support element color override, for object "
                             << obj->getFullName());
                 }
                 // continue;
@@ -1090,7 +1090,7 @@ void ExportOCAF2::setupObject(TDF_Label label, App::DocumentObject *obj,
 
             auto subShape = shape.getSubShape(vv.first.c_str(),true);
             if(subShape.IsNull()) {
-                FC_WARN("Failed to get subshape " << vv.first);
+                RPS_WARN("Failed to get subshape " << vv.first);
                 continue;
             }
 
@@ -1107,7 +1107,7 @@ void ExportOCAF2::setupObject(TDF_Label label, App::DocumentObject *obj,
 
             TDF_Label subLabel = aShapeTool->AddSubShape(nodeLabel, subShape);
             if(subLabel.IsNull()) {
-                FC_WARN("Failed to add subshape " << vv.first);
+                RPS_WARN("Failed to add subshape " << vv.first);
                 continue;
             }
             aColorTool->SetColor(subLabel, color, colorType);
@@ -1140,7 +1140,7 @@ void ExportOCAF2::exportObjects(std::vector<App::DocumentObject*> &objs, const c
         setName(label,nullptr,name);
     }
 
-    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
+    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
         dumpLabels(pDoc->Main(),aShapeTool,aColorTool);
 
 #if OCC_VERSION_HEX >= 0x070200
@@ -1156,7 +1156,7 @@ TDF_Label ExportOCAF2::exportObject(App::DocumentObject* parentObj,
     auto shape = Part::Feature::getTopoShape(parentObj,sub,false,nullptr,&obj,false,!sub);
     if(!obj || shape.isNull()) {
         if (obj)
-            FC_WARN(obj->getFullName() << " has null shape");
+            RPS_WARN(obj->getFullName() << " has null shape");
         return TDF_Label();
     }
 
@@ -1284,7 +1284,7 @@ TDF_Label ExportOCAF2::exportObject(App::DocumentObject* parentObj,
         std::string childName;
         auto sobj = obj->resolve(subobj.c_str(),&parentGrp,&childName);
         if(!sobj) {
-            FC_WARN("Cannot find object " << obj->getFullName() << '.' << subobj);
+            RPS_WARN("Cannot find object " << obj->getFullName() << '.' << subobj);
             continue;
         }
         int vis = -1;
@@ -1328,7 +1328,7 @@ TDF_Label ExportOCAF2::exportObject(App::DocumentObject* parentObj,
             {
                 auto &c = defaultColor;
                 aColorTool->SetColor(childLabel, convertColor(c), XCAFDoc_ColorGen);
-                FC_WARN(labelName(childLabel) << " set default color");
+                RPS_WARN(labelName(childLabel) << " set default color");
             }
             aColorTool->SetVisibility(childLabel,Standard_False);
         }

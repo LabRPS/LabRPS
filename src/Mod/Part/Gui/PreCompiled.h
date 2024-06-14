@@ -36,7 +36,7 @@
 # pragma warning( disable : 4273 )
 #endif
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # ifndef NOMINMAX
 # define NOMINMAX
 # endif
@@ -168,11 +168,11 @@
 
 // GL
 // Include glext before InventorAll
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  include <GL/gl.h>
 #  include <GL/glext.h>
 # else
-#  ifdef FC_OS_MACOSX
+#  ifdef RPS_OS_MACOSX
 #   include <OpenGL/gl.h>
 #   include <OpenGL/glext.h>
 #  else
@@ -181,8 +181,8 @@
 #   endif
 #   include <GL/gl.h>
 #   include <GL/glext.h>
-#  endif //FC_OS_MACOSX
-# endif //FC_OS_WIN32
+#  endif //RPS_OS_MACOSX
+# endif //RPS_OS_WIN32
 // Should come after glext.h to avoid warnings
 # include <Inventor/C/glue/gl.h>
 

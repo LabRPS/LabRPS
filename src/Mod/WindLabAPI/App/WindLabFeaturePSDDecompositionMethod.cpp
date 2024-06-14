@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeaturePSDDecompositionMethod",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeaturePSDDecompositionMethod",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeaturePSDDecompositionMethod, WindLabAPI::WindLabFeature)
 

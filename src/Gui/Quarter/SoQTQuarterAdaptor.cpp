@@ -34,7 +34,7 @@
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/nodes/SoSeparator.h>
 
-#if !defined(FC_OS_MACOSX)
+#if !defined(RPS_OS_MACOSX)
 # include <GL/gl.h>
 # include <GL/glu.h>
 # include <GL/glext.h>

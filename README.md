@@ -2,7 +2,7 @@
 
 [Website](https://www.labrps.com) • 
 [Documentation](https://wiki.labrps.com) •
-[Forum](https://labrps.com/forum) •
+[Forum](https://labrps.com/boards) •
 [Bug tracker](https://www.labrps.com/tracker/) •
 [Git repository](https://github.com/LabRPS/LabRPS)
 
@@ -18,7 +18,7 @@ Overview
 
 * **Modular System** LabRPS is highly modular. it is designed to allow the usage of modules, each serving a specific function or purpose. These modules can be developed, updated, and maintained independently, allowing for greater flexibility, scalability, and ease of integration. This architecture facilitates reusability, as modules can be used in various configurations to meet changing requirements and enhance collaboration among engineers, researchers, students and others.
 
-* **Visualization** It is integrated with a data visualization tool for graphical representation of data allowing powerful mathematical treatment and visualization of the simulation data while keeping a user-friendly graphical user interface. Its data visualizer which can generate different types of publication quality 2D and 3D plots (such as line, scatter, bar, pie, and surface plots) from data that is either resulted from a simulation, imported from ASCII files, entered by hand, or calculated using formulas. The data is held in spreadsheets, which are referred to as tables with column-based data (typically X and Y values for 2D plots) or matrices (for 3D plots).
+* **Visualization** It is integrated with a data visualization tool for graphical representation of data allowing powerful mathematical treatment and visualization of the simulation data while keeping a user-friendly graphical user interface. Its data visualizer which can generate different types of publication quality 2D and 3D plots (such as line, scatter, bar, pie, and surface plots) from data that is either resulted from a simulation, imported from ASCII files, entered by hand, or calculated using formulas. The data is held in spreadsheets, which are referred to as tables with column-based data (typically X and Y values for 2D plots) or matrices (for 3D plots). A very powerful CAD system is provided to 3D visualization of objects in space.
 
 * **Cross platform** LabRPS runs on Windows, macOS and Linux operating systems.
 
@@ -83,6 +83,6 @@ pages might help you get started:
 - [Scripting](https://wiki.labrps.com/Power_users_hub)
 - [Development](https://wiki.labrps.com/Developer_hub)
 
-The [LabRPS forum](https://forum.labrps.com) is also a great place
+The [LabRPS forum](https://labrps.com/boards) is also a great place
 to find help and solve specific problems you might encounter when
 learning to use LabRPS.

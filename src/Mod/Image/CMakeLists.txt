@@ -20,7 +20,7 @@ add_custom_target(ImageScripts ALL
     SOURCES ${Image_Scripts} ${Image_ToolsScripts}
 )
 
-fc_target_copy_resource(ImageScripts
+rps_target_copy_resource(ImageScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Image
     ${Image_Scripts}

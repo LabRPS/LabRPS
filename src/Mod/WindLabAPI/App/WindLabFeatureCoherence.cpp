@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureCoherence",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureCoherence",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureCoherence, WindLabAPI::WindLabFeature)
 

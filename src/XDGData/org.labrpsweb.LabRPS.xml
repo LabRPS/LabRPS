@@ -3,7 +3,7 @@
   <mime-type type="application/x-extension-fcstd">
     <!-- <sub-class-of type="application/zip"/> -->
     <comment>LabRPS document files</comment>
-    <glob pattern="*.fcstd"/>
+    <glob pattern="*.rpsstd"/>
     <generic-icon name="application-x-extension-fcstd"/>
   </mime-type>
 </mime-info>

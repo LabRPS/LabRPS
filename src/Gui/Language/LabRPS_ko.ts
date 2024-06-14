@@ -6641,8 +6641,8 @@ Please open a browser window and type in: http://localhost:%1.</translation>
       <translation>%1 문서 저장</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 문서 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 문서 (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7953,8 +7953,8 @@ Physical path: </translation>
       <translation>프로젝트를 병합할 수 없습니다.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 문서 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 문서 (*.RPSStd)</translation>
     </message>
   </context>
   <context>

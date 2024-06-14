@@ -579,7 +579,7 @@ PyObject*  TopoShapePy::__getstate__(PyObject *args) {
 
 PyObject*  TopoShapePy::__setstate__(PyObject *args) {
     if (! getTopoShapePtr()) {
-        PyErr_SetString(Base::PyExc_FC_GeneralError,"no c++ object");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError,"no c++ object");
         return nullptr;
     }
     else {
@@ -2803,7 +2803,7 @@ Py::String TopoShapePy::getShapeType(void) const
 {
     TopoDS_Shape sh = getTopoShapePtr()->getShape();
     if (sh.IsNull())
-        throw Py::Exception(Base::PyExc_FC_GeneralError, "cannot determine type of null shape");
+        throw Py::Exception(Base::PyExc_RPS_GeneralError, "cannot determine type of null shape");
 
     TopAbs_ShapeEnum type = sh.ShapeType();
     std::string name;
@@ -2844,7 +2844,7 @@ Py::String TopoShapePy::getOrientation(void) const
 {
     TopoDS_Shape sh = getTopoShapePtr()->getShape();
     if (sh.IsNull())
-        throw Py::Exception(Base::PyExc_FC_GeneralError, "cannot determine orientation of null shape");
+        throw Py::Exception(Base::PyExc_RPS_GeneralError, "cannot determine orientation of null shape");
 
     TopAbs_Orientation type = sh.Orientation();
     std::string name;
@@ -2870,7 +2870,7 @@ void TopoShapePy::setOrientation(Py::String arg)
 {
     TopoDS_Shape sh = getTopoShapePtr()->getShape();
     if (sh.IsNull())
-        throw Py::Exception(Base::PyExc_FC_GeneralError, "cannot determine orientation of null shape");
+        throw Py::Exception(Base::PyExc_RPS_GeneralError, "cannot determine orientation of null shape");
 
     std::string name = static_cast<std::string>(arg);
     TopAbs_Orientation type;

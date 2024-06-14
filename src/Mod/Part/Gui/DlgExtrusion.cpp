@@ -51,7 +51,7 @@
 #include "DlgExtrusion.h"
 
 
-FC_LOG_LEVEL_INIT("Part",true,true)
+RPS_LOG_LEVEL_INIT("Part",true,true)
 
 using namespace PartGui;
 
@@ -439,7 +439,7 @@ void DlgExtrusion::apply()
             assert(sourceObj);
 
             if (Part::Feature::getTopoShape(sourceObj).isNull()){
-                FC_ERR("Object " << sourceObj->getFullName() 
+                RPS_ERR("Object " << sourceObj->getFullName() 
                         << " is not Part object (has no OCC shape). Can't extrude it.");
                 continue;
             }

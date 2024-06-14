@@ -33,11 +33,11 @@
 # include <GL/gl.h>
 # include <GL/glu.h>
 # include <GL/glext.h>
-#elif defined (FC_OS_MACOSX)
+#elif defined (RPS_OS_MACOSX)
 # include <OpenGL/gl.h>
 # include <OpenGL/glu.h>
 # include <GLKit/GLKMatrix4.h>
-#elif defined (FC_OS_WIN32)
+#elif defined (RPS_OS_WIN32)
 # include <Windows.h>
 # include <GL/gl.h>
 # include <GL/glu.h>
@@ -157,7 +157,7 @@ void GLImageBox::resizeGL( int w, int h )
     glViewport( 0, 0, (GLint)w, (GLint)h );
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-#if defined (FC_OS_MACOSX)
+#if defined (RPS_OS_MACOSX)
     GLKMatrix4 orthoMat = GLKMatrix4MakeOrtho(0, width() - 1, height() - 1, 0, -1, 1);
     glLoadMatrixf(orthoMat.m);
 #else
@@ -353,7 +353,7 @@ void GLImageBox::getPixFormat(GLenum &pixFormat, GLenum &pixType)
             pixFormat = GL_RGB;
             pixType = GL_UNSIGNED_BYTE;
             break;
-#ifndef FC_OS_CYGWIN
+#ifndef RPS_OS_CYGWIN
         case IB_CF_BGR24:
             pixFormat = GL_BGR_EXT;
             pixType = GL_UNSIGNED_BYTE;
@@ -375,7 +375,7 @@ void GLImageBox::getPixFormat(GLenum &pixFormat, GLenum &pixType)
             pixFormat = GL_RGBA;
             pixType = GL_UNSIGNED_SHORT;
             break;
-#ifndef FC_OS_CYGWIN
+#ifndef RPS_OS_CYGWIN
         case IB_CF_BGRA32:
             pixFormat = GL_BGRA_EXT;
             pixType = GL_UNSIGNED_BYTE;

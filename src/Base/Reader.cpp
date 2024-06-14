@@ -94,7 +94,7 @@ Base::XMLReader::XMLReader(const char* FileName, std::istream& str)
              << message << "\n";
         XMLString::release(&message);
     }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
     catch (...) {
         cerr << "Unexpected Exception \n";
     }

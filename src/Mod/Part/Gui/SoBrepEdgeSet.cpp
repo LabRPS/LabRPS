@@ -23,10 +23,10 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  include <windows.h>
 # endif
-# ifdef FC_OS_MACOSX
+# ifdef RPS_OS_MACOSX
 #  include <OpenGL/gl.h>
 # else
 #  include <GL/gl.h>
@@ -137,7 +137,7 @@ void SoBrepEdgeSet::GLRender(SoGLRenderAction *action)
         inherited::GLRender(action);
 
     // Workaround for #0000433
-//#if !defined(FC_OS_WIN32)
+//#if !defined(RPS_OS_WIN32)
     if(!action->isRenderingDelayedPaths())
         renderHighlight(action,ctx);
     if(ctx && ctx->selectionIndex.size())

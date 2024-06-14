@@ -120,7 +120,7 @@
 #include <XCAFDoc_ShapeMapTool.hxx>
 
 
-FC_LOG_LEVEL_INIT("Import", true, true)
+RPS_LOG_LEVEL_INIT("Import", true, true)
 
 namespace ImportGui {
 class OCAFBrowser
@@ -431,8 +431,8 @@ private:
             ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/Import/hSTEP");
             optionReadShapeCompoundMode = hGrp->GetBool("ReadShapeCompoundMode", optionReadShapeCompoundMode);
             ImportOCAFExt ocaf(hDoc, pcDoc, file.fileNamePure());
-            FC_TIME_INIT(t);
-            FC_DURATION_DECL_INIT2(d1,d2);
+            RPS_TIME_INIT(t);
+            RPS_DURATION_DECL_INIT2(d1,d2);
 
             if (file.hasExtension("stp") || file.hasExtension("step")) {
 
@@ -516,7 +516,7 @@ private:
                 throw Py::Exception(PyExc_IOError, "no supported file format");
             }
 
-            FC_DURATION_PLUS(d1,t);
+            RPS_DURATION_PLUS(d1,t);
             if(merge!=Py_None)
                 ocaf.setMerge(PyObject_IsTrue(merge));
             if(importHidden!=Py_None)
@@ -526,10 +526,10 @@ private:
             ocaf.setMode(mode);
             auto ret = ocaf.loadShapes();
             hApp->Close(hDoc);
-            FC_DURATION_PLUS(d2,t);
-            FC_DURATION_LOG(d1,"file read");
-            FC_DURATION_LOG(d2,"import");
-            FC_DURATION_LOG((d1+d2),"total");
+            RPS_DURATION_PLUS(d2,t);
+            RPS_DURATION_LOG(d1,"file read");
+            RPS_DURATION_LOG(d2,"import");
+            RPS_DURATION_LOG((d1+d2),"total");
 
             if(ret) {
                 App::GetApplication().setActiveDocument(pcDoc);
@@ -542,7 +542,7 @@ private:
             }
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::PyExc_FC_GeneralError, e.GetMessageString());
+            throw Py::Exception(Base::PyExc_RPS_GeneralError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             e.setPyException();
@@ -699,7 +699,7 @@ private:
             hApp->Close(hDoc);
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::PyExc_FC_GeneralError, e.GetMessageString());
+            throw Py::Exception(Base::PyExc_RPS_GeneralError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             e.setPyException();
@@ -803,7 +803,7 @@ private:
             hApp->Close(hDoc);
         }
         catch (Standard_Failure& e) {
-            throw Py::Exception(Base::PyExc_FC_GeneralError, e.GetMessageString());
+            throw Py::Exception(Base::PyExc_RPS_GeneralError, e.GetMessageString());
         }
         catch (const Base::Exception& e) {
             e.setPyException();

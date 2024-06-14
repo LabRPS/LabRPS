@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureUserDefinedRPSObject",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureUserDefinedRPSObject",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureUserDefinedRPSObject, WindLabAPI::WindLabFeature)
 

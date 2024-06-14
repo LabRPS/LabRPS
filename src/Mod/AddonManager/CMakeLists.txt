@@ -54,15 +54,15 @@ SET(AddonManagerTestsGui_SRCS
 
 SET(AddonManagerTestsFiles_SRCS
     AddonManagerTest/data/__init__.py
-    AddonManagerTest/data/bad_macro_metadata.FCStd
+    AddonManagerTest/data/bad_macro_metadata.RPSStd
     AddonManagerTest/data/combination.xml
     AddonManagerTest/data/depends_on_all_workbenches.xml
     AddonManagerTest/data/DoNothing.RPSMacro
-    AddonManagerTest/data/good_macro_metadata.FCStd
+    AddonManagerTest/data/good_macro_metadata.RPSStd
     AddonManagerTest/data/good_package.xml
     AddonManagerTest/data/macro_only.xml
-    AddonManagerTest/data/macro_template.FCStd
-    AddonManagerTest/data/missing_macro_metadata.FCStd
+    AddonManagerTest/data/macro_template.RPSStd
+    AddonManagerTest/data/missing_macro_metadata.RPSStd
     AddonManagerTest/data/prefpack_only.xml
     AddonManagerTest/data/test_version_detection.xml
     AddonManagerTest/data/workbench_only.xml
@@ -86,12 +86,12 @@ ADD_CUSTOM_TARGET(AddonManagerTests ALL
     SOURCES ${AddonManagerTests_ALL}
 )
 
-fc_copy_sources(AddonManager "${CMAKE_BINARY_DIR}/Mod/AddonManager" ${AddonManager_SRCS})
+rps_copy_sources(AddonManager "${CMAKE_BINARY_DIR}/Mod/AddonManager" ${AddonManager_SRCS})
 
-fc_copy_sources(AddonManagerTests "${CMAKE_BINARY_DIR}/Mod/AddonManager" ${AddonManagerTests_ALL})
+rps_copy_sources(AddonManagerTests "${CMAKE_BINARY_DIR}/Mod/AddonManager" ${AddonManagerTests_ALL})
 
 IF (BUILD_GUI)
-    fc_target_copy_resource(AddonManager
+    rps_target_copy_resource(AddonManager
         ${CMAKE_CURRENT_BINARY_DIR}
         ${CMAKE_BINARY_DIR}/Mod/AddonManager
         AddonManager_rc.py)

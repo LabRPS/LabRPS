@@ -491,7 +491,7 @@ void PropertyEnumeration::setPyObject(PyObject *value)
             hasSetValue();
         }
         else {
-            FC_THROWM(Base::ValueError, "'" << str 
+            RPS_THROWM(Base::ValueError, "'" << str 
                     << "' is not part of the enumeration in "
                     << getFullName());
         }
@@ -530,7 +530,7 @@ void PropertyEnumeration::setPyObject(PyObject *value)
         }
     }
 
-    FC_THROWM(Base::TypeError, "PropertyEnumeration " << getFullName()
+    RPS_THROWM(Base::TypeError, "PropertyEnumeration " << getFullName()
             << " expects type to be int, string, or list(string), or list(list, int)");
 }
 

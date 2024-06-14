@@ -12,7 +12,7 @@ add_subdirectory(PreferencePacks)
 add_subdirectory(PreferencePackTemplates)
 
 if(WIN32)
-add_definitions(-DFCGui -DQSINT_MAKEDLL -DOVR_OS_WIN32 -DQUARTER_INTERNAL -DQUARTER_MAKE_DLL -DCOIN_DLL)
+add_definitions(-DRPSGui -DQSINT_MAKEDLL -DOVR_OS_WIN32 -DQUARTER_INTERNAL -DQUARTER_MAKE_DLL -DCOIN_DLL)
 endif(WIN32)
 
 IF(CMAKE_BUILD_TYPE)
@@ -1355,12 +1355,12 @@ add_custom_target(LabRPSGui_Resources ALL
 )
 set_target_properties(LabRPSGui_Resources PROPERTIES FOLDER "Gui")
 
-fc_copy_sources(LabRPSGui_Resources
+rps_copy_sources(LabRPSGui_Resources
     ${CMAKE_BINARY_DIR}/Ext/labrps/gui
     ${LabRPSGui_Scripts}
 )
 
-fc_target_copy_resource(LabRPSGui_Resources
+rps_target_copy_resource(LabRPSGui_Resources
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}
     ${LabRPSGui_Configs}

@@ -44,7 +44,7 @@
 #include "Document.h"
 
 
-FC_LOG_LEVEL_INIT("Selection", true, true, true)
+RPS_LOG_LEVEL_INIT("Selection", true, true, true)
 
 using namespace Gui;
 using namespace Gui::DockWnd;

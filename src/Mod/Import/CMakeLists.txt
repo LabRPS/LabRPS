@@ -14,7 +14,7 @@ endif(BUILD_GUI)
 
 
 #IF (BUILD_GUI)
-#    fc_target_copy_resource(ImportRC
+#    rps_target_copy_resource(ImportRC
 #        ${CMAKE_CURRENT_BINARY_DIR}
 #        ${CMAKE_BINARY_DIR}/Mod/Import
 #        Import_rc.py)
@@ -54,13 +54,13 @@ add_custom_target(ImportScripts ALL
     SOURCES ${Import_Scripts} ${DXF_Plate}
 )
 
-fc_target_copy_resource(ImportScripts
+rps_target_copy_resource(ImportScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Import
     ${Import_Scripts}
 )
 
-fc_target_copy_resource(ImportScripts
+rps_target_copy_resource(ImportScripts
     ${CMAKE_SOURCE_DIR}/src/Mod/Import
     ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Import
     ${DXF_Plate}

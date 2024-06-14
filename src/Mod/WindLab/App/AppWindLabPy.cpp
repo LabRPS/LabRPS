@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -55,8 +55,7 @@ public:
         add_varargs_method("makeFeature", &Module::makeFeature, "makeFeature()");
         add_varargs_method("installPlugin", &Module::installPlugin, "installPlugin()");
         add_varargs_method("unInstallPlugin", &Module::unInstallPlugin, "unInstallPlugin()");
-
-        //add_varargs_method("addPythonPlugin", &Module::addPythonPlugin);
+        
         initialize("This module is the WindLab module."); // register with Python
     }
 
@@ -296,7 +295,7 @@ private:
 
 }
 
-    Py::Object Module::unInstallPlugin(const Py::Tuple& args)
+Py::Object Module::unInstallPlugin(const Py::Tuple& args)
 {
   char* psName;
     if (!PyArg_ParseTuple(args.ptr(), "s", &psName))

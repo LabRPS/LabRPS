@@ -27,7 +27,7 @@
 #include <string>
 
 #include "Vector3D.h"
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 

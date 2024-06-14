@@ -464,7 +464,7 @@ PyObject*  VectorPy::normalize(PyObject *args)
         return nullptr;
     VectorPy::PointerType ptr = getVectorPtr();
     if (ptr->Length() < Vector3d::epsilon()) {
-        PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot normalize null vector");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot normalize null vector");
         return nullptr;
     }
 

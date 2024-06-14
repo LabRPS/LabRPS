@@ -37,14 +37,14 @@
 #include <cassert>
 #include <ctime>
 #include <cfloat>
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #define _USE_MATH_DEFINES
-#endif // FC_OS_WIN32
+#endif // RPS_OS_WIN32
 #include <cmath>
 #include <climits>
 #include <codecvt>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #include <direct.h>
 #define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
@@ -56,7 +56,7 @@
 #include <Rpc.h>
 #endif
 
-#if defined (FC_OS_LINUX) || defined(FC_OS_CYGWIN) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#if defined (RPS_OS_LINUX) || defined(RPS_OS_CYGWIN) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/stat.h>

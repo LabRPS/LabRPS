@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *                *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -67,8 +67,6 @@ DlgSimulationComparison::DlgSimulationComparison(WindLab::WindLabSimulationCompa
 
 	QString simeName2 = ui->comboBox_Sim_Candidate2->currentText();
 	WindLab::WindLabSimulation* sim2 = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(simeName2.toUtf8().constData()));
-
-	//ui->SimulationComboBox->setCurrentText(QString::fromUtf8(sim->Label.getValue()));
     
 	std::vector<QString> groups = sim1->getWindLabPluggableFeatures();
 

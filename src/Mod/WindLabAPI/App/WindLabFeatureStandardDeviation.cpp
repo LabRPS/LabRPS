@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureStandardDeviation",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureStandardDeviation",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureStandardDeviation, WindLabAPI::WindLabFeature)
 

@@ -9066,8 +9066,8 @@ Would you like to save the file with a different name?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>％1文件（*.FCStd）</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>％1文件（*.RPSStd）</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10386,8 +10386,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>％1文件（*.FCStd）</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>％1文件（*.RPSStd）</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

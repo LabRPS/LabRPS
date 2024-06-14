@@ -47,7 +47,7 @@
 // Boost
 #include <boost/bind/bind.hpp>
 
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif

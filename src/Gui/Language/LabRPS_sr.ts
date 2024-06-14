@@ -6641,8 +6641,8 @@ Please open a browser window and type in: http://localhost:%1.</source>
       <translation>Сачувај %1 Документ</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 документ (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 документ (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7955,8 +7955,8 @@ Physical path: </translation>
       <translation>Не могу cпојити пројекат cа cамим cобом.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 документ (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 документ (*.RPSStd)</translation>
     </message>
   </context>
   <context>

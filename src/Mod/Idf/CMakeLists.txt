@@ -50,7 +50,7 @@ ADD_CUSTOM_TARGET(Idf ALL
     SOURCES ${all_files}
 )
 
-fc_copy_sources(Idf "${CMAKE_BINARY_DIR}/Mod/Idf" ${all_files})
+rps_copy_sources(Idf "${CMAKE_BINARY_DIR}/Mod/Idf" ${all_files})
 
 INSTALL(
     FILES

@@ -24,7 +24,7 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# if defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+# if defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
 # include <unistd.h>
 # include <pwd.h>
 # include <sys/types.h>
@@ -36,12 +36,12 @@
 # include <boost/date_time/posix_time/posix_time.hpp>
 #endif
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # include <Shlobj.h>
 # include <codecvt>
 #endif
 
-#if defined(FC_OS_BSD)
+#if defined(RPS_OS_BSD)
 #include <sys/param.h>
 #include <sys/sysctl.h>
 #endif
@@ -141,7 +141,7 @@ namespace sp = std::placeholders;
 #ifdef _MSC_VER // New handler for Microsoft Visual C++ compiler
 # pragma warning( disable : 4535 )
 # if !defined(_DEBUG) && defined(HAVE_SEH)
-# define FC_SE_TRANSLATOR
+# define RPS_SE_TRANSLATOR
 # endif
 
 # include <new.h>
@@ -150,7 +150,7 @@ namespace sp = std::placeholders;
 # include <new>
 #endif
 
-FC_LOG_LEVEL_INIT("App",true,true)
+RPS_LOG_LEVEL_INIT("App",true,true)
 
 //using Base::GetConsole;
 using namespace Base;
@@ -169,17 +169,17 @@ Base::ConsoleObserverFile *Application::_pConsoleObserverFile = nullptr;
 AppExport std::map<std::string,std::string> Application::mConfig;
 
 // Custom Python exception types
-BaseExport extern PyObject* Base::PyExc_FC_GeneralError;
-BaseExport extern PyObject* Base::PyExc_FC_LabRPSAbort;
-BaseExport extern PyObject* Base::PyExc_FC_XMLBaseException;
-BaseExport extern PyObject* Base::PyExc_FC_XMLParseException;
-BaseExport extern PyObject* Base::PyExc_FC_XMLAttributeError;
-BaseExport extern PyObject* Base::PyExc_FC_UnknownProgramOption;
-BaseExport extern PyObject* Base::PyExc_FC_BadFormatError;
-BaseExport extern PyObject* Base::PyExc_FC_BadGraphError;
-BaseExport extern PyObject* Base::PyExc_FC_ExpressionError;
-BaseExport extern PyObject* Base::PyExc_FC_ParserError;
-BaseExport extern PyObject* Base::PyExc_FC_CADKernelError;
+BaseExport extern PyObject* Base::PyExc_RPS_GeneralError;
+BaseExport extern PyObject* Base::PyExc_RPS_LabRPSAbort;
+BaseExport extern PyObject* Base::PyExc_RPS_XMLBaseException;
+BaseExport extern PyObject* Base::PyExc_RPS_XMLParseException;
+BaseExport extern PyObject* Base::PyExc_RPS_XMLAttributeError;
+BaseExport extern PyObject* Base::PyExc_RPS_UnknownProgramOption;
+BaseExport extern PyObject* Base::PyExc_RPS_BadFormatError;
+BaseExport extern PyObject* Base::PyExc_RPS_BadGraphError;
+BaseExport extern PyObject* Base::PyExc_RPS_ExpressionError;
+BaseExport extern PyObject* Base::PyExc_RPS_ParserError;
+BaseExport extern PyObject* Base::PyExc_RPS_CADKernelError;
 
 //**************************************************************************
 // Construction and destruction
@@ -365,49 +365,49 @@ void Application::setupPythonException(PyObject* module)
 {
     // Define cusom Python exception types
     //
-    Base::PyExc_FC_GeneralError = PyErr_NewException("Base.LabRPSError", PyExc_RuntimeError, nullptr);
-    Py_INCREF(Base::PyExc_FC_GeneralError);
-    PyModule_AddObject(module, "LabRPSError", Base::PyExc_FC_GeneralError);
+    Base::PyExc_RPS_GeneralError = PyErr_NewException("Base.LabRPSError", PyExc_RuntimeError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_GeneralError);
+    PyModule_AddObject(module, "LabRPSError", Base::PyExc_RPS_GeneralError);
 
-    Base::PyExc_FC_LabRPSAbort = PyErr_NewException("Base.LabRPSAbort", PyExc_BaseException, nullptr);
-    Py_INCREF(Base::PyExc_FC_LabRPSAbort);
-    PyModule_AddObject(module, "LabRPSAbort", Base::PyExc_FC_LabRPSAbort);
+    Base::PyExc_RPS_LabRPSAbort = PyErr_NewException("Base.LabRPSAbort", PyExc_BaseException, nullptr);
+    Py_INCREF(Base::PyExc_RPS_LabRPSAbort);
+    PyModule_AddObject(module, "LabRPSAbort", Base::PyExc_RPS_LabRPSAbort);
 
-    Base::PyExc_FC_XMLBaseException = PyErr_NewException("Base.XMLBaseException", PyExc_Exception, nullptr);
-    Py_INCREF(Base::PyExc_FC_XMLBaseException);
-    PyModule_AddObject(module, "XMLBaseException", Base::PyExc_FC_XMLBaseException);
+    Base::PyExc_RPS_XMLBaseException = PyErr_NewException("Base.XMLBaseException", PyExc_Exception, nullptr);
+    Py_INCREF(Base::PyExc_RPS_XMLBaseException);
+    PyModule_AddObject(module, "XMLBaseException", Base::PyExc_RPS_XMLBaseException);
 
-    Base::PyExc_FC_XMLParseException = PyErr_NewException("Base.XMLParseException", Base::PyExc_FC_XMLBaseException, nullptr);
-    Py_INCREF(Base::PyExc_FC_XMLParseException);
-    PyModule_AddObject(module, "XMLParseException", Base::PyExc_FC_XMLParseException);
+    Base::PyExc_RPS_XMLParseException = PyErr_NewException("Base.XMLParseException", Base::PyExc_RPS_XMLBaseException, nullptr);
+    Py_INCREF(Base::PyExc_RPS_XMLParseException);
+    PyModule_AddObject(module, "XMLParseException", Base::PyExc_RPS_XMLParseException);
 
-    Base::PyExc_FC_XMLAttributeError = PyErr_NewException("Base.XMLAttributeError", Base::PyExc_FC_XMLBaseException, nullptr);
-    Py_INCREF(Base::PyExc_FC_XMLAttributeError);
-    PyModule_AddObject(module, "XMLAttributeError", Base::PyExc_FC_XMLAttributeError);
+    Base::PyExc_RPS_XMLAttributeError = PyErr_NewException("Base.XMLAttributeError", Base::PyExc_RPS_XMLBaseException, nullptr);
+    Py_INCREF(Base::PyExc_RPS_XMLAttributeError);
+    PyModule_AddObject(module, "XMLAttributeError", Base::PyExc_RPS_XMLAttributeError);
 
-    Base::PyExc_FC_UnknownProgramOption = PyErr_NewException("Base.UnknownProgramOption", PyExc_BaseException, nullptr);
-    Py_INCREF(Base::PyExc_FC_UnknownProgramOption);
-    PyModule_AddObject(module, "UnknownProgramOption", Base::PyExc_FC_UnknownProgramOption);
+    Base::PyExc_RPS_UnknownProgramOption = PyErr_NewException("Base.UnknownProgramOption", PyExc_BaseException, nullptr);
+    Py_INCREF(Base::PyExc_RPS_UnknownProgramOption);
+    PyModule_AddObject(module, "UnknownProgramOption", Base::PyExc_RPS_UnknownProgramOption);
 
-    Base::PyExc_FC_BadFormatError = PyErr_NewException("Base.BadFormatError", Base::PyExc_FC_GeneralError, nullptr);
-    Py_INCREF(Base::PyExc_FC_BadFormatError);
-    PyModule_AddObject(module, "BadFormatError", Base::PyExc_FC_BadFormatError);
+    Base::PyExc_RPS_BadFormatError = PyErr_NewException("Base.BadFormatError", Base::PyExc_RPS_GeneralError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_BadFormatError);
+    PyModule_AddObject(module, "BadFormatError", Base::PyExc_RPS_BadFormatError);
 
-    Base::PyExc_FC_BadGraphError = PyErr_NewException("Base.BadGraphError", Base::PyExc_FC_GeneralError, nullptr);
-    Py_INCREF(Base::PyExc_FC_BadGraphError);
-    PyModule_AddObject(module, "BadGraphError", Base::PyExc_FC_BadGraphError);
+    Base::PyExc_RPS_BadGraphError = PyErr_NewException("Base.BadGraphError", Base::PyExc_RPS_GeneralError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_BadGraphError);
+    PyModule_AddObject(module, "BadGraphError", Base::PyExc_RPS_BadGraphError);
 
-    Base::PyExc_FC_ExpressionError = PyErr_NewException("Base.ExpressionError", Base::PyExc_FC_GeneralError, nullptr);
-    Py_INCREF(Base::PyExc_FC_ExpressionError);
-    PyModule_AddObject(module, "ExpressionError", Base::PyExc_FC_ExpressionError);
+    Base::PyExc_RPS_ExpressionError = PyErr_NewException("Base.ExpressionError", Base::PyExc_RPS_GeneralError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_ExpressionError);
+    PyModule_AddObject(module, "ExpressionError", Base::PyExc_RPS_ExpressionError);
 
-    Base::PyExc_FC_ParserError = PyErr_NewException("Base.ParserError", Base::PyExc_FC_GeneralError, nullptr);
-    Py_INCREF(Base::PyExc_FC_ParserError);
-    PyModule_AddObject(module, "ParserError", Base::PyExc_FC_ParserError);
+    Base::PyExc_RPS_ParserError = PyErr_NewException("Base.ParserError", Base::PyExc_RPS_GeneralError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_ParserError);
+    PyModule_AddObject(module, "ParserError", Base::PyExc_RPS_ParserError);
 
-    Base::PyExc_FC_CADKernelError = PyErr_NewException("Base.CADKernelError", Base::PyExc_FC_GeneralError, nullptr);
-    Py_INCREF(Base::PyExc_FC_CADKernelError);
-    PyModule_AddObject(module, "CADKernelError", Base::PyExc_FC_CADKernelError);
+    Base::PyExc_RPS_CADKernelError = PyErr_NewException("Base.CADKernelError", Base::PyExc_RPS_GeneralError, nullptr);
+    Py_INCREF(Base::PyExc_RPS_CADKernelError);
+    PyModule_AddObject(module, "CADKernelError", Base::PyExc_RPS_CADKernelError);
 }
 
 //**************************************************************************
@@ -638,11 +638,11 @@ bool Application::isClosingAll() const {
 }
 
 struct DocTiming {
-    FC_DURATION_DECLARE(d1);
-    FC_DURATION_DECLARE(d2);
+    RPS_DURATION_DECLARE(d1);
+    RPS_DURATION_DECLARE(d2);
     DocTiming() {
-        FC_DURATION_INIT(d1);
-        FC_DURATION_INIT(d2);
+        RPS_DURATION_INIT(d1);
+        RPS_DURATION_INIT(d2);
     }
 };
 
@@ -702,7 +702,7 @@ Document *Application::getDocumentByPath(const char *path, PathMatchMode checkCa
             if (checkCanonical == PathMatchMode::MatchCanonical)
                 return v.second;
             bool samePath = (canonicalPath == QString::fromUtf8(filepath.c_str()));
-            FC_WARN("Identical physical path '" << canonicalPath.toUtf8().constData() << "'\n"
+            RPS_WARN("Identical physical path '" << canonicalPath.toUtf8().constData() << "'\n"
                     << (samePath?"":"  for file '") << (samePath?"":filepath.c_str()) << (samePath?"":"'\n")
                     << "  with existing document '" << v.second->Label.getValue()
                     << "' in path: '" << v.second->FileName.getValue() << "'");
@@ -741,7 +741,7 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
 
     std::map<DocumentT, DocTiming> timings;
 
-    FC_TIME_INIT(t);
+    RPS_TIME_INIT(t);
 
     std::vector<DocumentT> openedDocs;
 
@@ -767,7 +767,7 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
                     }
                 }
 
-                FC_TIME_INIT(t1);
+                RPS_TIME_INIT(t1);
                 DocTiming timing;
 
                 const char *path = name.c_str();
@@ -781,7 +781,7 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
                 }
 
                 auto doc = openDocumentPrivate(path, name.c_str(), label, isMainDoc, createView, std::move(objNames));
-                FC_DURATION_PLUS(timing.d1,t1);
+                RPS_DURATION_PLUS(timing.d1,t1);
                 if (doc) {
                     timings[doc].d1 += timing.d1;
                     newDocs.emplace(doc);
@@ -870,7 +870,7 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
             }
 
             auto &timing = timings[doc];
-            FC_TIME_INIT(t1);
+            RPS_TIME_INIT(t1);
             // Finalize document restoring with the correct order
             if(doc->afterRestore(true)) {
                 openedDocs.push_back(doc);
@@ -887,7 +887,7 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
                 _pendingDocs.push_back(doc->FileName.getValue());
                 _pendingDocMap.erase(doc->FileName.getValue());
             }
-            FC_DURATION_PLUS(timing.d2,t1);
+            RPS_DURATION_PLUS(timing.d2,t1);
             seq.next();
         }
         // Close the document for reloading
@@ -907,10 +907,10 @@ std::vector<Document*> Application::openDocuments(const std::vector<std::string>
 
     for (auto &doc : openedDocs) {
         auto &timing = timings[doc];
-        FC_DURATION_LOG(timing.d1, doc.getDocumentName() << " restore");
-        FC_DURATION_LOG(timing.d2, doc.getDocumentName() << " postprocess");
+        RPS_DURATION_LOG(timing.d1, doc.getDocumentName() << " restore");
+        RPS_DURATION_LOG(timing.d2, doc.getDocumentName() << " postprocess");
     }
-    FC_TIME_LOG(t,"total");
+    RPS_TIME_LOG(t,"total");
     _isRestoring = false;
 
     signalFinishOpenDocument();
@@ -1204,7 +1204,7 @@ int Application::checkLinkDepth(int depth, bool no_throw) {
         const char *msg = "Link recursion limit reached. "
                 "Please check for cyclic reference.";
         if(no_throw) {
-            FC_ERR(msg);
+            RPS_ERR(msg);
             return 0;
         }else
             throw Base::RuntimeError(msg);
@@ -1705,7 +1705,7 @@ void Application::destruct(void)
     _pcSysParamMngr = nullptr;
     _pcUserParamMngr = nullptr;
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     // Do this only in debug mode for memory leak checkers
     cleanupUnits();
 #endif
@@ -1757,7 +1757,7 @@ static void labrpsNewHandler ()
 }
 #endif
 
-#if defined(FC_OS_LINUX)
+#if defined(RPS_OS_LINUX)
 #include <execinfo.h>
 #include <dlfcn.h>
 #include <cxxabi.h>
@@ -1814,11 +1814,11 @@ void printBacktrace(size_t skip=0)
 
 void segmentation_fault_handler(int sig)
 {
-#if defined(FC_OS_LINUX)
+#if defined(RPS_OS_LINUX)
     (void)sig;
     std::cerr << "Program received signal SIGSEGV, Segmentation fault.\n";
     printBacktrace(2);
-#if defined(FC_DEBUG)
+#if defined(RPS_DEBUG)
     abort();
 #else
     exit(1);
@@ -1841,7 +1841,7 @@ void segmentation_fault_handler(int sig)
             std::cerr << "Unknown error occurred..." << std::endl;
             break;
     }
-#endif // FC_OS_LINUX
+#endif // RPS_OS_LINUX
 }
 
 void unhandled_exception_handler()
@@ -1860,7 +1860,7 @@ void unexpection_error_handler()
 #endif
 }
 
-#if defined(FC_SE_TRANSLATOR) // Microsoft compiler
+#if defined(RPS_SE_TRANSLATOR) // Microsoft compiler
 void my_se_translator_filter(unsigned int code, EXCEPTION_POINTERS* pExp)
 {
     Q_UNUSED(pExp)
@@ -1899,10 +1899,10 @@ void Application::init(int argc, char ** argv)
         std::signal(SIGABRT,segmentation_fault_handler);
         std::set_terminate(unhandled_exception_handler);
            ::set_unexpected(unexpection_error_handler);
-#elif defined(FC_OS_LINUX)
+#elif defined(RPS_OS_LINUX)
         std::signal(SIGSEGV,segmentation_fault_handler);
 #endif
-#if defined(FC_SE_TRANSLATOR)
+#if defined(RPS_SE_TRANSLATOR)
         _set_se_translator(my_se_translator_filter);
 #endif
         initTypes();
@@ -2120,7 +2120,7 @@ void Application::initTypes()
 namespace {
 pair<string, string> customSyntax(const string& s)
 {
-#if defined(FC_OS_MACOSX)
+#if defined(RPS_OS_MACOSX)
     if (s.find("-psn_") == 0)
         return make_pair(string("psn"), s.substr(5));
 #endif
@@ -2230,7 +2230,7 @@ void parseProgramOptions(int ac, char ** av, const string& exe, variables_map& v
     ("visual",     boost::program_options::value< string >(), "set the X-Window to color scheme")
     ("ncols",      boost::program_options::value< int    >(), "set the X-Window to color scheme")
     ("cmap",                                                  "set the X-Window to color scheme")
-#if defined(FC_OS_MACOSX)
+#if defined(RPS_OS_MACOSX)
     ("psn",        boost::program_options::value< string >(), "process serial number")
 #endif
     ;
@@ -2342,17 +2342,17 @@ void processProgramOptions(const variables_map& vm, std::map<std::string,std::st
         if (vm.count("verbose")) {
             str << "\nLibrary versions:\n";
             str << "boost    " << BOOST_LIB_VERSION << '\n';
-            str << "Coin3D   " << FC_COIN3D_VERSION << '\n';
-            str << "Eigen3   " << FC_EIGEN3_VERSION << '\n';
+            str << "Coin3D   " << RPS_COIN3D_VERSION << '\n';
+            str << "Eigen3   " << RPS_EIGEN3_VERSION << '\n';
 #ifdef OCC_VERSION_STRING_EXT
             str << "OCC      " << OCC_VERSION_STRING_EXT << '\n';
 #endif
             str << "Qt       " << QT_VERSION_STR << '\n';
             str << "Python   " << PY_VERSION << '\n';
-            str << "PySide   " << FC_PYSIDE_VERSION << '\n';
-            str << "shiboken " << FC_SHIBOKEN_VERSION << '\n';
-            str << "VTK      " << FC_VTK_VERSION << '\n';
-            str << "xerces-c " << FC_XERCESC_VERSION << '\n';
+            str << "PySide   " << RPS_PYSIDE_VERSION << '\n';
+            str << "shiboken " << RPS_SHIBOKEN_VERSION << '\n';
+            str << "VTK      " << RPS_VTK_VERSION << '\n';
+            str << "xerces-c " << RPS_XERCESC_VERSION << '\n';
         }
         throw Base::ProgramInformation(str.str());
     }
@@ -2515,7 +2515,7 @@ void Application::initConfig(int argc, char ** argv)
     // extract home paths
     ExtractUserPath();
 
-#   ifdef FC_DEBUG
+#   ifdef RPS_DEBUG
     mConfig["Debug"] = "1";
 #   else
     mConfig["Debug"] = "0";
@@ -2583,7 +2583,7 @@ void Application::initConfig(int argc, char ** argv)
     bool hasDefault = false;
     for (const auto &v : loglevels) {
         if (v.first == "Default") {
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
             if (v.second>=0) {
                 hasDefault = true;
                 Base::Console().SetDefaultLogLevel(v.second);
@@ -2591,7 +2591,7 @@ void Application::initConfig(int argc, char ** argv)
 #endif
         }
         else if (v.first == "DebugDefault") {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             if (v.second>=0) {
                 hasDefault = true;
                 Base::Console().SetDefaultLogLevel(v.second);
@@ -2604,7 +2604,7 @@ void Application::initConfig(int argc, char ** argv)
     }
 
     if (!hasDefault) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         loglevelParam->SetInt("DebugDefault", Base::Console().LogLevel(-1));
 #else
         loglevelParam->SetInt("Default", Base::Console().LogLevel(-1));
@@ -2649,9 +2649,9 @@ void Application::initConfig(int argc, char ** argv)
     mConfig["BOOST_VERSION"] = BOOST_LIB_VERSION;
     mConfig["PYTHON_VERSION"] = PY_VERSION;
     mConfig["QT_VERSION"] = QT_VERSION_STR;
-    mConfig["EIGEN_VERSION"] = FC_EIGEN3_VERSION;
-    mConfig["PYSIDE_VERSION"] = FC_PYSIDE_VERSION;
-    mConfig["XERCESC_VERSION"] = FC_XERCESC_VERSION;
+    mConfig["EIGEN_VERSION"] = RPS_EIGEN3_VERSION;
+    mConfig["PYSIDE_VERSION"] = RPS_PYSIDE_VERSION;
+    mConfig["XERCESC_VERSION"] = RPS_XERCESC_VERSION;
 
 
     logStatus();
@@ -2970,7 +2970,7 @@ namespace {
 QString getUserHome()
 {
     QString path;
-#if defined(FC_OS_LINUX) || defined(FC_OS_CYGWIN) || defined(FC_OS_BSD) || defined(FC_OS_MACOSX)
+#if defined(RPS_OS_LINUX) || defined(RPS_OS_CYGWIN) || defined(RPS_OS_BSD) || defined(RPS_OS_MACOSX)
     // Default paths for the user specific stuff
     struct passwd *pwd = getpwuid(getuid());
     if (!pwd)
@@ -2988,16 +2988,16 @@ QString getUserHome()
  * Returns a directory location where persistent data shared across applications can be stored.
  * This method returns the old non-XDG-compliant root path where to store config files and application data.
  */
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
 QString getOldGenericDataLocation(QString home)
 {
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
     WCHAR szPath[MAX_PATH];
     std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
     if (SUCCEEDED(SHGetFolderPathW(NULL, CSIDL_APPDATA, NULL, 0, szPath))) {
         return QString::fromStdString(converter.to_bytes(szPath));
     }
-#elif defined(FC_OS_MACOSX)
+#elif defined(RPS_OS_MACOSX)
     QFileInfo fi(home, QString::fromLatin1("Library/Preferences"));
     home = fi.absoluteFilePath();
 #endif
@@ -3029,7 +3029,7 @@ void getOldDataLocation(std::map<std::string,std::string>& mConfig, std::vector<
 {
     // Actually the name of the directory where the parameters are stored should be the name of
     // the application due to branding reasons.
-#if defined(FC_OS_LINUX) || defined(FC_OS_CYGWIN) || defined(FC_OS_BSD)
+#if defined(RPS_OS_LINUX) || defined(RPS_OS_CYGWIN) || defined(RPS_OS_BSD)
     // If 'AppDataSkipVendor' is defined, the value of 'ExeVendor' must not be part of
     // the path.
     if (mConfig.find("AppDataSkipVendor") == mConfig.end()) {
@@ -3039,7 +3039,7 @@ void getOldDataLocation(std::map<std::string,std::string>& mConfig, std::vector<
         appData.push_back(std::string(".") + mConfig["ExeName"]);
     }
 
-#elif defined(FC_OS_MACOSX) || defined(FC_OS_WIN32)
+#elif defined(RPS_OS_MACOSX) || defined(RPS_OS_WIN32)
     getSubDirectories(mConfig, appData);
 #endif
 }
@@ -3158,7 +3158,7 @@ std::tuple<QString, QString, QString, QString> getStandardPaths()
     QString tempPath = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
 
     // Keep the old behaviour
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
     configHome = getOldGenericDataLocation(QString());
     dataHome = configHome;
 
@@ -3256,7 +3256,7 @@ void Application::ExtractUserPath()
     mConfig["UserPluginPath"] = Base::FileInfo::pathToString(plugin) + PATHSEP;
 }
 
-#if defined (FC_OS_LINUX) || defined(FC_OS_CYGWIN) || defined(FC_OS_BSD)
+#if defined (RPS_OS_LINUX) || defined(RPS_OS_CYGWIN) || defined(RPS_OS_BSD)
 #include <cstdio>
 #include <cstdlib>
 #include <sys/param.h>
@@ -3285,7 +3285,7 @@ std::string Application::FindHomePath(const char* sCall)
         // path. In the worst case we simply get q wrong path and LabRPS is not
         // able to load its modules.
         char resolved[PATH_MAX];
-#if defined(FC_OS_BSD)
+#if defined(RPS_OS_BSD)
         int mib[4];
         mib[0] = CTL_KERN;
         mib[1] = KERN_PROC;
@@ -3312,7 +3312,7 @@ std::string Application::FindHomePath(const char* sCall)
     return homePath;
 }
 
-#elif defined(FC_OS_MACOSX)
+#elif defined(RPS_OS_MACOSX)
 #include <mach-o/dyld.h>
 #include <string>
 #include <cstdlib>
@@ -3351,7 +3351,7 @@ std::string Application::FindHomePath(const char* call)
     return call;
 }
 
-#elif defined (FC_OS_WIN32)
+#elif defined (RPS_OS_WIN32)
 std::string Application::FindHomePath(const char* sCall)
 {
     // We have several ways to start this application:

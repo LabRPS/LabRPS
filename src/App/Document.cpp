@@ -117,7 +117,7 @@ recompute path. Also, it enables more complicated dependencies beyond trees.
 #include <zipios++/meta-iostreams.h>
 
 
-FC_LOG_LEVEL_INIT("App", true, true, true)
+RPS_LOG_LEVEL_INIT("App", true, true, true)
 
 using Base::Console;
 using Base::streq;
@@ -127,8 +127,8 @@ using namespace std;
 using namespace boost;
 using namespace zipios;
 
-#if FC_DEBUG
-#  define FC_LOGFEATUREUPDATE
+#if RPS_DEBUG
+#  define RPS_LOGFEATUREUPDATE
 #endif
 
 namespace fs = boost::filesystem;
@@ -1090,8 +1090,8 @@ std::vector<std::string> Document::getAvailableRedoNames() const
 
 void Document::openTransaction(const char* name) {
     if(isPerformingTransaction() || d->committing) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot open transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot open transaction while transacting");
         return;
     }
 
@@ -1101,8 +1101,8 @@ void Document::openTransaction(const char* name) {
 int Document::_openTransaction(const char* name, int id)
 {
     if(isPerformingTransaction() || d->committing) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot open transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot open transaction while transacting");
         return 0;
     }
 
@@ -1138,7 +1138,7 @@ int Document::_openTransaction(const char* name, int id)
         {
             std::string aname("-> ");
             aname += d->activeUndoTransaction->Name;
-            FC_LOG("auto transaction " << getName() << " -> " << activeDoc->getName());
+            RPS_LOG("auto transaction " << getName() << " -> " << activeDoc->getName());
             activeDoc->_openTransaction(aname.c_str(),id);
         }
         return id;
@@ -1168,12 +1168,12 @@ void Document::_checkTransaction(DocumentObject* pcDelObj, const Property *What,
                     bool ignore = false;
                     if(What && What->testStatus(Property::NoModify))
                         ignore = true;
-                    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG)) {
+                    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG)) {
                         if(What)
-                            FC_LOG((ignore?"ignore":"auto") << " transaction ("
+                            RPS_LOG((ignore?"ignore":"auto") << " transaction ("
                                     << line << ") '" << What->getFullName());
                         else
-                            FC_LOG((ignore?"ignore":"auto") <<" transaction ("
+                            RPS_LOG((ignore?"ignore":"auto") <<" transaction ("
                                     << line << ") '" << name << "' in " << getName());
                     }
                     if(!ignore)
@@ -1199,7 +1199,7 @@ void Document::_checkTransaction(DocumentObject* pcDelObj, const Property *What,
 void Document::_clearRedos()
 {
     if(isPerformingTransaction() || d->committing) {
-        FC_ERR("Cannot clear redo while transacting");
+        RPS_ERR("Cannot clear redo while transacting");
         return;
     }
 
@@ -1212,8 +1212,8 @@ void Document::_clearRedos()
 
 void Document::commitTransaction() {
     if(isPerformingTransaction() || d->committing) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot commit transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot commit transaction while transacting");
         return;
     }
 
@@ -1224,8 +1224,8 @@ void Document::commitTransaction() {
 void Document::_commitTransaction(bool notify)
 {
     if (isPerformingTransaction()) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot commit transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot commit transaction while transacting");
         return;
     }
     else if (d->committing) {
@@ -1255,8 +1255,8 @@ void Document::_commitTransaction(bool notify)
 
 void Document::abortTransaction() {
     if(isPerformingTransaction() || d->committing) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot abort transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot abort transaction while transacting");
         return;
     }
     if (d->activeUndoTransaction)
@@ -1266,8 +1266,8 @@ void Document::abortTransaction() {
 void Document::_abortTransaction()
 {
     if(isPerformingTransaction() || d->committing) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Cannot abort transaction while transacting");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Cannot abort transaction while transacting");
     }
 
     if (d->activeUndoTransaction) {
@@ -1354,7 +1354,7 @@ void Document::clearDocument()
 void Document::clearUndos()
 {
     if(isPerformingTransaction() || d->committing) {
-        FC_ERR("Cannot clear undos while transacting");
+        RPS_ERR("Cannot clear undos while transacting");
         return;
     }
 
@@ -1540,7 +1540,7 @@ Document::Document(const char *name)
     d = new DocumentP;
     d->DocumentPythonObject = Py::Object(new DocumentPy(this), true);
 
-#ifdef FC_LOGUPDATECHAIN
+#ifdef RPS_LOGUPDATECHAIN
     Console().Log("+App::Document: %p\n",this);
 #endif
     std::string CreationDateString = Base::TimeInfo::currentDateTimeString();
@@ -1634,7 +1634,7 @@ Document::Document(const char *name)
 
 Document::~Document()
 {
-#ifdef FC_LOGUPDATECHAIN
+#ifdef RPS_LOGUPDATECHAIN
     Console().Log("-App::Document: %s %p\n",getName(), this);
 #endif
 
@@ -1644,7 +1644,7 @@ Document::~Document()
     catch (const boost::exception&) {
     }
 
-#ifdef FC_LOGUPDATECHAIN
+#ifdef RPS_LOGUPDATECHAIN
     Console().Log("-Delete Features of %s \n",getName());
 #endif
 
@@ -1824,10 +1824,10 @@ void Document::exportObjects(const std::vector<App::DocumentObject*>& obj, std::
 
     DocumentExporting exporting(obj);
 
-    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG)) {
+    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG)) {
         for(auto o : obj) {
             if(o && o->getNameInDocument()) {
-                FC_LOG("exporting " << o->getFullName());
+                RPS_LOG("exporting " << o->getFullName());
                 if (!o->getPropertyByName("_ObjectUUID")) {
                     auto prop = static_cast<PropertyUUID*>(o->addDynamicProperty(
                             "App::PropertyUUID", "_ObjectUUID", nullptr, nullptr,
@@ -1861,12 +1861,12 @@ void Document::exportObjects(const std::vector<App::DocumentObject*>& obj, std::
     writer.writeFiles();
 }
 
-#define FC_ATTR_DEPENDENCIES "Dependencies"
-#define FC_ELEMENT_OBJECT_DEPS "ObjectDeps"
-#define FC_ATTR_DEP_COUNT "Count"
-#define FC_ATTR_DEP_OBJ_NAME "Name"
-#define FC_ATTR_DEP_ALLOW_PARTIAL "AllowPartial"
-#define FC_ELEMENT_OBJECT_DEP "Dep"
+#define RPS_ATTR_DEPENDENCIES "Dependencies"
+#define RPS_ELEMENT_OBJECT_DEPS "ObjectDeps"
+#define RPS_ATTR_DEP_COUNT "Count"
+#define RPS_ATTR_DEP_OBJ_NAME "Name"
+#define RPS_ATTR_DEP_ALLOW_PARTIAL "AllowPartial"
+#define RPS_ELEMENT_OBJECT_DEP "Dep"
 
 void Document::writeObjects(const std::vector<App::DocumentObject*>& obj,
                             Base::Writer &writer) const
@@ -1875,7 +1875,7 @@ void Document::writeObjects(const std::vector<App::DocumentObject*>& obj,
     writer.incInd(); // indentation for 'Objects count'
     writer.Stream() << writer.ind() << "<Objects Count=\"" << obj.size();
     if(!isExporting(nullptr))
-        writer.Stream() << "\" " FC_ATTR_DEPENDENCIES "=\"1";
+        writer.Stream() << "\" " RPS_ATTR_DEPENDENCIES "=\"1";
     writer.Stream() << "\">" << endl;
 
     writer.incInd(); // indentation for 'Object type'
@@ -1885,24 +1885,24 @@ void Document::writeObjects(const std::vector<App::DocumentObject*>& obj,
             const auto &outList = o->getOutList(DocumentObject::OutListNoHidden
                                                 | DocumentObject::OutListNoXLinked);
             writer.Stream() << writer.ind()
-                << "<" FC_ELEMENT_OBJECT_DEPS " " FC_ATTR_DEP_OBJ_NAME "=\""
-                << o->getNameInDocument() << "\" " FC_ATTR_DEP_COUNT "=\"" << outList.size();
+                << "<" RPS_ELEMENT_OBJECT_DEPS " " RPS_ATTR_DEP_OBJ_NAME "=\""
+                << o->getNameInDocument() << "\" " RPS_ATTR_DEP_COUNT "=\"" << outList.size();
             if(outList.empty()) {
                 writer.Stream() << "\"/>" << endl;
                 continue;
             }
             int partial = o->canLoadPartial();
             if(partial>0)
-                writer.Stream() << "\" " FC_ATTR_DEP_ALLOW_PARTIAL << "=\"" << partial;
+                writer.Stream() << "\" " RPS_ATTR_DEP_ALLOW_PARTIAL << "=\"" << partial;
             writer.Stream() << "\">" << endl;
             writer.incInd();
             for(auto dep : outList) {
                 auto name = dep?dep->getNameInDocument():"";
-                writer.Stream() << writer.ind() << "<" FC_ELEMENT_OBJECT_DEP " "
-                    FC_ATTR_DEP_OBJ_NAME "=\"" << (name?name:"") << "\"/>" << endl;
+                writer.Stream() << writer.ind() << "<" RPS_ELEMENT_OBJECT_DEP " "
+                    RPS_ATTR_DEP_OBJ_NAME "=\"" << (name?name:"") << "\"/>" << endl;
             }
             writer.decInd();
-            writer.Stream() << writer.ind() << "</" FC_ELEMENT_OBJECT_DEPS ">" << endl;
+            writer.Stream() << writer.ind() << "</" RPS_ELEMENT_OBJECT_DEPS ">" << endl;
         }
     }
 
@@ -2001,25 +2001,25 @@ Document::readObjects(Base::XMLReader& reader)
     reader.readElement("Objects");
     int Cnt = reader.getAttributeAsInteger("Count");
 
-    if(!reader.hasAttribute(FC_ATTR_DEPENDENCIES))
+    if(!reader.hasAttribute(RPS_ATTR_DEPENDENCIES))
         d->partialLoadObjects.clear();
     else if(d->partialLoadObjects.size()) {
         std::unordered_map<std::string,DepInfo> deps;
         for (int i=0 ;i<Cnt ;i++) {
-            reader.readElement(FC_ELEMENT_OBJECT_DEPS);
-            int dcount = reader.getAttributeAsInteger(FC_ATTR_DEP_COUNT);
+            reader.readElement(RPS_ELEMENT_OBJECT_DEPS);
+            int dcount = reader.getAttributeAsInteger(RPS_ATTR_DEP_COUNT);
             if(!dcount)
                 continue;
-            auto &info = deps[reader.getAttribute(FC_ATTR_DEP_OBJ_NAME)];
-            if(reader.hasAttribute(FC_ATTR_DEP_ALLOW_PARTIAL))
-                info.canLoadPartial = reader.getAttributeAsInteger(FC_ATTR_DEP_ALLOW_PARTIAL);
+            auto &info = deps[reader.getAttribute(RPS_ATTR_DEP_OBJ_NAME)];
+            if(reader.hasAttribute(RPS_ATTR_DEP_ALLOW_PARTIAL))
+                info.canLoadPartial = reader.getAttributeAsInteger(RPS_ATTR_DEP_ALLOW_PARTIAL);
             for(int j=0;j<dcount;++j) {
-                reader.readElement(FC_ELEMENT_OBJECT_DEP);
-                const char *name = reader.getAttribute(FC_ATTR_DEP_OBJ_NAME);
+                reader.readElement(RPS_ELEMENT_OBJECT_DEP);
+                const char *name = reader.getAttribute(RPS_ATTR_DEP_OBJ_NAME);
                 if(name && name[0])
                     info.deps.insert(name);
             }
-            reader.readEndElement(FC_ELEMENT_OBJECT_DEPS);
+            reader.readEndElement(RPS_ELEMENT_OBJECT_DEPS);
         }
         std::vector<std::string> objs;
         objs.reserve(d->partialLoadObjects.size());
@@ -2125,7 +2125,7 @@ Document::readObjects(Base::XMLReader& reader)
         if (pObj && !pObj->testStatus(App::PartialObject)) { // check if this feature has been registered
             pObj->setStatus(ObjectStatus::Restore, true);
             try {
-                FC_TRACE("restoring " << pObj->getFullName());
+                RPS_TRACE("restoring " << pObj->getFullName());
                 pObj->Restore(reader);
             }
             // Try to continue only for certain exception types if not handled
@@ -2192,7 +2192,7 @@ Document::importObjects(Base::XMLReader& reader)
     for(auto o : objs) {
         if(o && o->getNameInDocument()) {
             o->setStatus(App::ObjImporting,true);
-            FC_LOG("importing " << o->getFullName());
+            RPS_LOG("importing " << o->getFullName());
             if (auto propUUID = Base::labrps_dynamic_cast<PropertyUUID>(
                         o->getPropertyByName("_ObjectUUID")))
             {
@@ -2255,7 +2255,7 @@ static std::string checkFileName(const char *file) {
             if(ext && ext[1] == 0)
                 fn += "FCStd";
             else
-                fn += ".FCStd";
+                fn += ".RPSStd";
         }
     }
     return fn;
@@ -2288,7 +2288,7 @@ bool Document::saveCopy(const char* _file) const
 bool Document::save (void)
 {
     if(testStatus(Document::PartialDoc)) {
-        FC_ERR("Partial loaded document '" << Label.getValue() << "' cannot be saved");
+        RPS_ERR("Partial loaded document '" << Label.getValue() << "' cannot be saved");
         // TODO We don't make this a fatal error and return 'true' to make it possible to
         // save other documents that depends on this partial opened document. We need better
         // handling to avoid touching partial documents.
@@ -2616,7 +2616,7 @@ bool Document::saveToFile(const char* filename) const
 
     auto canonical_path = [](const char* filename) {
         try {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             QString utf8Name = QString::fromUtf8(filename);
             auto realpath = fs::weakly_canonical(fs::absolute(fs::path(utf8Name.toStdWString())));
             std::string nativePath = QString::fromStdWString(realpath.native()).toStdString();
@@ -2631,7 +2631,7 @@ bool Document::saveToFile(const char* filename) const
             return nativePath;
         }
         catch (const std::exception&) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             QString utf8Name = QString::fromUtf8(filename);
             auto parentPath = fs::absolute(fs::path(utf8Name.toStdWString())).parent_path();
 #else
@@ -2810,7 +2810,7 @@ void Document::restore (const char *filename,
 bool Document::afterRestore(bool checkPartial) {
     Base::FlagToggler<> flag(_IsRestoring,false);
     if(!afterRestore(d->objectArray,checkPartial)) {
-        FC_WARN("Reload partial document " << getName());
+        RPS_WARN("Reload partial document " << getName());
         GetApplication().signalPendingReloadDocument(*this);
         return false;
     }
@@ -2839,7 +2839,7 @@ bool Document::afterRestore(const std::vector<DocumentObject *> &objArray, bool 
             try {
                 prop->afterRestore();
             } catch (const Base::Exception& e) {
-                FC_ERR("Failed to restore " << obj->getFullName()
+                RPS_ERR("Failed to restore " << obj->getFullName()
                         << '.' << prop->getName() << ": " << e.what());
             }
         }
@@ -2862,7 +2862,7 @@ bool Document::afterRestore(const std::vector<DocumentObject *> &objArray, bool 
             auto returnCode = obj->ExpressionEngine.execute(
                     PropertyExpressionEngine::ExecuteOnRestore,&touched);
             if(returnCode!=DocumentObject::StdReturn) {
-                FC_ERR("Expression engine failed to restore " << obj->getFullName() << ": " << returnCode->Why);
+                RPS_ERR("Expression engine failed to restore " << obj->getFullName() << ": " << returnCode->Why);
                 d->addRecomputeLog(returnCode);
             }
             obj->onDocumentRestored();
@@ -2871,15 +2871,15 @@ bool Document::afterRestore(const std::vector<DocumentObject *> &objArray, bool 
         }
         catch (const Base::Exception& e) {
             d->addRecomputeLog(e.what(),obj);
-            FC_ERR("Failed to restore " << obj->getFullName() << ": " << e.what());
+            RPS_ERR("Failed to restore " << obj->getFullName() << ": " << e.what());
         }
         catch (std::exception &e) {
             d->addRecomputeLog(e.what(),obj);
-            FC_ERR("Failed to restore " << obj->getFullName() << ": " << e.what());
+            RPS_ERR("Failed to restore " << obj->getFullName() << ": " << e.what());
         }
         catch (...) {
             d->addRecomputeLog("Unknown exception on restore",obj);
-            FC_ERR("Failed to restore " << obj->getFullName() << ": " << "unknown exception");
+            RPS_ERR("Failed to restore " << obj->getFullName() << ": " << "unknown exception");
         }
         if(obj->isValid()) {
             auto &props = propMap[obj];
@@ -2893,12 +2893,12 @@ bool Document::afterRestore(const std::vector<DocumentObject *> &objArray, bool 
                 if(link && (res=link->checkRestore(&errMsg))) {
                     d->touchedObjs.insert(obj);
                     if(res==1 || checkPartial) {
-                        FC_WARN(obj->getFullName() << '.' << prop->getName() << ": " << errMsg);
+                        RPS_WARN(obj->getFullName() << '.' << prop->getName() << ": " << errMsg);
                         setStatus(Document::LinkStampChanged, true);
                         if(checkPartial)
                             return false;
                     } else  {
-                        FC_ERR(obj->getFullName() << '.' << prop->getName() << ": " << errMsg);
+                        RPS_ERR(obj->getFullName() << '.' << prop->getName() << ": " << errMsg);
                         d->addRecomputeLog(errMsg,obj);
                         setStatus(Document::PartialRestore, true);
                     }
@@ -3180,7 +3180,7 @@ std::vector<App::DocumentObject*> Document::getDependencyList(
             for(size_t i=0;i<c.size();++i)
                 components[c[i]].push_back(i);
 
-            FC_ERR("Dependency cycles: ");
+            RPS_ERR("Dependency cycles: ");
             std::ostringstream ss;
             ss << std::endl;
             for(auto &v : components) {
@@ -3210,10 +3210,10 @@ std::vector<App::DocumentObject*> Document::getDependencyList(
                 }
                 ss << std::endl;
             }
-            FC_ERR(ss.str());
-            FC_THROWM(Base::RuntimeError, e.what());
+            RPS_ERR(ss.str());
+            RPS_THROWM(Base::RuntimeError, e.what());
         }
-        FC_ERR(e.what());
+        RPS_ERR(e.what());
         ret = DocumentP::partialTopologicalSort(objectArray);
         std::reverse(ret.begin(),ret.end());
         return ret;
@@ -3358,7 +3358,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
     for (std::map<DocumentObject*,Vertex>::const_iterator It1= d->VertexObjectList.begin();It1 != d->VertexObjectList.end(); ++It1)
         d->vertexMap[It1->second] = It1->first;
 
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
     std::clog << "make ordering: " << std::endl;
 #endif
 
@@ -3373,14 +3373,14 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
         // the inefficient isIn()
         // if (!Cur || !isIn(Cur)) continue;
         if (!Cur || !Cur->getNameInDocument()) continue;
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
         std::clog << Cur->getNameInDocument() << " dep on:" ;
 #endif
         bool NeedUpdate = false;
 
         // ask the object if it should be recomputed
         if (Cur->mustExecute() == 1 || Cur->ExpressionEngine.depsAreTouched()) {
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
             std::clog << "[touched]";
 #endif
             NeedUpdate = true;
@@ -3391,12 +3391,12 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
                 DocumentObject* Test = d->vertexMap[target(*j, d->DepList)];
 
                 if (!Test) continue;
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
                 std::clog << " " << Test->getNameInDocument();
 #endif
                 if (Test->isTouched()) {
                     NeedUpdate = true;
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
                     std::clog << "[touched]";
 #endif
                 }
@@ -3405,17 +3405,17 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
         // if one touched recompute
         if (NeedUpdate) {
             Cur->touch();
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
             std::clog << " => Recompute feature";
 #endif
             recomputeList.insert(Cur);
         }
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
         std::clog << std::endl;
 #endif
     }
 
-#ifdef FC_LOGFEATUREUPDATE
+#ifdef RPS_LOGFEATUREUPDATE
     std::clog << "Have to recompute the following document objects" << std::endl;
     for (std::set<DocumentObject*>::const_iterator it = recomputeList.begin(); it != recomputeList.end(); ++it) {
         std::clog << "  " << (*it)->getNameInDocument() << std::endl;
@@ -3457,20 +3457,20 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
 int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool force, bool *hasError, int options)
 {
     if (d->undoing || d->rollback) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Ignore document recompute on undo/redo");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Ignore document recompute on undo/redo");
         return 0;
     }
 
     int objectCount = 0;
     if (testStatus(Document::PartialDoc)) {
         if(mustExecute())
-            FC_WARN("Please reload partial document '" << Label.getValue() << "' for recomputation.");
+            RPS_WARN("Please reload partial document '" << Label.getValue() << "' for recomputation.");
         return 0;
     }
     if (testStatus(Document::Recomputing)) {
         // this is clearly a bug in the calling instance
-        FC_ERR("Recursive calling of recompute for document " << getName());
+        RPS_ERR("Recursive calling of recompute for document " << getName());
         return 0;
     }
     // The 'SkipRecompute' flag can be (tmp.) set to avoid too many
@@ -3483,7 +3483,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
     // delete recompute log
     d->clearRecomputeLog();
 
-    FC_TIME_INIT(t);
+    RPS_TIME_INIT(t);
 
     Base::ObjectStatusLocker<Document::Status, Document> exe(Document::Recomputing, this);
     signalBeforeRecompute(*this);
@@ -3519,7 +3519,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
     std::set<App::DocumentObject *> filter;
     size_t idx = 0;
 
-    FC_TIME_INIT(t2);
+    RPS_TIME_INIT(t2);
 
     try {
         // maximum two passes to allow some form of dependency inversion
@@ -3527,7 +3527,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
             std::unique_ptr<Base::SequencerLauncher> seq;
             if(canAbort)
                 seq.reset(new Base::SequencerLauncher("Recompute...", topoSortedObjects.size()));
-            FC_LOG("Recompute pass " << passes);
+            RPS_LOG("Recompute pass " << passes);
             for (; idx < topoSortedObjects.size(); ++idx) {
                 auto obj = topoSortedObjects[idx];
                 if(!obj->getNameInDocument() || filter.find(obj)!=filter.end())
@@ -3568,9 +3568,9 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
                 obj->setStatus(ObjectStatus::Recompute2,false);
                 if(!filter.count(obj) && obj->isTouched()) {
                     if(passes>0)
-                        FC_ERR(obj->getFullName() << " still touched after recompute");
+                        RPS_ERR(obj->getFullName() << " still touched after recompute");
                     else{
-                        FC_LOG(obj->getFullName() << " still touched after recompute");
+                        RPS_LOG(obj->getFullName() << " still touched after recompute");
                         if(idx>=topoSortedObjects.size()) {
                             // let's start the next pass on the first touched object
                             idx = i;
@@ -3584,7 +3584,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
         e.ReportException();
     }
 
-    FC_TIME_LOG(t2, "Recompute");
+    RPS_TIME_LOG(t2, "Recompute");
 
     for(auto obj : topoSortedObjects) {
         if(!obj->getNameInDocument())
@@ -3595,7 +3595,7 @@ int Document::recompute(const std::vector<App::DocumentObject*> &objs, bool forc
 
     signalRecomputed(*this,topoSortedObjects);
 
-    FC_TIME_LOG(t,"Recompute total");
+    RPS_TIME_LOG(t,"Recompute total");
 
     if (d->_RecomputeLog.size()) {
         d->pendingRemove.clear();
@@ -3790,7 +3790,7 @@ const char * Document::getErrorDescription(const App::DocumentObject*Obj) const
 // call the recompute of the Feature and handle the exceptions and errors.
 int Document::_recomputeFeature(DocumentObject* Feat)
 {
-    FC_LOG("Recomputing " << Feat->getFullName());
+    RPS_LOG("Recomputing " << Feat->getFullName());
 
     DocumentObjectExecReturn  *returnCode = nullptr;
     try {
@@ -3803,29 +3803,29 @@ int Document::_recomputeFeature(DocumentObject* Feat)
     }
     catch(Base::AbortException &e){
         e.ReportException();
-        FC_LOG("Failed to recompute " << Feat->getFullName() << ": " << e.what());
+        RPS_LOG("Failed to recompute " << Feat->getFullName() << ": " << e.what());
         d->addRecomputeLog("User abort",Feat);
         return -1;
     }
     catch (const Base::MemoryException& e) {
-        FC_ERR("Memory exception in " << Feat->getFullName() << " thrown: " << e.what());
+        RPS_ERR("Memory exception in " << Feat->getFullName() << " thrown: " << e.what());
         d->addRecomputeLog("Out of memory exception",Feat);
         return 1;
     }
     catch (Base::Exception &e) {
         e.ReportException();
-        FC_LOG("Failed to recompute " << Feat->getFullName() << ": " << e.what());
+        RPS_LOG("Failed to recompute " << Feat->getFullName() << ": " << e.what());
         d->addRecomputeLog(e.what(),Feat);
         return 1;
     }
     catch (std::exception &e) {
-        FC_ERR("exception in " << Feat->getFullName() << " thrown: " << e.what());
+        RPS_ERR("exception in " << Feat->getFullName() << " thrown: " << e.what());
         d->addRecomputeLog(e.what(),Feat);
         return 1;
     }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
     catch (...) {
-        FC_ERR("Unknown exception in " << Feat->getFullName() << " thrown");
+        RPS_ERR("Unknown exception in " << Feat->getFullName() << " thrown");
         d->addRecomputeLog("Unknown exception!",Feat);
         return 1;
     }
@@ -3837,7 +3837,7 @@ int Document::_recomputeFeature(DocumentObject* Feat)
     else {
         returnCode->Which = Feat;
         d->addRecomputeLog(returnCode);
-        FC_LOG("Failed to recompute " << Feat->getFullName() << ": " << returnCode->Why);
+        RPS_LOG("Failed to recompute " << Feat->getFullName() << ": " << returnCode->Why);
         return 1;
     }
     return 0;
@@ -4164,7 +4164,7 @@ void Document::removeObject(const char* sName)
 
     if (pos->second->testStatus(ObjectStatus::PendingRecompute)) {
         // TODO: shall we allow removal if there is active undo transaction?
-        FC_LOG("pending remove of " << sName << " after recomputing document " << getName());
+        RPS_LOG("pending remove of " << sName << " after recomputing document " << getName());
         d->pendingRemove.emplace_back(pos->second);
         return;
     }
@@ -4275,7 +4275,7 @@ void Document::removeObject(const char* sName)
 void Document::_removeObject(DocumentObject* pcObject)
 {
     if (testStatus(Document::Recomputing)) {
-        FC_ERR("Cannot delete " << pcObject->getFullName() << " while recomputing");
+        RPS_ERR("Cannot delete " << pcObject->getFullName() << " while recomputing");
         return;
     }
 
@@ -4430,7 +4430,7 @@ Document::importLinks(const std::vector<App::DocumentObject*> &objArray)
     objs.insert(objs.end(),links.begin(),links.end());
     objs = App::Document::getDependencyList(objs);
     if(objs.empty()) {
-        FC_ERR("nothing to import");
+        RPS_ERR("nothing to import");
         return objs;
     }
 

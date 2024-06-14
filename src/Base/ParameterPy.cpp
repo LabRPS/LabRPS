@@ -25,7 +25,7 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 # include <xercesc/sax/SAXParseException.hpp>
 # endif
 # include <list>
@@ -34,7 +34,7 @@
 # include <utility>
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 # include <unistd.h>
 #endif
 

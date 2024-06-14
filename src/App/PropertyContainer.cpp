@@ -32,7 +32,7 @@
 #include "PropertyContainer.h"
 
 
-FC_LOG_LEVEL_INIT("App",true,true)
+RPS_LOG_LEVEL_INIT("App",true,true)
 
 using namespace App;
 using namespace Base;
@@ -299,7 +299,7 @@ void PropertyContainer::Save (Base::Writer &writer) const
         catch (const char* e) {
             Base::Console().Error("%s\n", e);
         }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
         catch (...) {
             Base::Console().Error("PropertyContainer::Save: Unknown C++ exception thrown. Try to continue...\n");
         }
@@ -326,7 +326,7 @@ void PropertyContainer::Restore(Base::XMLReader &reader)
         reader.readElement("_Property");
         Property* prop = getPropertyByName(reader.getAttribute("name"));
         if(prop)
-            FC_TRACE("restore transient '" << prop->getName() << "'");
+            RPS_TRACE("restore transient '" << prop->getName() << "'");
         if(prop && reader.hasAttribute("status"))
             prop->setStatusValue(reader.getAttributeAsUnsigned("status"));
     }
@@ -357,10 +357,10 @@ void PropertyContainer::Restore(Base::XMLReader &reader)
                         && !status.test(Property::PropTransient)
                         && !prop->testStatus(Property::PropTransient))
                 {
-                    FC_TRACE("restore property '" << prop->getName() << "'");
+                    RPS_TRACE("restore property '" << prop->getName() << "'");
                     prop->Restore(reader);
                 }else
-                    FC_TRACE("skip transient '" << prop->getName() << "'");
+                    RPS_TRACE("skip transient '" << prop->getName() << "'");
             }
             // name matches but not the type
             else if (prop) {
@@ -394,7 +394,7 @@ void PropertyContainer::Restore(Base::XMLReader &reader)
         catch (const char* e) {
             Base::Console().Error("%s\n", e);
         }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
         catch (...) {
             Base::Console().Error("PropertyContainer::Restore: Unknown C++ exception thrown\n");
         }
@@ -412,7 +412,7 @@ void PropertyContainer::onPropertyStatusChanged(const Property &prop, unsigned l
 
 void PropertyData::addProperty(OffsetBase offsetBase,const char* PropName, Property *Prop, const char* PropertyGroup , PropertyType Type, const char* PropertyDocu)
 {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     if(!parentMerged) 
 #endif
     {
@@ -426,9 +426,9 @@ void PropertyData::addProperty(OffsetBase offsetBase,const char* PropName, Prope
                 throw Base::RuntimeError("Cannot add static property");
             index.emplace(PropName, PropertyGroup, PropertyDocu, offset, Type);
         } else{
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             if(it->Offset != offset) {
-                FC_ERR("Duplicate property '" << PropName << "'");
+                RPS_ERR("Duplicate property '" << PropName << "'");
             }
 #endif
         } 

@@ -47,7 +47,7 @@
 #include "ViewProvider.h"
 #include "WaitCursor.h"
 
-FC_LOG_LEVEL_INIT("App",true,true)
+RPS_LOG_LEVEL_INIT("App",true,true)
 
 using namespace Gui;
 namespace bp = boost::placeholders;
@@ -74,7 +74,7 @@ AutoSaver* AutoSaver::instance()
 
 void AutoSaver::renameFile(QString dirName, QString file, QString tmpFile)
 {
-    FC_LOG("auto saver rename " << tmpFile.toUtf8().constData()
+    RPS_LOG("auto saver rename " << tmpFile.toUtf8().constData()
             << " -> " << file.toUtf8().constData());
     QDir dir(dirName);
     dir.remove(file);
@@ -108,7 +108,7 @@ void AutoSaver::slotCreateDocument(const App::Document& Doc)
 
     if (!this->compressed) {
         std::string dirName = Doc.TransientDir.getValue();
-        dirName += "/fc_recovery_files";
+        dirName += "/rps_recovery_files";
         Base::FileInfo fi(dirName);
         fi.createDirectory();
         as->dirName = dirName;
@@ -137,11 +137,11 @@ void AutoSaver::saveDocument(const std::string& name, AutoSaveProperty& saver)
     {
         // Set the document's current transient directory
         std::string dirName = doc->TransientDir.getValue();
-        dirName += "/fc_recovery_files";
+        dirName += "/rps_recovery_files";
         saver.dirName = dirName;
 
         // Write recovery meta file
-        QFile file(QString::fromLatin1("%1/fc_recovery_file.xml")
+        QFile file(QString::fromLatin1("%1/rps_recovery_file.xml")
             .arg(QString::fromUtf8(doc->TransientDir.getValue())));
         if (file.open(QFile::WriteOnly)) {
             QTextStream str(&file);
@@ -190,7 +190,7 @@ void AutoSaver::saveDocument(const std::string& name, AutoSaveProperty& saver)
             // only create the file if something has changed
             else if (!saver.touched.empty()) {
                 std::string fn = doc->TransientDir.getValue();
-                fn += "/fc_recovery_file.fcstd";
+                fn += "/rps_recovery_file.rpsstd";
                 Base::FileInfo tmp(fn);
                 Base::ofstream file(tmp, std::ios::out | std::ios::binary);
                 if (file.is_open())

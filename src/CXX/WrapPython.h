@@ -56,7 +56,7 @@
 
 // pull in python definitions
 #include <Python.h>
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #undef toupper
 #undef tolower
 #undef isupper

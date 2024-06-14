@@ -9075,8 +9075,8 @@ Wilt u het bestand met een andere naam opslaan?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 document (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 document (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10396,8 +10396,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 document (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 document (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

@@ -216,7 +216,7 @@ PP_Run_Known_Callable(PyObject *object,               /* func|class|method */
 
 #define MAX 2024
 /*
-FC_OS_LINUX: This is dangerous. How about PY_EXCEPT_MAX?
+RPS_OS_LINUX: This is dangerous. How about PY_EXCEPT_MAX?
 */
 
 /* exception text is here after PP_Fetch_Error_Text call */
@@ -319,7 +319,7 @@ void PP_Fetch_Error_Text()
         const char *file = PyUnicode_AsUTF8(code->co_filename);
         Py_DECREF(code);
 #endif
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         const char *_f = strstr(file, "\\src\\");
 #else
         const char *_f = strstr(file, "/src/");
@@ -439,7 +439,7 @@ int PP_DEBUG  = 0;    /* debug embedded code with pdb? */
 
 const char *PP_Init(const char *modname) {
     Py_Initialize();                               /* init python if needed */
-//#ifdef FC_OS_LINUX /* cannot convert `const char *' to `char *' in assignment */
+//#ifdef RPS_OS_LINUX /* cannot convert `const char *' to `char *' in assignment */
     if (modname!=NULL) return modname;
     { /* we assume here that the caller frees allocated memory */
       // #0000716: strange assignment and a memory leak
@@ -528,9 +528,9 @@ PP_Run_Command_Line(const char *prompt)
     int res;               /* interact with python, in "__main__" */
     Py_Initialize();       /* in the program's "stdio" window     */
     if (prompt != NULL)
-#if defined (FC_OS_LINUX) || defined(FC_OS_CYGWIN) || defined(FC_OS_MACOSX)
+#if defined (RPS_OS_LINUX) || defined(RPS_OS_CYGWIN) || defined(RPS_OS_MACOSX)
         printf("[%s <Use Ctrl-D (i.e. EOF) to exit.>]\n", prompt);
-#elif defined (FC_OS_WIN32)
+#elif defined (RPS_OS_WIN32)
         printf("[%s <Use Ctrl-Z plus Return to exit.>]\n", prompt);
 #endif
     res = PyRun_InteractiveLoop(stdin, "<stdin>");

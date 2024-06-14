@@ -1,4 +1,4 @@
-#add_defintions(-D_FC_GUI_ENABLED_)
+#add_defintions(-D_RPS_GUI_ENABLED_)
 #add_defintions(-DLABRPSMAINPY)
 
 configure_file(labrps.rc.cmake ${CMAKE_CURRENT_BINARY_DIR}/labrps.rc)

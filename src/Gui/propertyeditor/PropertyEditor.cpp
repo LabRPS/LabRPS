@@ -46,7 +46,7 @@
 #include "ViewProviderDocumentObject.h"
 
 
-FC_LOG_LEVEL_INIT("PropertyView", true, true)
+RPS_LOG_LEVEL_INIT("PropertyView", true, true)
 
 using namespace Gui::PropertyEditor;
 
@@ -206,7 +206,7 @@ void PropertyEditor::editorDestroyed (QObject * editor)
 
 void PropertyEditor::currentChanged ( const QModelIndex & current, const QModelIndex & previous )
 {
-    FC_LOG("current changed " << current.row()<<","<<current.column()
+    RPS_LOG("current changed " << current.row()<<","<<current.column()
             << "  " << previous.row()<<","<<previous.column());
 
     QTreeView::currentChanged(current, previous);
@@ -248,7 +248,7 @@ void PropertyEditor::openEditor(const QModelIndex &index)
 
     auto &app = App::GetApplication();
     if(app.getActiveTransaction()) {
-        FC_LOG("editor already transacting " << app.getActiveTransaction());
+        RPS_LOG("editor already transacting " << app.getActiveTransaction());
         return;
     }
     PropertyItem* item = static_cast<PropertyItem*>(editingIndex.internalPointer());
@@ -256,7 +256,7 @@ void PropertyEditor::openEditor(const QModelIndex &index)
     for(auto propItem=item->parent();items.empty() && propItem;propItem=propItem->parent())
         items = propItem->getPropertyData();
     if(items.empty()) {
-        FC_LOG("editor no item");
+        RPS_LOG("editor no item");
         return;
     }
     auto prop = items[0];
@@ -268,11 +268,11 @@ void PropertyEditor::openEditor(const QModelIndex &index)
             obj = view->getObject();
     }
     if(!obj || !obj->getDocument()) {
-        FC_LOG("invalid object");
+        RPS_LOG("invalid object");
         return;
     }
     if(obj->getDocument()->hasPendingTransaction()) {
-        FC_LOG("pending transaction");
+        RPS_LOG("pending transaction");
         return;
     }
     std::ostringstream str;
@@ -291,7 +291,7 @@ void PropertyEditor::openEditor(const QModelIndex &index)
     if(items.size()>1)
         str << "...";
     transactionID = app.setActiveTransaction(str.str().c_str());
-    FC_LOG("editor transaction " << app.getActiveTransaction());
+    RPS_LOG("editor transaction " << app.getActiveTransaction());
 }
 
 void PropertyEditor::onItemActivated ( const QModelIndex & index )

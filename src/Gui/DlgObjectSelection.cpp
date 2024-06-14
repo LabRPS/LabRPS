@@ -38,7 +38,7 @@
 #include "MetaTypes.h"
 #include "ViewParams.h"
 
-FC_LOG_LEVEL_INIT("Gui",true,true)
+RPS_LOG_LEVEL_INIT("Gui",true,true)
 
 using namespace Gui;
 
@@ -72,7 +72,7 @@ static bool inline setCheckState(QTreeWidgetItem *item, Qt::CheckState state, bo
             return false;
     }
     // auto objT = qvariant_cast<App::SubObjectT>(item->data(0, Qt::UserRole));
-    // FC_MSG(objT.getObjectFullName() << (state == Qt::Unchecked ? " unchecked" :
+    // RPS_MSG(objT.getObjectFullName() << (state == Qt::Unchecked ? " unchecked" :
     //             (state == Qt::Checked ? " checked" : " partial")));
     item->setCheckState(0, state);
     return true;

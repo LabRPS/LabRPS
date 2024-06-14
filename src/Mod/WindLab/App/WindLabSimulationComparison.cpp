@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2013 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>          *
  *                                                                         *
  *   This file is part of the LabRPS development system.              *
  *                                                                         *
@@ -65,7 +65,6 @@ void WindLabSimulationComparison::stop()
 
 bool WindLabSimulationComparison::doubleClicked(void)
 {
-    /*return editSimulation();*/
     return true;
 }
 
@@ -97,7 +96,6 @@ void WindLabSimulationComparison::onChanged(const App::Property* prop)
 PyObject* WindLabSimulationComparison::getPyObject(void)
 {
     if (PythonObject.is(Py::_None())) {
-        // ref counter is set to 1
         PythonObject = Py::Object(new WindLabSimulationComparisonPy(this), true);
     }
     return Py::new_reference_to(PythonObject);

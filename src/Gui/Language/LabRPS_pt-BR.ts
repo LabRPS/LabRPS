@@ -9065,8 +9065,8 @@ Salvar o arquivo com um nome diferente?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>documento %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>documento %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10385,8 +10385,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>documento %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>documento %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

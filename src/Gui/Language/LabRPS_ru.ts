@@ -9080,8 +9080,8 @@ Would you like to save the file with a different name?</source>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>документ %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>документ %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10400,8 +10400,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>документ %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>документ %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>
@@ -10604,7 +10604,7 @@ the current copy will be lost.
       <location filename="../CommandDoc.cpp" line="837"/>
       <location filename="../CommandDoc.cpp" line="838"/>
       <source>Utility to extract or create project files</source>
-      <translation>Утилита для разборки и сборки файлов .FCStd</translation>
+      <translation>Утилита для разборки и сборки файлов .RPSStd</translation>
     </message>
   </context>
   <context>

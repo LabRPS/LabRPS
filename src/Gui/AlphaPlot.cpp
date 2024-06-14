@@ -195,7 +195,7 @@
 #include "PlotPropertyEditor.h"
 #include "AlphaPlotAprojHandler.h"
 
-FC_LOG_LEVEL_INIT("MainAlphaPlot", false, true, true)
+RPS_LOG_LEVEL_INIT("MainAlphaPlot", false, true, true)
 
 #if defined(Q_OS_WIN32)
 #define slots

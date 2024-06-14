@@ -105,7 +105,7 @@ def create_test_file(file_name="part_test_objects",
         It is the name of the document that is created.
 
         The `file_name` will be appended to `file_path`
-        to determine the actual path to save. The extension `.FCStd`
+        to determine the actual path to save. The extension `.RPSStd`
         will be added automatically.
 
     file_path: str, optional
@@ -277,7 +277,7 @@ def create_test_file(file_name="part_test_objects",
     # Export
     if not file_path:
         file_path = App.getUserAppDataDir()
-    out_name = os.path.join(file_path, file_name + ".FCStd")
+    out_name = os.path.join(file_path, file_name + ".RPSStd")
     doc.FileName = out_name
     if save:
         doc.save()

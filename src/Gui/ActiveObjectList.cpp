@@ -34,7 +34,7 @@
 #include "Tree.h"
 
 
-FC_LOG_LEVEL_INIT("MDIView", true, true)
+RPS_LOG_LEVEL_INIT("MDIView", true, true)
 
 using namespace Gui;
 
@@ -143,7 +143,7 @@ void Gui::ActiveObjectList::setObject(App::DocumentObject* obj, const char* name
 
     auto info = getObjectInfo(obj,subname);
     if (!info.obj) {
-        FC_ERR("Cannot set active object "
+        RPS_ERR("Cannot set active object "
                 << obj->getFullName() << '.' << (subname?subname:"")
                 << " in document '" << _Doc->getDocument()->getName()
                 << "'. Not found in current selection");

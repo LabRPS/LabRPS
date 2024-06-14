@@ -6639,8 +6639,8 @@ Maak asb. 'n leservenster oop en tik in http://localhost:%1</translation>
       <translation>Stoor '%1' Dokument</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1-dokument (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1-dokument (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7953,8 +7953,8 @@ Physical path: </translation>
       <translation>Kan nie die projek met homself verenig nie.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1-dokument (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1-dokument (*.RPSStd)</translation>
     </message>
   </context>
   <context>

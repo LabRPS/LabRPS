@@ -55,7 +55,7 @@
 #include <boost/bind/bind.hpp>
 #include <boost/scoped_ptr.hpp>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # define NOMINMAX
 # include <windows.h>
 #endif

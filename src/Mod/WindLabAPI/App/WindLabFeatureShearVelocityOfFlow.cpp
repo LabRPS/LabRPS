@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureShearVelocityOfFlow",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureShearVelocityOfFlow",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureShearVelocityOfFlow, WindLabAPI::WindLabFeature)
 

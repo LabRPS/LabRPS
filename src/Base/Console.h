@@ -47,13 +47,13 @@ typedef struct PyMethodDef PyMethodDef;
 //**************************************************************************
 // Logging levels
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
 /// switch on the logging of python object creation and destruction
-#  undef FC_LOGPYOBJECTS
+#  undef RPS_LOGPYOBJECTS
 /// switch on the logging of Feature update and execution
-#  define FC_LOGFEATUREUPDATE
+#  define RPS_LOGFEATUREUPDATE
 /// switch on the logging of the Update execution through Doc, App, GuiApp and GuiDoc
-#  undef FC_LOGUPDATECHAIN
+#  undef RPS_LOGUPDATECHAIN
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ typedef struct PyMethodDef PyMethodDef;
  * you need to initialize the log level of your chosen tag using,
  *
  * \code{.c}
- * FC_LOG_LEVEL_INIT(tag)
+ * RPS_LOG_LEVEL_INIT(tag)
  * \endcode
  *
  * It makes sense to use the same tag in multiple files for easy log level
@@ -90,18 +90,18 @@ typedef struct PyMethodDef PyMethodDef;
  * Predefined log levels are,
  *
  * \code{.c}
- * #define FC_LOGLEVEL_ERR 0
- * #define FC_LOGLEVEL_WARN 1
- * #define FC_LOGLEVEL_MSG 2
- * #define FC_LOGLEVEL_LOG 3
- * #define FC_LOGLEVEL_TRACE 4
+ * #define RPS_LOGLEVEL_ERR 0
+ * #define RPS_LOGLEVEL_WARN 1
+ * #define RPS_LOGLEVEL_MSG 2
+ * #define RPS_LOGLEVEL_LOG 3
+ * #define RPS_LOGLEVEL_TRACE 4
  * \endcode
  *
  * Bigger log level integer values have lower priorities. There is a special log
  * level,
  *
  * \code{.c}
- * #define FC_LOGLEVEL_DEFAULT -1
+ * #define RPS_LOGLEVEL_DEFAULT -1
  * \endcode
  *
  * Actually, any negative log level behave the same, which is for tags
@@ -116,18 +116,18 @@ typedef struct PyMethodDef PyMethodDef;
  *
  * where \c level is either a string of value <tt>Error, Warning, Message, Log,
  * Trace</tt> or an integer value. By default, on release build, the default log
- * level is \c FC_LOGLEVEL_MSG, and on debug build, \c FC_LOGLEVEL_LOG.
+ * level is \c RPS_LOGLEVEL_MSG, and on debug build, \c RPS_LOGLEVEL_LOG.
  *
  * Python code can call \c LabRPS.setLogLevel(tag,level) to configure any other
  * tag log levels, and \c LabRPS.getLogLevel(tag), which outputs only integer
  * log level.
  *
  * You can fine tune how the log is output by passing extra parameters to
- * #FC_LOG_LEVEL_INIT(). All the extra parameters are boolean value, which are
+ * #RPS_LOG_LEVEL_INIT(). All the extra parameters are boolean value, which are
  * shown blew along with their default values.
  *
  * \code{.c}
- * FC_LOG_LEVEL_INIT(tag, print_tag=true, print_src=0,
+ * RPS_LOG_LEVEL_INIT(tag, print_tag=true, print_src=0,
  *          print_time=false, add_eol=true, refresh=false)
  * \endcode
  *
@@ -136,15 +136,15 @@ typedef struct PyMethodDef PyMethodDef;
  * more details
  *
  * \code{.c}
- * FC_LOG_INSTANCE.refresh = true; // print time for each log, default false.
+ * RPS_LOG_INSTANCE.refresh = true; // print time for each log, default false.
  *
  * // print file and line number, default 0, if set to 2 then print python
  * // source from current call frame.
- * FC_LOG_INSTANCE.print_src = 1;
+ * RPS_LOG_INSTANCE.print_src = 1;
  *
- * FC_LOG_INSTANCE.print_tag = false; // do not print tag, default true
- * FC_LOG_INSTANCE.add_eol = false; // do not add eol
- * FC_LOG_INSTANCE.refresh = true; // refresh GUI after each log
+ * RPS_LOG_INSTANCE.print_tag = false; // do not print tag, default true
+ * RPS_LOG_INSTANCE.add_eol = false; // do not add eol
+ * RPS_LOG_INSTANCE.refresh = true; // refresh GUI after each log
  * \endcode
  *
  * Be careful with 'refresh' option. Its current implementation calls
@@ -154,21 +154,21 @@ typedef struct PyMethodDef PyMethodDef;
  * The actual logging macros are
  *
  * \code
- * FC_ERR(msg)
- * FC_WARN(msg)
- * FC_MSG(msg)
- * FC_LOG(msg)
- * FC_TRACE(msg)
+ * RPS_ERR(msg)
+ * RPS_WARN(msg)
+ * RPS_MSG(msg)
+ * RPS_LOG(msg)
+ * RPS_TRACE(msg)
  * \endcode
  *
  * The logging macros correspond to existing Base::Console() output functions,
- * and \c FC_TRACE uses Base::Console().Log(), same as \c FC_LOG. These macros
- * checks the log level defined in \c FC_LOG_LEVEL_INIT to decide whether to
+ * and \c RPS_TRACE uses Base::Console().Log(), same as \c RPS_LOG. These macros
+ * checks the log level defined in \c RPS_LOG_LEVEL_INIT to decide whether to
  * print log or not. \c msg here shall be a C++ streaming expression. End of
  * line will be automatically appended by default.
  *
  * \code
- * FC_ERR("error: " << code << ". exiting")
+ * RPS_ERR("error: " << code << ". exiting")
  * \endcode
  *
  * \section TimingHelper Timing Helpers
@@ -178,11 +178,11 @@ typedef struct PyMethodDef PyMethodDef;
  *
  * \code{.c}
  * void operation() {
- *      FC_TIME_INIT(t);
+ *      RPS_TIME_INIT(t);
  *
  *      //do stuff
  *
- *      FC_TIME_LOG(t,"operation done.");
+ *      RPS_TIME_LOG(t,"operation done.");
  * }
  * \endcode
  *
@@ -192,28 +192,28 @@ typedef struct PyMethodDef PyMethodDef;
  * operation done. time: 1.12s
  * \endcode
  *
- * Every time you call \c FC_TIME_LOG it will calculate the time duration
- * between this call and the last \c FC_TIME_LOG or \c FC_TIME_INIT.  Time
+ * Every time you call \c RPS_TIME_LOG it will calculate the time duration
+ * between this call and the last \c RPS_TIME_LOG or \c RPS_TIME_INIT.  Time
  * variable \c t will then be updated to the current time. You can also use
- * <tt>FC_TIME_MSG, FC_TIME_TRACE</tt> similar to <tt>FC_MSG and FC_TRACE</tt>.
+ * <tt>RPS_TIME_MSG, RPS_TIME_TRACE</tt> similar to <tt>RPS_MSG and RPS_TRACE</tt>.
  *
  * To time operation in multiple stages,
  *
  * \code{.cpp}
  * void operation() {
- *      FC_TIME_INIT2(t,t1);
+ *      RPS_TIME_INIT2(t,t1);
  *
  *      //do stage 1
  *
- *      FC_TIME_LOG(t1,"stage1");
+ *      RPS_TIME_LOG(t1,"stage1");
  *
  *      //do stage 2
  *
- *      FC_TIME_LOG(t1,"stage2");
+ *      RPS_TIME_LOG(t1,"stage2");
  *
  *      // do other stuff
  *
- *      FC_TIME_LOG(t,"total");
+ *      RPS_TIME_LOG(t,"total");
  * }
  * \endcode
  *
@@ -228,54 +228,54 @@ typedef struct PyMethodDef PyMethodDef;
  *
  * \code{.cpp}
  * class Timing {
- *      FC_DURATION_DECLARE(d1)
- *      FC_DURATION_DECLARE(d1_1)
- *      FC_DURATION_DECLARE(d1_2)
- *      FC_DURATION_DECLARE(d2);
+ *      RPS_DURATION_DECLARE(d1)
+ *      RPS_DURATION_DECLARE(d1_1)
+ *      RPS_DURATION_DECLARE(d1_2)
+ *      RPS_DURATION_DECLARE(d2);
  *
  *      Timing() {
- *          FC_DURATION_INIT(d1);
- *          FC_DURATION_INIT(d1_1);
- *          FC_DURATION_INIT(d1_2);
- *          FC_DURATION_INIT(d2);
+ *          RPS_DURATION_INIT(d1);
+ *          RPS_DURATION_INIT(d1_1);
+ *          RPS_DURATION_INIT(d1_2);
+ *          RPS_DURATION_INIT(d2);
  *      }
  * };
  *
  * void operation1(Timing &timing) {
  *
- *      FC_TIME_INIT(t);
+ *      RPS_TIME_INIT(t);
  *
  *      for(...) {
- *          FC_TIME_INIT(t1);
+ *          RPS_TIME_INIT(t1);
  *
  *          //do setp 1
  *
- *          FC_DURATION_PLUS(timing.d1_1,t1);
+ *          RPS_DURATION_PLUS(timing.d1_1,t1);
  *
  *          // do step 2
  *
- *          FC_DURATION_PLUS(timing.d1_2,t1);
+ *          RPS_DURATION_PLUS(timing.d1_2,t1);
  *      }
  *
  *      // do other stuff
  *
- *      FC_DRUATION_PLUS(timing.d1, t);
+ *      RPS_DRUATION_PLUS(timing.d1, t);
  * }
  *
  * void operation2(Timing &timing) {
  *
- *      FC_TIME_INIT(t);
+ *      RPS_TIME_INIT(t);
  *
  *      // do stuff
  *
- *      FC_DRUATION_PLUS(timing.d2, t);
+ *      RPS_DRUATION_PLUS(timing.d2, t);
  * }
  *
  * void operation() {
  *
  *      Timing timing;
  *
- *      FC_TIME_INIT(t);
+ *      RPS_TIME_INIT(t);
  *
  *      for(...) {
  *          operation1(timing);
@@ -285,18 +285,18 @@ typedef struct PyMethodDef PyMethodDef;
  *          operation2(timing);
  *      }
  *
- *      FC_DURATION_LOG(timing.d1_1,"operation 1 step 1");
- *      FC_DURATION_LOG(timing.d1_2,"operation 1 step 2");
- *      FC_DURATION_LOG(timing.d1,"operation 1");
- *      FC_DURATION_LOG(timing.d2,"operation 2");
- *      FC_TIME_LOG(t,"operation total");
+ *      RPS_DURATION_LOG(timing.d1_1,"operation 1 step 1");
+ *      RPS_DURATION_LOG(timing.d1_2,"operation 1 step 2");
+ *      RPS_DURATION_LOG(timing.d1,"operation 1");
+ *      RPS_DURATION_LOG(timing.d2,"operation 2");
+ *      RPS_TIME_LOG(t,"operation total");
  * }
  * \endcode
  *
- * You can also use <tt>FC_DURATION_MSG, FC_DURATION_TRACE</tt> as usual.
+ * You can also use <tt>RPS_DURATION_MSG, RPS_DURATION_TRACE</tt> as usual.
  *
  * If you use only macros provided here to do timing, the entire timing code
- * can be compiled out by defining \c FC_LOG_NO_TIMING before including
+ * can be compiled out by defining \c RPS_LOG_NO_TIMING before including
  * \c App/Console.h.
  *
  * \section Customization
@@ -309,7 +309,7 @@ typedef struct PyMethodDef PyMethodDef;
  * developer or end-user can set/get the same tag based log level using
  * LabRPS.setLogLevel/getLogLevel. Any change to the log level is reflected
  * through the pointer returned by Base::Console().GetLogLevel(). What
- * \c FC_LOG_LEVEL_INIT(tag) does is to define a class Base::LogLevel, and then
+ * \c RPS_LOG_LEVEL_INIT(tag) does is to define a class Base::LogLevel, and then
  * a file static instance of that class to store the pointer to the desired tag
  * log level. The class and instance name is predefined. Various log macros
  * will check that instance to query log level. If you some how want to have
@@ -317,47 +317,47 @@ typedef struct PyMethodDef PyMethodDef;
  * define a second instance of name \c instance_name
  *
  * \code
- * _FC_LOG_LEVEL_INIT(instance_name,tag)
+ * _RPS_LOG_LEVEL_INIT(instance_name,tag)
  * \endcode
  *
  * Then, define a second set of logging macros as
  *
  * \code{.c}
- * #define MY_MSG(_msg) _FC_PRINT(instance_name,FC_LOGLEVEL_MSG,Message,_msg)
- * #define MY_WARN(_msg) _FC_PRINT(instance_name,FC_LOGLEVEL_WARN,Warning,_msg)
- * #define MY_ERR(_msg) _FC_PRINT(instance_name,FC_LOGLEVEL_ERR,Error,_msg)
- * #define MY_LOG(_msg) _FC_PRINT(instance_name,FC_LOGLEVEL_LOG,Log,_msg)
- * #define MY_TRACE(_msg) _FC_PRINT(instance_name,FC_LOGLEVEL_TRACE,Log,_msg)
+ * #define MY_MSG(_msg) _RPS_PRINT(instance_name,RPS_LOGLEVEL_MSG,Message,_msg)
+ * #define MY_WARN(_msg) _RPS_PRINT(instance_name,RPS_LOGLEVEL_WARN,Warning,_msg)
+ * #define MY_ERR(_msg) _RPS_PRINT(instance_name,RPS_LOGLEVEL_ERR,Error,_msg)
+ * #define MY_LOG(_msg) _RPS_PRINT(instance_name,RPS_LOGLEVEL_LOG,Log,_msg)
+ * #define MY_TRACE(_msg) _RPS_PRINT(instance_name,RPS_LOGLEVEL_TRACE,Log,_msg)
  * \endcode
  *
  * Note, replace \c instance_name with your actual desired name.
  *
  * You can also define your own log levels the same way. Macro
- * #_FC_PRINT(_instance,_l,_func,_msg) checks to see if the log shall proceed,
+ * #_RPS_PRINT(_instance,_l,_func,_msg) checks to see if the log shall proceed,
  * where \c _instance is the static loglevel instance name (default is
- * \c FC_LOG_INSTANCE), and \c _l is the log level constant to be checked,
+ * \c RPS_LOG_INSTANCE), and \c _l is the log level constant to be checked,
  * \c _func is the Base::Console() function to print the log.
  *
  */
 
-#define FC_LOGLEVEL_DEFAULT -1
-#define FC_LOGLEVEL_ERR 0
-#define FC_LOGLEVEL_WARN 1
-#define FC_LOGLEVEL_MSG 2
-#define FC_LOGLEVEL_LOG 3
-#define FC_LOGLEVEL_TRACE 4
+#define RPS_LOGLEVEL_DEFAULT -1
+#define RPS_LOGLEVEL_ERR 0
+#define RPS_LOGLEVEL_WARN 1
+#define RPS_LOGLEVEL_MSG 2
+#define RPS_LOGLEVEL_LOG 3
+#define RPS_LOGLEVEL_TRACE 4
 
-#define _FC_LOG_LEVEL_INIT(_name,_tag,...) \
+#define _RPS_LOG_LEVEL_INIT(_name,_tag,...) \
     static Base::LogLevel _name(_tag,## __VA_ARGS__);
 
-#ifndef FC_LOG_INSTANCE
-#   define FC_LOG_INSTANCE _s_fclvl
+#ifndef RPS_LOG_INSTANCE
+#   define RPS_LOG_INSTANCE _s_fclvl
 #endif
 
-#define FC_LOG_LEVEL_INIT(_tag,...) \
-    _FC_LOG_LEVEL_INIT(FC_LOG_INSTANCE, _tag, ## __VA_ARGS__)
+#define RPS_LOG_LEVEL_INIT(_tag,...) \
+    _RPS_LOG_LEVEL_INIT(RPS_LOG_INSTANCE, _tag, ## __VA_ARGS__)
 
-#define __FC_PRINT(_instance,_l,_func,_msg,_file,_line) do{\
+#define __RPS_PRINT(_instance,_l,_func,_msg,_file,_line) do{\
     if(_instance.isEnabled(_l)) {\
         std::stringstream _str;\
         _instance.prefix(_str,_file,_line) << _msg;\
@@ -368,84 +368,84 @@ typedef struct PyMethodDef PyMethodDef;
     }\
 }while(0)
 
-#define _FC_PRINT(_instance,_l,_func,_msg) __FC_PRINT(_instance,_l,_func,_msg,__FILE__,__LINE__)
+#define _RPS_PRINT(_instance,_l,_func,_msg) __RPS_PRINT(_instance,_l,_func,_msg,__FILE__,__LINE__)
 
-#define FC_MSG(_msg) _FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_MSG,NotifyMessage,_msg)
-#define FC_WARN(_msg) _FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_WARN,NotifyWarning,_msg)
-#define FC_ERR(_msg) _FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_ERR,NotifyError,_msg)
-#define FC_LOG(_msg) _FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_LOG,NotifyLog,_msg)
-#define FC_TRACE(_msg) _FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_TRACE,NotifyLog,_msg)
+#define RPS_MSG(_msg) _RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_MSG,NotifyMessage,_msg)
+#define RPS_WARN(_msg) _RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_WARN,NotifyWarning,_msg)
+#define RPS_ERR(_msg) _RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_ERR,NotifyError,_msg)
+#define RPS_LOG(_msg) _RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_LOG,NotifyLog,_msg)
+#define RPS_TRACE(_msg) _RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_TRACE,NotifyLog,_msg)
 
-#define _FC_MSG(_file,_line,_msg) __FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_MSG,NotifyMessage,_msg,_file,_line)
-#define _FC_WARN(_file,_line,_msg) __FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_WARN,NotifyWarning,_msg,_file,_line)
-#define _FC_ERR(_file,_line,_msg) __FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_ERR,NotifyError,_msg,_file,_line)
-#define _FC_LOG(_file,_line,_msg) __FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_LOG,NotifyLog,_msg,_file,_line)
-#define _FC_TRACE(_file,_line,_msg) __FC_PRINT(FC_LOG_INSTANCE,FC_LOGLEVEL_TRACE,NotifyLog,_msg,_file,_line)
+#define _RPS_MSG(_file,_line,_msg) __RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_MSG,NotifyMessage,_msg,_file,_line)
+#define _RPS_WARN(_file,_line,_msg) __RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_WARN,NotifyWarning,_msg,_file,_line)
+#define _RPS_ERR(_file,_line,_msg) __RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_ERR,NotifyError,_msg,_file,_line)
+#define _RPS_LOG(_file,_line,_msg) __RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_LOG,NotifyLog,_msg,_file,_line)
+#define _RPS_TRACE(_file,_line,_msg) __RPS_PRINT(RPS_LOG_INSTANCE,RPS_LOGLEVEL_TRACE,NotifyLog,_msg,_file,_line)
 
-#define FC_XYZ(_pt) '('<<(_pt).X()<<", " << (_pt).Y()<<", " << (_pt).Z()<<')'
-#define FC_xy(_pt) '('<<(_pt).x<<", " << (_pt).y<<')'
-#define FC_xyz(_pt) '('<<(_pt).x<<", " << (_pt).y<<", " << (_pt).z<<')'
+#define RPS_XYZ(_pt) '('<<(_pt).X()<<", " << (_pt).Y()<<", " << (_pt).Z()<<')'
+#define RPS_xy(_pt) '('<<(_pt).x<<", " << (_pt).y<<')'
+#define RPS_xyz(_pt) '('<<(_pt).x<<", " << (_pt).y<<", " << (_pt).z<<')'
 
-#ifndef FC_LOG_NO_TIMING
-#   define FC_TIME_CLOCK high_resolution_clock
-#   define FC_TIME_POINT std::chrono::FC_TIME_CLOCK::time_point
-#   define FC_DURATION std::chrono::duration<double>
+#ifndef RPS_LOG_NO_TIMING
+#   define RPS_TIME_CLOCK high_resolution_clock
+#   define RPS_TIME_POINT std::chrono::RPS_TIME_CLOCK::time_point
+#   define RPS_DURATION std::chrono::duration<double>
 
-#   define _FC_TIME_INIT(_t) _t=std::chrono::FC_TIME_CLOCK::now()
-#   define FC_TIME_INIT(_t) FC_TIME_POINT _FC_TIME_INIT(_t)
-#   define FC_TIME_INIT2(_t1,_t2) FC_TIME_INIT(_t1),_t2=_t1
-#   define FC_TIME_INIT3(_t1,_t2,_t3) FC_TIME_INIT(_t1),_t2=_t1,_t3=_t1
+#   define _RPS_TIME_INIT(_t) _t=std::chrono::RPS_TIME_CLOCK::now()
+#   define RPS_TIME_INIT(_t) RPS_TIME_POINT _RPS_TIME_INIT(_t)
+#   define RPS_TIME_INIT2(_t1,_t2) RPS_TIME_INIT(_t1),_t2=_t1
+#   define RPS_TIME_INIT3(_t1,_t2,_t3) RPS_TIME_INIT(_t1),_t2=_t1,_t3=_t1
 
-#   define _FC_DURATION_PRINT(_l,_d,_msg) \
-        FC_##_l(_msg<< " time: " << _d.count()<<'s');
+#   define _RPS_DURATION_PRINT(_l,_d,_msg) \
+        RPS_##_l(_msg<< " time: " << _d.count()<<'s');
 
-#   define FC_DURATION_MSG(_d,_msg) _FC_DURATION_PRINT(MSG,_d,_msg)
-#   define FC_DURATION_LOG(_d,_msg) _FC_DURATION_PRINT(LOG,_d,_msg)
-#   define FC_DURATION_TRACE(_d,_msg) _FC_DURATION_PRINT(TRACE,_d,_msg)
+#   define RPS_DURATION_MSG(_d,_msg) _RPS_DURATION_PRINT(MSG,_d,_msg)
+#   define RPS_DURATION_LOG(_d,_msg) _RPS_DURATION_PRINT(LOG,_d,_msg)
+#   define RPS_DURATION_TRACE(_d,_msg) _RPS_DURATION_PRINT(TRACE,_d,_msg)
 
-#   define _FC_TIME_PRINT(_l,_t,_msg) \
-        _FC_DURATION_PRINT(_l,Base::GetDuration(_t),_msg);
+#   define _RPS_TIME_PRINT(_l,_t,_msg) \
+        _RPS_DURATION_PRINT(_l,Base::GetDuration(_t),_msg);
 
-#   define FC_TIME_MSG(_t,_msg) _FC_TIME_PRINT(MSG,_t,_msg)
-#   define FC_TIME_LOG(_t,_msg) _FC_TIME_PRINT(LOG,_t,_msg)
-#   define FC_TIME_TRACE(_t,_msg) _FC_TIME_PRINT(TRACE,_t,_msg)
+#   define RPS_TIME_MSG(_t,_msg) _RPS_TIME_PRINT(MSG,_t,_msg)
+#   define RPS_TIME_LOG(_t,_msg) _RPS_TIME_PRINT(LOG,_t,_msg)
+#   define RPS_TIME_TRACE(_t,_msg) _RPS_TIME_PRINT(TRACE,_t,_msg)
 
-#   define FC_DURATION_DECLARE(_d) FC_DURATION _d
-#   define FC_DURATION_DECLARE2(_d,_d1) FC_DURATION_DECLARE(_d),_d1
-#   define FC_DURATION_DECLARE3(_d,_d1) FC_DURATION_DECLARE2(_d,_d1),_d2
+#   define RPS_DURATION_DECLARE(_d) RPS_DURATION _d
+#   define RPS_DURATION_DECLARE2(_d,_d1) RPS_DURATION_DECLARE(_d),_d1
+#   define RPS_DURATION_DECLARE3(_d,_d1) RPS_DURATION_DECLARE2(_d,_d1),_d2
 
-#   define FC_DURATION_INIT(_d) _d=FC_DURATION(0)
-#   define FC_DURATION_INIT2(_d,_d1) _d=_d1=FC_DURATION(0)
-#   define FC_DURATION_INIT3(_d,_d1,_d2) _d=_d1=_d2=FC_DURATION(0)
+#   define RPS_DURATION_INIT(_d) _d=RPS_DURATION(0)
+#   define RPS_DURATION_INIT2(_d,_d1) _d=_d1=RPS_DURATION(0)
+#   define RPS_DURATION_INIT3(_d,_d1,_d2) _d=_d1=_d2=RPS_DURATION(0)
 
-#   define FC_DURATION_DECL_INIT(_d) FC_DURATION _d(0)
-#   define FC_DURATION_DECL_INIT2(_d,_d1) FC_DURATION_DECL_INIT(_d),_d1(0)
-#   define FC_DURATION_DECL_INIT3(_d,_d1) FC_DURATION_DECL_INIT2(_d,_d1),_d3(0)
+#   define RPS_DURATION_DECL_INIT(_d) RPS_DURATION _d(0)
+#   define RPS_DURATION_DECL_INIT2(_d,_d1) RPS_DURATION_DECL_INIT(_d),_d1(0)
+#   define RPS_DURATION_DECL_INIT3(_d,_d1) RPS_DURATION_DECL_INIT2(_d,_d1),_d3(0)
 
-#   define FC_DURATION_PLUS(_d,_t) _d += Base::GetDuration(_t)
+#   define RPS_DURATION_PLUS(_d,_t) _d += Base::GetDuration(_t)
 
-#else //FC_LOG_NO_TIMING
-#   define FC_TIME_POINT
-#   define _FC_TIME_INIT(...) do{}while(0)
-#   define FC_TIME_INIT(...) do{}while(0)
-#   define FC_TIME_INIT2(...) do{}while(0)
-#   define FC_TIME_INIT3(...) do{}while(0)
-#   define _FC_DURATION_PRINT(...) do{}while(0)
-#   define _FC_TIME(_t) do{}while(0)
-#   define FC_DURATION_PRINT(...) do{}while(0)
-#   define FC_DURATION
-#   define FC_DURATION_INIT(...) do{}while(0)
-#   define FC_DURATION_INIT1(...) do{}while(0)
-#   define FC_DURATION_INIT2(...) do{}while(0)
-#   define FC_DURATION_DECLARE(...)
-#   define FC_DURATION_DECLARE1(...)
-#   define FC_DURATION_DECLARE2(...)
-#   define FC_DURATION_DECL_INIT(...) do{}while(0)
-#   define FC_DURATION_DECL_INIT2(...) do{}while(0)
-#   define FC_DURATION_DECL_INIT3(...) do{}while(0)
-#   define FC_DURATION_PLUS(...) do{}while(0)
+#else //RPS_LOG_NO_TIMING
+#   define RPS_TIME_POINT
+#   define _RPS_TIME_INIT(...) do{}while(0)
+#   define RPS_TIME_INIT(...) do{}while(0)
+#   define RPS_TIME_INIT2(...) do{}while(0)
+#   define RPS_TIME_INIT3(...) do{}while(0)
+#   define _RPS_DURATION_PRINT(...) do{}while(0)
+#   define _RPS_TIME(_t) do{}while(0)
+#   define RPS_DURATION_PRINT(...) do{}while(0)
+#   define RPS_DURATION
+#   define RPS_DURATION_INIT(...) do{}while(0)
+#   define RPS_DURATION_INIT1(...) do{}while(0)
+#   define RPS_DURATION_INIT2(...) do{}while(0)
+#   define RPS_DURATION_DECLARE(...)
+#   define RPS_DURATION_DECLARE1(...)
+#   define RPS_DURATION_DECLARE2(...)
+#   define RPS_DURATION_DECL_INIT(...) do{}while(0)
+#   define RPS_DURATION_DECL_INIT2(...) do{}while(0)
+#   define RPS_DURATION_DECL_INIT3(...) do{}while(0)
+#   define RPS_DURATION_PLUS(...) do{}while(0)
 
-#endif //FC_LOG_NO_TIMING
+#endif //RPS_LOG_NO_TIMING
 
 //TODO: Get rid of this forward-declaration
 namespace Base {
@@ -457,11 +457,11 @@ typedef unsigned int ConsoleMsgFlags;
 
 namespace Base {
 
-#ifndef FC_LOG_NO_TIMING
-inline FC_DURATION GetDuration(FC_TIME_POINT &t)
+#ifndef RPS_LOG_NO_TIMING
+inline RPS_DURATION GetDuration(RPS_TIME_POINT &t)
 {
-    auto tnow = std::chrono::FC_TIME_CLOCK::now();
-    auto d = std::chrono::duration_cast<FC_DURATION>(tnow-t);
+    auto tnow = std::chrono::RPS_TIME_CLOCK::now();
+    auto d = std::chrono::duration_cast<RPS_DURATION>(tnow-t);
     t = tnow;
     return d;
 }

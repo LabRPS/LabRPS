@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -50,11 +50,7 @@ public:
     virtual void emptyAllToBeUninstalledObjectsMap() const;
     virtual bool isThisPluginInstalled(const QString& pluginName) const;
     virtual QString getPhenomenonName() const;
-    virtual void draw();
-    virtual Base::Vector3d getSceneCenter();
-    virtual double getSceneRadius();
-    virtual void restoreSimulations(const App::Document &doc, const std::vector<App::DocumentObject*>& objs);
-
+    
     virtual std::list<std::string> getAllPlugins() const;
     virtual std::list<std::string> getAllInstalledPlugins() const;
     virtual bool installPlugin(const std::string pluginName);

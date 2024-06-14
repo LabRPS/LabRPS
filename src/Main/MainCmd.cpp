@@ -27,7 +27,7 @@
 # undef _PreComp_
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 # include <unistd.h>
 #endif
 

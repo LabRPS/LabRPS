@@ -16,7 +16,7 @@ add_custom_target(_TEMPLATE_Scripts ALL
     SOURCES ${_TEMPLATE__Scripts}
 )
 
-fc_target_copy_resource_flat(_TEMPLATE_Scripts
+rps_target_copy_resource_flat(_TEMPLATE_Scripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/_TEMPLATE_
     ${_TEMPLATE__Scripts}

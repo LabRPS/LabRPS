@@ -28,7 +28,7 @@
 
 
 #include <cstdio>
-#if defined(FC_OS_BSD)
+#if defined(RPS_OS_BSD)
 #include <sys/time.h>
 #else
 #include <sys/timeb.h>
@@ -42,7 +42,7 @@
 #include <string>
 #include <RPSGlobal.h>
 
-#if defined(FC_OS_BSD)
+#if defined(RPS_OS_BSD)
 struct timeb
 {
     int64_t time;

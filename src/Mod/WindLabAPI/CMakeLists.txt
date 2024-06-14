@@ -15,7 +15,7 @@ add_custom_target(WindLabAPIScripts ALL
 )
 set_target_properties(WindLabAPIScripts PROPERTIES FOLDER "Workbenches/WindLabAPI")
 
-fc_target_copy_resource_flat(WindLabAPIScripts
+rps_target_copy_resource_flat(WindLabAPIScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/WindLabAPI
     ${WindLabAPI_Scripts}

@@ -24,10 +24,10 @@
 
 #ifndef _PreComp_
 # include <cfloat>
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  include <windows.h>
 # endif
-# ifdef FC_OS_MACOSX
+# ifdef RPS_OS_MACOSX
 # include <OpenGL/gl.h>
 # else
 # include <GL/gl.h>
@@ -117,9 +117,9 @@
 #include "ViewProviderLink.h"
 
 
-FC_LOG_LEVEL_INIT("3DViewer",true,true)
+RPS_LOG_LEVEL_INIT("3DViewer",true,true)
 
-//#define FC_LOGGING_CB
+//#define RPS_LOGGING_CB
 
 using namespace Gui;
 
@@ -441,7 +441,7 @@ void View3DInventorViewer::init()
     dimensionRoot->addChild(new SoSwitch()); //second one for the delta dimensions.
 
     // This is a callback node that logs all action that traverse the Inventor tree.
-#if defined (FC_DEBUG) && defined(FC_LOGGING_CB)
+#if defined (RPS_DEBUG) && defined(RPS_LOGGING_CB)
     SoCallback* cb = new SoCallback;
     cb->setCallback(interactionLoggerCB, this);
     pcViewProviderRoot->addChild(cb);
@@ -696,7 +696,7 @@ void View3DInventorViewer::clearGroupOnTop() {
         action.apply(pcGroupOnTopSel);
         coinRemoveAllChildren(pcGroupOnTopSel);
         coinRemoveAllChildren(pcGroupOnTopPreSel);
-        FC_LOG("clear annotation");
+        RPS_LOG("clear annotation");
     }
 }
 
@@ -746,9 +746,9 @@ void View3DInventorViewer::checkGroupOnTop(const SelectionChanges &Reason) {
             action.apply(&tmpPath);
             tmpPath.unrefNoDelete();
             pcGroup->removeChild(index);
-            FC_LOG("remove annotation " << Reason.Type << " " << key);
+            RPS_LOG("remove annotation " << Reason.Type << " " << key);
         }else
-            FC_LOG("remove annotation object " << Reason.Type << " " << key);
+            RPS_LOG("remove annotation object " << Reason.Type << " " << key);
         objs.erase(it);
         return;
     }
@@ -837,12 +837,12 @@ void View3DInventorViewer::checkGroupOnTop(const SelectionChanges &Reason) {
         if(idx<0 || idx>=modeSwitch->getNumChildren() ||
            modeSwitch->getChild(idx)!=childRoot)
         {
-            FC_LOG("skip " << obj->getFullName() << '.' << (subname?subname:"")
+            RPS_LOG("skip " << obj->getFullName() << '.' << (subname?subname:"")
                     << ", hidden inside geo group");
             return;
         }
         if(childRoot->findChild(childVp->getRoot())<0) {
-            FC_LOG("cannot find '" << childVp->getObject()->getFullName()
+            RPS_LOG("cannot find '" << childVp->getObject()->getFullName()
                     << "' in geo group '" << grp->getNameInDocument() << "'");
             break;
         }
@@ -877,7 +877,7 @@ void View3DInventorViewer::checkGroupOnTop(const SelectionChanges &Reason) {
             node->setDetail(det);
             det = nullptr;
         }
-        FC_LOG("add annotation " << Reason.Type << " " << key);
+        RPS_LOG("add annotation " << Reason.Type << " " << key);
         objs[key.c_str()] = node;
     }
     delete det;
@@ -1055,7 +1055,7 @@ void View3DInventorViewer::resetEditingRoot(bool updateLinks)
     restoreEditingRoot = false;
     auto root = editViewProvider->getRoot();
     if(root->getNumChildren())
-        FC_ERR("WARNING!!! Editing view provider root node is tampered");
+        RPS_ERR("WARNING!!! Editing view provider root node is tampered");
     root->addChild(editViewProvider->getTransformNode());
     for(int i=1,count=pcEditingRoot->getNumChildren();i<count;++i)
         root->addChild(pcEditingRoot->getChild(i));
@@ -1464,10 +1464,10 @@ void View3DInventorViewer::setNavigationType(Base::Type t)
     NavigationStyle* ns = static_cast<NavigationStyle*>(type.createInstance());
     // createInstance could return a null pointer
     if (!ns) {
-#if FC_DEBUG
+#if RPS_DEBUG
         SoDebugError::postWarning("View3DInventorViewer::setNavigationType",
                                   "Navigation object must be of type NavigationStyle.");
-#endif // FC_DEBUG
+#endif // RPS_DEBUG
         return;
     }
 

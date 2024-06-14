@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureWavePassageEffect",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureWavePassageEffect",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureWavePassageEffect, WindLabAPI::WindLabFeature)
 

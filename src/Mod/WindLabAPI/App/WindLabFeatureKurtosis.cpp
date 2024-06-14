@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureKurtosis",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureKurtosis",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureKurtosis, WindLabAPI::WindLabFeature)
 

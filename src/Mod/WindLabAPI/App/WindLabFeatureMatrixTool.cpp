@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureMatrixTool",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureMatrixTool",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureMatrixTool, WindLabAPI::WindLabFeature)
 

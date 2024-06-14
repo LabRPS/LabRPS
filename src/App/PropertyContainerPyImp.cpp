@@ -38,7 +38,7 @@
 #include "PropertyContainerPy.h"
 #include "PropertyContainerPy.cpp"
 
-FC_LOG_LEVEL_INIT("Property", true, 2)
+RPS_LOG_LEVEL_INIT("Property", true, 2)
 
 using namespace App;
 
@@ -565,8 +565,8 @@ PyObject* PropertyContainerPy::restorePropertyContent(PyObject *args)
 PyObject *PropertyContainerPy::getCustomAttributes(const char* attr) const
 {
     // search in PropertyList
-    if(FC_LOG_INSTANCE.level()>FC_LOGLEVEL_TRACE) {
-        FC_TRACE("Get property " << attr);
+    if(RPS_LOG_INSTANCE.level()>RPS_LOGLEVEL_TRACE) {
+        RPS_TRACE("Get property " << attr);
     }
     Property *prop = getPropertyContainerPtr()->getPropertyByName(attr);
     if (prop) {
@@ -635,7 +635,7 @@ int PropertyContainerPy::setCustomAttributes(const char* attr, PyObject *obj)
             throw Py::AttributeError(s.str());
         }
 
-        FC_TRACE("Set property " << prop->getFullName());
+        RPS_TRACE("Set property " << prop->getFullName());
         prop->setPyObject(obj);
         return 1;
     }

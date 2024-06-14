@@ -61,10 +61,10 @@
 # include <Inventor/threads/SbStorage.h>
 #endif
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 # include <OpenGL/gl.h>
 #else
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  include <windows.h>
 # endif
 # include <GL/gl.h>
@@ -85,7 +85,7 @@
 #include "ViewProviderDocumentObject.h"
 
 
-FC_LOG_LEVEL_INIT("SoFCUnifiedSelection",false,true,true)
+RPS_LOG_LEVEL_INIT("SoFCUnifiedSelection",false,true,true)
 
 using namespace Gui;
 
@@ -620,7 +620,7 @@ bool SoFCUnifiedSelection::setSelection(const std::vector<PickedInfo> &infos, bo
     const char *subSelected = Gui::Selection().getSelectedElement(
                                 vpd->getObject(),subName.c_str());
 
-    FC_TRACE("select " << (subSelected?subSelected:"'null'") << ", " <<
+    RPS_TRACE("select " << (subSelected?subSelected:"'null'") << ", " <<
             objectName << ", " << subName);
     std::string newElement;
     if(subSelected) {
@@ -653,7 +653,7 @@ bool SoFCUnifiedSelection::setSelection(const std::vector<PickedInfo> &infos, bo
             {
                 pPath = detailPath;
                 det = detNext;
-                FC_TRACE("select next " << objectName << ", " << subName);
+                RPS_TRACE("select next " << objectName << ", " << subName);
             }
         }
     }
@@ -684,9 +684,9 @@ bool SoFCUnifiedSelection::setSelection(const std::vector<PickedInfo> &infos, bo
     }
 #endif
 
-    FC_TRACE("clearing selection");
+    RPS_TRACE("clearing selection");
     Gui::Selection().clearSelection();
-    FC_TRACE("add selection");
+    RPS_TRACE("add selection");
     bool ok = Gui::Selection().addSelection(docname, objectName.c_str() ,subName.c_str(),
             pt[0] ,pt[1] ,pt[2], &sels);
     if (ok)
@@ -703,12 +703,12 @@ bool SoFCUnifiedSelection::setSelection(const std::vector<PickedInfo> &infos, bo
     }
 
     if (pPath) {
-        FC_TRACE("applying action");
+        RPS_TRACE("applying action");
         SoSelectionElementAction action(type);
         action.setColor(this->colorSelection.getValue());
         action.setElement(det);
         action.apply(pPath);
-        FC_TRACE("applied action");
+        RPS_TRACE("applied action");
         this->touch();
     }
 
@@ -1284,7 +1284,7 @@ void SoFCSelectionRoot::renderPrivate(SoGLRenderAction * action, bool inPath) {
         std::time_t t = std::time(nullptr);
         if(_CyclicLastReported < t) {
             _CyclicLastReported = t+5;
-            FC_ERR("Cyclic scene graph: " << getName());
+            RPS_ERR("Cyclic scene graph: " << getName());
         }
         return;
     }
@@ -1467,7 +1467,7 @@ void SoFCSelectionRoot::moveActionStack(SoAction *from, SoAction *to, bool erase
         std::time_t t = std::time(0);\
         if(_CyclicLastReported < t) {\
             _CyclicLastReported = t+5;\
-            FC_ERR("Cyclic scene graph: " << getName());\
+            RPS_ERR("Cyclic scene graph: " << getName());\
         }\
         return;\
     }\
@@ -1476,7 +1476,7 @@ void SoFCSelectionRoot::moveActionStack(SoAction *from, SoAction *to, bool erase
 
 #define END_ACTION \
     if(stack.size()!=size || stack.back()!=this)\
-        FC_ERR("action stack fault");\
+        RPS_ERR("action stack fault");\
     else {\
         stack.nodeSet.erase(this);\
         stack.pop_back();\

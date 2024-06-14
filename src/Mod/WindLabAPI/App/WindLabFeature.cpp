@@ -12,7 +12,7 @@
 using namespace WindLabAPI;
 namespace bp = boost::placeholders;
 
-FC_LOG_LEVEL_INIT("WindLab",true,true)
+RPS_LOG_LEVEL_INIT("WindLab",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeature, App::RPSFeature)
 

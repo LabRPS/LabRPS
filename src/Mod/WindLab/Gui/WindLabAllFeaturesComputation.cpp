@@ -1,3 +1,25 @@
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
+
 #include "PreCompiled.h"
 
 #include "WindLabAllFeaturesComputation.h"
@@ -151,7 +173,7 @@ QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
 
 void WindLabAllFeaturesComputation::startSimulationWorker(QString function, const char* complexNumberDisplay)
 {
-    // create a worker
+    // create the worker
     simulationWorker = new RPSWindLabSimulationWorker(m_sim);
 
     setComplexNumberDisplay(complexNumberDisplay);
@@ -172,9 +194,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
     connect(simulationWorker, SIGNAL(signalDisplayResultInTable(QString, int)), this, SLOT(slotDisplayResultInTable(QString, int)));
     connect(simulationWorker, SIGNAL(signalDisplayResultInMatrix(QString, int)), this, SLOT(slotDisplayResultInMatrix(QString, int)));
 
-
-    
-    //QString function = simulationWorker->getComputingFunction();
     
     if (function == WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3)
     {
@@ -581,7 +600,7 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     }
 
 
-     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
+    QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
     bar->setValue(100);
     bar->hide();
     Gui::MainWindow* win = Gui::getMainWindow();
@@ -627,11 +646,7 @@ void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
 
 void WindLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
 {
-/*    if (strcmp(displayType, "Complex") == 0)
-	{
-       complexRrealImag = 0;
-	}
-    else */if (strcmp(displayType, "Real") == 0)
+    if (strcmp(displayType, "Real") == 0)
 	{
        complexRrealImag = 0;
     }

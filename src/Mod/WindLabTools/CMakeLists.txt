@@ -13,7 +13,7 @@ add_custom_target(WindLabToolsScripts ALL
 )
 set_target_properties(WindLabToolsScripts PROPERTIES FOLDER "Workbenches/WindLabTools")
 
-fc_target_copy_resource_flat(WindLabToolsScripts
+rps_target_copy_resource_flat(WindLabToolsScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/WindLabTools
     ${WindLabTools_Scripts}

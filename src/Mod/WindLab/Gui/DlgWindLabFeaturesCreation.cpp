@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *                *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -70,13 +70,7 @@ DlgWindLabFeaturesCreation::DlgWindLabFeaturesCreation(QWidget* parent, WindLabA
         auto sim = App::GetApplication().getActiveDocument()->getObject(it->c_str());
 		if (sim)
 		{
-            //auto doc = App::GetApplication().getActiveDocument()->getObject(it->c_str());
-            //const char* hh = doc->getNameInDocument();
-            //const char* ff = doc->Label.getValue();
-            //const char* gg = doc->Label2.getValue();
-            //QString itemName = QString::fromUtf8(sim->Label.getValue()) + QString::fromUtf8("(") + QString::fromUtf8(it->c_str()) + QString::fromUtf8(")");
 			QString itemName = QString::fromUtf8(it->c_str());
-
             ui->SimulationComboBox->addItem(itemName);
 		}
 	}
@@ -120,7 +114,6 @@ void DlgWindLabFeaturesCreation::fillFeatureComboBox(WindLab::WindLabSimulation*
         QString featureGroup = ui->featureTypeComboBox->currentText();
         QStringList plugginGroupObject = sim->findAllPluggedWindLabFeatures(featureGroup);
 		ui->featureComboBox->addItems(plugginGroupObject);
-
 	}
 }
 
@@ -149,9 +142,6 @@ void DlgWindLabFeaturesCreation::createDlgWindLabFeature(const QString& simulati
 	if (!newFeature)
 		return;
 
-	////set its simulation parent name
-	//newFeature->simulationName.setValue(simParent->Label.getValue());
-
 	//set the feature properties
 	auto featureProperties = simParent->GetWindLabPluggedWindLabFeatureDescription(ui->featureTypeComboBox->currentText(), ui->featureComboBox->currentText());
 	//App::PropertyBool IsActive;
@@ -173,9 +163,8 @@ void DlgWindLabFeaturesCreation::createDlgWindLabFeature(const QString& simulati
 	//convert the parent simulation to a group object
 	App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(static_cast<App::DocumentObject*>(simParent));
 
-	/*App::GetApplication().getActiveDocument()->recomputeFeature(newFeature, true);
-	App::GetApplication().getActiveDocument()->recomputeFeature(group, true);*/
     newFeature->recomputeFeature();
+
 	//add the created feature under its simulation
 	group->addObject(newFeature);
 
@@ -197,10 +186,7 @@ void DlgWindLabFeaturesCreation::createDlgWindLabFeature(const QString& simulati
 
 void DlgWindLabFeaturesCreation::featureTypeComboBoxIndexChanged(int index)
 {
-
-	WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>
-		(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(ui->SimulationComboBox->currentText().toUtf8().constData()));
-
+	WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(ui->SimulationComboBox->currentText().toUtf8().constData()));
 	if (!sim) {
 		QMessageBox::warning(this, tr("Feature Creation"), tr("No active simulation"));
 		return;
@@ -235,7 +221,7 @@ TaskWindLabFeatures::TaskWindLabFeatures()
 
 TaskWindLabFeatures::~TaskWindLabFeatures()
 {
-	// automatically deleted in the sub-class
+	
 }
 
 QDialogButtonBox::StandardButtons TaskWindLabFeatures::getStandardButtons() const

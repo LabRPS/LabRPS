@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureRoughness",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureRoughness",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureRoughness, WindLabAPI::WindLabFeature)
 

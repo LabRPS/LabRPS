@@ -73,7 +73,7 @@ extern "C" {             /* a C library, but callable from C++ */
 #	undef  _POSIX_C_SOURCE
 #endif // (re-)defined in pyconfig.h
 #include <Python.h>
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 

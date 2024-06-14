@@ -51,7 +51,7 @@
 #include "ViewProviderDocumentObject.h"
 
 
-FC_LOG_LEVEL_INIT("Selection",false,true,true)
+RPS_LOG_LEVEL_INIT("Selection",false,true,true)
 
 using namespace Gui;
 using namespace std;
@@ -147,11 +147,11 @@ void SelectionObserver::_onSelectionChanged(const SelectionChanges& msg) {
         onSelectionChanged(msg);
     } catch (Base::Exception &e) {
         e.ReportException();
-        FC_ERR("Unhandled Base::Exception caught in selection observer: ");
+        RPS_ERR("Unhandled Base::Exception caught in selection observer: ");
     } catch (std::exception &e) {
-        FC_ERR("Unhandled std::exception caught in selection observer: " << e.what());
+        RPS_ERR("Unhandled std::exception caught in selection observer: " << e.what());
     } catch (...) {
-        FC_ERR("Unhandled unknown exception caught in selection observer");
+        RPS_ERR("Unhandled unknown exception caught in selection observer");
     }
 }
 
@@ -171,9 +171,9 @@ std::vector<SelectionObserverPython*> SelectionObserverPython::_instances;
 SelectionObserverPython::SelectionObserverPython(const Py::Object& obj, ResolveMode resolve)
     : SelectionObserver(true, resolve), inst(obj)
 {
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_GetCallable(obj.ptr(),#_name,py_##_name);
-    FC_PY_SEL_OBSERVER
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_GetCallable(obj.ptr(),#_name,py_##_name);
+    RPS_PY_SEL_OBSERVER
 }
 
 SelectionObserverPython::~SelectionObserverPython()
@@ -868,16 +868,16 @@ int SelectionSingleton::setPreselect(const char* pDocName, const char* pObjectNa
 
     if (Chng.Type==SelectionChanges::SetPreselect) {
         CurrentPreselection = Chng;
-        FC_TRACE("preselect "<<DocName<<'#'<<FeatName<<'.'<<SubName);
+        RPS_TRACE("preselect "<<DocName<<'#'<<FeatName<<'.'<<SubName);
     }
     else {
-        FC_TRACE("preselect signal "<<DocName<<'#'<<FeatName<<'.'<<SubName);
+        RPS_TRACE("preselect signal "<<DocName<<'#'<<FeatName<<'.'<<SubName);
     }
 
     notify(Chng);
 
     if (signal == SelectionChanges::MsgSource::Internal && DocName.size()) {
-        FC_TRACE("preselect "<<DocName<<'#'<<FeatName<<'.'<<SubName);
+        RPS_TRACE("preselect "<<DocName<<'#'<<FeatName<<'.'<<SubName);
         Chng.Type = SelectionChanges::SetPreselect;
         CurrentPreselection = Chng;
         notify(std::move(Chng));
@@ -968,7 +968,7 @@ void SelectionSingleton::rmvPreselect(bool signal)
         mdi->restoreOverrideCursor();
     }
 
-    FC_TRACE("rmv preselect");
+    RPS_TRACE("rmv preselect");
 
     // notify observing objects
     notify(std::move(Chng));
@@ -1127,7 +1127,7 @@ bool SelectionSingleton::addSelection(const char* pDocName, const char* pObjectN
     SelectionChanges Chng(SelectionChanges::AddSelection,
             temp.DocName,temp.FeatName,temp.SubName,temp.TypeName, x,y,z);
 
-    FC_LOG("Add Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName
+    RPS_LOG("Add Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName
             << " (" << x << ", " << y << ", " << z << ')');
 
     notify(std::move(Chng));
@@ -1288,7 +1288,7 @@ bool SelectionSingleton::addSelections(const char* pDocName, const char* pObject
         SelectionChanges Chng(SelectionChanges::AddSelection,
                 temp.DocName,temp.FeatName,temp.SubName,temp.TypeName);
 
-        FC_LOG("Add Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
+        RPS_LOG("Add Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
 
         notify(std::move(Chng));
         update = true;
@@ -1308,7 +1308,7 @@ bool SelectionSingleton::updateSelection(bool show, const char* pDocName,
         pSubName = "";
     if(DocName==pDocName && FeatName==pObjectName && SubName==pSubName) {
         if(show) {
-            FC_TRACE("preselect signal");
+            RPS_TRACE("preselect signal");
             notify(SelectionChanges(SelectionChanges::SetPreselectSignal,DocName,FeatName,SubName));
         }else
             rmvPreselect();
@@ -1325,7 +1325,7 @@ bool SelectionSingleton::updateSelection(bool show, const char* pDocName,
     SelectionChanges Chng(show?SelectionChanges::ShowSelection:SelectionChanges::HideSelection,
             pDocName,pObjectName,pSubName,pObject->getTypeId().getName());
 
-    FC_LOG("Update Selection "<<Chng.pDocName << '#' << Chng.pObjectName << '.' <<Chng.pSubName);
+    RPS_LOG("Update Selection "<<Chng.pDocName << '#' << Chng.pObjectName << '.' <<Chng.pSubName);
 
     notify(std::move(Chng));
 
@@ -1420,7 +1420,7 @@ void SelectionSingleton::rmvSelection(const char* pDocName, const char* pObjectN
     // So, the notification is done after the loop, see also #0003469
     if(changes.size()) {
         for(auto &Chng : changes) {
-            FC_LOG("Rmv Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
+            RPS_LOG("Rmv Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
             notify(std::move(Chng));
         }
         getMainWindow()->updateActions();
@@ -1631,7 +1631,7 @@ void SelectionSingleton::clearCompleteSelection(bool clearPreSelect)
 
     SelectionChanges Chng(SelectionChanges::ClrSelection);
 
-    FC_LOG("Clear selection");
+    RPS_LOG("Clear selection");
 
     notify(std::move(Chng));
     getMainWindow()->updateActions();
@@ -1659,7 +1659,7 @@ int SelectionSingleton::checkSelection(const char *pDocName, const char *pObject
     sel.pDoc = getDocument(pDocName);
     if(!sel.pDoc) {
         if(!selList)
-            FC_ERR("Cannot find document");
+            RPS_ERR("Cannot find document");
         return -1;
     }
     pDocName = sel.pDoc->getName();
@@ -1671,7 +1671,7 @@ int SelectionSingleton::checkSelection(const char *pDocName, const char *pObject
         sel.pObject = nullptr;
     if (!sel.pObject) {
         if(!selList)
-            FC_ERR("Object not found");
+            RPS_ERR("Object not found");
         return -1;
     }
     if (sel.pObject->testStatus(App::ObjectStatus::Remove))
@@ -1688,7 +1688,7 @@ int SelectionSingleton::checkSelection(const char *pDocName, const char *pObject
             pSubName,sel.elementName,false,App::GeoFeature::Normal,nullptr,&element);
     if(!sel.pResolvedObject) {
         if(!selList)
-            FC_ERR("Sub-object " << sel.DocName << '#' << sel.FeatName << '.' << sel.SubName << " not found");
+            RPS_ERR("Sub-object " << sel.DocName << '#' << sel.FeatName << '.' << sel.SubName << " not found");
         return -1;
     }
     if(sel.pResolvedObject->testStatus(App::ObjectStatus::Remove))
@@ -1775,7 +1775,7 @@ void SelectionSingleton::slotDeletedObject(const App::DocumentObject& Obj)
     }
     if(changes.size()) {
         for(auto &Chng : changes) {
-            FC_LOG("Rmv Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
+            RPS_LOG("Rmv Selection "<<Chng.pDocName<<'#'<<Chng.pObjectName<<'.'<<Chng.pSubName);
             notify(std::move(Chng));
         }
         getMainWindow()->updateActions();
@@ -2085,7 +2085,7 @@ PyObject *SelectionSingleton::sAddSelection(PyObject * /*self*/, PyObject *args)
         App::DocumentObjectPy* docObjPy = static_cast<App::DocumentObjectPy*>(object);
         App::DocumentObject* docObj = docObjPy->getDocumentObjectPtr();
         if (!docObj || !docObj->getNameInDocument()) {
-            PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot check invalid object");
+            PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot check invalid object");
             return nullptr;
         }
 
@@ -2103,7 +2103,7 @@ PyObject *SelectionSingleton::sAddSelection(PyObject * /*self*/, PyObject *args)
         App::DocumentObjectPy* docObjPy = static_cast<App::DocumentObjectPy*>(object);
         App::DocumentObject* docObj = docObjPy->getDocumentObjectPtr();
         if (!docObj || !docObj->getNameInDocument()) {
-            PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot check invalid object");
+            PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot check invalid object");
             return nullptr;
         }
 
@@ -2142,7 +2142,7 @@ PyObject *SelectionSingleton::sUpdateSelection(PyObject * /*self*/, PyObject *ar
     App::DocumentObjectPy* docObjPy = static_cast<App::DocumentObjectPy*>(object);
     App::DocumentObject* docObj = docObjPy->getDocumentObjectPtr();
     if (!docObj || !docObj->getNameInDocument()) {
-        PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot check invalid object");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot check invalid object");
         return nullptr;
     }
 
@@ -2172,7 +2172,7 @@ PyObject *SelectionSingleton::sRemoveSelection(PyObject * /*self*/, PyObject *ar
     App::DocumentObjectPy* docObjPy = static_cast<App::DocumentObjectPy*>(object);
     App::DocumentObject* docObj = docObjPy->getDocumentObjectPtr();
     if (!docObj || !docObj->getNameInDocument()) {
-        PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot check invalid object");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot check invalid object");
         return nullptr;
     }
 
@@ -2310,7 +2310,7 @@ PyObject *SelectionSingleton::sSetPreselection(PyObject * /*self*/, PyObject *ar
         App::DocumentObjectPy* docObjPy = static_cast<App::DocumentObjectPy*>(object);
         App::DocumentObject* docObj = docObjPy->getDocumentObjectPtr();
         if (!docObj || !docObj->getNameInDocument()) {
-            PyErr_SetString(Base::PyExc_FC_GeneralError, "Cannot check invalid object");
+            PyErr_SetString(Base::PyExc_RPS_GeneralError, "Cannot check invalid object");
             return nullptr;
         }
 

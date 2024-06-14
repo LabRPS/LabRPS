@@ -26,7 +26,7 @@
 
 #include <RPSConfig.h>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -55,7 +55,7 @@
 #include <GeomAPI_ExtremaCurveCurve.hxx>
 #include <BRepGProp.hxx>
 
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
 #include <windows.h>
 #endif // _PreComp_
 #endif

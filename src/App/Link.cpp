@@ -43,7 +43,7 @@
 # pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
 #endif
 
-FC_LOG_LEVEL_INIT("App::Link", true,true)
+RPS_LOG_LEVEL_INIT("App::Link", true,true)
 
 using namespace App;
 using namespace Base;
@@ -277,7 +277,7 @@ void LinkBaseExtension::setProperty(int idx, Property *prop) {
         break;
     }
 
-    if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_TRACE)) {
+    if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_TRACE)) {
         const char *propName;
         if(!prop)
             propName = "<null>";
@@ -287,7 +287,7 @@ void LinkBaseExtension::setProperty(int idx, Property *prop) {
             propName = extensionGetPropertyName(prop);
         if(!Property::isValidName(propName))
             propName = "?";
-        FC_TRACE("set property " << infos[idx].name << ": " << propName);
+        RPS_TRACE("set property " << infos[idx].name << ": " << propName);
     }
 }
 
@@ -469,7 +469,7 @@ void LinkBaseExtension::setOnChangeCopyObject(
             e.ReportException();
         }
         if (!prop) {
-            FC_ERR("Failed to setup copy on change object " << obj->getFullName());
+            RPS_ERR("Failed to setup copy on change object " << obj->getFullName());
             return;
         }
     }
@@ -749,7 +749,7 @@ bool LinkBaseExtension::setupCopyOnChange(DocumentObject *parent, DocumentObject
             else {
                 const char* otherGroupName = p->getGroup();
                 if(!otherGroupName || !boost::starts_with(otherGroupName, _GroupPrefix)) {
-                    FC_WARN(p->getFullName() << " shadows another CopyOnChange property "
+                    RPS_WARN(p->getFullName() << " shadows another CopyOnChange property "
                             << prop->getFullName());
                     continue;
                 }
@@ -859,7 +859,7 @@ App::DocumentObject *LinkBaseExtension::makeCopyOnChange() {
     auto srcobjs = getOnChangeCopyObjects(nullptr, linked);
     for (auto obj : srcobjs) {
         if (obj->testStatus(App::PartialObject)) {
-            FC_THROWM(Base::RuntimeError, "Cannot copy partial loaded object: "
+            RPS_THROWM(Base::RuntimeError, "Cannot copy partial loaded object: "
                     << obj->getFullName());
         }
     }
@@ -1538,7 +1538,7 @@ void LinkBaseExtension::updateGroup() {
             auto group = ext->getExtendedObject();
             auto &conn = plainGroupConns[group];
             if(!conn.connected()) {
-                FC_LOG("new group connection " << getExtendedObject()->getFullName()
+                RPS_LOG("new group connection " << getExtendedObject()->getFullName()
                         << " -> " << group->getFullName());
                 conn = group->signalChanged.connect(
                         boost::bind(&LinkBaseExtension::slotChangedPlainGroup,this,bp::_1,bp::_2));
@@ -1552,7 +1552,7 @@ void LinkBaseExtension::updateGroup() {
                 groupSet.insert(child);
                 auto &conn = plainGroupConns[child];
                 if(!conn.connected()) {
-                    FC_LOG("new group connection " << getExtendedObject()->getFullName()
+                    RPS_LOG("new group connection " << getExtendedObject()->getFullName()
                             << " -> " << child->getFullName());
                     conn = child->signalChanged.connect(
                             boost::bind(&LinkBaseExtension::slotChangedPlainGroup,this,bp::_1,bp::_2));
@@ -1928,11 +1928,11 @@ void LinkBaseExtension::onExtendedDocumentRestored() {
         // stored inside PropertyXLink.
         auto xlink = labrps_dynamic_cast<PropertyXLink>(getLinkedObjectProperty());
         if(!xlink)
-            FC_ERR("Failed to restore SubElements for " << parent->getFullName());
+            RPS_ERR("Failed to restore SubElements for " << parent->getFullName());
         else if(!xlink->getValue())
-            FC_ERR("Discard SubElements of " << parent->getFullName() << " due to null link");
+            RPS_ERR("Discard SubElements of " << parent->getFullName() << " due to null link");
         else if(xlink->getSubValues().size() > 1)
-            FC_ERR("Failed to restore SubElements for " << parent->getFullName()
+            RPS_ERR("Failed to restore SubElements for " << parent->getFullName()
                     << " due to conflict subnames");
         else if(xlink->getSubValues().empty()) {
             auto subs = xlink->getSubValues();

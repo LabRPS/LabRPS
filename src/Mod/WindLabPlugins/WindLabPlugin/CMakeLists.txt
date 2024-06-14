@@ -230,7 +230,7 @@ set_target_properties(WindLabPlugin PROPERTIES FOLDER "Plugins/WindLab")
 
 SET_BIN_DIR(WindLabPlugin WindLabPlugin /Plugins/WindLabWorkbench/WindLabPlugin)
 
-fc_copy_sources(WindLabPlugin "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/WindLabPlugin" ${Metadata_Files})
+rps_copy_sources(WindLabPlugin "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/WindLabPlugin" ${Metadata_Files})
 INSTALL(TARGETS WindLabPlugin DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/WindLabPlugin")
 INSTALL(FILES WindLabPlugin.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/WindLabPlugin")
 INSTALL(FILES ${WindLabPluginIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Plugins/WindLab/WindLabPlugin/Resources/icons")

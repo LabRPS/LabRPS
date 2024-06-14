@@ -411,7 +411,7 @@ void PreferencePackManager::save(const std::string& name, const std::vector<Temp
 }
 
 // Needed until we support only C++20 and above and can use std::string's built-in ends_with()
-bool fc_ends_with(std::string_view str, std::string_view suffix)
+bool rps_ends_with(std::string_view str, std::string_view suffix)
 {
     return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
 }

@@ -36,17 +36,17 @@
 
 using namespace Base;
 
-PyObject* Base::PyExc_FC_GeneralError = nullptr;
-PyObject* Base::PyExc_FC_LabRPSAbort = nullptr;
-PyObject* Base::PyExc_FC_XMLBaseException = nullptr;
-PyObject* Base::PyExc_FC_XMLParseException = nullptr;
-PyObject* Base::PyExc_FC_XMLAttributeError = nullptr;
-PyObject* Base::PyExc_FC_UnknownProgramOption = nullptr;
-PyObject* Base::PyExc_FC_BadFormatError = nullptr;
-PyObject* Base::PyExc_FC_BadGraphError = nullptr;
-PyObject* Base::PyExc_FC_ExpressionError = nullptr;
-PyObject* Base::PyExc_FC_ParserError = nullptr;
-PyObject* Base::PyExc_FC_CADKernelError = nullptr;
+PyObject* Base::PyExc_RPS_GeneralError = nullptr;
+PyObject* Base::PyExc_RPS_LabRPSAbort = nullptr;
+PyObject* Base::PyExc_RPS_XMLBaseException = nullptr;
+PyObject* Base::PyExc_RPS_XMLParseException = nullptr;
+PyObject* Base::PyExc_RPS_XMLAttributeError = nullptr;
+PyObject* Base::PyExc_RPS_UnknownProgramOption = nullptr;
+PyObject* Base::PyExc_RPS_BadFormatError = nullptr;
+PyObject* Base::PyExc_RPS_BadGraphError = nullptr;
+PyObject* Base::PyExc_RPS_ExpressionError = nullptr;
+PyObject* Base::PyExc_RPS_ParserError = nullptr;
+PyObject* Base::PyExc_RPS_CADKernelError = nullptr;
 
 typedef struct {
     PyObject_HEAD
@@ -66,7 +66,7 @@ PyObjectBase::PyObjectBase(void* p,PyTypeObject *T)
     this->ob_type = T;
 #endif
     _Py_NewReference(this);
-#ifdef FC_LOGPYOBJECTS
+#ifdef RPS_LOGPYOBJECTS
     Base::Console().Log("PyO+: %s (%p)\n",T->tp_name, this);
 #endif
     StatusBits.set(Valid); // valid, the second bit is NOT set, i.e. it's mutable
@@ -77,7 +77,7 @@ PyObjectBase::PyObjectBase(void* p,PyTypeObject *T)
 PyObjectBase::~PyObjectBase()
 {
     PyGILStateLocker lock;
-#ifdef FC_LOGPYOBJECTS
+#ifdef RPS_LOGPYOBJECTS
     Base::Console().Log("PyO-: %s (%p)\n",Py_TYPE(this)->tp_name, this);
 #endif
     if (baseProxy && reinterpret_cast<PyBaseProxy*>(baseProxy)->baseobject == this)

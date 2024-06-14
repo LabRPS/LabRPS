@@ -24,13 +24,13 @@
 #ifndef GUI_GLPAINTER_H
 #define GUI_GLPAINTER_H
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <windows.h>
 #endif
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #include <OpenGL/gl.h>
 #else
 #include <GL/gl.h>

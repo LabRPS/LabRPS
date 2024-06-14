@@ -49,7 +49,7 @@ set_target_properties(WindSimulationMethodWWYang1997 PROPERTIES FOLDER "Plugins/
 
 SET_BIN_DIR(WindSimulationMethodWWYang1997 WindSimulationMethodWWYang1997 /Plugins/WindLabWorkbench/WindSimulationMethodWWYang1997)
 
-fc_copy_sources(WindSimulationMethodWWYang1997 "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/WindSimulationMethodWWYang1997" ${Metadata_Files})
+rps_copy_sources(WindSimulationMethodWWYang1997 "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/WindSimulationMethodWWYang1997" ${Metadata_Files})
 INSTALL(TARGETS WindSimulationMethodWWYang1997 DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/WindSimulationMethodWWYang1997")
 INSTALL(FILES WindSimulationMethodWWYang1997.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/WindSimulationMethodWWYang1997")
 INSTALL(FILES ${WindSimulationMethodWWYang1997Icon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Plugins/WindLab/WindSimulationMethodWWYang1997/Resources/icons")

@@ -28,7 +28,7 @@
 
 #include <sstream>
 #include <vector>
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 

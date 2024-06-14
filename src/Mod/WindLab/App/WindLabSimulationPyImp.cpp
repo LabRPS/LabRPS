@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2010 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>               *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -84,7 +84,7 @@ PyObject* returnResult2(vec& dVarVector, cx_vec& dValVector, std::string feature
 
 PyObject* returnResult3(cx_mat& resArray, std::string featureName, const char* displayOption)
 {
-     Py::List activeArray;
+    Py::List activeArray;
     for (int i = 0; i < resArray.rows(); i++) {
     Py::List row;
     for (int j = 0; j < resArray.cols(); j++) {
@@ -132,7 +132,6 @@ PyObject* returnResult6(double resValue, std::string featureName)
 }
 
 
-// returns a string which represents the object e.g. when printed in python
 std::string WindLabSimulationPy::representation(void) const
 {
     std::stringstream str;
@@ -142,7 +141,6 @@ std::string WindLabSimulationPy::representation(void) const
 
 PyObject* WindLabSimulationPy::PyMake(struct _typeobject*, PyObject*, PyObject*)// Python wrapper
 {
-    // create a new instance of WindPy and the Twin object
     return new WindLabSimulationPy(new WindLabSimulation());
 }
 

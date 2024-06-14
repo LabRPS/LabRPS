@@ -128,7 +128,7 @@ target_link_libraries(SpreadsheetGui ${SpreadsheetGui_LIBS})
 SET_BIN_DIR(SpreadsheetGui SpreadsheetGui /Mod/Spreadsheet)
 SET_PYTHON_PREFIX_SUFFIX(SpreadsheetGui)
 
-fc_copy_sources(SpreadsheetGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Spreadsheet" ${SpreadsheetGuiIcon_SVG})
+rps_copy_sources(SpreadsheetGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Spreadsheet" ${SpreadsheetGuiIcon_SVG})
 
 INSTALL(TARGETS SpreadsheetGui DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${SpreadsheetGuiIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Mod/Spreadsheet/Resources/icons")

@@ -339,7 +339,7 @@ PyObject* Application::sSaveDocument(PyObject * /*self*/, PyObject *args)
     Document* doc = GetApplication().getDocument(pDoc);
     if ( doc ) {
         if ( doc->save() == false ) {
-            PyErr_Format(Base::PyExc_FC_GeneralError, "Cannot save document '%s'", pDoc);
+            PyErr_Format(Base::PyExc_RPS_GeneralError, "Cannot save document '%s'", pDoc);
             return nullptr;
         }
     }
@@ -814,17 +814,17 @@ PyObject *Application::sSetLogLevel(PyObject * /*self*/, PyObject *args)
         if (PyUnicode_Check(pcObj)) {
             const char *pstr = PyUnicode_AsUTF8(pcObj);
             if(strcmp(pstr,"Log") == 0)
-                l = FC_LOGLEVEL_LOG;
+                l = RPS_LOGLEVEL_LOG;
             else if(strcmp(pstr,"Warning") == 0)
-                l = FC_LOGLEVEL_WARN;
+                l = RPS_LOGLEVEL_WARN;
             else if(strcmp(pstr,"Message") == 0)
-                l = FC_LOGLEVEL_MSG;
+                l = RPS_LOGLEVEL_MSG;
             else if(strcmp(pstr,"Error") == 0)
-                l = FC_LOGLEVEL_ERR;
+                l = RPS_LOGLEVEL_ERR;
             else if(strcmp(pstr,"Trace") == 0)
-                l = FC_LOGLEVEL_TRACE;
+                l = RPS_LOGLEVEL_TRACE;
             else if(strcmp(pstr,"Default") == 0)
-                l = FC_LOGLEVEL_DEFAULT;
+                l = RPS_LOGLEVEL_DEFAULT;
             else {
                 Py_Error(PyExc_ValueError,
                         "Unknown Log Level (use 'Default', 'Error', 'Warning', 'Message', 'Log', 'Trace' or an integer)");
@@ -834,11 +834,11 @@ PyObject *Application::sSetLogLevel(PyObject * /*self*/, PyObject *args)
             l = PyLong_AsLong(pcObj);
         GetApplication().GetParameterGroupByPath("User parameter:BaseApp/LogLevels")->SetInt(tag,l);
         if(strcmp(tag,"Default") == 0) {
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
             if(l>=0) Base::Console().SetDefaultLogLevel(l);
 #endif
         }else if(strcmp(tag,"DebugDefault") == 0) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             if(l>=0) Base::Console().SetDefaultLogLevel(l);
 #endif
         }else
@@ -857,11 +857,11 @@ PyObject *Application::sGetLogLevel(PyObject * /*self*/, PyObject *args)
     PY_TRY{
         int l = -1;
         if(strcmp(tag,"Default")==0) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             l = _pcUserParamMngr->GetGroup("BaseApp/LogLevels")->GetInt(tag,-1);
 #endif
         }else if(strcmp(tag,"DebugDefault")==0) {
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
             l = _pcUserParamMngr->GetGroup("BaseApp/LogLevels")->GetInt(tag,-1);
 #endif
         }else{
@@ -872,15 +872,15 @@ PyObject *Application::sGetLogLevel(PyObject * /*self*/, PyObject *args)
         return Py_BuildValue("i",Base::Console().LogLevel(l));
 
         // switch(l) {
-        // case FC_LOGLEVEL_LOG:
+        // case RPS_LOGLEVEL_LOG:
         //     return Py_BuildValue("s","Log");
-        // case FC_LOGLEVEL_WARN:
+        // case RPS_LOGLEVEL_WARN:
         //     return Py_BuildValue("s","Warning");
-        // case FC_LOGLEVEL_ERR:
+        // case RPS_LOGLEVEL_ERR:
         //     return Py_BuildValue("s","Error");
-        // case FC_LOGLEVEL_MSG:
+        // case RPS_LOGLEVEL_MSG:
         //     return Py_BuildValue("s","Message");
-        // case FC_LOGLEVEL_TRACE:
+        // case RPS_LOGLEVEL_TRACE:
         //     return Py_BuildValue("s","Trace");
         // default:
         //     return Py_BuildValue("i",l);

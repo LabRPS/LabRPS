@@ -199,7 +199,7 @@ public:
 // errors under Mac OS X. Thus, we check for version between 4.1 and 4.4.
 // It seems that for Mac OS X this can be completely ignored
 
-#if defined(__GNUC__) && defined(__GNUC_MINOR__) && !defined(FC_OS_MACOSX)
+#if defined(__GNUC__) && defined(__GNUC_MINOR__) && !defined(RPS_OS_MACOSX)
 #define GNUC_VERSION (((__GNUC__)<<16)+((__GNUC_MINOR__)<<8))
 #if GNUC_VERSION >= 0x040100 && GNUC_VERSION < 0x040400
 template class GuiExport Base::Subject<const Gui::SelectionChanges&>;
@@ -298,20 +298,20 @@ private:
 private:
     Py::Object inst;
 
-#define FC_PY_SEL_OBSERVER \
-    FC_PY_ELEMENT(onSelectionChanged) \
-    FC_PY_ELEMENT(addSelection) \
-    FC_PY_ELEMENT(removeSelection) \
-    FC_PY_ELEMENT(setSelection) \
-    FC_PY_ELEMENT(clearSelection) \
-    FC_PY_ELEMENT(setPreselection) \
-    FC_PY_ELEMENT(removePreselection) \
-    FC_PY_ELEMENT(pickedListChanged)
+#define RPS_PY_SEL_OBSERVER \
+    RPS_PY_ELEMENT(onSelectionChanged) \
+    RPS_PY_ELEMENT(addSelection) \
+    RPS_PY_ELEMENT(removeSelection) \
+    RPS_PY_ELEMENT(setSelection) \
+    RPS_PY_ELEMENT(clearSelection) \
+    RPS_PY_ELEMENT(setPreselection) \
+    RPS_PY_ELEMENT(removePreselection) \
+    RPS_PY_ELEMENT(pickedListChanged)
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) Py::Object py_##_name;
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) Py::Object py_##_name;
 
-    FC_PY_SEL_OBSERVER
+    RPS_PY_SEL_OBSERVER
 
     static std::vector<SelectionObserverPython*> _instances;
 };

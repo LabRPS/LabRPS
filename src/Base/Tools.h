@@ -24,7 +24,7 @@
 #ifndef BASE_TOOLS_H
 #define BASE_TOOLS_H
 
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 #include <functional>

@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureTurbulenceIntensity",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureTurbulenceIntensity",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureTurbulenceIntensity, WindLabAPI::WindLabFeature)
 

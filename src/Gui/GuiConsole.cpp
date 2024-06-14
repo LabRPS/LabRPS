@@ -24,7 +24,7 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #   include "io.h"
 #   include <windows.h>
 # endif
@@ -36,7 +36,7 @@
 
 using namespace Gui;
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 
 const unsigned int GUIConsole::s_nMaxLines = 1000;
 unsigned int       GUIConsole::s_nRefCount = 0;
@@ -104,7 +104,7 @@ void GUIConsole::SendLog(const std::string& msg, Base::LogStyle level)
     ::SetConsoleTextAttribute(::GetStdHandle(STD_OUTPUT_HANDLE),FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE );
 }
 
-#else /* FC_OS_LINUX */
+#else /* RPS_OS_LINUX */
 
 // safely ignore GUIConsole::s_nMaxLines and  GUIConsole::s_nRefCount
 GUIConsole::GUIConsole () {}
@@ -127,4 +127,4 @@ void GUIConsole::SendLog(const std::string& msg, Base::LogStyle level)
     }
 }
 
-#endif /* FC_OS_LINUX */
+#endif /* RPS_OS_LINUX */

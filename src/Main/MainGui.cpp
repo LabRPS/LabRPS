@@ -27,7 +27,7 @@
 #   undef _PreComp_
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 #   include <unistd.h>
 #endif
 
@@ -96,7 +96,7 @@ private:
     FILE* file;
 };
 
-#if defined (FC_OS_LINUX) || defined(FC_OS_BSD)
+#if defined (RPS_OS_LINUX) || defined(RPS_OS_BSD)
 QString myDecoderFunc(const QByteArray &localFileName)
 {
     QTextCodec* codec = QTextCodec::codecForName("UTF-8");
@@ -112,7 +112,7 @@ QByteArray myEncoderFunc(const QString &fileName)
 
 int main( int argc, char ** argv )
 {
-#if defined (FC_OS_LINUX) || defined(FC_OS_BSD)
+#if defined (RPS_OS_LINUX) || defined(RPS_OS_BSD)
     // Make sure to setup the Qt locale system before setting LANG and LC_ALL to C.
     // which is needed to use the system locale settings.
     (void)QLocale::system();
@@ -120,7 +120,7 @@ int main( int argc, char ** argv )
     // See Gui::Application::runApplication()
     putenv("LC_NUMERIC=C");
     putenv("PYTHONPATH=");
-#elif defined(FC_OS_MACOSX)
+#elif defined(RPS_OS_MACOSX)
     (void)QLocale::system();
     putenv("PYTHONPATH=");
 #elif defined(__MINGW32__)
@@ -132,14 +132,14 @@ int main( int argc, char ** argv )
     _putenv("PYTHONPATH=");
     // https://forum.labrpsweb.org/viewtopic.php?f=4&t=18288
     // https://forum.labrpsweb.org/viewtopic.php?f=3&t=20515
-    const char* fc_py_home = getenv("FC_PYTHONHOME");
-    if (fc_py_home)
-        _putenv_s("PYTHONHOME", fc_py_home);
+    const char* rps_py_home = getenv("RPS_PYTHONHOME");
+    if (rps_py_home)
+        _putenv_s("PYTHONHOME", rps_py_home);
     else
         _putenv("PYTHONHOME=");
 #endif
 
-#if defined (FC_OS_WIN32)
+#if defined (RPS_OS_WIN32)
     // we need to force Coin not to use Freetype in order to find installed fonts on Windows
     // see https://forum.labrpsweb.org/viewtopic.php?p=485142#p485016
     _putenv("COIN_FORCE_FREETYPE_OFF=1");
@@ -193,7 +193,7 @@ int main( int argc, char ** argv )
         App::Application::Config()["LoggingConsole"] = "1";
 
         // Inits the Application
-#if defined (FC_OS_WIN32)
+#if defined (RPS_OS_WIN32)
         App::Application::init(argc_, argv_.data());
 #else
         App::Application::init(argc, argv);

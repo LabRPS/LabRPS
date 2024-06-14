@@ -33,7 +33,7 @@
 
 using namespace WindLabAPI;
 
-FC_LOG_LEVEL_INIT("WindLabFeatureMeanWind",true,true)
+RPS_LOG_LEVEL_INIT("WindLabFeatureMeanWind",true,true)
 
 PROPERTY_SOURCE(WindLabAPI::WindLabFeatureMeanWind, WindLabAPI::WindLabFeature)
 

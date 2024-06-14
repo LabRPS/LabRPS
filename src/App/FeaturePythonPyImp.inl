@@ -158,7 +158,7 @@ template<class FeaturePyT>
 PyObject *FeaturePythonPyT<FeaturePyT>::_getattr(const char *attr)
 {
     // See CallTipsList::extractTips
-    if (Base::streq(attr, "__fc_template__")) {
+    if (Base::streq(attr, "__rps_template__")) {
         Py_INCREF(Py_None);
         return Py_None;
     }
