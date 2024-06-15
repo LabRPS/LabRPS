@@ -1,4 +1,26 @@
 
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
+
 #include "PreCompiled.h"
 #include "RPSWindLabAPI.h"
 #include <iostream>
@@ -6,10 +28,9 @@
 #include <Base/Interpreter.h>
 #include <App/Application.h>
 
-
 using namespace WindLabAPI;
 
- typedef  IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
+ typedef IrpsWLLocationDistribution *(*CreateLocDistrCallback)();
  typedef IrpsWLMean *(*CreateMeanCallback)();
  typedef IrpsWLXSpectrum *(*CreateXSpectrumCallback)();
  typedef IrpsWLZSpectrum *(*CreateZSpectrumCallback)();
@@ -36,7 +57,7 @@ using namespace WindLabAPI;
  typedef IrpsWLTurbulenceIntensity *(*CreateTurbulenceIntensityCallback)();
  typedef IrpsWLTurbulenceScale *(*CreateTurbulenceScaleCallback)();
  typedef IrpsWLVariance *(*CreateVarianceCallback)();
-typedef IrpsWLWavePassageEffect *(*CreateWavePassageEffectCallback)();
+ typedef IrpsWLWavePassageEffect *(*CreateWavePassageEffectCallback)();
 
 
 const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
@@ -50,7 +71,7 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
  	std::map<const std::string, std::string> CrpsCoherenceFactory::mTobeInstalledObjectsMap;
  	std::map<const std::string, std::string> CrpsCoherenceFactory::mOjectDescriptionMap;
  	std::map<const std::string, std::string> CrpsCoherenceFactory::mOjectAndPluginMap;
-     std::map<const std::string, std::string> CrpsCoherenceFactory::mOjectsSkipDuringUnintallationMap;
+    std::map<const std::string, std::string> CrpsCoherenceFactory::mOjectsSkipDuringUnintallationMap;
 
  	std::map<const std::string, std::string> CrpsCoherenceFactory::mTitleMap;
  	std::map<const std::string, std::string> CrpsCoherenceFactory::mLinkMap;
@@ -212,7 +233,7 @@ const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
  	std::map<const std::string, std::string> CrpsLocationDistributionFactory::mTobeInstalledObjectsMap;
  	std::map<const std::string, std::string> CrpsLocationDistributionFactory::mOjectDescriptionMap;
  	std::map<const std::string, std::string> CrpsLocationDistributionFactory::mOjectAndPluginMap;
-     std::map<const std::string, std::string> CrpsLocationDistributionFactory::mOjectsSkipDuringUnintallationMap;
+    std::map<const std::string, std::string> CrpsLocationDistributionFactory::mOjectsSkipDuringUnintallationMap;
 
  	std::map<const std::string, std::string> CrpsLocationDistributionFactory::mTitleMap;
  	std::map<const std::string, std::string> CrpsLocationDistributionFactory::mLinkMap;
@@ -371,7 +392,7 @@ CrpsLocationDistributionFactory::~CrpsLocationDistributionFactory()
  	std::map<const std::string, std::string> CrpsMeanFactory::mTobeInstalledObjectsMap;
  	std::map<const std::string, std::string> CrpsMeanFactory::mOjectDescriptionMap;
  	std::map<const std::string, std::string> CrpsMeanFactory::mOjectAndPluginMap;
-     std::map<const std::string, std::string> CrpsMeanFactory::mOjectsSkipDuringUnintallationMap;
+    std::map<const std::string, std::string> CrpsMeanFactory::mOjectsSkipDuringUnintallationMap;
 
  	std::map<const std::string, std::string> CrpsMeanFactory::mTitleMap;
  	std::map<const std::string, std::string> CrpsMeanFactory::mLinkMap;
@@ -529,7 +550,7 @@ CrpsLocationDistributionFactory::~CrpsLocationDistributionFactory()
  	std::map<const std::string, std::string> CrpsXSpectrumFactory::mTobeInstalledObjectsMap;
  	std::map<const std::string, std::string> CrpsXSpectrumFactory::mOjectDescriptionMap;
  	std::map<const std::string, std::string> CrpsXSpectrumFactory::mOjectAndPluginMap;
-     std::map<const std::string, std::string> CrpsXSpectrumFactory::mOjectsSkipDuringUnintallationMap;
+    std::map<const std::string, std::string> CrpsXSpectrumFactory::mOjectsSkipDuringUnintallationMap;
 
  	std::map<const std::string, std::string> CrpsXSpectrumFactory::mTitleMap;
  	std::map<const std::string, std::string> CrpsXSpectrumFactory::mLinkMap;
@@ -689,7 +710,7 @@ CrpsLocationDistributionFactory::~CrpsLocationDistributionFactory()
  	std::map<const std::string, std::string> CrpsZSpectrumFactory::mTobeInstalledObjectsMap;
  	std::map<const std::string, std::string> CrpsZSpectrumFactory::mOjectDescriptionMap;
  	std::map<const std::string, std::string> CrpsZSpectrumFactory::mOjectAndPluginMap;
-     std::map<const std::string, std::string> CrpsZSpectrumFactory::mOjectsSkipDuringUnintallationMap;
+    std::map<const std::string, std::string> CrpsZSpectrumFactory::mOjectsSkipDuringUnintallationMap;
 
  	std::map<const std::string, std::string> CrpsZSpectrumFactory::mTitleMap;
  	std::map<const std::string, std::string> CrpsZSpectrumFactory::mLinkMap;

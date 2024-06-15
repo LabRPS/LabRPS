@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>         *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -33,8 +33,6 @@
 #include <Mod/WindLabAPI/App/RPSWindLabAPIdefines.h>
 #include <CXX/Extensions.hxx>
 #include <CXX/Objects.hxx>
-
-
 
 namespace WindLabAPI {
 class Module : public Py::ExtensionModule<Module>

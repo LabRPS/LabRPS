@@ -1,7 +1,7 @@
 /***************************************************************************
  *   Copyright (c) 2019 Jean-Marie Verdun        jmverdun3@gmail.com       *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *

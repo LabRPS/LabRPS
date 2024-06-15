@@ -18,9 +18,6 @@ path_classifiers:
   - "src/Mod/Robot/"
   - "src/Mod/Ship/"
   legacy:
-  - "src/Mod/Assembly/"
-  - "src/Mod/Drawing/"
-  - "src/Mod/Raytracing/"
   - "src/Mod/Spreadsheet/App/Spreadsheet_legacy.py"
   - "src/Mod/OpenSCAD/prototype.py"
 
@@ -74,7 +71,6 @@ extraction:
       - "qttools5-dev"
       - "swig"
     configure:
-      command: "cmake ./ -DPYTHON_EXECUTABLE=/usr/bin/python3 -DBUILD_GUI=OFF -DBUILD_ARCH=OFF\
-        \ -DBUILD_DRAWING=OFF -DBUILD_IMAGE=OFF -DBUILD_INSPECTION=OFF -DBUILD_OPENSCAD=OFF\
-        \ -DBUILD_RAYTRACING=OFF -DBUILD_REVERSEENGINEERING=OFF -DBUILD_SURFACE=OFF -DBUILD_START=OFF\
-        \ -DBUILD_ROBOT=OFF -DBUILD_PATH=OFF -DBUILD_FEM=OFF"
+      command: "cmake ./ -DPYTHON_EXECUTABLE=/usr/bin/python3 -DBUILD_GUI=OFF\
+        \ -DBUILD_IMAGE=OFF -DBUILD_OPENSCAD=OFF\
+        \ -DBUILD_START=OFF"

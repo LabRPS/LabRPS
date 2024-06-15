@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>         *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -28,7 +28,6 @@
 #include <Base/Factory.h>
 #include "IrpsWLLocationDistribution.h"
 #include "WindLabSimuDataPy.h"
-#include "RPSWindLabPythonPluginFactory.h"
 #include "WindLabFeature.h"
 #include "WindLabFeatureLocationDistribution.h"
 #include "WindLabFeatureMeanWind.h"
@@ -75,19 +74,6 @@ PyMOD_INIT_FUNC(WindLabAPI)
     // Add Types to module
     Base::Interpreter().addType(&WindLabAPI::WindLabSimuDataPy ::Type, WindLabAPIModule, "WindLabSimuData");
     Base::Interpreter().addType(&WindLabAPI::WindLabFeaturePy::Type, WindLabAPIModule, "WindLabFeature");
-
-    static struct PyModuleDef pLocationDistributionFactoryPyModuleDef = {
-    PyModuleDef_HEAD_INIT,
-    "RPSPythonFeatureFactory",
-    "RPSPythonFeatureFactory", -1,
-    WindLabAPI::RPSWindLabPythonPluginFactory::Methods,
-    nullptr, nullptr, nullptr, nullptr
-    };
-
-    PyObject* pLocationDistributionFactoryPyModule = PyModule_Create(&pLocationDistributionFactoryPyModuleDef);
-
-    Py_INCREF(pLocationDistributionFactoryPyModule);
-    PyModule_AddObject(WindLabAPIModule, "RPSPythonFeatureFactory", pLocationDistributionFactoryPyModule);
 
     WindLabAPI::WindLabFeature::init();
     WindLabAPI::WindLabFeatureLocationDistribution::init();
