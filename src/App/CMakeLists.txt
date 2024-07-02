@@ -281,6 +281,7 @@ SET(LabRPSApp_CPP_SRCS
     Metadata.cpp
     MetadataPyImp.cpp
     RPSpluginManager.cpp
+    WindLabUtils.cpp
 
 )
 
@@ -296,6 +297,7 @@ SET(LabRPSApp_HPP_SRCS
     Material.h
     Metadata.h
     RPSpluginManager.h
+    WindLabUtils.h
 
 )
 

@@ -20,12 +20,6 @@ set(RPSCholeskyDecomposition_LIBS
     WindLabTools
 )
 
-# if(BUILD_QT5)
-#     qt5_add_resources(RPSCholeskyDecomposition_SRCS Resources/RPSCholeskyDecomposition.qrc)
-# else()
-#     qt4_add_resources(RPSCholeskyDecomposition_SRCS Resources/RPSCholeskyDecomposition.qrc)
-# endif()
-
 set(RPSCholeskyDecomposition_UIC_SRCS
 
 
@@ -38,8 +32,7 @@ else()
 endif()
 
 SET(RPSCholeskyDecomposition_SRCS
-    ${RPSCholeskyDecomposition_SRCS}
-    ${RPSCholeskyDecomposition_UIC_HDRS}
+    # ${RPSCholeskyDecomposition_UIC_HDRS}
     choleskyDecomposition.cpp
     RPSCholeskyDecomposition.cpp
     choleskyDecomposition.h
@@ -63,7 +56,6 @@ set_target_properties(RPSCholeskyDecomposition PROPERTIES FOLDER "Plugins/WindLa
 
 SET_BIN_DIR(RPSCholeskyDecomposition RPSCholeskyDecomposition /Plugins/WindLabWorkbench/RPSCholeskyDecomposition)
 
-# rps_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Workbenches/RPSCholeskyDecomposition" ${RPSCholeskyDecompositionIcon_SVG})
 rps_copy_sources(RPSCholeskyDecomposition "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition" ${Metadata_Files})
 INSTALL(TARGETS RPSCholeskyDecomposition DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition")
 INSTALL(FILES RPSCholeskyDecomposition.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSCholeskyDecomposition")

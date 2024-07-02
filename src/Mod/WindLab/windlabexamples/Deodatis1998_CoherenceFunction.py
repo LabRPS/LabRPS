@@ -65,7 +65,7 @@ def setup(doc=None, showGui=True):
         return None
     
     # create new frequency distribution in the simulation called "Simulation"
-    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation", "Frequency Distribution",  "Double Index Frequency")
+    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation",  "Double Index Frequency Discretization", "Frequency Distribution")
     
     # check if the created frequency distribution feature is null
     if not frequency:
@@ -73,7 +73,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new coherence function feature in the simulation called "Simulation"
-    coherence = WindLabObjects.makeFeature("CoherenceFunction", "Simulation", "Coherence Function",  "Davenport Coherence")
+    coherence = WindLabObjects.makeFeature("CoherenceFunction", "Simulation",  "Davenport Coherence Function", "Coherence Function")
     
     # check if the created mean wind feature
     if not coherence:

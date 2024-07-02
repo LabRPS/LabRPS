@@ -30,14 +30,14 @@
 import time
 
 # reading the last Version information
-[FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa,dummy] = open("../Version.h",'r').readlines()
+[RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa,dummy] = open("../Version.h",'r').readlines()
 
 # increasing build number
 BuildNumber = int(FCVersionBuild[23:-1]) +1
 
 # writing new Version.h File
-open("../Version.h",'w').writelines([FCVersionMajor,FCVersionMinor,FCVersionBuild[:23]+str(BuildNumber)+'\n',FCVersionDisDa[:23]+ '"'+time.asctime()+'"'])
+open("../Version.h",'w').writelines([RPSVersionMajor,RPSVersionMinor,FCVersionBuild[:23]+str(BuildNumber)+'\n',FCVersionDisDa[:23]+ '"'+time.asctime()+'"'])
 
 # writing the ChangeLog.txt
-open("../ChangeLog.txt",'a').write("\nVersion: V"+FCVersionMajor[23:-1]+"."+FCVersionMinor[23:-1]+"B"+str(BuildNumber)+" Date: "+time.asctime()+' +++++++++++++++++++++++++++++++\n')
+open("../ChangeLog.txt",'a').write("\nVersion: V"+RPSVersionMajor[23:-1]+"."+RPSVersionMinor[23:-1]+"B"+str(BuildNumber)+" Date: "+time.asctime()+' +++++++++++++++++++++++++++++++\n')
 

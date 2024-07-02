@@ -2253,7 +2253,7 @@ static std::string checkFileName(const char *file) {
         const char *ext = strrchr(file,'.');
         if(!ext || !boost::iequals(ext+1,"fcstd")) {
             if(ext && ext[1] == 0)
-                fn += "FCStd";
+                fn += "RPSStd";
             else
                 fn += ".RPSStd";
         }

@@ -3951,7 +3951,7 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
+      <source>Compression level for RPSStd files</source>
       <translation>Raven stiskanja pri datotekah FCtd</translation>
     </message>
     <message>

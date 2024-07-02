@@ -42,8 +42,8 @@ public:
     Workbench();
     virtual ~Workbench();
 
-    virtual bool getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const;
-    virtual bool getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const;
+    virtual bool getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const;
+    virtual bool getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const;
     virtual bool isObjectInstalled(QString& object) const;
     virtual bool updateToBeInstalledObjectsMap(const QString& lstObject) const;
     virtual bool updateToBeUninstalledObjectsMap(const QString name, const QString pluginName) const;

@@ -191,41 +191,41 @@ Gui::ToolBarItem* Workbench::setupCommandBars() const
 //plugins and features storing staff
 //---------------------------------------------------------------------------------
 
-bool WindLabGui::Workbench::getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool WindLabGui::Workbench::getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     lstObject.clear();
 
     try
     {
-        WindLab::WindLabUtils::getObjects(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsXSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsYSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsZSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsRandomnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsModulationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsMeanFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsCorrelationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTableToolFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsMatrixToolFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
+       WindLab::WindLabUtils::getObjects(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSimulationMethod.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupLocationDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsXSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupAlongWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsYSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupAcrossWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsZSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupVerticalWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCoherenceFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSpectrumDecompositionMethod.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupFrequencyDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsRandomnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupRandomnessProvider.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsModulationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupModulationFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsMeanFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupMeanWindProfile.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsCorrelationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCorrelationFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTableToolFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTableTool.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsMatrixToolFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::MatrixToolCompute.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsUserDefinedRPSObjectFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupUserDefinedRPSObject.toStdString());
 
-       WindLab::WindLabUtils::getObjects(CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsGustFactorFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsKurtosisFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsPeakFactorFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsRoughnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsSkewnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsVarianceFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName);
+       WindLab::WindLabUtils::getObjects(CrpsCumulativeProbabilityDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCumulativeProbabilityDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsGustFactorFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupGustFactor.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsKurtosisFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupKurtosis.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsPeakFactorFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupPeakFactor.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsProbabilityDensityFunctionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupProbabilityDensityFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsRoughnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupRoughness.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsShearVelocityOfFlowFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupShearVelocityOfFlow.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsSkewnessFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSkewness.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsStandardDeviationFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupStandardDeviation.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTurbulenceIntensityFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTurbulenceIntensity.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTurbulenceScaleFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTurbulenceScale.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsVarianceFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupVariance.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsWavePassageEffectFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupWavePassageEffect.toStdString());
 
     }
     catch (const std::exception& e)
@@ -236,39 +236,40 @@ bool WindLabGui::Workbench::getToBeInstalledObjectsList(QStringList& lstObject, 
     return true;
 }
 
-bool WindLabGui::Workbench::getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool WindLabGui::Workbench::getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     lstObject.clear();
     try
     {
-       WindLab::WindLabUtils::getObjects(CrpsSimuMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsXSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsYSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsZSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsCoherenceFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsRandomnessFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsModulationFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsMeanFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTableToolFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsMatrixToolFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap(), lstObject, pluginName);
+       WindLab::WindLabUtils::getObjects(CrpsSimuMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSimulationMethod.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupLocationDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsXSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupAlongWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsYSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupAcrossWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsZSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupVerticalWindSpectrum.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsCoherenceFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCoherenceFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSpectrumDecompositionMethod.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupFrequencyDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsRandomnessFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupRandomnessProvider.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsModulationFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupModulationFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsMeanFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupMeanWindProfile.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsCorrelationFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCorrelationFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTableToolFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTableTool.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsMatrixToolFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::MatrixToolCompute.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsUserDefinedRPSObjectFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupUserDefinedRPSObject.toStdString());
 
-       WindLab::WindLabUtils::getObjects(CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsGustFactorFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsKurtosisFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsPeakFactorFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsRoughnessFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsSkewnessFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsStandardDeviationFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsTurbulenceScaleFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsVarianceFactory::GetOjectAndPluginMap(), lstObject, pluginName);
-       WindLab::WindLabUtils::getObjects(CrpsWavePassageEffectFactory::GetOjectAndPluginMap(), lstObject, pluginName);
+       WindLab::WindLabUtils::getObjects(CrpsCumulativeProbabilityDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupCumulativeProbabilityDistribution.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsGustFactorFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupGustFactor.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsKurtosisFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupKurtosis.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsPeakFactorFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupPeakFactor.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsProbabilityDensityFunctionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupProbabilityDensityFunction.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsRoughnessFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupRoughness.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsShearVelocityOfFlowFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupShearVelocityOfFlow.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsSkewnessFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupSkewness.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsStandardDeviationFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupStandardDeviation.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTurbulenceIntensityFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTurbulenceIntensity.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsTurbulenceScaleFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupTurbulenceScale.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsVarianceFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupVariance.toStdString());
+       WindLab::WindLabUtils::getObjects(CrpsWavePassageEffectFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), WindLab::WindLabUtils::objGroupWavePassageEffect.toStdString());
 
     }
     catch (const std::exception& e)

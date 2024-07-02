@@ -2928,8 +2928,8 @@ veľkosti ohraničujúceho poľa 3D objektu, ktorý je aktuálne zobrazený.</tr
       <translation type="unfinished">The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for FCStd files</source>
-      <translation type="unfinished">Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation type="unfinished">Compression level for RPSStd files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>

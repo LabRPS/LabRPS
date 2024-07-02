@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -26,11 +26,17 @@
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
-#include <App/PropertyGeo.h>
-#include <App/PropertyUnits.h>
 #include <QString>
 
 class QSignalMapper;
+
+namespace App
+{
+    class PropertyVector;
+    class PropertyLength;
+    class PropertyString;
+
+}
 
 namespace WindLabGui {
 
@@ -40,7 +46,7 @@ class DlgHorizontalLocationDistribution : public QWidget
     Q_OBJECT
 
 public:
-    DlgHorizontalLocationDistribution(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgHorizontalLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgHorizontalLocationDistribution();
     void accept();
     void reject();
@@ -55,7 +61,7 @@ class HorizontalLocationDistributionDialogEdit : public Gui::TaskView::TaskDialo
     Q_OBJECT
 
 public:
-    HorizontalLocationDistributionDialogEdit(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName);
+    HorizontalLocationDistributionDialogEdit(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName);
     ~HorizontalLocationDistributionDialogEdit();
     
 public:

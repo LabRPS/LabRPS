@@ -41,9 +41,9 @@ def main():
         version['FCRepositoryHash'] = SHA
 
     print('LabRPS_{Major}.{Minor}-{RevCount}.{GitShortSHA}-{OS}-{Arch}'.format(
-          Major=version['FCVersionMajor'],
-          Minor=version['FCVersionMinor'],
-          RevCount=version['FCRevision'],
+          Major=version['RPSVersionMajor'],
+          Minor=version['RPSVersionMinor'],
+          RevCount=version['RPSRevision'],
           GitShortSHA=version['FCRepositoryHash'][0:7],
           OS=OSAbbrev.get(platform.system(), 'LIN'),
           Arch=platform.machine()))

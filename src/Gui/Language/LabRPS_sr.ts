@@ -2910,8 +2910,8 @@ bounding box size of the 3D object that is currently displayed.</translation>
       <translation type="unfinished">The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for FCStd files</source>
-      <translation type="unfinished">Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation type="unfinished">Compression level for RPSStd files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>

@@ -41,7 +41,7 @@
 			<string>Editor</string>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>FCStd</string>
+				<string>RPSStd</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>labrps-doc.icns</string>

@@ -54,8 +54,7 @@ void RPSWindLabSimulationWorker::setComputationTime()
     if (!doc)
         return;
     auto obj = doc->getObject(m_comparisonName.c_str());
-    WindLab::WindLabSimulationComparison* comp =
-        static_cast<WindLab::WindLabSimulationComparison*>(obj);
+    WindLab::WindLabSimulationComparison* comp = static_cast<WindLab::WindLabSimulationComparison*>(obj);
     if (!comp)
         return;
     std::string simName = static_cast<App::DocumentObject*>(m_sim)->getNameInDocument();
@@ -69,14 +68,14 @@ void RPSWindLabSimulationWorker::setComputationTime()
 
     m_sim->getSimulationData()->comparisonMode.setValue(false);
 }
+
 bool RPSWindLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()
 {
     if (isStopped()) {
         stopped = false;
 
         if (m_computingFunction == WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3) {
-            m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
-                                  4);
+            m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),4);
             bool returnResult = false;
 
             Base::StopWatch watch;
@@ -355,7 +354,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
             if (!returnResult) {
-                Base::Console().Warning("The computation of the coherence matrix has failed.\n");
+                Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 return false;
             }
 
@@ -776,7 +775,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesMatrixFP()
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
             if (!returnResult) {
-                Base::Console().Warning("The computation of the coherence matrix has failed.\n");
+                Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 return false;
             }
 
@@ -2468,7 +2467,7 @@ bool RPSWindLabSimulationWorker::workerSimulate()
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
             if (!returnResult) {
-                Base::Console().Warning("The computation of the coherence matrix has failed.\n");
+                Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 return false;
             }
 
@@ -3822,7 +3821,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
             if (!returnResult) {
-                Base::Console().Warning("The computation of the coherence matrix has failed.\n");
+                Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 return false;
             }
 

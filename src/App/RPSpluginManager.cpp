@@ -24,16 +24,10 @@ class AppExport PluginInstance::Impl
 public:
 
     // plugin name
-	QString fileName;
+	QString pluginName;
 
-	// the name of plugin as displayed in the plugin browser
-	QString displayName;
-
-	// a string 
-	QString theString;
-
-	// the plugin name in the application system
-	QString systemName;
+	// plugin file name
+    QString fileName;
 
 	// the random phenomenon for which the plugin is developed
 	QString randomPhenomenon;
@@ -58,6 +52,9 @@ public:
 
 	// the name of the sub folder containing the plugin files
 	QString pluginSubFolder;
+
+    // a string
+    QString theString;
 
 	// the flag to show whether the plugin is installed
 	bool isPluginInstalled;
@@ -100,17 +97,17 @@ public:
 
     QString getLabRPSVersion()
     {
-        return QString::fromLatin1("0.001");
+        return QString::fromLatin1("0.1");
     }
 
     QString getLabRPSWindLabAPIVersion()
     {
-        return QString::fromLatin1("0.001");
+        return QString::fromLatin1("0.1");
     }
 
     QString getLabRPSUserDefinedPhenomenonAPIVersion()
     {
-        return QString::fromLatin1("0.001");
+        return QString::fromLatin1("0.1");
     }
 
 };
@@ -119,7 +116,6 @@ public:
 PluginInstance::PluginInstance(const QString &name)
 {
 	mImpl = new Impl;
-	mImpl->displayName = name;
 	mImpl->pluginSubFolder = name;
 }
 
@@ -135,10 +131,22 @@ bool PluginInstance::Initialize(QString &information)
         return false;
     }
 
+	const QString pluginName = GetStringFromDllFunct(QString::fromLatin1("PluginName"));
     const QString labRPSVersion = GetStringFromDllFunct(QString::fromLatin1("Labrpsversion"));
     const QString apiVersion = GetStringFromDllFunct(QString::fromLatin1("Apiversion"));
     Impl::MyPrototypeOne init_func = mImpl->GetFunctionPrototypeOne("PluginInit");
-    
+
+	if (!checkVersion(labRPSVersion.toStdString(), mImpl->getLabRPSVersion().toStdString()))
+	{
+		Base::Console().Warning("The LabRPS version(%s) of your plugin '%s' is not compatible with the current version(%s) of LabRPS.\n", labRPSVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getLabRPSVersion().toStdString().c_str());
+        return false;
+	}
+    if (!checkVersion(apiVersion.toStdString(), mImpl->getLabRPSWindLabAPIVersion().toStdString()))
+	{
+        Base::Console().Warning("The plugin API version(%s) of your plugin '%s' is not compatible with the current version(%s) of Plugin API.\n", apiVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getLabRPSWindLabAPIVersion().toStdString().c_str());
+        return false;
+	}
+
 	if (!init_func)
         return false;
 
@@ -173,8 +181,7 @@ bool PluginInstance::Load()
 
     // if the plugin is successfuly loaded
     // Call functions from the plungin (dll) to get information about the plugin
-    mImpl->displayName = GetStringFromDllFunct(QString::fromLatin1("PluginDisplayName"));
-    mImpl->systemName = GetStringFromDllFunct(QString::fromLatin1("PluginSystemName"));
+    mImpl->pluginName = GetStringFromDllFunct(QString::fromLatin1("PluginName"));
     mImpl->randomPhenomenon = GetStringFromDllFunct(QString::fromLatin1("Phenomenon"));
     mImpl->pluginAuthor = GetStringFromDllFunct(QString::fromLatin1("PluginAuthor"));
     mImpl->pluginDescription = GetStringFromDllFunct(QString::fromLatin1("PluginDescription"));
@@ -220,14 +227,9 @@ QString PluginInstance::GetFileName()
 	return mImpl->fileName;
 }
 
-QString PluginInstance::GetDisplayName()
+QString PluginInstance::GetPluginName()
 {
-	return mImpl->displayName;
-}
-
-QString PluginInstance::GetSystemName()
-{
-	return mImpl->systemName;
+	return mImpl->pluginName;
 }
 
 QString PluginInstance::GetRandomPhenomenon()
@@ -350,13 +352,12 @@ QString PluginManager::GetOnlinePluginLacotionPath(const QString& workbenchName)
 QString PluginInstance::GetStringFromDllFunct(const QString &name)
 {
 	QByteArray ba = name.toLocal8Bit();
-    const char *c_str2 = ba.data();
-	Impl::MyPrototypeTwo name_string = mImpl->GetFunctionPrototypeTwo(c_str2);
+    const char *c_str = ba.data();
+	Impl::MyPrototypeTwo name_string = mImpl->GetFunctionPrototypeTwo(c_str);
 	if (name_string)
 	{
 		const char **ptr = (const char **)name_string;
 		mImpl->theString = QString::fromLatin1(*ptr);
-
 		return mImpl->theString;
 	}
 
@@ -371,6 +372,16 @@ bool PluginInstance::GetInstallationState()
 void PluginInstance::SetInstallationState(bool state)
 {
    isInstalled = state;
+}
+
+bool PluginInstance::checkVersion(std::string versions, std::string currentVersion) {
+    // Tokenize the comma-separated list
+    std::stringstream stream(versions);
+    std::string version;
+    while (std::getline(stream, version, ','))
+        if (strcmp(version.c_str(), currentVersion.c_str()) == 0)
+            return true;
+    return false;
 }
 
 bool PluginManager::InitializePlugin(const QString &name, int instUninstMOd, QString &information)
@@ -429,7 +440,7 @@ bool PluginManager::InstallPlugin(const QString &name)
 
 	// success! add the plugin to the installed plugins map
 	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
-    allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
+    allInstalledPluginsNamesMap[pi->GetPluginName()] = pi;
 
 	return true;
 }
@@ -447,7 +458,7 @@ bool PluginManager::InstallPluginInReg(const QString &name)
 
 	// Success! add the plugin to the installed plugins map
 	installedPluginsMap[pi->GetPluginSubFolder()] = pi;
-    allInstalledPluginsNamesMap[pi->GetDisplayName()] = pi;
+    allInstalledPluginsNamesMap[pi->GetPluginName()] = pi;
 
 	return true;
 }

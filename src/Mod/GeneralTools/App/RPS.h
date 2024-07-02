@@ -1,5 +1,5 @@
-#ifndef WL_RPS_H
-#define WL_RPS_H
+#ifndef GENERAL_TOOL_RPS_H
+#define GENERAL_TOOL_RPS_H
 
 #include <Eigen/Eigen>
 #include <unsupported/Eigen/CXX11/Tensor>

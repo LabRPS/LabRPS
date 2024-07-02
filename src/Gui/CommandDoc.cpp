@@ -104,11 +104,11 @@ void StdCmdOpen::activated(int iMsg)
 
     std::vector<std::string> filetypes = App::GetApplication().getImportTypes();
     std::vector<std::string>::iterator it;
-    // Make sure FCStd is the very first fileformat
-    it = std::find(filetypes.begin(), filetypes.end(), "FCStd");
+    // Make sure RPSStd is the very first fileformat
+    it = std::find(filetypes.begin(), filetypes.end(), "RPSStd");
     if (it != filetypes.end()) {
         filetypes.erase(it);
-        filetypes.insert(filetypes.begin(), "FCStd");
+        filetypes.insert(filetypes.begin(), "RPSStd");
     }
     for (it=filetypes.begin();it != filetypes.end();++it) {
         formatList += QLatin1String(" *.");
@@ -119,7 +119,7 @@ void StdCmdOpen::activated(int iMsg)
 
     std::map<std::string, std::string> FilterList = App::GetApplication().getImportFilters();
     std::map<std::string, std::string>::iterator jt;
-    // Make sure the format name for FCStd is the very first in the list
+    // Make sure the format name for RPSStd is the very first in the list
     for (jt=FilterList.begin();jt != FilterList.end();++jt) {
         if (jt->first.find("*.RPSStd") != std::string::npos) {
             formatList += QLatin1String(jt->first.c_str());
@@ -195,7 +195,7 @@ void StdCmdImport::activated(int iMsg)
     std::vector<std::string> filetypes = App::GetApplication().getImportTypes();
     std::vector<std::string>::const_iterator it;
     for (it=filetypes.begin();it != filetypes.end();++it) {
-        if (*it != "FCStd") {
+        if (*it != "RPSStd") {
             // ignore the project file format
             formatList += QLatin1String(" *.");
             formatList += QLatin1String(it->c_str());

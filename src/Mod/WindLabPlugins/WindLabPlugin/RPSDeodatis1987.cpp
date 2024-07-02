@@ -1,4 +1,24 @@
-
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "RPSDeodatis1987.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
@@ -84,9 +104,9 @@ bool CRPSDeodatis1987::stationaryWind(const WindLabAPI::WindLabSimuData& Data, m
        return false;
     }
 
-    if ((PbuInfo->type.getValue(), "Double Index Frequency") == 0 || (PbuInfo->PluginName.getValue(), "WindLabPlugin") == 0)
+    if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0 || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0)
     {
-        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency distribution implemented by the windLab plugin.\n");
+        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency discretization implemented by the WindLab plugin.\n");
         return false;
     }
 
@@ -143,7 +163,7 @@ bool CRPSDeodatis1987::stationaryWind(const WindLabAPI::WindLabSimuData& Data, m
        return false;
     }
 
-        // the imaginary i
+    // the imaginary i
     std::complex<double> i2(0, 1);
 
     // fast fourier transform

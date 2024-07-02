@@ -31,7 +31,6 @@ link_directories(${OCC_LIBRARY_DIR})
 
 set(WindLab_LIBS
     WindLabAPI
-    QtPropertyBrowser
     LabRPSApp
 )
 

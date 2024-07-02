@@ -210,6 +210,6 @@ void CreateWindLabCommands(void)
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdWindLabNewSimulation());
     rcCmdMgr.addCommand(new CmdWindLabFeatures());
-    //rcCmdMgr.addCommand(new CmdWindLabComparison());
+    rcCmdMgr.addCommand(new CmdWindLabComparison());
 
 }

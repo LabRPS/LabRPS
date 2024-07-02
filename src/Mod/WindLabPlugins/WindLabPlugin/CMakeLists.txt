@@ -1,5 +1,3 @@
-#define QT_NO_KEYWORDS
-
 if(MSVC)
     add_definitions(-DHAVE_ACOSH -DHAVE_ATANH -DHAVE_ASINH)
 else(MSVC)
@@ -61,7 +59,6 @@ Widgets/DlgTurbulenceIntensityASCE798.ui
 Widgets/DlgGridPoints.ui
 
 
-
 )
 
 if(BUILD_QT5)
@@ -73,7 +70,6 @@ endif()
 SET(WindLabPlugin_SRCS
 ${WindLabPlugin_SRCS}
 ${WindLabPlugin_UIC_HDRS}
-# AppWindLabPlugin.cpp
 Resources/WindLabPlugin.qrc
 PreCompiled.cpp
 PreCompiled.h

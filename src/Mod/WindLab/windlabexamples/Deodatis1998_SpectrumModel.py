@@ -65,7 +65,7 @@ def setup(doc=None, showGui=True):
         return None
     
     # create new frequency distribution in the simulation called "Simulation"
-    spectrum = WindLabObjects.makeFeature("Spectrum", "Simulation", "Along Wind Spectrum",  "Kaimal Along Wind Spectrum")
+    spectrum = WindLabObjects.makeFeature("Spectrum", "Simulation",  "Kaimal Along Wind Spectrum", "Along Wind Spectrum")
     
     # check if the created frequency distribution feature is null
     if not spectrum:

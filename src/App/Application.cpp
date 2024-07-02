@@ -1191,7 +1191,7 @@ int Application::getUserPluginSource(std::string& customPluginSourcePlath)
         customPluginSourcePlath = hGrp->GetASCII("customPluginPath");
         return 4;
     }
-        return 0;
+        return 1;
 }
 
 int Application::checkLinkDepth(int depth, bool no_throw) {
@@ -2473,16 +2473,16 @@ void Application::initConfig(int argc, char ** argv)
     // only for 'BuildVersionMajor'.
     if (App::Application::Config().find("BuildVersionMajor") == App::Application::Config().end()) {
         std::stringstream str;
-        str << FCVersionMajor
-            << "." << FCVersionMinor
-            << "." << FCVersionPoint;
+        str << RPSVersionMajor
+            << "." << RPSVersionMinor
+            << "." << RPSVersionPoint;
         App::Application::Config()["ExeVersion"         ] = str.str();
-        App::Application::Config()["BuildVersionMajor"  ] = FCVersionMajor;
-        App::Application::Config()["BuildVersionMinor"  ] = FCVersionMinor;
-        App::Application::Config()["BuildVersionPoint"  ] = FCVersionPoint;
-        App::Application::Config()["BuildRevision"      ] = FCRevision;
-        App::Application::Config()["BuildRepositoryURL" ] = FCRepositoryURL;
-        App::Application::Config()["BuildRevisionDate"  ] = FCRevisionDate;
+        App::Application::Config()["BuildVersionMajor"  ] = RPSVersionMajor;
+        App::Application::Config()["BuildVersionMinor"  ] = RPSVersionMinor;
+        App::Application::Config()["BuildVersionPoint"  ] = RPSVersionPoint;
+        App::Application::Config()["BuildRevision"      ] = RPSRevision;
+        App::Application::Config()["BuildRepositoryURL" ] = RPSRepositoryURL;
+        App::Application::Config()["BuildRevisionDate"  ] = RPSRevisionDate;
 #if defined(FCRepositoryHash)
         App::Application::Config()["BuildRevisionHash"  ] = FCRepositoryHash;
 #endif

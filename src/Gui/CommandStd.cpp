@@ -4183,14 +4183,14 @@ public:
 //===========================================================================
 DEF_STD_CMD(StdCmdPlugins)
 
-StdCmdPlugins::StdCmdPlugins() : Command("Std_CmdPlugins")
+StdCmdPlugins::StdCmdPlugins() : Command("Std_PluginInstaller")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("P&lugins ...");
     sToolTipText = QT_TR_NOOP("Opens a dialog to show the list of plugins available for the active workbench");
-    sWhatsThis = "Std_CmdPlugins";
+    sWhatsThis = "Std_PluginInstaller";
     sStatusTip = QT_TR_NOOP("Opens a dialog to show the list of plugins available for the active workbench");
-    sPixmap = "Std_CmdPlugins";
+    sPixmap = "Std_PluginInstaller";
     eType = 0;
 }
 

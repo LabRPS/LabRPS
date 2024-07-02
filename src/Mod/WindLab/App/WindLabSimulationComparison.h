@@ -36,7 +36,7 @@
 namespace WindLab {
 
  class WindLabSimulationComparisonPy;// the python WindLabSimulationComparison class
- class WindLabSimulation;// the python WindLabSimulationComparison class
+ class WindLabSimulation;
 
  class WindLabExport WindLabSimulationComparison: public App::DocumentObject
  {
@@ -72,7 +72,8 @@ public:
     App::PropertyPercent Accuracy;
     App::PropertyFloat ComputationTime1;
     App::PropertyFloat ComputationTime2;
-    App::PropertyInteger MemoryUsage;
+    App::PropertyInteger MemoryUsage1;
+    App::PropertyInteger MemoryUsage2;
 
 
     /// python object of this class

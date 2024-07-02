@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -20,19 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 
-
-
-
 #include "DlgHarrisSpectrum.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgHarrisSpectrum.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/RPSHarrisSpectrum.h>
 #include <QSignalMapper>
 #include <App/Application.h>
 #include <App/Document.h>
-
-//#include <QPushButton>
-//#include <QApplication>
-
 
 using namespace WindLabGui;
 
@@ -69,7 +62,6 @@ void DlgHarrisSpectrum::accept()
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return;
-    //auto feature = doc->getObject(_featureName.c_str());
     WindLab::CRPSHarrisSpectrum* activefeature = static_cast<WindLab::CRPSHarrisSpectrum*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;

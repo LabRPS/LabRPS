@@ -57,9 +57,24 @@ def setup(doc=None, showGui=True):
 
     #install the WindLab plugin with all its plugged features
     installResuslt1 = WindLab.installPlugin("WindLabPlugin")
+    if not installResuslt1:
+        LabRPS.Console.PrintError("The installation of the 'WindLabPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt2 = WindLab.installPlugin("CorrelationErgodicityPlugin")
+    if not installResuslt2:
+        LabRPS.Console.PrintError("The installation of the 'CorrelationErgodicityPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt3 = WindLab.installPlugin("PDFCheckToolPlugin")
+    if not installResuslt3:
+        LabRPS.Console.PrintError("The installation of the 'PDFCheckToolPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt4 = WindLab.installPlugin("ErgodicityCheckToolPlugin")
+    if not installResuslt4:
+        LabRPS.Console.PrintError("The installation of the 'ErgodicityCheckToolPlugin' plugin has failed.\n")
+        return None
 
     # create new simulation with default name "Simulation"
     sim = WindLabObjects.makeSimulation(doc)
@@ -77,7 +92,7 @@ def setup(doc=None, showGui=True):
     sim.NumberOfTimeIncrements = 9651
 
     # create new location distribution in the simulation called "Simulation"
-    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation", "Location Distribution",  "General Distribution")
+    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation",  "General Distribution", "Location Distribution")
     
     # check if the created location distribution feature is null
     if not loc:
@@ -92,9 +107,9 @@ def setup(doc=None, showGui=True):
     print(rpsTypes)
 
     # change if needed the values of the properties of the feature
-    v1 = vec(0, 0, 35)
-    v2 = vec(0, 0, 40)
-    v3 = vec(0, 0, 140)
+    v1 = vec(0, 0, 35000)
+    v2 = vec(0, 0, 40000)
+    v3 = vec(0, 0, 140000)
     loc.Locations = [v1, v2, v3]
 
     # run the method "computeLocationCoordinateMatrixP3" of the feature and store the result.

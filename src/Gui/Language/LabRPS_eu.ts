@@ -3951,8 +3951,8 @@ kolore-barraz aparte</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>FCStd fitxategien konpresio-maila</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>RPSStd fitxategien konpresio-maila</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>

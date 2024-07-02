@@ -3946,8 +3946,8 @@ a színsáv mellett</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Az FCStd-fájlok tömörítési szintje</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Az RPSStd-fájlok tömörítési szintje</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>

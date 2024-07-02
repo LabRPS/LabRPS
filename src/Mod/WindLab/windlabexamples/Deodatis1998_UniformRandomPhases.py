@@ -66,7 +66,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new randomness provider feature in the simulation called "Simulation"
-    randomness = WindLabObjects.makeFeature("RandomPhases", "Simulation", "Randomness Provider",  "Uniform Random Phases")
+    randomness = WindLabObjects.makeFeature("RandomPhases", "Simulation",  "Uniform Random Phases", "Randomness Provider")
     
     # check if the created randomness provider feature
     if not randomness:

@@ -29,7 +29,7 @@ using namespace WindLabAPI;
 
 const char * RPSWindLabPluginAPIInfo::getWindLabPluginAPIVersion()
 {
-	return "0.001";
+	return "0.1";
 }
 
 

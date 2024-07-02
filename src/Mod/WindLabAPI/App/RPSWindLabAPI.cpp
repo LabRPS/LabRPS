@@ -62,7 +62,7 @@ using namespace WindLabAPI;
 
 const char * RPSWindLabAPIInfo::getWindLabAPIVersion()
 {
-	return "0.001";
+	return "0.1";
 }
 
  	CrpsCoherenceFactory::CallbackMap CrpsCoherenceFactory::mCoherences;

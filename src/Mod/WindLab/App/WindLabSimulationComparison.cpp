@@ -49,7 +49,9 @@ WindLabSimulationComparison::WindLabSimulationComparison()
     ADD_PROPERTY_TYPE(ComputationTime1, (0), group4, App::Prop_ReadOnly, "The computation time for candidate 1");
     ADD_PROPERTY_TYPE(ComputationTime2, (0), group4, App::Prop_ReadOnly, "The computation time for candidate 2");
 
-    ADD_PROPERTY_TYPE(MemoryUsage, (0), group4, App::Prop_ReadOnly, "The memory usage");
+    ADD_PROPERTY_TYPE(MemoryUsage1, (0), group4, App::Prop_ReadOnly, "The memory usage");
+    ADD_PROPERTY_TYPE(MemoryUsage2, (0), group4, App::Prop_ReadOnly, "The memory usage");
+
 }
 
 WindLabSimulationComparison::~WindLabSimulationComparison() { }

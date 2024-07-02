@@ -11,34 +11,34 @@ blksize = 1024 * 8
 def BuildDistName():
     # Building dist name
     # reading the last Version information
-    [FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
-    DistName = "LabRPS_V" + FCVersionMajor[23:-1] + '.' +FCVersionMinor[23:-1] + 'B' + FCVersionBuild[23:-1]
+    [RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+    DistName = "LabRPS_V" + RPSVersionMajor[23:-1] + '.' +RPSVersionMinor[23:-1] + 'B' + FCVersionBuild[23:-1]
 
     return DistName
 def BuildSetupName():
     # Building dist name
     # reading the last Version information
-    [FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
-    DistName = "LabRPS_V" + FCVersionMajor[23:-1] + '.' +FCVersionMinor[23:-1] 
+    [RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+    DistName = "LabRPS_V" + RPSVersionMajor[23:-1] + '.' +RPSVersionMinor[23:-1] 
 
     return DistName
 
 def GetVersion():
     # Building dist name
     # reading the last Version information
-    [FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
-    return  FCVersionMajor[23:-1] + '.' +FCVersionMinor[23:-1] 
+    [RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+    return  RPSVersionMajor[23:-1] + '.' +RPSVersionMinor[23:-1] 
 
 def GetBuildNbr():
     # Building dist name
     # reading the last Version information
-    [FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+    [RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
     return  FCVersionBuild[23:-1] 
 
 def GetBuildDate():
     # Building dist name
     # reading the last Version information
-    [FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+    [RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
     return  FCVersionDisDa[23:-1] 
 
 def EnsureDir(name):

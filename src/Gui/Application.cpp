@@ -560,7 +560,7 @@ void Application::open(const char* FileName, const char* Module)
 
     if (Module != nullptr) {
         try {
-            if (File.hasExtension("FCStd")) {
+            if (File.hasExtension("RPSStd")) {
                 bool handled = false;
                 std::string filepath = File.filePath();
                 for (auto &v : d->documents) {
@@ -626,7 +626,7 @@ void Application::importFrom(const char* FileName, const char* DocName, const ch
             Command::doCommand(Command::App, "import %s", Module);
 
             // load the file with the module
-            if (File.hasExtension("FCStd")) {
+            if (File.hasExtension("RPSStd")) {
                 Command::doCommand(Command::App, "%s.open(u\"%s\")"
                                                , Module, unicodepath.c_str());
                 if (activeDocument())
@@ -1935,9 +1935,9 @@ void Application::runApplication()
     // http://doc.qt.io/qt-5/qcoreapplication.html#locale-settings
     setlocale(LC_NUMERIC, "C");
 
-    mainApp.setApplicationName(QLatin1String("LabRPSZZZ"));
-    mainApp.setOrganizationName(QLatin1String("LabRPSZZZ"));
-    mainApp.setOrganizationDomain(QLatin1String("LabRPSZZZ.com"));
+    mainApp.setApplicationName(QLatin1String("LabRPS"));
+    mainApp.setOrganizationName(QLatin1String("LabRPS"));
+    mainApp.setOrganizationDomain(QLatin1String("LabRPS.com"));
 
     // check if a single or multiple instances can run
     it = cfg.find("SingleInstance");
@@ -2525,12 +2525,12 @@ bool Application::isThisPluginInstalled(const QString& pluginName) const
    return  WorkbenchManager::instance()->active()->isThisPluginInstalled(pluginName);
 }
 
-bool Application::getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Application::getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     return WorkbenchManager::instance()->active()->getToBeInstalledObjectsList(lstObject, pluginName);   
 }
 
-bool Application::getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Application::getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     return WorkbenchManager::instance()->active()->getToBeUninstalledObjectsList(lstObject, pluginName);
 }

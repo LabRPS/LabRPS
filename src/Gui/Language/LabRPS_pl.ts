@@ -3949,8 +3949,8 @@ oprócz paska kolorów</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Stopień kompresji dla plików FCStd</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Stopień kompresji dla plików RPSStd</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>

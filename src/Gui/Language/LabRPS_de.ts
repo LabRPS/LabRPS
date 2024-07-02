@@ -3934,8 +3934,8 @@ neben dem Farbbalken</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Komprimierungsstufe für FCStd-Dateien</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Komprimierungsstufe für RPSStd-Dateien</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>

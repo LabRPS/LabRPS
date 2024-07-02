@@ -2130,7 +2130,7 @@ WindLabAPI::WindLabFeatureDescription* WindLabSimulation::GetWindLabPluggedWindL
         stationarity = CrpsWavePassageEffectFactory::GetStationarityMap()[objectName];
     }
 
-    pluggedWindLabFeatureDescription->PluginName.setValue(App::PluginManager::GetInstance().GetInstalledPluginsNameMap()[QString::fromUtf8(pluginName.c_str())] ->GetDisplayName().toUtf8().constData());
+    pluggedWindLabFeatureDescription->PluginName.setValue(App::PluginManager::GetInstance().GetInstalledPluginsNameMap()[QString::fromUtf8(pluginName.c_str())] ->GetPluginName().toUtf8().constData());
     pluggedWindLabFeatureDescription->ReleaseDate.setValue(App::PluginManager::GetInstance().GetInstalledPluginsNameMap()[QString::fromUtf8(pluginName.c_str())] ->GetPluginReleaseDate().toUtf8().constData());
     pluggedWindLabFeatureDescription->Path.setValue(App::PluginManager::GetInstance().GetInstalledPluginsNameMap()[QString::fromUtf8(pluginName.c_str())]->GetPluginSubFolder().toUtf8().constData());
     pluggedWindLabFeatureDescription->Author.setValue(App::PluginManager::GetInstance().GetInstalledPluginsNameMap()[QString::fromUtf8(pluginName.c_str())]->GetPluginAuthor().toUtf8().constData());
@@ -4495,18 +4495,18 @@ App::DocumentObject* WindLabSimulation::getActiveTableTool()
 
 App::DocumentObject*  WindLabSimulation::addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup)
 {
-    Base::Type type = getRPSType(QString::fromStdString(featureTypeName));
+    Base::Type type = getRPSType(QString::fromStdString(featureGroup));
     
     //create the feature
-	WindLabAPI::WindLabFeature* newFeature = this->createFeature(type, featureGroup, featureName);
+	WindLabAPI::WindLabFeature* newFeature = this->createFeature(type, featureTypeName, featureName);
 
 	if (!newFeature)
 		return nullptr;
 
 	//set the feature properties
-	auto featureProperties = this->GetWindLabPluggedWindLabFeatureDescription(QString::fromLatin1(featureTypeName.c_str()), QString::fromLatin1(featureGroup.c_str()));
-    newFeature->FeatureGroup.setValue(featureTypeName);
-    newFeature->FeatureType.setValue(featureGroup);
+	auto featureProperties = this->GetWindLabPluggedWindLabFeatureDescription(QString::fromLatin1(featureGroup.c_str()), QString::fromLatin1(featureTypeName.c_str()));
+    newFeature->FeatureGroup.setValue(featureGroup);
+    newFeature->FeatureType.setValue(featureTypeName);
     newFeature->Author.setValue(featureProperties->Author.getValue());
     newFeature->PublicationTopic.setValue(featureProperties->PublicationTitle.getValue());
     newFeature->PublicationDate.setValue(featureProperties->PublicationDate.getValue());

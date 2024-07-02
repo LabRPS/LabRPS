@@ -1,3 +1,24 @@
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "GeneralizedAcrossWindKaimalSpectrum.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
@@ -31,11 +52,12 @@ CRPSGeneralizedAcrossWindKaimalSpectrum::CRPSGeneralizedAcrossWindKaimalSpectrum
 
 bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
-	 bool returnResult = true;
+	bool returnResult = true;
     
     returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, locationJ, dVarVector);
     if (!returnResult)
     {
+        Base::Console().Error("The computation of the frequency vector has failed.\n") ;
         return false;
     }
 
@@ -46,6 +68,7 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumVectorF(const
 
      return returnResult;
 }
+
 bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
@@ -58,15 +81,14 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumVectorT(const
 
      return returnResult;
 }
+
 bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
-	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
-    
     bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-        if(!returnResult)
+    if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Error("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
     
@@ -86,14 +108,13 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumMatrixPP(cons
     return returnResult;
 }
 
-//Initial setting
 bool CRPSGeneralizedAcrossWindKaimalSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 {
-	    // the input diolag
-    WindLabGui::DlgGeneralizedKaimalSpectrumEdit* dlg = new WindLabGui::DlgGeneralizedKaimalSpectrumEdit(
+    WindLabGui::DlgGeneralizedKaimalSpectrumEdit* dlg =
+        new WindLabGui::DlgGeneralizedKaimalSpectrumEdit(
             ParameterA, ParameterB, ParameterC, ParameterD, ParameterE, ParameterF, ParameterG,
             ParameterH, ParameterI, ParameterJ, ShearVelocity, Data.alongWindSpectrumModel, 2);
-	Gui::Control().showDialog(dlg);
+    Gui::Control().showDialog(dlg);
     return true;
 }
 
@@ -119,8 +140,25 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYCrossSpectrumValue(const W
    double PSDk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the mean wind speed has failed.\n") ;
+       return false;
+    }
+
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the mean wind speed has failed.\n") ;
+       return false;
+    }
+
     returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the coherence value has failed.\n") ;
+       return false;
+    }
 
     WindLabTools::GeneralizedKaimalSpectrum generalizedKaimalPSD;
     PSDj = generalizedKaimalPSD.computeGeneralizedKaimalWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), a, b, c, d, e, f, g, h, i, j);
@@ -149,7 +187,7 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYAutoSpectrumValue(const Wi
    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, location, dTime, MEAN);
    if (!returnResult)
    {
-        Base::Console().Warning("The computation of mean wind speed at location number %s has failed.\n", CRPSWindLabFramework::getLocationIndex(Data, location));
+        Base::Console().Error("The computation of the mean wind speed has failed.\n");
         return returnResult;
    }
 
@@ -157,7 +195,8 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYAutoSpectrumValue(const Wi
     dValue = generalizedKaimalPSD.computeGeneralizedKaimalWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), a, b, c, d, e, f, g, h, i, j);
 
     return returnResult;
-}    
+}
+
 bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
@@ -166,8 +205,7 @@ bool CRPSGeneralizedAcrossWindKaimalSpectrum::ComputeYAutoSpectrumVectorF(const 
     
     if (!returnResult)
     {
-        Base::Console().Warning("The computation of frequency vector  has failed.\n");
-
+        Base::Console().Warning("The computation of the frequency vector  has failed.\n");
         return false;
     }
 

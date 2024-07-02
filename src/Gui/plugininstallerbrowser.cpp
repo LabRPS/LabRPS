@@ -65,30 +65,7 @@ PluginInstallerBrowser::~PluginInstallerBrowser()
 
 void PluginInstallerBrowser::updateButton()
 {
-	// QListWidgetItem *currentItem = ui->listWidgetLocalPlugin->currentItem();
-	// QString ItemText = currentItem->text();
-	// std::map<QString, PluginInstance *> map =
-	// App::PluginManager::GetInstance().GetInstalledPluginsNameMap();
 
-	// if (!map.empty())
-	// {
-	// 	if (map.find(ItemText) != map.end())
-	// 	{
-	// 		if(map[ItemText]->GetInstallationState())
-	// 		{
-	// 			ui->pushButtonInstall->setEnabled(false);
-	// 			ui->pushButtonUninstall->setEnabled(true);
-	// 			ui->pushButtonUpdate->setEnabled(true);
-	// 		}
-	// 		else
-	// 		{
-	// 			ui->pushButtonInstall->setEnabled(true);
-	// 			ui->pushButtonUninstall->setEnabled(false);
-	// 			ui->pushButtonUpdate->setEnabled(false);
-	// 		}
-	// 	}
-
-	// }
 }
 
 void PluginInstallerBrowser::install()

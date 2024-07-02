@@ -3,9 +3,9 @@
 find_package(Qt5Core REQUIRED)
 set(CMAKE_AUTOMOC TRUE)
 
-# For LabRPS 0.20, pegged to Ubuntu 18.04 LTS:
+# For LabRPS 0.1, pegged to Ubuntu 18.04 LTS:
 if(${Qt5Core_VERSION} VERSION_LESS "5.9")
-    message (FATAL_ERROR "LabRPS v0.20 requires Qt5 5.9 or later")
+    message (FATAL_ERROR "LabRPS v0.1 requires Qt5 5.9 or later")
 endif()
 find_package(Qt5Network REQUIRED)
 find_package(Qt5Xml REQUIRED)

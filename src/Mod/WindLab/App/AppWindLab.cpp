@@ -41,6 +41,9 @@ PyMOD_INIT_FUNC(WindLab)
      //load dependent module
     try {
         Base::Interpreter().runString("import WindLabAPI");
+        Base::Interpreter().runString("import WindLabTools");
+        Base::Interpreter().runString("import GeneralTools");
+
     }
     catch(const Base::Exception& e) {
         PyErr_SetString(PyExc_ImportError, e.what());

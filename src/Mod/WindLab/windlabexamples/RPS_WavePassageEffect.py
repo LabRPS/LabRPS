@@ -71,7 +71,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new location distribution in the simulation called "Simulation"
-    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation", "Location Distribution",  "Horizontal Distribution")
+    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation", "Horizontal Distribution", "Location Distribution")
     
     # check if the created location distribution feature is null
     if not loc:
@@ -79,7 +79,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new mean wind profile feature in the simulation called "Simulation"
-    mean = WindLabObjects.makeFeature("MeanSpeed", "Simulation", "Mean Wind Profile",  "RPS Logarithmic Low")
+    mean = WindLabObjects.makeFeature("MeanSpeed", "Simulation",  "Logarithmic Law Profile", "Mean Wind Profile")
     
     # check if the created mean wind feature
     if not mean:
@@ -90,7 +90,7 @@ def setup(doc=None, showGui=True):
     mean.ShearVelocity = '1.76 m/s' 
 
     # create new frequency distribution in the simulation called "Simulation"
-    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation", "Frequency Distribution",  "Double Index Frequency")
+    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation",  "Double Index Frequency Discretization", "Frequency Distribution")
     
     # check if the created frequency distribution feature is null
     if not frequency:
@@ -98,7 +98,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new wave passage effect function feature in the simulation called "Simulation"
-    wavepassageEff = WindLabObjects.makeFeature("WavePassageEffect", "Simulation", "Wave Passage Effect",  "RPS Wave Passage Effect")
+    wavepassageEff = WindLabObjects.makeFeature("WavePassageEffect", "Simulation", "Exponential Wave Passage effect", "Wave Passage Effect")
     
     # check if the created mean wind feature
     if not wavepassageEff:

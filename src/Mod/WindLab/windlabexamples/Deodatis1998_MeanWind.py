@@ -65,7 +65,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new mean wind profile feature in the simulation called "Simulation"
-    mean = WindLabObjects.makeFeature("MeanSpeed", "Simulation", "Mean Wind Profile",  "RPS Logarithmic Low")
+    mean = WindLabObjects.makeFeature("MeanSpeed", "Simulation",  "Logarithmic Law Profile", "Mean Wind Profile")
     
     # check if the created mean wind feature
     if not mean:

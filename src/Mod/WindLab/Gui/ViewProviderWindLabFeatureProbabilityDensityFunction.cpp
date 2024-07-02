@@ -55,7 +55,7 @@ PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureProbabilityDensityFunction
 
 ViewProviderWindLabFeatureProbabilityDensityFunction::ViewProviderWindLabFeatureProbabilityDensityFunction()
 {
-  sPixmap = ":/icons/WindLabFeatures/WindLab_Feature_PDFObj.svg";
+  sPixmap = ":/icons/WindLabFeatures/WindLab_Feature_PeakFactorObj.svg";
 }
 
 ViewProviderWindLabFeatureProbabilityDensityFunction::~ViewProviderWindLabFeatureProbabilityDensityFunction()

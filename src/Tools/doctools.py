@@ -1,7 +1,7 @@
 #! python
 # -*- coding: utf-8 -*-
 # (c) 2010 Werner Mayer LGPL
-# LabRPS Python script to work with the FCStd file format.
+# LabRPS Python script to work with the RPSStd file format.
 
 import os
 import xml.sax

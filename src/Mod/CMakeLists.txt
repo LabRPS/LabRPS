@@ -2,13 +2,13 @@ if(BUILD_ADDONMGR)
   add_subdirectory(AddonManager)
 endif(BUILD_ADDONMGR)
 
-if(BUILD_IDF)
-  add_subdirectory(Idf)
-endif(BUILD_IDF)
+# if(BUILD_IDF)
+#   add_subdirectory(Idf)
+# endif(BUILD_IDF)
 
-if(BUILD_IMAGE)
-  add_subdirectory(Image)
-endif(BUILD_IMAGE)
+# if(BUILD_IMAGE)
+#   add_subdirectory(Image)
+# endif(BUILD_IMAGE)
 
 if(BUILD_IMPORT)
   add_subdirectory(Import)
@@ -33,9 +33,9 @@ endif(BUILD_START)
 
 #add_subdirectory(TemplatePyMod)
 
-if(BUILD_TEST)
-  add_subdirectory(Test)
-endif(BUILD_TEST)
+# if(BUILD_TEST)
+#   add_subdirectory(Test)
+# endif(BUILD_TEST)
 
 if(BUILD_WEB)
   add_subdirectory(Web)

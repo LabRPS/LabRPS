@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -26,11 +26,16 @@
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
-#include <App/PropertyGeo.h>
-#include <App/PropertyUnits.h>
+//#include <App/PropertyGeo.h>
+//#include <App/PropertyUnits.h>
 #include <QString>
 
 class QSignalMapper;
+
+namespace App
+{
+    class PropertyTime;
+}
 
 namespace WindLabGui {
 
@@ -44,8 +49,6 @@ public:
     ~DlgExpoModulation();
     void accept();
     void reject();
-
-        
 
 private:
     std::unique_ptr<Ui_DlgExpoModulation> ui;

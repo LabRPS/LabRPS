@@ -67,7 +67,7 @@ def setup(doc=None, showGui=True):
         return None
 
     # create new frequency distribution in the simulation called "Simulation"
-    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation", "Frequency Distribution",  "Double Index Frequency")
+    frequency = WindLabObjects.makeFeature("Frequencies", "Simulation",  "Double Index Frequency Discretization", "Frequency Distribution")
     
     # check if the created frequency distribution feature is null
     if not frequency:

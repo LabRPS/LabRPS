@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -20,19 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 
-
-
-
 #include "DlgSimuAcrossWindSpectrum.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgSimuAcrossWindSpectrum.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/RPSSimuAcrossWindSpectrum.h>
 #include <QSignalMapper>
 #include <App/Application.h>
 #include <App/Document.h>
-
-//#include <QPushButton>
-//#include <QApplication>
-
 
 using namespace WindLabGui;
 

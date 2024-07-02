@@ -33,6 +33,9 @@ import LabRPS as App
 
 def showSimulationPoints():
     sim = WindLabGui.getActiveSimulation()
+    if not sim:
+       App.Console.PrintError("Please make sure the simulation is first activated.\n")
+       return None
     simPoints = sim.computeLocationCoordinateMatrixP3()
     App.ActiveDocument.openTransaction("Sim_Points")
     group = App.ActiveDocument.addObject("App::DocumentObjectGroup", "Sim_Points")
@@ -68,5 +71,5 @@ def findAllVertexes():
     if App.GuiUp:
         import WindLabGui
         WindLabGui.WindLabPyTool.showArray(rows, cols, arr)
-        print(arr)
+        # print(arr)
 ##  @}

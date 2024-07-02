@@ -30,7 +30,7 @@
 import time
 
 # reading the last Version information
-[FCVersionMajor,FCVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
+[RPSVersionMajor,RPSVersionMinor,FCVersionBuild,FCVersionDisDa] = open("../Version.h",'r').readlines()
 
 # increasing build number
 BuildNumber = int(FCVersionBuild[23:-1]) +1
@@ -40,19 +40,19 @@ print(BuildNumber)
 print("\n")
 
 # writing new Version.h File
-open("../Version.h",'w').writelines([FCVersionMajor,
-                                     FCVersionMinor,
+open("../Version.h",'w').writelines([RPSVersionMajor,
+                                     RPSVersionMinor,
                                      FCVersionBuild[:23]+str(BuildNumber)+'\n',
                                      FCVersionDisDa[:23]+ '"'+time.asctime()+'" \n\n'])
 
 # writing the ChangeLog.txt
-open("../ChangeLog.txt",'a').write("\nVersion: V"+FCVersionMajor[23:-1]+"."+FCVersionMinor[23:-1]+"B"+
+open("../ChangeLog.txt",'a').write("\nVersion: V"+RPSVersionMajor[23:-1]+"."+RPSVersionMinor[23:-1]+"B"+
                                    str(BuildNumber)+" Date: "+time.asctime()+' +++++++++++++++++++++++++++++++\n')
 
 # writing new Version.wxi File
 open("../Version.wxi",'w').writelines(["<Include>\n",
-                                     "   <?define FCVersionMajor ="+FCVersionMajor[23:-1] + " ?>\n",
-                                     "   <?define FCVersionMinor ="+FCVersionMinor[23:-1] + " ?>\n",
+                                     "   <?define RPSVersionMajor ="+RPSVersionMajor[23:-1] + " ?>\n",
+                                     "   <?define RPSVersionMinor ="+RPSVersionMinor[23:-1] + " ?>\n",
                                      "   <?define FCVersionBuild ="+ str(BuildNumber)     + " ?>\n",
                                      "</Include> \n"])
 

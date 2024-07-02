@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -26,11 +26,19 @@
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
-#include <App/PropertyGeo.h>
-#include <App/PropertyUnits.h>
+//#include <App/PropertyGeo.h>
+//#include <App/PropertyUnits.h>
 #include <QString>
 
 class QSignalMapper;
+
+namespace App
+{
+    class PropertySpeed;
+    class PropertyLength;
+    class PropertyAngle;
+    class PropertyFrequency;
+}
 
 namespace WindLabGui {
 
@@ -43,9 +51,7 @@ public:
     DlgDHLowProfile(const App::PropertyLength& TerrainRoughness, const App::PropertySpeed& ShearVelocity, const App::PropertyLength& ZeroPlanDisplacement, const App::PropertyAngle& Latitude, const App::PropertyFrequency& EarthAngularVelocity, const App::PropertyFloat& Betta, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgDHLowProfile();
     void accept();
-    void reject();
-
-     
+    void reject();  
 
 private:
     std::unique_ptr<Ui_DlgDHLowProfile> ui;

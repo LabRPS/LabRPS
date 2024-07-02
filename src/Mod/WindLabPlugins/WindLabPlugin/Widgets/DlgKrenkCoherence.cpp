@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -19,9 +19,6 @@
  *   Suite 330, Boston, MA  02111-1307, USA                                *
  *                                                                         *
  ***************************************************************************/
-
-
-
 
 #include "DlgKrenkCoherence.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgKrenkCoherence.h>
@@ -44,8 +41,6 @@ DlgKrenkCoherence::DlgKrenkCoherence(const App::PropertyFloat& IntegralLengthSca
     ui->doubleSpinBox_IntegralLengthScale->setUnit(Base::Unit::Length);
 
     ui->label_Image->setPixmap(QPixmap(":icons/KrenkCoherence.png"));
-
-
 }
 
 /*

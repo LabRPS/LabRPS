@@ -92,9 +92,9 @@ set(WindLabGui_XML_SRCS
 
 set(WindLabGui_LIBS
     WindLabAPI
-    QtPropertyBrowser
     WindLab
     LabRPSGui
+    LabRPSApp
     Part
 )
 

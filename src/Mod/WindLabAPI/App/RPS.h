@@ -20,8 +20,8 @@
  *   Suite 330, Boston, MA  02111-1307, USA                                *
  *                                                                         *
  ***************************************************************************/
-#ifndef WL_RPS_H
-#define WL_RPS_H
+#ifndef WL_API_RPS_H
+#define WL_API_RPS_H
 
 #include <Eigen/Eigen>
 #include <unsupported/Eigen/CXX11/Tensor>

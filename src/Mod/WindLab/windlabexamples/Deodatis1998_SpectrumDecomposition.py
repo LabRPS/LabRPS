@@ -65,7 +65,7 @@ def setup(doc=None, showGui=True):
         return None
     
     # create new spectrum decomposition method in the simulation called "Simulation"
-    spectrum = WindLabObjects.makeFeature("SpectrumDecomposition", "Simulation", "Spectrum Decomposition Method",  "RPS Cholesky Decomposition")
+    spectrum = WindLabObjects.makeFeature("SpectrumDecomposition", "Simulation",  "Cholesky Decomposition", "Spectrum Decomposition Method")
     
     # check if the created spectrum decomposition method feature is null
     if not spectrum:

@@ -3951,8 +3951,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation type="unfinished">Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation type="unfinished">Compression level for RPSStd files</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>

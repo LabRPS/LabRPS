@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -44,8 +44,6 @@ public:
     ~DlgGeneralizedKaimalSpectrum();
     void accept();
     void reject();
-
-    
 
 private:
     std::unique_ptr<Ui_DlgGeneralizedKaimalSpectrum> ui;

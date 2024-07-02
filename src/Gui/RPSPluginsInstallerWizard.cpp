@@ -8,6 +8,8 @@
 #include "MainWindow.h"
 #include "WorkbenchManager.h"
 #include "BitmapFactory.h"
+#include <App/WindLabUtils.h>
+#include <Workbench.h>
 
 PlunginIntallationWizard::PlunginIntallationWizard(int installationType, QString installingPluginName, QString installingPluginFullPath, QWidget *parent)
     : QWizard(parent)
@@ -45,7 +47,7 @@ IntroPage::IntroPage(int installationType, QString installingPluginName, QWidget
     setPixmap(QWizard::WatermarkPixmap, about_image);
 
     label = new QLabel(tr("This wizard will guide you through the installation "
-                          "of plugins or objecs. Please, click next to continue."));
+                          "of RPS features. Please, click next to continue."));
     label->setWordWrap(true);
 
     QVBoxLayout *layout = new QVBoxLayout;
@@ -57,9 +59,9 @@ TaskSelectionPage::TaskSelectionPage(int installationType, QString installingPlu
     : QWizardPage(parent)
 {
 
-    setTitle(tr("Choose a tak"));
+    setTitle(tr("Choose a task"));
     setSubTitle(tr("From here you can choose to install or uninstall "
-                   " or modify your plugins."));
+                   " or modify your plugin's features."));
     setPixmap(QWizard::LogoPixmap, QPixmap(QString::fromLatin1(":icons/images/logo1.png")));
 
     groupBox = new QGroupBox(tr("&Tasks"));
@@ -126,7 +128,7 @@ ObjectSelectionPage::~ObjectSelectionPage()
 void ObjectSelectionPage::createListWidget()
 {
     objectList = new QListWidget;
-    QStringList lstObject;
+    std::map<const std::string, std::string> lstObject;
 
     if (1 == InstallationType) // install
     {
@@ -141,7 +143,10 @@ void ObjectSelectionPage::createListWidget()
         Gui::Application::Instance->getToBeInstalledObjectsList(lstObject, InstallingPluginName);
     }
 
-    objectList->addItems(lstObject);
+    for (auto it = lstObject.begin(); it != lstObject.end(); ++it) {
+        QListWidgetItem* item = new QListWidgetItem(getFeatureIcon(QString::fromUtf8(it->second.c_str())),QString::fromUtf8(it->first.c_str()), objectList);
+        objectList->addItem(item);
+    }
 
     QListWidgetItem *item = 0;
     QString itemText;
@@ -164,8 +169,7 @@ void ObjectSelectionPage::createListWidget()
 
 void ObjectSelectionPage::createOtherWidgets()
 {
-
-    viewBox = new QGroupBox(tr("Available Ojects"));
+    viewBox = new QGroupBox(tr("Available features in this plugin"));
     selectAllButton = new QPushButton(tr("&Select All"));
     selectNoneButton = new QPushButton(tr("&Select None"));
     resetSelectionButton = new QPushButton(tr("&Reset"));
@@ -229,6 +233,105 @@ void ObjectSelectionPage::selectNone()
 
 void ObjectSelectionPage::resetSelection()
 {
+}
+
+QIcon ObjectSelectionPage::getFeatureIcon(QString group)
+{
+    Gui::Workbench* active = Gui::WorkbenchManager::instance()->active();
+    QString name;
+    if (active)
+        name = active->getPhenomenonName();
+    if (name == App::WindLabUtils::rpsPhenomenonWindVelocity)
+    {
+          if (group == App::WindLabUtils::objGroupCoherenceFunction) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_CoherenceObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupCorrelationFunction) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_CorrelationObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupCumulativeProbabilityDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_CPDObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupFrequencyDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_FrequencyObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupGustFactor) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_GustFactorObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupKurtosis) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_KurtosisObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupLocationDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_LocationObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupMatrixTool) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_MatrixToolObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupMeanWindProfile) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_MeanObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupModulationFunction) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_ModulationObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupPeakFactor) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_PeakFactorObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupProbabilityDensityFunction) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_PeakFactorObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupSpectrumDecompositionMethod) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_DecomposedSpectrumObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupRandomnessProvider) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_RandomnessProviderObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupRoughness) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_RoughnessObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupShearVelocityOfFlow) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_ShearVelocityObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupSimulationMethod) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_SimulationMethodObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupSkewness) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_SkewnessObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupStandardDeviation) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_StandardDeviationObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupTableTool) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_TableToolObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupTurbulenceIntensity) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_TurbulenceIntensityObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupTurbulenceScale) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_TurbulenceScaleObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupUserDefinedRPSObject) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_UserDefinedObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupVariance) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_VarianceObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupWavePassageEffect) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_WavePassageObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupAlongWindSpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_SpectrumXObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupAcrossWindSpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_SpectrumYObj.svg"));
+    }
+    else if (group == App::WindLabUtils::objGroupVerticalWindSpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_SpectrumZObj.svg"));
+    }
+
+    return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_UserDefinedObj.svg"));
+    }
+
+  
 }
 
 bool ObjectSelectionPage::validatePage()
@@ -336,3 +439,4 @@ void ConclusionPage::initializePage()
     label->setText(tr("Click %1 to allow LabRPS to %1 your selected task.")
                        .arg(finishText));
 }
+

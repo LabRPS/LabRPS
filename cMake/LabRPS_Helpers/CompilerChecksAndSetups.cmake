@@ -28,7 +28,7 @@ macro(CompilerChecksAndSetups)
                         OUTPUT_VARIABLE CMAKE_CXX_COMPILER_VERSION)
     endif(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION)
 
-    # Enabled C++17 for Labrps 0.20 and later
+    # Enabled C++17 for Labrps 0.1 and later
         set(BUILD_ENABLE_CXX_STD "C++17"  CACHE STRING  "Enable C++ standard")
         set_property(CACHE BUILD_ENABLE_CXX_STD PROPERTY STRINGS
                      "C++17"
@@ -36,9 +36,9 @@ macro(CompilerChecksAndSetups)
         )
 
         if (CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 7.3)
-            message(FATAL_ERROR "LabRPS 0.20 and later requires C++17.  G++ must be 7.3 or later, the used version is ${CMAKE_CXX_COMPILER_VERSION}")
+            message(FATAL_ERROR "LabRPS 0.1 and later requires C++17.  G++ must be 7.3 or later, the used version is ${CMAKE_CXX_COMPILER_VERSION}")
         elseif(CMAKE_COMPILER_IS_CLANGXX AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6.0)
-            message(FATAL_ERROR "LabRPS 0.20 and later requires C++17.  Clang must be 6.0 or later, the used version is ${CMAKE_CXX_COMPILER_VERSION}")
+            message(FATAL_ERROR "LabRPS 0.1 and later requires C++17.  Clang must be 6.0 or later, the used version is ${CMAKE_CXX_COMPILER_VERSION}")
         endif()
 
     # Escape the two plus chars as otherwise cmake complains about invalid regex

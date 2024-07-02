@@ -588,7 +588,7 @@ PyObject *PropertyContainerPy::getCustomAttributes(const char* attr) const
         }
         return Py::new_reference_to(dict);
     }
-    ///FIXME: For v0.20: Do not use stuff from Part module here!
+    ///FIXME: For v0.1: Do not use stuff from Part module here!
     else if(Base::streq(attr,"Shape") && getPropertyContainerPtr()->isDerivedFrom(App::DocumentObject::getClassTypeId())) {
         // Special treatment of Shape property
         static PyObject *_getShape = nullptr;

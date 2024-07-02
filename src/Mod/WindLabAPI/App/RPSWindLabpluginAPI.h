@@ -55,7 +55,7 @@
 #include "IrpsWLWavePassageEffect.h"
 
 
-#define PLUGIN_API_VERSION  2
+#define PLUGIN_API_VERSION  0.1
 
 #define RPS_CORE_FUNC     extern "C" RPS_CORE_API
 #define RPS_PLUGIN_FUNC   extern "C" RPS_PLUGIN_API
@@ -81,12 +81,8 @@
 	RPS_PLUGIN_FUNC const int &PluginFree()
 
 /// declare the display name for a plugin
-#define PLUGIN_DISPLAY_NAME(displayname) \
-	RPS_PLUGIN_FUNC const char * PluginDisplayName = displayname
-
-/// declare the system name for a plugin
-#define PLUGIN_SYSTEM_NAME(systemname) \
-	RPS_PLUGIN_FUNC const char * PluginSystemName = systemname
+#define PLUGIN_NAME(pluginname) \
+	RPS_PLUGIN_FUNC const char* PluginName = pluginname
 
 /// declare the file name for a plugin
 #define PLUGIN_FILE_NAME(filename) \
