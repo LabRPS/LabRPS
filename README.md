@@ -40,10 +40,10 @@ Compiling
 ---------
 
 Compiling LabRPS requires installation of several libraries and their 
-development files such as QGLViewer, Python and Qt, listed in the 
+development files such as Python and Qt, listed in the 
 pages below. Once this is done, LabRPS can be compiled with 
-CMake. On Windows, these libraries are bundled and offered by the 
-LabRPS team in a convenient package. On Linux, they are usually found 
+CMake. On Windows, these libraries are bundled and offered 
+in a convenient package. On Linux, they are usually found 
 in your distribution's repositories, and on macOS and other platforms, 
 you will usually have to compile them yourself.
 
