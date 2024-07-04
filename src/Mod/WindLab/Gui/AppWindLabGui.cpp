@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -74,12 +74,6 @@
 
 // create the commands
 void CreateWindLabCommands(void);
-//void CreateWindLabCommandsCreateGeo(void);
-//void CreateWindLabCommandsConstraints(void);
-//void CreateWindLabCommandsConstraintAccel(void);
-//void CreateWindLabCommandsAlterGeo(void);
-//void CreateWindLabCommandsBSpline(void);
-//void CreateWindLabCommandsVirtualSpace(void);
 
 void loadWindLabResource()
 {
@@ -135,11 +129,10 @@ private:
             if (!obj
                 || !obj->getTypeId().isDerivedFrom(WindLab::WindLabSimulation::getClassTypeId())) {
                 throw Py::Exception(
-                    Base::PyExc_FC_GeneralError,
+                    Base::PyExc_RPS_GeneralError,
                     "Active Simulation object have to be of type WindLab::WindLabSimulation!");
             }
 
-            // get the gui document of the Simulation Item
             WindLab::WindLabSimulation*  sim = static_cast<WindLab::WindLabSimulation*>(obj);
             WindLabGui::WindLabSimulationObserver::instance()->setActiveSimulation(sim);
             WindLabGui::WindLabSimulationObserver::instance()->highlightActiveObject(Gui::HighlightMode::Blue, true);
@@ -182,14 +175,6 @@ PyMOD_INIT_FUNC(WindLabGui)
     PyObject* mod = WindLabGui::initModule();
     Base::Console().Log("Loading GUI of WindLab module... done\n");
 
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/constraints"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/elements"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/general"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/geometry"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/pointers"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/splines"));
-    Gui::BitmapFactory().addPath(QString::fromLatin1(":/icons/tools"));
-
     CreateWindLabCommands();
 
     WindLabGui::Workbench::init();
@@ -226,7 +211,6 @@ PyMOD_INIT_FUNC(WindLabGui)
     WindLabGui::ViewProviderWindLabFeatureTableTool::init();
     WindLabGui::ViewProviderWindLabFeatureMatrixTool::init();
 
-    
     new Gui::PrefPageProducer<WindLabGui::DlgSettingsWindLabGeneralImp>(QT_TRANSLATE_NOOP("QObject", "WindLab"));
     new Gui::PrefPageProducer<WindLabGui::DlgSettingsWindLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "WindLab"));
 

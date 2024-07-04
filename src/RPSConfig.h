@@ -27,8 +27,8 @@
  */
 
 
-#ifndef FC_CONFIG_H
-#define FC_CONFIG_H
+#ifndef RPS_CONFIG_H
+#define RPS_CONFIG_H
 
 
 
@@ -37,15 +37,15 @@
 
 // First check for *WIN64* since the *WIN32* are also set on 64-bit platforms
 #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
-#   ifndef FC_OS_WIN32
-#   define FC_OS_WIN32
+#   ifndef RPS_OS_WIN32
+#   define RPS_OS_WIN32
 #   endif
-#   ifndef FC_OS_WIN64
-#   define FC_OS_WIN64
+#   ifndef RPS_OS_WIN64
+#   define RPS_OS_WIN64
 #   endif
 #elif defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-#   ifndef FC_OS_WIN32
-#   define FC_OS_WIN32
+#   ifndef RPS_OS_WIN32
+#   define RPS_OS_WIN32
 #   endif
 #   if defined(__MINGW32__)
 #   if HAVE_CONFIG_H
@@ -63,24 +63,24 @@
 //# define HAVE_UINTPTR_T
 #   endif
 #elif defined(__MWERKS__) && defined(__INTEL__)
-#   ifndef FC_OS_WIN32
-#   define FC_OS_WIN32
+#   ifndef RPS_OS_WIN32
+#   define RPS_OS_WIN32
 #   endif
 #elif defined(__APPLE__)
-#   ifndef FC_OS_MACOSX
-#   define FC_OS_MACOSX
+#   ifndef RPS_OS_MACOSX
+#   define RPS_OS_MACOSX
 #   endif
 #elif defined(linux) || defined(__linux) || defined(__linux__) || defined(__GLIBC__)
-#   ifndef FC_OS_LINUX
-#   define FC_OS_LINUX
+#   ifndef RPS_OS_LINUX
+#   define RPS_OS_LINUX
 #   endif
 #elif defined(__NetBSD__) || defined(__FreeBSD__) || defined(__OpenBSD__)
-#   ifndef FC_OS_BSD
-#   define FC_OS_BSD
+#   ifndef RPS_OS_BSD
+#   define RPS_OS_BSD
 #   endif
 #elif defined(__CYGWIN__)
-#   ifndef FC_OS_CYGWIN
-#   define FC_OS_CYGWIN
+#   ifndef RPS_OS_CYGWIN
+#   define RPS_OS_CYGWIN
 // Avoid conflicts with Inventor
 #   define HAVE_INT8_T
 #   define HAVE_UINT8_T
@@ -95,29 +95,29 @@
 #endif
 //#elif defined(sun) || defined(__sun) || defined(__sun__)
 //# if defined(__SVR4)
-//#     define _FC_OS_SOLARIS
+//#     define _RPS_OS_SOLARIS
 //# else
-//#     define _FC_OS_SUN_
+//#     define _RPS_OS_SUN_
 //# endif
 //#elif defined(hpux) || defined(__hpux) || defined(__hpux__)
-//# define FC_OS_HPUX_
+//# define RPS_OS_HPUX_
 //#elif defined(__FreeBSD__)
-//# define FC_OS_FREEBSD
+//# define RPS_OS_FREEBSD
 //#elif defined(__NetBSD__)
-//# define FC_OS_NETBSD
+//# define RPS_OS_NETBSD
 //#elif defined(__OpenBSD__)
-//# define FC_OS_OPENBSD
+//# define RPS_OS_OPENBSD
 //#elif defined(sgi) || defined(__sgi)
-//# define FC_OS_IRIX
+//# define RPS_OS_IRIX
 //#elif defined(_AIX)
-//# define FC_OS_AIX
+//# define RPS_OS_AIX
 //#elif defined(__GNU__)
-//# define FC_OS_GNU
+//# define RPS_OS_GNU
 #else
 #   error "LabRPS is not ported to this OS yet. For help see www.labrpsweb.org"
 #endif
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #   define PATHSEP '\\'
 #else
 #   define PATHSEP '/'
@@ -128,7 +128,7 @@
 
 #if defined(__MINGW32__)
 // nothing specific here
-#elif defined (FC_OS_WIN64) || defined (FC_OS_WIN32)
+#elif defined (RPS_OS_WIN64) || defined (RPS_OS_WIN32)
 
 #ifndef HAVE_INT8_T
 #define HAVE_INT8_T
@@ -200,7 +200,7 @@ typedef unsigned __int64    uint64_t;
 #   endif
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 #   define LIN
 #   define LININTEL
 //#       define NO_CXX_EXCEPTION
@@ -209,13 +209,13 @@ typedef unsigned __int64    uint64_t;
 #define CSFDB
 
 /// enables the use of the OCC DocumentBrowser
-#ifndef FC_OS_LINUX
-#   define FC_USE_OCAFBROWSER
+#ifndef RPS_OS_LINUX
+#   define RPS_USE_OCAFBROWSER
 #endif
 
 
-#ifdef FC_OCC_DEBUG
-#   ifdef FC_DEBUG
+#ifdef RPS_OCC_DEBUG
+#   ifdef RPS_DEBUG
 #       define DEBUG 1
 #   else
 #       undef  DEBUG
@@ -234,7 +234,7 @@ typedef unsigned __int64    uint64_t;
 #undef  QT3_SUPPORT
 #define QT_NO_KEYWORDS
 
-#if defined (FC_OS_WIN32) || defined(FC_OS_CYGWIN)
+#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
 # ifndef QT_DLL
 #  define QT_DLL
 # endif
@@ -251,8 +251,8 @@ typedef unsigned __int64    uint64_t;
 
 //**************************************************************************
 // Coin3D
-#if defined (FC_OS_WIN32) || defined(FC_OS_CYGWIN)
-# ifndef FCGui //COIN_DLL is defined in the LabRPSGui target
+#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
+# ifndef RPSGui //COIN_DLL is defined in the LabRPSGui target
 #  ifndef COIN_DLL
 #    define COIN_DLL
 #  endif
@@ -261,7 +261,7 @@ typedef unsigned __int64    uint64_t;
 
 //**************************************************************************
 // SoQt
-#if defined (FC_OS_WIN32) || defined(FC_OS_CYGWIN)
+#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
 # ifndef SOQT_DLL
 #   define SOQT_DLL
 # endif
@@ -269,7 +269,7 @@ typedef unsigned __int64    uint64_t;
 
 //**************************************************************************
 // Quarter
-#if defined (FC_OS_WIN32) || defined(FC_OS_CYGWIN)
+#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
 # ifndef QUARTER_INTERNAL
 #  ifndef QUARTER_DLL
 #   define QUARTER_DLL
@@ -290,7 +290,7 @@ typedef unsigned __int64    uint64_t;
 // Exception handling
 
 // Don't catch C++ exceptions in DEBUG!
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
 # define DONT_CATCH_CXX_EXCEPTIONS 1
 # define DBG_TRY
 # define DBG_CATCH(X)
@@ -321,4 +321,4 @@ typedef unsigned __int64    uint64_t;
 //#	define _PreComp_                  // use precompiled header
 #endif
 
-#endif //FC_CONFIG_H
+#endif //RPS_CONFIG_H

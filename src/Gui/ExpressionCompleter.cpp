@@ -42,7 +42,7 @@
 #include "ExpressionCompleter.h"
 
 
-FC_LOG_LEVEL_INIT("Completer", true, true)
+RPS_LOG_LEVEL_INIT("Completer", true, true)
 
 Q_DECLARE_METATYPE(App::ObjectIdentifier)
 
@@ -247,7 +247,7 @@ public:
         QVariant v;
         Info info = getInfo(index);
         _data(info,index.row(),&v,nullptr,role==Qt::UserRole);
-        FC_TRACE(  info.doc << "," << info.obj << "," << info.prop << ","
+        RPS_TRACE(  info.doc << "," << info.obj << "," << info.prop << ","
                 << info.contextualHierarchy << "," << index.row()
                 << ": " << v.toString().toUtf8().constData());
         return v;
@@ -621,7 +621,7 @@ public:
         }
         int count = 0;
         _data(info,row,nullptr,&count);
-        FC_TRACE(  info.doc << "," << info.obj << "," << info.prop << ","
+        RPS_TRACE(  info.doc << "," << info.obj << "," << info.prop << ","
                 << info.contextualHierarchy << "," << row << " row count " << count);
         return count;
     }
@@ -696,7 +696,7 @@ QString ExpressionCompleter::pathFromIndex ( const QModelIndex & index ) const
     }while(parent.isValid());
 
     auto info = ExpressionCompleterModel::getInfo(index);
-    FC_TRACE("join path " << info.doc << "," << info.obj << "," << info.prop << ","
+    RPS_TRACE("join path " << info.doc << "," << info.obj << "," << info.prop << ","
                           << info.contextualHierarchy << "," << index.row()
                           << ": " << res.toUtf8().constData());
     return res;
@@ -744,12 +744,12 @@ QStringList ExpressionCompleter::splitPath ( const QString & input ) const
                     l << QString();
                 }
             }
-            FC_TRACE("split path " << path
+            RPS_TRACE("split path " << path
                     << " -> " << l.join(QLatin1String("/")).toUtf8().constData());
             return l;
         }
         catch (const Base::Exception &e) {
-            FC_TRACE("split path " << path << " error: " << e.what());
+            RPS_TRACE("split path " << path << " error: " << e.what());
             if (!retry) {
                 size_t lastElemStart = path.rfind('.');
 
@@ -798,7 +798,7 @@ QStringList ExpressionCompleter::splitPath ( const QString & input ) const
 
 void ExpressionCompleter::slotUpdate(const QString & prefix, int pos)
 {
-    FC_TRACE("SlotUpdate:" << prefix.toUtf8().constData());
+    RPS_TRACE("SlotUpdate:" << prefix.toUtf8().constData());
 
     init();
 
@@ -906,14 +906,14 @@ void ExpressionCompleter::slotUpdate(const QString & prefix, int pos)
     if (trim && trim < int(completionPrefix.size()))
         completionPrefix.resize(completionPrefix.size() - trim);
 
-    FC_TRACE("Completion Prefix:" << completionPrefix.toUtf8().constData());
+    RPS_TRACE("Completion Prefix:" << completionPrefix.toUtf8().constData());
     // Set completion prefix
     setCompletionPrefix(completionPrefix);
 
     if (!completionPrefix.isEmpty() && widget()->hasFocus()) {
-        FC_TRACE("Complete on Prefix" << completionPrefix.toUtf8().constData());
+        RPS_TRACE("Complete on Prefix" << completionPrefix.toUtf8().constData());
         complete();
-        FC_TRACE("Complete Done");
+        RPS_TRACE("Complete Done");
 
     }
     else {

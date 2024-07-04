@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -31,7 +31,12 @@
 #include <QString>
 
 class QSignalMapper;
-
+//namespace App
+//{
+//    class PropertyPosition;
+//    class PropertyLength;
+//    class PropertyEnumeration;
+//}
 namespace WindLabGui {
 
 class Ui_DlgGridPoints;
@@ -40,7 +45,7 @@ class DlgGridPoints : public QWidget
     Q_OBJECT
 
 public:
-    DlgGridPoints(App::PropertyPosition& centerPoint, App::PropertyLength& spacing1, App::PropertyLength& spacing2, App::PropertyLength& length1, App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgGridPoints(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgGridPoints();
     void accept();
     void reject();
@@ -55,7 +60,7 @@ class GridPointsDialogEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    GridPointsDialogEdit(App::PropertyPosition& centerPoint, App::PropertyLength& spacing1, App::PropertyLength& spacing2, App::PropertyLength& length1, App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName);
+    GridPointsDialogEdit(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName);
     ~GridPointsDialogEdit();
     
 public:

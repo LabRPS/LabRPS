@@ -39,7 +39,7 @@
 //#undef HAVE_SHIBOKEN2
 //#undef HAVE_PYSIDE2
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #undef max
 #undef min
 #ifdef _MSC_VER

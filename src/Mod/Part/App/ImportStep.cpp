@@ -273,7 +273,7 @@ bool Part::ReadColors (const Handle(XSControl_WorkSession) &WS, std::map<int, Qu
 #else
     STEPConstruct_Styles Styles (WS);
     if (!Styles.LoadStyles()) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         std::cout << "Warning: no styles are found in the model" << std::endl;
 #endif
         return Standard_False;
@@ -294,7 +294,7 @@ bool Part::ReadColors (const Handle(XSControl_WorkSession) &WS, std::map<int, Qu
             if (style != aHSeqOfInvisStyle->Value(si))
                 continue;
             // found that current style is invisible.
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             std::cout << "Warning: item No " << i << "(" << style->Item()->DynamicType()->Name() << ") is invisible" << std::endl;
 #endif
             IsVisible = Standard_False;
@@ -365,7 +365,7 @@ bool Part::ReadColors (const Handle(XSControl_WorkSession) &WS, std::map<int, Qu
             continue; // skip styled item which refer to SHUO
 
         if ( S.IsNull() ) {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
             std::cout << "Warning: item No " << i << "(" << style->Item()->DynamicType()->Name() << ") is not mapped to shape" << std::endl;
 #endif
             continue;

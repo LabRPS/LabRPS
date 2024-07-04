@@ -63,7 +63,7 @@
 #include "WaitCursor.h"
 
 
-FC_LOG_LEVEL_INIT("Gui", true, true)
+RPS_LOG_LEVEL_INIT("Gui", true, true)
 
 using namespace Gui;
 namespace bp = boost::placeholders;
@@ -283,7 +283,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
 {
     ViewProviderDocumentObject* vp = dynamic_cast<ViewProviderDocumentObject*>(p);
     if (!vp) {
-        FC_ERR("cannot edit non ViewProviderDocumentObject");
+        RPS_ERR("cannot edit non ViewProviderDocumentObject");
         return false;
     }
 
@@ -296,7 +296,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
 
     auto obj = vp->getObject();
     if(!obj->getNameInDocument()) {
-        FC_ERR("cannot edit detached object");
+        RPS_ERR("cannot edit detached object");
         return false;
     }
 
@@ -312,26 +312,26 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
             if(!parentObj)
                 parentObj = sel.pObject;
             else if(parentObj!=sel.pObject) {
-                FC_LOG("Cannot deduce subname for editing, more than one parent?");
+                RPS_LOG("Cannot deduce subname for editing, more than one parent?");
                 parentObj = nullptr;
                 break;
             }
             auto sobj = parentObj->getSubObject(sel.SubName);
             if(!sobj || (sobj!=obj && sobj->getLinkedObject(true)!= obj)) {
-                FC_LOG("Cannot deduce subname for editing, subname mismatch");
+                RPS_LOG("Cannot deduce subname for editing, subname mismatch");
                 parentObj = nullptr;
                 break;
             }
             _subname = sel.SubName;
         }
         if(parentObj) {
-            FC_LOG("deduced editing reference " << parentObj->getFullName() << '.' << _subname);
+            RPS_LOG("deduced editing reference " << parentObj->getFullName() << '.' << _subname);
             subname = _subname.c_str();
             obj = parentObj;
             vp = dynamic_cast<ViewProviderDocumentObject*>(
                     Application::Instance->getViewProvider(obj));
             if(!vp || !vp->getDocument()) {
-                FC_ERR("invliad view provider for parent object");
+                RPS_ERR("invliad view provider for parent object");
                 return false;
             }
             if(vp->getDocument()!=this)
@@ -359,7 +359,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         // editing call to the correct document. Or, supply subname yourself,
         // and make sure you get the document right.
         //
-        FC_ERR("cannot edit object '" << obj->getNameInDocument() << "': not found in document "
+        RPS_ERR("cannot edit object '" << obj->getNameInDocument() << "': not found in document "
                 << "'" << getDocument()->getName() << "'");
         return false;
     }
@@ -377,7 +377,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
     // }
     auto sobj = obj->getSubObject(subname,nullptr,&d->_editingTransform);
     if(!sobj || !sobj->getNameInDocument()) {
-        FC_ERR("Invalid sub object '" << obj->getFullName()
+        RPS_ERR("Invalid sub object '" << obj->getFullName()
                 << '.' << (subname?subname:"") << "'");
         return false;
     }
@@ -386,7 +386,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         svp = dynamic_cast<ViewProviderDocumentObject*>(
                 Application::Instance->getViewProvider(sobj));
         if(!svp) {
-            FC_ERR("Cannot edit '" << sobj->getFullName() << "' without view provider");
+            RPS_ERR("Cannot edit '" << sobj->getFullName() << "' without view provider");
             return false;
         }
     }
@@ -425,7 +425,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         d->_editViewProviderParent = nullptr;
         d->_editObjs.clear();
         d->_editingObject = nullptr;
-        FC_LOG("object '" << sobj->getFullName() << "' refuse to edit");
+        RPS_LOG("object '" << sobj->getFullName() << "' refuse to edit");
         return false;
     }
 
@@ -664,7 +664,7 @@ void Document::slotNewObject(const App::DocumentObject& Obj)
         for(;;) {
             if (cName.empty()) {
                 // handle document object with no view provider specified
-                FC_LOG(Obj.getFullName() << " has no view provider specified");
+                RPS_LOG(Obj.getFullName() << " has no view provider specified");
                 return;
             }
             Base::Type type = Base::Type::getTypeIfDerivedFrom(cName.c_str(), ViewProviderDocumentObject::getClassTypeId(), true);
@@ -672,11 +672,11 @@ void Document::slotNewObject(const App::DocumentObject& Obj)
             // createInstance could return a null pointer
             if (!pcProvider) {
                 // type not derived from ViewProviderDocumentObject!!!
-                FC_ERR("Invalid view provider type '" << cName << "' for " << Obj.getFullName());
+                RPS_ERR("Invalid view provider type '" << cName << "' for " << Obj.getFullName());
                 return;
             }
             else if (cName!=Obj.getViewProviderName() && !pcProvider->allowOverride(Obj)) {
-                FC_WARN("View provider type '" << cName << "' does not support " << Obj.getFullName());
+                RPS_WARN("View provider type '" << cName << "' does not support " << Obj.getFullName());
                 pcProvider = nullptr;
                 cName = Obj.getViewProviderName();
             }
@@ -698,14 +698,14 @@ void Document::slotNewObject(const App::DocumentObject& Obj)
             pcProvider->setActiveMode();
         }
         catch(const Base::MemoryException& e){
-            FC_ERR("Memory exception in " << Obj.getFullName() << " thrown: " << e.what());
+            RPS_ERR("Memory exception in " << Obj.getFullName() << " thrown: " << e.what());
         }
         catch(Base::Exception &e){
             e.ReportException();
         }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
         catch(...){
-            FC_ERR("Unknown exception in Feature " << Obj.getFullName() << " thrown");
+            RPS_ERR("Unknown exception in Feature " << Obj.getFullName() << " thrown");
         }
 #endif
     }else{
@@ -819,16 +819,16 @@ void Document::slotChangedObject(const App::DocumentObject& Obj, const App::Prop
             }
         }
         catch(const Base::MemoryException& e) {
-            FC_ERR("Memory exception in " << Obj.getFullName() << " thrown: " << e.what());
+            RPS_ERR("Memory exception in " << Obj.getFullName() << " thrown: " << e.what());
         }
         catch(Base::Exception& e){
             e.ReportException();
         }
         catch(const std::exception& e){
-            FC_ERR("C++ exception in " << Obj.getFullName() << " thrown " << e.what());
+            RPS_ERR("C++ exception in " << Obj.getFullName() << " thrown " << e.what());
         }
         catch (...) {
-            FC_ERR("Cannot update representation for " << Obj.getFullName());
+            RPS_ERR("Cannot update representation for " << Obj.getFullName());
         }
 
         handleChildren3D(viewProvider);
@@ -839,7 +839,7 @@ void Document::slotChangedObject(const App::DocumentObject& Obj, const App::Prop
 
     // a property of an object has changed
     if(!Prop.testStatus(App::Property::NoModify) && !isModified()) {
-        FC_LOG(Prop.getFullName() << " modified");
+        RPS_LOG(Prop.getFullName() << " modified");
         setModified(true);
     }
 
@@ -948,7 +948,7 @@ void Document::slotTouchedObject(const App::DocumentObject &Obj)
 {
     getMainWindow()->updateActions(true);
     if(!isModified()) {
-        FC_LOG(Obj.getFullName() << " touched");
+        RPS_LOG(Obj.getFullName() << " touched");
         setModified(true);
     }
 }
@@ -1072,9 +1072,9 @@ static bool checkCanonicalPath(const std::map<App::Document*, bool> &docs)
         if (v.second.size() <= 1) continue;
         for (auto doc : v.second) {
             if (docs.count(doc)) {
-                FC_WARN("Physical path: " << v.first.toUtf8().constData());
+                RPS_WARN("Physical path: " << v.first.toUtf8().constData());
                 for (auto d : v.second)
-                    FC_WARN("  Document: " << docName(d).toUtf8().constData()
+                    RPS_WARN("  Document: " << docName(d).toUtf8().constData()
                             << ": " << d->FileName.getValue());
                 if (count == 3) {
                     ts << "\n\n"
@@ -1158,7 +1158,7 @@ bool Document::save()
                 }
             }
             catch (const Base::RuntimeError &e) {
-                FC_ERR(e.what());
+                RPS_ERR(e.what());
                 docs = {getDocument()};
                 dmap.clear();
                 dmap[getDocument()] = getDocument()->mustExecute();
@@ -1220,7 +1220,7 @@ bool Document::saveAs()
     QString exe = qApp->applicationName();
     QString fn = FileDialog::getSaveFileName(getMainWindow(), QObject::tr("Save %1 Document").arg(exe),
         QString::fromUtf8(getDocument()->FileName.getValue()),
-        QString::fromLatin1("%1 %2 (*.FCStd)").arg(exe).arg(QObject::tr("Document")));
+        QString::fromLatin1("%1 %2 (*.RPSStd)").arg(exe).arg(QObject::tr("Document")));
 
     if (!fn.isEmpty()) {
         QFileInfo fi;
@@ -1321,7 +1321,7 @@ bool Document::saveCopy()
     QString exe = qApp->applicationName();
     QString fn = FileDialog::getSaveFileName(getMainWindow(), QObject::tr("Save %1 Document").arg(exe),
                                              QString::fromUtf8(getDocument()->FileName.getValue()),
-                                             QObject::tr("%1 document (*.FCStd)").arg(exe));
+                                             QObject::tr("%1 document (*.RPSStd)").arg(exe));
     if (!fn.isEmpty()) {
         const char * DocName = App::GetApplication().getDocumentName(getDocument());
 
@@ -1920,7 +1920,7 @@ void Document::detachView(Gui::BaseView* pcView, bool bPassiv)
 
 void Document::onUpdate()
 {
-#ifdef FC_LOGUPDATECHAIN
+#ifdef RPS_LOGUPDATECHAIN
     Base::Console().Log("Acti: Gui::Document::onUpdate()");
 #endif
 
@@ -1937,7 +1937,7 @@ void Document::onUpdate()
 
 void Document::onRelabel()
 {
-#ifdef FC_LOGUPDATECHAIN
+#ifdef RPS_LOGUPDATECHAIN
     Base::Console().Log("Acti: Gui::Document::onRelabel()");
 #endif
 
@@ -2522,7 +2522,7 @@ void Document::toggleInSceneGraph(ViewProvider *vp)
 
 void Document::slotChangePropertyEditor(const App::Document &doc, const App::Property &Prop) {
     if(getDocument() == &doc) {
-        FC_LOG(Prop.getFullName() << " editor changed");
+        RPS_LOG(Prop.getFullName() << " editor changed");
         setModified(true);
     }
 }

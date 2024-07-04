@@ -3951,7 +3951,7 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
+      <source>Compression level for RPSStd files</source>
       <translation>Raven stiskanja pri datotekah FCtd</translation>
     </message>
     <message>
@@ -9086,8 +9086,8 @@ Ali želite datoteko shraniti z drugačnim imenom?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Dokument %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Dokument %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10408,8 +10408,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Dokument %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Dokument %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

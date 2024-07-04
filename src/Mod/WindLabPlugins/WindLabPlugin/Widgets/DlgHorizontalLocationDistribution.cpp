@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -26,19 +26,17 @@
 #include "DlgHorizontalLocationDistribution.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgHorizontalLocationDistribution.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/WLHorizontalUniformDistribution.h>
-#include <QSignalMapper>
-#include <App/Application.h>
-#include <App/Document.h>
-
-//#include <QPushButton>
-//#include <QApplication>
-
+//#include <QSignalMapper>
+//#include <App/Application.h>
+//#include <App/Document.h>
+#include <App/PropertyGeo.h>
+#include <App/PropertyUnits.h>
 
 using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgHorizontalLocationDistribution */
 
-DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent)
+DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui_DlgHorizontalLocationDistribution), _featureName(featureName.getStrValue())
 {
@@ -49,10 +47,10 @@ DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(App::Proper
     ui->doubleSpinBox_Z->setRange(10.00, DBL_MAX);
     ui->doubleSpinBox_Spacing->setRange(0.00, DBL_MAX);
 
-    ui->doubleSpinBox_X->setValue(lowestPoint.getValue().x);
-    ui->doubleSpinBox_Y->setValue(lowestPoint.getValue().y);
-    ui->doubleSpinBox_Z->setValue(lowestPoint.getValue().z);
-    ui->doubleSpinBox_Spacing->setValue(spacing.getQuantityValue());
+    //ui->doubleSpinBox_X->setValue(lowestPoint.getValue().x);
+    //ui->doubleSpinBox_Y->setValue(lowestPoint.getValue().y);
+    //ui->doubleSpinBox_Z->setValue(lowestPoint.getValue().z);
+    //ui->doubleSpinBox_Spacing->setValue(spacing.getQuantityValue());
 
     ui->doubleSpinBox_X->setUnit(Base::Unit::Length);
     ui->doubleSpinBox_Y->setUnit(Base::Unit::Length);
@@ -75,16 +73,15 @@ DlgHorizontalLocationDistribution::~DlgHorizontalLocationDistribution()
 
 void DlgHorizontalLocationDistribution::accept()
 {
-    auto doc = App::GetApplication().getActiveDocument();
+    /*auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return;
-    //auto feature = doc->getObject(_featureName.c_str());
     WindLab::CWLHorizontalUniformDistribution* activefeature = static_cast<WindLab::CWLHorizontalUniformDistribution*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;
     Base::Vector3d lowestPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
     activefeature->FirstPoint.setValue(lowestPoint);
-    activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());
+    activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());*/
 }
 
 void DlgHorizontalLocationDistribution::reject()
@@ -97,7 +94,7 @@ void DlgHorizontalLocationDistribution::reject()
 
 /* TRANSLATOR PartGui::HorizontalLocationDistributionDialogEdit */
 
-HorizontalLocationDistributionDialogEdit::HorizontalLocationDistributionDialogEdit(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName)
+HorizontalLocationDistributionDialogEdit::HorizontalLocationDistributionDialogEdit(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName)
 {
 	// create and show dialog for the WindLabFeatures
     widget = new DlgHorizontalLocationDistribution(lowestPoint, spacing, featureName, nullptr);

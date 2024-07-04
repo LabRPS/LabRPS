@@ -43,7 +43,7 @@
 #   include <utility>
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 #   include <unistd.h>
 #endif
 
@@ -1181,7 +1181,7 @@ void ParameterManager::Init()
             XMLPlatformUtils::Initialize();
         }
         catch (const XMLException& toCatch) {
-#if defined(FC_OS_LINUX) || defined(FC_OS_CYGWIN)
+#if defined(RPS_OS_LINUX) || defined(RPS_OS_CYGWIN)
             std::ostringstream err;
 #else
             std::stringstream err;
@@ -1261,7 +1261,7 @@ int  ParameterManager::LoadDocument(const char* sFileName)
     Base::FileInfo file(sFileName);
 
     try {
-#if defined (FC_OS_WIN32)
+#if defined (RPS_OS_WIN32)
         LocalFileInputSource inputSource(reinterpret_cast<const XMLCh*>(file.toStdWString().c_str()));
 #else
         LocalFileInputSource inputSource(XStr(file.filePath().c_str()).unicodeForm());
@@ -1358,7 +1358,7 @@ void  ParameterManager::SaveDocument(const char* sFileName) const
         // LocalFileFormatTarget prints the resultant XML stream
         // to a file once it receives any thing from the serializer.
         //
-#if defined (FC_OS_WIN32)
+#if defined (RPS_OS_WIN32)
         XMLFormatTarget *myFormTarget = new LocalFileFormatTarget (reinterpret_cast<const XMLCh*>(file.toStdWString().c_str()));
 #else
         XMLFormatTarget *myFormTarget = new LocalFileFormatTarget (file.filePath().c_str());

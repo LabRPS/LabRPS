@@ -179,7 +179,7 @@ void ImportOCAFAssembly::loadShapes(const TDF_Label& label, const TopLoc_Locatio
             part_loc = hLoc->Get();
     }
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     const char *s;
     if( !hLoc.IsNull() )
         s = hLoc->Get().IsIdentity()?"0":"1";

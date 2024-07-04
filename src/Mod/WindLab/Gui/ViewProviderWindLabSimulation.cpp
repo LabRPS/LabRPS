@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2013 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>          *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -120,11 +120,7 @@ bool ViewProviderWindLabSimulation::doubleClicked(void)
     Gui::Command::doCommand(Gui::Command::Gui,
                             "WindLabGui.setActiveSimulation(App.activeDocument().%s)",
                             this->getObject()->getNameInDocument());
-    // After activation of the simulation the allowed simulation toolbar buttons should become active.
-    // To achieve this we must clear the object selection to trigger the selection observer.
     Gui::Command::doCommand(Gui::Command::Gui, "Gui.Selection.clearSelection()");
-    // indicate the activated simulation by selecting it
-    // especially useful for files with 2 or more simulation but also
     std::vector<App::DocumentObject*> selVector {};
     selVector.push_back(this->getObject());
     auto *docName = this->getObject()->getDocument()->getName();
@@ -138,7 +134,6 @@ bool ViewProviderWindLabSimulation::run()
     if (!sim) {
         return false;
     }
-    //get the corresponding view provider
     WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
 
     vp->simulate();

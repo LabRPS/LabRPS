@@ -217,7 +217,7 @@ LabRPSGui_embedToWindow(PyObject * /*self*/, PyObject *args)
 
     QWidget* widget = Gui::getMainWindow();
     if (!widget) {
-        PyErr_SetString(Base::PyExc_FC_GeneralError, "No main window");
+        PyErr_SetString(Base::PyExc_RPS_GeneralError, "No main window");
         return nullptr;
     }
 
@@ -315,7 +315,7 @@ QWidget* setupMainWindow()
                 Base::Interpreter().runString(Base::ScriptFactory().ProduceScript("LabRPSGuiInit"));
             }
             catch (const Base::Exception& e) {
-                PyErr_Format(Base::PyExc_FC_GeneralError, "Error in LabRPSGuiInit.py: %s\n", e.what());
+                PyErr_Format(Base::PyExc_RPS_GeneralError, "Error in LabRPSGuiInit.py: %s\n", e.what());
                 return nullptr;
             }
             init = true;

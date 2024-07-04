@@ -50,15 +50,13 @@ add_custom_target(WindLabScripts ALL
 )
 set_target_properties(WindLabScripts PROPERTIES FOLDER "Workbenches/WindLab")
 
-fc_target_copy_resource(WindLabScripts
+rps_target_copy_resource(WindLabScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/WindLab
     ${WindLab_Scripts}
     ${WindLab_TestScripts}
     ${WindLabCommands_SRCS}
-    ${WindLabExamples_SRCS}
-
-    
+    ${WindLabExamples_SRCS}  
 )
 
 INSTALL(FILES ${WindLab_Scripts} DESTINATION Mod/WindLab)

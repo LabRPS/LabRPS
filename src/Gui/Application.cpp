@@ -560,7 +560,7 @@ void Application::open(const char* FileName, const char* Module)
 
     if (Module != nullptr) {
         try {
-            if (File.hasExtension("FCStd")) {
+            if (File.hasExtension("RPSStd")) {
                 bool handled = false;
                 std::string filepath = File.filePath();
                 for (auto &v : d->documents) {
@@ -626,7 +626,7 @@ void Application::importFrom(const char* FileName, const char* DocName, const ch
             Command::doCommand(Command::App, "import %s", Module);
 
             // load the file with the module
-            if (File.hasExtension("FCStd")) {
+            if (File.hasExtension("RPSStd")) {
                 Command::doCommand(Command::App, "%s.open(u\"%s\")"
                                                , Module, unicodepath.c_str());
                 if (activeDocument())
@@ -784,7 +784,7 @@ void Application::createStandardOperations()
 
 void Application::slotNewDocument(const App::Document& Doc, bool isMainDoc)
 {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     std::map<const App::Document*, Gui::Document*>::const_iterator it = d->documents.find(&Doc);
     assert(it==d->documents.end());
 #endif
@@ -839,7 +839,7 @@ void Application::slotDeleteDocument(const App::Document& Doc)
 void Application::slotRelabelDocument(const App::Document& Doc)
 {
     std::map<const App::Document*, Gui::Document*>::iterator doc = d->documents.find(&Doc);
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     assert(doc!=d->documents.end());
 #endif
 
@@ -850,7 +850,7 @@ void Application::slotRelabelDocument(const App::Document& Doc)
 void Application::slotRenameDocument(const App::Document& Doc)
 {
     std::map<const App::Document*, Gui::Document*>::iterator doc = d->documents.find(&Doc);
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     assert(doc!=d->documents.end());
 #endif
 
@@ -860,7 +860,7 @@ void Application::slotRenameDocument(const App::Document& Doc)
 void Application::slotShowHidden(const App::Document& Doc)
 {
     std::map<const App::Document*, Gui::Document*>::iterator doc = d->documents.find(&Doc);
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     assert(doc!=d->documents.end());
 #endif
 
@@ -1133,7 +1133,7 @@ void Application::setActiveDocument(Gui::Document* pcDocument)
         return;
     }
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     // May be useful for error detection
     if (d->activeDocument) {
         App::Document* doc = d->activeDocument->getDocument();
@@ -1209,7 +1209,7 @@ void Application::onUpdate()
 /// Gets called if a view gets activated, this manages the whole activation scheme
 void Application::viewActivated(MDIView* pcView)
 {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     // May be useful for error detection
     Base::Console().Log("Active view is %s (at %p)\n",
                  (const char*)pcView->windowTitle().toUtf8(),pcView);
@@ -1696,7 +1696,7 @@ _qt_msg_handler_old old_qtmsg_handler = nullptr;
 void messageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
     Q_UNUSED(context);
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     switch (type)
     {
     case QtInfoMsg:
@@ -1713,7 +1713,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
         Base::Console().Error("%s\n", msg.toUtf8().constData());
         abort();                    // deliberately core dump
     }
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     if (old_qtmsg_handler)
         (*old_qtmsg_handler)(type, context, msg);
 #endif
@@ -1724,7 +1724,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 #endif
 }
 
-#ifdef FC_DEBUG // redirect Coin messages to LabRPS
+#ifdef RPS_DEBUG // redirect Coin messages to LabRPS
 void messageHandlerCoin(const SoError * error, void * /*userdata*/)
 {
     if (error && error->getTypeId() == SoDebugError::getClassTypeId()) {
@@ -1742,7 +1742,7 @@ void messageHandlerCoin(const SoError * error, void * /*userdata*/)
             Base::Console().Error("%s\n", msg);
             break;
         }
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     if (old_qtmsg_handler)
         (*old_qtmsg_handler)(QtDebugMsg, QMessageLogContext(), QString::fromLatin1(msg));
 #endif
@@ -1883,7 +1883,7 @@ void Application::runApplication()
     ParameterGrp::handle hDPI = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/HighDPI");
     bool disableDpiScaling = hDPI->GetBool("DisableDpiScaling", false);
     if (disableDpiScaling) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         SetProcessDPIAware(); // call before the main event loop
 #endif
         QApplication::setAttribute(Qt::AA_DisableHighDpiScaling);
@@ -1935,9 +1935,9 @@ void Application::runApplication()
     // http://doc.qt.io/qt-5/qcoreapplication.html#locale-settings
     setlocale(LC_NUMERIC, "C");
 
-    mainApp.setApplicationName(QLatin1String("LabRPSZZZ"));
-    mainApp.setOrganizationName(QLatin1String("LabRPSZZZ"));
-    mainApp.setOrganizationDomain(QLatin1String("LabRPSZZZ.com"));
+    mainApp.setApplicationName(QLatin1String("LabRPS"));
+    mainApp.setOrganizationName(QLatin1String("LabRPS"));
+    mainApp.setOrganizationDomain(QLatin1String("LabRPS.com"));
 
     // check if a single or multiple instances can run
     it = cfg.find("SingleInstance");
@@ -2027,7 +2027,7 @@ void Application::runApplication()
         QIcon::setThemeName(QString::fromLatin1(name.c_str()));
     }
 
-#if defined(FC_OS_LINUX)
+#if defined(RPS_OS_LINUX)
     // See #0001588
     QString path = FileDialog::restoreLocation();
     FileDialog::setWorkingDirectory(QDir::currentPath());
@@ -2228,7 +2228,7 @@ void Application::runApplication()
     //initialize spaceball.
     mainApp.initSpaceball(&mw);
 
-#ifdef FC_DEBUG // redirect Coin messages to LabRPS
+#ifdef RPS_DEBUG // redirect Coin messages to LabRPS
     SoDebugError::setHandlerCallback( messageHandlerCoin, 0 );
 #endif
 
@@ -2270,7 +2270,7 @@ void Application::runApplication()
         Base::ofstream lock(fi);
 
         // In case the file_lock cannot be created start LabRPS without IPC support.
-#if !defined(FC_OS_WIN32) || (BOOST_VERSION < 107600)
+#if !defined(RPS_OS_WIN32) || (BOOST_VERSION < 107600)
         std::string filename = s.str();
 #else
         std::wstring filename = fi.toStdWString();
@@ -2348,17 +2348,17 @@ void Application::setStyleSheet(const QString& qssFile, bool tiledBackground)
     static bool init = true;
     if (init) {
         init = false;
-        mw->setProperty("fc_originalLinkCoor", qApp->palette().color(QPalette::Link));
+        mw->setProperty("rps_originalLinkCoor", qApp->palette().color(QPalette::Link));
     }
     else {
         QPalette newPal(qApp->palette());
-        newPal.setColor(QPalette::Link, mw->property("fc_originalLinkCoor").value<QColor>());
+        newPal.setColor(QPalette::Link, mw->property("rps_originalLinkCoor").value<QColor>());
         qApp->setPalette(newPal);
     }
 
 
-    QString current = mw->property("fc_currentStyleSheet").toString();
-    mw->setProperty("fc_currentStyleSheet", qssFile);
+    QString current = mw->property("rps_currentStyleSheet").toString();
+    mw->setProperty("rps_currentStyleSheet", qssFile);
 
     if (!qssFile.isEmpty() && current != qssFile) {
         // Search for stylesheet in user-defined search paths.
@@ -2525,12 +2525,12 @@ bool Application::isThisPluginInstalled(const QString& pluginName) const
    return  WorkbenchManager::instance()->active()->isThisPluginInstalled(pluginName);
 }
 
-bool Application::getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Application::getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     return WorkbenchManager::instance()->active()->getToBeInstalledObjectsList(lstObject, pluginName);   
 }
 
-bool Application::getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Application::getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
     return WorkbenchManager::instance()->active()->getToBeUninstalledObjectsList(lstObject, pluginName);
 }

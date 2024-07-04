@@ -46,7 +46,7 @@
 #include <App/ExpressionVisitors.h>
 #include <App/ExpressionParser.h>
 
-FC_LOG_LEVEL_INIT("Spreadsheet", true, true)
+RPS_LOG_LEVEL_INIT("Spreadsheet", true, true)
 
 using namespace App;
 using namespace Base;
@@ -475,7 +475,7 @@ void PropertySheet::pasteCells(XMLReader &reader, Range dstRange) {
                         auto newCell = owner->getCell(newCellAddr);
                         const Expression *expr;
                         if(!newCell || !(expr=newCell->getExpression(true))) {
-                            FC_THROWM(Base::RuntimeError, "Failed to copy cell "
+                            RPS_THROWM(Base::RuntimeError, "Failed to copy cell "
                                     << getFullName() << '.' << dst.toString()
                                     << " from " << newCellAddr.toString());
                         }
@@ -1165,7 +1165,7 @@ void PropertySheet::addDependencies(CellAddress key)
 
             for(auto &name : dep.second) {
                 std::string propName = docObjName + "." + name;
-                FC_LOG("dep " << key.toString() << " -> " << name);
+                RPS_LOG("dep " << key.toString() << " -> " << name);
 
                 // Insert into maps
                 propertyNameToCellMap[propName].insert(key);
@@ -1178,7 +1178,7 @@ void PropertySheet::addDependencies(CellAddress key)
 
                     if (j != other->cells.revAliasProp.end()) {
                         propName = docObjName + "." + j->second.toString();
-                        FC_LOG("dep " << key.toString() << " -> " << propName);
+                        RPS_LOG("dep " << key.toString() << " -> " << propName);
 
                         // Insert into maps
                         propertyNameToCellMap[propName].insert(key);
@@ -1825,12 +1825,12 @@ PropertySheet::getBinding(const Range &range,
 void PropertySheet::setPathValue(const ObjectIdentifier &path, const boost::any &value)
 {
     if(!owner)
-        FC_THROWM(Base::RuntimeError, "Invalid state");
+        RPS_THROWM(Base::RuntimeError, "Invalid state");
 
     bool href = false;
     CellAddress from,to;
     if(!isBindingPath(path,&from,&to,&href)) {
-        FC_THROWM(Base::IndexError, "Invalid binding of '" << path.toString()
+        RPS_THROWM(Base::IndexError, "Invalid binding of '" << path.toString()
                 << "' in " << getFullName());
     }
 
@@ -1848,7 +1848,7 @@ void PropertySheet::setPathValue(const ObjectIdentifier &path, const boost::any 
             auto other = static_cast<PropertySheetPy*>(seq[0].ptr())->getPropertySheetPtr();
             auto otherOwner = Base::labrps_dynamic_cast<App::DocumentObject>(other->getContainer());
             if(!otherOwner)
-                FC_THROWM(Base::RuntimeError, "Invalid binding of '" << other->getFullName()
+                RPS_THROWM(Base::RuntimeError, "Invalid binding of '" << other->getFullName()
                         << " in " << getFullName());
 
             App::CellAddress targetFrom = other->getCellAddress(
@@ -1979,7 +1979,7 @@ void PropertySheet::setPathValue(const ObjectIdentifier &path, const boost::any 
         }
     }
 
-    FC_THROWM(Base::TypeError, "Invalid path value '"
+    RPS_THROWM(Base::TypeError, "Invalid path value '"
             << "' for " << getFullName());
 }
 

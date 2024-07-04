@@ -92,9 +92,9 @@ set(WindLabGui_XML_SRCS
 
 set(WindLabGui_LIBS
     WindLabAPI
-    QtPropertyBrowser
     WindLab
     LabRPSGui
+    LabRPSApp
     Part
 )
 
@@ -291,7 +291,7 @@ set_target_properties(WindLabGui PROPERTIES FOLDER "Workbenches/WindLab")
 SET_BIN_DIR(WindLabGui WindLabGui /Mod/WindLab)
 SET_PYTHON_PREFIX_SUFFIX(WindLabGui)
 
-fc_copy_sources(WindLabGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/WindLab" ${WindLabGuiIcon_SVG})
+rps_copy_sources(WindLabGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/WindLab" ${WindLabGuiIcon_SVG})
 
 INSTALL(TARGETS WindLabGui DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${WindLabGuiIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Mod/WindLab/Resources/icons")

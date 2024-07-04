@@ -3946,8 +3946,8 @@ a színsáv mellett</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Az FCStd-fájlok tömörítési szintje</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Az RPSStd-fájlok tömörítési szintje</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -9082,8 +9082,8 @@ Szeretné menteni a fájlt egy másik névvel?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 dokumentum (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 dokumentum (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10403,8 +10403,8 @@ az aktuális példány elveszik.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 dokumentum (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 dokumentum (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

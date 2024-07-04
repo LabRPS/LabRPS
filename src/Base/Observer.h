@@ -131,7 +131,7 @@ public:
    */
   void Attach(Observer<_MessageType> *ToObserv)
   {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     size_t count = _ObserverSet.size();
     //printf("Attach observer %p\n", ToObserv);
     _ObserverSet.insert(ToObserv);
@@ -150,7 +150,7 @@ public:
    */
   void Detach(Observer<_MessageType> *ToObserv)
   {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     size_t count = _ObserverSet.size();
     //printf("Detach observer %p\n", ToObserv);
     _ObserverSet.erase(ToObserv);

@@ -131,58 +131,58 @@ private:
     App::PropertyPythonObject &Proxy;
     bool has__object__;
 
-#define FC_PY_VIEW_OBJECT \
-    FC_PY_ELEMENT(getIcon) \
-    FC_PY_ELEMENT(claimChildren) \
-    FC_PY_ELEMENT(useNewSelectionModel) \
-    FC_PY_ELEMENT(getElementPicked) \
-    FC_PY_ELEMENT(getElement) \
-    FC_PY_ELEMENT(getDetail) \
-    FC_PY_ELEMENT(getDetailPath) \
-    FC_PY_ELEMENT(getSelectionShape) \
-    FC_PY_ELEMENT(setEdit) \
-    FC_PY_ELEMENT(unsetEdit) \
-    FC_PY_ELEMENT(setEditViewer) \
-    FC_PY_ELEMENT(unsetEditViewer) \
-    FC_PY_ELEMENT(doubleClicked) \
-    FC_PY_ELEMENT(setupContextMenu) \
-    FC_PY_ELEMENT(attach) \
-    FC_PY_ELEMENT(updateData) \
-    FC_PY_ELEMENT(onChanged) \
-    FC_PY_ELEMENT(startRestoring) \
-    FC_PY_ELEMENT(finishRestoring) \
-    FC_PY_ELEMENT(onDelete) \
-    FC_PY_ELEMENT(canDelete) \
-    FC_PY_ELEMENT(isShow) \
-    FC_PY_ELEMENT(getDefaultDisplayMode) \
-    FC_PY_ELEMENT(getDisplayModes) \
-    FC_PY_ELEMENT(setDisplayMode) \
-    FC_PY_ELEMENT(canRemoveChildrenFromRoot) \
-    FC_PY_ELEMENT(canDragObjects) \
-    FC_PY_ELEMENT(canDragObject) \
-    FC_PY_ELEMENT(dragObject) \
-    FC_PY_ELEMENT(canDropObjects) \
-    FC_PY_ELEMENT(canDropObject) \
-    FC_PY_ELEMENT(dropObject) \
-    FC_PY_ELEMENT(canDragAndDropObject) \
-    FC_PY_ELEMENT(canDropObjectEx) \
-    FC_PY_ELEMENT(dropObjectEx) \
-    FC_PY_ELEMENT(canAddToSceneGraph) \
-    FC_PY_ELEMENT(getDropPrefix) \
-    FC_PY_ELEMENT(replaceObject) \
-    FC_PY_ELEMENT(getLinkedViewProvider) \
-    FC_PY_ELEMENT(editProperty) \
+#define RPS_PY_VIEW_OBJECT \
+    RPS_PY_ELEMENT(getIcon) \
+    RPS_PY_ELEMENT(claimChildren) \
+    RPS_PY_ELEMENT(useNewSelectionModel) \
+    RPS_PY_ELEMENT(getElementPicked) \
+    RPS_PY_ELEMENT(getElement) \
+    RPS_PY_ELEMENT(getDetail) \
+    RPS_PY_ELEMENT(getDetailPath) \
+    RPS_PY_ELEMENT(getSelectionShape) \
+    RPS_PY_ELEMENT(setEdit) \
+    RPS_PY_ELEMENT(unsetEdit) \
+    RPS_PY_ELEMENT(setEditViewer) \
+    RPS_PY_ELEMENT(unsetEditViewer) \
+    RPS_PY_ELEMENT(doubleClicked) \
+    RPS_PY_ELEMENT(setupContextMenu) \
+    RPS_PY_ELEMENT(attach) \
+    RPS_PY_ELEMENT(updateData) \
+    RPS_PY_ELEMENT(onChanged) \
+    RPS_PY_ELEMENT(startRestoring) \
+    RPS_PY_ELEMENT(finishRestoring) \
+    RPS_PY_ELEMENT(onDelete) \
+    RPS_PY_ELEMENT(canDelete) \
+    RPS_PY_ELEMENT(isShow) \
+    RPS_PY_ELEMENT(getDefaultDisplayMode) \
+    RPS_PY_ELEMENT(getDisplayModes) \
+    RPS_PY_ELEMENT(setDisplayMode) \
+    RPS_PY_ELEMENT(canRemoveChildrenFromRoot) \
+    RPS_PY_ELEMENT(canDragObjects) \
+    RPS_PY_ELEMENT(canDragObject) \
+    RPS_PY_ELEMENT(dragObject) \
+    RPS_PY_ELEMENT(canDropObjects) \
+    RPS_PY_ELEMENT(canDropObject) \
+    RPS_PY_ELEMENT(dropObject) \
+    RPS_PY_ELEMENT(canDragAndDropObject) \
+    RPS_PY_ELEMENT(canDropObjectEx) \
+    RPS_PY_ELEMENT(dropObjectEx) \
+    RPS_PY_ELEMENT(canAddToSceneGraph) \
+    RPS_PY_ELEMENT(getDropPrefix) \
+    RPS_PY_ELEMENT(replaceObject) \
+    RPS_PY_ELEMENT(getLinkedViewProvider) \
+    RPS_PY_ELEMENT(editProperty) \
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_DEFINE(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_DEFINE(_name)
 
-    FC_PY_VIEW_OBJECT
+    RPS_PY_VIEW_OBJECT
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_FLAG(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_FLAG(_name)
 
     enum Flag {
-        FC_PY_VIEW_OBJECT
+        RPS_PY_VIEW_OBJECT
         FlagMax,
     };
     typedef std::bitset<FlagMax> Flags;

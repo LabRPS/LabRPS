@@ -147,12 +147,12 @@ void DlgBindSheet::accept()
                 std::string docname(ref,sep);
                 auto doc = GetApplication().getDocument(docname.c_str());
                 if(!doc)
-                    FC_THROWM(Base::RuntimeError, "Cannot find document " << docname);
+                    RPS_THROWM(Base::RuntimeError, "Cannot find document " << docname);
                 obj = Base::labrps_dynamic_cast<Sheet>(doc->getObject(sep+1));
             } else 
                 obj = Base::labrps_dynamic_cast<Sheet>(sheet->getDocument()->getObject(ref));
             if(!obj)
-                FC_THROWM(Base::RuntimeError, "Cannot find Spreadsheet '" << ref << "'");
+                RPS_THROWM(Base::RuntimeError, "Cannot find Spreadsheet '" << ref << "'");
         }
 
         auto checkAddress = [](std::string &addr, CellAddress &cell, bool quote) {

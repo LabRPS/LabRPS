@@ -44,7 +44,7 @@
 #include "ViewProviderLink.h"
 
 
-FC_LOG_LEVEL_INIT("Gui", true, true)
+RPS_LOG_LEVEL_INIT("Gui", true, true)
 
 using namespace Gui;
 namespace bp = boost::placeholders;

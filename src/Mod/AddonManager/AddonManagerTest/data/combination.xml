@@ -18,7 +18,7 @@
 		  <icon>Resources/icons/PackageIcon.svg</icon>
 	  </workbench>
 	  <macro>
-		  <file>MyMacro.FCStd</file>
+		  <file>MyMacro.RPSStd</file>
 	  </macro>
 	  <preferencepack>
 		  <name>MyFirstPack</name>

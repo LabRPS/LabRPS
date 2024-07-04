@@ -176,8 +176,8 @@ class UpdateWorker(QtCore.QThread):
                 py2only = j["py2only"]["Mod"]
 
             if "deprecated" in j:
-                fc_major = int(LabRPS.Version()[0])
-                fc_minor = int(LabRPS.Version()[1])
+                rps_major = int(LabRPS.Version()[0])
+                rps_minor = int(LabRPS.Version()[1])
                 for item in j["deprecated"]:
                     if "as_of" in item and "name" in item:
                         try:
@@ -187,8 +187,8 @@ class UpdateWorker(QtCore.QThread):
                                 minor = int(version_components[1])
                             else:
                                 minor = 0
-                            if major < fc_major or (
-                                major == fc_major and minor <= fc_minor
+                            if major < rps_major or (
+                                major == rps_major and minor <= rps_minor
                             ):
                                 if "kind" not in item or item["kind"] == "mod":
                                     obsolete.append(item["name"])
@@ -1754,13 +1754,13 @@ class DependencyInstallationWorker(QtCore.QThread):
                 or python_exe == "Not set"
                 or not os.path.exists(python_exe)
             ):
-                fc_dir = LabRPS.getHomePath()
-                python_exe = os.path.join(fc_dir, "bin", "python3")
+                rps_dir = LabRPS.getHomePath()
+                python_exe = os.path.join(rps_dir, "bin", "python3")
                 if "Windows" in platform.system():
                     python_exe += ".exe"
 
             if not python_exe or not os.path.exists(python_exe):
-                python_exe = os.path.join(fc_dir, "bin", "python")
+                python_exe = os.path.join(rps_dir, "bin", "python")
                 if "Windows" in platform.system():
                     python_exe += ".exe"
 

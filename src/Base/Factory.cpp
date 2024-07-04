@@ -100,7 +100,7 @@ const char* ScriptFactorySingleton::ProduceScript (const char* sScriptName) cons
 
   if ( !script )
   {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     Console().Warning("\"%s\" is not registered\n", sScriptName);
 #endif
     return ""; // no data

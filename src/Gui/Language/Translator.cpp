@@ -266,7 +266,7 @@ void Translator::setLocale(const std::string& language) const
     QLocale::setDefault(loc);
     updateLocaleChange();
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     Base::Console().Log("Locale changed to %s => %s\n", qPrintable(loc.bcp47Name()), qPrintable(loc.name()));
 #endif
 }

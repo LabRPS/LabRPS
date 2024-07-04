@@ -65,7 +65,7 @@
 #include "Workbench.h"
 
 
-FC_LOG_LEVEL_INIT("Command", true, true)
+RPS_LOG_LEVEL_INIT("Command", true, true)
 
 using Base::Interpreter;
 using namespace Gui;
@@ -376,7 +376,7 @@ void Command::invoke(int i, TriggerSource trigger)
     }
 
     // Do not query _pcAction since it isn't created necessarily
-#ifdef FC_LOGUSERACTION
+#ifdef RPS_LOGUSERACTION
     Base::Console().Log("CmdG: %s\n",sName);
 #endif
 
@@ -467,7 +467,7 @@ void Command::_invoke(int id, bool disablelog)
     catch (const char* e) {
         Base::Console().Error("%s\n", e);
     }
-#ifndef FC_DEBUG
+#ifndef RPS_DEBUG
     catch (...) {
         Base::Console().Error("Gui::Command::activated(%d): Unknown C++ exception thrown\n", id);
     }
@@ -643,7 +643,7 @@ void Command::_doCommand(const char *file, int line, DoCmd_Type eType, const cha
     // 'vsprintf' expects a utf-8 string for '%s'
     QByteArray format = cmd.toUtf8();
 
-#ifdef FC_LOGUSERACTION
+#ifdef RPS_LOGUSERACTION
     Base::Console().Log("CmdC: %s\n", format.constData());
 #endif
 
@@ -651,7 +651,7 @@ void Command::_doCommand(const char *file, int line, DoCmd_Type eType, const cha
 }
 
 void Command::printPyCaller() {
-    if(!FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
+    if(!RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
         return;
     PyFrameObject* frame = PyEval_GetFrame();
     if(!frame)
@@ -669,10 +669,10 @@ void Command::printPyCaller() {
 }
 
 void Command::printCaller(const char *file, int line) {
-    if(!FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
+    if(!RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
         return;
     std::ostringstream str;
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     const char *_f = std::strstr(file, "\\src\\");
 #else
     const char *_f = std::strstr(file, "/src/");
@@ -985,7 +985,7 @@ Action * Command::createAction()
 {
     Action *pcAction;
     pcAction = new Action(this,getMainWindow());
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     printConflictingAccelerators();
 #endif
     pcAction->setShortcut(QString::fromLatin1(sAccel));
@@ -1155,7 +1155,7 @@ Action * MacroCommand::createAction()
     pcAction->setWhatsThis(QString::fromUtf8(sWhatsThis));
     if (sPixmap)
         pcAction->setIcon(Gui::BitmapFactory().pixmap(sPixmap));
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     printConflictingAccelerators();
 #endif
     pcAction->setShortcut(QString::fromLatin1(sAccel));
@@ -1360,7 +1360,7 @@ Action * PythonCommand::createAction()
     Action *pcAction;
 
     pcAction = new Action(this, qtAction, getMainWindow());
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     printConflictingAccelerators();
 #endif
     pcAction->setShortcut(QString::fromLatin1(getAccel()));
@@ -1814,7 +1814,7 @@ bool CommandManager::addTo(const char* Name, QWidget *pcWidget)
 {
     if (_sCommands.find(Name) == _sCommands.end()) {
         // Print in release mode only a log message instead of an error message to avoid to annoy the user
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         Base::Console().Error("CommandManager::addTo() try to add an unknown command (%s) to a widget!\n",Name);
 #else
         Base::Console().Warning("Unknown command '%s'\n",Name);

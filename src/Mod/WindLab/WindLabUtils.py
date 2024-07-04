@@ -1,25 +1,25 @@
-# ***************************************************************************
-# *   Copyright (c) 2016 Bernd Hahnebach <bernd@bimstatik.org>              *
-# *                                                                         *
-# *   This file is part of the LabRPS CAx development system.              *
-# *                                                                         *
-# *   This program is free software; you can redistribute it and/or modify  *
-# *   it under the terms of the GNU Lesser General Public License (LGPL)    *
-# *   as published by the Free Software Foundation; either version 2 of     *
-# *   the License, or (at your option) any later version.                   *
-# *   for detail see the LICENCE text file.                                 *
-# *                                                                         *
-# *   This program is distributed in the hope that it will be useful,       *
-# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-# *   GNU Library General Public License for more details.                  *
-# *                                                                         *
-# *   You should have received a copy of the GNU Library General Public     *
-# *   License along with this program; if not, write to the Free Software   *
-# *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
-# *   USA                                                                   *
-# *                                                                         *
-# ***************************************************************************
+#***************************************************************************
+#*   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+#*                                                                         *
+#*   This file is part of the LabRPS development system.                   *
+#*                                                                         *
+#*   This program is free software; you can redistribute it and/or modify  *
+#*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+#*   as published by the Free Software Foundation; either version 2 of     *
+#*   the License, or (at your option) any later version.                   *
+#*   for detail see the LICENCE text file.                                 *
+#*                                                                         *
+#*   LabRPS is distributed in the hope that it will be useful,             *
+#*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+#*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+#*   GNU Lesser General Public License for more details.                   *
+#*                                                                         *
+#*   You should have received a copy of the GNU Library General Public     *
+#*   License along with LabRPS; if not, write to the Free Software         *
+#*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+#*   USA                                                                   *
+#*                                                                         *
+#***************************************************************************/
 
 __title__ = "WindLab Gui Utils"
 __author__ = "Koffi Daniel"
@@ -33,6 +33,9 @@ import LabRPS as App
 
 def showSimulationPoints():
     sim = WindLabGui.getActiveSimulation()
+    if not sim:
+       App.Console.PrintError("Please make sure the simulation is first activated.\n")
+       return None
     simPoints = sim.computeLocationCoordinateMatrixP3()
     App.ActiveDocument.openTransaction("Sim_Points")
     group = App.ActiveDocument.addObject("App::DocumentObjectGroup", "Sim_Points")
@@ -56,7 +59,6 @@ def findAllVertexes():
               for Vertex in shape.Vertexes:
                   points.append(Vertex)
     arr = []
-
     rows, cols= len(points), 4
     for i in range(rows):
         row = []
@@ -69,5 +71,5 @@ def findAllVertexes():
     if App.GuiUp:
         import WindLabGui
         WindLabGui.WindLabPyTool.showArray(rows, cols, arr)
-        print(arr)
+        # print(arr)
 ##  @}

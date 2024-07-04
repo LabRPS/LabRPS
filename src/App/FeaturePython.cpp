@@ -45,11 +45,11 @@ FeaturePythonImp::FeaturePythonImp(App::DocumentObject* o)
 FeaturePythonImp::~FeaturePythonImp()
 {
     Base::PyGILStateLocker lock;
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) py_##_name = Py::None();
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) py_##_name = Py::None();
 
     try {
-        FC_PY_FEATURE_PYTHON
+        RPS_PY_FEATURE_PYTHON
     }
     catch (Py::Exception& e) {
         e.clear();
@@ -60,13 +60,13 @@ void FeaturePythonImp::init(PyObject *pyobj) {
     Base::PyGILStateLocker lock;
     has__object__ = !!PyObject_HasAttrString(pyobj, "__object__");
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_INIT(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_INIT(_name)
 
-    FC_PY_FEATURE_PYTHON
+    RPS_PY_FEATURE_PYTHON
 }
 
-#define FC_PY_CALL_CHECK(_name) _FC_PY_CALL_CHECK(_name,return(false))
+#define RPS_PY_CALL_CHECK(_name) _RPS_PY_CALL_CHECK(_name,return(false))
 
 /*!
  Calls the execute() method of the Python feature class. If the Python feature class doesn't have an execute()
@@ -74,7 +74,7 @@ void FeaturePythonImp::init(PyObject *pyobj) {
  */
 bool FeaturePythonImp::execute()
 {
-    FC_PY_CALL_CHECK(execute)
+    RPS_PY_CALL_CHECK(execute)
     Base::PyGILStateLocker lock;
     try {
         if (has__object__) {
@@ -105,7 +105,7 @@ bool FeaturePythonImp::execute()
 
 bool FeaturePythonImp::mustExecute() const
 {
-    FC_PY_CALL_CHECK(mustExecute)
+    RPS_PY_CALL_CHECK(mustExecute)
     Base::PyGILStateLocker lock;
     try {
         if (has__object__) {
@@ -212,7 +212,7 @@ void FeaturePythonImp::onChanged(const Property* prop)
 
 void FeaturePythonImp::onDocumentRestored()
 {
-    _FC_PY_CALL_CHECK(onDocumentRestored,return);
+    _RPS_PY_CALL_CHECK(onDocumentRestored,return);
 
     // Run the execute method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -235,7 +235,7 @@ void FeaturePythonImp::onDocumentRestored()
 bool FeaturePythonImp::getSubObject(DocumentObject *&ret, const char *subname,
     PyObject **pyObj, Base::Matrix4D *_mat, bool transform, int depth) const
 {
-    FC_PY_CALL_CHECK(getSubObject);
+    RPS_PY_CALL_CHECK(getSubObject);
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(6);
@@ -293,7 +293,7 @@ bool FeaturePythonImp::getSubObject(DocumentObject *&ret, const char *subname,
 }
 
 bool FeaturePythonImp::getSubObjects(std::vector<std::string> &ret, int reason) const {
-    FC_PY_CALL_CHECK(getSubObjects);
+    RPS_PY_CALL_CHECK(getSubObjects);
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(2);
@@ -327,7 +327,7 @@ bool FeaturePythonImp::getSubObjects(std::vector<std::string> &ret, int reason) 
 bool FeaturePythonImp::getLinkedObject(DocumentObject *&ret, bool recurse,
         Base::Matrix4D *_mat, bool transform, int depth) const
 {
-    FC_PY_CALL_CHECK(getLinkedObject);
+    RPS_PY_CALL_CHECK(getLinkedObject);
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(5);
@@ -383,7 +383,7 @@ PyObject *FeaturePythonImp::getPyObject(void)
 FeaturePythonImp::ValueT
 FeaturePythonImp::hasChildElement() const
 {
-    _FC_PY_CALL_CHECK(hasChildElement,return(NotImplemented));
+    _RPS_PY_CALL_CHECK(hasChildElement,return(NotImplemented));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);
@@ -404,7 +404,7 @@ FeaturePythonImp::hasChildElement() const
 }
 
 int FeaturePythonImp::isElementVisible(const char *element) const {
-    _FC_PY_CALL_CHECK(isElementVisible,return(-2));
+    _RPS_PY_CALL_CHECK(isElementVisible,return(-2));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(2);
@@ -424,7 +424,7 @@ int FeaturePythonImp::isElementVisible(const char *element) const {
 }
 
 int FeaturePythonImp::setElementVisible(const char *element, bool visible) {
-    _FC_PY_CALL_CHECK(setElementVisible,return(-2));
+    _RPS_PY_CALL_CHECK(setElementVisible,return(-2));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(3);
@@ -446,7 +446,7 @@ int FeaturePythonImp::setElementVisible(const char *element, bool visible) {
 
 std::string FeaturePythonImp::getViewProviderName()
 {
-    _FC_PY_CALL_CHECK(getViewProviderName,return(std::string()));
+    _RPS_PY_CALL_CHECK(getViewProviderName,return(std::string()));
     Base::PyGILStateLocker lock;
     try {
         Py::TupleN args(Py::Object(object->getPyObject(), true));
@@ -464,7 +464,7 @@ std::string FeaturePythonImp::getViewProviderName()
 FeaturePythonImp::ValueT
 FeaturePythonImp::canLinkProperties() const
 {
-    _FC_PY_CALL_CHECK(canLinkProperties,return(NotImplemented));
+    _RPS_PY_CALL_CHECK(canLinkProperties,return(NotImplemented));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);
@@ -486,7 +486,7 @@ FeaturePythonImp::canLinkProperties() const
 FeaturePythonImp::ValueT
 FeaturePythonImp::allowDuplicateLabel() const
 {
-    _FC_PY_CALL_CHECK(allowDuplicateLabel,return(NotImplemented));
+    _RPS_PY_CALL_CHECK(allowDuplicateLabel,return(NotImplemented));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);
@@ -507,7 +507,7 @@ FeaturePythonImp::allowDuplicateLabel() const
 }
 
 int FeaturePythonImp::canLoadPartial() const {
-    _FC_PY_CALL_CHECK(canLoadPartial,return(-1));
+    _RPS_PY_CALL_CHECK(canLoadPartial,return(-1));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);
@@ -531,7 +531,7 @@ FeaturePythonImp::redirectSubName(std::ostringstream &ss,
                                   App::DocumentObject *topParent,
                                   App::DocumentObject *child) const
 {
-    _FC_PY_CALL_CHECK(redirectSubName,return(NotImplemented));
+    _RPS_PY_CALL_CHECK(redirectSubName,return(NotImplemented));
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(4);
@@ -560,7 +560,7 @@ FeaturePythonImp::redirectSubName(std::ostringstream &ss,
 
 bool FeaturePythonImp::editProperty(const char *name)
 {
-    _FC_PY_CALL_CHECK(editProperty,return false);
+    _RPS_PY_CALL_CHECK(editProperty,return false);
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);

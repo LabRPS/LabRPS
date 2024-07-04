@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2019 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *

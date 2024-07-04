@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -29,7 +29,6 @@
 #include "WindLabSimulationPy.h"
 #include "WindLabSimulationComparison.h"
 #include "WindLabSimulationComparisonPy.h"
-#include "WindLabFrameworkPython.h"
 
 
 namespace WindLab {
@@ -42,6 +41,9 @@ PyMOD_INIT_FUNC(WindLab)
      //load dependent module
     try {
         Base::Interpreter().runString("import WindLabAPI");
+        Base::Interpreter().runString("import WindLabTools");
+        Base::Interpreter().runString("import GeneralTools");
+
     }
     catch(const Base::Exception& e) {
         PyErr_SetString(PyExc_ImportError, e.what());
@@ -58,18 +60,6 @@ PyMOD_INIT_FUNC(WindLab)
     WindLab::WindLabSimulationComparison ::init();
 
     Base::Console().Log("Loading WindLab module... done\n");
-
-     static struct PyModuleDef pWindLabFrameworkPythonModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "WindLabPyTool",
-        "WindLabPyTool", -1,
-        WindLab::WindLabFrameworkPython::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pWindLabFrameworkPythonModule = PyModule_Create(&pWindLabFrameworkPythonModuleDef);
-
-    Py_INCREF(pWindLabFrameworkPythonModule);
-    PyModule_AddObject(windlabModule, "WindLabFramework", pWindLabFrameworkPythonModule);
 
     PyMOD_Return(windlabModule);
 }

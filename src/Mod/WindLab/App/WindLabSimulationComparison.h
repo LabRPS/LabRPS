@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2013 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>          *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -36,7 +36,7 @@
 namespace WindLab {
 
  class WindLabSimulationComparisonPy;// the python WindLabSimulationComparison class
- class WindLabSimulation;// the python WindLabSimulationComparison class
+ class WindLabSimulation;
 
  class WindLabExport WindLabSimulationComparison: public App::DocumentObject
  {
@@ -72,7 +72,8 @@ public:
     App::PropertyPercent Accuracy;
     App::PropertyFloat ComputationTime1;
     App::PropertyFloat ComputationTime2;
-    App::PropertyInteger MemoryUsage;
+    App::PropertyInteger MemoryUsage1;
+    App::PropertyInteger MemoryUsage2;
 
 
     /// python object of this class

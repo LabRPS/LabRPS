@@ -28,12 +28,12 @@ add_custom_target(StartTests ALL
     SOURCES ${Start_Test_Files}
 )
 
-fc_target_copy_resource(StartScripts
+rps_target_copy_resource(StartScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Start
     ${Start_Scripts})
 
-fc_copy_sources(StartTests "${CMAKE_BINARY_DIR}/Mod/Start" ${Start_Test_Files})
+rps_copy_sources(StartTests "${CMAKE_BINARY_DIR}/Mod/Start" ${Start_Test_Files})
 
 
 INSTALL(

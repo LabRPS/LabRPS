@@ -1,10 +1,7 @@
 
 The files:
 
-DrawingExample.FCStd
-PartDesignExample.FCStd
-RobotExample.FCStd
-Schenkel.stp
+PartExample.RPSStd
 
 are
 (c) 2011 Juergen Riegel (juergen.riegel@web.de)
@@ -12,14 +9,4 @@ licensed under:
 
 Creative Commons Attribution Share Alike
 
-
-The files:
-
-EngineBlock.FCStd
-
-are
-(c) 2011 Werner Mayer (wmayer@users.sourceforge.net)
-licensed under:
-
-Creative Commons Attribution Share Alike
 

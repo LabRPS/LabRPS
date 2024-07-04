@@ -12,10 +12,10 @@
 
 	<content>
 		<macro>
-			<file>MyMacro.FCStd</file>
+			<file>MyMacro.RPSStd</file>
 		</macro>
 		<macro>
-			<file>MyOtherMacro.FCStd</file>
+			<file>MyOtherMacro.RPSStd</file>
 		</macro>
 	</content>
 

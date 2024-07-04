@@ -118,6 +118,7 @@ class ObjectSelectionPage : public QWizardPage
 public:
     ObjectSelectionPage(int installationType, QString installingPluginName, QString installingPluginFullPath, QWidget *parent = nullptr);
     ~ObjectSelectionPage();
+    QIcon getFeatureIcon(QString featureGroup);
 
 public Q_SLOTS:
     void highlightChecked(QListWidgetItem* item);

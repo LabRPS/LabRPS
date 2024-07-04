@@ -114,9 +114,9 @@ public:
 
     //plugin staff
     //returns by reference the list of all to be plugged rps feature
-    virtual bool getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const;
+    virtual bool getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const;
     //returns by reference the list of all to be unplugged rps feature
-    virtual bool getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const;
+    virtual bool getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const;
     //returns true if the given rps feature is installed ortherwise it returns false
     virtual bool isObjectInstalled(QString& object) const;
     //updates the to be installed rps features map

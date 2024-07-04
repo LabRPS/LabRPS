@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -49,9 +49,6 @@
 #include <App/DocumentObjectGroup.h>
 #include <Mod/WindLab/App/WindLabUtils.h>
 using namespace WindLabGui;
-
-
-/* TRANSLATOR WindLabGui::DlgNewSimulation */
 
 DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation* sim)
 	: QWidget(parent)
@@ -218,8 +215,6 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 	ui->directionIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
 	ui->directionIncrementSpinBox->setValue(simData->directionIncrement.getValue());
 	ui->directionIncrementSpinBox->setUnit(Base::Unit::Angle);
-
-	//fillRPSFeaturesComboxBoxes();
 }
 
 /*
@@ -277,7 +272,6 @@ void DlgNewSimulation::createNewSimulation()
 	doc->commitTransaction();
     saveSimulation(doc, newSim);
     App::GetApplication().getActiveDocument()->recompute();
-    //WindLabGui::WindLabSimulationObserver::instance()->setActiveSimulation(newSim);
 }
 
 
@@ -506,7 +500,6 @@ void  DlgWindLabFeatures::saveLabFeatures( WindLab::WindLabSimulation* sim)
 	sim->getSimulationData()->varianceFunction.setValue(ui->varianceComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->wavePassageEffect.setValue(ui->wavePassageEffectComboBox->currentText().toUtf8().constData());
 
-	//ui->lacationDistributionComboBox->addItems(rpsWindLabSimulator->FindAllCoherenceFunction());
 	fillRPSFeaturesComboxBoxes(sim);
 }
 
@@ -755,7 +748,6 @@ TaskNewSimulationEdit::TaskNewSimulationEdit( WindLab::WindLabSimulation* sim)
 	taskbox->groupLayout()->addWidget(widget);
 	Content.push_back(taskbox);
 
-	// create and show dialog for the location
 	dlgWindLabFeatures = new DlgWindLabFeatures(nullptr, sim);
 	taskbox = new Gui::TaskView::TaskBox(QPixmap(), dlgWindLabFeatures->windowTitle(), true, nullptr);
 	taskbox->groupLayout()->addWidget(dlgWindLabFeatures);
@@ -764,7 +756,7 @@ TaskNewSimulationEdit::TaskNewSimulationEdit( WindLab::WindLabSimulation* sim)
 
 TaskNewSimulationEdit::~TaskNewSimulationEdit()
 {
-	// automatically deleted in the sub-class
+	
 }
 
 QDialogButtonBox::StandardButtons TaskNewSimulationEdit::getStandardButtons() const

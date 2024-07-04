@@ -27,7 +27,7 @@
 #include <RPSConfig.h>
 
 // Exporting of App classes
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # define _TEMPLATE_AppExport __declspec(dllexport)
 #else // for Linux
 # define _TEMPLATE_AppExport

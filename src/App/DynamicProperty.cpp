@@ -33,7 +33,7 @@
 #include "PropertyContainer.h"
 
 
-FC_LOG_LEVEL_INIT("Property",true,true)
+RPS_LOG_LEVEL_INIT("Property",true,true)
 
 
 using namespace App;
@@ -163,7 +163,7 @@ Property* DynamicProperty::addDynamicProperty(PropertyContainer &pc, const char*
             name = type;
         _name = getUniquePropertyName(pc,name);
         if(_name != name) {
-            FC_WARN(pc.getFullName() << " rename dynamic property from '"
+            RPS_WARN(pc.getFullName() << " rename dynamic property from '"
                     << name << "' to '" << _name << "'");
         }
         name = _name.c_str();
@@ -172,20 +172,20 @@ Property* DynamicProperty::addDynamicProperty(PropertyContainer &pc, const char*
 
     auto prop = pc.getPropertyByName(name);
     if(prop && prop->getContainer()==&pc)
-        FC_THROWM(Base::NameError, "Property " << pc.getFullName() << '.' << name << " already exists");
+        RPS_THROWM(Base::NameError, "Property " << pc.getFullName() << '.' << name << " already exists");
 
     if(Base::Tools::getIdentifier(name) != name) 
-        FC_THROWM(Base::NameError, "Invalid property name '" << name << "'");
+        RPS_THROWM(Base::NameError, "Invalid property name '" << name << "'");
 
     Base::Type propType = Base::Type::getTypeIfDerivedFrom(type, App::Property::getClassTypeId(), true);
     if (propType.isBad()) {
-        FC_THROWM(Base::TypeError, "Invalid type "
+        RPS_THROWM(Base::TypeError, "Invalid type "
                 << type << " for property " << pc.getFullName() << '.' << name);
     }
 
     void* propInstance = propType.createInstance();
     if (!propInstance) {
-        FC_THROWM(Base::RuntimeError, "Failed to create property "
+        RPS_THROWM(Base::RuntimeError, "Failed to create property "
                 << pc.getFullName() << '.' << name << " of type " << type);
     }
 

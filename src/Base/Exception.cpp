@@ -29,7 +29,7 @@
 #include "PyObjectBase.h"
 
 
-FC_LOG_LEVEL_INIT("Exception", true, true)
+RPS_LOG_LEVEL_INIT("Exception", true, true)
 
 using namespace Base;
 
@@ -94,12 +94,12 @@ void Exception::ReportException () const
             msg = typeid(*this).name();
         else
             msg = _sErrMsg.c_str();
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         if (_function.size()) {
-            _FC_ERR(_file.c_str(),_line, _function << " -- " << msg);
+            _RPS_ERR(_file.c_str(),_line, _function << " -- " << msg);
         } else
 #endif
-            _FC_ERR(_file.c_str(),_line,msg);
+            _RPS_ERR(_file.c_str(),_line,msg);
         _isReported = true;
     }
 }
@@ -147,14 +147,14 @@ void Exception::setPyObject( PyObject * pydict)
 
 PyObject * Exception::getPyExceptionType() const
 {
-    return PyExc_FC_GeneralError;
+    return PyExc_RPS_GeneralError;
 }
 
 void Exception::setPyException() const
 {
     PyObject* exc = getPyExceptionType();
     if (!exc) {
-        exc = PyExc_FC_GeneralError;
+        exc = PyExc_RPS_GeneralError;
     }
 
     PyErr_SetString(exc, what());
@@ -181,7 +181,7 @@ const char* AbortException::what() const throw()
 
 PyObject * AbortException::getPyExceptionType() const
 {
-    return PyExc_FC_LabRPSAbort;
+    return PyExc_RPS_LabRPSAbort;
 }
 
 // ---------------------------------------------------------
@@ -204,7 +204,7 @@ XMLBaseException::XMLBaseException(const std::string& sMessage)
 
 PyObject * XMLBaseException::getPyExceptionType() const
 {
-    return PyExc_FC_XMLBaseException;
+    return PyExc_RPS_XMLBaseException;
 }
 
 // ---------------------------------------------------------
@@ -231,7 +231,7 @@ const char* XMLParseException::what() const throw()
 
 PyObject * XMLParseException::getPyExceptionType() const
 {
-    return PyExc_FC_XMLParseException;
+    return PyExc_RPS_XMLParseException;
 }
 
 // ---------------------------------------------------------
@@ -258,7 +258,7 @@ const char* XMLAttributeError::what() const throw()
 
 PyObject * XMLAttributeError::getPyExceptionType() const
 {
-    return PyExc_FC_XMLAttributeError;
+    return PyExc_RPS_XMLAttributeError;
 }
 
 // ---------------------------------------------------------
@@ -325,12 +325,12 @@ void FileException::ReportException () const
             msg = typeid(*this).name();
         else
             msg = _sErrMsgAndFileName.c_str();
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
         if (_function.size()) {
-            _FC_ERR(_file.c_str(),_line, _function << " -- " << msg);
+            _RPS_ERR(_file.c_str(),_line, _function << " -- " << msg);
         } else
 #endif
-            _FC_ERR(_file.c_str(),_line,msg);
+            _RPS_ERR(_file.c_str(),_line,msg);
         _isReported = true;
     }
 }
@@ -401,7 +401,7 @@ BadFormatError::BadFormatError(const std::string& sMessage)
 
 PyObject * BadFormatError::getPyExceptionType() const
 {
-    return PyExc_FC_BadFormatError;
+    return PyExc_RPS_BadFormatError;
 }
 
 // ---------------------------------------------------------
@@ -503,7 +503,7 @@ UnknownProgramOption::UnknownProgramOption(const std::string& sMessage)
 
 PyObject *UnknownProgramOption::getPyExceptionType() const
 {
-    return PyExc_FC_UnknownProgramOption;
+    return PyExc_RPS_UnknownProgramOption;
 }
 
 // ---------------------------------------------------------
@@ -696,7 +696,7 @@ BadGraphError::BadGraphError(const std::string& sMessage)
 
 PyObject *BadGraphError::getPyExceptionType() const
 {
-    return PyExc_FC_BadGraphError;
+    return PyExc_RPS_BadGraphError;
 }
 
 // ---------------------------------------------------------
@@ -784,7 +784,7 @@ ExpressionError::ExpressionError(const std::string& sMessage)
 
 PyObject * ExpressionError::getPyExceptionType() const
 {
-    return PyExc_FC_ExpressionError;
+    return PyExc_RPS_ExpressionError;
 }
 
 // ---------------------------------------------------------
@@ -806,7 +806,7 @@ ParserError::ParserError(const std::string& sMessage)
 
 PyObject * ParserError::getPyExceptionType() const
 {
-    return PyExc_FC_ParserError;
+    return PyExc_RPS_ParserError;
 }
 
 // ---------------------------------------------------------
@@ -916,7 +916,7 @@ CADKernelError::CADKernelError(const std::string& sMessage)
 
 PyObject * CADKernelError::getPyExceptionType() const
 {
-    return PyExc_FC_CADKernelError;
+    return PyExc_RPS_CADKernelError;
 }
 
 // ---------------------------------------------------------
@@ -943,7 +943,7 @@ PyObject * RestoreError::getPyExceptionType() const
 
 // ---------------------------------------------------------
 
-#if defined(__GNUC__) && defined (FC_OS_LINUX)
+#if defined(__GNUC__) && defined (RPS_OS_LINUX)
 #include <stdexcept>
 #include <iostream>
 

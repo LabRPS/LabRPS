@@ -55,7 +55,7 @@
 #include <boost/regex.hpp>
 #include <deque>
 
-FC_LOG_LEVEL_INIT("Spreadsheet",true,true)
+RPS_LOG_LEVEL_INIT("Spreadsheet",true,true)
 
 using namespace Base;
 using namespace App;
@@ -961,10 +961,10 @@ DocumentObjectExecReturn *Sheet::execute(void)
     try {
         boost::topological_sort(graph, std::front_inserter(make_order));
         // Recompute cells
-        FC_LOG("recomputing " << getFullName());
+        RPS_LOG("recomputing " << getFullName());
         for(auto &pos : make_order) {
             const auto &addr = VertexIndexList[pos];
-            FC_TRACE(addr.toString());
+            RPS_TRACE(addr.toString());
             recomputeCell(addr);
         }
     } catch (std::exception &) {
@@ -1491,7 +1491,7 @@ void Sheet::onDocumentRestored()
 {
     auto ret = execute();
     if(ret!=DocumentObject::StdReturn) {
-        FC_ERR("Failed to restore " << getFullName() << ": " << ret->Why);
+        RPS_ERR("Failed to restore " << getFullName() << ": " << ret->Why);
         delete ret;
     }
 }

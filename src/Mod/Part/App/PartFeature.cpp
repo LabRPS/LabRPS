@@ -76,7 +76,7 @@
 using namespace Part;
 namespace bp = boost::placeholders;
 
-FC_LOG_LEVEL_INIT("Part",true,true)
+RPS_LOG_LEVEL_INIT("Part",true,true)
 
 PROPERTY_SOURCE(Part::Feature, App::GeoFeature)
 
@@ -200,7 +200,7 @@ App::DocumentObject *Feature::getSubObject(const char *subname,
         str << ": " << getFullName();
         if (subname) 
             str << '.' << subname;
-        FC_LOG(str.str());
+        RPS_LOG(str.str());
         return nullptr;
     }
 }

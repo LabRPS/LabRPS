@@ -39,7 +39,7 @@
 #include "Property.h"
 
 
-FC_LOG_LEVEL_INIT("App",true,true)
+RPS_LOG_LEVEL_INIT("App",true,true)
 
 using namespace App;
 using namespace std;
@@ -183,7 +183,7 @@ void Transaction::apply(Document &Doc, bool forward)
         errMsg = "Unknown exception";
     }
     if(errMsg.size()) {
-        FC_ERR("Exception on " << (forward?"redo":"undo") << " '" 
+        RPS_ERR("Exception on " << (forward?"redo":"undo") << " '" 
                 << Name << "':" << errMsg);
     }
 }
@@ -343,7 +343,7 @@ void TransactionObject::applyChn(Document & /*Doc*/, TransactionalObject *pcObj,
             // Paste() implementation.
             //
             // if(data.propertyType != prop->getTypeId()) {
-            //     FC_WARN("Cannot " << (Forward?"redo":"undo")
+            //     RPS_WARN("Cannot " << (Forward?"redo":"undo")
             //             << " change of property " << prop->getName()
             //             << " because of type change: "
             //             << data.propertyType.getName()
@@ -354,9 +354,9 @@ void TransactionObject::applyChn(Document & /*Doc*/, TransactionalObject *pcObj,
                 prop->Paste(*data.property);
             } catch (Base::Exception &e) {
                 e.ReportException();
-                FC_ERR("exception while restoring " << prop->getFullName() << ": " << e.what());
+                RPS_ERR("exception while restoring " << prop->getFullName() << ": " << e.what());
             } catch (std::exception &e) {
-                FC_ERR("exception while restoring " << prop->getFullName() << ": " << e.what());
+                RPS_ERR("exception while restoring " << prop->getFullName() << ": " << e.what());
             } catch (...)
             {}
         }

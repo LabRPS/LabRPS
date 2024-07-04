@@ -24,8 +24,8 @@
  */
 
 
-#ifndef FC_GLOBAL_H
-#define FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
+#define RPS_GLOBAL_H
 
 
 #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(__CYGWIN__)
@@ -59,4 +59,4 @@
 #  define GuiExport   LABRPS_DECL_IMPORT
 #endif
 
-#endif //FC_GLOBAL_H
+#endif //RPS_GLOBAL_H

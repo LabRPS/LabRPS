@@ -45,7 +45,7 @@
 #include "WaitCursor.h"
 
 
-FC_LOG_LEVEL_INIT("CommandLink", true, true)
+RPS_LOG_LEVEL_INIT("CommandLink", true, true)
 
 using namespace Gui;
 
@@ -124,7 +124,7 @@ void StdCmdLinkMakeGroup::activated(int option) {
 
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc) {
-        FC_ERR("no active document");
+        RPS_ERR("no active document");
         return;
     }
 
@@ -220,7 +220,7 @@ bool StdCmdLinkMake::isActive() {
 void StdCmdLinkMake::activated(int) {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc) {
-        FC_ERR("no active document");
+        RPS_ERR("no active document");
         return;
     }
 
@@ -283,7 +283,7 @@ bool StdCmdLinkMakeRelative::isActive() {
 void StdCmdLinkMakeRelative::activated(int) {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc) {
-        FC_ERR("no active document");
+        RPS_ERR("no active document");
         return;
     }
     Command::openCommand(QT_TRANSLATE_NOOP("Command", "Make sub-link"));
@@ -360,7 +360,7 @@ static void linkConvert(bool unlink) {
         auto obj = sel.vp->getObject();
         auto parent = sel.parentVp;
         if(!parent) {
-            FC_WARN("skip '" << obj->getFullName() << "' with no parent");
+            RPS_WARN("skip '" << obj->getFullName() << "' with no parent");
             continue;
         }
         auto parentObj = parent->getObject();
@@ -371,7 +371,7 @@ static void linkConvert(bool unlink) {
         if(unlink) {
             auto linked = obj->getLinkedObject(false);
             if(!linked || !linked->getNameInDocument() || linked == obj) {
-                FC_WARN("skip non link");
+                RPS_WARN("skip non link");
                 continue;
             }
         }
@@ -411,7 +411,7 @@ static void linkConvert(bool unlink) {
                 auto name = doc->getUniqueObjectName("Link");
                 auto link = static_cast<App::Link*>(doc->addObject("App::Link",name.c_str()));
                 if(!link)
-                    FC_THROWM(Base::RuntimeError,"Failed to create link");
+                    RPS_THROWM(Base::RuntimeError,"Failed to create link");
                 link->setLink(-1,obj);
                 link->Label.setValue(obj->Label.getValue());
                 auto pla = Base::labrps_dynamic_cast<App::PropertyPlacement>(
@@ -440,7 +440,7 @@ static void linkConvert(bool unlink) {
 
             // do the replacement operation
             if(parentVp->replaceObject(obj,replaceObj)<=0)
-                FC_THROWM(Base::RuntimeError,
+                RPS_THROWM(Base::RuntimeError,
                         "Failed to change link for " << parent->getFullName());
         }
 
@@ -742,7 +742,7 @@ void StdCmdLinkSelectLinked::activated(int)
     std::string subname;
     auto linked = getSelectedLink(false,&subname);
     if(!linked){
-        FC_WARN("invalid selection");
+        RPS_WARN("invalid selection");
         return;
     }
     Selection().selStackPush();
@@ -785,7 +785,7 @@ bool StdCmdLinkSelectLinkedFinal::isActive() {
 void StdCmdLinkSelectLinkedFinal::activated(int) {
     auto linked = getSelectedLink(true);
     if(!linked){
-        FC_WARN("invalid selection");
+        RPS_WARN("invalid selection");
         return;
     }
     Selection().selStackPush();

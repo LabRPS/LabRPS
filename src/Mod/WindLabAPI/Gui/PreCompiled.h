@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2019 Jean-Marie Verdun        jmverdun3@gmail.com       *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -27,7 +27,7 @@
 #include <RPSConfig.h>
 
 // Importing of App classes
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # define WindLabPythonAPIAppExport __declspec(dllimport)
 # define WindLabPythonAPIGuiExport __declspec(dllexport)
 #else // for Linux
@@ -53,7 +53,7 @@
 #include <string>
 #include <vector>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # include <windows.h>
 #endif
 

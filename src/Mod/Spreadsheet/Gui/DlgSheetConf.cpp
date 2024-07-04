@@ -83,7 +83,7 @@ App::Property *DlgSheetConf::prepare(CellAddress &from, CellAddress &to,
             ui->lineEditEnd->text().trimmed().toLatin1().constData());
 
     if(from.col()>=to.col())
-        FC_THROWM(Base::RuntimeError, "Invalid cell range");
+        RPS_THROWM(Base::RuntimeError, "Invalid cell range");
 
     // Setup row as parameters, and column as configurations
     to.setRow(from.row());
@@ -105,22 +105,22 @@ App::Property *DlgSheetConf::prepare(CellAddress &from, CellAddress &to,
             expr.reset(App::Expression::parse(sheet,exprTxt));
         } catch (Base::Exception &e) {
             e.ReportException();
-            FC_THROWM(Base::RuntimeError, "Failed to parse expression for property");
+            RPS_THROWM(Base::RuntimeError, "Failed to parse expression for property");
         }
         if(expr->hasComponent() || !expr->isDerivedFrom(App::VariableExpression::getClassTypeId())) 
-            FC_THROWM(Base::RuntimeError, "Invalid property expression: " << expr->toString());
+            RPS_THROWM(Base::RuntimeError, "Invalid property expression: " << expr->toString());
 
         path = static_cast<App::VariableExpression*>(expr.get())->getPath();
         auto obj = path.getDocumentObject();
         if(!obj) 
-            FC_THROWM(Base::RuntimeError, "Invalid object referenced in: " << expr->toString());
+            RPS_THROWM(Base::RuntimeError, "Invalid object referenced in: " << expr->toString());
 
         int pseudoType;
         auto prop = path.getProperty(&pseudoType);
         if(pseudoType || (prop && (!prop->isDerivedFrom(App::PropertyEnumeration::getClassTypeId())
                                     || !prop->testStatus(App::Property::PropDynamic))))
         {
-            FC_THROWM(Base::RuntimeError, "Invalid property referenced in: " << expr->toString());
+            RPS_THROWM(Base::RuntimeError, "Invalid property referenced in: " << expr->toString());
         }
         return prop;
     }
@@ -173,7 +173,7 @@ void DlgSheetConf::accept()
                 if(expr->isDerivedFrom(StringExpression::getClassTypeId()))
                     continue;
             }
-            FC_THROWM(Base::RuntimeError, "Expects cell "
+            RPS_THROWM(Base::RuntimeError, "Expects cell "
                     << r.address() << " evaluates to string.\n"
                     << rangeConf << " is supposed to contain a list of configuration names");
         } while(r.next());
@@ -181,7 +181,7 @@ void DlgSheetConf::accept()
         std::string exprTxt(ui->lineEditProp->text().trimmed().toUtf8().constData());
         App::ExpressionPtr expr(App::Expression::parse(sheet,exprTxt));
         if(expr->hasComponent() || !expr->isDerivedFrom(App::VariableExpression::getClassTypeId())) 
-            FC_THROWM(Base::RuntimeError, "Invalid property expression: " << expr->toString());
+            RPS_THROWM(Base::RuntimeError, "Invalid property expression: " << expr->toString());
 
         AutoTransaction guard("Setup conf table");
         commandActive = true;
@@ -200,7 +200,7 @@ void DlgSheetConf::accept()
 
         auto obj = path.getDocumentObject();
         if(!obj)
-            FC_THROWM(Base::RuntimeError, "Object not found");
+            RPS_THROWM(Base::RuntimeError, "Object not found");
 
         // Add a dynamic PropertyEnumeration for user to switch the configuration
         std::string propName = path.getPropertyName();
@@ -278,7 +278,7 @@ void DlgSheetConf::onDiscard() {
         if(prop && prop->getName()) {
             auto obj = path.getDocumentObject();
             if(!obj)
-                FC_THROWM(Base::RuntimeError, "Object not found");
+                RPS_THROWM(Base::RuntimeError, "Object not found");
             Gui::cmdAppObjectArgs(obj, "setExpression('%s.Enum', None)", prop->getName());
             if(prop->testStatus(Property::PropDynamic))
                 Gui::cmdAppObjectArgs(obj, "removeProperty('%s')", prop->getName());

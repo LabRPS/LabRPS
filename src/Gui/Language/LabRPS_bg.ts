@@ -2904,8 +2904,8 @@ bounding box size of the 3D object that is currently displayed.</source>
       <translation>The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for FCStd files</source>
-      <translation>Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Compression level for RPSStd files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>
@@ -6658,8 +6658,8 @@ Please open a browser window and type in: http://localhost:%1.</translation>
       <translation>Save %1 Document</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 документ (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 документ (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -8004,8 +8004,8 @@ Would you like to save the file with a different name?</translation>
       <translation>Cannot merge project with itself.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 документ (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 документ (*.RPSStd)</translation>
     </message>
   </context>
   <context>

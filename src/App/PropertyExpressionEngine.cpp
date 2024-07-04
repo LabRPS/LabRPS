@@ -34,7 +34,7 @@
 #include "ExpressionVisitors.h"
 
 
-FC_LOG_LEVEL_INIT("App",true);
+RPS_LOG_LEVEL_INIT("App",true);
 
 using namespace App;
 using namespace Base;
@@ -220,15 +220,15 @@ void PropertyExpressionEngine::updateHiddenReference(const std::string &key) {
                 myProp->setPathValue(var, value);
         }catch(Base::Exception &e) {
             e.ReportException();
-            FC_ERR("Failed to evaluate property binding "
+            RPS_ERR("Failed to evaluate property binding "
                     << myProp->getFullName() << " on change of " << key);
         }catch(std::bad_cast &) {
-            FC_ERR("Invalid type '" << value.type().name()
+            RPS_ERR("Invalid type '" << value.type().name()
                     << "' in property binding " << myProp->getFullName()
                     << " on change of " << key);
         }catch(std::exception &e) {
-            FC_ERR(e.what());
-            FC_ERR("Failed to evaluate property binding "
+            RPS_ERR(e.what());
+            RPS_ERR("Failed to evaluate property binding "
                     << myProp->getFullName() << " on change of " << key);
         }
     }
@@ -649,7 +649,7 @@ DocumentObjectExecReturn *App::PropertyExpressionEngine::execute(ExecuteOption o
     std::vector<App::ObjectIdentifier> evaluationOrder = computeEvaluationOrder(option);
     std::vector<ObjectIdentifier>::const_iterator it = evaluationOrder.begin();
 
-#ifdef FC_PROPERTYEXPRESSIONENGINE_LOG
+#ifdef RPS_PROPERTYEXPRESSIONENGINE_LOG
     std::clog << "Computing expressions for " << getName() << std::endl;
 #endif
 

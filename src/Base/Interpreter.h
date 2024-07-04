@@ -31,7 +31,7 @@
 #   undef _XOPEN_SOURCE
 #endif // (re-)defined in pyconfig.h
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #undef toupper
 #undef tolower
 #undef isupper
@@ -55,7 +55,7 @@
  *
  *  See FeaturePythonImp::init() for example usage
  */
-#define FC_PY_GetCallable(_pyobj,_name,_var) \
+#define RPS_PY_GetCallable(_pyobj,_name,_var) \
     do {\
         _var = Py::Object();\
         if(PyObject_HasAttrString(_pyobj, _name)) {\
@@ -73,7 +73,7 @@
  *
  *  See FeaturePythonImp::init() for example usage
  */
-#define FC_PY_GetObject(_pyobj,_name,_var) \
+#define RPS_PY_GetObject(_pyobj,_name,_var) \
     do {\
         _var = Py::Object();\
         if(PyObject_HasAttrString(_pyobj, _name))\

@@ -1,14 +1,6 @@
 
 SET(Examples_Files 
-    Schenkel.stp
-    draft_test_objects.FCStd
-    EngineBlock.FCStd
-    PartDesignExample.FCStd
-    RobotExample.FCStd
-    ArchDetail.FCStd
-    FemCalculixCantilever2D.FCStd
-    FemCalculixCantilever3D.FCStd
-    FemCalculixCantilever3D_newSolver.FCStd
+    PartExample.RPSStd
 )
 
 ADD_CUSTOM_TARGET(Example_data ALL
@@ -17,7 +9,7 @@ ADD_CUSTOM_TARGET(Example_data ALL
 
 # 0001097: CMake stops with error "Circular ... <- ... dependency dropped."
 if(NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
-    fc_copy_sources(Example_data "${CMAKE_BINARY_DIR}/data/examples" ${Examples_Files})
+    rps_copy_sources(Example_data "${CMAKE_BINARY_DIR}/data/examples" ${Examples_Files})
 endif()
 
 if (WIN32 AND LABRPS_LIBPACK_USE)

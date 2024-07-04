@@ -75,7 +75,7 @@ add_custom_target(PartScripts ALL SOURCES
     ${Part_tests}
 )
 
-fc_target_copy_resource(PartScripts
+rps_target_copy_resource(PartScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Part
     ${Part_Scripts}

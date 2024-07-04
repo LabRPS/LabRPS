@@ -29,9 +29,9 @@
 // Part
 #ifndef PartExport
 #ifdef Part_EXPORTS
-#  define PartExport   LABRPS_DECL_EXPORT
+#define PartExport LABRPS_DECL_EXPORT
 #else
-#  define PartExport   LABRPS_DECL_IMPORT
+#define PartExport LABRPS_DECL_IMPORT
 #endif
 #endif
 
@@ -42,10 +42,10 @@
 // PartGui
 #ifndef PartGuiExport
 #ifdef PartGui_EXPORTS
-#  define PartGuiExport   LABRPS_DECL_EXPORT
+#define PartGuiExport LABRPS_DECL_EXPORT
 #else
-#  define PartGuiExport   LABRPS_DECL_IMPORT
+#define PartGuiExport LABRPS_DECL_IMPORT
 #endif
 #endif
 
-#endif //PART_GLOBAL_H
+#endif//PART_GLOBAL_H

@@ -55,6 +55,7 @@
 #include "InputField.h"
 #include "QuantitySpinBox.h"
 #include "PrefWidgets.h"
+#include "DlgPluginImp.h"
 
 using namespace Gui;
 using namespace Gui::Dialog;
@@ -81,6 +82,7 @@ WidgetFactorySupplier::WidgetFactorySupplier()
     new PrefPageProducer<DlgSettingsNavigation>    ( QT_TRANSLATE_NOOP("QObject","Display") );
     new PrefPageProducer<DlgSettingsViewColor>     ( QT_TRANSLATE_NOOP("QObject","Display") );
     new PrefPageProducer<DlgSettingsLazyLoadedImp> ( QT_TRANSLATE_NOOP("QObject","Workbenches") );
+    new PrefPageProducer<DlgPluginImp>             ( QT_TRANSLATE_NOOP("QObject","Plugin") );
 
     // ADD YOUR CUSTOMIZE PAGES HERE
     //

@@ -65,15 +65,15 @@
 #include "Workbench.h"
 
 
-FC_LOG_LEVEL_INIT("Tree", false, true, true)
+RPS_LOG_LEVEL_INIT("Tree", false, true, true)
 
 #define _TREE_PRINT(_level,_func,_msg) \
-    _FC_PRINT(FC_LOG_INSTANCE,_level,_func, '['<<getTreeName()<<"] " << _msg)
-#define TREE_MSG(_msg) _TREE_PRINT(FC_LOGLEVEL_MSG,NotifyMessage,_msg)
-#define TREE_WARN(_msg) _TREE_PRINT(FC_LOGLEVEL_WARN,NotifyWarning,_msg)
-#define TREE_ERR(_msg) _TREE_PRINT(FC_LOGLEVEL_ERR,NotifyError,_msg)
-#define TREE_LOG(_msg) _TREE_PRINT(FC_LOGLEVEL_LOG,NotifyLog,_msg)
-#define TREE_TRACE(_msg) _TREE_PRINT(FC_LOGLEVEL_TRACE,NotifyLog,_msg)
+    _RPS_PRINT(RPS_LOG_INSTANCE,_level,_func, '['<<getTreeName()<<"] " << _msg)
+#define TREE_MSG(_msg) _TREE_PRINT(RPS_LOGLEVEL_MSG,NotifyMessage,_msg)
+#define TREE_WARN(_msg) _TREE_PRINT(RPS_LOGLEVEL_WARN,NotifyWarning,_msg)
+#define TREE_ERR(_msg) _TREE_PRINT(RPS_LOGLEVEL_ERR,NotifyError,_msg)
+#define TREE_LOG(_msg) _TREE_PRINT(RPS_LOGLEVEL_LOG,NotifyLog,_msg)
+#define TREE_TRACE(_msg) _TREE_PRINT(RPS_LOGLEVEL_TRACE,NotifyLog,_msg)
 
 using namespace Gui;
 namespace bp = boost::placeholders;
@@ -93,42 +93,42 @@ TreeParams::TreeParams() {
     handle->Attach(this);
 
 
-#undef FC_TREEPARAM_DEF
-#define FC_TREEPARAM_DEF(_name,_type,_Type,_default) \
+#undef RPS_TREEPARAM_DEF
+#define RPS_TREEPARAM_DEF(_name,_type,_Type,_default) \
     _##_name = handle->Get##_Type(#_name,_default);
 
-    FC_TREEPARAM_DEFS
+    RPS_TREEPARAM_DEFS
 }
 
 
-#undef FC_TREEPARAM_DEF
-#define FC_TREEPARAM_DEF(_name,_type,_Type,_default) \
+#undef RPS_TREEPARAM_DEF
+#define RPS_TREEPARAM_DEF(_name,_type,_Type,_default) \
 void TreeParams::set##_name(_type value) {\
     if(_##_name != value) {\
         handle->Set##_Type(#_name,value);\
     }\
 }
 
-FC_TREEPARAM_DEFS
+RPS_TREEPARAM_DEFS
 
 void TreeParams::OnChange(Base::Subject<const char*>&, const char* sReason) {
 
-#undef FC_TREEPARAM_DEF
-#define FC_TREEPARAM_DEF(_name,_type,_Type,_default) \
+#undef RPS_TREEPARAM_DEF
+#define RPS_TREEPARAM_DEF(_name,_type,_Type,_default) \
     if(strcmp(sReason,#_name)==0) {\
         _##_name = handle->Get##_Type(#_name,_default);\
         return;\
     }
 
-#undef FC_TREEPARAM_DEF2
-#define FC_TREEPARAM_DEF2(_name,_type,_Type,_default) \
+#undef RPS_TREEPARAM_DEF2
+#define RPS_TREEPARAM_DEF2(_name,_type,_Type,_default) \
     if(strcmp(sReason,#_name)==0) {\
         _##_name = handle->Get##_Type(#_name,_default);\
         on##_name##Changed();\
         return;\
     }
 
-    FC_TREEPARAM_DEFS
+    RPS_TREEPARAM_DEFS
 }
 
 void TreeParams::onSyncSelectionChanged() {
@@ -168,7 +168,7 @@ struct Stats {
     DEFINE_STAT(setIcon) \
 
 #define DEFINE_STAT(_name) \
-    FC_DURATION_DECLARE(_name);\
+    RPS_DURATION_DECLARE(_name);\
     int _name##_count;
 
     DEFINE_STATS
@@ -176,7 +176,7 @@ struct Stats {
         void init() {
 #undef DEFINE_STAT
 #define DEFINE_STAT(_name) \
-        FC_DURATION_INIT(_name);\
+        RPS_DURATION_INIT(_name);\
         _name##_count = 0;
 
         DEFINE_STATS
@@ -184,15 +184,15 @@ struct Stats {
 
     void print() {
 #undef DEFINE_STAT
-#define DEFINE_STAT(_name) FC_DURATION_MSG(_name, #_name " count: " << _name##_count);
+#define DEFINE_STAT(_name) RPS_DURATION_MSG(_name, #_name " count: " << _name##_count);
         DEFINE_STATS
     }
 
 #undef DEFINE_STAT
 #define DEFINE_STAT(_name) \
-    void time_##_name(FC_TIME_POINT &t) {\
+    void time_##_name(RPS_TIME_POINT &t) {\
         ++_name##_count;\
-        FC_DURATION_PLUS(_name,t);\
+        RPS_DURATION_PLUS(_name,t);\
     }
 
     DEFINE_STATS
@@ -202,12 +202,12 @@ struct Stats {
 
 struct TimingInfo {
     bool timed = false;
-    FC_TIME_POINT t;
-    FC_DURATION& d;
-    TimingInfo(FC_DURATION& d)
+    RPS_TIME_POINT t;
+    RPS_DURATION& d;
+    TimingInfo(RPS_DURATION& d)
         :d(d)
     {
-        _FC_TIME_INIT(t);
+        _RPS_TIME_INIT(t);
     }
     ~TimingInfo() {
         stop();
@@ -215,12 +215,12 @@ struct TimingInfo {
     void stop() {
         if (!timed) {
             timed = true;
-            FC_DURATION_PLUS(d, t);
+            RPS_DURATION_PLUS(d, t);
         }
     }
     void reset() {
         stop();
-        _FC_TIME_INIT(t);
+        _RPS_TIME_INIT(t);
     }
 };
 
@@ -421,7 +421,7 @@ QWidget* TreeWidgetEditDelegate::createEditor(
     std::ostringstream str;
     str << "Change " << obj->getNameInDocument() << '.' << prop.getName();
     App::GetApplication().setActiveTransaction(str.str().c_str());
-    FC_LOG("create editor transaction " << App::GetApplication().getActiveTransaction());
+    RPS_LOG("create editor transaction " << App::GetApplication().getActiveTransaction());
 
     ExpLineEdit* le = new ExpLineEdit(parent);
     le->setFrame(false);
@@ -696,7 +696,7 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
     if (!docItem) {
         docItem = getDocumentItem(Application::Instance->activeDocument());
         if (!docItem) {
-            FC_TRACE("item search no document");
+            RPS_TRACE("item search no document");
             resetItemSearch();
             return;
         }
@@ -705,7 +705,7 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
     auto doc = docItem->document()->getDocument();
     const auto& objs = doc->getObjects();
     if (objs.empty()) {
-        FC_TRACE("item search no objects");
+        RPS_TRACE("item search no objects");
         return;
     }
     std::string txt(text.toUtf8().constData());
@@ -728,12 +728,12 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
         txt += "_self";
         auto path = App::ObjectIdentifier::parse(objs.front(), txt);
         if (path.getPropertyName() != "_self") {
-            FC_TRACE("Object " << txt << " not found in " << doc->getName());
+            RPS_TRACE("Object " << txt << " not found in " << doc->getName());
             return;
         }
         auto obj = path.getDocumentObject();
         if (!obj) {
-            FC_TRACE("Object " << txt << " not found in " << doc->getName());
+            RPS_TRACE("Object " << txt << " not found in " << doc->getName());
             return;
         }
         std::string subname = path.getSubObjectName();
@@ -754,7 +754,7 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
             while (!parent) {
                 if (docItem->document()->getDocument() == obj->getDocument()) {
                     // this shouldn't happen
-                    FC_LOG("Object " << txt << " not found in " << doc->getName());
+                    RPS_LOG("Object " << txt << " not found in " << doc->getName());
                     return;
                 }
                 auto it = DocumentMap.find(Application::Instance->getDocument(obj->getDocument()));
@@ -767,7 +767,7 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
         }
         auto item = docItem->findItemByObject(true, obj, subname.c_str());
         if (!item) {
-            FC_TRACE("item " << txt << " not found in " << doc->getName());
+            RPS_TRACE("item " << txt << " not found in " << doc->getName());
             return;
         }
         scrollToItem(item);
@@ -785,11 +785,11 @@ void TreeWidget::itemSearch(const QString& text, bool select) {
             searchObject = item->object()->getObject();
             item->setBackground(0, QColor(255, 255, 0, 100));
         }
-        FC_TRACE("found item " << txt);
+        RPS_TRACE("found item " << txt);
     }
     catch (...)
     {
-        FC_TRACE("item " << txt << " search exception in " << doc->getName());
+        RPS_TRACE("item " << txt << " search exception in " << doc->getName());
     }
 }
 
@@ -959,10 +959,10 @@ void TreeWidget::contextMenuEvent(QContextMenuEvent* e)
             e.ReportException();
         }
         catch (std::exception& e) {
-            FC_ERR("C++ exception: " << e.what());
+            RPS_ERR("C++ exception: " << e.what());
         }
         catch (...) {
-            FC_ERR("Unknown exception");
+            RPS_ERR("Unknown exception");
         }
         contextItem = nullptr;
     }
@@ -1262,11 +1262,11 @@ std::vector<TreeWidget::SelInfo> TreeWidget::getSelection(App::Document* doc)
         auto vp = item->object();
         auto obj = vp->getObject();
         if (!obj || !obj->getNameInDocument()) {
-            FC_WARN("skip invalid object");
+            RPS_WARN("skip invalid object");
             continue;
         }
         if (doc && obj->getDocument() != doc) {
-            FC_LOG("skip objects not from current document");
+            RPS_LOG("skip objects not from current document");
             continue;
         }
         ViewProviderDocumentObject* parentVp = nullptr;
@@ -1274,7 +1274,7 @@ std::vector<TreeWidget::SelInfo> TreeWidget::getSelection(App::Document* doc)
         if (parent) {
             parentVp = parent->object();
             if (!parentVp->getObject()->getNameInDocument()) {
-                FC_WARN("skip '" << obj->getFullName() << "' with invalid parent");
+                RPS_WARN("skip '" << obj->getFullName() << "' with invalid parent");
                 continue;
             }
         }
@@ -1504,10 +1504,10 @@ void TreeWidget::mouseDoubleClickEvent(QMouseEvent* event)
         e.ReportException();
     }
     catch (std::exception& e) {
-        FC_ERR("C++ exception: " << e.what());
+        RPS_ERR("C++ exception: " << e.what());
     }
     catch (...) {
-        FC_ERR("Unknown exception");
+        RPS_ERR("Unknown exception");
     }
 }
 
@@ -1680,11 +1680,11 @@ void TreeWidget::dragMoveEvent(QDragMoveEvent* event)
             event->ignore();
         }
         catch (std::exception& e) {
-            FC_ERR("C++ exception: " << e.what());
+            RPS_ERR("C++ exception: " << e.what());
             event->ignore();
         }
         catch (...) {
-            FC_ERR("Unknown exception");
+            RPS_ERR("Unknown exception");
             event->ignore();
         }
     }
@@ -1893,20 +1893,20 @@ void TreeWidget::dropEvent(QDropEvent* event)
                 vp = Base::labrps_dynamic_cast<ViewProviderDocumentObject>(
                     Application::Instance->getViewProvider(targetObj));
                 if (!vp) {
-                    FC_ERR("Cannot find drop target object " << target);
+                    RPS_ERR("Cannot find drop target object " << target);
                     break;
                 }
 
                 auto doc = App::GetApplication().getDocument(info.doc.c_str());
                 if (!doc) {
-                    FC_WARN("Cannot find document " << info.doc);
+                    RPS_WARN("Cannot find document " << info.doc);
                     continue;
                 }
                 auto obj = doc->getObject(info.obj.c_str());
                 auto vpc = dynamic_cast<ViewProviderDocumentObject*>(
                     Application::Instance->getViewProvider(obj));
                 if (!vpc) {
-                    FC_WARN("Cannot find dragging object " << info.obj);
+                    RPS_WARN("Cannot find dragging object " << info.obj);
                     continue;
                 }
 
@@ -1919,7 +1919,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                             Application::Instance->getViewProvider(parent));
                     }
                     if (!vpp) {
-                        FC_WARN("Cannot find dragging object's parent " << info.parent);
+                        RPS_WARN("Cannot find dragging object's parent " << info.parent);
                         continue;
                     }
                 }
@@ -1930,7 +1930,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     if (ownerDoc)
                         owner = ownerDoc->getObject(info.owner.c_str());
                     if (!owner) {
-                        FC_WARN("Cannot find dragging object's top parent " << info.owner);
+                        RPS_WARN("Cannot find dragging object's top parent " << info.owner);
                         continue;
                     }
                 }
@@ -1976,7 +1976,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
 
                     obj = doc->getObject(info.obj.c_str());
                     if (!obj || !obj->getNameInDocument()) {
-                        FC_WARN("Dropping object deleted: " << info.doc << '#' << info.obj);
+                        RPS_WARN("Dropping object deleted: " << info.doc << '#' << info.obj);
                         continue;
                     }
                 }
@@ -2001,7 +2001,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                 }
 
                 if (inList.count(obj))
-                    FC_THROWM(Base::RuntimeError,
+                    RPS_THROWM(Base::RuntimeError,
                         "Dependency loop detected for " << obj->getFullName());
 
                 std::string dropName;
@@ -2066,7 +2066,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                 Base::Matrix4D newMat;
                 auto sobj = dropParent->getSubObject(dropName.c_str(), nullptr, &newMat);
                 if (!sobj) {
-                    FC_LOG("failed to find dropped object "
+                    RPS_LOG("failed to find dropped object "
                         << dropParent->getFullName() << '.' << dropName);
                     setSelection = false;
                     continue;
@@ -2105,11 +2105,11 @@ void TreeWidget::dropEvent(QDropEvent* event)
             errMsg = e.what();
         }
         catch (std::exception& e) {
-            FC_ERR("C++ exception: " << e.what());
+            RPS_ERR("C++ exception: " << e.what());
             errMsg = e.what();
         }
         catch (...) {
-            FC_ERR("Unknown exception");
+            RPS_ERR("Unknown exception");
             errMsg = "Unknown exception";
         }
         if (errMsg.size()) {
@@ -2189,7 +2189,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                 auto vpc = dynamic_cast<ViewProviderDocumentObject*>(
                     Application::Instance->getViewProvider(obj));
                 if (!vpc) {
-                    FC_WARN("Cannot find dragging object " << info.obj);
+                    RPS_WARN("Cannot find dragging object " << info.obj);
                     continue;
                 }
 
@@ -2233,14 +2233,14 @@ void TreeWidget::dropEvent(QDropEvent* event)
                 else if (info.parent.size()) {
                     auto parentDoc = App::GetApplication().getDocument(info.parentDoc.c_str());
                     if (!parentDoc) {
-                        FC_WARN("Canont find document " << info.parentDoc);
+                        RPS_WARN("Canont find document " << info.parentDoc);
                         continue;
                     }
                     auto parent = parentDoc->getObject(info.parent.c_str());
                     auto vpp = dynamic_cast<ViewProviderDocumentObject*>(
                         Application::Instance->getViewProvider(parent));
                     if (!vpp) {
-                        FC_WARN("Cannot find dragging object's parent " << info.parent);
+                        RPS_WARN("Cannot find dragging object's parent " << info.parent);
                         continue;
                     }
 
@@ -2301,11 +2301,11 @@ void TreeWidget::dropEvent(QDropEvent* event)
             errMsg = e.what();
         }
         catch (std::exception& e) {
-            FC_ERR("C++ exception: " << e.what());
+            RPS_ERR("C++ exception: " << e.what());
             errMsg = e.what();
         }
         catch (...) {
-            FC_ERR("Unknown exception");
+            RPS_ERR("Unknown exception");
             errMsg = "Unknown exception";
         }
         if (errMsg.size()) {
@@ -2398,10 +2398,10 @@ void TreeWidget::onCloseDoc()
         e.ReportException();
     }
     catch (std::exception& e) {
-        FC_ERR("C++ exception: " << e.what());
+        RPS_ERR("C++ exception: " << e.what());
     }
     catch (...) {
-        FC_ERR("Unknown exception");
+        RPS_ERR("Unknown exception");
     }
 }
 
@@ -2521,7 +2521,7 @@ void TreeWidget::onUpdateStatus()
         }
     }
 
-    FC_LOG("begin update status");
+    RPS_LOG("begin update status");
 
     UpdateDisabler disabler(*this, updateBlocked);
 
@@ -2582,7 +2582,7 @@ void TreeWidget::onUpdateStatus()
     }
     ChangedObjects.clear();
 
-    FC_LOG("update item status");
+    RPS_LOG("update item status");
     TimingInit();
     for (auto pos = DocumentMap.begin(); pos != DocumentMap.end(); ++pos) {
         pos->second->testStatus();
@@ -2676,7 +2676,7 @@ void TreeWidget::onUpdateStatus()
     updateGeometries();
     statusTimer->stop();
 
-    FC_LOG("done update status");
+    RPS_LOG("done update status");
 }
 
 void TreeWidget::onItemEntered(QTreeWidgetItem* item)
@@ -3337,7 +3337,7 @@ void DocumentItem::slotResetEdit(const Gui::ViewProviderDocumentObject& v)
 
 void DocumentItem::slotNewObject(const Gui::ViewProviderDocumentObject& obj) {
     if (!obj.getObject() || !obj.getObject()->getNameInDocument()) {
-        FC_ERR("view provider not attached");
+        RPS_ERR("view provider not attached");
         return;
     }
     getTree()->NewObjects[pDocument->getDocument()->getName()].push_back(obj.getObject()->getID());
@@ -4290,11 +4290,11 @@ App::DocumentObject* DocumentItem::getTopParent(App::DocumentObject* obj, std::s
     items.begin()->second->getSubName(ss, topParent);
     if (!topParent) {
         // this shouldn't happen
-        FC_WARN("No top parent for " << obj->getFullName() << '.' << subname);
+        RPS_WARN("No top parent for " << obj->getFullName() << '.' << subname);
         return obj;
     }
     ss << obj->getNameInDocument() << '.' << subname;
-    FC_LOG("Subname correction " << obj->getFullName() << '.' << subname
+    RPS_LOG("Subname correction " << obj->getFullName() << '.' << subname
         << " -> " << topParent->getFullName() << '.' << ss.str());
     subname = ss.str();
     return topParent;
@@ -5155,7 +5155,7 @@ App::DocumentObject* DocumentObjectItem::getRelativeParent(
             auto substr = subname.substr(0, dot - subname.c_str() + 1);
             auto ret = top->getSubObject(substr.c_str());
             if (!top) {
-                FC_ERR("invalid subname " << top->getFullName() << '.' << substr);
+                RPS_ERR("invalid subname " << top->getFullName() << '.' << substr);
                 str.str("");
                 return nullptr;
             }

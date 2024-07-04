@@ -59,7 +59,7 @@ SET(Measure_Scripts
 add_library(Measure SHARED ${Measure_SRCS} ${Measure_Scripts})
 target_link_libraries(Measure ${Measure_LIBS})
 
-fc_target_copy_resource_flat(Measure
+rps_target_copy_resource_flat(Measure
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Measure
     ${Measure_Scripts})

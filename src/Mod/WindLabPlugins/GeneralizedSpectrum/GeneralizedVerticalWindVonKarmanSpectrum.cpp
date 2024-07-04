@@ -1,3 +1,24 @@
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
 
 #include "GeneralizedVerticalWindVonKarmanSpectrum.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
@@ -36,6 +57,7 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZCrossSpectrumVectorF(
     returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, locationJ, dVarVector);
     if (!returnResult)
     {
+        Base::Console().Error("The computation of the frequency vector has failed.\n");
         return false;
     }
 
@@ -67,7 +89,7 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZCrossSpectrumMatrixPP
     bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
         if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Error("The computation of the location coordinates matrix has failed.") ;
        return false;
     }
     
@@ -87,10 +109,8 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZCrossSpectrumMatrixPP
     return returnResult;
 }
 
-//Initial setting
 bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 {
-    // the input diolag
     WindLabGui::DlgGeneralizedVonKarmanSpectrumEdit* dlg = new WindLabGui::DlgGeneralizedVonKarmanSpectrumEdit(
             ParameterA, ParameterB, ParameterC, ParameterD, ParameterE, ParameterF, ParameterG,
             ParameterH, ParameterI, ParameterJ, IntegralLengthScale, StandardDeviation, Data.alongWindSpectrumModel, 6);
@@ -122,9 +142,23 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZCrossSpectrumValue(co
    double PSDk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the mean wind speed has failed.\n") ;
+       return false;
+    }
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the mean wind speed has failed.\n") ;
+       return false;
+    }
     returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
-
+    if(!returnResult)
+    {
+       Base::Console().Error("The computation of the coherence has failed.\n") ;
+       return false;
+    }
     WindLabTools::GeneralizedVonKarmanSpectrum generalizedVonKarmanPSD;
     PSDj = generalizedVonKarmanPSD.computeGeneralizedVonKarmanWindAutoSpectrum(dFrequency, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), MEANj, StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), a, b, c, d, e, f, g, h, i, j);
     PSDk = generalizedVonKarmanPSD.computeGeneralizedVonKarmanWindAutoSpectrum(dFrequency, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), MEANk, StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), a, b, c, d, e, f, g, h, i, j);
@@ -152,7 +186,7 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZAutoSpectrumValue(con
    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, location, dTime, MEAN);
    if (!returnResult)
    {
-        Base::Console().Warning("The computation of mean wind speed fails\n");
+        Base::Console().Error("The computation of the mean wind speed fails\n");
         return returnResult;
    }
 
@@ -169,7 +203,7 @@ bool CRPSGeneralizedVerticalWindVonKarmanSpectrum::ComputeZAutoSpectrumVectorF(c
     
     if (!returnResult)
     {
-        Base::Console().Warning("The computation of frequency vector  has failed.\n");
+        Base::Console().Error("The computation of the frequency vector has failed.\n");
 
         return false;
     }

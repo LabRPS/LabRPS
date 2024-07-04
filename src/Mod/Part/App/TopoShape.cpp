@@ -221,7 +221,7 @@
 #include "FaceMakerBullseye.h"
 #include "BRepOffsetAPI_MakeOffsetFix.h"
 
-FC_LOG_LEVEL_INIT("TopoShape",true,true)
+RPS_LOG_LEVEL_INIT("TopoShape",true,true)
 
 using namespace Part;
 
@@ -509,8 +509,8 @@ TopAbs_ShapeEnum TopoShape::shapeType(const char *type, bool silent) {
     }
     if(!silent) {
         if(Data::ComplexGeoData::hasMissingElement(type))
-            FC_THROWM(Base::CADKernelError,"missing shape element: " << (type?type:"?"));
-        FC_THROWM(Base::CADKernelError,"invalid shape type: " << (type?type:"?"));
+            RPS_THROWM(Base::CADKernelError,"missing shape element: " << (type?type:"?"));
+        RPS_THROWM(Base::CADKernelError,"invalid shape type: " << (type?type:"?"));
     }
     return TopAbs_SHAPE;
 }
@@ -525,7 +525,7 @@ TopAbs_ShapeEnum TopoShape::shapeType(char type, bool silent) {
         return TopAbs_FACE;
     default:
         if(!silent)
-            FC_THROWM(Base::CADKernelError, "invalid shape type '" << type << "'");
+            RPS_THROWM(Base::CADKernelError, "invalid shape type '" << type << "'");
         return TopAbs_SHAPE;
     }
 }
@@ -533,7 +533,7 @@ TopAbs_ShapeEnum TopoShape::shapeType(char type, bool silent) {
 TopAbs_ShapeEnum TopoShape::shapeType(bool silent) const {
     if(isNull()) {
         if(!silent)
-            FC_THROWM(NullShapeException, "Input shape is null");
+            RPS_THROWM(NullShapeException, "Input shape is null");
         return TopAbs_SHAPE;
     }
     return getShape().ShapeType();
@@ -544,7 +544,7 @@ const std::string &TopoShape::shapeName(TopAbs_ShapeEnum type, bool silent) {
     if(type>=0 && type<_ShapeNames.size() && _ShapeNames[type].size())
         return _ShapeNames[type];
     if(!silent)
-        FC_THROWM(Base::CADKernelError, "invalid shape type '" << type << "'");
+        RPS_THROWM(Base::CADKernelError, "invalid shape type '" << type << "'");
     static std::string ret("");
     return ret;
 }
@@ -2954,7 +2954,7 @@ TopoDS_Shape TopoShape::makeOffset2D(double offset, short joinType, bool fill, b
 
         if (fabs(offset) > Precision::Confusion()) {
             try {
-    #if defined(__GNUC__) && defined (FC_OS_LINUX)
+    #if defined(__GNUC__) && defined (RPS_OS_LINUX)
                 Base::SignalException se;
     #endif
                 mkOffset.Perform(offset);
@@ -4068,9 +4068,9 @@ TopoDS_Shape TopoShape::makeShell(const TopoDS_Shape& input) const
 
 #define _HANDLE_NULL_SHAPE(_msg,_throw) do {\
     if(_throw) {\
-        FC_THROWM(NullShapeException,_msg);\
+        RPS_THROWM(NullShapeException,_msg);\
     }\
-    FC_WARN(_msg);\
+    RPS_WARN(_msg);\
 }while(0)
 
 #define HANDLE_NULL_SHAPE _HANDLE_NULL_SHAPE("Null shape",true)
@@ -4271,7 +4271,7 @@ bool TopoShape::findPlane(gp_Pln &pln, double tol) const {
         // the geometry of some edge, causing exception with message
         // BRepAdaptor_Curve::No geometry. However, without the above
         // copy, circular edges often have the wrong transformation!
-        FC_LOG("failed to find surface: " << e.GetMessageString());
+        RPS_LOG("failed to find surface: " << e.GetMessageString());
         return false;
     }
 }

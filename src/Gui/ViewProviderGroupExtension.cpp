@@ -76,7 +76,7 @@ bool ViewProviderGroupExtension::extensionCanDropObjects() const {
 
 bool ViewProviderGroupExtension::extensionCanDropObject(App::DocumentObject* obj) const {
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     Base::Console().Log("Check ViewProviderGroupExtension");
 #endif
 

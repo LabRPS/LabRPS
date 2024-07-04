@@ -71,11 +71,8 @@ public:
 	/// Return the path to the plugin file on disk
 	QString GetFileName();
 
-	/// Return the display name for the plugin
-	QString GetDisplayName();
-
-	/// Return the system name for the plugin
-	QString GetSystemName();
+	/// Return the plugin name for the plugin
+	QString GetPluginName();
 
 	/// Return the type of the plugin
 	QString GetRandomPhenomenon();
@@ -109,6 +106,8 @@ public:
 
 	// Set the installation state of the plugin (true = installed)
 	void SetInstallationState(bool state);
+
+	bool checkVersion(std::string versions, std::string currentVersion);
 
 private:
 	// Make this object be noncopyable as it holds a pointer

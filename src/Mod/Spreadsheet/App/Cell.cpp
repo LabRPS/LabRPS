@@ -43,7 +43,7 @@
 #include <iomanip>
 #include <cctype>
 
-FC_LOG_LEVEL_INIT("Spreadsheet",true,true)
+RPS_LOG_LEVEL_INIT("Spreadsheet",true,true)
 
 #ifdef _MSC_VER
 #define __func__ __FUNCTION__
@@ -188,7 +188,7 @@ void Cell::setExpression(App::ExpressionPtr &&expr)
 
     if(expr && expr->comment.size()) {
         if(!boost::starts_with(expr->comment,"<Cell "))
-            FC_WARN("Unknown style of cell "
+            RPS_WARN("Unknown style of cell "
                 << owner->sheet()->getFullName() << '.' << address.toString());
         else {
             try {
@@ -198,7 +198,7 @@ void Cell::setExpression(App::ExpressionPtr &&expr)
                 restore(reader,true);
             }catch(Base::Exception &e) {
                 e.ReportException();
-                FC_ERR("Failed to restore style of cell "
+                RPS_ERR("Failed to restore style of cell "
                     << owner->sheet()->getFullName() << '.' 
                     << address.toString() << ": " << e.what());
             }
@@ -642,7 +642,7 @@ bool Cell::getSpans(int &rows, int &columns) const
 void Cell::setException(const std::string &e, bool silent)
 {
     if(!silent && e.size() && owner && owner->sheet()) {
-        FC_ERR(owner->sheet()->getFullName() << '.' 
+        RPS_ERR(owner->sheet()->getFullName() << '.' 
                 << address.toString() << ": " << e);
     }
     exceptionStr = e;
@@ -652,7 +652,7 @@ void Cell::setException(const std::string &e, bool silent)
 void Cell::setParseException(const std::string &e)
 {
     if(e.size() && owner && owner->sheet()) {
-        FC_ERR(owner->sheet()->getFullName() << '.' 
+        RPS_ERR(owner->sheet()->getFullName() << '.' 
                 << address.toString() << ": " << e);
     }
     exceptionStr = e;
@@ -662,7 +662,7 @@ void Cell::setParseException(const std::string &e)
 void Cell::setResolveException(const std::string &e)
 {
     if(e.size() && owner && owner->sheet()) {
-        FC_LOG(owner->sheet()->getFullName() << '.' 
+        RPS_LOG(owner->sheet()->getFullName() << '.' 
                 << address.toString() << ": " << e);
     }
     exceptionStr = e;

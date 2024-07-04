@@ -48,7 +48,7 @@ target_link_libraries(StartGui ${StartGui_LIBS})
 SET_BIN_DIR(StartGui StartGui /Mod/Start)
 SET_PYTHON_PREFIX_SUFFIX(StartGui)
 
-fc_copy_sources(StartGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Start" ${StartGuiIcon_SVG})
+rps_copy_sources(StartGui "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Start" ${StartGuiIcon_SVG})
 
 INSTALL(TARGETS StartGui DESTINATION ${CMAKE_INSTALL_LIBDIR})
 INSTALL(FILES ${StartGuiIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Mod/Start/Resources/icons")

@@ -26,7 +26,7 @@
 #ifndef _PreComp_
 # include <sstream>
 # include <QDateTime>
-# if defined(FC_OS_LINUX) || defined(__MINGW32__)
+# if defined(RPS_OS_LINUX) || defined(__MINGW32__)
 # include <sys/time.h>
 # endif
 #endif
@@ -60,12 +60,12 @@ TimeInfo::~TimeInfo()
 
 void TimeInfo::setCurrent()
 {
-#if defined (FC_OS_BSD) || defined(FC_OS_LINUX) || defined(__MINGW32__)
+#if defined (RPS_OS_BSD) || defined(RPS_OS_LINUX) || defined(__MINGW32__)
     struct timeval t;
     gettimeofday(&t, nullptr);
     timebuffer.time = t.tv_sec;
     timebuffer.millitm = t.tv_usec / 1000;
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
     _ftime(&timebuffer);
 #else
     ftime(&timebuffer); // deprecated

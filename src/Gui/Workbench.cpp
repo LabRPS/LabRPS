@@ -920,7 +920,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
           << "Std_UnitsCalculator"
           << "Separator"
           << "Std_DlgCustomize"
-          << "Std_CmdPlugins";
+          << "Std_PluginInstaller";
 #ifdef BUILD_ADDONMGR
     *tool << "Std_AddonMgr";
 #endif
@@ -1464,11 +1464,11 @@ void PythonWorkbench::createMainWindowPopupMenu(MenuItem* item) const
     wb.createMainWindowPopupMenu(item);
 }
 
-bool Workbench::getToBeInstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Workbench::getToBeInstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
 	return false;
 }
-bool Workbench::getToBeUninstalledObjectsList(QStringList& lstObject, QString pluginName) const
+bool Workbench::getToBeUninstalledObjectsList(std::map<const std::string, std::string>& lstObject, QString pluginName) const
 {
 	return false;
 }

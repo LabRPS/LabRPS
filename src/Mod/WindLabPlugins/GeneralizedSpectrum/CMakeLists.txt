@@ -83,7 +83,7 @@ set_target_properties(GeneralizedSpectrum PROPERTIES FOLDER "Plugins/WindLab")
 
 SET_BIN_DIR(GeneralizedSpectrum GeneralizedSpectrum /Plugins/WindLabWorkbench/GeneralizedSpectrum)
 
-fc_copy_sources(GeneralizedSpectrum "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/GeneralizedSpectrum" ${Metadata_Files})
+rps_copy_sources(GeneralizedSpectrum "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/GeneralizedSpectrum" ${Metadata_Files})
 INSTALL(TARGETS GeneralizedSpectrum DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/GeneralizedSpectrum")
 INSTALL(FILES GeneralizedSpectrum.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/GeneralizedSpectrum")
 INSTALL(FILES ${generalizedSpectrumIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Plugins/WindLab/GeneralizedSpectrum/Resources/icons")

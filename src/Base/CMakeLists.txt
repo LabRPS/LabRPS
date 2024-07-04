@@ -97,7 +97,7 @@ if(SWIG_FOUND)
     # This is to avoid to having to build the target each time cmake configure is executed.
     execute_process(COMMAND ${SWIG_EXECUTABLE} -python -external-runtime ${CMAKE_CURRENT_BINARY_DIR}/swigpyrun.hh)
 
-    fc_copy_file_if_different(
+    rps_copy_file_if_different(
         "${CMAKE_CURRENT_BINARY_DIR}/swigpyrun.hh"
         "${CMAKE_CURRENT_BINARY_DIR}/swigpyrun.h"
     )

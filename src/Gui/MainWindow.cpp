@@ -106,7 +106,7 @@
 #include "ResultView.h"
 
 
-FC_LOG_LEVEL_INIT("MainWindow",false,true,true)
+RPS_LOG_LEVEL_INIT("MainWindow",false,true,true)
 
 #if defined(Q_OS_WIN32)
 #define slots
@@ -1372,7 +1372,7 @@ void MainWindow::updateActions(bool delay)
 void MainWindow::_updateActions()
 {
     if (isVisible() && d->actionUpdateDelay <= 0) {
-        FC_LOG("update actions");
+        RPS_LOG("update actions");
         d->activityTimer->stop();
         Application::Instance->commandManager().testActive();
     }

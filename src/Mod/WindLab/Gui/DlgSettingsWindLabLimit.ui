@@ -26,7 +26,7 @@
       <enum>Qt::LeftToRight</enum>
      </property>
      <property name="title">
-      <string>Large Scale Mode</string>
+      <string>Large Scale Simulation Mode</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -43,7 +43,7 @@
            </size>
           </property>
           <property name="text">
-           <string>Automatic Large Scale Mode Activation</string>
+           <string>Automatic Large Scale Simulation Mode Activation</string>
           </property>
           <property name="checked">
            <bool>true</bool>

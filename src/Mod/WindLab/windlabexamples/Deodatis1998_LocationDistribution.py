@@ -1,26 +1,25 @@
-# ***************************************************************************
-# *   Copyright (c) 2019 Bernd Hahnebach <bernd@bimstatik.org>              *
-# *   Copyright (c) 2020 Sudhanshu Dubey <sudhanshu.thethunder@gmail.com    *
-# *                                                                         *
-# *   This file is part of the LabRPS CAx development system.              *
-# *                                                                         *
-# *   This program is free software; you can redistribute it and/or modify  *
-# *   it under the terms of the GNU Lesser General Public License (LGPL)    *
-# *   as published by the Free Software Foundation; either version 2 of     *
-# *   the License, or (at your option) any later version.                   *
-# *   for detail see the LICENCE text file.                                 *
-# *                                                                         *
-# *   This program is distributed in the hope that it will be useful,       *
-# *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-# *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-# *   GNU Library General Public License for more details.                  *
-# *                                                                         *
-# *   You should have received a copy of the GNU Library General Public     *
-# *   License along with this program; if not, write to the Free Software   *
-# *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
-# *   USA                                                                   *
-# *                                                                         *
-# ***************************************************************************
+#***************************************************************************
+#*   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+#*                                                                         *
+#*   This file is part of the LabRPS development system.                   *
+#*                                                                         *
+#*   This program is free software; you can redistribute it and/or modify  *
+#*   it under the terms of the GNU Lesser General Public License (LGPL)    *
+#*   as published by the Free Software Foundation; either version 2 of     *
+#*   the License, or (at your option) any later version.                   *
+#*   for detail see the LICENCE text file.                                 *
+#*                                                                         *
+#*   LabRPS is distributed in the hope that it will be useful,             *
+#*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+#*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+#*   GNU Lesser General Public License for more details.                   *
+#*                                                                         *
+#*   You should have received a copy of the GNU Library General Public     *
+#*   License along with LabRPS; if not, write to the Free Software         *
+#*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  *
+#*   USA                                                                   *
+#*                                                                         *
+#***************************************************************************/
 
 import LabRPS
 from LabRPS import Vector as vec
@@ -58,9 +57,24 @@ def setup(doc=None, showGui=True):
 
     #install the WindLab plugin with all its plugged features
     installResuslt1 = WindLab.installPlugin("WindLabPlugin")
+    if not installResuslt1:
+        LabRPS.Console.PrintError("The installation of the 'WindLabPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt2 = WindLab.installPlugin("CorrelationErgodicityPlugin")
+    if not installResuslt2:
+        LabRPS.Console.PrintError("The installation of the 'CorrelationErgodicityPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt3 = WindLab.installPlugin("PDFCheckToolPlugin")
+    if not installResuslt3:
+        LabRPS.Console.PrintError("The installation of the 'PDFCheckToolPlugin' plugin has failed.\n")
+        return None
+    
     installResuslt4 = WindLab.installPlugin("ErgodicityCheckToolPlugin")
+    if not installResuslt4:
+        LabRPS.Console.PrintError("The installation of the 'ErgodicityCheckToolPlugin' plugin has failed.\n")
+        return None
 
     # create new simulation with default name "Simulation"
     sim = WindLabObjects.makeSimulation(doc)
@@ -78,7 +92,7 @@ def setup(doc=None, showGui=True):
     sim.NumberOfTimeIncrements = 9651
 
     # create new location distribution in the simulation called "Simulation"
-    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation", "Location Distribution",  "General Distribution")
+    loc = WindLabObjects.makeFeature("SimulationPoints", "Simulation",  "General Distribution", "Location Distribution")
     
     # check if the created location distribution feature is null
     if not loc:

@@ -40,7 +40,7 @@
 #include <Base/Tools.h>
 
 
-FC_LOG_LEVEL_INIT("Expression",true,true)
+RPS_LOG_LEVEL_INIT("Expression",true,true)
 
 using namespace Gui;
 using namespace App;
@@ -145,17 +145,17 @@ std::string ExpressionBinding::getExpressionString(bool no_throw) const
         return getExpression()->toString();
     } catch (Base::Exception &e) {
         if(no_throw)
-            FC_ERR("failed to get expression string: " << e.what());
+            RPS_ERR("failed to get expression string: " << e.what());
         else
             throw;
     } catch (std::exception &e) {
         if(no_throw)
-            FC_ERR("failed to get expression string: " << e.what());
+            RPS_ERR("failed to get expression string: " << e.what());
         else
             throw;
     } catch (...) {
         if(no_throw)
-            FC_ERR("failed to get expression string: unknown exception");
+            RPS_ERR("failed to get expression string: unknown exception");
         else
             throw;
     }

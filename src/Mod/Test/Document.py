@@ -109,7 +109,7 @@ class DocumentBasicCases(unittest.TestCase):
     obj=self.Doc.addObject("App::FeatureTest","Label")
     self.Doc.abortTransaction()
     TempPath = tempfile.gettempdir()
-    SaveName = TempPath + os.sep + "SaveRestoreTests.FCStd"
+    SaveName = TempPath + os.sep + "SaveRestoreTests.RPSStd"
     self.Doc.saveAs(SaveName)
 
   def testRemoval(self):
@@ -452,7 +452,7 @@ class DocumentBasicCases(unittest.TestCase):
       list_of_types.append(obj.getTypeOfProperty("String" + str(i)))
 
     # saving and restoring
-    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.FCStd"
+    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
     self.Doc.saveAs(SaveName)
     LabRPS.closeDocument("CreateTest")
     self.Doc = LabRPS.open(SaveName)
@@ -526,7 +526,7 @@ class DocumentBasicCases(unittest.TestCase):
     link.addProperty("App::PropertyFloat", "Test")
     link.LinkedObject = test
     # saving and restoring
-    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.FCStd"
+    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
     self.Doc.saveAs(SaveName)
     LabRPS.closeDocument("CreateTest")
     self.Doc = LabRPS.open(SaveName)
@@ -566,7 +566,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
 
   def testSaveAndRestore(self):
     # saving and restoring
-    SaveName = self.TempPath + os.sep + "SaveRestoreTests.FCStd"
+    SaveName = self.TempPath + os.sep + "SaveRestoreTests.RPSStd"
     self.failUnless(self.Doc.Label_1.TypeTransient == 4711)
     self.Doc.Label_1.TypeTransient = 4712
     # setup Linking
@@ -593,7 +593,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
     Doc = LabRPS.newDocument("RestoreTests")
     Doc.addObject("App::FeatureTest","Label_1")
     # saving and restoring
-    FileName = self.TempPath + os.sep + "Test2.FCStd"
+    FileName = self.TempPath + os.sep + "Test2.RPSStd"
     Doc.saveAs(FileName)
     # restore must first clear the current content
     Doc.restore()
@@ -616,7 +616,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
 
   def testExtensionSaveRestore(self):
     # saving and restoring
-    SaveName = self.TempPath + os.sep + "SaveRestoreExtensions.FCStd"
+    SaveName = self.TempPath + os.sep + "SaveRestoreExtensions.RPSStd"
     Doc = LabRPS.newDocument("SaveRestoreExtensions")
     #we try to create a normal python object and add an extension to it
     obj  = Doc.addObject("App::DocumentObject", "Obj")
@@ -1270,7 +1270,7 @@ class DocumentPlatformCases(unittest.TestCase):
     self.Doc = LabRPS.newDocument("PlatformTests")
     self.Doc.addObject("App::FeatureTest", "Test")
     self.TempPath = tempfile.gettempdir()
-    self.DocName = self.TempPath + os.sep + "PlatformTests.FCStd"
+    self.DocName = self.TempPath + os.sep + "PlatformTests.RPSStd"
 
   def testFloatList(self):
     self.Doc.Test.FloatList = [-0.05, 2.5, 5.2]
@@ -1407,10 +1407,10 @@ class DocumentFileIncludeCases(unittest.TestCase):
     self.failUnless(file.read()=="test No2")
     file.close()
     # Save restore test
-    FileName = self.TempPath+"/FileIncludeTests.fcstd"
+    FileName = self.TempPath+"/FileIncludeTests.rpsstd"
     self.Doc.saveAs(FileName)
     LabRPS.closeDocument("FileIncludeTests")
-    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.fcstd")
+    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rpsstd")
     # check if the file is still there
     self.L1 = self.Doc.getObject("FileObject1")
     file = open(self.L1.File,"r")
@@ -1453,7 +1453,7 @@ class DocumentFileIncludeCases(unittest.TestCase):
     L5.File = L3.File
     L6.File = L3.File
     LabRPS.closeDocument("FileIncludeTests")
-    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.fcstd")
+    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rpsstd")
     self.failUnless(os.path.exists(L4.File))
     self.failUnless(os.path.exists(L5.File))
     self.failUnless(os.path.exists(L6.File))
@@ -1481,7 +1481,7 @@ class DocumentPropertyCases(unittest.TestCase):
     for i in props:
         self.Obj.addProperty(i,i.replace(':','_'))
     tempPath = tempfile.gettempdir()
-    tempFile = tempPath + os.sep + "PropertyTests.FCStd"
+    tempFile = tempPath + os.sep + "PropertyTests.RPSStd"
     self.Doc.saveAs(tempFile)
     LabRPS.closeDocument("PropertyTests")
     self.Doc = LabRPS.open(tempFile)
@@ -1605,7 +1605,7 @@ class DocumentExpressionCases(unittest.TestCase):
       obj.ExpressionEngine
 
       TempPath = tempfile.gettempdir()
-      SaveName = TempPath + os.sep + "ExpressionTests.FCStd"
+      SaveName = TempPath + os.sep + "ExpressionTests.RPSStd"
       self.Doc.saveAs(SaveName)
       LabRPS.closeDocument(self.Doc.Name)
       self.Doc = LabRPS.openDocument(SaveName)
@@ -1799,7 +1799,7 @@ class DocumentObserverCases(unittest.TestCase):
 
   def testSave(self):
     TempPath = tempfile.gettempdir()
-    SaveName = TempPath + os.sep + "SaveRestoreTests.FCStd"
+    SaveName = TempPath + os.sep + "SaveRestoreTests.RPSStd"
     self.Doc1 = LabRPS.newDocument("Observer1");
     self.Doc1.saveAs(SaveName)
     self.assertEqual(self.Obs.signal.pop(), 'DocFinishSave')

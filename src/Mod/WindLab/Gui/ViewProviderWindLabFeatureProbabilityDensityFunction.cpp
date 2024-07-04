@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2004 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -55,7 +55,7 @@ PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureProbabilityDensityFunction
 
 ViewProviderWindLabFeatureProbabilityDensityFunction::ViewProviderWindLabFeatureProbabilityDensityFunction()
 {
-  sPixmap = ":/icons/WindLabFeatures/WindLab_Feature_PDFObj.svg";
+  sPixmap = ":/icons/WindLabFeatures/WindLab_Feature_PeakFactorObj.svg";
 }
 
 ViewProviderWindLabFeatureProbabilityDensityFunction::~ViewProviderWindLabFeatureProbabilityDensityFunction()

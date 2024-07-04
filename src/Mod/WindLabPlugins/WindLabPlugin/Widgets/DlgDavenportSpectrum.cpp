@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -20,9 +20,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
-
-
 #include "DlgDavenportSpectrum.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgDavenportSpectrum.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/RPSWLPowerLowProfile.h>
@@ -30,8 +27,6 @@
 #include <App/Application.h>
 #include <App/Document.h>
 
-//#include <QPushButton>
-//#include <QApplication>
 
 
 using namespace WindLabGui;

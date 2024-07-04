@@ -74,7 +74,7 @@ QByteArray PrefWidget::entryName() const
 /** Sets the preference path to \a path. */
 void PrefWidget::setParamGrpPath( const QByteArray& path )
 {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
   if (getWindowParameter().isValid())
   {
     if ( paramGrpPath() != path )
@@ -128,7 +128,7 @@ void PrefWidget::onSave()
   savePreferences();
   if (getWindowParameter().isValid())
     getWindowParameter()->Notify( entryName() );
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
   else
     qFatal( "No parameter group specified!" );
 #endif
@@ -139,7 +139,7 @@ void PrefWidget::onSave()
  */
 void PrefWidget::onRestore()
 {
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
   if (getWindowParameter().isNull())
     qWarning( "No parameter group specified!" );
 #endif

@@ -1,9 +1,3 @@
-# Aspect framework legacy code
-add_compile_definitions(LEGACY_CODE_0_2_x)
-
-# Enable OpenGL for QCustomPlot
-add_compile_definitions(QCUSTOMPLOT_USE_OPENGL)
-
 add_compile_definitions(RPS_BUILDING_CORE)
 
 if(MSVC)
@@ -131,8 +125,6 @@ SET(WindModule_SRCS
     WindLabSimuData.h
     RPS.h
     RPS.cpp
-    RPSWindLabPythonPluginFactory.cpp
-    RPSWindLabPythonPluginFactory.h
 
 )
 SOURCE_GROUP("Module" FILES ${WindModule_SRCS})

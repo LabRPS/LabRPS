@@ -23,10 +23,10 @@ project(LabRPS)
 
 set(PACKAGE_VERSION_NAME "Vulcan")
 set(PACKAGE_VERSION_MAJOR "0")
-set(PACKAGE_VERSION_MINOR "20")
+set(PACKAGE_VERSION_MINOR "1")
 set(PACKAGE_VERSION_PATCH "2")
 set(PACKAGE_VERSION_SUFFIX "") # either "dev" for development snapshot or "" (empty string)
-set(LABRPS_VERSION_PATCH "2") # number of patch release (e.g. "4" for the 0.18.4 release)
+set(LABRPS_VERSION_PATCH "2") # number of patch release (e.g. "4" for the 0.1.4 release)
 
 set(LABRPS_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}")
 set(PACKAGE_VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH}")

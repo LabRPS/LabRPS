@@ -2911,8 +2911,8 @@ bounding box size of the 3D object that is currently displayed.</translation>
       <translation type="unfinished">The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for FCStd files</source>
-      <translation type="unfinished">Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation type="unfinished">Compression level for RPSStd files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>
@@ -6637,8 +6637,8 @@ Veuillez ouvrir une fenêtre de navigateur et saisir : http://localhost:%1.</tra
       <translation>Enregistrer le document %1</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7949,8 +7949,8 @@ Physical path: </translation>
       <translation>Impossible de fusionner le projet avec lui-même.</translation>
     </message>
     <message>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
   </context>
   <context>

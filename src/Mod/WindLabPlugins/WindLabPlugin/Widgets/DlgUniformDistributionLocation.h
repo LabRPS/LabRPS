@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -26,11 +26,16 @@
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
-#include <App/PropertyGeo.h>
+//#include <App/PropertyGeo.h>
 #include <App/PropertyUnits.h>
 #include <QString>
 
 class QSignalMapper;
+
+namespace App
+{
+    class PropertyVector;
+}
 
 namespace WindLabGui {
 
@@ -40,7 +45,7 @@ class DlgUniformLocationDistribution : public QWidget
     Q_OBJECT
 
 public:
-    DlgUniformLocationDistribution(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction, QWidget* parent = nullptr);
+    DlgUniformLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction, QWidget* parent = nullptr);
     ~DlgUniformLocationDistribution();
     void accept();
     void reject();
@@ -55,7 +60,7 @@ class UniformLocationDistributionDialogEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    UniformLocationDistributionDialogEdit(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction);
+    UniformLocationDistributionDialogEdit(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction);
     ~UniformLocationDistributionDialogEdit();
     
 public:

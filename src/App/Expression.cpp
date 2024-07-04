@@ -60,7 +60,7 @@
 using namespace Base;
 using namespace App;
 
-FC_LOG_LEVEL_INIT("Expression", true, true)
+RPS_LOG_LEVEL_INIT("Expression", true, true)
 
 #ifndef M_PI
 #define M_PI       3.14159265358979323846
@@ -467,7 +467,7 @@ App::any pyObjectToAny(Py::Object value, bool check) {
     else if (PyUnicode_Check(pyvalue)) {
         const char* utf8value = PyUnicode_AsUTF8(pyvalue);
         if (!utf8value) {
-            FC_THROWM(Base::ValueError, "Invalid unicode string");
+            RPS_THROWM(Base::ValueError, "Invalid unicode string");
         }
         return App::any(std::string(utf8value));
     }
@@ -2716,7 +2716,7 @@ void VariableExpression::_offsetCells(int rowOffset, int colOffset, ExpressionVi
     if(!addr.isAbsoluteRow())
         addr.setRow(addr.row()+rowOffset);
     if(!addr.isValid()) {
-        FC_WARN("Not changing relative cell reference '"
+        RPS_WARN("Not changing relative cell reference '"
                 << comp.getName() << "' due to invalid offset "
                 << '(' << colOffset << ", " << rowOffset << ')');
     } else {

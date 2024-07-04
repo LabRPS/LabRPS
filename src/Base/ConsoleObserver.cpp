@@ -24,7 +24,7 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #   include <windows.h>
 # endif
 # include <cstring>
@@ -80,9 +80,9 @@ void ConsoleObserverFile::SendLog(const std::string& msg, LogStyle level)
 }
 
 ConsoleObserverStd::ConsoleObserverStd() :
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
     useColorStderr(true)
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
     useColorStderr( isatty(STDERR_FILENO) )
 #   else
     useColorStderr(false)
@@ -121,9 +121,9 @@ void ConsoleObserverStd::Message(const char *sMsg)
 void ConsoleObserverStd::Warning(const char *sWarn)
 {
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE), FOREGROUND_GREEN| FOREGROUND_BLUE);
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[1;33m");
 #   endif
     }
@@ -131,9 +131,9 @@ void ConsoleObserverStd::Warning(const char *sWarn)
     fprintf(stderr, "%s", sWarn);
 
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE),FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE );
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[0m");
 #   endif
     }
@@ -142,9 +142,9 @@ void ConsoleObserverStd::Warning(const char *sWarn)
 void ConsoleObserverStd::Error  (const char *sErr)
 {
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE), FOREGROUND_RED|FOREGROUND_INTENSITY );
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[1;31m");
 #   endif
     }
@@ -152,9 +152,9 @@ void ConsoleObserverStd::Error  (const char *sErr)
     fprintf(stderr, "%s", sErr);
 
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE),FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE );
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[0m");
 #   endif
     }
@@ -163,9 +163,9 @@ void ConsoleObserverStd::Error  (const char *sErr)
 void ConsoleObserverStd::Log    (const char *sErr)
 {
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE), FOREGROUND_RED |FOREGROUND_GREEN);
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[1;36m");
 #   endif
     }
@@ -173,9 +173,9 @@ void ConsoleObserverStd::Log    (const char *sErr)
     fprintf(stderr, "%s", sErr);
 
     if (useColorStderr) {
-#   if defined(FC_OS_WIN32)
+#   if defined(RPS_OS_WIN32)
         ::SetConsoleTextAttribute(::GetStdHandle(STD_ERROR_HANDLE),FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE );
-#   elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#   elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
         fprintf(stderr, "\033[0m");
 #   endif
     }
@@ -250,15 +250,15 @@ int RedirectStdError::sync()
 
 std::stringstream &LogLevel::prefix(std::stringstream &str, const char *src, int line)
 {
-    static FC_TIME_POINT s_tstart;
+    static RPS_TIME_POINT s_tstart;
     static bool s_timing = false;
     if (print_time) {
         if (!s_timing) {
             s_timing = true;
-            _FC_TIME_INIT(s_tstart);
+            _RPS_TIME_INIT(s_tstart);
         }
-        auto tnow = std::chrono::FC_TIME_CLOCK::now();
-        auto d = std::chrono::duration_cast<FC_DURATION>(tnow-s_tstart);
+        auto tnow = std::chrono::RPS_TIME_CLOCK::now();
+        auto d = std::chrono::duration_cast<RPS_DURATION>(tnow-s_tstart);
         str << d.count() << ' ';
     }
     if (print_tag) str << '<' << tag << "> ";
@@ -276,7 +276,7 @@ std::stringstream &LogLevel::prefix(std::stringstream &str, const char *src, int
         }
     }
     if (print_src && src && src[0]) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         const char *_f = std::strrchr(src, '\\');
 #else
         const char *_f = std::strrchr(src, '/');

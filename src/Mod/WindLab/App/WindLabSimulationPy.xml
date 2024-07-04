@@ -12,7 +12,7 @@
     Constructor="true">
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>With this objects you can handle winds</UserDocu>
+      <UserDocu>With this objects you can handle WindLab features</UserDocu>
     </Documentation>
     <Methode Name="run">
       <Documentation>
@@ -31,37 +31,37 @@
     </Methode>
     <Methode Name="getSimulationData">
       <Documentation>
-        <UserDocu>get simulation data</UserDocu>
+        <UserDocu>get the WindLab simulation data</UserDocu>
       </Documentation>
     </Methode>
   	<Methode Name="getActiveCoherence">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active coherence function feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveCorrelation">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active correlation function feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveCumulativeProbabilityDistribution">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active cumulative probability feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveFrequencyDistribution">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active frequency distribution feature</UserDocu>
 		  </Documentation>
 	</Methode>
   <Methode Name="getActiveGustFactor">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active gust factor feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveKurtosis">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active kurtosis feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveLocationDistribution">
@@ -71,626 +71,625 @@
 	</Methode>
   	<Methode Name="getActiveMeanWind">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active mean wind profile feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveModulation">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active modulation function feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActivePeakFactor">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active peak factor feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveProbabilityDensityFunction">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active probability density function feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActivePSDDecompositionMethod">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active power spectral density matrix decomposition feature (this is a Cholesky decomposity)</UserDocu>
 		  </Documentation>
 	</Methode>
   <Methode Name="getActiveRandomness">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active random phase generator feature (randomness provider)</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveRoughness">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active roughness feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveShearVelocityOfFlow">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active shear velocity feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveSimulationMethod">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active simulation method feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveSkewness">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active skewness feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveStandardDeviation">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active standard deviation feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveTurbulenceIntensity">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active turbulence intensity feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveTurbulenceScale">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active turbulence scale feature</UserDocu>
 		  </Documentation>
 	</Methode>
   <Methode Name="getActiveUserDefinedRPSObject">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active user defined feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveVariance">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active variance feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveWavePassageEffect">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveXSpectrum">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveYSpectrum">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveZSpectrum">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveMatrixTool">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active matrix tool feature</UserDocu>
 		  </Documentation>
 	</Methode>
   	<Methode Name="getActiveTableTool">
 		  <Documentation>
-			  <UserDocu>get the active location distribution feature</UserDocu>
+			  <UserDocu>get the active table tool feature</UserDocu>
 		  </Documentation>
 	</Methode>
 	  <Methode Name="computeCrossCoherenceVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active coherence function feature for all frequency increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossCoherenceVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active coherence function feature for all time increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossCoherenceMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active coherence function feature for all locations and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
-	
     <Methode Name="computeCrossCorrelationVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active correlation function feature for all time increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossCorrelationMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active correlation function feature for all locations and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeFrequenciesVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active frequency distribution feature for all frequency increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
   
     <Methode Name="computeFrequenciesMatrixFP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active frequency distribution feature for all frequency increments and time increments and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeLocationCoordinateMatrixP3">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active location distribution feature for all locations and return the 3D coordinate as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeMeanWindSpeedVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active mean wind profile feature for all locations and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeMeanWindSpeedVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active mean wind profile feature for all time increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeModulationVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active modulation function feature for all time increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeModulationVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active modulation function feature for all locations and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeDecomposedCrossSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeDecomposedCrossSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active psd decomposition feature for all time increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active psd decomposition feature for all locations and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="generateRandomMatrixFP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active randomness provider feature for all frequency and time increments and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeXCrossSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeXCrossSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXCrossSpectrumVectorT function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeXCrossSpectrumMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXCrossSpectrumMatrixPP function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeXAutoSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXAutoSpectrumValue function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     
     <Methode Name="computeXAutoSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXAutoSpectrumVectorF function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeXAutoSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXAutoSpectrumVectorT function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeYCrossSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYCrossSpectrumVectorF function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeYCrossSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYCrossSpectrumVectorT function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeYCrossSpectrumMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYCrossSpectrumMatrixPP function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeYAutoSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYAutoSpectrumValue function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     
     <Methode Name="computeYAutoSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYAutoSpectrumVectorF function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeYAutoSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYAutoSpectrumVectorT function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeZCrossSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZCrossSpectrumVectorF function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeZCrossSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZCrossSpectrumVectorT function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeZCrossSpectrumMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZCrossSpectrumMatrixPP function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeZAutoSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZAutoSpectrumValue function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     
     <Methode Name="computeZAutoSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZAutoSpectrumVectorF function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeZAutoSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZAutoSpectrumVectorT function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for all frequency increments and return the result as a vector. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for all time increments and return the result as a vector. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossSpectrumMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for all locations and return the result as an array. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeAutoSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for given location, frequency, time and return the value. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
     
     <Methode Name="computeAutoSpectrumVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for all frequency increments and return the result as a vector. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeAutoSpectrumVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for all time increments and return the result as a vector. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCrossCoherenceValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for given location, frequency, time and return the value. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeCrossCorrelationValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeCrossCorrelationValue function from the active correlation function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeMeanWindSpeedValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeMeanWindSpeedValue function from the active mean wind profile feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeModulationValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeModulationValue function from the active modulation function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeRandomValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeRandomValue function from the active randomness provider feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeXCrossSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeXCrossSpectrumValue function from the active along wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeYCrossSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeYCrossSpectrumValue function from the active across wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeZCrossSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeZCrossSpectrumValue function from the active vertical wind spectrum model feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeCrossSpectrumValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the active wind spectrum model feature for given location, frequency and time and return the value. WindLab framework will automatically call the right function depending on the wind direction.</UserDocu>
 		  </Documentation>
 	  </Methode>
 	<Methode Name="computeFrequencyValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeFrequencyValue function from the active frequency distribution feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
 
     <Methode Name="tableToolCompute">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the tableToolCompute function from the active table tool feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="matrixToolCompute">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the matrixToolCompute function from the active matrix tool feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="userDefinedRPSObjectCompute">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the userDefinedRPSObjectCompute function from the active user defined feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeCPDValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeCPDValue function from the active cumulative probability distribution feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeCPDVectorX">
     <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeCPDVectorX function from the active cumulative probability distribution feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeGustFactorValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeGustFactorValue function from the active gust factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeGustFactorVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeGustFactorVectorP function from the active gust factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeGustFactorVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeGustFactorVectorT function from the active gust factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeKurtosisValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeKurtosisValue function from the active kurtosis feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeKurtosisVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeKurtosisVectorP function from the active kurtosis feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeKurtosisVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeKurtosisVectorT function from the active kurtosis feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computePeakFactorValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computePeakFactorValue function from the active peak factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computePeakFactorVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computePeakFactorVectorP function from the active peak factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computePeakFactorVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computePeakFactorVectorT function from the active peak factor feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computePDFValue">
 	<Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computePDFValue function from the active probability density function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computePDFVectorX">
 <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computePDFVectorX function from the active probability density function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeRoughnessValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeRoughnessValue function from the active roughness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeRoughnessVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeRoughnessVectorP function from the active roughness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeRoughnessVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeRoughnessVectorT function from the active roughness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeShearVelocityOfFlowValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeShearVelocityOfFlowValue function from the active shear velocity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeShearVelocityOfFlowVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeShearVelocityOfFlowVectorP function from the active shear velocity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeShearVelocityOfFlowVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeShearVelocityOfFlowVectorT function from the active shear velocity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeSkewnessValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeSkewnessValue function from the active skewness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeSkewnessVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeSkewnessVectorP function from the active skewness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeSkewnessVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeSkewnessVectorT function from the active skewness feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeStandardDeviationValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeStandardDeviationValue function from the active standard deviation feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeStandardDeviationVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeStandardDeviationVectorP function from the active standard deviation feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeStandardDeviationVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeStandardDeviationVectorT function from the active standard deviation feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeTurbulenceIntensityValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceIntensityValue function from the active turbulence intensity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeTurbulenceIntensityVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceIntensityVectorP function from the active turbulence intensity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeTurbulenceIntensityVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceIntensityVectorT function from the active turbulence intensity feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeTurbulenceScaleValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceScaleValue function from the active turbulence scale feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeTurbulenceScaleVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceScaleVectorP function from the active turbulence scale feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeTurbulenceScaleVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeTurbulenceScaleVectorT function from the active turbulence scale feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeVarianceValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeVarianceValue function from the active variance function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeVarianceVectorP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeVarianceVectorP function from the active variance function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeVarianceVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeVarianceVectorT function from the active variance function feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
     <Methode Name="computeWavePassageEffectVectorF">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeWavePassageEffectVectorF function from the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeWavePassageEffectVectorT">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeWavePassageEffectVectorT function from the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeWavePassageEffectMatrixPP">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeWavePassageEffectMatrixPP function from the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	  </Methode>
     <Methode Name="computeWavePassageEffectValue">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the computeWavePassageEffectValue function from the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 	      <Methode Name="simulate">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the simulate function from the active simulation method feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 	      <Methode Name="simulateInLargeScaleMode">
 		  <Documentation>
-			  <UserDocu>run active feature</UserDocu>
+			  <UserDocu>run the simulateInLargeScaleMode function from the active simulation method feature</UserDocu>
 		  </Documentation>
 	  </Methode>
 
@@ -706,12 +705,12 @@
 	  </Methode>
 	  <Methode Name="getWindLabPluggableFeatures">
 		  <Documentation>
-			  <UserDocu></UserDocu>
+			  <UserDocu>Find all installed feature type</UserDocu>
 		  </Documentation>
 	  </Methode>
 	  <Methode Name="getRPSTypesOfPluggableFeatures">
 		  <Documentation>
-			  <UserDocu>Compute and return the location distribution from the active location distribution feature</UserDocu>
+			  <UserDocu>find all RPS types</UserDocu>
 		  </Documentation>
 	  </Methode>
 	   <Methode Name="setActiveFeature">
@@ -721,7 +720,7 @@
 	  </Methode>
 	  <Methode Name="getActiveFeature">
 		  <Documentation>
-			  <UserDocu>Get the active feature of a given name</UserDocu>
+			  <UserDocu>Get the active feature by a given name</UserDocu>
 		  </Documentation>
 	  </Methode>
 	  <Methode Name="getAllFeatures">

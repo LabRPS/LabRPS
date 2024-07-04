@@ -129,14 +129,14 @@ class TestUtilities(unittest.TestCase):
             self.assertIsNone(result)
 
     def test_get_macro_version_from_file(self):
-        good_file = os.path.join(self.test_dir, "good_macro_metadata.FCStd")
+        good_file = os.path.join(self.test_dir, "good_macro_metadata.RPSStd")
         version = get_macro_version_from_file(good_file)
         self.assertEqual(version, "1.2.3")
 
-        bad_file = os.path.join(self.test_dir, "bad_macro_metadata.FCStd")
+        bad_file = os.path.join(self.test_dir, "bad_macro_metadata.RPSStd")
         version = get_macro_version_from_file(bad_file)
         self.assertEqual(version, "", "Bad version did not yield empty string")
 
-        empty_file = os.path.join(self.test_dir, "missing_macro_metadata.FCStd")
+        empty_file = os.path.join(self.test_dir, "missing_macro_metadata.RPSStd")
         version = get_macro_version_from_file(empty_file)
         self.assertEqual(version, "", "Missing version did not yield empty string")

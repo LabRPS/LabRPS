@@ -61,7 +61,7 @@
 #include "WaitCursor.h"
 
 
-FC_LOG_LEVEL_INIT("Gui", true, true)
+RPS_LOG_LEVEL_INIT("Gui", true, true)
 
 using namespace Gui;
 using namespace Gui::Dialog;
@@ -212,7 +212,7 @@ QString DocumentRecovery::createProjectFile(const QString& documentXml)
 {
     QString source = documentXml;
     QFileInfo fi(source);
-    QString dest = fi.dir().absoluteFilePath(QString::fromLatin1("fc_recovery_file.fcstd"));
+    QString dest = fi.dir().absoluteFilePath(QString::fromLatin1("rps_recovery_file.rpsstd"));
 
     std::stringstream str;
     str << doctools << "\n";
@@ -312,7 +312,7 @@ void DocumentRecovery::accept()
                 QFileInfo fi(info.projectFile);
                 bool res = false;
 
-                if (fi.fileName() == QLatin1String("fc_recovery_file.fcstd")) {
+                if (fi.fileName() == QLatin1String("rps_recovery_file.rpsstd")) {
                     transDir.remove(fi.fileName());
                     res = transDir.rename(fi.absoluteFilePath(),fi.fileName());
                 }
@@ -327,7 +327,7 @@ void DocumentRecovery::accept()
                 }
 
                 if (!res) {
-                    FC_WARN("Failed to move recovery file of document '"
+                    RPS_WARN("Failed to move recovery file of document '"
                             << docs[i]->Label.getValue() << "'");
                 }
                 else {
@@ -390,11 +390,11 @@ DocumentRecoveryPrivate::Info DocumentRecoveryPrivate::getRecoveryInfo(const QFi
 
     QString file;
     QDir doc_dir(fi.absoluteFilePath());
-    QDir rec_dir(doc_dir.absoluteFilePath(QLatin1String("fc_recovery_files")));
+    QDir rec_dir(doc_dir.absoluteFilePath(QLatin1String("rps_recovery_files")));
 
     // compressed recovery file
-    if (doc_dir.exists(QLatin1String("fc_recovery_file.fcstd"))) {
-        file = doc_dir.absoluteFilePath(QLatin1String("fc_recovery_file.fcstd"));
+    if (doc_dir.exists(QLatin1String("rps_recovery_file.rpsstd"))) {
+        file = doc_dir.absoluteFilePath(QLatin1String("rps_recovery_file.rpsstd"));
     }
     // separate files for recovery
     else if (rec_dir.exists(QLatin1String("Document.xml"))) {
@@ -406,8 +406,8 @@ DocumentRecoveryPrivate::Info DocumentRecoveryPrivate::getRecoveryInfo(const QFi
     info.tooltip = fi.fileName();
 
     // when the Xml meta exists get some relevant information
-    info.xmlFile = doc_dir.absoluteFilePath(QLatin1String("fc_recovery_file.xml"));
-    if (doc_dir.exists(QLatin1String("fc_recovery_file.xml"))) {
+    info.xmlFile = doc_dir.absoluteFilePath(QLatin1String("rps_recovery_file.xml"));
+    if (doc_dir.exists(QLatin1String("rps_recovery_file.xml"))) {
         XmlConfig cfg = readXmlFile(info.xmlFile);
 
         if (cfg.contains(QString::fromLatin1("Label"))) {
@@ -586,7 +586,7 @@ void DocumentRecoveryFinder::checkDocumentDirs(QDir& tmp, const QList<QFileInfo>
     }
     else {
         int countDeletedDocs = 0;
-        QString recovery_files = QString::fromLatin1("fc_recovery_files");
+        QString recovery_files = QString::fromLatin1("rps_recovery_files");
         for (QList<QFileInfo>::const_iterator it = dirs.cbegin(); it != dirs.cend(); ++it) {
             QDir doc_dir(it->absoluteFilePath());
             doc_dir.setFilter(QDir::NoDotAndDotDot|QDir::AllEntries);
@@ -598,11 +598,11 @@ void DocumentRecoveryFinder::checkDocumentDirs(QDir& tmp, const QList<QFileInfo>
                     countDeletedDocs++;
             }
             // search for the existence of a recovery file
-            else if (doc_dir.exists(QLatin1String("fc_recovery_file.xml"))) {
+            else if (doc_dir.exists(QLatin1String("rps_recovery_file.xml"))) {
                 // store the transient directory in case it's not empty
                 restoreDocFiles << *it;
             }
-            // search for the 'fc_recovery_files' sub-directory and check that it's the only entry
+            // search for the 'rps_recovery_files' sub-directory and check that it's the only entry
             else if (entries == 1 && doc_dir.exists(recovery_files)) {
                 // if the sub-directory is empty delete the transient directory
                 QDir rec_dir(doc_dir.absoluteFilePath(recovery_files));
@@ -654,7 +654,7 @@ void DocumentRecoveryHandler::checkForPreviousCrashes(const std::function<void(Q
         if (bn.startsWith(exeName) && bn.indexOf(pid) < 0) {
             QString fn = it->absoluteFilePath();
 
-#if !defined(FC_OS_WIN32) || (BOOST_VERSION < 107600)
+#if !defined(RPS_OS_WIN32) || (BOOST_VERSION < 107600)
             boost::interprocess::file_lock flock(fn.toUtf8());
 #else
             boost::interprocess::file_lock flock(fn.toStdWString().c_str());

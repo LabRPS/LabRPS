@@ -26,7 +26,7 @@
 
 #include <QEventLoop>
 #include <QObject>
-#ifndef FC_GLOBAL_H
+#ifndef RPS_GLOBAL_H
 #include <RPSGlobal.h>
 #endif
 

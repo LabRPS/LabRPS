@@ -70,7 +70,7 @@ short Boolean::mustExecute() const
 App::DocumentObjectExecReturn *Boolean::execute(void)
 {
     try {
-#if defined(__GNUC__) && defined (FC_OS_LINUX)
+#if defined(__GNUC__) && defined (RPS_OS_LINUX)
         Base::SignalException se;
 #endif
         auto base = Base.getValue();

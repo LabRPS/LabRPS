@@ -3,11 +3,11 @@ include (CheckCXXSourceRuns)
 # ================================================================================
 # == Macros, mostly for special targets ==========================================
 
-MACRO (fc_copy_sources target_name outpath)
+MACRO (rps_copy_sources target_name outpath)
 	if(BUILD_VERBOSE_GENERATION)
-		set(fc_details " (fc_copy_sources called from ${CMAKE_CURRENT_SOURCE_DIR})")
+		set(rps_details " (rps_copy_sources called from ${CMAKE_CURRENT_SOURCE_DIR})")
 	else()
-		set(fc_details "")
+		set(rps_details "")
 	endif()
 	foreach(it ${ARGN})
 		get_filename_component(infile ${it} ABSOLUTE)
@@ -16,7 +16,7 @@ MACRO (fc_copy_sources target_name outpath)
 		ADD_CUSTOM_COMMAND(
 			COMMAND   "${CMAKE_COMMAND}" -E copy "${infile}" "${outfile}"
 			OUTPUT   "${outfile}"
-			COMMENT "Copying ${infile} to ${outfile}${fc_details}"
+			COMMENT "Copying ${infile} to ${outfile}${rps_details}"
 			MAIN_DEPENDENCY "${infile}"
 		)
 	endforeach(it)
@@ -24,9 +24,9 @@ MACRO (fc_copy_sources target_name outpath)
 		TARGET    ${target_name}
 		DEPENDS   ${ARGN}
 	)
-ENDMACRO(fc_copy_sources)
+ENDMACRO(rps_copy_sources)
 
-MACRO (fc_copy_file_if_different inputfile outputfile)
+MACRO (rps_copy_file_if_different inputfile outputfile)
     if (EXISTS ${inputfile})
         if (EXISTS ${outputfile})
             execute_process(
@@ -46,9 +46,9 @@ MACRO (fc_copy_file_if_different inputfile outputfile)
                                                                "${outputfile}")
         endif()
     endif()
-ENDMACRO(fc_copy_file_if_different)
+ENDMACRO(rps_copy_file_if_different)
 
-MACRO (fc_target_copy_resource target_name inpath outpath)
+MACRO (rps_target_copy_resource target_name inpath outpath)
 # Macro to copy a list of files into a nested directory structure
 # Arguments -
 #   target_name - name of the target the files will be added to
@@ -61,9 +61,9 @@ MACRO (fc_target_copy_resource target_name inpath outpath)
 #   ${outpath}/foo/bar.txt
 #
 	if(BUILD_VERBOSE_GENERATION)
-		set(fc_details " (fc_target_copy_resource called from ${CMAKE_CURRENT_SOURCE_DIR})")
+		set(rps_details " (rps_target_copy_resource called from ${CMAKE_CURRENT_SOURCE_DIR})")
 	else()
-		set(fc_details "")
+		set(rps_details "")
 	endif()
 	foreach(it ${ARGN})
 		get_filename_component(infile "${inpath}/${it}" ABSOLUTE)
@@ -72,7 +72,7 @@ MACRO (fc_target_copy_resource target_name inpath outpath)
 		ADD_CUSTOM_COMMAND(
 			COMMAND   "${CMAKE_COMMAND}" -E copy "${infile}" "${outfile}"
 			OUTPUT   "${outfile}"
-			COMMENT "Copying ${infile} to ${outfile}${fc_details}"
+			COMMENT "Copying ${infile} to ${outfile}${rps_details}"
 			MAIN_DEPENDENCY "${infile}"
 		)
 	endforeach(it)
@@ -80,9 +80,9 @@ MACRO (fc_target_copy_resource target_name inpath outpath)
 		TARGET    ${target_name}
 		DEPENDS   ${ARGN}
 	)
-ENDMACRO(fc_target_copy_resource)
+ENDMACRO(rps_target_copy_resource)
 
-MACRO (fc_target_copy_resource_flat target_name inpath outpath)
+MACRO (rps_target_copy_resource_flat target_name inpath outpath)
 # Macro to copy a list of files into a flat directory structure
 # Arguments -
 #   target_name - name of the target the files will be added to
@@ -95,9 +95,9 @@ MACRO (fc_target_copy_resource_flat target_name inpath outpath)
 #   ${outpath}/bar.txt
 #
 	if(BUILD_VERBOSE_GENERATION)
-		set(fc_details " (fc_target_copy_resource_flat called from ${CMAKE_CURRENT_SOURCE_DIR})")
+		set(rps_details " (rps_target_copy_resource_flat called from ${CMAKE_CURRENT_SOURCE_DIR})")
 	else()
-		set(fc_details "")
+		set(rps_details "")
 	endif()
 	foreach(it ${ARGN})
 		get_filename_component(infile "${inpath}/${it}" ABSOLUTE)
@@ -107,7 +107,7 @@ MACRO (fc_target_copy_resource_flat target_name inpath outpath)
 		ADD_CUSTOM_COMMAND(
 			COMMAND   "${CMAKE_COMMAND}" -E copy "${infile}" "${outfile}"
 			OUTPUT    "${outfile}"
-			COMMENT "Copying ${infile} to ${outfile}${fc_details}"
+			COMMENT "Copying ${infile} to ${outfile}${rps_details}"
 			MAIN_DEPENDENCY "${infile}"
 		)
 	endforeach(it)
@@ -115,7 +115,7 @@ MACRO (fc_target_copy_resource_flat target_name inpath outpath)
 		TARGET    ${target_name}
 		DEPENDS   ${ARGN}
 	)
-ENDMACRO(fc_target_copy_resource_flat)
+ENDMACRO(rps_target_copy_resource_flat)
 
 # It would be a bit cleaner to generate these files in ${CMAKE_CURRENT_BINARY_DIR}
 

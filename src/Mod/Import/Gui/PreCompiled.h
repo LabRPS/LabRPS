@@ -48,7 +48,7 @@
 #include <string>
 #include <set>
 
-#ifndef FC_OS_WIN32
+#ifndef RPS_OS_WIN32
 # include <windows.h>
 #endif
 
@@ -85,7 +85,7 @@
 #include <TopoDS_Shape.hxx>
 #include <TNaming_Builder.hxx>
 
-#ifndef FC_OS_WIN32
+#ifndef RPS_OS_WIN32
 #include <Graphic3d_GraphicDevice.hxx>
 #else
 #include <Graphic3d_WNTGraphicDevice.hxx>

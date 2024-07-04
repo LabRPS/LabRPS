@@ -87,31 +87,31 @@ private:
     App::DocumentObject* object;
     bool has__object__;
 
-#define FC_PY_FEATURE_PYTHON \
-    FC_PY_ELEMENT(execute)\
-    FC_PY_ELEMENT(mustExecute)\
-    FC_PY_ELEMENT(onBeforeChange)\
-    FC_PY_ELEMENT(onBeforeChangeLabel)\
-    FC_PY_ELEMENT(onChanged)\
-    FC_PY_ELEMENT(onDocumentRestored)\
-    FC_PY_ELEMENT(getViewProviderName)\
-    FC_PY_ELEMENT(getSubObject)\
-    FC_PY_ELEMENT(getSubObjects)\
-    FC_PY_ELEMENT(getLinkedObject)\
-    FC_PY_ELEMENT(canLinkProperties)\
-    FC_PY_ELEMENT(allowDuplicateLabel)\
-    FC_PY_ELEMENT(redirectSubName)\
-    FC_PY_ELEMENT(canLoadPartial)\
-    FC_PY_ELEMENT(hasChildElement)\
-    FC_PY_ELEMENT(isElementVisible)\
-    FC_PY_ELEMENT(setElementVisible)\
-    FC_PY_ELEMENT(editProperty)\
+#define RPS_PY_FEATURE_PYTHON \
+    RPS_PY_ELEMENT(execute)\
+    RPS_PY_ELEMENT(mustExecute)\
+    RPS_PY_ELEMENT(onBeforeChange)\
+    RPS_PY_ELEMENT(onBeforeChangeLabel)\
+    RPS_PY_ELEMENT(onChanged)\
+    RPS_PY_ELEMENT(onDocumentRestored)\
+    RPS_PY_ELEMENT(getViewProviderName)\
+    RPS_PY_ELEMENT(getSubObject)\
+    RPS_PY_ELEMENT(getSubObjects)\
+    RPS_PY_ELEMENT(getLinkedObject)\
+    RPS_PY_ELEMENT(canLinkProperties)\
+    RPS_PY_ELEMENT(allowDuplicateLabel)\
+    RPS_PY_ELEMENT(redirectSubName)\
+    RPS_PY_ELEMENT(canLoadPartial)\
+    RPS_PY_ELEMENT(hasChildElement)\
+    RPS_PY_ELEMENT(isElementVisible)\
+    RPS_PY_ELEMENT(setElementVisible)\
+    RPS_PY_ELEMENT(editProperty)\
 
-#define FC_PY_ELEMENT_DEFINE(_name) \
+#define RPS_PY_ELEMENT_DEFINE(_name) \
     Py::Object py_##_name;
 
-#define FC_PY_ELEMENT_INIT(_name) \
-    FC_PY_GetCallable(pyobj,#_name,py_##_name);\
+#define RPS_PY_ELEMENT_INIT(_name) \
+    RPS_PY_GetCallable(pyobj,#_name,py_##_name);\
     if(!py_##_name.isNone()) {\
         PyObject *pyRecursive = PyObject_GetAttrString(pyobj, \
                 "__allow_recursive_" #_name);\
@@ -124,11 +124,11 @@ private:
         }\
     }
 
-#define FC_PY_ELEMENT_FLAG(_name) \
+#define RPS_PY_ELEMENT_FLAG(_name) \
     FlagCalling_##_name,\
     FlagAllowRecursive_##_name,
 
-#define _FC_PY_CALL_CHECK(_name,_ret) \
+#define _RPS_PY_CALL_CHECK(_name,_ret) \
     if((!_Flags.test(FlagAllowRecursive_##_name) \
                 && _Flags.test(FlagCalling_##_name)) \
         || py_##_name.isNone()) \
@@ -137,16 +137,16 @@ private:
     }\
     Base::BitsetLocker<Flags> guard(_Flags, FlagCalling_##_name);
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_DEFINE(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_DEFINE(_name)
 
-    FC_PY_FEATURE_PYTHON
+    RPS_PY_FEATURE_PYTHON
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_FLAG(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_FLAG(_name)
 
     enum Flag {
-        FC_PY_FEATURE_PYTHON
+        RPS_PY_FEATURE_PYTHON
         FlagMax,
     };
 

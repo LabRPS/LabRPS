@@ -1,5 +1,5 @@
-#ifndef WL_RPS_H
-#define WL_RPS_H
+#ifndef WINDLAB_TOOLS_RPS_H
+#define WINDLAB_TOOLS_RPS_H
 
 #include <Eigen/Eigen>
 #include <unsupported/Eigen/CXX11/Tensor>

@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -20,8 +20,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
-
 #include "DlgUniformDistributionLocation.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgUniformDistributionLocation.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/WLUniformDistributionLocations.h>
@@ -29,15 +27,11 @@
 #include <App/Application.h>
 #include <App/Document.h>
 
-//#include <QPushButton>
-//#include <QApplication>
-
-
 using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgUniformLocationDistribution */
 
-DlgUniformLocationDistribution::DlgUniformLocationDistribution(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction, QWidget* parent)
+DlgUniformLocationDistribution::DlgUniformLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction, QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui_DlgUniformLocationDistribution), _featureName(featureName.getStrValue())
 {
@@ -104,7 +98,7 @@ void DlgUniformLocationDistribution::reject()
 
 /* TRANSLATOR PartGui::UniformLocationDistributionDialogEdit */
 
-UniformLocationDistributionDialogEdit::UniformLocationDistributionDialogEdit(App::PropertyVector& lowestPoint, App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction)
+UniformLocationDistributionDialogEdit::UniformLocationDistributionDialogEdit(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, const App::PropertyEnumeration& direction)
 {
 	// create and show dialog for the WindLabFeatures
     widget = new DlgUniformLocationDistribution(lowestPoint, spacing, featureName, direction, nullptr);

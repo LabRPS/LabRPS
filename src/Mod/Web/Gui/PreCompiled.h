@@ -44,7 +44,7 @@
 #include <queue>
 #include <bitset>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 # include <windows.h>
 #endif
 

@@ -36,7 +36,7 @@
 // needed header
 #undef slots
 #include <Python.h>
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #undef toupper
 #undef tolower
 #undef isupper
@@ -415,20 +415,20 @@ static PyObject * s##DFUNC (PyObject *self, PyObject *args, PyObject * /*kwd*/){
  */
 #define PYMETHODEDEF(FUNC)	{"" #FUNC "",(PyCFunction) s##FUNC,Py_NEWARGS},
 
-BaseExport extern PyObject* PyExc_FC_GeneralError;
-#define PY_FCERROR (Base::PyExc_FC_GeneralError ? \
- PyExc_FC_GeneralError : PyExc_RuntimeError)
+BaseExport extern PyObject* PyExc_RPS_GeneralError;
+#define PY_FCERROR (Base::PyExc_RPS_GeneralError ? \
+ PyExc_RPS_GeneralError : PyExc_RuntimeError)
 
-BaseExport extern PyObject* PyExc_FC_LabRPSAbort;
-BaseExport extern PyObject* PyExc_FC_XMLBaseException;
-BaseExport extern PyObject* PyExc_FC_XMLParseException;
-BaseExport extern PyObject* PyExc_FC_XMLAttributeError;
-BaseExport extern PyObject* PyExc_FC_UnknownProgramOption;
-BaseExport extern PyObject* PyExc_FC_BadFormatError;
-BaseExport extern PyObject* PyExc_FC_BadGraphError;
-BaseExport extern PyObject* PyExc_FC_ExpressionError;
-BaseExport extern PyObject* PyExc_FC_ParserError;
-BaseExport extern PyObject* PyExc_FC_CADKernelError;
+BaseExport extern PyObject* PyExc_RPS_LabRPSAbort;
+BaseExport extern PyObject* PyExc_RPS_XMLBaseException;
+BaseExport extern PyObject* PyExc_RPS_XMLParseException;
+BaseExport extern PyObject* PyExc_RPS_XMLAttributeError;
+BaseExport extern PyObject* PyExc_RPS_UnknownProgramOption;
+BaseExport extern PyObject* PyExc_RPS_BadFormatError;
+BaseExport extern PyObject* PyExc_RPS_BadGraphError;
+BaseExport extern PyObject* PyExc_RPS_ExpressionError;
+BaseExport extern PyObject* PyExc_RPS_ParserError;
+BaseExport extern PyObject* PyExc_RPS_CADKernelError;
 
 /** Exception handling for python callback functions
  * Is a convenience macro to manage the exception handling of python callback
@@ -445,7 +445,7 @@ BaseExport extern PyObject* PyExc_FC_CADKernelError;
  *     Feature *pcFtr = _pcDocTypeStd->AddFeature(pstr);
  *   }catch(...)                                                        \
  *   {                                                                 \
- * 	 	Py_Error(Base::PyExc_FC_GeneralError,"Unknown C++ exception");          \
+ * 	 	Py_Error(Base::PyExc_RPS_GeneralError,"Unknown C++ exception");          \
  *   }catch(FCException e) ..... // and so on....                                                               \
  * }
  * \endcode
@@ -474,12 +474,12 @@ BaseExport extern PyObject* PyExc_FC_CADKernelError;
     {                                                               \
         auto pye = e.getPyExceptionType();                          \
         if(!pye)                                                    \
-            pye = Base::PyExc_FC_GeneralError;                      \
+            pye = Base::PyExc_RPS_GeneralError;                      \
         _Py_ErrorObj(R,pye,e.getPyObject());                        \
     }                                                               \
     catch(const std::exception &e)                                  \
     {                                                               \
-        _Py_Error(R,Base::PyExc_FC_GeneralError, e.what());         \
+        _Py_Error(R,Base::PyExc_RPS_GeneralError, e.what());         \
     }                                                               \
     catch(const Py::Exception&)                                     \
     {                                                               \
@@ -492,7 +492,7 @@ BaseExport extern PyObject* PyExc_FC_CADKernelError;
     __PY_CATCH(R)                                                   \
     catch(...)                                                      \
     {                                                               \
-        _Py_Error(R,Base::PyExc_FC_GeneralError,"Unknown C++ exception"); \
+        _Py_Error(R,Base::PyExc_RPS_GeneralError,"Unknown C++ exception"); \
     }
 
 #else

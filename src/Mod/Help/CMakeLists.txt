@@ -13,10 +13,10 @@ SOURCE_GROUP("" FILES ${Help_SRCS})
 
 ADD_CUSTOM_TARGET(Help ALL SOURCES ${Help_SRCS} ${Help_QRC_SRCS})
 
-fc_copy_sources(Help "${CMAKE_BINARY_DIR}/Mod/Help" ${Help_SRCS})
+rps_copy_sources(Help "${CMAKE_BINARY_DIR}/Mod/Help" ${Help_SRCS})
 
 IF (BUILD_GUI)
-    fc_target_copy_resource(Help
+    rps_target_copy_resource(Help
         ${CMAKE_CURRENT_BINARY_DIR}
         ${CMAKE_BINARY_DIR}/Mod/Help
         Help_rc.py)

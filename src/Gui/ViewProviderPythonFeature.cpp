@@ -46,7 +46,7 @@
 #include "ViewProviderDocumentObjectPy.h"
 
 
-FC_LOG_LEVEL_INIT("ViewProviderPythonFeature", true, true)
+RPS_LOG_LEVEL_INIT("ViewProviderPythonFeature", true, true)
 
 
 using namespace Gui;
@@ -139,8 +139,8 @@ private:
 
             Py::Object viewObject(const_cast<ViewProviderDocumentObject*>(pe->view)->getPyObject(),true);
             if(viewObject.ptr() != pe->info.viewObject.ptr()) {
-                if(FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-                    FC_WARN("invalid proxy cache " << viewObject.ptr() << ", " <<
+                if(RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+                    RPS_WARN("invalid proxy cache " << viewObject.ptr() << ", " <<
                             pe->info.viewObject.ptr() << ", " << pe->info.proxy.ptr());
             }else{
                 App::Property* prop = pe->view->getPropertyByName("Proxy");
@@ -243,7 +243,7 @@ void ViewProviderPythonFeatureObserver::slotDeleteObject(const Gui::ViewProvider
             auto &info = proxyMap[doc][docobj];
             info.viewObject = Py::asObject(const_cast<ViewProviderDocumentObject&>(vp).getPyObject());
             info.proxy = Py::asObject(prop->getPyObject());
-            FC_LOG("proxy cache " << info.viewObject.ptr() << ", " << info.proxy.ptr());
+            RPS_LOG("proxy cache " << info.viewObject.ptr() << ", " << info.proxy.ptr());
         }
     }
     catch (Py::Exception& e) {
@@ -280,11 +280,11 @@ ViewProviderPythonFeatureImp::ViewProviderPythonFeatureImp(
 ViewProviderPythonFeatureImp::~ViewProviderPythonFeatureImp()
 {
     Base::PyGILStateLocker lock;
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) py_##_name = Py::None();
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) py_##_name = Py::None();
 
     try {
-        FC_PY_VIEW_OBJECT
+        RPS_PY_VIEW_OBJECT
     }
     catch (Py::Exception& e) {
         e.clear();
@@ -295,17 +295,17 @@ void ViewProviderPythonFeatureImp::init(PyObject *pyobj) {
     Base::PyGILStateLocker lock;
     has__object__ = !!PyObject_HasAttrString(pyobj, "__object__");
 
-#undef FC_PY_ELEMENT
-#define FC_PY_ELEMENT(_name) FC_PY_ELEMENT_INIT(_name)
+#undef RPS_PY_ELEMENT
+#define RPS_PY_ELEMENT(_name) RPS_PY_ELEMENT_INIT(_name)
 
-    FC_PY_VIEW_OBJECT
+    RPS_PY_VIEW_OBJECT
 }
 
-#define FC_PY_CALL_CHECK(_name) _FC_PY_CALL_CHECK(_name,return(NotImplemented))
+#define RPS_PY_CALL_CHECK(_name) _RPS_PY_CALL_CHECK(_name,return(NotImplemented))
 
 QIcon ViewProviderPythonFeatureImp::getIcon() const
 {
-    _FC_PY_CALL_CHECK(getIcon,return(QIcon()));
+    _RPS_PY_CALL_CHECK(getIcon,return(QIcon()));
 
     // default icon
     //static QPixmap px = BitmapFactory().pixmap("Tree_Python");
@@ -372,7 +372,7 @@ QIcon ViewProviderPythonFeatureImp::getIcon() const
 
 bool ViewProviderPythonFeatureImp::claimChildren(std::vector<App::DocumentObject*> &children) const
 {
-    _FC_PY_CALL_CHECK(claimChildren,return(false));
+    _RPS_PY_CALL_CHECK(claimChildren,return(false));
 
     Base::PyGILStateLocker lock;
     try {
@@ -400,7 +400,7 @@ bool ViewProviderPythonFeatureImp::claimChildren(std::vector<App::DocumentObject
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::useNewSelectionModel() const
 {
-    FC_PY_CALL_CHECK(useNewSelectionModel);
+    RPS_PY_CALL_CHECK(useNewSelectionModel);
 
     // Run the useNewSelectionModel method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -422,7 +422,7 @@ ViewProviderPythonFeatureImp::useNewSelectionModel() const
 
 bool ViewProviderPythonFeatureImp::getElement(const SoDetail *det, std::string &res) const
 {
-    _FC_PY_CALL_CHECK(getElement,return(false));
+    _RPS_PY_CALL_CHECK(getElement,return(false));
 
     // Run the onChanged method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -456,7 +456,7 @@ bool ViewProviderPythonFeatureImp::getElement(const SoDetail *det, std::string &
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::getElementPicked(const SoPickedPoint *pp, std::string &subname) const
 {
-    FC_PY_CALL_CHECK(getElementPicked);
+    RPS_PY_CALL_CHECK(getElementPicked);
 
     Base::PyGILStateLocker lock;
     try {
@@ -487,7 +487,7 @@ ViewProviderPythonFeatureImp::getElementPicked(const SoPickedPoint *pp, std::str
 
 bool ViewProviderPythonFeatureImp::getDetail(const char* name, SoDetail *&det) const
 {
-    _FC_PY_CALL_CHECK(getDetail,return(false));
+    _RPS_PY_CALL_CHECK(getDetail,return(false));
 
     // Run the onChanged method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -519,7 +519,7 @@ bool ViewProviderPythonFeatureImp::getDetail(const char* name, SoDetail *&det) c
 ViewProviderPythonFeatureImp::ValueT ViewProviderPythonFeatureImp::getDetailPath(
         const char* name, SoFullPath *path, bool append, SoDetail *&det) const
 {
-    FC_PY_CALL_CHECK(getDetailPath);
+    RPS_PY_CALL_CHECK(getDetailPath);
 
     Base::PyGILStateLocker lock;
     auto length = path->getLength();
@@ -568,7 +568,7 @@ std::vector<Base::Vector3d> ViewProviderPythonFeatureImp::getSelectionShape(cons
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::setEdit(int ModNum)
 {
-    FC_PY_CALL_CHECK(setEdit)
+    RPS_PY_CALL_CHECK(setEdit)
 
     Base::PyGILStateLocker lock;
     try {
@@ -609,7 +609,7 @@ ViewProviderPythonFeatureImp::setEdit(int ModNum)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::unsetEdit(int ModNum)
 {
-    FC_PY_CALL_CHECK(unsetEdit)
+    RPS_PY_CALL_CHECK(unsetEdit)
 
     Base::PyGILStateLocker lock;
     try {
@@ -650,7 +650,7 @@ ViewProviderPythonFeatureImp::unsetEdit(int ModNum)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::setEditViewer(View3DInventorViewer *viewer, int ModNum)
 {
-    FC_PY_CALL_CHECK(setEditViewer)
+    RPS_PY_CALL_CHECK(setEditViewer)
 
     Base::PyGILStateLocker lock;
     try {
@@ -675,7 +675,7 @@ ViewProviderPythonFeatureImp::setEditViewer(View3DInventorViewer *viewer, int Mo
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::unsetEditViewer(View3DInventorViewer *viewer)
 {
-    FC_PY_CALL_CHECK(unsetEditViewer)
+    RPS_PY_CALL_CHECK(unsetEditViewer)
 
     // Run the onChanged method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -700,7 +700,7 @@ ViewProviderPythonFeatureImp::unsetEditViewer(View3DInventorViewer *viewer)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::doubleClicked()
 {
-    FC_PY_CALL_CHECK(doubleClicked)
+    RPS_PY_CALL_CHECK(doubleClicked)
 
     // Run the onChanged method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -732,7 +732,7 @@ ViewProviderPythonFeatureImp::doubleClicked()
 
 bool ViewProviderPythonFeatureImp::setupContextMenu(QMenu* menu)
 {
-    _FC_PY_CALL_CHECK(setupContextMenu,return(false));
+    _RPS_PY_CALL_CHECK(setupContextMenu,return(false));
 
     // Run the attach method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -768,7 +768,7 @@ bool ViewProviderPythonFeatureImp::setupContextMenu(QMenu* menu)
 
 void ViewProviderPythonFeatureImp::attach(App::DocumentObject *pcObject)
 {
-    _FC_PY_CALL_CHECK(attach,return);
+    _RPS_PY_CALL_CHECK(attach,return);
 
     // Run the attach method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -869,7 +869,7 @@ void ViewProviderPythonFeatureImp::finishRestoring()
             object->show();
             Proxy.setValue(Py::Int(1));
         } else {
-            _FC_PY_CALL_CHECK(finishRestoring,return);
+            _RPS_PY_CALL_CHECK(finishRestoring,return);
             Base::pyCall(py_finishRestoring.ptr());
         }
     }catch (Py::Exception&) {
@@ -881,7 +881,7 @@ void ViewProviderPythonFeatureImp::finishRestoring()
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::onDelete(const std::vector<std::string> & sub)
 {
-    FC_PY_CALL_CHECK(onDelete);
+    RPS_PY_CALL_CHECK(onDelete);
 
     Base::PyGILStateLocker lock;
     try {
@@ -919,7 +919,7 @@ ViewProviderPythonFeatureImp::onDelete(const std::vector<std::string> & sub)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDelete(App::DocumentObject *obj) const
 {
-    FC_PY_CALL_CHECK(canDelete);
+    RPS_PY_CALL_CHECK(canDelete);
 
     Base::PyGILStateLocker lock;
     try {
@@ -941,7 +941,7 @@ ViewProviderPythonFeatureImp::canDelete(App::DocumentObject *obj) const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canAddToSceneGraph() const
 {
-    FC_PY_CALL_CHECK(canAddToSceneGraph);
+    RPS_PY_CALL_CHECK(canAddToSceneGraph);
 
     Base::PyGILStateLocker lock;
     try {
@@ -960,7 +960,7 @@ ViewProviderPythonFeatureImp::canAddToSceneGraph() const
 
 bool ViewProviderPythonFeatureImp::getDefaultDisplayMode(std::string &mode) const
 {
-    _FC_PY_CALL_CHECK(getDefaultDisplayMode,return(0));
+    _RPS_PY_CALL_CHECK(getDefaultDisplayMode,return(0));
 
     // Run the getDefaultDisplayMode method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -986,7 +986,7 @@ bool ViewProviderPythonFeatureImp::getDefaultDisplayMode(std::string &mode) cons
 std::vector<std::string> ViewProviderPythonFeatureImp::getDisplayModes() const
 {
     std::vector<std::string> modes;
-    _FC_PY_CALL_CHECK(getDisplayModes,return(modes));
+    _RPS_PY_CALL_CHECK(getDisplayModes,return(modes));
 
     // Run the getDisplayModes method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -1022,7 +1022,7 @@ std::vector<std::string> ViewProviderPythonFeatureImp::getDisplayModes() const
 
 std::string ViewProviderPythonFeatureImp::setDisplayMode(const char* ModeName)
 {
-    _FC_PY_CALL_CHECK(setDisplayMode,return(ModeName));
+    _RPS_PY_CALL_CHECK(setDisplayMode,return(ModeName));
 
     // Run the setDisplayMode method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -1043,7 +1043,7 @@ std::string ViewProviderPythonFeatureImp::setDisplayMode(const char* ModeName)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDragObjects() const
 {
-    FC_PY_CALL_CHECK(canDragObjects);
+    RPS_PY_CALL_CHECK(canDragObjects);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1065,7 +1065,7 @@ ViewProviderPythonFeatureImp::canDragObjects() const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDragObject(App::DocumentObject* obj) const
 {
-    FC_PY_CALL_CHECK(canDragObject);
+    RPS_PY_CALL_CHECK(canDragObject);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1089,7 +1089,7 @@ ViewProviderPythonFeatureImp::canDragObject(App::DocumentObject* obj) const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::dragObject(App::DocumentObject* obj)
 {
-    FC_PY_CALL_CHECK(dragObject);
+    RPS_PY_CALL_CHECK(dragObject);
 
     // Run the onChanged method of the proxy object.
     Base::PyGILStateLocker lock;
@@ -1123,7 +1123,7 @@ ViewProviderPythonFeatureImp::dragObject(App::DocumentObject* obj)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDropObjects() const
 {
-    FC_PY_CALL_CHECK(canDropObjects);
+    RPS_PY_CALL_CHECK(canDropObjects);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1145,7 +1145,7 @@ ViewProviderPythonFeatureImp::canDropObjects() const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDropObject(App::DocumentObject* obj) const
 {
-    FC_PY_CALL_CHECK(canDropObject);
+    RPS_PY_CALL_CHECK(canDropObject);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1169,7 +1169,7 @@ ViewProviderPythonFeatureImp::canDropObject(App::DocumentObject* obj) const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::dropObject(App::DocumentObject* obj)
 {
-    FC_PY_CALL_CHECK(dropObject);
+    RPS_PY_CALL_CHECK(dropObject);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1201,7 +1201,7 @@ ViewProviderPythonFeatureImp::dropObject(App::DocumentObject* obj)
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDragAndDropObject(App::DocumentObject *obj) const
 {
-    FC_PY_CALL_CHECK(canDragAndDropObject);
+    RPS_PY_CALL_CHECK(canDragAndDropObject);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1225,7 +1225,7 @@ ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canDropObjectEx(App::DocumentObject* obj,
         App::DocumentObject *owner, const char *subname, const std::vector<std::string> &elements) const
 {
-    FC_PY_CALL_CHECK(canDropObjectEx);
+    RPS_PY_CALL_CHECK(canDropObjectEx);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1256,7 +1256,7 @@ ViewProviderPythonFeatureImp::canDropObjectEx(App::DocumentObject* obj,
 bool ViewProviderPythonFeatureImp::dropObjectEx(App::DocumentObject* obj, App::DocumentObject *owner,
         const char *subname, const std::vector<std::string> &elements,std::string &ret)
 {
-    _FC_PY_CALL_CHECK(dropObjectEx, return(false));
+    _RPS_PY_CALL_CHECK(dropObjectEx, return(false));
 
     Base::PyGILStateLocker lock;
     try {
@@ -1288,7 +1288,7 @@ bool ViewProviderPythonFeatureImp::dropObjectEx(App::DocumentObject* obj, App::D
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::isShow() const
 {
-    FC_PY_CALL_CHECK(isShow);
+    RPS_PY_CALL_CHECK(isShow);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1311,7 +1311,7 @@ ViewProviderPythonFeatureImp::isShow() const
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::canRemoveChildrenFromRoot() const {
 
-    FC_PY_CALL_CHECK(canRemoveChildrenFromRoot);
+    RPS_PY_CALL_CHECK(canRemoveChildrenFromRoot);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1331,7 +1331,7 @@ ViewProviderPythonFeatureImp::canRemoveChildrenFromRoot() const {
 
 bool ViewProviderPythonFeatureImp::getDropPrefix(std::string &prefix) const {
 
-    _FC_PY_CALL_CHECK(getDropPrefix,return(false));
+    _RPS_PY_CALL_CHECK(getDropPrefix,return(false));
 
     Base::PyGILStateLocker lock;
     try {
@@ -1360,7 +1360,7 @@ ViewProviderPythonFeatureImp::replaceObject(
             || !newObj || !newObj->getNameInDocument())
         return NotImplemented;
 
-    FC_PY_CALL_CHECK(replaceObject);
+    RPS_PY_CALL_CHECK(replaceObject);
 
     Base::PyGILStateLocker lock;
     try {
@@ -1383,7 +1383,7 @@ ViewProviderPythonFeatureImp::replaceObject(
 bool ViewProviderPythonFeatureImp::getLinkedViewProvider(
         ViewProviderDocumentObject *&vp, std::string *subname, bool recursive) const
 {
-    _FC_PY_CALL_CHECK(getLinkedViewProvider,return(false));
+    _RPS_PY_CALL_CHECK(getLinkedViewProvider,return(false));
 
     Base::PyGILStateLocker lock;
     try {
@@ -1408,7 +1408,7 @@ bool ViewProviderPythonFeatureImp::getLinkedViewProvider(
                 return true;
             }
         }
-        FC_ERR("getLinkedViewProvider(): invalid return type, expects ViewObject or (ViewObject, subname)");
+        RPS_ERR("getLinkedViewProvider(): invalid return type, expects ViewObject or (ViewObject, subname)");
         return true;
     }
     catch (Py::Exception&) {
@@ -1424,7 +1424,7 @@ bool ViewProviderPythonFeatureImp::getLinkedViewProvider(
 
 bool ViewProviderPythonFeatureImp::editProperty(const char *name)
 {
-    _FC_PY_CALL_CHECK(editProperty,return false);
+    _RPS_PY_CALL_CHECK(editProperty,return false);
     Base::PyGILStateLocker lock;
     try {
         Py::Tuple args(1);

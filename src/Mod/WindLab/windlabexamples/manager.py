@@ -75,11 +75,11 @@ def run_simulation(doc, base_name, filepath=""):
         makedirs(filepath)
 
     # a file name is needed for the besides dir to work
-    save_fc_file = join(filepath, (base_name + ".rps"))
+    save_rps_file = join(filepath, (base_name + ".rps"))
     LabRPS.Console.PrintMessage(
-        "Save LabRPS file for {} analysis to {}\n.".format(base_name, save_fc_file)
+        "Save LabRPS file for {} analysis to {}\n.".format(base_name, save_rps_file)
     )
-    doc.saveAs(save_fc_file)
+    doc.saveAs(save_rps_file)
 
     # save doc once again with results
     doc.save()

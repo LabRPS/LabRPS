@@ -3947,8 +3947,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation type="unfinished">Compression level for FCStd files</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation type="unfinished">Compression level for RPSStd files</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -9067,8 +9067,8 @@ Would you like to save the file with a different name?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>% 1 dokumen (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>% 1 dokumen (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10387,8 +10387,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>% 1 dokumen (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>% 1 dokumen (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

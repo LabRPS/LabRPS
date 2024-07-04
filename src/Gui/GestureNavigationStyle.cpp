@@ -932,7 +932,7 @@ SbBool GestureNavigationStyle::processSoEvent(const SoEvent* const ev)
         (this->shiftdown   ? NS::Event::SHIFTDOWN : 0) |
         (this->altdown     ? NS::Event::ALTDOWN : 0);
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
     // On Mac, Qt gesture events seem to be broken. At least that's what event
     // logs from @chrisb tell me. So, for until a developer on a mac gets here to
     // make gestures work, I disable them. --DeepSOIC

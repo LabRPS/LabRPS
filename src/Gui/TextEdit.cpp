@@ -438,7 +438,7 @@ void TextEditor::OnChange(Base::Subject<const char*> &rCaller,const char* sReaso
     Q_UNUSED(rCaller);
     ParameterGrp::handle hPrefGrp = getWindowParameter();
     if (strcmp(sReason, "FontSize") == 0 || strcmp(sReason, "Font") == 0) {
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
         int fontSize = hPrefGrp->GetInt("FontSize", 15);
 #else
         int fontSize = hPrefGrp->GetInt("FontSize", 10);

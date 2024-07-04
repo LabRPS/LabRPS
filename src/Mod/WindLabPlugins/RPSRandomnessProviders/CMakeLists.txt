@@ -76,7 +76,7 @@ set_target_properties(RPSRandomnessProviders PROPERTIES FOLDER "Plugins/WindLab"
 
 SET_BIN_DIR(RPSRandomnessProviders RPSRandomnessProviders /Plugins/WindLabWorkbench/RPSRandomnessProviders)
 
-fc_copy_sources(RPSRandomnessProviders "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/RPSRandomnessProviders" ${Metadata_Files})
+rps_copy_sources(RPSRandomnessProviders "${CMAKE_BINARY_DIR}/Plugins/WindLabWorkbench/RPSRandomnessProviders" ${Metadata_Files})
 INSTALL(TARGETS RPSRandomnessProviders DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSRandomnessProviders")
 INSTALL(FILES RPSRandomnessProviders.txt DESTINATION "${CMAKE_INSTALL_PREFIX}/Plugins/WindLabWorkbench/RPSRandomnessProviders")
 INSTALL(FILES ${RPSRandomnessProvidersIcon_SVG} DESTINATION "${CMAKE_INSTALL_DATADIR}/Plugins/WindLab/RPSRandomnessProviders/Resources/icons")

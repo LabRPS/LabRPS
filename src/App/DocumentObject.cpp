@@ -45,7 +45,7 @@
 #include "PropertyLinks.h"
 
 
-FC_LOG_LEVEL_INIT("App",true,true)
+RPS_LOG_LEVEL_INIT("App",true,true)
 
 using namespace App;
 
@@ -772,7 +772,7 @@ void DocumentObject::onChanged(const Property* prop)
         static App::Document *warnedDoc;
         if(warnedDoc != getDocument()) {
             warnedDoc = getDocument();
-            FC_WARN("Changes to partial loaded document will not be saved: "
+            RPS_WARN("Changes to partial loaded document will not be saved: "
                     << getFullName() << '.' << prop->getName());
         }
     }
@@ -791,7 +791,7 @@ void DocumentObject::onChanged(const Property* prop)
             && !prop->testStatus(Property::Output)) 
     {
         if(!StatusBits.test(ObjectStatus::Touch)) {
-            FC_TRACE("touch '" << getFullName() << "' on change of '" << prop->getName() << "'");
+            RPS_TRACE("touch '" << getFullName() << "' on change of '" << prop->getName() << "'");
             StatusBits.set(ObjectStatus::Touch);
         }
         // must execute on document recompute

@@ -127,7 +127,7 @@ PyObject* FT2FC(const Py_UNICODE *PyUString,
         throw std::runtime_error(ErrorMsg.str());
     }
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     Base::FileInfo fi(FontSpec);
     if (!fi.isReadable()) {
         ErrorMsg << "Font file not found (Win): " << FontSpec;

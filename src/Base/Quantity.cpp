@@ -22,9 +22,9 @@
 
 #include "PreCompiled.h"
 #ifndef _PreComp_
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 # define _USE_MATH_DEFINES
-# endif // FC_OS_WIN32
+# endif // RPS_OS_WIN32
 #endif
 
 #include "Quantity.h"

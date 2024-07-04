@@ -35,7 +35,7 @@
  // Python stuff
 typedef struct _object PyObject;
 
-#ifdef FC_OS_MACOSX
+#ifdef RPS_OS_MACOSX
 #undef toupper
 #undef tolower
 #undef isupper
@@ -45,7 +45,7 @@ typedef struct _object PyObject;
 #undef isalnum
 #endif
 
-#ifdef FC_OS_LINUX
+#ifdef RPS_OS_LINUX
 #include <sstream>
 #endif
 

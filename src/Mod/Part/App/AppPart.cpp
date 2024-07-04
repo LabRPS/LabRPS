@@ -181,7 +181,7 @@ PyMOD_INIT_FUNC(Part)
     // The argument must be 'Standard_False' to avoid FPE caused by
     // Python's cmath module.
     // For Linux use segmentation_fault_handler in Application.cpp
-#if !defined(_DEBUG) && !defined(FC_OS_LINUX)
+#if !defined(_DEBUG) && !defined(RPS_OS_LINUX)
     //OSD::SetSignal(Standard_False);
 #endif
 
@@ -199,8 +199,8 @@ PyMOD_INIT_FUNC(Part)
     // Python exceptions
     //
     PyObject* OCCError = nullptr;
-    if (PyObject_IsSubclass(Base::PyExc_FC_GeneralError, PyExc_RuntimeError)) {
-        OCCError = PyErr_NewException("Part.OCCError", Base::PyExc_FC_GeneralError, nullptr);
+    if (PyObject_IsSubclass(Base::PyExc_RPS_GeneralError, PyExc_RuntimeError)) {
+        OCCError = PyErr_NewException("Part.OCCError", Base::PyExc_RPS_GeneralError, nullptr);
     }
     else {
         Base::Console().Error("Can not inherit Part.OCCError form BaseLabRPSError.\n");

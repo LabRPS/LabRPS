@@ -30,7 +30,7 @@
 #include "Transactions.h"
 
 
-FC_LOG_LEVEL_INIT("App", true, true)
+RPS_LOG_LEVEL_INIT("App", true, true)
 
 using namespace App;
 
@@ -43,7 +43,7 @@ AutoTransaction::AutoTransaction(const char *name, bool tmpName) {
         if(!app.getActiveTransaction()
                 || (!tmpName && app._activeTransactionTmpName))
         {
-            FC_LOG("auto transaction '" << name << "', " << tmpName);
+            RPS_LOG("auto transaction '" << name << "', " << tmpName);
             tid = app.setActiveTransaction(name);
             app._activeTransactionTmpName = tmpName;
         }
@@ -57,21 +57,21 @@ AutoTransaction::AutoTransaction(const char *name, bool tmpName) {
     else if(tid || app._activeTransactionGuard>0)
         ++app._activeTransactionGuard;
     else if(app.getActiveTransaction()) {
-        FC_LOG("auto transaction disabled because of '" << app._activeTransactionName << "'");
+        RPS_LOG("auto transaction disabled because of '" << app._activeTransactionName << "'");
         --app._activeTransactionGuard;
     } else
         ++app._activeTransactionGuard;
-    FC_TRACE("construct auto Transaction " << app._activeTransactionGuard);
+    RPS_TRACE("construct auto Transaction " << app._activeTransactionGuard);
 }
 
 AutoTransaction::~AutoTransaction() {
     auto &app = GetApplication();
-    FC_TRACE("before destruct auto Transaction " << app._activeTransactionGuard);
+    RPS_TRACE("before destruct auto Transaction " << app._activeTransactionGuard);
     if(app._activeTransactionGuard<0)
         ++app._activeTransactionGuard;
     else if(!app._activeTransactionGuard) {
-#ifdef FC_DEBUG
-        FC_ERR("Transaction guard error");
+#ifdef RPS_DEBUG
+        RPS_ERR("Transaction guard error");
 #endif
     } else if(--app._activeTransactionGuard == 0) {
         try {
@@ -85,7 +85,7 @@ AutoTransaction::~AutoTransaction() {
         } catch(...)
         {}
     }
-    FC_TRACE("destruct auto Transaction " << app._activeTransactionGuard);
+    RPS_TRACE("destruct auto Transaction " << app._activeTransactionGuard);
 }
 
 void AutoTransaction::close(bool abort) {
@@ -103,7 +103,7 @@ void AutoTransaction::setEnable(bool enable) {
             || (!enable && app._activeTransactionGuard<0))
         return;
     app._activeTransactionGuard = -app._activeTransactionGuard;
-    FC_TRACE("toggle auto Transaction " << app._activeTransactionGuard);
+    RPS_TRACE("toggle auto Transaction " << app._activeTransactionGuard);
     if(!enable && app._activeTransactionTmpName) {
         bool close = true;
         for(auto &v : app.DocMap) {
@@ -123,7 +123,7 @@ int Application::setActiveTransaction(const char *name, bool persist) {
 
     if(_activeTransactionGuard>0 && getActiveTransaction()) {
         if(_activeTransactionTmpName) {
-            FC_LOG("transaction rename to '" << name << "'");
+            RPS_LOG("transaction rename to '" << name << "'");
             for(auto &v : DocMap)
                 v.second->renameTransaction(name,_activeTransactionID);
         } else {
@@ -132,11 +132,11 @@ int Application::setActiveTransaction(const char *name, bool persist) {
             return 0;
         }
     } else if (_TransactionLock) {
-        if (FC_LOG_INSTANCE.isEnabled(FC_LOGLEVEL_LOG))
-            FC_WARN("Transaction locked, ignore new transaction '" << name << "'");
+        if (RPS_LOG_INSTANCE.isEnabled(RPS_LOGLEVEL_LOG))
+            RPS_WARN("Transaction locked, ignore new transaction '" << name << "'");
         return 0;
     } else {
-        FC_LOG("set active transaction '" << name << "'");
+        RPS_LOG("set active transaction '" << name << "'");
         _activeTransactionID = 0;
         for(auto &v : DocMap)
             v.second->_commitTransaction();
@@ -164,18 +164,18 @@ void Application::closeActiveTransaction(bool abort, int id) {
         return;
 
     if(_activeTransactionGuard>0 && !abort) {
-        FC_LOG("ignore close transaction");
+        RPS_LOG("ignore close transaction");
         return;
     }
 
     if(_TransactionLock) {
         if(_TransactionClosed >= 0)
             _TransactionLock = abort?-1:1;
-        FC_LOG("pending " << (abort?"abort":"close") << " transaction");
+        RPS_LOG("pending " << (abort?"abort":"close") << " transaction");
         return;
     }
 
-    FC_LOG("close transaction '" << _activeTransactionName << "' " << abort);
+    RPS_LOG("close transaction '" << _activeTransactionName << "' " << abort);
     _activeTransactionID = 0;
 
     TransactionSignaller signaller(abort,false);
@@ -210,10 +210,10 @@ TransactionLocker::~TransactionLocker()
             Base::PyException e;
             e.ReportException();
         } catch (std::exception &e) {
-            FC_ERR(e.what());
+            RPS_ERR(e.what());
         } catch (...) {
         }
-        FC_ERR("Exception when unlocking transaction");
+        RPS_ERR("Exception when unlocking transaction");
     }
 }
 

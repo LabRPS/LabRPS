@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -198,10 +198,6 @@ void CmdWindLabComparison::activated(int iMsg)
     else if (PlugLang == "C++") {
         WindLabGui::DlgSimulationComparisonEdit* dlg = new WindLabGui::DlgSimulationComparisonEdit(nullptr);
         Gui::Control().showDialog(dlg);
-
-       /* WindLabGui::DlgSimulationComparison* dlg = new WindLabGui::DlgSimulationComparison();
-        dlg->show();*/
-
     }
 }
 
@@ -214,7 +210,6 @@ void CreateWindLabCommands(void)
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdWindLabNewSimulation());
     rcCmdMgr.addCommand(new CmdWindLabFeatures());
-    //rcCmdMgr.addCommand(new CmdWindLabFeaturesLocationDistribution());
-    //rcCmdMgr.addCommand(new CmdWindLabComparison());
+    rcCmdMgr.addCommand(new CmdWindLabComparison());
 
 }

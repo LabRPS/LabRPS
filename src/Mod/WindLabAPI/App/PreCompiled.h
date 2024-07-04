@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2008 Jürgen Riegel <juergen.riegel@web.de>              *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -47,7 +47,7 @@
 // Boost
 #include <boost/bind/bind.hpp>
 
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
 #ifndef NOMINMAX
 #define NOMINMAX
 #endif

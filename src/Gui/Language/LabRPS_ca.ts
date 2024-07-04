@@ -3944,8 +3944,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Nivell de compressió dels fitxers FCStd</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Nivell de compressió dels fitxers RPSStd</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -9067,8 +9067,8 @@ Voleu desar-lo amb un nom diferent?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10387,8 +10387,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Document %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Document %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

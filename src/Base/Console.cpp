@@ -24,9 +24,9 @@
 #include "PreCompiled.h"
 
 #ifndef _PreComp_
-# if defined(FC_OS_WIN32)
+# if defined(RPS_OS_WIN32)
 #  include <windows.h>
-# elif defined(FC_OS_LINUX) || defined(FC_OS_MACOSX)
+# elif defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX)
 #  include <unistd.h>
 # endif
 # include <cstring>
@@ -115,10 +115,10 @@ ConsoleSingleton::ConsoleSingleton()
   : _bVerbose(true)
   , _bCanRefresh(true)
   , connectionMode(Direct)
-#ifdef FC_DEBUG
-  ,_defaultLogLevel(FC_LOGLEVEL_LOG)
+#ifdef RPS_DEBUG
+  ,_defaultLogLevel(RPS_LOGLEVEL_LOG)
 #else
-  ,_defaultLogLevel(FC_LOGLEVEL_MSG)
+  ,_defaultLogLevel(RPS_LOGLEVEL_MSG)
 #endif
 {
 }
@@ -248,7 +248,7 @@ void ConsoleSingleton::SetConnectionMode(ConnectionMode mode)
  */
 void ConsoleSingleton::Message( const char *pMsg, ... )
 {
-#define FC_CONSOLE_FMT(_type,_type2) \
+#define RPS_CONSOLE_FMT(_type,_type2) \
     char format[BufferSize];\
     format[sizeof(format)-4] = '.';\
     format[sizeof(format)-3] = '.';\
@@ -265,7 +265,7 @@ void ConsoleSingleton::Message( const char *pMsg, ... )
     else\
         QCoreApplication::postEvent(ConsoleOutput::getInstance(), new ConsoleEvent(MsgType_##_type2, format));
 
-    FC_CONSOLE_FMT(Message,Txt);
+    RPS_CONSOLE_FMT(Message,Txt);
 }
 
 /** Prints a Message
@@ -285,7 +285,7 @@ void ConsoleSingleton::Message( const char *pMsg, ... )
  */
 void ConsoleSingleton::Warning( const char *pMsg, ... )
 {
-    FC_CONSOLE_FMT(Warning,Wrn);
+    RPS_CONSOLE_FMT(Warning,Wrn);
 }
 
 /** Prints a Message
@@ -305,7 +305,7 @@ void ConsoleSingleton::Warning( const char *pMsg, ... )
  */
 void ConsoleSingleton::Error( const char *pMsg, ... )
 {
-    FC_CONSOLE_FMT(Error,Err);
+    RPS_CONSOLE_FMT(Error,Err);
 }
 
 
@@ -329,7 +329,7 @@ void ConsoleSingleton::Log( const char *pMsg, ... )
 {
     if (_bVerbose)
     {
-        FC_CONSOLE_FMT(Log,Log);
+        RPS_CONSOLE_FMT(Log,Log);
     }
 }
 
@@ -631,13 +631,13 @@ PyObject *ConsoleSingleton::sPySetStatus(PyObject * /*self*/, PyObject *args)
             else if (strcmp(pstr2,"Err") == 0)
                 pObs->bErr = (Bool==0)?false:true;
             else
-                Py_Error(Base::PyExc_FC_GeneralError,"Unknown Message Type (use Log, Err, Msg or Wrn)");
+                Py_Error(Base::PyExc_RPS_GeneralError,"Unknown Message Type (use Log, Err, Msg or Wrn)");
 
             Py_INCREF(Py_None);
             return Py_None;
         }
         else {
-            Py_Error(Base::PyExc_FC_GeneralError,"Unknown Console Type");
+            Py_Error(Base::PyExc_RPS_GeneralError,"Unknown Console Type");
         }
 
     } PY_CATCH;

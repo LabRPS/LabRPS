@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -20,8 +20,6 @@
  *                                                                         *
  ***************************************************************************/
 
-
-
 #include "DlgGridPoints.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgGridPoints.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/WLGridPoints.h>
@@ -29,15 +27,12 @@
 #include <App/Application.h>
 #include <App/Document.h>
 
-//#include <QPushButton>
-//#include <QApplication>
-
 
 using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgGridPoints */
 
-DlgGridPoints::DlgGridPoints(App::PropertyPosition& centerPoint, App::PropertyLength& spacing1, App::PropertyLength& spacing2, App::PropertyLength& length1, App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName, QWidget* parent)
+DlgGridPoints::DlgGridPoints(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui_DlgGridPoints), _featureName(featureName.getStrValue())
 {
@@ -117,7 +112,7 @@ void DlgGridPoints::reject()
 
 /* TRANSLATOR PartGui::GridPointsDialogEdit */
 
-GridPointsDialogEdit::GridPointsDialogEdit(App::PropertyPosition& centerPoint, App::PropertyLength& spacing1, App::PropertyLength& spacing2, App::PropertyLength& length1, App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName)
+GridPointsDialogEdit::GridPointsDialogEdit(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName)
 {
 	// create and show dialog for the WindLabFeatures
     widget = new DlgGridPoints(centerPoint, spacing1, spacing2, length1, length2, locationPlan, featureName,  nullptr);

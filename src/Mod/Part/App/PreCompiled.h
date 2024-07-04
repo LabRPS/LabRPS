@@ -87,7 +87,7 @@
 #include <math_Gauss.hxx>
 #include <math_Matrix.hxx>
 
-#elif defined(FC_OS_WIN32)
+#elif defined(RPS_OS_WIN32)
 #define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
 #define NOMINMAX

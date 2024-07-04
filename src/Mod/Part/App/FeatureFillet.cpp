@@ -55,7 +55,7 @@ App::DocumentObjectExecReturn *Fillet::execute(void)
     auto baseShape = Feature::getShape(link);
 
     try {
-#if defined(__GNUC__) && defined (FC_OS_LINUX)
+#if defined(__GNUC__) && defined (RPS_OS_LINUX)
         Base::SignalException se;
 #endif
         BRepFilletAPI_MakeFillet mkFillet(baseShape);

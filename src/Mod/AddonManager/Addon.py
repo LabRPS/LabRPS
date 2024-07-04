@@ -273,19 +273,19 @@ class Addon:
         self.extract_metadata_dependencies(self.metadata)
 
     def version_is_ok(self, metadata) -> bool:
-        dep_fc_min = metadata.LabRPSMin
-        dep_fc_max = metadata.LabRPSMax
+        dep_rps_min = metadata.LabRPSMin
+        dep_rps_max = metadata.LabRPSMax
 
-        fc_major = int(LabRPS.Version()[0])
-        fc_minor = int(LabRPS.Version()[1])
+        rps_major = int(LabRPS.Version()[0])
+        rps_minor = int(LabRPS.Version()[1])
 
         try:
-            if dep_fc_min and dep_fc_min != "0.0.0":
-                required_version = dep_fc_min.split(".")
-                if fc_major < int(required_version[0]):
+            if dep_rps_min and dep_rps_min != "0.0.0":
+                required_version = dep_rps_min.split(".")
+                if rps_major < int(required_version[0]):
                     return False  # Major version is too low
-                elif fc_major == int(required_version[0]):
-                    if len(required_version) > 1 and fc_minor < int(
+                elif rps_major == int(required_version[0]):
+                    if len(required_version) > 1 and rps_minor < int(
                         required_version[1]
                     ):
                         return False  # Same major, and minor is too low
@@ -295,12 +295,12 @@ class Addon:
             )
 
         try:
-            if dep_fc_max and dep_fc_max != "0.0.0":
-                required_version = dep_fc_max.split(".")
-                if fc_major > int(required_version[0]):
+            if dep_rps_max and dep_rps_max != "0.0.0":
+                required_version = dep_rps_max.split(".")
+                if rps_major > int(required_version[0]):
                     return False  # Major version is too high
-                elif fc_major == int(required_version[0]):
-                    if len(required_version) > 1 and fc_minor > int(
+                elif rps_major == int(required_version[0]):
+                    if len(required_version) > 1 and rps_minor > int(
                         required_version[1]
                     ):
                         return False  # Same major, and minor is too high

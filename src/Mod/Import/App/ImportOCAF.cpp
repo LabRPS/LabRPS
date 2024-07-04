@@ -201,7 +201,7 @@ void ImportOCAF::loadShapes(const TDF_Label& label, const TopLoc_Location& loc,
             part_loc = hLoc->Get();
     }
 
-#ifdef FC_DEBUG
+#ifdef RPS_DEBUG
     Base::Console().Log("H:%d, N:%s, T:%d, A:%d, S:%d, C:%d, SS:%d, F:%d, R:%d, C:%d, SS:%d\n",
         hash,
         part_name.c_str(),

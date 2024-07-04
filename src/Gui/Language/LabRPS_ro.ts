@@ -3947,8 +3947,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>Nivel de compresie pentru fișierele FCStd</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>Nivel de compresie pentru fișierele RPSStd</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -9078,8 +9078,8 @@ Doriți să salvați fișierul cu alt nume?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Documentul %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Documentul %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10398,8 +10398,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>Documentul %1 (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>Documentul %1 (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

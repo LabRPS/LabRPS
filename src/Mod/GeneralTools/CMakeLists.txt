@@ -13,7 +13,7 @@ add_custom_target(GeneralToolsScripts ALL
 )
 set_target_properties(GeneralToolsScripts PROPERTIES FOLDER "Workbenches/GeneralTools")
 
-fc_target_copy_resource_flat(GeneralToolsScripts
+rps_target_copy_resource_flat(GeneralToolsScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/GeneralTools
     ${GeneralTools_Scripts}

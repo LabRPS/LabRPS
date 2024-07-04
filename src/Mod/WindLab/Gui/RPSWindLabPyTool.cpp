@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2016 Victor Titov (DeepSOIC) <vv.titov@gmail.com>       *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *                *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -19,6 +19,7 @@
  *   Suite 330, Boston, MA  02111-1307, USA                                *
  *                                                                         *
  ***************************************************************************/
+
 #include "PreCompiled.h"
 
 #include <Gui/MainWindow.h>
@@ -52,7 +53,7 @@ PyObject* RPSWindLabPyTool::ShowArray(PyObject* self, PyObject* args)
         for (int i = 0; i < num_items; ++i) {
             PyObject* pypoint = PyList_GetItem(numpyArray, i);
             std::vector<double> point;
-            // Verify that each pypoint also a list
+            // Verify that each pypoint also is a list
             if (!PyList_Check(pypoint)) {
                 PyErr_SetString(PyExc_TypeError, "must pass in list of list");
                 return NULL;
@@ -72,7 +73,6 @@ PyObject* RPSWindLabPyTool::ShowArray(PyObject* self, PyObject* args)
                     return NULL;
                 }
                 point.push_back(val);
-                //Base::Console().Warning(std::to_string(val).c_str());
 
             }
             poly.push_back(point);
@@ -216,9 +216,9 @@ PyMethodDef RPSWindLabPyTool::Methods[] = {
     {"showValueAsTable", (PyCFunction)RPSWindLabPyTool::ShowValueAsTable, METH_VARARGS,
     "showValueAsTable(value) - take a python floating value and display it in Alphaplot table"},
     {"getActiveTable", (PyCFunction)RPSWindLabPyTool::GetActiveTable, METH_VARARGS,
-    "getActiveTable() - return the active AlphaPlot table"},
+    "getActiveTable() - return the active AlphaPlot table as python list of lists"},
     {"getActiveMatrix", (PyCFunction)RPSWindLabPyTool::GetActiveMatrix, METH_VARARGS,
-    "getActiveMatrix() - return the active AlphaPlot matrix"},
+    "getActiveMatrix() - return the active AlphaPlot matrix as python list of lists"},
     {nullptr, nullptr, 0, nullptr}  /* Sentinel */
 };
 

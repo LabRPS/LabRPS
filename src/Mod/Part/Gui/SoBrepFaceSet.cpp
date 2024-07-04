@@ -22,7 +22,7 @@
 
 #include "PreCompiled.h"
 
-#ifndef FC_OS_WIN32
+#ifndef RPS_OS_WIN32
 # ifndef GL_GLEXT_PROTOTYPES
 # define GL_GLEXT_PROTOTYPES 1
 # endif
@@ -51,19 +51,19 @@
 # include <Inventor/elements/SoCacheElement.h>
 # include <Inventor/elements/SoTextureEnabledElement.h>
 
-# ifdef FC_OS_WIN32
+# ifdef RPS_OS_WIN32
 #  include <windows.h>
 #  include <GL/gl.h>
 #  include <GL/glext.h>
 # else
-#  ifdef FC_OS_MACOSX
+#  ifdef RPS_OS_MACOSX
 #   include <OpenGL/gl.h>
 #   include <OpenGL/glext.h>
 #  else
 #   include <GL/gl.h>
 #   include <GL/glext.h>
-#  endif //FC_OS_MACOSX
-# endif //FC_OS_WIN32
+#  endif //RPS_OS_MACOSX
+# endif //RPS_OS_WIN32
 // Should come after glext.h to avoid warnings
 # include <Inventor/C/glue/gl.h>
 #endif
@@ -136,7 +136,7 @@ public:
 
         std::map<uint32_t, Buffer>::iterator it = self->vbomap.find(context);
         if (it != self->vbomap.end()) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             const cc_glglue * glue = cc_glglue_instance((int) context);
             PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC)cc_glglue_getprocaddress(glue, "glDeleteBuffersARB");
 #endif
@@ -438,7 +438,7 @@ void SoBrepFaceSet::GLRender(SoGLRenderAction *action)
     }
 
     // Workaround for #0000433
-//#if !defined(FC_OS_WIN32)
+//#if !defined(RPS_OS_WIN32)
     renderHighlight(action,ctx);
     renderSelection(action,ctx);
 //#endif
@@ -1442,7 +1442,7 @@ void SoBrepFaceSet::VBO::render(SoGLRenderAction * action,
     auto res = this->vbomap.insert(std::make_pair(contextId,VBO::Buffer()));
     VBO::Buffer &buf = res.first->second;
     if (res.second) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         const cc_glglue * glue = cc_glglue_instance(action->getCacheContext());
         PFNGLGENBUFFERSPROC glGenBuffersARB = (PFNGLGENBUFFERSPROC)cc_glglue_getprocaddress(glue, "glGenBuffersARB");
 #endif
@@ -1465,7 +1465,7 @@ void SoBrepFaceSet::VBO::render(SoGLRenderAction * action,
     // TODO FINISHING THE COLOR SUPPORT !
 
     if (!buf.vboLoaded || buf.updateVbo) {
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
         const cc_glglue * glue = cc_glglue_instance(action->getCacheContext());
 
         PFNGLBINDBUFFERARBPROC glBindBufferARB = (PFNGLBINDBUFFERARBPROC) cc_glglue_getprocaddress(glue, "glBindBufferARB");
@@ -1691,7 +1691,7 @@ void SoBrepFaceSet::VBO::render(SoGLRenderAction * action,
     }
 
     // This is the VBO rendering code
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
     const cc_glglue * glue = cc_glglue_instance(action->getCacheContext());
     PFNGLBINDBUFFERARBPROC glBindBufferARB = (PFNGLBINDBUFFERARBPROC)cc_glglue_getprocaddress(glue, "glBindBufferARB");
 #endif

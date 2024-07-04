@@ -44,7 +44,7 @@ endforeach()
 set(_vars "${_vars}]\\n\" \n;")
 file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/CMakeScript.hh "${_vars}" )
 
-fc_copy_file_if_different(
+rps_copy_file_if_different(
     "${CMAKE_CURRENT_BINARY_DIR}/CMakeScript.hh"
     "${CMAKE_CURRENT_BINARY_DIR}/CMakeScript.h"
 )
@@ -281,6 +281,7 @@ SET(LabRPSApp_CPP_SRCS
     Metadata.cpp
     MetadataPyImp.cpp
     RPSpluginManager.cpp
+    WindLabUtils.cpp
 
 )
 
@@ -296,6 +297,7 @@ SET(LabRPSApp_HPP_SRCS
     Material.h
     Metadata.h
     RPSpluginManager.h
+    WindLabUtils.h
 
 )
 
@@ -319,7 +321,7 @@ add_library(LabRPSApp SHARED ${LabRPSApp_SRCS})
 target_link_libraries(LabRPSApp ${LabRPSApp_LIBS})
 set_target_properties(LabRPSApp PROPERTIES FOLDER "App")
 
-add_dependencies(LabRPSApp fc_version)
+add_dependencies(LabRPSApp rps_version)
 
 SET_BIN_DIR(LabRPSApp LabRPSApp)
 

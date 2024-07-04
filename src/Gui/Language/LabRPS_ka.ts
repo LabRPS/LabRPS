@@ -3938,8 +3938,8 @@ besides the color bar</source>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for FCStd files</source>
-      <translation>FCStd ფაილებს შეკუმშვის დონე</translation>
+      <source>Compression level for RPSStd files</source>
+      <translation>RPSStd ფაილებს შეკუმშვის დონე</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -9074,8 +9074,8 @@ Would you like to save the file with a different name?</source>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 დოკუმენტი (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 დოკუმენტი (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10395,8 +10395,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.FCStd)</source>
-      <translation>%1 დოკუმენტი (*.FCStd)</translation>
+      <source>%1 document (*.RPSStd)</source>
+      <translation>%1 დოკუმენტი (*.RPSStd)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

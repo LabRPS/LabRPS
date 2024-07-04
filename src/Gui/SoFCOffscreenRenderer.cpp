@@ -37,7 +37,7 @@
 # include <QImageWriter>
 #endif
 
-#if !defined(FC_OS_MACOSX)
+#if !defined(RPS_OS_MACOSX)
 # include <GL/gl.h>
 # include <GL/glu.h>
 # include <GL/glext.h>
@@ -195,7 +195,7 @@ void SoFCOffscreenRenderer::writeToImageFile(const char* filename, const char* c
         }
         else if (file.hasExtension("EPS") || file.hasExtension("PS")) {
             // Any format which is supported by Coin only
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             FILE* fd = _wfopen(file.toStdWString().c_str(), L"w");
 #else
             FILE* fd = fopen(filename, "w");
@@ -207,7 +207,7 @@ void SoFCOffscreenRenderer::writeToImageFile(const char* filename, const char* c
         }
         else if (file.hasExtension("RGB") || file.hasExtension("SGI")) {
             // Any format which is supported by Coin only
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
             FILE* fd = _wfopen(file.toStdWString().c_str(), L"w");
 #else
             FILE* fd = fopen(filename, "w");

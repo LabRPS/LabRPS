@@ -1,7 +1,7 @@
 /***************************************************************************
- *   Copyright (c) 2013 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>          *
  *                                                                         *
- *   This file is part of the LabRPS development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *
@@ -49,7 +49,9 @@ WindLabSimulationComparison::WindLabSimulationComparison()
     ADD_PROPERTY_TYPE(ComputationTime1, (0), group4, App::Prop_ReadOnly, "The computation time for candidate 1");
     ADD_PROPERTY_TYPE(ComputationTime2, (0), group4, App::Prop_ReadOnly, "The computation time for candidate 2");
 
-    ADD_PROPERTY_TYPE(MemoryUsage, (0), group4, App::Prop_ReadOnly, "The memory usage");
+    ADD_PROPERTY_TYPE(MemoryUsage1, (0), group4, App::Prop_ReadOnly, "The memory usage");
+    ADD_PROPERTY_TYPE(MemoryUsage2, (0), group4, App::Prop_ReadOnly, "The memory usage");
+
 }
 
 WindLabSimulationComparison::~WindLabSimulationComparison() { }
@@ -65,7 +67,6 @@ void WindLabSimulationComparison::stop()
 
 bool WindLabSimulationComparison::doubleClicked(void)
 {
-    /*return editSimulation();*/
     return true;
 }
 
@@ -97,7 +98,6 @@ void WindLabSimulationComparison::onChanged(const App::Property* prop)
 PyObject* WindLabSimulationComparison::getPyObject(void)
 {
     if (PythonObject.is(Py::_None())) {
-        // ref counter is set to 1
         PythonObject = Py::Object(new WindLabSimulationComparisonPy(this), true);
     }
     return Py::new_reference_to(PythonObject);

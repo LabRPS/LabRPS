@@ -35,7 +35,7 @@ ADD_CUSTOM_TARGET(Test ALL
     SOURCES ${Test_SRCS} ${TestData_SRCS}
 )
 
-fc_copy_sources(Test "${CMAKE_BINARY_DIR}/Mod/Test" ${Test_SRCS} ${TestData_SRCS})
+rps_copy_sources(Test "${CMAKE_BINARY_DIR}/Mod/Test" ${Test_SRCS} ${TestData_SRCS})
 
 INSTALL(
     FILES

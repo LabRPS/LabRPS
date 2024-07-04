@@ -86,7 +86,7 @@ void StartGui::Workbench::loadStartPage()
             << "class WebPage(object):\n"
             << "    def __init__(self):\n"
             << "        self.browser=WebGui.openBrowserWindow(u\"" << escapedstr.c_str() << "\")\n"
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
             << "        self.browser.setHtml(StartPage.handle(), App.getResourceDir() + 'Mod/Start/StartPage/')\n"
 #else
             << "        self.browser.setHtml(StartPage.handle(), 'file://' + App.getResourceDir() + 'Mod/Start/StartPage/')\n"
@@ -94,7 +94,7 @@ void StartGui::Workbench::loadStartPage()
             << "    def onChange(self, par, reason):\n"
             << "        try:\n"
             << "            if reason == 'RecentFiles':\n"
-#if defined(FC_OS_WIN32)
+#if defined(RPS_OS_WIN32)
             << "                self.browser.setHtml(StartPage.handle(), App.getResourceDir() + 'Mod/Start/StartPage/')\n\n"
 #else
             << "                self.browser.setHtml(StartPage.handle(), 'file://' + App.getResourceDir() + 'Mod/Start/StartPage/')\n\n"

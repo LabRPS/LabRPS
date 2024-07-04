@@ -56,7 +56,7 @@
 #include "ViewProviderPy.h"
 
 
-FC_LOG_LEVEL_INIT("ViewProvider", true, true)
+RPS_LOG_LEVEL_INIT("ViewProvider", true, true)
 
 using namespace std;
 using namespace Gui;
@@ -70,7 +70,7 @@ void coinRemoveAllChildren(SoGroup *group) {
     int count = group->getNumChildren();
     if(!count)
         return;
-    FC_TRACE("coin remove all children " << count);
+    RPS_TRACE("coin remove all children " << count);
     SbBool autonotify = group->enableNotify(FALSE);
     for(;count>0;--count)
         group->removeChild(count-1);
@@ -238,7 +238,7 @@ void ViewProvider::eventCallback(void * ud, SoEventCallback * node)
                     }
                 }
                 else if (press) {
-                    FC_WARN("Please release all mouse buttons before exiting editing");
+                    RPS_WARN("Please release all mouse buttons before exiting editing");
                 }
                 break;
             default:
@@ -745,11 +745,11 @@ void ViewProvider::dragObject(App::DocumentObject* obj)
 bool ViewProvider::canDropObject(App::DocumentObject* obj) const
 {
     auto vector = getExtensionsDerivedFromType<Gui::ViewProviderExtension>();
-#if FC_DEBUG
+#if RPS_DEBUG
     Base::Console().Log("Check extensions for drop\n");
 #endif
     for (Gui::ViewProviderExtension* ext : vector){
-#if FC_DEBUG
+#if RPS_DEBUG
         Base::Console().Log("Check extensions %s\n", ext->name().c_str());
 #endif
         if (ext->extensionCanDropObject(obj))
@@ -948,7 +948,7 @@ int ViewProvider::partialRender(const std::vector<std::string> &elements, bool c
     if(elements.empty()) {
         auto node = pcModeSwitch->getChild(_iActualMode);
         if(node) {
-            FC_LOG("partial render clear");
+            RPS_LOG("partial render clear");
             SoSelectionElementAction action(SoSelectionElementAction::None,true);
             action.apply(node);
         }
@@ -966,10 +966,10 @@ int ViewProvider::partialRender(const std::vector<std::string> &elements, bool c
         SoDetail *det = nullptr;
         if(getDetailPath(element.c_str(),path,false,det)) {
             if(!hidden && !det) {
-                FC_LOG("partial render element not found: " << element);
+                RPS_LOG("partial render element not found: " << element);
                 continue;
             }
-            FC_LOG("partial render (" << path->getLength() << "): " << element);
+            RPS_LOG("partial render (" << path->getLength() << "): " << element);
             if(!hidden)
                 action.setType(clear?SoSelectionElementAction::Remove:SoSelectionElementAction::Append);
             else
@@ -1014,7 +1014,7 @@ Base::BoundBox3d ViewProvider::getBoundingBox(const char *subname, bool transfor
                 iview = dynamic_cast<View3DInventor*>(views.front());
         }
         if(!iview) {
-            FC_ERR("no view");
+            RPS_ERR("no view");
             return Base::BoundBox3d();
         }
     }

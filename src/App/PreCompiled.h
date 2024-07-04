@@ -37,7 +37,7 @@
 #endif
 
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #define WIN32_LEAN_AND_MEAN
 #ifndef NOMINMAX
 #define NOMINMAX
@@ -52,13 +52,13 @@
 #include <ctime>
 #include <csignal>
 
-#ifdef FC_OS_WIN32
+#ifdef RPS_OS_WIN32
 #include <direct.h>
 #include <windows.h>
 #include <crtdbg.h>
 #endif
 
-#if defined(FC_OS_LINUX) || defined(FC_OS_MACOSX) || defined(FC_OS_BSD)
+#if defined(RPS_OS_LINUX) || defined(RPS_OS_MACOSX) || defined(RPS_OS_BSD)
 #include <unistd.h>
 #include <pwd.h>
 #include <sys/types.h>

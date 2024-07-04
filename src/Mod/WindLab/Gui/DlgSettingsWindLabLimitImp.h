@@ -1,9 +1,7 @@
- /**************************************************************************
- *   Copyright (c) 2018 LabRPS Developers                                 *
- *   Author: Bernd Hahnebach <bernd@bimstatik.ch>                          *
- *   Based on src/Mod/WindLab/Gui/DlgSettingsWindLabElmer.h                        *
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *                *
  *                                                                         *
- *   This file is part of the LabRPS CAx development system.              *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
  *   This library is free software; you can redistribute it and/or         *
  *   modify it under the terms of the GNU Library General Public           *

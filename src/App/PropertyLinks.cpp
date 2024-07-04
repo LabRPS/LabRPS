@@ -41,7 +41,7 @@
 #include "ObjectIdentifier.h"
 
 
-FC_LOG_LEVEL_INIT("PropertyLinks",true,true)
+RPS_LOG_LEVEL_INIT("PropertyLinks",true,true)
 
 using namespace App;
 using namespace Base;
@@ -250,7 +250,7 @@ void PropertyLinkBase::restoreLabelReference(const DocumentObject *obj,
             StringGuard guard(dot-1);
             sobj = obj->getSubObject(subname.c_str());
             if(!sobj) {
-                FC_ERR("Failed to restore label reference " << obj->getFullName()
+                RPS_ERR("Failed to restore label reference " << obj->getFullName()
                         << '.' << ss.str());
                 return;
             }
@@ -299,7 +299,7 @@ PropertyLinkBase::tryReplaceLink(const PropertyContainer *owner, DocumentObject 
             // to user.
 #if 0
             if(subname && subname[0] && !newObj->getSubObject(subname)) {
-                FC_THROWM(Base::RuntimeError,
+                RPS_THROWM(Base::RuntimeError,
                         "Sub-object '" << newObj->getFullName()
                         << '.' << subname << "' not found when replacing link in "
                         << owner->getFullName() << '.' << getName());
@@ -329,7 +329,7 @@ PropertyLinkBase::tryReplaceLink(const PropertyContainer *owner, DocumentObject 
             if(prev == parent) {
 #if 0
                 if(sub[pos] && !newObj->getSubObject(sub.c_str()+pos)) {
-                    FC_THROWM(Base::RuntimeError,
+                    RPS_THROWM(Base::RuntimeError,
                             "Sub-object '" << newObj->getFullName()
                             << '.' << (sub.c_str()+pos) << "' not found when replacing link in "
                             << owner->getFullName() << '.' << getName());
@@ -791,7 +791,7 @@ void PropertyLinkList::Restore(Base::XMLReader &reader)
         if (child)
             values.push_back(child);
         else if (reader.isVerbose())
-            FC_WARN("Lost link to " << (document?document->getName():"") << " " << name
+            RPS_WARN("Lost link to " << (document?document->getName():"") << " " << name
                     << " while loading, maybe an object was not loaded correctly");
     }
 
@@ -1206,7 +1206,7 @@ const char *PropertyLinkBase::exportSubName(std::string &output,
                 doc = obj->getDocument();
         }
         if(!doc) {
-            FC_ERR("Failed to get document for the first object in " << sub);
+            RPS_ERR("Failed to get document for the first object in " << sub);
             return res;
         }
         obj = doc->getObject(std::string(sub,dot-sub).c_str());
@@ -1228,7 +1228,7 @@ const char *PropertyLinkBase::exportSubName(std::string &output,
         else
             obj = obj->getSubObject(name.c_str());
         if(!obj || !obj->getNameInDocument()) {
-            FC_WARN("missing sub object '" << name << "' in '" << sub <<"'");
+            RPS_WARN("missing sub object '" << name << "' in '" << sub <<"'");
             break;
         }
         if(obj->isExporting()) {
@@ -1261,7 +1261,7 @@ App::DocumentObject *PropertyLinkBase::tryImport(const App::Document *doc,
         if(it!=nameMap.end()) {
             obj = doc->getObject(it->second.c_str());
             if(!obj)
-                FC_THROWM(Base::RuntimeError,"Cannot find import object " << it->second);
+                RPS_THROWM(Base::RuntimeError,"Cannot find import object " << it->second);
         }
     }
     return const_cast<DocumentObject*>(obj);
@@ -1281,7 +1281,7 @@ std::string PropertyLinkBase::tryImportSubName(const App::DocumentObject *obj, c
         StringGuard guard(dot);
         auto sobj = obj->getSubObject(subname.c_str());
         if(!sobj) {
-            FC_ERR("Failed to restore label reference " << obj->getFullName() << '.' << subname);
+            RPS_ERR("Failed to restore label reference " << obj->getFullName() << '.' << subname);
             return std::string();
         }
         dot[0] = 0;
@@ -1296,7 +1296,7 @@ std::string PropertyLinkBase::tryImportSubName(const App::DocumentObject *obj, c
             continue;
         auto imported = doc->getObject(it->second.c_str());
         if(!imported)
-            FC_THROWM(RuntimeError, "Failed to find imported object " << it->second);
+            RPS_THROWM(RuntimeError, "Failed to find imported object " << it->second);
         ss.write(sub,next-sub);
         if(next[0] == '$')
             ss << '$' << imported->Label.getStrValue() << '.';
@@ -1380,7 +1380,7 @@ void PropertyLinkSub::Restore(Base::XMLReader &reader)
         pcObject = document ? document->getObject(name.c_str()) : nullptr;
         if (!pcObject) {
             if (reader.isVerbose()) {
-                FC_WARN("Lost link to " << name
+                RPS_WARN("Lost link to " << name
                         << " while loading, maybe an object was not loaded correctly");
             }
         }
@@ -2629,7 +2629,7 @@ public:
         QString path;
         l->filePath = getDocPath(filename,pDoc,true,&path);
 
-        FC_LOG("finding doc " << filename);
+        RPS_LOG("finding doc " << filename);
 
         auto it = _DocInfoMap.find(path);
         DocInfoPtr info;
@@ -2702,7 +2702,7 @@ public:
     }
 
     void deinit() {
-        FC_LOG("deinit " << (pcDoc?pcDoc->getName():filePath()));
+        RPS_LOG("deinit " << (pcDoc?pcDoc->getName():filePath()));
         assert(links.empty());
         connFinishRestoreDocument.disconnect();
         connPendingReloadDocument.disconnect();
@@ -2732,7 +2732,7 @@ public:
 
         QString fullpath(getFullPath());
         if(fullpath.isEmpty())
-            FC_ERR("document not found " << filePath());
+            RPS_ERR("document not found " << filePath());
         else{
             for(App::Document *doc : App::GetApplication().getDocuments()) {
                 if(getFullPath(doc->getFileName()) == fullpath) {
@@ -2742,7 +2742,7 @@ public:
                     return;
                 }
             }
-            FC_LOG("document pending " << filePath());
+            RPS_LOG("document pending " << filePath());
             app.addPendingDocument(fullpath.toUtf8().constData(),objName,
                     l->testFlag(PropertyLinkBase::LinkAllowPartial));
         }
@@ -2751,7 +2751,7 @@ public:
     void attach(Document *doc) {
         assert(!pcDoc);
         pcDoc = doc;
-        FC_LOG("attaching " << doc->getName() << ", " << doc->getFileName());
+        RPS_LOG("attaching " << doc->getName() << ", " << doc->getFileName());
         std::map<App::PropertyLinkBase*,std::vector<App::PropertyXLink*> > parentLinks;
         for(auto it=links.begin(),itNext=it;it!=links.end();it=itNext) {
             ++itNext;
@@ -2770,10 +2770,10 @@ public:
                         doc->FileName.getValue(),
                         link->objectName.c_str(),
                         false);
-                FC_WARN("reloading partial document '" << doc->FileName.getValue()
+                RPS_WARN("reloading partial document '" << doc->FileName.getValue()
                         << "' due to object " << link->objectName);
             } else
-                FC_WARN("object '" << link->objectName << "' not found in document '"
+                RPS_WARN("object '" << link->objectName << "' not found in document '"
                         << doc->getName() << "'");
         }
         for(auto &v : parentLinks) {
@@ -2788,10 +2788,10 @@ public:
                             doc->FileName.getValue(),
                             link->objectName.c_str(),
                             false);
-                    FC_WARN("reloading partial document '" << doc->FileName.getValue()
+                    RPS_WARN("reloading partial document '" << doc->FileName.getValue()
                             << "' due to object " << link->objectName);
                 } else
-                    FC_WARN("object '" << link->objectName << "' not found in document '"
+                    RPS_WARN("object '" << link->objectName << "' not found in document '"
                             << doc->getName() << "'");
             }
             v.first->hasSetValue();
@@ -2838,12 +2838,12 @@ public:
         QString docPath(getFullPath(filename));
 
         if(path.isEmpty() || path!=docPath) {
-            FC_LOG("document '" << doc.getName() << "' path changed");
+            RPS_LOG("document '" << doc.getName() << "' path changed");
             auto me = shared_from_this();
             auto ret = _DocInfoMap.insert(std::make_pair(docPath,me));
             if(!ret.second) {
                 // is that even possible?
-                FC_WARN("document '" << doc.getName() << "' path exists, detach");
+                RPS_WARN("document '" << doc.getName() << "' path exists, detach");
                 slotDeleteDocument(doc);
                 return;
             }
@@ -2867,7 +2867,7 @@ public:
             auto ret = docs.insert(linkdoc);
             if(ret.second) {
                 // This will signal the Gui::Document to call setModified();
-                FC_LOG("touch document " << linkdoc->getName() 
+                RPS_LOG("touch document " << linkdoc->getName() 
                         << " on time stamp change of " << link->getFullName());
                 linkdoc->Comment.touch();
             }
@@ -3117,7 +3117,7 @@ void PropertyXLink::setValue(App::DocumentObject *lValue,
                 const char *filename = lValue->getDocument()->getFileName();
                 if(!filename || *filename==0)
                     throw Base::RuntimeError("Linked document not saved");
-                FC_LOG("xlink set to new document " << lValue->getDocument()->getName());
+                RPS_LOG("xlink set to new document " << lValue->getDocument()->getName());
                 info = DocInfo::get(filename,owner->getDocument(),this,name);
                 assert(info && info->pcDoc == lValue->getDocument());
             }else
@@ -3219,7 +3219,7 @@ bool PropertyXLink::upgrade(Base::XMLReader &reader, const char *typeName) {
         PropertyLink::Restore(reader);
         return true;
     }
-    FC_ERR("Cannot upgrade from " << typeName);
+    RPS_ERR("Cannot upgrade from " << typeName);
     return false;
 }
 
@@ -3327,7 +3327,7 @@ void PropertyXLink::Save (Base::Writer &writer) const {
                     else
                         _path = docPath;
                 }else
-                    FC_WARN("PropertyXLink export without saving the document");
+                    RPS_WARN("PropertyXLink export without saving the document");
             }
             if(_path.size())
                 path = _path.c_str();
@@ -3420,7 +3420,7 @@ void PropertyXLink::Restore(Base::XMLReader &reader)
         object = document ? document->getObject(name.c_str()) : nullptr;
         if(!object) {
             if(reader.isVerbose()) {
-                FC_WARN("Lost link to '" << name << "' while loading, maybe "
+                RPS_WARN("Lost link to '" << name << "' while loading, maybe "
                         "an object was not loaded correctly");
             }
         }
@@ -3562,12 +3562,12 @@ void PropertyXLink::Paste(const Property &from)
     if(other.docName.size()) {
         auto doc = GetApplication().getDocument(other.docName.c_str());
         if(!doc) {
-            FC_WARN("Document '" << other.docName << "' not found");
+            RPS_WARN("Document '" << other.docName << "' not found");
             return;
         }
         auto obj = doc->getObject(other.objectName.c_str());
         if(!obj) {
-            FC_WARN("Object '" << other.docName << '#' << other.objectName << "' not found");
+            RPS_WARN("Object '" << other.docName << '#' << other.objectName << "' not found");
             return;
         }
         setValue(obj,std::vector<std::string>(other._SubList));
@@ -3884,7 +3884,7 @@ void PropertyXLinkSubList::setValues(
 {
 #define CHECK_SUB_SIZE(_l,_r) do{\
         if(_l.size()!=_r.size())\
-            FC_THROWM(Base::ValueError, "object and subname size mismatch");\
+            RPS_THROWM(Base::ValueError, "object and subname size mismatch");\
     }while(0)
     CHECK_SUB_SIZE(lValue,lSubNames);
     std::map<DocumentObject*,std::vector<std::string> > values;
@@ -3929,7 +3929,7 @@ void PropertyXLinkSubList::setValues(
 {
     for(auto &v : values) {
         if(!v.first || !v.first->getNameInDocument())
-            FC_THROWM(Base::ValueError,"invalid document object");
+            RPS_THROWM(Base::ValueError,"invalid document object");
     }
 
     atomic_change guard(*this);
@@ -3962,7 +3962,7 @@ void PropertyXLinkSubList::addValue(App::DocumentObject *obj,
         std::vector<std::string> &&subs, bool reset) {
 
     if(!obj || !obj->getNameInDocument())
-        FC_THROWM(Base::ValueError,"invalid document object");
+        RPS_THROWM(Base::ValueError,"invalid document object");
 
     for(auto &l : _Links) {
         if(l.getValue() == obj) {
@@ -4334,7 +4334,7 @@ const std::vector<std::string> &PropertyXLinkSubList::getSubValues(App::Document
         if(l.getValue() == obj)
             return l.getSubValues();
     }
-    FC_THROWM(Base::RuntimeError, "object not found");
+    RPS_THROWM(Base::RuntimeError, "object not found");
 }
 
 std::vector<std::string> PropertyXLinkSubList::getSubValues(App::DocumentObject *obj, bool newStyle) const {
@@ -4711,7 +4711,7 @@ void PropertyXLinkContainer::Restore(Base::XMLReader &reader) {
             reader.readElement("DocMap");
             auto index = reader.getAttributeAsUnsigned("index");
             if(index>=count) {
-                FC_ERR(propertyName(this) << " invalid document map entry");
+                RPS_ERR(propertyName(this) << " invalid document map entry");
                 continue;
             }
             auto &info = _XLinkRestores->at(index);

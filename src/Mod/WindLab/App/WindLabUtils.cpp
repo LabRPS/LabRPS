@@ -1,31 +1,26 @@
 /***************************************************************************
-    File                 : globals.cpp
-    Description          : Definition of global constants and enums
-    --------------------------------------------------------------------
-    Copyright            : (C) 2006-2009 Tilman Benkert (thzs*gmx.net)
-    Copyright            : (C) 2006-2007 Ion Vasilief (ion_vasilief*yahoo.fr)
-                           (replace * with @ in the email addresses)
-
- ***************************************************************************/
-
-/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>         *
  *                                                                         *
- *  This program is free software; you can redistribute it and/or modify   *
- *  it under the terms of the GNU General Public License as published by   *
- *  the Free Software Foundation; either version 2 of the License, or      *
- *  (at your option) any later version.                                    *
+ *   This file is part of the LabRPS development system.                   *
  *                                                                         *
- *  This program is distributed in the hope that it will be useful,        *
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of         *
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
- *  GNU General Public License for more details.                           *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
  *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the Free Software           *
- *   Foundation, Inc., 51 Franklin Street, Fifth Floor,                    *
- *   Boston, MA  02110-1301  USA                                           *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
  *                                                                         *
  ***************************************************************************/
+
+
 #include "PreCompiled.h"
 
 #include "WindLabUtils.h"
@@ -199,8 +194,7 @@ QString WindLabUtils::ComputeZAutoSpectrumValue = QString::fromLatin1("ComputeZA
 QString WindLabUtils::ComputeZAutoSpectrumVectorF = QString::fromLatin1("ComputeZAutoSpectrumVectorF");
 QString WindLabUtils::ComputeZAutoSpectrumVectorT = QString::fromLatin1("ComputeZAutoSpectrumVectorT");
 
-bool WindLabUtils::getObjects(std::map<const std::string, std::string>& map, QStringList& lstObject,
-                              QString pluginName)
+bool WindLabUtils::getObjects(std::map<const std::string, std::string>& map, std::map<const std::string, std::string>& lstObject, const std::string& pluginName, const std::string& objectGroup)
 {
     if (!map.empty())
     {
@@ -209,9 +203,9 @@ bool WindLabUtils::getObjects(std::map<const std::string, std::string>& map, QSt
         {
             if (!it->first.empty())
             {
-                if (it->second == pluginName.toUtf8().constData())
+                if (it->second == pluginName)
                 {
-                    lstObject.append(QString::fromUtf8(it->first.c_str()));
+                    lstObject[it->first] = objectGroup;
                 }
             }
         }
@@ -429,73 +423,6 @@ int WindLabUtils::getWordSizeOfOS() {
 #endif
 }
 
-QColor WindLabUtils::getRandColorGoldenRatio(const ColorPal& colpal) {
-  rgbCounter_++;
-  // use golden ratio
-  const double goldenRatioConjugate =
-      1.6180339887498949025257388711906969547271728515625;
-  double hue = rgbRandomSeed_;
-  hue += goldenRatioConjugate * rgbCounter_;
-  hue = fmod(hue, 1);
-  double saturation;
-  switch (colpal) {
-    case ColorPal::Light:
-      saturation = 0.5;
-      break;
-    case ColorPal::Dark:
-      saturation = 0.9;
-      break;
-  }
-  double value = 0.95;
-
-  double p, q, t, ff;
-  int i;
-  QColor rgb;
-
-  i = static_cast<int>(floor(hue * 6));
-  ff = (hue * 6) - i;
-
-  p = value * (1.0 - saturation);
-  q = value * (1.0 - (saturation * ff));
-  t = value * (1.0 - (saturation * (1.0 - ff)));
-
-  switch (i) {
-    case 0:
-      rgb.setRedF(value);
-      rgb.setGreenF(t);
-      rgb.setBlueF(p);
-      break;
-    case 1:
-      rgb.setRedF(q);
-      rgb.setGreenF(value);
-      rgb.setBlueF(p);
-      break;
-    case 2:
-      rgb.setRedF(p);
-      rgb.setGreenF(value);
-      rgb.setBlueF(t);
-      break;
-
-    case 3:
-      rgb.setRedF(p);
-      rgb.setGreenF(q);
-      rgb.setBlueF(value);
-      break;
-    case 4:
-      rgb.setRedF(t);
-      rgb.setGreenF(p);
-      rgb.setBlueF(value);
-      break;
-    case 5:
-    default:
-      rgb.setRedF(value);
-      rgb.setGreenF(p);
-      rgb.setBlueF(q);
-      break;
-  }
-
-  return rgb;
-}
 
 QString WindLabUtils::splitstring(const QString& string) {
   if (string.isEmpty()) return string;
@@ -519,43 +446,6 @@ QString WindLabUtils::joinstring(const QString& string) {
     final += QString::fromLatin1("<|>") + stringlist.at(i);
   }
   return final;
-}
-
-QDateTime WindLabUtils::stripDateTimeToFormat(const QDateTime& datetime,
-                                           const QString& format) {
-  return QDateTime::fromString(datetime.toString(format), format);
-}
-
-QImage WindLabUtils::convertToGrayScale(const QImage& srcImage) {
-  // Convert to 32bit pixel format
-  QImage dstImage = srcImage.convertToFormat(srcImage.hasAlphaChannel()
-                                                 ? QImage::Format_ARGB32
-                                                 : QImage::Format_RGB32);
-
-  for (int ii = 0; ii < dstImage.width(); ii++) {
-    for (int jj = 0; jj < dstImage.height(); jj++) {
-      int gray = qGray(dstImage.pixel(ii, jj));
-      dstImage.setPixel(ii, jj, QColor(gray, gray, gray).rgb());
-    }
-  }
-  return dstImage;
-}
-
-QImage WindLabUtils::convertToGrayScaleFast(const QImage& srcImage) {
-  QImage image = srcImage.convertToFormat(srcImage.hasAlphaChannel()
-                                              ? QImage::Format_ARGB32
-                                              : QImage::Format_RGB32);
-
-  for (int ii = 0; ii < image.height(); ii++) {
-    uchar* scan = image.scanLine(ii);
-    int depth = 4;
-    for (int jj = 0; jj < image.width(); jj++) {
-      QRgb* rgbpixel = reinterpret_cast<QRgb*>(scan + jj * depth);
-      int gray = qGray(*rgbpixel);
-      *rgbpixel = QColor(gray, gray, gray).rgba();
-    }
-  }
-  return image;
 }
 
 QString WindLabUtils::makeHtmlTable(const int row, const int column,
