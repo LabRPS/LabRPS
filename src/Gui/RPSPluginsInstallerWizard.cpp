@@ -26,7 +26,7 @@ PlunginIntallationWizard::PlunginIntallationWizard(int installationType, QString
 
     setPixmap(QWizard::BannerPixmap, about_image);
     setPixmap(QWizard::BackgroundPixmap, about_image);
-
+    setPixmap(QWizard::LogoPixmap, QPixmap(QString::fromLatin1(":pixmap/watermark1.png")));
     setWindowTitle(tr("Plugin Installer"));
 }
 
@@ -44,7 +44,7 @@ IntroPage::IntroPage(int installationType, QString installingPluginName, QWidget
     std::string about_path = App::Application::Config()["AboutImage"];
     QPixmap about_image = Gui::BitmapFactory().pixmap(about_path.c_str());
 
-    setPixmap(QWizard::WatermarkPixmap, about_image);
+    setPixmap(QWizard::WatermarkPixmap, QString::fromLatin1(":Icons/orange.bmp"));
 
     label = new QLabel(tr("This wizard will guide you through the installation "
                           "of RPS features. Please, click next to continue."));

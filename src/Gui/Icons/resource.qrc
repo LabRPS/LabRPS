@@ -360,7 +360,6 @@
         <file>banner_big.png</file>
         <file>icon-labrps.svg</file>
         <file>icon-labrps.png</file>
-        
 
     </qresource>
     <!-- Demonstrating support for an embedded icon theme -->

@@ -9,7 +9,7 @@
 
 [![Release](https://img.shields.io/github/release/labrps/labrps.svg)](https://github.com/labrps/labrps/releases/latest) 
 
-<img src="https://user-images.githubusercontent.com/1828501/174066870-1692005b-f8d7-43fb-a289-6d2f07f73d7f.png" width="800"/>
+<img src="https://labrps.com/images/LabRPS_Screenshot.png" width="800"/>
 
 Overview
 --------
@@ -18,15 +18,17 @@ Overview
 
 * **Modular System** LabRPS is highly modular. it is designed to allow the usage of modules, each serving a specific function or purpose. These modules can be developed, updated, and maintained independently, allowing for greater flexibility, scalability, and ease of integration. This architecture facilitates reusability, as modules can be used in various configurations to meet changing requirements and enhance collaboration among engineers, researchers, students and others.
 
-* **Visualization** It is integrated with a data visualization tool for graphical representation of data allowing powerful mathematical treatment and visualization of the simulation data while keeping a user-friendly graphical user interface. Its data visualizer which can generate different types of publication quality 2D and 3D plots (such as line, scatter, bar, pie, and surface plots) from data that is either resulted from a simulation, imported from ASCII files, entered by hand, or calculated using formulas. The data is held in spreadsheets, which are referred to as tables with column-based data (typically X and Y values for 2D plots) or matrices (for 3D plots). A very powerful CAD system is provided to 3D visualization of objects in space.
+* **Visualization** It is integrated with a data visualization tool for graphical representation of data allowing powerful mathematical treatment and visualization of the simulation data while keeping a user-friendly graphical user interface. Its data visualizer which can generate different types of publication quality 2D and 3D plots (such as line, scatter, bar, pie, and surface plots) from data that is either resulted from a simulation, imported from ASCII files, entered by hand, or calculated using formulas. The data is held in spreadsheets, which are referred to as tables with column-based data (typically X and Y values for 2D plots) or matrices (for 3D plots). A very powerful CAD system is provided to 3D visualization of objects in space based on FreeCAD technology.
 
 * **Cross platform** LabRPS runs on Windows, macOS and Linux operating systems.
 
 * **Underlying technology**
+    * **FreeCAD** An open-source parametric 3D modeler made primarily to design real-life objects of any size.
     * **OpenCASCADE** A powerful geometry kernel, only for visualization.
     * **Coin3D library** Open Inventor-compliant 3D scene representation model.
     * **Python** LabRPS offers a broad Python API.
     * **Qt** Graphical user interface built with Qt.
+    * **Alphaplot** A free application for Scientific Data Analysis and Visualization.
 
 Installing
 ----------
