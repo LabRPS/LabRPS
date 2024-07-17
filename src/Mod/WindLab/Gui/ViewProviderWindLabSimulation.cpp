@@ -83,6 +83,7 @@
 #include <Gui/View3DInventorViewer.h>
 #include <Gui/Command.h>
 #include <App/AutoTransaction.h>
+#include <Mod/WindLabAPI/App/IrpsWLSimuMethod.h>
 
 using namespace WindLabGui;
 using namespace Gui;
@@ -134,7 +135,17 @@ bool ViewProviderWindLabSimulation::run()
     if (!sim) {
         return false;
     }
-    WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
+    auto activeMethod = sim->getActiveSimulationMethod();
+
+    //WindLabAPI::IrpsWLSimuMethod* activeSimMethod = static_cast<WindLabAPI::IrpsWLSimuMethod*>(sim->getActiveSimulationMethod());
+    if (!activeMethod) {
+        return false;
+    }
+    WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
+
+    if (!vp) {
+        return false;
+    }
 
     vp->simulate();
 

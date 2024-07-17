@@ -30,14 +30,14 @@ namespace WindLabAPI { class WindLabSimuData; }
 
 namespace WindLab {
 
-class CRPSDeodatis1987 : public WindLabAPI::IrpsWLSimuMethod
+class CRPSDeodatis1996 : public WindLabAPI::IrpsWLSimuMethod
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(WindLab::CRPSDeodatis1987);
+    PROPERTY_HEADER_WITH_OVERRIDE(WindLab::CRPSDeodatis1996);
 
 public:
-    CRPSDeodatis1987();
+    CRPSDeodatis1996();
 
-    ~CRPSDeodatis1987() {};
+    ~CRPSDeodatis1996() {};
 
 	//Initial setting
 	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);

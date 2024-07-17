@@ -2303,7 +2303,7 @@ void parseProgramOptions(int ac, char ** av, const string& exe, variables_map& v
     if (vm.count("help")) {
         std::stringstream str;
         str << exe << endl << endl;
-        str << "For a detailed description see https://www.labrpsweb.org/wiki/Start_up_and_Configuration" << endl<<endl;
+        str << "For a detailed description see https://www.freecadweb.org/wiki/Start_up_and_Configuration" << endl<<endl;
         str << "Usage: " << exe << " [options] File1 File2 ..." << endl << endl;
         str << visible << endl;
         throw Base::ProgramInformation(str.str());
@@ -2736,7 +2736,7 @@ std::list<std::string> Application::processFiles(const std::list<std::string>& f
         Base::Console().Log("Init:     Processing file: %s\n",file.filePath().c_str());
 
         try {
-            if (file.hasExtension("fcstd") || file.hasExtension("std")) {
+            if (file.hasExtension("rpsstd") || file.hasExtension("std")) {
                 // try to open
                 Application::_pcSingleton->openDocument(file.filePath().c_str());
                 processed.push_back(*it);

@@ -622,10 +622,22 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Setup the default menu bar
     MenuItem* menuBar = new MenuItem;
 
+        // New aspects
+    MenuItem* NewAspects = new MenuItem;
+    NewAspects->setCommand("New");
+    *NewAspects << "Std_New" 
+                << "Std_File_New_table"
+                << "Std_NewMatrix"
+                << "Std_NewGraph"
+                << "Std_New2DPlot"
+                << "Std_New3DPlot";
+
     // File
     MenuItem* file = new MenuItem( menuBar );
     file->setCommand("&File");
-    *file << "Std_New" << "Std_Open" << "Separator" << "Std_CloseActiveWindow"
+    *file << "Std_File_New_aspect" << "Std_Open"
+          << "Separator"
+          << "Std_CloseActiveWindow"
           << "Std_CloseAllWindows" << "Separator" << "Std_Save" << "Std_SaveAs"
           << "Std_SaveCopy" << "Std_SaveAll" << "Std_Revert" << "Separator" << "Std_Import"
           << "Std_Export" << "Std_MergeProjects" << "Std_ProjectInfo"
@@ -677,21 +689,25 @@ MenuItem* StdWorkbench::setupMenuBar() const
           << "Separator" << "Std_ToggleObjects" << "Std_ShowObjects" << "Std_HideObjects"
           << "Separator" << "Std_ToggleSelectability"
           << "Separator" << "View_Measure_Toggle_All" << "View_Measure_Clear_All";
+    
+    // CAD
+    MenuItem* CAD = new MenuItem;
+    CAD->setCommand("CAD");
+    *CAD << "Std_OrthographicCamera" << "Std_PerspectiveCamera" << "Separator" << stdviews 
+          << "Std_DrawStyle" << "Std_SelBoundingBox"
+          << "Separator" << view3d << zoom  << "Std_AxisCross" << "Std_ToggleClipPlane"
+          << "Std_TextureMapping"
+          << "Separator" << visu
+          << "Std_ToggleVisibility" << "Std_ToggleNavigation"
+          << "Std_SetAppearance" << "Std_RandomColor" ;
 
     // View
     MenuItem* view = new MenuItem( menuBar );
     view->setCommand("&View");
-    *view << "Std_ViewCreate" << "Std_OrthographicCamera" << "Std_PerspectiveCamera" << "Std_MainFullscreen" << "Separator"
-          << stdviews << "Std_FreezeViews" << "Std_DrawStyle" << "Std_SelBoundingBox"
-          << "Separator" << view3d << zoom
-          << "Std_ViewDockUndockFullscreen" << "Std_AxisCross" << "Std_ToggleClipPlane"
-          << "Std_TextureMapping"
-#ifdef BUILD_VR
-          << "Std_ViewVR"
-#endif
-          << "Separator" << visu
-          << "Std_ToggleVisibility" << "Std_ToggleNavigation"
-          << "Std_SetAppearance" << "Std_RandomColor" << "Separator"
+    *view << CAD << "Std_ViewCreate"
+          << "Std_MainFullscreen" 
+          << "Std_FreezeViews" 
+          << "Std_ViewDockUndockFullscreen"<< "Separator"
           << "Std_Workbench" << "Std_ToolBarMenu" << "Std_DockViewMenu" << "Separator"
           << "Std_TreeViewActions"
           << "Std_ViewStatusBar";
@@ -850,55 +866,32 @@ MenuItem* StdWorkbench::setupMenuBar() const
            << "Separator" << AddLayout << "Std_RemoveLayout"
            << "Std_SwapLayouts" << GraphTools;
 
-    // Graph
-    MenuItem* TableMatrix = new MenuItem;
-    TableMatrix->setCommand("Table/Matrix");
-    *TableMatrix << "Std_PlotEditCurveRange"
-                 << "Std_PlotShowExportASCIIDialog"
-                 << "Std_PlotExportPDF"
-                 << "Std_PlotCloseAllWindows"
-                 << "Std_PlotConvertTable"
-                 << "Std_PlotAddColToTable"
-                 << "Std_PlotHideActiveWindow"
-                 << "Std_DuplicateWindow"
-                 << "Std_PlotShowMoreWindows"
-                 << "Std_PlotPixelLineProfile"
-                 << "Std_PlotIntensityTable"
-                 << "Std_PlotEditSurfacePlot"
-                 << "Std_PlotMinimizeWindow"
-                 << "Std_PlotMaximizeWindow"
-                 << "Std_PlotPrintWindow"
-                 << "Std_PlotAdd3DData"
-                 << "Std_PlotMatrixDeterminant"
-                 << "Std_PlotConvertMatrix"
-                 << "Std_PlotInvertMatrix"
-                 << "Std_PlotClearTable"
-                 << "Std_PlotGoToCell"
-                 << "Std_PlotSaveNote"
-                 << "Std_PlotPlot3dAnimate"
-                 << "Std_PlotResetCameraFront"
-                 << "Std_PlotResetZoomFactor"
-                 << "Std_PlotPlot3dModecolumnSelect"
-                 << "Std_PlotPlot3dModeRowSelect"
-                 << "Std_PlotPlot3dModeItemSelect"
-                 << "Std_PlotPlot3dModeNoneSelect"
-                 << "Std_PlotActivateWindow"
-                 << "Std_ExportTableASCII"
-                 << "Std_ImportTableASCII";
 
-    // New aspects
-    MenuItem* NewAspects = new MenuItem;
-    NewAspects->setCommand("New");
-    *NewAspects << "Std_File_New_table"
-                << "Std_NewMatrix"
-                << "Std_NewScene"
-                << "Std_NewGraph"
-                << "Std_New2DPlot"
-                << "Std_New3DPlot";
+    // Table
+    MenuItem* Table = new MenuItem;
+    Table->setCommand("Table");
+    *Table << "Std_TableShowExportASCIIDialog"
+           << "Std_TableExportPDF"
+           << "Std_TableConvertToMatrix"
+           << "Std_TableAddColToTable"
+           << "Std_DuplicateWindow"
+           << "Std_ClearTable"
+           << "Std_ExportTableASCII"
+           << "Std_ImportTableASCII";
+    
+
+    // Matrix
+    MenuItem* Matrix = new MenuItem;
+    Matrix->setCommand("Matrix");
+    *Matrix << "Std_DuplicateWindow"
+            << "Std_MatrixConvertToTable"
+            << "Std_MatrixDeterminant"
+            << "Std_InvertMatrix";
+
     // Graph
     MenuItem* AlphaPlot = new MenuItem;
     AlphaPlot->setCommand("AlphaPlot");
-    *AlphaPlot << NewAspects << plot << TreeDPlot << Graph << TableMatrix << "Std_SaveAlphaplotData" <<  "Std_LoadAlphaplotData";
+    *AlphaPlot << plot << TreeDPlot << Graph << Table << Matrix << "Std_SaveAlphaplotData" << "Std_LoadAlphaplotData";
 
      // Tools
     MenuItem* tool = new MenuItem( menuBar );
@@ -971,7 +964,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     // File
     ToolBarItem* file = new ToolBarItem( root );
     file->setCommand("File");
-    *file << "Std_New" << "Std_Open" << "Std_Save" << "Std_Print" << "Separator" << "Std_Cut"
+    *file << "Std_New"<< "Std_File_New_aspect" << "Std_Open" << "Std_Save" << "Std_Print" << "Separator" << "Std_Cut"
           << "Std_Copy" << "Std_Paste" << "Separator" << "Std_Undo" << "Std_Redo" << "Separator"
           << "Std_UserEditMode" << "Separator" << "Std_Refresh" << "Separator" << "Std_WhatsThis";
 
@@ -987,8 +980,8 @@ ToolBarItem* StdWorkbench::setupToolBars() const
            << "Std_DlgMacroExecuteDirect";
 
     // View
-    ToolBarItem* view = new ToolBarItem( root );
-    view->setCommand("View");
+    ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    view->setCommand("CAD View");
     *view << "Std_ViewFitAll" << "Std_ViewFitSelection" << "Std_DrawStyle" << "Std_SelBoundingBox"
           << "Separator" << "Std_SelBack" << "Std_SelForward" << "Std_LinkSelectActions"
           << "Separator" << "Std_TreeViewActions" << "Std_ViewIsometric" << "Separator" << "Std_ViewFront"
@@ -996,9 +989,65 @@ ToolBarItem* StdWorkbench::setupToolBars() const
           << "Std_ViewLeft" << "Separator" << "Std_MeasureDistance" ;
 
     // Structure
-    ToolBarItem* structure = new ToolBarItem( root );
-    structure->setCommand("Structure");
+    ToolBarItem* structure = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    structure->setCommand("CAD Structure");
     *structure << "Std_Part" << "Std_Group" << "Std_LinkMake" << "Std_LinkActions";
+
+      Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
+    GraphTools->setCommand("Graph Tools");
+    *GraphTools << "Std_DisableTools"
+                << "Std_DataReader"
+                << "Std_ScreenReader"
+                << "Std_SelectDataRange"
+                << "Std_MoveDataPoints"
+                << "Std_RemoveBadDataPoints"
+                << "Separator"
+                << "Std_DragRange"
+                << "Std_ZoomRang"
+                << "Std_RescaleToShowAll";
+
+    Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
+    TableTools->setCommand("Alphaplot Table Tools");
+    *TableTools << "Std_StdScatters"
+                << "Std_LinesAndSteps"
+                << "Std_VerticalAndHorizontalBars"
+                << "Std_Area"
+                << "Std_ChannelFill"
+                << "Std_Histogram"
+                << "Std_BoxPlot"
+                << "Std_VectorPlots"
+                << "Std_PiePlots"
+                << "Separator"
+                << "Std_3DPlotBar"
+                << "Std_3DPlotScatter";
+    // 3D Plot
+    Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root);
+    TreeDPlot->setCommand("3D Plot");
+    *TreeDPlot << "Std_3DWireFrame"
+               << "Std_3DSurface"
+               << "Std_3DWireFrameSurface"
+               << "Separator"
+               << "Std_3DPlotBar"
+               << "Std_3DPlotScatter"
+               << "Separator"
+               << "Std_ContourAndColourFill"
+               << "Std_ContourLines"
+               << "Std_GrayScaleMap";
+
+    // 3D Plot Tools
+    Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root);
+    TreeDPlotT->setCommand("3D Plot Tools");
+    *TreeDPlotT << "Std_PlotPlot3dModecolumnSelect"
+                << "Std_PlotPlot3dModeRowSelect"
+                << "Std_PlotPlot3dModeItemSelect"
+                << "Std_PlotPlot3dAnimate";
+
+    // Table statistics
+    Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root);
+    TableStatistics->setCommand("Table Statistics");
+    *TableStatistics << "Std_AppendNewColumnToTable"
+                     << "Std_ShowColumnStatistics"
+                     << "Std_ShowRowStatistics";
 
     return root;
 }

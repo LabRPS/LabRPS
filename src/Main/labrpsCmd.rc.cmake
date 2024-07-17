@@ -22,7 +22,7 @@ BEGIN
             VALUE "CompanyName", "${PROJECT_NAME} Team"
             VALUE "FileDescription", "${PROJECT_NAME} command line executable"
             VALUE "InternalName", "LabRPSCmd.exe"
-            VALUE "LegalCopyright", "Copyright (C) 2022"
+            VALUE "LegalCopyright", "Copyright (C) 2024"
             VALUE "OriginalFilename", "LabRPSCmd.exe"
             VALUE "ProductName", "${PROJECT_NAME}"
             VALUE "ProductVersion", "${LABRPS_VERSION}.${LABRPS_VERSION_PATCH}${PACKAGE_VERSION_SUFFIX}"

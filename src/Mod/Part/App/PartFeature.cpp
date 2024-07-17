@@ -778,7 +778,7 @@ bool Part::checkIntersection(const TopoDS_Shape& first, const TopoDS_Shape& seco
     // Try harder
 
     // This has been disabled because of:
-    // https://www.labrpsweb.org/tracker/view.php?id=3065
+    // https://www.freecadweb.org/tracker/view.php?id=3065
 
     //extrema method
     /*BRepExtrema_DistShapeShape extrema(first, second);

@@ -103,7 +103,7 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     windLab->setCommand("&WindLab");
     *windLab << "WindLab_NewSimulation"
              << "WindLab_Features"
-             << "WindLab_Comparison"
+            //  << "WindLab_Comparison"
              << "WindLab_Examples";
     
 
@@ -118,64 +118,8 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     WindLabToolBar->setCommand("WindLab Features");
      *WindLabToolBar << "WindLab_NewSimulation"
                      << "WindLab_Features"
-                     << "WindLab_Comparison"
+                    //  << "WindLab_Comparison"
                      << "WindLab_Examples";
-
-     Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
-    GraphTools->setCommand("Graph Tools");
-    *GraphTools << "Std_DisableTools"
-                << "Std_DataReader"
-                << "Std_ScreenReader"
-                << "Std_SelectDataRange"
-                << "Std_MoveDataPoints"
-                << "Std_RemoveBadDataPoints"
-                << "Separator"
-                << "Std_DragRange"
-                << "Std_ZoomRang"
-                << "Std_RescaleToShowAll";
-
-    Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
-    TableTools->setCommand("Alphaplot Table Tools");
-    *TableTools << "Std_StdScatters"
-                << "Std_LinesAndSteps"
-                << "Std_VerticalAndHorizontalBars"
-                << "Std_Area"
-                << "Std_ChannelFill"
-                << "Std_Histogram"
-                << "Std_BoxPlot"
-                << "Std_VectorPlots"
-                << "Std_PiePlots"
-                << "Separator"
-                << "Std_3DPlotBar"
-                << "Std_3DPlotScatter";
-    // 3D Plot
-    Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root);
-    TreeDPlot->setCommand("3D Plot");
-    *TreeDPlot << "Std_3DWireFrame"
-               << "Std_3DSurface"
-               << "Std_3DWireFrameSurface"
-               << "Separator"
-               << "Std_3DPlotBar"
-               << "Std_3DPlotScatter"
-               << "Separator"
-               << "Std_ContourAndColourFill"
-               << "Std_ContourLines"
-               << "Std_GrayScaleMap";
-
-     // 3D Plot Tools
-    Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root);
-    TreeDPlotT->setCommand("3D Plot Tools");
-    *TreeDPlotT << "Std_PlotPlot3dModecolumnSelect"
-                << "Std_PlotPlot3dModeRowSelect"
-                << "Std_PlotPlot3dModeItemSelect"
-                << "Std_PlotPlot3dAnimate";
-
-    // Table statistics
-    Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root);
-    TableStatistics->setCommand("Table Statistics");
-    *TableStatistics << "Std_AppendNewColumnToTable"
-                     << "Std_ShowColumnStatistics"
-                     << "Std_ShowRowStatistics";
 
      return root;
 }
@@ -1501,9 +1445,7 @@ void WindLabGui::Workbench::WriteMapToRegistry2(std::map<const const std::string
     count++;
 }
 
-void WindLabGui::Workbench::ReadMapFromRegistry2(
-    std::map<const const std::string, std::string>& map,
-                                                QString& settingsGroup, int& count)
+void WindLabGui::Workbench::ReadMapFromRegistry2(std::map<const const std::string, std::string>& map, QString& settingsGroup, int& count)
 {
     QSettings settings;
 
@@ -1536,8 +1478,7 @@ void WindLabGui::Workbench::WLWriteAllTobeInstallObjectsToRegistry()
     WriteMapToRegistry(CrpsSimuMethodFactory::GetOjectAndPluginMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("WLLoc"), count = 1;
-    WriteMapToRegistry(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), settingsGroup,
-                       count);
+    WriteMapToRegistry(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("WLXPSD"), count = 1;
     WriteMapToRegistry(CrpsXSpectrumFactory::GetOjectAndPluginMap(), settingsGroup, count);
@@ -2360,12 +2301,14 @@ int WindLabGui::Workbench::RPSWriteInstalledPluginsToRegistry()
     for (it = App::PluginManager::GetInstance().GetInstalledPluginsMap().begin();
          it != App::PluginManager::GetInstance().GetInstalledPluginsMap().end(); ++it) {
         // Get the plugin names
-        Descript = it->second->GetPluginSubFolder();// second veut dire "b", first sera "a" map<a,b>
+        Descript = it->second->GetPluginSubFolder();// 
+        if (Descript.contains(QString::fromLatin1("WindLab")))
+        {
+            // Make a name of each plugin to be saved
+            PlgName = QLatin1String("%1").arg(i);
 
-        // Make a name of each plugin to be saved
-        PlgName = QLatin1String("%1").arg(i);
-
-        settings.setValue(PlgName, Descript);
+            settings.setValue(PlgName, Descript);
+        }
 
         i++;
     }

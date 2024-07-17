@@ -30,6 +30,7 @@
 #define CORRELATION_H
 
 #include "Filter.h"
+
 namespace Gui {
     class MainWindow;
 }

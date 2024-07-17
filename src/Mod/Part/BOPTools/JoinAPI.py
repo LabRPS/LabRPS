@@ -22,7 +22,7 @@
 
 __title__="BOPTools.JoinAPI module"
 __author__ = "DeepSOIC"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = "JoinFeatures functions that operate on shapes."
 
 import Part

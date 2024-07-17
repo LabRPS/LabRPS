@@ -21,7 +21,7 @@
 
 __title__ = "CompoundTools package"
 __author__ = "DeepSOIC, Bernd Hahnebach"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = """CompoundTools Package (part of LabRPS)."""
 
 ## @package CompoundTools

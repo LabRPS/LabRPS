@@ -50,16 +50,8 @@
 using Base::Console;
 using App::Application;
 
-const char sBanner[] = "(c) Juergen Riegel, Werner Mayer, Yorik van Havre and others 2001-2022\n"\
-                       "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n"\
-                       "LabRPS wouldn't be possible without LabRPS community.\n"\
-                       "  #####                 ####  ###   ####  \n" \
-                       "  #                    #      # #   #   # \n" \
-                       "  #     ##  #### ####  #     #   #  #   # \n" \
-                       "  ####  # # #  # #  #  #     #####  #   # \n" \
-                       "  #     #   #### ####  #    #     # #   # \n" \
-                       "  #     #   #    #     #    #     # #   #  ##  ##  ##\n" \
-                       "  #     #   #### ####   ### #     # ####   ##  ##  ##\n\n" ;
+const char sBanner[] = "(c) Kfdani and others 2023-2024\n"\
+                       "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n\n" ;
 
 
 

@@ -24,7 +24,7 @@ from __future__ import print_function
 
 __title__  = "LabRPS Spreadsheet Workbench - XLSX importer"
 __author__ = "Ulrich Brammer <ulrich1a@users.sourceforge.net>"
-__url__    = ["https://www.labrpsweb.org"]
+__url__    = ["https://www.freecadweb.org"]
 
 '''
 This library imports an Excel-XLSX-file into LabRPS.

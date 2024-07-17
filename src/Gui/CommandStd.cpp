@@ -1036,7 +1036,7 @@ void StdScatterWithXYError::activated(int iMsg)
 bool StdScatterWithXYError::isActive() { return true; }
 
 //======================================================================
-// Std_File_New_aspect
+// Std_StdScatters
 //===========================================================================
 //
 class StdCmdScatters: public GroupCommand
@@ -1124,7 +1124,7 @@ StdStackedHistogram::StdStackedHistogram() : Command("Std_StackedHistogram")
     sToolTipText = QT_TR_NOOP("Stacked Histogram");
     sWhatsThis = "Std_StackedHistogram";
     sStatusTip = QT_TR_NOOP("Stacked Histogram");
-    sPixmap = "stacked-histogram";
+    // sPixmap = "stacked-histogram";
     eType = 0;
 }
 
@@ -1149,7 +1149,7 @@ StdVerticalTwoLayouts::StdVerticalTwoLayouts() : Command("Std_VerticalTwoLayouts
     sToolTipText = QT_TR_NOOP("Vertical Two Layouts");
     sWhatsThis = "Std_VerticalTwoLayouts";
     sStatusTip = QT_TR_NOOP("Vertical Two Layouts");
-    sPixmap = "vertical-two-layouts";
+    // sPixmap = "vertical-two-layouts";
     eType = 0;
 }
 
@@ -1173,7 +1173,7 @@ StdHorizontalTwoLayouts::StdHorizontalTwoLayouts() : Command("Std_HorizontalTwoL
     sToolTipText = QT_TR_NOOP("Horizontal Two Layouts");
     sWhatsThis = "Std_HorizontalTwoLayouts";
     sStatusTip = QT_TR_NOOP("Horizontal Two Layouts");
-    sPixmap = "horizontal-two-layouts";
+    // sPixmap = "horizontal-two-layouts";
     eType = 0;
 }
 
@@ -1198,7 +1198,7 @@ StdFourLayouts::StdFourLayouts() : Command("Std_FourLayouts")
     sToolTipText = QT_TR_NOOP("Four Layouts");
     sWhatsThis = "Std_FourLayouts";
     sStatusTip = QT_TR_NOOP("Four Layouts");
-    sPixmap = "four-layouts";
+    // sPixmap = "four-layouts";
     eType = 0;
 }
 
@@ -1260,31 +1260,31 @@ void StdLineAndSymbol::activated(int iMsg)
 
 bool StdLineAndSymbol::isActive() { return true; }
 
-
-//===========================================================================
-// Std_SpecialLineAndSymbol
-//===========================================================================
-
-DEF_STD_CMD_A(StdSpecialLineAndSymbol)
-
-StdSpecialLineAndSymbol::StdSpecialLineAndSymbol() : Command("Std_SpecialLineAndSymbol")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Special Line + Symbol");
-    sToolTipText = QT_TR_NOOP("A special line and symbol plot");
-    sWhatsThis = "Std_SpecialLineAndSymbol";
-    sStatusTip = QT_TR_NOOP("A special line and symbol plot");
-    sPixmap = "special-line-symbol-plot";
-    eType = 0;
-}
-
-void StdSpecialLineAndSymbol::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    getMainWindow()->getAlphaPlot()->selectPlotType(static_cast<int>(PlotStyle::Graph::VerticalDropLines));
-}
-
-bool StdSpecialLineAndSymbol::isActive() { return true; }
+//
+////===========================================================================
+//// Std_SpecialLineAndSymbol
+////===========================================================================
+//
+//DEF_STD_CMD_A(StdSpecialLineAndSymbol)
+//
+//StdSpecialLineAndSymbol::StdSpecialLineAndSymbol() : Command("Std_SpecialLineAndSymbol")
+//{
+//    sGroup = "Tools";
+//    sMenuText = QT_TR_NOOP("Special Line + Symbol");
+//    sToolTipText = QT_TR_NOOP("A special line and symbol plot");
+//    sWhatsThis = "Std_SpecialLineAndSymbol";
+//    sStatusTip = QT_TR_NOOP("A special line and symbol plot");
+//    sPixmap = "special-line-symbol-plot";
+//    eType = 0;
+//}
+//
+//void StdSpecialLineAndSymbol::activated(int iMsg)
+//{
+//    Q_UNUSED(iMsg);
+//    getMainWindow()->getAlphaPlot()->selectPlotType(static_cast<int>(PlotStyle::Graph::VerticalDropLines));
+//}
+//
+//bool StdSpecialLineAndSymbol::isActive() { return true; }
 
 //===========================================================================
 // Std_VerticalBars
@@ -1949,7 +1949,7 @@ StdAddRemoveVectorPlot::StdAddRemoveVectorPlot() : Command("Std_AddRemoveVectorP
     sToolTipText = QT_TR_NOOP("Add or remove vector plot");
     sWhatsThis = "Std_AddRemoveVectorPlot";
     sStatusTip = QT_TR_NOOP("Add or remove vector plot");
-    sPixmap = "add-remove-vector-plot";
+    // sPixmap = "add-remove-vector-plot";
     eType = 0;
 }
 
@@ -2375,7 +2375,7 @@ StdAddRightAxisTime::StdAddRightAxisTime() : Command("Std_AddRightAxisTime")
     sToolTipText = QT_TR_NOOP("Add right axis time");
     sWhatsThis = "Std_AddRightAxisTime";
     sStatusTip = QT_TR_NOOP("Add right axis time");
-    sPixmap = "raph2d-axis-right-time";
+    sPixmap = "graph2d-axis-right-time";
     eType = 0;
 }
 
@@ -2902,7 +2902,7 @@ StdAddEllipse::StdAddEllipse() : Command("Std_AddEllipse")
     sToolTipText = QT_TR_NOOP("Add ellipse");
     sWhatsThis = "Std_AddEllipse";
     sStatusTip = QT_TR_NOOP("Add ellipse");
-    sPixmap = "add-ellipse";
+    // sPixmap = "add-ellipse";
     eType = 0;
 }
 
@@ -2977,7 +2977,7 @@ StdSwapLayouts::StdSwapLayouts() : Command("Std_SwapLayouts")
     sToolTipText = QT_TR_NOOP("Swap layout");
     sWhatsThis = "Std_SwapLayouts";
     sStatusTip = QT_TR_NOOP("Swap layout");
-    sPixmap = "Std_Graph_Swap_layouts";
+    // sPixmap = "Std_Graph_Swap_layouts";
     eType = 0;
 }
 
@@ -3223,7 +3223,7 @@ StdDuplicateWindow::StdDuplicateWindow() : Command("Std_DuplicateWindow")
     sToolTipText = QT_TR_NOOP("Duplicate Window");
     sWhatsThis = "Std_DuplicateWindow";
     sStatusTip = QT_TR_NOOP("Duplicate Window");
-    sPixmap = "duplicate-window";
+    // sPixmap = "duplicate-window";
     eType = 0;
 }
 
@@ -3288,20 +3288,20 @@ bool StdPlotEditCurveRange::isActive() { return hasActiveDocument(); }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotShowExportASCIIDialog
+// Std_TableShowExportASCIIDialog
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotShowExportASCIIDialog)
 
 StdPlotShowExportASCIIDialog::StdPlotShowExportASCIIDialog()
-    : Command("Std_PlotShowExportASCIIDialog")
+    : Command("Std_TableShowExportASCIIDialog")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Show Export ASCII Dialog");
     sToolTipText = QT_TR_NOOP("Show export ASCII dialog");
-    sWhatsThis = "Std_PlotShowExportASCIIDialog";
+    sWhatsThis = "Std_TableShowExportASCIIDialog";
     sStatusTip = QT_TR_NOOP("Show export ASCII dialog");
-    sPixmap = "edit-curve-range";
+    // sPixmap = "edit-curve-range";
     eType = 0;
 }
 
@@ -3315,19 +3315,19 @@ bool StdPlotShowExportASCIIDialog::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotExportPDF
+// Std_TableExportPDF
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotExportPDF)
 
-StdPlotExportPDF::StdPlotExportPDF() : Command("Std_PlotExportPDF")
+StdPlotExportPDF::StdPlotExportPDF() : Command("Std_TableExportPDF")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Export PDF");
-    sToolTipText = QT_TR_NOOP("Show export ASCII dialog");
-    sWhatsThis = "Std_PlotExportPDF";
-    sStatusTip = QT_TR_NOOP("Show export ASCII dialog");
-    sPixmap = "edit-curve-range";
+    sToolTipText = QT_TR_NOOP("Export table to PDF");
+    sWhatsThis = "Std_TableExportPDF";
+    sStatusTip = QT_TR_NOOP("Export table to PDF");
+    // sPixmap = "edit-curve-range";
     eType = 0;
 }
 
@@ -3367,19 +3367,19 @@ bool StdPlotCloseAllWindows::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotConvertTable
+// Std_TableConvertToMatrix
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotConvertTable)
 
-StdPlotConvertTable::StdPlotConvertTable() : Command("Std_PlotConvertTable")
+StdPlotConvertTable::StdPlotConvertTable() : Command("Std_TableConvertToMatrix")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Convert Table");
-    sToolTipText = QT_TR_NOOP("Convert table");
-    sWhatsThis = "Std_PlotConvertTable";
-    sStatusTip = QT_TR_NOOP("Convert table");
-    sPixmap = "convert-table";
+    sToolTipText = QT_TR_NOOP("Convert table to matrix");
+    sWhatsThis = "Std_TableConvertToMatrix";
+    sStatusTip = QT_TR_NOOP("Convert table to matrix");
+    // sPixmap = "convert-table";
     eType = 0;
 }
 
@@ -3393,19 +3393,19 @@ bool StdPlotConvertTable::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotAddColToTable
+// Std_TableAddColToTable
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotAddColToTable)
 
-StdPlotAddColToTable::StdPlotAddColToTable() : Command("Std_PlotAddColToTable")
+StdPlotAddColToTable::StdPlotAddColToTable() : Command("Std_TableAddColToTable")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Add Col to Table");
     sToolTipText = QT_TR_NOOP("Add col to table");
-    sWhatsThis = "Std_PlotAddColToTable";
+    sWhatsThis = "Std_TableAddColToTable";
     sStatusTip = QT_TR_NOOP("Add col to table");
-    sPixmap = "add-col-to-table";
+    // sPixmap = "add-col-to-table";
     eType = 0;
 }
 
@@ -3497,7 +3497,7 @@ bool StdPlotPixelLineProfile::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotPixelLineProfile
+// Std_PlotIntensityTable
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotIntensityTable)
@@ -3653,19 +3653,19 @@ bool StdPlotAdd3DData::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotMatrixDeterminant
+// Std_MatrixDeterminant
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotMatrixDeterminant)
 
-StdPlotMatrixDeterminant::StdPlotMatrixDeterminant() : Command("Std_PlotMatrixDeterminant")
+StdPlotMatrixDeterminant::StdPlotMatrixDeterminant() : Command("Std_MatrixDeterminant")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Matrix Determinant");
     sToolTipText = QT_TR_NOOP("Matrix determinant");
-    sWhatsThis = "Std_PlotMatrixDeterminant";
+    sWhatsThis = "Std_MatrixDeterminant";
     sStatusTip = QT_TR_NOOP("Matrix determinant");
-    sPixmap = "matrix-determinant";
+    // sPixmap = "matrix-determinant";
     eType = 0;
 }
 
@@ -3678,19 +3678,19 @@ void StdPlotMatrixDeterminant::activated(int iMsg)
 bool StdPlotMatrixDeterminant::isActive() { return true; }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotConvertMatrix
+// Std_MatrixConvertToTable
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotConvertMatrix)
 
-StdPlotConvertMatrix::StdPlotConvertMatrix() : Command("Std_PlotConvertMatrix")
+StdPlotConvertMatrix::StdPlotConvertMatrix() : Command("Std_MatrixConvertToTable")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Convert Matrix");
     sToolTipText = QT_TR_NOOP("Convert matrix");
-    sWhatsThis = "Std_PlotConvertMatrix";
+    sWhatsThis = "Std_MatrixConvertToTable";
     sStatusTip = QT_TR_NOOP("Convert matrix");
-    sPixmap = "convert-matrix";
+    // sPixmap = "convert-matrix";
     eType = 0;
 }
 
@@ -3704,19 +3704,19 @@ bool StdPlotConvertMatrix::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotInvertMatrix
+// Std_InvertMatrix
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotInvertMatrix)
 
-StdPlotInvertMatrix::StdPlotInvertMatrix() : Command("Std_PlotInvertMatrix")
+StdPlotInvertMatrix::StdPlotInvertMatrix() : Command("Std_InvertMatrix")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Invert Matrix");
     sToolTipText = QT_TR_NOOP("Invert matrix");
-    sWhatsThis = "Std_PlotInvertMatrix";
+    sWhatsThis = "Std_InvertMatrix";
     sStatusTip = QT_TR_NOOP("Invert matrix");
-    sPixmap = "invert-matrix";
+    // sPixmap = "invert-matrix";
     eType = 0;
 }
 
@@ -3730,19 +3730,19 @@ bool StdPlotInvertMatrix::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
-// Std_PlotClearTable
+// Std_ClearTable
 //===========================================================================
 
 DEF_STD_CMD_A(StdPlotClearTable)
 
-StdPlotClearTable::StdPlotClearTable() : Command("Std_PlotClearTable")
+StdPlotClearTable::StdPlotClearTable() : Command("Std_ClearTable")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("Clear Table");
     sToolTipText = QT_TR_NOOP("Clear table");
-    sWhatsThis = "Std_PlotClearTable";
+    sWhatsThis = "Std_ClearTable";
     sStatusTip = QT_TR_NOOP("Clear table");
-    sPixmap = "clear-table";
+    // sPixmap = "clear-table";
     eType = 0;
 }
 
@@ -3774,7 +3774,6 @@ StdPlotGoToCell::StdPlotGoToCell() : Command("Std_PlotGoToCell")
 void StdPlotGoToCell::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    //Gui::getMainWindow()->getAlphaPlot()->clearTable();
 }
 
 bool StdPlotGoToCell::isActive() { return true; }
@@ -4022,6 +4021,8 @@ StdCmdNewTable::StdCmdNewTable() : Command("Std_File_New_table")
     sStatusTip = QT_TR_NOOP("Create a new table");
     sPixmap = "Std_File_New_table";
     eType = NoTransaction;
+    sAccel        = "Ctrl+T";
+
 }
 
 void StdCmdNewTable::activated(int iMsg)
@@ -4045,6 +4046,8 @@ StdCmdNewMatrix::StdCmdNewMatrix() : Command("Std_NewMatrix")
     sStatusTip = QT_TR_NOOP("Create a new Matrix");
     sPixmap = "Std_File_New_matrix";
     eType = NoTransaction;
+    sAccel        = "Ctrl+M";
+
 }
 
 void StdCmdNewMatrix::activated(int iMsg)
@@ -4068,6 +4071,8 @@ StdCmdNewScene::StdCmdNewScene() : Command("Std_NewScene")
     sStatusTip = QT_TR_NOOP("Create a new Scene");
     sPixmap = "Std_File_New_scene";
     eType = NoTransaction;
+    sAccel        = "Ctrl+S";
+
 }
 
 void StdCmdNewScene::activated(int iMsg)
@@ -4091,6 +4096,8 @@ StdNewGraph::StdNewGraph() : Command("Std_NewGraph")
     sStatusTip = QT_TR_NOOP("Create a new graph");
     sPixmap = "Std_File_New_graph";
     eType = NoTransaction;
+    sAccel        = "Ctrl+G";
+
 }
 
 void StdNewGraph::activated(int iMsg)
@@ -4113,6 +4120,7 @@ StdNew2DPlot::StdNew2DPlot() : Command("Std_New2DPlot")
     sStatusTip = QT_TR_NOOP("Create new function plot");
     sPixmap = "Std_File_New_function_plot";
     eType = 0;
+
 }
 
 void StdNew2DPlot::activated(int iMsg)
@@ -4132,7 +4140,7 @@ StdNew3DPlot::StdNew3DPlot() : Command("Std_New3DPlot")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("3D Plot");
-    sToolTipText = QT_TR_NOOP("Create new 2D plot");
+    sToolTipText = QT_TR_NOOP("Create new 3D plot");
     sWhatsThis = "Std_New3DPlot";
     sStatusTip = QT_TR_NOOP("Create new 2D plot");
     sPixmap = "Std_File_New_3D_surface_plot";
@@ -4145,7 +4153,7 @@ void StdNew3DPlot::activated(int iMsg)
     Gui::getMainWindow()->getAlphaPlot()->newSurfacePlot();
 }
 
-bool StdNew3DPlot::isActive() { return hasActiveDocument(); }
+bool StdNew3DPlot::isActive() { return true; }
 
 //======================================================================
 // Std_File_New_aspect
@@ -4167,7 +4175,7 @@ public:
 
         addCommand(new StdCmdNewTable());
         addCommand(new StdCmdNewMatrix());
-        addCommand(new StdCmdNewScene());
+        // addCommand(new StdCmdNewScene());
         addCommand(new StdNewGraph());
         addCommand(new StdNew2DPlot());
         addCommand(new StdNew3DPlot());
@@ -4359,6 +4367,31 @@ public:
 };
 
 //======================================================================
+// Std_SpecialLineAndSymbol
+//===========================================================================
+//
+class StdSpecialLineAndSymbol: public GroupCommand
+{
+public:
+    StdSpecialLineAndSymbol() : GroupCommand("Std_SpecialLineAndSymbol")
+    {
+        sGroup = "Tools";
+        sMenuText = QT_TR_NOOP("Special Line + Symbol");
+        sToolTipText = QT_TR_NOOP("A special line and symbol plot");
+        sWhatsThis = "Std_SpecialLineAndSymbol";
+        sStatusTip = QT_TR_NOOP("A special line and symbol plot");
+        eType = 0;
+        bCanLog = false;
+
+        addCommand(new StdVerticaDropLine());
+        addCommand(new StdSpLine());
+        addCommand(new StdVerticalStep());
+        addCommand(new StdHorizontalStep());
+    }
+    virtual const char* className() const { return "Std_SpecialLineAndSymbol"; }
+};
+
+//======================================================================
 // Std_VectorPlots
 //===========================================================================
 //
@@ -4499,7 +4532,7 @@ StdExportTableASCII::StdExportTableASCII() : Command("Std_ExportTableASCII")
     sToolTipText = QT_TR_NOOP("Export table as ASCII");
     sWhatsThis = "Std_ExportTableASCII";
     sStatusTip = QT_TR_NOOP("Export Alphaplot data as ASCII");
-    sPixmap = "Std_ExportTableASCII";
+    // sPixmap = "Std_ExportTableASCII";
     eType = 0;
 }
 
@@ -4524,7 +4557,7 @@ StdImportTableASCII::StdImportTableASCII() : Command("Std_ImportTableASCII")
     sToolTipText = QT_TR_NOOP("Import table as ASCII");
     sWhatsThis = "Std_ImportTableASCII";
     sStatusTip = QT_TR_NOOP("Import Alphaplot data as ASCII");
-    sPixmap = "Std_ImportTableASCII";
+    // sPixmap = "Std_ImportTableASCII";
     eType = 0;
 }
 
@@ -4549,7 +4582,7 @@ StdSaveAlphaplotData::StdSaveAlphaplotData() : Command("Std_SaveAlphaplotData")
     sToolTipText = QT_TR_NOOP("Save the alphaplot data to disc");
     sWhatsThis = "Std_SaveAlphaplotData";
     sStatusTip = QT_TR_NOOP("Save the alphaplot data to disc");
-    sPixmap = "Std_SaveAlphaplotData";
+    // sPixmap = "Std_SaveAlphaplotData";
     eType = 0;
 }
 
@@ -4574,7 +4607,7 @@ StdLoadAlphaplotData::StdLoadAlphaplotData() : Command("Std_LoadAlphaplotData")
     sToolTipText = QT_TR_NOOP("Load the alphaplot data to disc");
     sWhatsThis = "Std_LoadAlphaplotData";
     sStatusTip = QT_TR_NOOP("Load the alphaplot data to disc");
-    sPixmap = "Std_LoadAlphaplotData";
+    // sPixmap = "Std_LoadAlphaplotData";
     eType = 0;
 }
 

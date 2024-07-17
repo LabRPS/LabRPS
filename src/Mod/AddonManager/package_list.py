@@ -743,6 +743,7 @@ class Ui_PackageList(object):
         self.comboPackageType.addItem("")
         self.comboPackageType.addItem("")
         self.comboPackageType.addItem("")
+        self.comboPackageType.addItem("")
         self.comboPackageType.setObjectName("comboPackageType")
 
         self.horizontalLayout_6.addWidget(self.comboPackageType)

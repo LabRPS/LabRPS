@@ -27,7 +27,7 @@ import LabRPS, Part
 
 __title__ = "JoinFeatures module (legacy)"
 __author__ = "DeepSOIC"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = "Legacy JoinFeatures module provided for ability to load projects made with \
 LabRPS v0.16. Do not use. Use BOPTools.JoinFeatures instead."
 

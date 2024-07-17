@@ -21,7 +21,7 @@
 
 __title__ = "LabRPS OpenSCAD Workbench - 2D helper functions"
 __author__ = "Sebastian Hoogen"
-__url__ = ["https://www.labrpsweb.org"]
+__url__ = ["https://www.freecadweb.org"]
 
 '''
 This Script includes python functions to convert imported dxf geometry to Faces

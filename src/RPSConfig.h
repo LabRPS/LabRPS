@@ -114,7 +114,7 @@
 //#elif defined(__GNU__)
 //# define RPS_OS_GNU
 #else
-#   error "LabRPS is not ported to this OS yet. For help see www.labrpsweb.org"
+#   error "LabRPS is not ported to this OS yet. For help see www.freecadweb.org"
 #endif
 
 #ifdef RPS_OS_WIN32

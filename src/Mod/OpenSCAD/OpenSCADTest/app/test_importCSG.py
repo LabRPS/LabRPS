@@ -31,7 +31,7 @@ from os.path import join
 
 __title__ = "ImportCSG OpenSCAD App unit tests"
 __author__ = "Chris Hennes"
-__url__ = "https://www.labrpsweb.org"
+__url__ = "https://www.freecadweb.org"
 
 
 class TestImportCSG(unittest.TestCase):

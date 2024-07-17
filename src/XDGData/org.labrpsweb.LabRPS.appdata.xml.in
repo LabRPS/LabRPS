@@ -51,10 +51,10 @@
       <image>https://wiki.labrpsweb.org/images/f/f4/Labrps-document-01.jpg</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://www.labrpsweb.org</url>
-  <url type="bugtracker">https://www.labrpsweb.org/tracker</url>
+  <url type="homepage">https://www.freecadweb.org</url>
+  <url type="bugtracker">https://www.freecadweb.org/tracker</url>
   <url type="help">https://forum.labrpsweb.org</url>
-  <url type="donation">https://www.labrpsweb.org/wiki/Donate</url>
+  <url type="donation">https://www.freecadweb.org/wiki/Donate</url>
   <update_contact>yorik_AT_uncreated.net</update_contact>
   <content_rating type="oars-1.1"/>
   <releases>

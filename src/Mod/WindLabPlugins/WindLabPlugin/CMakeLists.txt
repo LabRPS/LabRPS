@@ -190,8 +190,8 @@ RPSvonKarmanAlongWindSpectrum.h
 RPSvonKarmanVerticalWindSpectrum.h
 Widgets/RPSVonKarmanDialog.cpp
 Widgets/RPSVonKarmanDialog.h
-RPSDeodatis1987.h
-RPSDeodatis1987.cpp
+RPSDeodatis1996.h
+RPSDeodatis1996.cpp
 WLUniformDistributionLocations.h
 WLUniformDistributionLocations.cpp
 RPSWavePassageEffect.h

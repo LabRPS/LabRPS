@@ -21,7 +21,7 @@
 
 __title__ = "LabRPS OpenSCAD Workbench - GUI Commands"
 __author__ = "Sebastian Hoogen"
-__url__ = ["https://www.labrpsweb.org"]
+__url__ = ["https://www.freecadweb.org"]
 
 '''
 This Script includes the GUI Commands of the OpenSCAD module

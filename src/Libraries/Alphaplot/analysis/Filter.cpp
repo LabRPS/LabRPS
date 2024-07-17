@@ -38,7 +38,6 @@
 #include <algorithm>
 
 #include "ColorBox.h"
-#include "MainWindow.h"
 
 #include "2Dplot/AxisRect2D.h"
 #include "2Dplot/Curve2D.h"
@@ -51,14 +50,14 @@
 
 using namespace std;
 
-Filter::Filter(Gui::MainWindow *parent, AxisRect2D *axisrect, QString name)
-    : QObject(parent), app_(parent), axisrect_(axisrect) {
+Filter::Filter(AxisRect2D *axisrect, QString name)
+    :axisrect_(axisrect) {
   QObject::setObjectName(name);
   init();
 }
 
-Filter::Filter(Gui::MainWindow *parent, Table *table, QString name)
-    : QObject(parent), app_(parent), d_table(table) {
+Filter::Filter(Table *table, QString name)
+    : d_table(table) {
   QObject::setObjectName(name);
   init();
   d_table = table;
@@ -82,7 +81,7 @@ void Filter::init() {
 
 void Filter::setInterval(double from, double to) {
   if (!associateddata_) {
-    QMessageBox::critical(app_, tr("AlphaPlot") + QString::fromLatin1(" - ") + tr("Error"),
+    QMessageBox::critical(0, tr("AlphaPlot") + QString::fromLatin1(" - ") + tr("Error"),
                           tr("Please assign a curve first!"));
     return;
   }
@@ -120,7 +119,7 @@ void Filter::setDataCurve(PlotData::AssociatedData *associateddata,
 bool Filter::isDataAcceptable() {
   if (d_n < d_min_points) {
     QMessageBox::critical(
-        app_, tr("AlphaPlot") + QString::fromLatin1(" - ") + tr("Error"),
+        0, tr("AlphaPlot") + QString::fromLatin1(" - ") + tr("Error"),
         tr("You need at least %1 points in order to perform this operation!")
             .arg(d_min_points));
     return false;
@@ -180,7 +179,7 @@ void Filter::setColor(const QString &colorName) {
   else if (colorName == QString::fromLatin1("darkYellow"))
     c = QColor(Qt::darkYellow);
   if (!ColorBox::isValidColor(c)) {
-    QMessageBox::critical(app_, tr("Color Name Error"),
+    QMessageBox::critical(0, tr("Color Name Error"),
                           tr("The color name '%1' is not valid, a default "
                              "color (red) will be used instead!")
                               .arg(colorName));
@@ -265,41 +264,40 @@ int Filter::sortedCurveData(double start, double end, double **x, double **y) {
 }
 
 Curve2D *Filter::addResultCurve(double *xdata, double *ydata) {
-  //const QString tableName = app_->generateUniqueName(this->objectName());
-  //Column *xCol =
-  //    new Column(tr("1", "filter table x column name"), AlphaPlot::Numeric);
-  //Column *yCol =
-  //    new Column(tr("2", "filter table y column name"), AlphaPlot::Numeric);
-  //xCol->setPlotDesignation(AlphaPlot::X);
-  //yCol->setPlotDesignation(AlphaPlot::Y);
-  //for (int i = 0; i < d_points; i++) {
-  //  xCol->setValueAt(i, xdata[i]);
-  //  yCol->setValueAt(i, ydata[i]);
-  //}
+  const QString tableName = this->objectName(); //Koffa :to be made unique
+  Column *xCol =
+      new Column(tr("1", "filter table x column name"), AlphaPlot::Numeric);
+  Column *yCol =
+      new Column(tr("2", "filter table y column name"), AlphaPlot::Numeric);
+  xCol->setPlotDesignation(AlphaPlot::X);
+  yCol->setPlotDesignation(AlphaPlot::Y);
+  for (int i = 0; i < d_points; i++) {
+    xCol->setValueAt(i, xdata[i]);
+    yCol->setValueAt(i, ydata[i]);
+  }
 
-  //// first set the values, then add the columns to the table, otherwise, we
-  //// generate too many undo commands
-  //QString label = associateddata_->table->name() + QString::fromLatin1("_") +
-  //                associateddata_->xcol->name() + QString::fromLatin1("_") +
-  //                associateddata_->ycol->name();
-  //Table *table = app_->newHiddenTable(
-  //    tableName, d_explanation + QString::fromLatin1(" ") + tr("of") + QString::fromLatin1(" ") + label,
-  //    QList<Column *>() << xCol << yCol);
-  //QList<Axis2D *> xaxes = axisrect_->getXAxes2D();
-  //QList<Axis2D *> yaxes = axisrect_->getYAxes2D();
-  //Curve2D *curve = axisrect_->addCurve2DPlot(
-  //    AxisRect2D::LineScatterType::Line2D, table, xCol, yCol, 0,
-  //    xCol->rowCount() - 1, xaxes.at(0), yaxes.at(0));
-  //curve->setlinestrokecolor_cplot(ColorBox::color(d_curveColorIndex));
-  //curve->layer()->replot();
-  //axisrect_->getLegend()->layer()->replot();
-  //xaxes.at(0)->rescale();
-  //yaxes.at(0)->rescale();
+  // first set the values, then add the columns to the table, otherwise, we
+  // generate too many undo commands
+  QString label = associateddata_->table->name() + QString::fromLatin1("_") +
+                  associateddata_->xcol->name() + QString::fromLatin1("_") +
+                  associateddata_->ycol->name();
+  Table *table = app_->newHiddenTable(
+      tableName, d_explanation + QString::fromLatin1(" ") + tr("of") + QString::fromLatin1(" ") + label,
+      QList<Column *>() << xCol << yCol);
+  QList<Axis2D *> xaxes = axisrect_->getXAxes2D();
+  QList<Axis2D *> yaxes = axisrect_->getYAxes2D();
+  Curve2D *curve = axisrect_->addCurve2DPlot(
+      AxisRect2D::LineScatterType::Line2D, table, xCol, yCol, 0,
+      xCol->rowCount() - 1, xaxes.at(0), yaxes.at(0));
+  curve->setlinestrokecolor_cplot(ColorBox::color(d_curveColorIndex));
+  curve->layer()->replot();
+  axisrect_->getLegend()->layer()->replot();
+  xaxes.at(0)->rescale();
+  yaxes.at(0)->rescale();
 
-  //delete[] xdata;
-  //delete[] ydata;
-  //return curve;//koffa the way
-    return nullptr;
+  delete[] xdata;
+  delete[] ydata;
+  return curve;//koffa the way
 }
 
 Filter::~Filter() {
