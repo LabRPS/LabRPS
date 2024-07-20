@@ -1,0 +1,33 @@
+<RCC>
+    <qresource>
+        <file>icons/SeaLabWorkbench.svg</file>
+        <file>icons/SeaLab_NewSimulation.svg</file>
+        <file>icons/SeaLab_Features.svg</file>
+        <file>icons/SeaLab_Examples.svg</file>
+        <file>icons/general/folder.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_CoherenceObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_CorrelationObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_CPDObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_DecomposedSpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_FrequencyObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_KurtosisObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_LocationObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_MeanObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_ModulationObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_PDFObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_PeakFactorObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_RandomnessProviderObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_ShearVelocityObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_SkewnessObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_StandardDeviationObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_WavePassageObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_VarianceObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_SimulationMethodObj.svg</file> 
+        <file>icons/SeaLabFeatures/SeaLab_Feature_UserDefinedObj.svg</file> 
+        <file>icons/SeaLabFeatures/SeaLab_Feature_TableToolObj.svg</file> 
+        <file>icons/SeaLabFeatures/SeaLab_Feature_MatrixToolObj.svg</file> 
+   
+        <file alias="icons/preferences-sealab.svg">icons/SeaLabWorkbench.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,67 @@
+
+
+#include "RPSJenningsEtAl1968Modulation.h"
+#include <Mod/SeismicLabAPI/App/RPSSeismicLabFramework.h>
+#include <Mod/SeismicLabTools/App/modulation/JenningsEtAl1968Modulation.h>
+#include "Widgets/DlgJenningsEtAl1968Modulation.h"
+#include <Base/Console.h>
+#include <Gui/Control.h>
+
+
+using namespace SeismicLab;
+using namespace SeismicLabAPI;
+
+PROPERTY_SOURCE(SeismicLab::CRPSJenningsEtAl1968Modulation, SeismicLabAPI::SeismicLabFeatureModulation)
+
+CRPSJenningsEtAl1968Modulation::CRPSJenningsEtAl1968Modulation()
+{
+   ADD_PROPERTY_TYPE(RiseTime, (3.00), "Parameters", App::Prop_None, "The instant of time (in sec) corresponding to the beginning of the horizontal part of the envelope.");
+   ADD_PROPERTY_TYPE(LevelTime, (8.0), "Parameters", App::Prop_None, "The instant of time corresponding to the beginning of the descending branch of the envelope. The Level Time should be larger than the Rise Time.");
+   ADD_PROPERTY_TYPE(Alpha, (0.2), "Parameters", App::Prop_None, "The parameter alpha.");
+   ADD_PROPERTY_TYPE(Power, (2.0), "Parameters", App::Prop_None, "The power coefficient");
+}
+
+bool CRPSJenningsEtAl1968Modulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double& dTime, double& dValue)
+{
+   SeismicLabTools::JenningsEtAl1968Modulation jenningsEtAl1968Modulation;
+   dValue = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue());
+   return true;
+}
+bool CRPSJenningsEtAl1968Modulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double& dTime, vec& dVarVector, vec& dValVector)
+{
+   SeismicLabTools::JenningsEtAl1968Modulation jenningsEtAl1968Modulation;
+   const double modulationValue = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue());
+
+    for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++)
+    {
+        dVarVector(k) = k+1;
+        dValVector(k) = modulationValue;
+    }
+
+	return true;
+}
+
+bool CRPSJenningsEtAl1968Modulation::ComputeModulationVectorT(const SeismicLabSimulationData& Data, Base::Vector3d location, vec& dVarVector, vec& dValVector)
+{
+    SeismicLabTools::JenningsEtAl1968Modulation jenningsEtAl1968Modulation;
+
+	 //For each time increment
+	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
+	{
+		const double 	dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+        dVarVector(k) = dTime;
+		dValVector(k) = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue());
+	}
+
+	return true;
+}
+
+    //Initial setting
+bool CRPSJenningsEtAl1968Modulation::OnInitialSetting(const SeismicLabAPI::SeismicLabSimulationData& Data)
+{
+	// the input diolag
+    SeismicLabGui::DlgJenningsEtAl1968ModulationEdit* dlg = new SeismicLabGui::DlgJenningsEtAl1968ModulationEdit(RiseTime, LevelTime, Alpha, Power, Data.modulationFunction);
+	Gui::Control().showDialog(dlg);
+
+    return true;
+}

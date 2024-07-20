@@ -361,7 +361,7 @@ public Q_SLOTS:
     //! \name Matrices
     //@{
     //! Creates a new empty matrix
-    Matrix* newMatrix(int rows = 32, int columns = 32);
+    Matrix* newMatrix(int rows = 3, int columns = 3);
     //! To be used when opening a project file only!
     Matrix* newMatrix(const QString& caption, int r, int c);
     Matrix* MainAlphaPlot::newMatrixShowMatrix(const mat& x, const QString caption);

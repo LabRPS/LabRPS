@@ -38,6 +38,8 @@ def showSimulationPoints():
        return None
     simPoints = sim.computeLocationCoordinateMatrixP3()
     App.ActiveDocument.openTransaction("Sim_Points")
+    if not simPoints:
+       App.Console.PrintError("The computation of the location coordinates has failed.\n")
     group = App.ActiveDocument.addObject("App::DocumentObjectGroup", "Sim_Points")
     for i in range(sim.getSimulationData().numberOfSpatialPosition):
         vertex = App.ActiveDocument.addObject('Part::Vertex', 'Point_%d' % simPoints[i][0])

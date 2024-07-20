@@ -22,7 +22,7 @@
 
 __title__="BOPTools.SplitAPI module"
 __author__ = "DeepSOIC"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = "Split functions that operate on list_of_shapes."
 
 import Part

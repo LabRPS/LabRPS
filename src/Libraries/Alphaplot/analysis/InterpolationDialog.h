@@ -30,6 +30,7 @@
 #define INTERPOLATIONDIALOG_H
 
 #include <QDialog>
+#include <Libraries/Alphaplot/AlphaplotGlobal.h>
 
 class QPushButton;
 class QLineEdit;

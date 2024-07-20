@@ -101,6 +101,8 @@ public:
     App::PropertyMap Meta;
     /// Material descriptions, used and defined in the Material module.
     App::PropertyMap Material;
+    /// Installed plugin list
+    App::PropertyMap PluginList;
     /// read-only name of the temp dir created when the document is opened
     PropertyString TransientDir;
     /// Tip object of the document (if any)
@@ -186,6 +188,7 @@ public:
     bool save (void);
     bool saveAs(const char* file);
     bool saveCopy(const char* file) const;
+    void saveAllDependentPluginsToFile();
     /// Restore the document from the file in Property Path
     void restore (const char *filename=nullptr,
             bool delaySignal=false, const std::vector<std::string> &objNames={});

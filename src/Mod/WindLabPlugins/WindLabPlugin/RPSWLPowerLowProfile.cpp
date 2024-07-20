@@ -130,7 +130,6 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
 		return false;
 	}
 
-
 	if (Data.stationarity.getValue())
 	{
 		dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
@@ -138,23 +137,43 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
 	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
 	{
 		double dModValue = 0.0;
-
-		//get the active document
 		auto doc = App::GetApplication().getActiveDocument();
 		if (!doc)
 		{
 			return false;
 		}
 		// Compute the location coordinate array
-		WindLabAPI::IrpsWLModulation* activeLocationDis = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.spatialDistribution.getValue()));
-		activeLocationDis->ComputeModulationValue(Data, location, dTime, dModValue);
+		WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
 
-		if (!activeLocationDis)
+		if (!activeFeature)
 		{
-			Base::Console().Warning("The computation of the modulation value has failed.\n");
+            Base::Console().Error("The computation of the modulation value has failed.\n");
 			return false;
 		}
-		dValue = dModValue * powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+			dValue = dModValue * powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+
+		}
+		else
+		{
+			dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+		}
+
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
 	}
 
 	return true;

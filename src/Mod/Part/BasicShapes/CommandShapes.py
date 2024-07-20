@@ -22,7 +22,7 @@
 
 __title__ = "BasicShapes.CommandShapes"
 __author__ = "Werner Mayer"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = "Basic shapes"
 
 

@@ -30,7 +30,6 @@
 
 #include "Convolution.h"
 
-#include "MainWindow.h"
 #include <QLocale>
 #include <QMessageBox>
 
@@ -40,7 +39,7 @@
 
 #include <gsl/gsl_fft_halfcomplex.h>
 
-Convolution::Convolution(Gui::MainWindow *parent, Table *t,
+Convolution::Convolution(Table *t,
                          const QString &signalColName,
                          const QString &responseColName)
     : Filter(parent, t) {

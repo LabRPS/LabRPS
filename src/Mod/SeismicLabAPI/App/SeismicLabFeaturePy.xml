@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="RPSFeaturePy"
+    Name="SeismicLabFeaturePy"
+    Twin="SeismicLabFeature"
+    TwinPointer="SeismicLabFeature"
+    Include="Mod/SeismicLabAPI/App/SeismicLabFeature.h"
+    Namespace="SeismicLabAPI"
+    FatherInclude="App/RPSFeaturePy.h"
+    FatherNamespace="App"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle random wind velocity</UserDocu>
+    </Documentation>
+  </PythonExport>
+</GenerateModel>

@@ -21,7 +21,7 @@
 
 __title__ = "LabRPS OpenSCAD Workbench - expand placements and matrices functions"
 __author__ = "Sebastian Hoogen"
-__url__ = ["https://www.labrpsweb.org"]
+__url__ = ["https://www.freecadweb.org"]
 
 '''
 This Script includes python functions to shift all placements down the

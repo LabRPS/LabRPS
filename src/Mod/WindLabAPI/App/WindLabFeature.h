@@ -41,23 +41,6 @@ public:
     WindLabFeature(void);
     virtual ~WindLabFeature();
 
-    App::PropertyBool IsActive;
-    App::PropertyString FeatureType;
-    App::PropertyString FeatureGroup;
-    App::PropertyString Author;
-    App::PropertyString PublicationTopic;
-    App::PropertyString PublicationDate;
-    App::PropertyString LinkToPublication;
-    App::PropertyString PublicationAuthor;
-    App::PropertyString Version;
-    App::PropertyString PluginName;
-    App::PropertyString PluginVersion;
-    App::PropertyString APIVersion;
-    App::PropertyString ReleaseDate;
-    App::PropertyString Simulation;
-    
-    App::PropertyBool IsStationary;
-
     /** @name methods override feature */
     //@{
     virtual short mustExecute() const override;

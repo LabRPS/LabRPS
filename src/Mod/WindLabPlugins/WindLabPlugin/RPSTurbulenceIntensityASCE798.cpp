@@ -27,6 +27,10 @@
 #include "Widgets/DlgTurbulenceIntensityASCE798.h"
 #include <Base/Console.h>
 #include <Gui/Control.h>
+#include <App/Application.h>
+#include <App/Document.h>
+#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
+
 
 using namespace WindLab;
 
@@ -40,10 +44,54 @@ RPSTurbulenceIntensityASCE798::RPSTurbulenceIntensityASCE798()
 
 bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& location, const double& dTime, double& dValue)
 {
-  
     WindLabTools::TurbulenceIntensity turbulenceIntensity;
-    dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
-    
+
+   bool returnResult = true;
+
+	if (Data.stationarity.getValue())
+	{
+		dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
+	}
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValue = 0.0;
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
+
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = dModValue * turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
+		}
+		else
+		{
+			dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
+		}
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
 	return true;
 }
 
@@ -75,7 +123,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorP(const Wind
 
 bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& location, vec& dVarVector, vec& dValVector)
 {
-     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
+    mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 	bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
     
     if(!returnResult)

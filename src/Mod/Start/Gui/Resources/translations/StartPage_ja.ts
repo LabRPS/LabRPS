@@ -115,8 +115,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS には公開&lt;a href="https://www.labrpsweb.org/tracker"&gt;バグトラッカー&lt;/a&gt;も用意されていて、誰でもバグや新しい機能の提案を投稿することができます。余分な作業を発生させず、見つけたバグを解決できる可能性を上げるために、投稿する前には必ず&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;バグ報告ガイドライン&lt;/a&gt;を読んでください。</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS には公開&lt;a href="https://www.freecadweb.org/tracker"&gt;バグトラッカー&lt;/a&gt;も用意されていて、誰でもバグや新しい機能の提案を投稿することができます。余分な作業を発生させず、見つけたバグを解決できる可能性を上げるために、投稿する前には必ず&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;バグ報告ガイドライン&lt;/a&gt;を読んでください。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -145,8 +145,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="70"/>
-      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
-      <translation>以下のは、最新の改良が加えられた&lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPSのソースコード&lt;/a&gt;です。これらの改良は、あなたが現在実行しているLabRPSのバージョンにはまだ反映されていない場合があります。 開発版の入手をご希望の場合は &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;利用可能なオプション&lt;/a&gt;より確認して下さい。</translation>
+      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
+      <translation>以下のは、最新の改良が加えられた&lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPSのソースコード&lt;/a&gt;です。これらの改良は、あなたが現在実行しているLabRPSのバージョンにはまだ反映されていない場合があります。 開発版の入手をご希望の場合は &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;利用可能なオプション&lt;/a&gt;より確認して下さい。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="71"/>

@@ -115,8 +115,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS tiež udržiava verejný &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt;, na ktorom môže ktokoľvek ohlásiť chybu alebo navrhnúť novú funkcionalitu. Aby ste zabránili duplicitám a mali čo najväčšiu šancu, že bude vaša chyba odstránená, pred vložením príspevku si prečítajte &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;príručku ohlasovania chýb&lt;/a&gt;.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS tiež udržiava verejný &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt;, na ktorom môže ktokoľvek ohlásiť chybu alebo navrhnúť novú funkcionalitu. Aby ste zabránili duplicitám a mali čo najväčšiu šancu, že bude vaša chyba odstránená, pred vložením príspevku si prečítajte &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;príručku ohlasovania chýb&lt;/a&gt;.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -145,8 +145,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="70"/>
-      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
-      <translation>Nižšie sú uvedené najnovšie zmeny vykonané v &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;zdrojovom kóde aplikácie LabRPS&lt;/a&gt;. Tieto zmeny nemusia byť zatiaľ premietnuté vo verzii aplikácie LabRPS, ktorú práve používate. Skontrolujte &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;dostupné možnosti&lt;/a&gt;, ak si želáte získať verziu vo vývoji.</translation>
+      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
+      <translation>Nižšie sú uvedené najnovšie zmeny vykonané v &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;zdrojovom kóde aplikácie LabRPS&lt;/a&gt;. Tieto zmeny nemusia byť zatiaľ premietnuté vo verzii aplikácie LabRPS, ktorú práve používate. Skontrolujte &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;dostupné možnosti&lt;/a&gt;, ak si želáte získať verziu vo vývoji.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="71"/>

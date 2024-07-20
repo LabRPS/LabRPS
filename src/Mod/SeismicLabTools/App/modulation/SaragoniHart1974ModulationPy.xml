@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="SaragoniHart1974ModulationPy"
+    Twin="SaragoniHart1974Modulation"
+    TwinPointer="SaragoniHart1974Modulation"
+    Include="Mod/SeismicLabTools/App/modulation/SaragoniHart1974Modulation.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the modulation function according to Saragoni and Hart (1974)</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, alphaOne, alphaTwo, alphaThree)
+					time = the time value for which the modulation function is computed 
+          alphaOne, alphaTwo, alphaThree = the gamma envelope parameters  
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

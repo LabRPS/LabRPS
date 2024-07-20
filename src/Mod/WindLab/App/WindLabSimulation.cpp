@@ -157,6 +157,7 @@ WindLabSimulation::WindLabSimulation()
 	ADD_PROPERTY_TYPE(MinVariableX, (-5.00), "Variable X", Prop_None, "This is the minimum x variable value");
 
     ADD_PROPERTY_TYPE(Phenomenon, ("Wind Velocity"), 0, Prop_ReadOnly, "The random phenonenon name");
+    ADD_PROPERTY_TYPE(WorkingDirectoryPath, (Application::getHomePath()), 0, Prop_None, "The working directory path.");
 
 
     SpatialDistribution.setEnums(someEnums);
@@ -217,6 +218,7 @@ void WindLabSimulation::updateSimulationData()
     _simuData->numberOfTimeLags.setValue(this->NumberOfTimeLags.getValue());
     _simuData->numberOfWaveLengthIncrements.setValue(this->NumberOfWaveLengthIncrements.getValue());
     _simuData->numberOfDirectionIncrements.setValue(this->NumberOfDirectionIncrements.getValue());
+    _simuData->workingDirPath.setValue(this->WorkingDirectoryPath.getValue());
     _simuData->waveLengthIndex.setValue(this->WaveLengthIndex.getValue());
     _simuData->stationarity.setValue(this->Stationarity.getValue());
     _simuData->gaussianity.setValue(this->Gaussianity.getValue());

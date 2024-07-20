@@ -30,6 +30,7 @@
 #define POLINOMFITDIALOG_H
 
 #include <QDialog>
+#include <Libraries/Alphaplot/AlphaplotGlobal.h>
 
 class QCheckBox;
 class QSpinBox;

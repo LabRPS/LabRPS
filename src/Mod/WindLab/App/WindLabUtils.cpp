@@ -22,20 +22,7 @@
 
 
 #include "PreCompiled.h"
-
 #include "WindLabUtils.h"
-#include <QDateTime>
-#include <QDebug>
-#include <QProcess>
-#include <QStringList>
-#include <QSysInfo>
-#include <cmath>
-
-#ifdef Q_OS_WIN
-#include <assert.h>
-#include <windows.h>
-#endif
-
 
 using namespace WindLab;
 

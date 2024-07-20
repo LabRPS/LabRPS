@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="ExponentialModulationPy"
+    Twin="ExponentialModulation"
+    TwinPointer="ExponentialModulation"
+    Include="Mod/SeismicLabTools/App/modulation/ExponentialModulation.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute Exponential modulation</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, alpha, beta)
+					time = the time value for which the modulation function is computed 
+          alpha = parameter influencing the shape of the exponential envelope   
+          beta = parameter influencing the shape of the exponential envelope. beta must be greater than alpha.
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

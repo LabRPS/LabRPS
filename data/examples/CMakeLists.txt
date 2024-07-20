@@ -1,6 +1,6 @@
 
 SET(Examples_Files 
-    PartExample.RPSStd
+    Example_1.RPSStd
 )
 
 ADD_CUSTOM_TARGET(Example_data ALL

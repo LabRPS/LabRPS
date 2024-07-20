@@ -16,4 +16,4 @@ Type=Application
 Icon=org.labrpsweb.LabRPS
 Categories=Graphics;Science;Education;Engineering;
 StartupNotify=true
-MimeType=application/x-extension-fcstd;
+MimeType=application/x-extension-rpsstd;

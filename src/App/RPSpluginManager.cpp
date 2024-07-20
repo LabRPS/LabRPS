@@ -15,6 +15,9 @@
 #include <QSettings>
 
 #include <App/Application.h>
+#include <App/WindLabUtils.h>
+#include <App/SeismicLabUtils.h>
+#include <App/SeaLabUtils.h>
 
 using namespace std;
 using namespace App;
@@ -100,12 +103,19 @@ public:
         return QString::fromLatin1("0.1");
     }
 
-    QString getLabRPSWindLabAPIVersion()
+    QString getWindLabAPIVersion()
     {
         return QString::fromLatin1("0.1");
     }
-
-    QString getLabRPSUserDefinedPhenomenonAPIVersion()
+	QString getSeismicLabAPIVersion()
+    {
+        return QString::fromLatin1("0.1");
+    }
+	QString getSeaLabAPIVersion()
+    {
+        return QString::fromLatin1("0.1");
+    }
+    QString getUserDefinedPhenomenonAPIVersion()
     {
         return QString::fromLatin1("0.1");
     }
@@ -134,6 +144,8 @@ bool PluginInstance::Initialize(QString &information)
 	const QString pluginName = GetStringFromDllFunct(QString::fromLatin1("PluginName"));
     const QString labRPSVersion = GetStringFromDllFunct(QString::fromLatin1("Labrpsversion"));
     const QString apiVersion = GetStringFromDllFunct(QString::fromLatin1("Apiversion"));
+    const QString randomPhenomenon = GetStringFromDllFunct(QString::fromLatin1("Phenomenon"));
+
     Impl::MyPrototypeOne init_func = mImpl->GetFunctionPrototypeOne("PluginInit");
 
 	if (!checkVersion(labRPSVersion.toStdString(), mImpl->getLabRPSVersion().toStdString()))
@@ -141,10 +153,30 @@ bool PluginInstance::Initialize(QString &information)
 		Base::Console().Warning("The LabRPS version(%s) of your plugin '%s' is not compatible with the current version(%s) of LabRPS.\n", labRPSVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getLabRPSVersion().toStdString().c_str());
         return false;
 	}
-    if (!checkVersion(apiVersion.toStdString(), mImpl->getLabRPSWindLabAPIVersion().toStdString()))
+
+	if (randomPhenomenon == App::WindLabUtils::rpsPhenomenonWindVelocity)
 	{
-        Base::Console().Warning("The plugin API version(%s) of your plugin '%s' is not compatible with the current version(%s) of Plugin API.\n", apiVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getLabRPSWindLabAPIVersion().toStdString().c_str());
-        return false;
+		if (!checkVersion(apiVersion.toStdString(), mImpl->getWindLabAPIVersion().toStdString()))
+		{
+			Base::Console().Warning("The plugin API version(%s) of your plugin '%s' is not compatible with the current version(%s) of Plugin API.\n", apiVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getWindLabAPIVersion().toStdString().c_str());
+			return false;
+		}
+	}
+	else if (randomPhenomenon == App::SeismicLabUtils::rpsPhenomenonGroundMotion)
+	{
+		if (!checkVersion(apiVersion.toStdString(), mImpl->getSeismicLabAPIVersion().toStdString()))
+		{
+			Base::Console().Warning("The plugin API version(%s) of your plugin '%s' is not compatible with the current version(%s) of Plugin API.\n", apiVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getSeismicLabAPIVersion().toStdString().c_str());
+			return false;
+		}
+	}
+	else if (randomPhenomenon == App::SeaLabUtils::rpsPhenomenonSeaSurface)
+	{
+		if (!checkVersion(apiVersion.toStdString(), mImpl->getSeaLabAPIVersion().toStdString()))
+		{
+			Base::Console().Warning("The plugin API version(%s) of your plugin '%s' is not compatible with the current version(%s) of Plugin API.\n", apiVersion.toStdString().c_str(), pluginName.toStdString().c_str(), mImpl->getSeaLabAPIVersion().toStdString().c_str());
+			return false;
+		}
 	}
 
 	if (!init_func)
@@ -375,7 +407,12 @@ void PluginInstance::SetInstallationState(bool state)
 }
 
 bool PluginInstance::checkVersion(std::string versions, std::string currentVersion) {
-    // Tokenize the comma-separated list
+    std::string myVersion = versions; 
+	transform(versions.begin(), versions.end(), versions.begin(), ::tolower);
+	if (strcmp(versions.c_str(), "all") == 0)
+        return true;
+
+	// Tokenize the comma-separated list
     std::stringstream stream(versions);
     std::string version;
     while (std::getline(stream, version, ','))

@@ -26,7 +26,7 @@
 
 __title__="LabRPS File info utility"
 __author__ = "Yorik van Havre"
-__url__ = ["http://www.labrpsweb.org"]
+__url__ = ["http://www.freecadweb.org"]
 __doc__ = '''
 This utility prints information about a given LabRPS file (*.RPSStd)
 on screen, including document properties, number of included objects,
@@ -212,7 +212,7 @@ if __name__ == '__main__':
         sys.exit()
 
     ext = sys.argv[-1].rsplit(".")[-1].lower()
-    if not ext.startswith("fcstd") and not ext.startswith("fcbak"):
+    if not ext.startswith("rpsstd") and not ext.startswith("rpsbak"):
         print(__doc__)
         sys.exit()
 

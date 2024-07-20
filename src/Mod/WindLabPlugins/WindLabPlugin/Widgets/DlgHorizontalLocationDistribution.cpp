@@ -26,9 +26,9 @@
 #include "DlgHorizontalLocationDistribution.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgHorizontalLocationDistribution.h>
 #include <Mod/WindLabPlugins/WindLabPlugin/WLHorizontalUniformDistribution.h>
-//#include <QSignalMapper>
-//#include <App/Application.h>
-//#include <App/Document.h>
+#include <QSignalMapper>
+#include <App/Application.h>
+#include <App/Document.h>
 #include <App/PropertyGeo.h>
 #include <App/PropertyUnits.h>
 
@@ -73,7 +73,7 @@ DlgHorizontalLocationDistribution::~DlgHorizontalLocationDistribution()
 
 void DlgHorizontalLocationDistribution::accept()
 {
-    /*auto doc = App::GetApplication().getActiveDocument();
+    auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return;
     WindLab::CWLHorizontalUniformDistribution* activefeature = static_cast<WindLab::CWLHorizontalUniformDistribution*>(doc->getObject(_featureName.c_str()));
@@ -81,7 +81,7 @@ void DlgHorizontalLocationDistribution::accept()
         return;
     Base::Vector3d lowestPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
     activefeature->FirstPoint.setValue(lowestPoint);
-    activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());*/
+    activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());
 }
 
 void DlgHorizontalLocationDistribution::reject()

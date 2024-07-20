@@ -115,8 +115,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS는 누구든지 버그를 제출하고 새로운 기능을 제안 할 수있는 공개 &lt;a href="https://www.labrpsweb.org/tracker"&gt; 버그 추적기&lt;/a&gt;가 있습니다. 추가 작업이 발생하지 않도록 하고 버그를 해결할 수있는 가장 좋은 기회를 제공하려면 게시하기 전에&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; 버그 제출 안내서를 읽으십시오.&lt;/a&gt;</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS는 누구든지 버그를 제출하고 새로운 기능을 제안 할 수있는 공개 &lt;a href="https://www.freecadweb.org/tracker"&gt; 버그 추적기&lt;/a&gt;가 있습니다. 추가 작업이 발생하지 않도록 하고 버그를 해결할 수있는 가장 좋은 기회를 제공하려면 게시하기 전에&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; 버그 제출 안내서를 읽으십시오.&lt;/a&gt;</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -145,8 +145,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="70"/>
-      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
-      <translation>아래는 &lt;a href="http://github.com/LabRPS/LabRPS/"&gt; LabRPS 소스 코드&lt;/a&gt;에 추가 된 최신 변경 사항입니다. 이 변경 사항은 현재 실행중인 LabRPS 버전에서 반영되지 않을 수 있습니다. 개발 버전을 얻으려면 &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;사용 가능한 옵션 &lt;/a&gt;을 확인하십시오.</translation>
+      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
+      <translation>아래는 &lt;a href="http://github.com/LabRPS/LabRPS/"&gt; LabRPS 소스 코드&lt;/a&gt;에 추가 된 최신 변경 사항입니다. 이 변경 사항은 현재 실행중인 LabRPS 버전에서 반영되지 않을 수 있습니다. 개발 버전을 얻으려면 &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;사용 가능한 옵션 &lt;/a&gt;을 확인하십시오.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="71"/>

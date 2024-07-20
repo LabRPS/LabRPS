@@ -100,6 +100,7 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
+    App::PropertyString WorkingDirectoryPath;
 	App::PropertyEnumeration SpatialDistribution;
 	App::PropertyEnumeration ShearVelocity;
 	App::PropertyEnumeration MeanFunction;

@@ -21,7 +21,7 @@
 
 __title__ = "LabRPS OpenSCAD Workbench - Parametric Features"
 __author__ = "Sebastian Hoogen"
-__url__ = ["https://www.labrpsweb.org"]
+__url__ = ["https://www.freecadweb.org"]
 
 try:
     long

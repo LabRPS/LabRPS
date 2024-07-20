@@ -1,0 +1,71 @@
+/***************************************************************************
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
+ *                                                                         *
+ *   This file is part of the LabRPS development system.                   *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
+
+#include "PreCompiled.h"
+
+#include <Base/VectorPy.h>
+#include <CXX/Objects.hxx>
+
+#include "SeaLabSimulationData.h"
+
+
+// inclusion of the generated files (generated out of SeaLabSimulationDataPy.xml)
+#include "SeaLabSimulationDataPy.h"
+#include "SeaLabSimulationDataPy.cpp"
+
+using namespace SeaLabAPI;
+
+// returns a string which represents the object e.g. when printed in python
+std::string SeaLabSimulationDataPy::representation(void) const
+{
+    return std::string("<SeaLabSimulationData object>");
+    std::stringstream str;
+    str << "<SeaLab Simulation Data>";
+    return str.str();
+}
+
+PyObject *SeaLabSimulationDataPy::PyMake(struct _typeobject *, PyObject *, PyObject *)  // Python wrapper
+{
+    // create a new instance of SeaLabSimulationDataPy and the Twin object
+    return new SeaLabSimulationDataPy(new SeaLabSimulationData());
+}
+
+// constructor method
+int SeaLabSimulationDataPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
+{
+    return 0;
+}
+
+
+// +++ custom attributes implementer ++++++++++++++++++++++++++++++++++++++++
+
+PyObject *SeaLabSimulationDataPy::getCustomAttributes(const char* /*attr*/) const
+{
+    return nullptr;
+}
+
+int SeaLabSimulationDataPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+{
+    return 0;
+}
+
+

@@ -22,7 +22,7 @@
 
 __title__="BOPTools.SplitFeatures module"
 __author__ = "DeepSOIC"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = "Shape splitting document objects (features)."
 
 from . import SplitAPI

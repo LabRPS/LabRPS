@@ -86,7 +86,7 @@ void Matrix::init(int rows, int cols) {
   d_future_matrix->setView(this);
   d_future_matrix->setNumericFormat('f');
   d_future_matrix->setDisplayedDigits(6);
-  d_future_matrix->setCoordinates(1.0, 10.0, 1.0, 10.0);
+  d_future_matrix->setCoordinates(1.0, 3.0, 1.0, 3.0);
   dMatrix = nullptr;
 
   birthdate = d_future_matrix->creationTime().toString(Qt::LocalDate);

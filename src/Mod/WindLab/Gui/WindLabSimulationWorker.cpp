@@ -45,6 +45,7 @@ using namespace WindLabGui;
 RPSWindLabSimulationWorker::RPSWindLabSimulationWorker(WindLab::WindLabSimulation* sim) : m_sim(sim)
 {
     m_sim->getSimulationData()->isInterruptionRequested.setValue(false);
+    stopped = true;
 }
 
 RPSWindLabSimulationWorker::~RPSWindLabSimulationWorker() {}
@@ -2464,10 +2465,12 @@ bool RPSWindLabSimulationWorker::workerSimulate()
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
             Base::Console().Message("The computation %s\n", str.c_str());
+
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
+
             if (!returnResult) {
-                Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                Base::Console().Error("The computation of the wind velocity matrix has failed.\n");
                 return false;
             }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeatureFrequencyDistributionPy"
+            Twin="ViewProviderSeismicLabFeatureFrequencyDistribution"
+            TwinPointer="ViewProviderSeismicLabFeatureFrequencyDistribution"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeatureFrequencyDistribution.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeatureFrequencyDistribution class</UserDocu>
+        </Documentation>
+      <Methode Name="computeFrequencyValue">
+        <Documentation>
+          <UserDocu>Compute a frequency value</UserDocu>
+        </Documentation>
+      </Methode>
+            <Methode Name="computeFrequenciesVectorF">
+        <Documentation>
+          <UserDocu>Compute the frequency vector</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeFrequenciesMatrixFP">
+        <Documentation>
+          <UserDocu>Compute the frequency matrix</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

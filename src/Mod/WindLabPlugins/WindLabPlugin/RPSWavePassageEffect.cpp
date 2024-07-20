@@ -26,7 +26,9 @@
 #include "Widgets/DlgWavePassageEffect.h"
 #include <Base/Console.h>
 #include <Gui/Control.h>
-
+#include <App/Application.h>
+#include <App/Document.h>
+#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -103,31 +105,78 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::Wind
 {
     bool returnResult = true;
 
-   double MEANj = 0.0;
-   double MEANk = 0.0;
-   double apparentWaveVelocity = 0.0;
-   double wavePassageEff = 0.0;
+    double MEANj = 0.0;
+    double MEANk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
-   if (!returnResult) {
-        Base::Console().Warning("The computation of the mean wind velocity failed.");
-        return false;
-   }
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
-   if (!returnResult) {
-        Base::Console().Warning("The computation of the mean wind velocity failed.");
-        return false;
-   }
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
 
     WindLabTools::WavePassageEffect wavePassageEf;
-    if (ApparentWaveVelocity.getValue() == 0.0)
-    {
-      apparentWaveVelocity = wavePassageEf.computeApparentWaveVelocity(MEANj, MEANk, Coefficient.getValue());
-      ApparentWaveVelocity.setValue(apparentWaveVelocity);
-    }
-    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
-    return true;
+	if (Data.stationarity.getValue())
+	{
+        dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    }
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValueJ = 0.0;
+        double dModValueK = 0.0;
+
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
+
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = 0.5 * (dModValueJ + dModValueJ) * wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+
+		}
+		else
+		{
+            dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        }
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
+	return true;
 }
 
 

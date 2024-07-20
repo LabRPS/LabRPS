@@ -305,9 +305,9 @@ QString createDefaultExportBasename()
     // %F - the basename of the.RPSStd file(or the label, if it is not saved yet)
     QString docFilename = QString::fromUtf8(App::GetApplication().getActiveDocument()->getFileName());
     QFileInfo fi(docFilename);
-    QString fcstdBasename = fi.completeBaseName();
-    if (fcstdBasename.isEmpty()) 
-        fcstdBasename = QString::fromStdString(App::GetApplication().getActiveDocument()->Label.getStrValue());
+    QString rpsstdBasename = fi.completeBaseName();
+    if (rpsstdBasename.isEmpty()) 
+        rpsstdBasename = QString::fromStdString(App::GetApplication().getActiveDocument()->Label.getStrValue());
 
     // %L - the label of the selected object(s)
     QStringList objectLabels;
@@ -358,7 +358,7 @@ QString createDefaultExportBasename()
 
                 // Handle our format characters:
                 if (formatChar == QLatin1Char('F')) {
-                    defaultFilename.append(fcstdBasename);
+                    defaultFilename.append(rpsstdBasename);
                 }
                 else if (formatChar == QLatin1Char('L')) {
                     defaultFilename.append(objectLabels.join(separatorChar));

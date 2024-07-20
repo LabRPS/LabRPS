@@ -1,0 +1,33 @@
+<RCC>
+    <qresource>
+        <file>icons/SeismicLabWorkbench.svg</file>
+        <file>icons/SeismicLab_NewSimulation.svg</file>
+        <file>icons/SeismicLab_Features.svg</file>
+        <file>icons/SeismicLab_Examples.svg</file>
+        <file>icons/general/folder.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_CoherenceObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_CorrelationObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_CPDObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_DecomposedSpectrumObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_FrequencyObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_KurtosisObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_LocationObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_MeanObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_ModulationObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_PDFObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_PeakFactorObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_RandomnessProviderObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_ShearVelocityObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_SkewnessObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_StandardDeviationObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_WavePassageObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_VarianceObj.svg</file>
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_SimulationMethodObj.svg</file> 
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_UserDefinedObj.svg</file> 
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_TableToolObj.svg</file> 
+        <file>icons/SeismicLabFeatures/SeismicLab_Feature_MatrixToolObj.svg</file> 
+   
+        <file alias="icons/preferences-seismiclab.svg">icons/SeismicLabWorkbench.svg</file>
+    </qresource>
+</RCC>

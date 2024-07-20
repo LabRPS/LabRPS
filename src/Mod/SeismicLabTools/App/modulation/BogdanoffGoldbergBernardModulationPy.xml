@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="BogdanoffGoldbergBernardModulationPy"
+    Twin="BogdanoffGoldbergBernardModulation"
+    TwinPointer="BogdanoffGoldbergBernardModulation"
+    Include="Mod/SeismicLabTools/App/modulation/BogdanoffGoldbergBernardModulation.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute Exponential modulation</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, coefficientOne, coefficientTwo)
+					time = the time value for which the modulation function is computed 
+          coefficientOne, coefficientTwo = parameters influencing the shape of the exponential envelope   
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>
