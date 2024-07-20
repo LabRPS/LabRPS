@@ -283,6 +283,7 @@ SET(LabRPSApp_CPP_SRCS
     RPSpluginManager.cpp
     WindLabUtils.cpp
     SeismicLabUtils.cpp
+    SeaLabUtils.cpp
 
 )
 
@@ -300,6 +301,8 @@ SET(LabRPSApp_HPP_SRCS
     RPSpluginManager.h
     WindLabUtils.h
     SeismicLabUtils.h
+    SeaLabUtils.h
+
 )
 
 SET(LabRPSApp_SRCS

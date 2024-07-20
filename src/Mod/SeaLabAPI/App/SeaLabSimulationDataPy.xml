@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeaLabFeaturePy"
+    Name="SeaLabSimulationDataPy"
+    Twin="SeaLabSimulationData"
+    TwinPointer="SeaLabSimulationData"
+    Include="Mod/SeaLabAPI/App/SeaLabSimulationData.h"
+    Namespace="SeaLabAPI"
+    FatherInclude="Mod/SeaLabAPI/App/SeaLabFeaturePy.h"
+    FatherNamespace="SeaLabAPI"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle winds</UserDocu>
+    </Documentation>
+  </PythonExport>
+</GenerateModel>

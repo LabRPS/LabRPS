@@ -10,6 +10,7 @@
 #include "BitmapFactory.h"
 #include <App/WindLabUtils.h>
 #include <App/SeismicLabUtils.h>
+#include <App/SeaLabUtils.h>
 
 #include <Workbench.h>
 
@@ -333,6 +334,7 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
     return QIcon(QString::fromUtf8(":/icons/WindLabFeatures/WindLab_Feature_UserDefinedObj.svg"));
     }
     else if (name == App::SeismicLabUtils::rpsPhenomenonGroundMotion) {
+
     if (group == App::SeismicLabUtils::objGroupCoherenceFunction) {
         return QIcon(QString::fromUtf8(":/icons/SeismicLabFeatures/SeismicLab_Feature_CoherenceObj.svg"));
     }
@@ -414,6 +416,91 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
 
     return QIcon(QString::fromUtf8(":/icons/SeismicLabFeatures/SeismicLab_Feature_UserDefinedObj.svg"));
     }
+    
+    else if (name == App::SeaLabUtils::rpsPhenomenonSeaSurface) {
+        
+    if (group == App::SeaLabUtils::objGroupCoherenceFunction) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_CoherenceObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupCorrelationFunction) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_CorrelationObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupCumulativeProbabilityDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_CPDObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupFrequencyDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_FrequencyObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupKurtosis) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_KurtosisObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupLocationDistribution) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_LocationObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupMatrixTool) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_MatrixToolObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupMeanAcceleration) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_MeanObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupModulationFunction) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_ModulationObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupPeakFactor) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_PeakFactorObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupProbabilityDensityFunction) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_PeakFactorObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupSpectrumDecompositionMethod) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_DecomposedSpectrumObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupRandomnessProvider) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_RandomnessProviderObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupShearVelocityOfFlow) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_ShearVelocityObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupSimulationMethod) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_SimulationMethodObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupSkewness) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_SkewnessObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupStandardDeviation) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_StandardDeviationObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupTableTool) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_TableToolObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupUserDefinedRPSObject) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_UserDefinedObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupVariance) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_VarianceObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupWavePassageEffect) {
+        return QIcon(
+            QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_WavePassageObj.svg"));
+    }
+    else if (group == App::SeaLabUtils::objGroupSpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg"));
+    }
+
+    return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_UserDefinedObj.svg"));
+    }
+ 
   
 }
 

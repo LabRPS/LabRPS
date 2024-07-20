@@ -32,8 +32,6 @@
 
 namespace App {
 
-class WindLabSimulationObserver;
-
 enum SimulationStatus {
     Failed = 0,
     Successfull = 1,

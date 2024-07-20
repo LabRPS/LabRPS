@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureCumulativeProbabilityDistributionPy"
+            Twin="ViewProviderSeaLabFeatureCumulativeProbabilityDistribution"
+            TwinPointer="ViewProviderSeaLabFeatureCumulativeProbabilityDistribution"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureCumulativeProbabilityDistribution.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureCumulativeProbabilityDistribution class</UserDocu>
+        </Documentation>
+      <Methode Name="computeCPDValue">
+        <Documentation>
+          <UserDocu>Compute the CPD value for a given value of x</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCPDVectorX">
+        <Documentation>
+          <UserDocu>Compute the CPD for all values of x</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

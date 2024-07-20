@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeismicGroundMotionSpectrumPy"
+    Name="KanaiTajimiSpectrumPy"
+    Twin="KanaiTajimiSpectrum"
+    TwinPointer="KanaiTajimiSpectrum"
+    Include="Mod/SeismicLabTools/App/spectrum/KanaiTajimiSpectrum.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Mod/SeismicLabTools/App/spectrum/SeismicGroundMotionSpectrumPy.h" 
+    FatherNamespace="SeismicLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows the computation of the Kanai-Tajimi spectrum.</UserDocu>
+    </Documentation>
+    <Methode Name="computeKanaiTajimiSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeKanaiTajimiSpectrum(frequency)
+					frequency = the frequency value for which the spectrum will be calculated
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>
+

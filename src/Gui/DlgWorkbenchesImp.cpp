@@ -219,12 +219,13 @@ QStringList DlgWorkbenchesImp::load_enabled_workbenches()
         enabled_wbs_list.append(QString::fromLatin1("StartWorkbench"));
         enabled_wbs_list.append(QString::fromLatin1("WindLabWorkbench"));
         enabled_wbs_list.append(QString::fromLatin1("SeismicLabWorkbench"));
+        enabled_wbs_list.append(QString::fromLatin1("SeaLabWorkbench"));
 
         /*QStringList workbenches = Application::Instance->workbenches();
         for (QStringList::Iterator it = workbenches.begin(); it != workbenches.end(); ++it) {
             enabled_wbs_list.append(*it);
         }*/
-        enabled_wbs_list.sort();
+        //enabled_wbs_list.sort();
     }
     return enabled_wbs_list;
 }
@@ -247,11 +248,15 @@ QStringList DlgWorkbenchesImp::load_disabled_workbenches()
 
         QStringList workbenches = Application::Instance->workbenches();
         for (QStringList::Iterator it = workbenches.begin(); it != workbenches.end(); ++it) {
-            if ((*it != QString::fromLatin1("StartWorkbench")) &&  (*it != QString::fromLatin1("WindLabWorkbench")) &&  (*it != QString::fromLatin1("SeismicLabWorkbench")) )
+            if ((*it != QString::fromLatin1("StartWorkbench")) &&  
+                (*it != QString::fromLatin1("WindLabWorkbench")) && 
+                (*it != QString::fromLatin1("SeismicLabWorkbench")) && 
+                (*it != QString::fromLatin1("SeaLabWorkbench"))) 
+               
                 disabled_wbs_list.append(*it);
         }
 
-        disabled_wbs_list.sort();
+        //disabled_wbs_list.sort();
     }
     return disabled_wbs_list;
 }

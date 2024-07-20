@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureSimulationMethodPy"
+            Twin="ViewProviderSeaLabFeatureSimulationMethod"
+            TwinPointer="ViewProviderSeaLabFeatureSimulationMethod"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureSimulationMethod.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureSimulationMethod class</UserDocu>
+        </Documentation>
+      <Methode Name="simulate">
+        <Documentation>
+          <UserDocu>Simulate the random ground motion</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="simulateInLargeScaleMode">
+        <Documentation>
+          <UserDocu>Simulate the random ground motion in large scale mode</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+ 

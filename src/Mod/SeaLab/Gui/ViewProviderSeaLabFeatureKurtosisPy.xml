@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureKurtosisPy"
+            Twin="ViewProviderSeaLabFeatureKurtosis"
+            TwinPointer="ViewProviderSeaLabFeatureKurtosis"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureKurtosis.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureKurtosis class</UserDocu>
+        </Documentation>
+      <Methode Name="computeKurtosisValue">
+        <Documentation>
+          <UserDocu>Compute the kurtosis value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeKurtosisVectorP">
+        <Documentation>
+          <UserDocu>Compute the kurtosis a all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeKurtosisVectorT">
+        <Documentation>
+          <UserDocu>Compute the kurtosis at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

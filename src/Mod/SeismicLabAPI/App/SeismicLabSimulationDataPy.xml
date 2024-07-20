@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeismicLabFeaturePy"
+    Name="SeismicLabSimulationDataPy"
+    Twin="SeismicLabSimulationData"
+    TwinPointer="SeismicLabSimulationData"
+    Include="Mod/SeismicLabAPI/App/SeismicLabSimulationData.h"
+    Namespace="SeismicLabAPI"
+    FatherInclude="Mod/SeismicLabAPI/App/SeismicLabFeaturePy.h"
+    FatherNamespace="SeismicLabAPI"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle winds</UserDocu>
+    </Documentation>
+  </PythonExport>
+</GenerateModel>

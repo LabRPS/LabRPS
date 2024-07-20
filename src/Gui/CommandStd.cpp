@@ -4071,7 +4071,6 @@ StdCmdNewScene::StdCmdNewScene() : Command("Std_NewScene")
     sStatusTip = QT_TR_NOOP("Create a new Scene");
     sPixmap = "Std_File_New_scene";
     eType = NoTransaction;
-    sAccel        = "Ctrl+S";
 
 }
 

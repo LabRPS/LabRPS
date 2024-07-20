@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeaSurfaceSpectrumPy"
+    Name="TorsethaugenSpectrumPy"
+    Twin="TorsethaugenSpectrum"
+    TwinPointer="TorsethaugenSpectrum"
+    Include="Mod/SeaLabTools/App/spectrum/TorsethaugenSpectrum.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Mod/SeaLabTools/App/spectrum/SeaSurfaceSpectrumPy.h" 
+    FatherNamespace="SeaLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the spectrum using the Torsethaugen spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeSpectrum(frequency, significantWaveHeight, peakPeriod, autoGamma, autoSigma, gamma, sigma1, sigma2, bool isDouble)
+					frequency = the frequency value for which the spectrum will be calculated
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SimulationPy"
+    Name="SeismicLabSimulationPy"
+    Twin="SeismicLabSimulation"
+    TwinPointer="SeismicLabSimulation"
+    Include="Mod/SeismicLab/App/SeismicLabSimulation.h"
+    Namespace="SeismicLab"
+    FatherInclude="App/SimulationPy.h"
+    FatherNamespace="App"
+    Constructor="true">
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle SeismicLab features</UserDocu>
+    </Documentation>
+    <Methode Name="run">
+      <Documentation>
+        <UserDocu>run the active simulation</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="stop">
+      <Documentation>
+        <UserDocu>stop the running simulation</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="getPhenomenonName">
+      <Documentation>
+        <UserDocu>get the name of the random phenomenon. Here, this will return random ground acceleration.</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="getSimulationData">
+      <Documentation>
+        <UserDocu>get the SeismicLab simulation data</UserDocu>
+      </Documentation>
+    </Methode>
+  	<Methode Name="getActiveCoherence">
+		  <Documentation>
+			  <UserDocu>get the active coherence function feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveCorrelation">
+		  <Documentation>
+			  <UserDocu>get the active correlation function feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveCumulativeProbabilityDistribution">
+		  <Documentation>
+			  <UserDocu>get the active cumulative probability feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveFrequencyDistribution">
+		  <Documentation>
+			  <UserDocu>get the active frequency distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveKurtosis">
+		  <Documentation>
+			  <UserDocu>get the active kurtosis feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveLocationDistribution">
+		  <Documentation>
+			  <UserDocu>get the active location distribution feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveMeanAcceleration">
+		  <Documentation>
+			  <UserDocu>get the active mean acceleration feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveModulation">
+		  <Documentation>
+			  <UserDocu>get the active modulation function feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActivePeakFactor">
+		  <Documentation>
+			  <UserDocu>get the active peak factor feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveProbabilityDensityFunction">
+		  <Documentation>
+			  <UserDocu>get the active probability density function feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActivePSDDecompositionMethod">
+		  <Documentation>
+			  <UserDocu>get the active power spectral density matrix decomposition feature (this is a Cholesky decomposity)</UserDocu>
+		  </Documentation>
+	</Methode>
+  <Methode Name="getActiveRandomness">
+		  <Documentation>
+			  <UserDocu>get the active random phase generator feature (randomness provider)</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveShearVelocityOfFlow">
+		  <Documentation>
+			  <UserDocu>get the active shear velocity feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveSimulationMethod">
+		  <Documentation>
+			  <UserDocu>get the active simulation method feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveSkewness">
+		  <Documentation>
+			  <UserDocu>get the active skewness feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveStandardDeviation">
+		  <Documentation>
+			  <UserDocu>get the active standard deviation feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  <Methode Name="getActiveUserDefinedRPSObject">
+		  <Documentation>
+			  <UserDocu>get the active user defined feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveVariance">
+		  <Documentation>
+			  <UserDocu>get the active variance feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveWavePassageEffect">
+		  <Documentation>
+			  <UserDocu>get the active wave passage effect feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveSpectrum">
+		  <Documentation>
+			  <UserDocu>get the active spectrum model feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveMatrixTool">
+		  <Documentation>
+			  <UserDocu>get the active matrix tool feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveTableTool">
+		  <Documentation>
+			  <UserDocu>get the active table tool feature</UserDocu>
+		  </Documentation>
+	</Methode>
+	  <Methode Name="computeCrossCoherenceVectorF">
+		  <Documentation>
+			  <UserDocu>run the active coherence function feature for all frequency increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceVectorT">
+		  <Documentation>
+			  <UserDocu>run the active coherence function feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the active coherence function feature for all locations and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCorrelationVectorT">
+		  <Documentation>
+			  <UserDocu>run the active correlation function feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCorrelationMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the active correlation function feature for all locations and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeFrequenciesVectorF">
+		  <Documentation>
+			  <UserDocu>run the active frequency distribution feature for all frequency increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+  
+    <Methode Name="computeFrequenciesMatrixFP">
+		  <Documentation>
+			  <UserDocu>run the active frequency distribution feature for all frequency increments and time increments and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeLocationCoordinateMatrixP3">
+		  <Documentation>
+			  <UserDocu>run the active location distribution feature for all locations and return the 3D coordinate as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeMeanAccelerationVectorP">
+		  <Documentation>
+			  <UserDocu>run the active mean acceleration feature for all locations and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeMeanAccelerationVectorT">
+		  <Documentation>
+			  <UserDocu>run the active mean acceleration feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeModulationVectorT">
+		  <Documentation>
+			  <UserDocu>run the active modulation function feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeModulationVectorP">
+		  <Documentation>
+			  <UserDocu>run the active modulation function feature for all locations and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all locations and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="generateRandomMatrixFP">
+		  <Documentation>
+			  <UserDocu>run the active randomness provider feature for all frequency and time increments and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeCrossSpectrumVectorT function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the computeCrossSpectrumMatrixPP function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeAutoSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run the computeAutoSpectrumValue function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    
+    <Methode Name="computeAutoSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run the computeAutoSpectrumVectorF function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeAutoSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeAutoSpectrumVectorT function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+	  <Methode Name="computeCrossSpectrumValue">
+		  <Documentation>
+			  <UserDocu>run the computeCrossSpectrumValue function from the active spectrum model feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCrossCoherenceValue">
+		  <Documentation>
+			  <UserDocu>run the active spectrum model feature for given location, frequency, time and return the value. SeismicLab framework will automatically call the right function depending on the direction.</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeCrossCorrelationValue">
+		  <Documentation>
+			  <UserDocu>run the computeCrossCorrelationValue function from the active correlation function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeMeanAccelerationValue">
+		  <Documentation>
+			  <UserDocu>run the computeMeanAccelerationValue function from the active mean acceleration feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeModulationValue">
+		  <Documentation>
+			  <UserDocu>run the computeModulationValue function from the active modulation function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeRandomValue">
+		  <Documentation>
+			  <UserDocu>run the computeRandomValue function from the active randomness provider feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	<Methode Name="computeFrequencyValue">
+		  <Documentation>
+			  <UserDocu>run the computeFrequencyValue function from the active frequency distribution feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="tableToolCompute">
+		  <Documentation>
+			  <UserDocu>run the tableToolCompute function from the active table tool feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="matrixToolCompute">
+		  <Documentation>
+			  <UserDocu>run the matrixToolCompute function from the active matrix tool feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="userDefinedRPSObjectCompute">
+		  <Documentation>
+			  <UserDocu>run the userDefinedRPSObjectCompute function from the active user defined feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeCPDValue">
+		  <Documentation>
+			  <UserDocu>run the computeCPDValue function from the active cumulative probability distribution feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeCPDVectorX">
+    <Documentation>
+			  <UserDocu>run the computeCPDVectorX function from the active cumulative probability distribution feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeKurtosisValue">
+		  <Documentation>
+			  <UserDocu>run the computeKurtosisValue function from the active kurtosis feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeKurtosisVectorP">
+		  <Documentation>
+			  <UserDocu>run the computeKurtosisVectorP function from the active kurtosis feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeKurtosisVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeKurtosisVectorT function from the active kurtosis feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computePeakFactorValue">
+		  <Documentation>
+			  <UserDocu>run the computePeakFactorValue function from the active peak factor feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePeakFactorVectorP">
+		  <Documentation>
+			  <UserDocu>run the computePeakFactorVectorP function from the active peak factor feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePeakFactorVectorT">
+		  <Documentation>
+			  <UserDocu>run the computePeakFactorVectorT function from the active peak factor feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computePDFValue">
+	<Documentation>
+			  <UserDocu>run the computePDFValue function from the active probability density function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computePDFVectorX">
+<Documentation>
+			  <UserDocu>run the computePDFVectorX function from the active probability density function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeShearVelocityOfFlowValue">
+		  <Documentation>
+			  <UserDocu>run the computeShearVelocityOfFlowValue function from the active shear velocity feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeShearVelocityOfFlowVectorP">
+		  <Documentation>
+			  <UserDocu>run the computeShearVelocityOfFlowVectorP function from the active shear velocity feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeShearVelocityOfFlowVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeShearVelocityOfFlowVectorT function from the active shear velocity feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeSkewnessValue">
+		  <Documentation>
+			  <UserDocu>run the computeSkewnessValue function from the active skewness feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeSkewnessVectorP">
+		  <Documentation>
+			  <UserDocu>run the computeSkewnessVectorP function from the active skewness feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeSkewnessVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeSkewnessVectorT function from the active skewness feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeStandardDeviationValue">
+		  <Documentation>
+			  <UserDocu>run the computeStandardDeviationValue function from the active standard deviation feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeStandardDeviationVectorP">
+		  <Documentation>
+			  <UserDocu>run the computeStandardDeviationVectorP function from the active standard deviation feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeStandardDeviationVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeStandardDeviationVectorT function from the active standard deviation feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeVarianceValue">
+		  <Documentation>
+			  <UserDocu>run the computeVarianceValue function from the active variance function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeVarianceVectorP">
+		  <Documentation>
+			  <UserDocu>run the computeVarianceVectorP function from the active variance function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeVarianceVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeVarianceVectorT function from the active variance function feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeWavePassageEffectVectorF">
+		  <Documentation>
+			  <UserDocu>run the computeWavePassageEffectVectorF function from the active wave passage effect feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectVectorT">
+		  <Documentation>
+			  <UserDocu>run the computeWavePassageEffectVectorT function from the active wave passage effect feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the computeWavePassageEffectMatrixPP function from the active wave passage effect feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+    <Methode Name="computeWavePassageEffectValue">
+		  <Documentation>
+			  <UserDocu>run the computeWavePassageEffectValue function from the active wave passage effect feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	      <Methode Name="simulate">
+		  <Documentation>
+			  <UserDocu>run the simulate function from the active simulation method feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+	      <Methode Name="simulateInLargeScaleMode">
+		  <Documentation>
+			  <UserDocu>run the simulateInLargeScaleMode function from the active simulation method feature</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+	  <Methode Name="findAllPluggedSeismicLabFeatures">
+		  <Documentation>
+			  <UserDocu>Find all installed feature type</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="findAllSeismicLabFeaturesOfThisType">
+		  <Documentation>
+			  <UserDocu>Find all created feature of a given type</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getSeismicLabPluggableFeatures">
+		  <Documentation>
+			  <UserDocu>Find all installed feature type</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getRPSTypesOfPluggableFeatures">
+		  <Documentation>
+			  <UserDocu>find all RPS types</UserDocu>
+		  </Documentation>
+	  </Methode>
+	   <Methode Name="setActiveFeature">
+		  <Documentation>
+			  <UserDocu>set a feature as active (activate a feature)</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getActiveFeature">
+		  <Documentation>
+			  <UserDocu>Get the active feature by a given name</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="getAllFeatures">
+		  <Documentation>
+			  <UserDocu>Get all features of the a given group</UserDocu>
+		  </Documentation>
+	  </Methode>
+  </PythonExport>
+</GenerateModel>
+
