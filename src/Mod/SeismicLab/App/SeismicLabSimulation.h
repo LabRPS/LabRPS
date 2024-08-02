@@ -126,6 +126,8 @@ public:
 	App::PropertyEnumeration StandardDeviation;
 	App::PropertyEnumeration Variance;
 	App::PropertyEnumeration WavePassageEffect;
+    App::PropertyEnumeration SoilType;
+
 	App::PropertyEnumeration Direction;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;

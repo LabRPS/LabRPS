@@ -622,20 +622,16 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Setup the default menu bar
     MenuItem* menuBar = new MenuItem;
 
-        // New aspects
-    MenuItem* NewAspects = new MenuItem;
-    NewAspects->setCommand("New");
-    *NewAspects << "Std_New" 
-                << "Std_File_New_table"
-                << "Std_NewMatrix"
-                << "Std_NewGraph"
-                << "Std_New2DPlot"
-                << "Std_New3DPlot";
-
     // File
     MenuItem* file = new MenuItem( menuBar );
     file->setCommand("&File");
-    *file << "Std_File_New_aspect" << "Std_Open"
+    *file << "Std_New"
+          << "Std_New_Table"
+          << "Std_New_Matrix"
+          << "Std_New_Graph"
+          << "Std_New_2DPlot"
+          << "Std_New_3DPlot"
+          << "Std_Open"
           << "Separator"
           << "Std_CloseActiveWindow"
           << "Std_CloseAllWindows" << "Separator" << "Std_Save" << "Std_SaveAs"

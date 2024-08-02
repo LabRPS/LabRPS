@@ -21,10 +21,9 @@ SET(SeaLabExamples_SRCS
     sealabexamples/__init__.py
     sealabexamples/examplesgui.py
     sealabexamples/manager.py
-    sealabexamples/Deodatis1998_LocationDistribution.py
-    sealabexamples/Deodatis1998_FrequencyDistribution.py
-    sealabexamples/Deodatis1998_UniformRandomPhases.py
-    sealabexamples/RPS_WavePassageEffect.py
+    sealabexamples/Deodatis1996_LocationDistribution.py
+    sealabexamples/Deodatis1996_FrequencyDistribution.py
+    sealabexamples/Deodatis1996_UniformRandomPhases.py
 )
 
 

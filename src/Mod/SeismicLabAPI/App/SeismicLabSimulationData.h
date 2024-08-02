@@ -207,6 +207,7 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
    App::PropertyString standardDeviation;
    App::PropertyString variance;
    App::PropertyString wavePassageEffect;
+   App::PropertyString soilType;
 
 
    /** @name methods override feature */

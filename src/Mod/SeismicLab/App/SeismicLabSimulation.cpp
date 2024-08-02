@@ -176,6 +176,10 @@ SeismicLabSimulation::SeismicLabSimulation()
     static const char* directions[] = {"X", "Y", "Z", nullptr};
     ADD_PROPERTY_TYPE(Direction, ((long int)0), datagroup, Prop_None, "The ground motion direction");
     Direction.setEnums(directions);
+
+    static const char* soilTYpes[] = {"Clay", "Deep Cohesionless", "Sand", "Soft", "Stiff", "Firm", "Medium", "Rock", "Soft Rock", "Hard Rock", nullptr};
+    ADD_PROPERTY_TYPE(SoilType, ((long int)0), datagroup, Prop_None, "The soil type");
+    SoilType.setEnums(soilTYpes);
 }
 
 SeismicLabSimulation::~SeismicLabSimulation() { delete _simuData; }
@@ -245,6 +249,7 @@ void SeismicLabSimulation::updateSimulationData()
     _simuData->standardDeviation.setValue(this->StandardDeviation.getValueAsString());
     _simuData->variance.setValue(this->Variance.getValueAsString());
     _simuData->wavePassageEffect.setValue(this->WavePassageEffect.getValueAsString());
+    _simuData->soilType.setValue(this->SoilType.getValueAsString());
     _simuData->direction.setValue(this->Direction.getValue());
     _simuData->numberOfIncrementOfVariableX.setValue(this->NumberOfIncrementOfVariableX.getValue());
     _simuData->indexOfVariableX.setValue(this->IndexOfVariableX.getValue());

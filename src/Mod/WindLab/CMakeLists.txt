@@ -21,14 +21,14 @@ SET(WindLabExamples_SRCS
     windlabexamples/__init__.py
     windlabexamples/examplesgui.py
     windlabexamples/manager.py
-    windlabexamples/Deodatis1998_LocationDistribution.py
-    windlabexamples/Deodatis1998_MeanWind.py
-    windlabexamples/Deodatis1998_CoherenceFunction.py
-    windlabexamples/Deodatis1998_FrequencyDistribution.py
-    windlabexamples/Deodatis1998_SpectrumModel.py
-    windlabexamples/Deodatis1998_SpectrumDecomposition.py
-    windlabexamples/Deodatis1998_SimulationMethod.py
-    windlabexamples/Deodatis1998_UniformRandomPhases.py
+    windlabexamples/Deodatis1996_LocationDistribution.py
+    windlabexamples/Deodatis1996_MeanWind.py
+    windlabexamples/Deodatis1996_CoherenceFunction.py
+    windlabexamples/Deodatis1996_FrequencyDistribution.py
+    windlabexamples/Deodatis1996_SpectrumModel.py
+    windlabexamples/Deodatis1996_SpectrumDecomposition.py
+    windlabexamples/Deodatis1996_SimulationMethod.py
+    windlabexamples/Deodatis1996_UniformRandomPhases.py
     windlabexamples/RPS_WavePassageEffect.py
 )
 

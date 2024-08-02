@@ -97,6 +97,7 @@ SeismicLabSimulationData::SeismicLabSimulationData()
 	ADD_PROPERTY_TYPE(standardDeviation, (""), 0, Prop_None, "current standard deviation name");
 	ADD_PROPERTY_TYPE(variance, (""), 0, Prop_None, "current variance name");
 	ADD_PROPERTY_TYPE(wavePassageEffect, (""), 0, Prop_None, "current wave passage name");
+    ADD_PROPERTY_TYPE(soilType, (""), 0, Prop_None, "the soil type");
 
 	static const char* directions[] = {"X", "Y", "Z", nullptr};
     ADD_PROPERTY_TYPE(direction, ((long int)0), 0, Prop_None, "The wind direction");

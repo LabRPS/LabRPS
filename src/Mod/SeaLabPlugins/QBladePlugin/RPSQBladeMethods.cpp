@@ -19,7 +19,7 @@ PROPERTY_SOURCE(SeaLab::CRPSQBladeMethods, SeaLabAPI::SeaLabFeatureSimulationMet
 CRPSQBladeMethods::CRPSQBladeMethods()
 {
     ADD_PROPERTY_TYPE(TimeOffset, (0.0), "Parameter", App::Prop_None, "Parameter");
-    ADD_PROPERTY_TYPE(WaveGeneratorType, ((long int)0), "Parameter", App::Prop_None, "Parameter");
+    ADD_PROPERTY_TYPE(WaveGeneratorType, ((long int)3), "Parameter", App::Prop_None, "Parameter");
     static const char* someEnums[] = {"Times Series From File", "Components From File", "Single Wave", "JONSWAP", "ISSC", "TORSETHAUGEN", "OCHI-HUBBLE", nullptr};
     WaveGeneratorType.setEnums(someEnums);
 

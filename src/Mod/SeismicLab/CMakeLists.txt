@@ -21,9 +21,9 @@ SET(SeismicLabExamples_SRCS
     seismiclabexamples/__init__.py
     seismiclabexamples/examplesgui.py
     seismiclabexamples/manager.py
-    seismiclabexamples/Deodatis1998_LocationDistribution.py
-    seismiclabexamples/Deodatis1998_FrequencyDistribution.py
-    seismiclabexamples/Deodatis1998_UniformRandomPhases.py
+    seismiclabexamples/Deodatis1996_LocationDistribution.py
+    seismiclabexamples/Deodatis1996_FrequencyDistribution.py
+    seismiclabexamples/Deodatis1996_UniformRandomPhases.py
     seismiclabexamples/RPS_WavePassageEffect.py
 )
 

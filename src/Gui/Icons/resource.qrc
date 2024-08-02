@@ -248,11 +248,11 @@
         <file>Std_UserEditModeTransform.svg</file>
         <file>Std_UserEditModeCutting.svg</file>
         <file>Std_UserEditModeColor.svg</file>
-        <file>Std_File_New_table.svg</file>
-        <file>Std_File_New_matrix.svg</file>
-        <file>Std_File_New_graph.svg</file>
-        <file>Std_File_New_function_plot.svg</file>
-        <file>Std_File_New_3D_surface_plot.svg</file>
+        <file>Std_New_Table.svg</file>
+        <file>Std_New_Matrix.svg</file>
+        <file>Std_New_Graph.svg</file>
+        <file>Std_New_2DPlot.svg</file>
+        <file>Std_New_3DPlot.svg</file>
         <file>Std_File_New_scene.svg</file>
         <file>Std_Plot_Line.svg</file>
         <file>Std_Plot_Scatters.svg</file>

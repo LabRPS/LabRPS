@@ -45,14 +45,14 @@ run_all()
 # one special example
 from sealabexamples.manager import run_example as run
 
-doc = run("Deodatis1998_LocationDistribution")
-doc = run("Deodatis1998_MeanAcceleration")
+doc = run("Deodatis1996_LocationDistribution")
+doc = run("Deodatis1996_MeanAcceleration")
 
 """
 
 def setup_all():
-    run_example("Deodatis1998_LocationDistribution")
-    run_example("Deodatis1998_MeanAcceleration")
+    run_example("Deodatis1996_LocationDistribution")
+    run_example("Deodatis1996_MeanAcceleration")
 
 
 

@@ -131,6 +131,7 @@ public:
 	App::PropertyEnumeration TurbulenceScale;
 	App::PropertyEnumeration Variance;
 	App::PropertyEnumeration WavePassageEffect;
+
 	App::PropertyEnumeration WindDirection;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;

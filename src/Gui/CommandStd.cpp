@@ -4007,19 +4007,19 @@ void StdPlotActivateWindow::activated(int iMsg)
 bool StdPlotActivateWindow::isActive() { return true; }
 
 //===========================================================================
-// Std_File_New_table
+// Std_New_Table
 //===========================================================================
 DEF_STD_CMD(StdCmdNewTable)
 
-StdCmdNewTable::StdCmdNewTable() : Command("Std_File_New_table")
+StdCmdNewTable::StdCmdNewTable() : Command("Std_New_Table")
 {
     // setting the
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("&Table");
     sToolTipText = QT_TR_NOOP("Create a new table");
-    sWhatsThis = "Std_File_New_table";
+    sWhatsThis = "Std_New_Table";
     sStatusTip = QT_TR_NOOP("Create a new table");
-    sPixmap = "Std_File_New_table";
+    sPixmap = "Std_New_Table";
     eType = NoTransaction;
     sAccel        = "Ctrl+T";
 
@@ -4032,19 +4032,19 @@ void StdCmdNewTable::activated(int iMsg)
 }
 
 //===========================================================================
-// Std_NewMatrix
+// Std_New_Matrix
 //===========================================================================
 DEF_STD_CMD(StdCmdNewMatrix)
 
-StdCmdNewMatrix::StdCmdNewMatrix() : Command("Std_NewMatrix")
+StdCmdNewMatrix::StdCmdNewMatrix() : Command("Std_New_Matrix")
 {
     // setting the
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("&Matrix");
     sToolTipText = QT_TR_NOOP("Create a new Matrix");
-    sWhatsThis = "Std_NewMatrix";
+    sWhatsThis = "Std_New_Matrix";
     sStatusTip = QT_TR_NOOP("Create a new Matrix");
-    sPixmap = "Std_File_New_matrix";
+    sPixmap = "Std_New_Matrix";
     eType = NoTransaction;
     sAccel        = "Ctrl+M";
 
@@ -4081,19 +4081,19 @@ void StdCmdNewScene::activated(int iMsg)
 }
 
 //===========================================================================
-// Std_NewGraph
+// Std_New_Graph
 //===========================================================================
 DEF_STD_CMD(StdNewGraph)
 
-StdNewGraph::StdNewGraph() : Command("Std_NewGraph")
+StdNewGraph::StdNewGraph() : Command("Std_New_Graph")
 {
     // setting the
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("&Graph");
     sToolTipText = QT_TR_NOOP("Create a new graph");
-    sWhatsThis = "Std_NewGraph";
+    sWhatsThis = "Std_New_Graph";
     sStatusTip = QT_TR_NOOP("Create a new graph");
-    sPixmap = "Std_File_New_graph";
+    sPixmap = "Std_New_Graph";
     eType = NoTransaction;
     sAccel        = "Ctrl+G";
 
@@ -4106,18 +4106,18 @@ void StdNewGraph::activated(int iMsg)
 }
 
 //===========================================================================
-// Std_New2DPlot
+// Std_New_2DPlot
 //===========================================================================
 DEF_STD_CMD_A(StdNew2DPlot)
 
-StdNew2DPlot::StdNew2DPlot() : Command("Std_New2DPlot")
+StdNew2DPlot::StdNew2DPlot() : Command("Std_New_2DPlot")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("2D Plot");
     sToolTipText = QT_TR_NOOP("Create new function plot");
-    sWhatsThis = "Std_New2DPlot";
+    sWhatsThis = "Std_New_2DPlot";
     sStatusTip = QT_TR_NOOP("Create new function plot");
-    sPixmap = "Std_File_New_function_plot";
+    sPixmap = "Std_New_2DPlot";
     eType = 0;
 
 }
@@ -4130,19 +4130,19 @@ void StdNew2DPlot::activated(int iMsg)
 
 bool StdNew2DPlot::isActive() { return true; }
 //===========================================================================
-// Std_New3DPlot
+// Std_New_3DPlot
 //===========================================================================
 
 DEF_STD_CMD_A(StdNew3DPlot)
 
-StdNew3DPlot::StdNew3DPlot() : Command("Std_New3DPlot")
+StdNew3DPlot::StdNew3DPlot() : Command("Std_New_3DPlot")
 {
     sGroup = "Tools";
     sMenuText = QT_TR_NOOP("3D Plot");
     sToolTipText = QT_TR_NOOP("Create new 3D plot");
-    sWhatsThis = "Std_New3DPlot";
+    sWhatsThis = "Std_New_3DPlot";
     sStatusTip = QT_TR_NOOP("Create new 2D plot");
-    sPixmap = "Std_File_New_3D_surface_plot";
+    sPixmap = "Std_New_3DPlot";
     eType = 0;
 }
 
@@ -4165,7 +4165,7 @@ public:
         :GroupCommand("Std_File_New_aspect")
     {
         sGroup        = "File";
-        sMenuText     = QT_TR_NOOP("New Aspect");
+        sMenuText     = QT_TR_NOOP("AlphaPlot");
         sToolTipText  = QT_TR_NOOP("Create new aspect");
         sWhatsThis    = "Std_File_New_aspect";
         sStatusTip    = QT_TR_NOOP("Create new aspect");

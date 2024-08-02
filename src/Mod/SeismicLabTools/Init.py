@@ -23,4 +23,3 @@
 
 # LabRPS init script of the SeismicLab module
 
-LabRPS.__unit_test__ += [ "TestSeismicLabToolsApp" ]

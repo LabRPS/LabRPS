@@ -6607,18 +6607,17 @@ void MainAlphaPlot::showListViewPopupMenu(const QPoint& p)
 
     window.setTitle(tr("New &Window"));
 
-    auto NewTable = Application::Instance->commandManager().getCommandByName("Std_File_New_table");
-    auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_NewMatrix");
-    auto actionNewNote = Application::Instance->commandManager().getCommandByName("Std_NewScene");
-    auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_NewGraph");
-    auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New2DPlot");
-    auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New3DPlot");
+    auto NewTable = Application::Instance->commandManager().getCommandByName("Std_New_Table");
+    auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_New_Matrix");
+    auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_New_Graph");
+    auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New_2DPlot");
+    auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New_3DPlot");
 
     window.setTitle(tr("New &Window"));
 
     window.addAction(NewTable->getAction()->action());
     window.addAction(NewMatrix->getAction()->action());
-    window.addAction(actionNewNote->getAction()->action());
+    //window.addAction(actionNewNote->getAction()->action());
     window.addAction(NewGraph->getAction()->action());
     window.addAction(NewFunctionPlot->getAction()->action());
     window.addAction(New3DSurfacePlot->getAction()->action());
@@ -8793,18 +8792,17 @@ void MainAlphaPlot::showFolderPopupMenu(QTreeWidgetItem* it, const QPoint& p, bo
     }
 
      if (fromFolders) {
-        auto NewTable = Application::Instance->commandManager().getCommandByName("Std_File_New_table");
-        auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_NewMatrix");
-        auto actionNewNote = Application::Instance->commandManager().getCommandByName("Std_NewScene");
-        auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_NewGraph");
-        auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New2DPlot");
-        auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New3DPlot");
+        auto NewTable = Application::Instance->commandManager().getCommandByName("Std_New_Table");
+        auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_New_Matrix");
+        auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_New_Graph");
+        auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New_2DPlot");
+        auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New_3DPlot");
        
         window.setTitle(tr("New &Window"));
         
         window.addAction(NewTable->getAction()->action());
         window.addAction(NewMatrix->getAction()->action());
-        window.addAction(actionNewNote->getAction()->action());
+        //window.addAction(actionNewNote->getAction()->action());
         window.addAction(NewGraph->getAction()->action());
         window.addAction(NewFunctionPlot->getAction()->action());
         window.addAction(New3DSurfacePlot->getAction()->action());
