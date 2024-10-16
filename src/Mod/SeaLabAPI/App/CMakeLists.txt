@@ -206,18 +206,18 @@ SET(SeaLabAPI_PCH_SRCS
 
 )
 
-# boost-python >= 1.67 on some platforms has suffix
-set(BOOST_PY_SUFFIX ${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+# # boost-python >= 1.67 on some platforms has suffix
+# set(BOOST_PY_SUFFIX ${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
 
-find_package( Boost COMPONENTS python${BOOST_PY_SUFFIX} )
-if (NOT Boost_PYTHON${BOOST_PY_SUFFIX}_FOUND)
-    # try just the major version
-    find_package( Boost COMPONENTS python${PYTHON_VERSION_MAJOR} )
-    if (NOT Boost_PYTHON${PYTHON_VERSION_MAJOR}_FOUND)
-        # unversioned
-        find_package( Boost COMPONENTS python REQUIRED)
-    endif()
-endif()
+# find_package( Boost COMPONENTS python${BOOST_PY_SUFFIX} )
+# if (NOT Boost_PYTHON${BOOST_PY_SUFFIX}_FOUND)
+#     # try just the major version
+#     find_package( Boost COMPONENTS python${PYTHON_VERSION_MAJOR} )
+#     if (NOT Boost_PYTHON${PYTHON_VERSION_MAJOR}_FOUND)
+#         # unversioned
+#         find_package( Boost COMPONENTS python REQUIRED)
+#     endif()
+# endif()
 
 
 add_library(SeaLabAPI SHARED ${SeaLabAPI_SRCS})
