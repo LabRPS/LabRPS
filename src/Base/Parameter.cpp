@@ -1173,6 +1173,9 @@ ParameterManager::~ParameterManager()
     delete paramSerializer;
 }
 
+Base::Reference<ParameterManager> ParameterManager::Create() { return {new ParameterManager()}; }
+
+
 void ParameterManager::Init()
 {
     static bool Init = false;
