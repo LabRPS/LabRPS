@@ -60,6 +60,38 @@
 #include <Mod/WindLabAPI/App/RPSWindLabpluginAPI.h>
 #include <Base/Console.h>
 
+#include <Base/Interpreter.h>
+#include <Base/PyObjectBase.h>
+
+
+// namespace WindLabPlugin
+// {
+// class Module: public Py::ExtensionModule<Module>
+// {
+// public:
+//     Module() : Py::ExtensionModule<Module>("WindLabPlugin")
+//     {
+//         initialize("This module is the WindLabPlugin module.");// register with Python
+//     }
+
+//     virtual ~Module() {}
+
+// private:
+// };
+
+// PyObject* initModule() { return Base::Interpreter().addModule(new Module); }
+
+// }// namespace WindLab
+
+// /* Python entry */
+// PyMOD_INIT_FUNC(WindLabPlugin)
+// {
+//     PyObject* mod = WindLabPlugin::initModule();
+//     Base::Console().Log("Loading WindLabPlugin module... done\n");
+//     PyMOD_Return(mod);
+// }
+
+
 std::string strPluginName = "WindLabPlugin";
 bool stationarity = true;
 

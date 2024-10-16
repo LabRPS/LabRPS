@@ -14,9 +14,22 @@ if (POLICY CMP0072)
     set(OpenGL_GL_PREFERENCE LEGACY)
 endif(POLICY CMP0072)
 
-find_program(CCACHE_PROGRAM ccache)  #This check should occur before project()
-if(CCACHE_PROGRAM)
-    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+# FindPythonInterp and FindPythonLibs modules are deprecated.
+# Currently, they are still used by shiboken's CMake files
+if (POLICY CMP0148)
+    cmake_policy(SET CMP0148 OLD)
+endif()
+if (POLICY CMP0167)
+    cmake_policy(SET CMP0167 OLD)
+endif()
+
+option(LABRPS_USE_CCACHE "Auto detect and use ccache during compilation" ON)
+
+if(LABRPS_USE_CCACHE)
+    find_program(CCACHE_PROGRAM ccache)  #This check should occur before project()
+    if(CCACHE_PROGRAM)
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "${CCACHE_PROGRAM}")
+    endif()
 endif()
 
 project(LabRPS)
@@ -61,8 +74,8 @@ if(NOT LABRPS_LIBPACK_USE OR LABRPS_LIBPACK_CHECKFILE_CLBUNDLER)
         # OPENGL_gl_LIBRARY empty that results into linker errors
         SetupOpenGL()
     endif(BUILD_GUI)
-    SetupSalomeSMESH()
     SetupBoost()
+    SetupSalomeSMESH()
     if (BUILD_FEM_NETGEN)
         find_package(NETGEN)
     endif(BUILD_FEM_NETGEN)

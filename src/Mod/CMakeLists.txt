@@ -63,6 +63,11 @@ if(BUILD_SeaLab)
   add_subdirectory(SeaLabTools)
 endif(BUILD_SeaLab)
 
+if(BUILD_UserDefinedPhenomenonLab)
+  add_subdirectory(UserDefinedPhenomenonLab)
+  add_subdirectory(UserDefinedPhenomenonLabAPI)
+endif(BUILD_UserDefinedPhenomenonLab)
+
 if(BUILD_WindLabPlugin)
   add_subdirectory(WindLabPlugins)
 endif(BUILD_WindLabPlugin)
