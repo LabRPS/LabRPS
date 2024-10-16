@@ -1,4 +1,15 @@
 macro(PrintFinalReport)
+    # name and value
+    macro(simple)
+        set(name ${ARGV0})
+        set(value ${ARGV1})
+        if(NOT value)
+            set(value "-undefined-")
+        endif()
+        string(APPEND name ":                           ")
+        string(SUBSTRING ${name} 0 28 nameStr)
+        list(APPEND simpleLines "${nameStr} ${value}")
+    endmacro()
     # -------------------------------- The final report ----------------------------------
 
     message(STATUS "\n==============\n"
@@ -28,6 +39,7 @@ macro(PrintFinalReport)
     endif(DEFINED pybind11_FOUND)
 
     message(STATUS "Boost:               ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} (${Boost_VERSION})")
+    simple(Boost ${Boost_VERSION})
 
     message(STATUS "XercesC:             ${XercesC_VERSION} [${XercesC_LIBRARIES}] [${XercesC_INCLUDE_DIRS}]")
 

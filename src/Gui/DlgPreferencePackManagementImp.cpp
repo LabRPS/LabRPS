@@ -65,12 +65,12 @@ void DlgPreferencePackManagementImp::showEvent(QShowEvent* event)
 
     auto builtinPacks = getPacksFromDirectory(resourcePath);
 
-    std::map<std::string, std::vector<std::string>> installedPacks;
+   std::map<std::string, std::vector<std::string>> installedPacks;
     if (fs::exists(modDirectory) && fs::is_directory(modDirectory)) {
         for (const auto& mod : fs::directory_iterator(modDirectory)) {
             auto packs = getPacksFromDirectory(mod);
             if (!packs.empty()) {
-                auto modName = mod.path().leaf().string();
+                auto modName = mod.path().filename().string();
                 installedPacks.emplace(modName, packs);
             }
         }

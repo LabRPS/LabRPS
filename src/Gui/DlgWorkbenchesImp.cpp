@@ -39,6 +39,7 @@
 using namespace Gui::Dialog;
 
 const QString DlgWorkbenchesImp::all_workbenches = QString::fromLatin1("ALL");
+const QString DlgWorkbenchesImp::all_Default_Dis_workbenches = QString::fromLatin1("ALL_DIS");
 
 /* TRANSLATOR Gui::Dialog::DlgWorkbenchesImp */
 
@@ -215,11 +216,17 @@ QStringList DlgWorkbenchesImp::load_enabled_workbenches()
 
     if (enabled_wbs_list.at(0) == all_workbenches) {
         enabled_wbs_list.removeFirst();
-        QStringList workbenches = Application::Instance->workbenches();
+        enabled_wbs_list.append(QString::fromLatin1("StartWorkbench"));
+        enabled_wbs_list.append(QString::fromLatin1("WindLabWorkbench"));
+        enabled_wbs_list.append(QString::fromLatin1("SeismicLabWorkbench"));
+        enabled_wbs_list.append(QString::fromLatin1("SeaLabWorkbench"));
+        enabled_wbs_list.append(QString::fromLatin1("UserDefinedPhenomenonLabWorkbench"));
+
+        /*QStringList workbenches = Application::Instance->workbenches();
         for (QStringList::Iterator it = workbenches.begin(); it != workbenches.end(); ++it) {
             enabled_wbs_list.append(*it);
-        }
-        enabled_wbs_list.sort();
+        }*/
+        //enabled_wbs_list.sort();
     }
     return enabled_wbs_list;
 }
@@ -231,13 +238,28 @@ QStringList DlgWorkbenchesImp::load_disabled_workbenches()
     ParameterGrp::handle hGrp;
 
     hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Workbenches");
-    disabled_wbs = QString::fromStdString(hGrp->GetASCII("Disabled", ""));
+    disabled_wbs = QString::fromStdString(hGrp->GetASCII("Disabled", all_Default_Dis_workbenches.toStdString().c_str()).c_str());
 #if QT_VERSION >= QT_VERSION_CHECK(5,15,0)
     disabled_wbs_list = disabled_wbs.split(QLatin1String(","), Qt::SkipEmptyParts);
 #else
     disabled_wbs_list = disabled_wbs.split(QLatin1String(","), QString::SkipEmptyParts);
 #endif
+    if (disabled_wbs_list.at(0) == all_Default_Dis_workbenches) {
+        disabled_wbs_list.removeFirst();
 
+        QStringList workbenches = Application::Instance->workbenches();
+        for (QStringList::Iterator it = workbenches.begin(); it != workbenches.end(); ++it) {
+            if ((*it != QString::fromLatin1("StartWorkbench")) &&  
+                (*it != QString::fromLatin1("WindLabWorkbench")) && 
+                (*it != QString::fromLatin1("SeismicLabWorkbench")) && 
+                (*it != QString::fromLatin1("SeaLabWorkbench")) && 
+                (*it != QString::fromLatin1("UserDefinedPhenomenonLabWorkbench")))  
+
+                disabled_wbs_list.append(*it);
+        }
+
+        //disabled_wbs_list.sort();
+    }
     return disabled_wbs_list;
 }
 

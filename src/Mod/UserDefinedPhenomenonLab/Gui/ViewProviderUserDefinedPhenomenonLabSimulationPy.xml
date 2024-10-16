@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderUserDefinedPhenomenonLabSimulationPy"
+            Twin="ViewProviderUserDefinedPhenomenonLabSimulation"
+            TwinPointer="ViewProviderUserDefinedPhenomenonLabSimulation"
+            Include="Mod/UserDefinedPhenomenonLab/Gui/ViewProviderUserDefinedPhenomenonLabSimulation.h"
+            Namespace="UserDefinedPhenomenonLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderUserDefinedPhenomenonLabSimulation class</UserDocu>
+        </Documentation>
+      <Methode Name="run">
+        <Documentation>
+          <UserDocu>run the simulation</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="stop">
+        <Documentation>
+          <UserDocu>stop the simulation</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

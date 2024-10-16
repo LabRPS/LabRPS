@@ -282,6 +282,8 @@ SET(LabRPSApp_CPP_SRCS
     MetadataPyImp.cpp
     RPSpluginManager.cpp
     WindLabUtils.cpp
+    SeismicLabUtils.cpp
+    SeaLabUtils.cpp
 
 )
 
@@ -298,6 +300,8 @@ SET(LabRPSApp_HPP_SRCS
     Metadata.h
     RPSpluginManager.h
     WindLabUtils.h
+    SeismicLabUtils.h
+    SeaLabUtils.h
 
 )
 

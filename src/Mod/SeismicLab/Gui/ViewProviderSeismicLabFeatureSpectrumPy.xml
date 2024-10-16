@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeatureSpectrumPy"
+            Twin="ViewProviderSeismicLabFeatureSpectrum"
+            TwinPointer="ViewProviderSeismicLabFeatureSpectrum"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeatureSpectrum.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeatureSpectrum class</UserDocu>
+        </Documentation>
+      <Methode Name="computeCrossSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute cross spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCrossSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute cross spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCrossSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute cross spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCrossSpectrumMatrixPP">
+        <Documentation>
+          <UserDocu>Compute cross spectrum matrix for given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeAutoSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute auto spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeAutoSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute auto spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeAutoSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute auto spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

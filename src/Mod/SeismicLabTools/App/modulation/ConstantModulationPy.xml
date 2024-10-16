@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="ConstantModulationPy"
+    Twin="ConstantModulation"
+    TwinPointer="ConstantModulation"
+    Include="Mod/SeismicLabTools/App/modulation/ConstantModulation.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute constant modulation</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, constantValue)
+					time = the time value for which the modulation function is computed 
+          constantValue = the constant modulation value, default value is 1  
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

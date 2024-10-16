@@ -2399,10 +2399,18 @@ void MainAlphaPlot::initTable(Table* table)
     submenu->addMenu(Scatter);
 
     auto cmd1 = Application::Instance->commandManager().getCommandByName("Std_LineAndSymbol");
-    auto cmd2 =
-        Application::Instance->commandManager().getCommandByName("Std_SpecialLineAndSymbol");
     submenu->addAction(cmd1->getAction()->action());
-    submenu->addAction(cmd2->getAction()->action());
+    
+    QMenu* SpecialLineAndSymbol = new QMenu(tr("Special Line + Symbol"));
+    auto SpecialLineAndSymbolCmd1 = Application::Instance->commandManager().getCommandByName("Std_VerticaDropLine");
+    auto SpecialLineAndSymbolCmd2 = Application::Instance->commandManager().getCommandByName("Std_Spline");
+    auto SpecialLineAndSymbolCmd3 = Application::Instance->commandManager().getCommandByName("Std_VerticalStep");
+    auto SpecialLineAndSymbolCmd4 = Application::Instance->commandManager().getCommandByName("Std_HorizontalStep");
+    SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd1->getAction()->action());
+    SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd2->getAction()->action());
+    SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd3->getAction()->action());
+    SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd4->getAction()->action());
+    submenu->addMenu(SpecialLineAndSymbol);
     submenu->addSeparator();
 
     auto cmd3 = Application::Instance->commandManager().getCommandByName("Std_VerticalBars");
@@ -2420,7 +2428,7 @@ void MainAlphaPlot::initTable(Table* table)
     auto cmd13 = Application::Instance->commandManager().getCommandByName("Std_VectorsXYXY");
     auto cmd14 = Application::Instance->commandManager().getCommandByName("Std_VectorsXYAM");
     submenu->addAction(cmd1->getAction()->action());
-    submenu->addAction(cmd2->getAction()->action());
+    //submenu->addAction(cmd2->getAction()->action());
     submenu->addAction(cmd3->getAction()->action());
     submenu->addAction(cmd4->getAction()->action());
     submenu->addAction(cmd5->getAction()->action());
@@ -2737,9 +2745,8 @@ void MainAlphaPlot::matrixDeterminant()
         + QString::fromLatin1("\n");
     info += QString::fromLatin1("-------------------------------------------------------------\n");
 
-    logInfo += info;
-
-    showResults(true);
+    getMainWindow()->setResultLogInfo(info);
+    getMainWindow()->showResults(true);
 }
 
 void MainAlphaPlot::invertMatrix()
@@ -5618,8 +5625,8 @@ void MainAlphaPlot::fitLinear() { analysis(QString::fromLatin1("fitLinear")); }
 void MainAlphaPlot::updateLog(const QString& result)
 {
     if (!result.isEmpty()) {
-        logInfo += result;
-        showResults(true);
+        getMainWindow()->setResultLogInfo(result);
+        getMainWindow()->showResults(true);
         Q_EMIT modified();
     }
 }
@@ -6600,18 +6607,17 @@ void MainAlphaPlot::showListViewPopupMenu(const QPoint& p)
 
     window.setTitle(tr("New &Window"));
 
-    auto NewTable = Application::Instance->commandManager().getCommandByName("Std_File_New_table");
-    auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_NewMatrix");
-    auto actionNewNote = Application::Instance->commandManager().getCommandByName("Std_NewScene");
-    auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_NewGraph");
-    auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New2DPlot");
-    auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New3DPlot");
+    auto NewTable = Application::Instance->commandManager().getCommandByName("Std_New_Table");
+    auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_New_Matrix");
+    auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_New_Graph");
+    auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New_2DPlot");
+    auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New_3DPlot");
 
     window.setTitle(tr("New &Window"));
 
     window.addAction(NewTable->getAction()->action());
     window.addAction(NewMatrix->getAction()->action());
-    window.addAction(actionNewNote->getAction()->action());
+    //window.addAction(actionNewNote->getAction()->action());
     window.addAction(NewGraph->getAction()->action());
     window.addAction(NewFunctionPlot->getAction()->action());
     window.addAction(New3DSurfacePlot->getAction()->action());
@@ -8786,18 +8792,17 @@ void MainAlphaPlot::showFolderPopupMenu(QTreeWidgetItem* it, const QPoint& p, bo
     }
 
      if (fromFolders) {
-        auto NewTable = Application::Instance->commandManager().getCommandByName("Std_File_New_table");
-        auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_NewMatrix");
-        auto actionNewNote = Application::Instance->commandManager().getCommandByName("Std_NewScene");
-        auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_NewGraph");
-        auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New2DPlot");
-        auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New3DPlot");
+        auto NewTable = Application::Instance->commandManager().getCommandByName("Std_New_Table");
+        auto NewMatrix = Application::Instance->commandManager().getCommandByName("Std_New_Matrix");
+        auto NewGraph = Application::Instance->commandManager().getCommandByName("Std_New_Graph");
+        auto NewFunctionPlot = Application::Instance->commandManager().getCommandByName("Std_New_2DPlot");
+        auto New3DSurfacePlot = Application::Instance->commandManager().getCommandByName("Std_New_3DPlot");
        
         window.setTitle(tr("New &Window"));
         
         window.addAction(NewTable->getAction()->action());
         window.addAction(NewMatrix->getAction()->action());
-        window.addAction(actionNewNote->getAction()->action());
+        //window.addAction(actionNewNote->getAction()->action());
         window.addAction(NewGraph->getAction()->action());
         window.addAction(NewFunctionPlot->getAction()->action());
         window.addAction(New3DSurfacePlot->getAction()->action());

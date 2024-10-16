@@ -26,7 +26,9 @@
 #include "Widgets/DlgvonKarmanAcrossWindSpectrum.h"
 #include <Base/Console.h>
 #include <Gui/Control.h>
-
+#include <App/Application.h>
+#include <App/Document.h>
+#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -111,28 +113,95 @@ bool CRPSvonKarmanAcrossWindSpectrum::OnInitialSetting(const WindLabAPI::WindLab
 
 bool CRPSvonKarmanAcrossWindSpectrum::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
-    bool returnResult = true;
+     bool returnResult = true;
 
-   double MEANj = 0.0;
-   double MEANk = 0.0;
-   std::complex<double> COHjk = 0.0;
-   double PSDj = 0.0;
-   double PSDk = 0.0;
+    double MEANj = 0.0;
+    double MEANk = 0.0;
+    std::complex<double> COHjk = 0.0;
+    double PSDj = 0.0;
+    double PSDk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
     returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
+    if (!returnResult) {
+        Base::Console().Error("The computation of coherence fails\n");
+        return returnResult;
+    }
 
     WindLabTools::VonKarmanSpectrum vonKarmanPSD;
     PSDj = vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEANj, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
     PSDk = vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
 
-    return returnResult;
+	if (Data.stationarity.getValue())
+	{
+        dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    }
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValueJ = 0.0;
+        double dModValueK = 0.0;
+
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
+
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = std::sqrt(dModValueJ * PSDj * dModValueK * PSDk) * COHjk;
+		}
+		else
+		{
+            dValue = std::sqrt(PSDj * PSDk) * COHjk;
+        }
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
+	return true;
 }
 
 bool CRPSvonKarmanAcrossWindSpectrum::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
+    WindLabTools::VonKarmanSpectrum vonKarmanPSD;
+
    bool returnResult = true;
 
    double MEAN = 0.0;
@@ -143,10 +212,52 @@ bool CRPSvonKarmanAcrossWindSpectrum::ComputeYAutoSpectrumValue(const WindLabAPI
         Base::Console().Warning("The computation of mean wind speed fails\n");
         return returnResult;
    }
-    WindLabTools::VonKarmanSpectrum vonKarmanPSD;
-    dValue = vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
 
-    return returnResult;
+	if (Data.stationarity.getValue())
+	{
+        dValue = vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
+	}
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValue = 0.0;
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
+
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = dModValue * vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
+		}
+		else
+		{
+            dValue = vonKarmanPSD.computeAcrossWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
+		}
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
+	return true;
 }    
 bool CRPSvonKarmanAcrossWindSpectrum::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {

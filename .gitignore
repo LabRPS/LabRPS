@@ -48,16 +48,6 @@ tsupdate_stderr.log
 tsupdate_stdout.log
 files_to_translate.txt
 
-# these are for the release after next release
-/src/Mod/SeaLab/
-/src/Mod/SeaLabAPI/
-/src/Mod/SeaLabPlugins/
-/src/Mod/SeaLabTools/
-/src/Mod/SeismicLab/
-/src/Mod/SeismicLabAPI/
-/src/Mod/SeismicLabPlugins/
-/src/Mod/SeismicLabTools/
-
 /src/Mod/WindLabPlugins/CorrelationErgodicityPlugin/
 /src/Mod/WindLabPlugins/ErgodicityCheckToolPlugin/
 /src/Mod/WindLabPlugins/PDFCheckToolPlugin/

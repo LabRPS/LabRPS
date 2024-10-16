@@ -21,7 +21,7 @@
 
 __title__ = "BasicShapes package"
 __author__ = "Werner Mayer"
-__url__ = "http://www.labrpsweb.org"
+__url__ = "http://www.freecadweb.org"
 __doc__ = """BasicShapes Package (part of LabRPS)."""
 
 ## @package BasicShapes

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeatureCorrelationPy"
+            Twin="ViewProviderSeismicLabFeatureCorrelation"
+            TwinPointer="ViewProviderSeismicLabFeatureCorrelation"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeatureCorrelation.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeatureCorrelation class</UserDocu>
+        </Documentation>
+      <Methode Name="computeCrossCorrelationValue">
+        <Documentation>
+          <UserDocu>Compute the cross correlation value between two location</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCrossCorrelationVectorT">
+        <Documentation>
+          <UserDocu>Compute compute cross correlation between two locations for all times lags</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeCrossCorrelationMatrixPP">
+        <Documentation>
+          <UserDocu>Compute the cross correlation matrix at a given time lag</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

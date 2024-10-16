@@ -21,7 +21,7 @@
 
 __title__ = "LabRPS OpenSCAD Workbench - Utility Functions"
 __author__ = "Sebastian Hoogen"
-__url__ = ["https://www.labrpsweb.org"]
+__url__ = ["https://www.freecadweb.org"]
 
 '''
 This Script includes various python helper functions that are shared across
@@ -618,7 +618,7 @@ def process2D_ObjectsViaOpenSCADShape(ObjList, Operation, doc):
     import importDXF
     import os
     import tempfile
-    # https://www.labrpsweb.org/tracker/view.php?id=3419
+    # https://www.freecadweb.org/tracker/view.php?id=3419
     params = LabRPS.ParamGet("User parameter:BaseApp/Preferences/Mod/OpenSCAD")
     fn  = params.GetInt('fnForImport',32)
     fnStr = ",$fn=" + str(fn)
@@ -629,7 +629,7 @@ def process2D_ObjectsViaOpenSCADShape(ObjList, Operation, doc):
         outputfilename=os.path.join(dir1,'%s.dxf' % next(tempfilenamegen))
         importDXF.export([item],outputfilename, True, True)
         filenames.append(outputfilename)
-    # https://www.labrpsweb.org/tracker/view.php?id=3419
+    # https://www.freecadweb.org/tracker/view.php?id=3419
     dxfimports = ' '.join("import(file = \"%s\" %s);" % \
         #filename \
         (os.path.split(filename)[1], fnStr) for filename in filenames)

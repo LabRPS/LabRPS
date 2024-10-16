@@ -1522,7 +1522,7 @@ void Document::SaveDocFile (Base::Writer &writer) const
 {
     writer.Stream() << "<?xml version='1.0' encoding='utf-8'?>" << std::endl
                     << "<!--" << std::endl
-                    << " LabRPS Document, see http://www.labrpsweb.org for more information..."
+                    << " LabRPS Document, see http://www.freecadweb.org for more information..."
                     << std::endl << "-->" << std::endl;
 
     writer.Stream() << "<Document SchemaVersion=\"1\"";

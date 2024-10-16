@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeatureModulationPy"
+            Twin="ViewProviderSeismicLabFeatureModulation"
+            TwinPointer="ViewProviderSeismicLabFeatureModulation"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeatureModulation.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeatureModulation class</UserDocu>
+        </Documentation>
+      <Methode Name="computeModulationValue">
+        <Documentation>
+          <UserDocu>Compute the modulation value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeModulationVectorP">
+        <Documentation>
+          <UserDocu>Compute the modulation value at all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computeModulationVectorT">
+        <Documentation>
+          <UserDocu>Compute the modulation value at all time instant</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>
+

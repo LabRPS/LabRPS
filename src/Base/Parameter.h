@@ -296,6 +296,8 @@ class BaseExport ParameterManager : public ParameterGrp
 public:
     ParameterManager();
     ~ParameterManager();
+    static Base::Reference<ParameterManager> Create();
+
     static void Init();
     static void Terminate();
 

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="DocumentObjectPy"
+    Name="SeismicLabSimulationComparisonPy"
+    Twin="SeismicLabSimulationComparison"
+    TwinPointer="SeismicLabSimulationComparison"
+    Include="Mod/SeismicLab/App/SeismicLabSimulationComparison.h"
+    Namespace="SeismicLab"
+    FatherInclude="App/DocumentObjectPy.h"
+    FatherNamespace="App"
+    Constructor="true">
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle winds</UserDocu>
+    </Documentation>
+    <Methode Name="start">
+      <Documentation>
+        <UserDocu>start the comparison computation</UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="stop">
+      <Documentation>
+        <UserDocu>stop the comparison computation</UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>
+

@@ -45,6 +45,7 @@ public:
     static QStringList load_enabled_workbenches();
     static QStringList load_disabled_workbenches();
     static const QString all_workbenches;
+    static const QString all_Default_Dis_workbenches;
 
 protected:
     void changeEvent(QEvent *e);

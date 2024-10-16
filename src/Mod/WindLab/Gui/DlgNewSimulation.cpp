@@ -88,7 +88,7 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 	else
 	{
 		simData = new WindLabAPI::WindLabSimuData();
-		ui->NameLineEdit->setText(QString::fromLatin1("Sim"));
+		ui->NameLineEdit->setText(QString::fromLatin1("Wind"));
 	}
 
 

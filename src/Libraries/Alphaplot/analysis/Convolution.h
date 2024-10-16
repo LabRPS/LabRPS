@@ -30,17 +30,14 @@
 #define CONVOLUTION_H
 
 #include "Filter.h"
-
-namespace Gui {
-    class MainWindow;
-}
+#include <Libraries/Alphaplot/AlphaplotGlobal.h>
 
 class AlphaplotExport Convolution: public Filter
 {
   Q_OBJECT
 
  public:
-  Convolution(Gui::MainWindow *parent, Table *t, const QString &signalColName,
+  Convolution(Table *t, const QString &signalColName,
               const QString &responseColName);
 
   void setDataFromTable(Table *t, const QString &signalColName,
@@ -69,7 +66,7 @@ class AlphaplotExport Deconvolution : public Convolution {
   Q_OBJECT
 
  public:
-  Deconvolution(Gui::MainWindow*parent, Table *t, const QString &realColName,
+  Deconvolution(Table *t, const QString &realColName,
                 const QString &imagColName = QString());
 
  private:

@@ -124,7 +124,7 @@ FCCmdTest1::FCCmdTest1()
     sWhatsThis    = "Std_Test1";
     sStatusTip    = sToolTipText;
     sPixmap       = "Std_Tool1";
-    sAccel        = "Ctrl+T";
+    //sAccel        = "Ctrl+T";
 }
 
 void FCCmdTest1::activated(int iMsg)

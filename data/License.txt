@@ -1,10 +1,10 @@
 
 The files:
 
-PartExample.RPSStd
+Example_1.RPSStd
 
 are
-(c) 2011 Juergen Riegel (juergen.riegel@web.de)
+(c) 2024 Koffi Daniel (kfdani@labrps.com)
 licensed under:
 
 Creative Commons Attribution Share Alike

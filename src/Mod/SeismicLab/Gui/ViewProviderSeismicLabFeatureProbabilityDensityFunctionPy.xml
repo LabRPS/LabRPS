@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeatureProbabilityDensityFunctionPy"
+            Twin="ViewProviderSeismicLabFeatureProbabilityDensityFunction"
+            TwinPointer="ViewProviderSeismicLabFeatureProbabilityDensityFunction"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeatureProbabilityDensityFunction.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeatureProbabilityDensityFunction class</UserDocu>
+        </Documentation>
+      <Methode Name="computePDFValue">
+        <Documentation>
+          <UserDocu>Compute the PDF value</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="computePDFVectorX">
+        <Documentation>
+          <UserDocu>Compute the PDF value for all x</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

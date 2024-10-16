@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="JenningsEtAl1968ModulationPy"
+    Twin="JenningsEtAl1968Modulation"
+    TwinPointer="JenningsEtAl1968Modulation"
+    Include="Mod/SeismicLabTools/App/modulation/JenningsEtAl1968Modulation.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the modulation function according to the piece-wise envelope shape by Jennings et al. (1968)</UserDocu>
+    </Documentation>
+    <Methode Name="computeModulation">
+      <Documentation>
+        <UserDocu>
+          computeModulation(time, riseTime, levelTime, alpha, power)
+					time = the time value for which the modulation function is computed 
+          riseTime = it is the instant of time (in sec) corresponding to the beginning of the horizontal part of the envelope  
+          levelTime = it is the instant of time corresponding to the beginning of the descending branch of the envelope. The Level Time should be larger than the Rise Time.
+          alpha = a parameter influencing the envelope
+          power = a power coefficient
+
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

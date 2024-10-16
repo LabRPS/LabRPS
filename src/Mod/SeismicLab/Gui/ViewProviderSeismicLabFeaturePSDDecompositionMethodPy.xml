@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeismicLabFeaturePSDDecompositionMethodPy"
+            Twin="ViewProviderSeismicLabFeaturePSDDecompositionMethod"
+            TwinPointer="ViewProviderSeismicLabFeaturePSDDecompositionMethod"
+            Include="Mod/SeismicLab/Gui/ViewProviderSeismicLabFeaturePSDDecompositionMethod.h"
+            Namespace="SeismicLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeismicLabFeaturePSDDecompositionMethod class</UserDocu>
+        </Documentation>
+      <Methode Name="computeDecomposedCrossSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute the decomposed cross spectrum for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+       <Methode Name="computeDecomposedCrossSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute the decomposed cross spectrum at all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+       <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
+        <Documentation>
+          <UserDocu>Compute the decomposed cross spectrum matrix at given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

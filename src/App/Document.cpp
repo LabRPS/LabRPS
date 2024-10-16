@@ -107,6 +107,7 @@ recompute path. Also, it enables more complicated dependencies beyond trees.
 #include "Origin.h"
 #include "OriginGroupExtension.h"
 #include "Transactions.h"
+#include "RPSFeature.h"
 
 #ifdef _MSC_VER
 #include <zipios++/zipios-config.h>
@@ -1558,6 +1559,8 @@ Document::Document(const char *name)
     ADD_PROPERTY_TYPE(Comment,(""),0,Prop_None,"Additional tag to save a comment");
     ADD_PROPERTY_TYPE(Meta,(),0,Prop_None,"Map with additional meta information");
     ADD_PROPERTY_TYPE(Material,(),0,Prop_None,"Map with material properties");
+    ADD_PROPERTY_TYPE(PluginList,(),0,Prop_None,"Map with installed plugins list");
+
     // create the uuid for the document
     Base::Uuid id;
     ADD_PROPERTY_TYPE(Id,(""),0,Prop_None,"ID of the document");
@@ -1629,6 +1632,7 @@ Document::Document(const char *name)
         "Link of the tip object of the document");
     ADD_PROPERTY_TYPE(TipName,(""),0,PropertyType(Prop_Hidden|Prop_ReadOnly),
         "Link of the tip object of the document");
+
     Uid.touch();
 }
 
@@ -1647,7 +1651,7 @@ Document::~Document()
 #ifdef RPS_LOGUPDATECHAIN
     Console().Log("-Delete Features of %s \n",getName());
 #endif
-
+    
     d->clearDocument();
 
     // Remark: The API of Py::Object has been changed to set whether the wrapper owns the passed
@@ -1701,6 +1705,26 @@ void Document::Save (Base::Writer &writer) const
     // writing the features types
     writeObjects(d->objectArray, writer);
     writer.Stream() << "</Document>" << endl;
+}
+
+void Document::saveAllDependentPluginsToFile()
+{
+    // emplty the map
+    std::map<std::string, std::string> map;
+    PluginList.setValues(map);
+
+    std::vector<DocumentObject*>::const_iterator it;
+    std::vector<std::string>::iterator pos;
+    std::vector<std::string> intalledPlugins;
+    for (it = d->objectArray.begin(); it != d->objectArray.end(); ++it) {
+       if ((*it)->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
+            pos = std::find(intalledPlugins.begin(), intalledPlugins.end(), (*it)->getNameInDocument());
+            if (pos == intalledPlugins.end()) {
+                intalledPlugins.emplace_back(static_cast<App::RPSFeature*>(*it)->PluginName.getValue());
+               PluginList.setValue(static_cast<App::RPSFeature*>(*it)->PluginName.getValue(), static_cast<App::RPSFeature*>(*it)->PluginVersion.getValue());
+            }
+       }
+    }
 }
 
 void Document::Restore(Base::XMLReader &reader)
@@ -2251,7 +2275,7 @@ static std::string checkFileName(const char *file) {
                 ("User parameter:BaseApp/Preferences/Document")->GetBool("CheckExtension",true))
     {
         const char *ext = strrchr(file,'.');
-        if(!ext || !boost::iequals(ext+1,"fcstd")) {
+        if(!ext || !boost::iequals(ext+1,"rpsstd")) {
             if(ext && ext[1] == 0)
                 fn += "RPSStd";
             else
@@ -2312,9 +2336,9 @@ bool Document::save (void)
             LastModifiedBy.setValue(Author.c_str());
         }
 
+        saveAllDependentPluginsToFile();
         return saveToFile(FileName.getValue());
     }
-
     return false;
 }
 
@@ -2675,7 +2699,7 @@ bool Document::saveToFile(const char* filename) const
 
         writer.Stream() << "<?xml version='1.0' encoding='utf-8'?>" << endl
                         << "<!--" << endl
-                        << " LabRPS Document, see https://www.labrpsweb.org for more information..." << endl
+                        << " LabRPS Document, see https://www.labrps.com for more information..." << endl
                         << "-->" << endl;
         Document::Save(writer);
 

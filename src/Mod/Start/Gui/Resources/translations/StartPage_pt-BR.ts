@@ -115,8 +115,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>O LabRPS também mantém um &lt;a href="https://www.labrpsweb.org/tracker"&gt; rastreador de bugs &lt;/a&gt; público onde qualquer um pode enviar bugs e propor novos recursos. Para evitar causar trabalho extra e oferecer as melhores chances de ver seu erro solucionado, leia o &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; guia de envio de bugs &lt;/a&gt; antes de postar.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>O LabRPS também mantém um &lt;a href="https://www.freecadweb.org/tracker"&gt; rastreador de bugs &lt;/a&gt; público onde qualquer um pode enviar bugs e propor novos recursos. Para evitar causar trabalho extra e oferecer as melhores chances de ver seu erro solucionado, leia o &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; guia de envio de bugs &lt;/a&gt; antes de postar.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -145,8 +145,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="70"/>
-      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
-      <translation>Abaixo estão as últimas alterações adicionadas ao &lt;a href="http://github.com/LabRPS/LabRPS/"&gt; código fonte do LabRPS &lt;/a&gt;. Essas alterações podem não refletir ainda na versão do LabRPS que você está executando atualmente. Verifique as &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt; opções disponíveis &lt;/a&gt; se você deseja obter uma versão de desenvolvimento.</translation>
+      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
+      <translation>Abaixo estão as últimas alterações adicionadas ao &lt;a href="http://github.com/LabRPS/LabRPS/"&gt; código fonte do LabRPS &lt;/a&gt;. Essas alterações podem não refletir ainda na versão do LabRPS que você está executando atualmente. Verifique as &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt; opções disponíveis &lt;/a&gt; se você deseja obter uma versão de desenvolvimento.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="71"/>

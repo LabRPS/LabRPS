@@ -30,6 +30,7 @@
 #define SMOOTHDIALOG_H
 
 #include <QDialog>
+#include <Libraries/Alphaplot/AlphaplotGlobal.h>
 
 class QPushButton;
 class QComboBox;

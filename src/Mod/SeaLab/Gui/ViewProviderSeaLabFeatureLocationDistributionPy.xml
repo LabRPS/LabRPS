@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureLocationDistributionPy"
+            Twin="ViewProviderSeaLabFeatureLocationDistribution"
+            TwinPointer="ViewProviderSeaLabFeatureLocationDistribution"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureLocationDistribution.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureLocationDistribution class</UserDocu>
+        </Documentation>
+      <Methode Name="computeLocationCoordinateMatrixP3">
+        <Documentation>
+          <UserDocu>Compute location coordinate matrix from the active location distribution feature</UserDocu>
+        </Documentation>
+      </Methode>
+            <Methode Name="getComputationResultVariableVector">
+        <Documentation>
+          <UserDocu>Return the result variable vector as list</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="getComputationResultValueVector">
+        <Documentation>
+          <UserDocu>Return the result value vector as list</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="getComputationResultComplexValueVector">
+        <Documentation>
+          <UserDocu>Return the result complex vector as list</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="getComputationResultMatrix">
+        <Documentation>
+          <UserDocu>Return the result matrix as list</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="getComputationResultComplexMatrix">
+        <Documentation>
+          <UserDocu>Return the result complex matrix as list</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

@@ -115,8 +115,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.labrpsweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS ylläpitää myös julkista &lt;a href="https://www.labrpsweb.org/tracker"&gt;vikaseurantapalvelinta&lt;/a&gt;, jossa kuka tahansa voi lähettää vikotietoja ja ehdottaa uusia ominaisuuksia. Välttääksesi ylimääräistä työtä ja antaaksesi parhaat mahdollisuudet nähdä ilmoittamasi vian ratkaistun, varmista, että olet lukenut &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;vikailmoituksen oppaan&lt;/a&gt; ennen lähettämistä.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS ylläpitää myös julkista &lt;a href="https://www.freecadweb.org/tracker"&gt;vikaseurantapalvelinta&lt;/a&gt;, jossa kuka tahansa voi lähettää vikotietoja ja ehdottaa uusia ominaisuuksia. Välttääksesi ylimääräistä työtä ja antaaksesi parhaat mahdollisuudet nähdä ilmoittamasi vian ratkaistun, varmista, että olet lukenut &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;vikailmoituksen oppaan&lt;/a&gt; ennen lähettämistä.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -145,8 +145,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="70"/>
-      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
-      <translation>Alla ovat viimeisimmät muutokset, jotka on lisätty &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS lähdekoodiin&lt;/a&gt;. Nämä muutokset eivät ehkä vielä heijasta LabRPS-versiossa, jota parhaillaan käytät. Valitse &lt;a href="https://www.labrpsweb.org/wiki/Downloads"&gt;käytettävissä olevat vaihtoehdot&lt;/a&gt; jos haluat saada kehitysversion.</translation>
+      <source>Below are the latest changes added to the &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS source code&lt;/a&gt;. These changes might not reflect yet in the LabRPS version that you are currently running. Check the &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;available options&lt;/a&gt; if you wish to obtain a development version.</source>
+      <translation>Alla ovat viimeisimmät muutokset, jotka on lisätty &lt;a href="http://github.com/LabRPS/LabRPS/"&gt;LabRPS lähdekoodiin&lt;/a&gt;. Nämä muutokset eivät ehkä vielä heijasta LabRPS-versiossa, jota parhaillaan käytät. Valitse &lt;a href="https://www.freecadweb.org/wiki/Downloads"&gt;käytettävissä olevat vaihtoehdot&lt;/a&gt; jos haluat saada kehitysversion.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="71"/>

@@ -125,7 +125,9 @@ macro(InitializeLabRPSBuildOptions)
     option(BUILD_WindLabPlugin "Build the WindLab plugin module" ON)
     option(BUILD_SeismicLabPlugin "Build the Seismic plugin module" ON)
     option(BUILD_SeaLabPlugin "Build the SeaLab plugin module" ON)
-
+    option(BUILD_UserDefinedPhenomenonLab "Build the UserDefinedPhenomenon module" ON)
+    option(BUILD_UserDefinedPhenomenonLabPlugin "Build the UserDefinedPhenomenon plugin module" ON)
+    
     if(MSVC)
         option(BUILD_FEM_NETGEN "Build the LabRPS FEM module with the NETGEN mesher" ON)
         option(LABRPS_USE_PCL "Build the features that use PCL libs" OFF) # 3/5/2021 current LibPack uses non-C++17 FLANN

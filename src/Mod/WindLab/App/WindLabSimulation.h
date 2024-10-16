@@ -100,6 +100,7 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
+    App::PropertyString WorkingDirectoryPath;
 	App::PropertyEnumeration SpatialDistribution;
 	App::PropertyEnumeration ShearVelocity;
 	App::PropertyEnumeration MeanFunction;
@@ -130,6 +131,7 @@ public:
 	App::PropertyEnumeration TurbulenceScale;
 	App::PropertyEnumeration Variance;
 	App::PropertyEnumeration WavePassageEffect;
+
 	App::PropertyEnumeration WindDirection;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;

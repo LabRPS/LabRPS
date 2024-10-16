@@ -31,12 +31,9 @@
 
 #include <QObject>
 #include <2Dplot/Graph2DCommon.h>
+#include <Libraries/Alphaplot/AlphaplotGlobal.h>
 
 class Table;
-
-namespace Gui {
-    class MainWindow;
-}
 
 class AxisRect2D;
 class Curve2D;
@@ -46,9 +43,9 @@ class AlphaplotExport Filter : public QObject {
   Q_OBJECT
 
  public:
-  Filter(Gui::MainWindow *parent, Table *table = nullptr,
+  Filter(Table *table = nullptr,
          QString name = QString());
-  Filter(Gui::MainWindow *parent, AxisRect2D *axisrect = nullptr,
+  Filter(AxisRect2D *axisrect = nullptr,
          QString name = QString());
   ~Filter();
 
@@ -123,11 +120,7 @@ class AlphaplotExport Filter : public QObject {
 
   //! Calculates the data for the output curve and store it in the X an Y
   //! vectors
-  virtual void calculateOutputData(double *X,
-                                   double *Y){Q_UNUSED(X) Q_UNUSED(Y)}
-
-  Gui::MainWindow *app_;
-
+  virtual void calculateOutputData(double *X, double *Y){Q_UNUSED(X) Q_UNUSED(Y)}
   //! The graph where the result curve should be displayed
   AxisRect2D *axisrect_;
 

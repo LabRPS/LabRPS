@@ -506,7 +506,7 @@ class Macro(object):
         # Method 1: the text "toolbar icon" appears on the page, and provides a direct lin to an icon
 
         # Try to get an icon from the wiki page itself:
-        # <a rel="nofollow" class="external text" href="https://www.labrpsweb.org/wiki/images/f/f5/Macro_3D_Parametric_Curve.png">ToolBar Icon</a>
+        # <a rel="nofollow" class="external text" href="https://www.freecadweb.org/wiki/images/f/f5/Macro_3D_Parametric_Curve.png">ToolBar Icon</a>
         icon_regex = re.compile(r'.*href="(.*?)">ToolBar Icon', re.IGNORECASE)
         wiki_icon = ""
         if "ToolBar Icon" in page_data:
@@ -540,7 +540,7 @@ class Macro(object):
                         match = icon_regex.match(line)
                         if match:
                             wiki_icon = match.group(1)
-                            self.icon = "https://www.labrpsweb.org/wiki" + wiki_icon
+                            self.icon = "https://www.freecadweb.org/wiki" + wiki_icon
                             return
                     elif "fullImageLink" in line:
                         trigger = True

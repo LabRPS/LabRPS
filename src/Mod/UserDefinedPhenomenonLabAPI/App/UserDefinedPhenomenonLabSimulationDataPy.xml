@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="UserDefinedPhenomenonLabFeaturePy"
+    Name="UserDefinedPhenomenonLabSimulationDataPy"
+    Twin="UserDefinedPhenomenonLabSimulationData"
+    TwinPointer="UserDefinedPhenomenonLabSimulationData"
+    Include="Mod/UserDefinedPhenomenonLabAPI/App/UserDefinedPhenomenonLabSimulationData.h"
+    Namespace="UserDefinedPhenomenonLabAPI"
+    FatherInclude="Mod/UserDefinedPhenomenonLabAPI/App/UserDefinedPhenomenonLabFeaturePy.h"
+    FatherNamespace="UserDefinedPhenomenonLabAPI"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>With this objects you can handle any random phenomenon</UserDocu>
+    </Documentation>
+  </PythonExport>
+</GenerateModel>

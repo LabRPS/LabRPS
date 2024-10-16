@@ -17,9 +17,9 @@ macro(CompilerChecksAndSetups)
         add_definitions(-DHAVE_SNPRINTF)
     endif()
 
-    # Allow developers to use Boost < 1.55
+    # Allow developers to use Boost < 1.65
     if (NOT BOOST_MIN_VERSION)
-        set(BOOST_MIN_VERSION 1.55)
+        set(BOOST_MIN_VERSION 1.65)
     endif()
 
     # For older cmake versions the variable 'CMAKE_CXX_COMPILER_VERSION' is missing
@@ -102,4 +102,7 @@ macro(CompilerChecksAndSetups)
         add_definitions(-DBOOST_PP_VARIADICS=1)
         message(STATUS "Force BOOST_PP_VARIADICS=1 for clang")
     endif()
+
+    set (COMPILE_DEFINITIONS ${COMPILE_DEFINITIONS} BOOST_NO_CXX98_FUNCTION_BASE)
+
 endmacro(CompilerChecksAndSetups)

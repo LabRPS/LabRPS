@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SeismicLabGui::DlgHuZhouSpectrum</class>
+ <widget class="QWidget" name="SeismicLabGui::DlgHuZhouSpectrum">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>455</width>
+    <height>503</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Feature Parameters</string>
+  </property>
+  <property name="sizeGripEnabled" stdset="0">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="GroupBox5_5">
+     <property name="title">
+      <string>Image</string>
+     </property>
+     <layout class="QGridLayout" name="_6">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0">
+        <item>
+         <widget class="QLabel" name="label_Image">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="GroupBox5_3">
+     <property name="title">
+      <string>Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="_3">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Ground Damping Ratio</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_GroundDampingRatio" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Ground Natural Frequency</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_GroundNaturalFrequency" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Low Frequency Control Factor</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_LowFrequencyControlFactor" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Ground Shaking Intensity</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_GroundShakingIntensity" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Gui::QuantitySpinBox</class>
+   <extends>QWidget</extends>
+   <header>Gui/QuantitySpinBox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

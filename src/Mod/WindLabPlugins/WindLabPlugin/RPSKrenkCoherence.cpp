@@ -27,8 +27,13 @@
 #include "Widgets/DlgKrenkCoherence.h"
 #include <Base/Console.h>
 #include <Gui/Control.h>
+#include <App/Application.h>
+#include <App/Document.h>
+#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
+
 
 using namespace WindLab;
+using namespace WindLabAPI;
 
 PROPERTY_SOURCE(WindLab::RPSKrenkCoherence, WindLabAPI::WindLabFeatureCoherence)
 
@@ -40,16 +45,79 @@ RPSKrenkCoherence::RPSKrenkCoherence()
 
 bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
-	double dMeanSpeed1 = 0.0;
-	double dMeanSpeed2 = 0.0;
-   
+    bool returnResult = true;
+
+    double MEANj = 0.0;
+    double MEANk = 0.0;
+
+    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
+    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return returnResult;
+    }
+
     WindLabTools::KrenkCoherence krenkCoherence;
 
-    WindLabAPI::CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, dMeanSpeed1);
-    WindLabAPI::CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, dMeanSpeed2);
+	if (Data.stationarity.getValue())
+	{
+		dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+    }
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValueJ = 0.0;
+        double dModValueK = 0.0;
 
-    dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, dMeanSpeed1, dMeanSpeed2, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
-    
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
+
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
+
+		if (this->IsUniformlyModulated.getValue())
+		{
+			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = 0.5 * (dModValueJ + dModValueJ) * krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+
+		}
+		else
+		{
+			dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+        }
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
 	return true;
 }
 

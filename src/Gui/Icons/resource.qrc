@@ -213,7 +213,6 @@
         <file>WhatsThis.svg</file>
         <file>colors.svg</file>
         <file>px.svg</file>
-        <file>AddonManager.svg</file>
         <file>Group.svg</file>
         <file>Geofeaturegroup.svg</file>
         <file>Geoassembly.svg</file>
@@ -249,11 +248,11 @@
         <file>Std_UserEditModeTransform.svg</file>
         <file>Std_UserEditModeCutting.svg</file>
         <file>Std_UserEditModeColor.svg</file>
-        <file>Std_File_New_table.svg</file>
-        <file>Std_File_New_matrix.svg</file>
-        <file>Std_File_New_graph.svg</file>
-        <file>Std_File_New_function_plot.svg</file>
-        <file>Std_File_New_3D_surface_plot.svg</file>
+        <file>Std_New_Table.svg</file>
+        <file>Std_New_Matrix.svg</file>
+        <file>Std_New_Graph.svg</file>
+        <file>Std_New_2DPlot.svg</file>
+        <file>Std_New_3DPlot.svg</file>
         <file>Std_File_New_scene.svg</file>
         <file>Std_Plot_Line.svg</file>
         <file>Std_Plot_Scatters.svg</file>
@@ -338,7 +337,6 @@
         <file>Std_Graph_Drag_range.svg</file>
         <file>Std_Tools_Zoom_range.svg</file>
         <file>Std_Tools_Rescale_to_show_all.svg</file>
-        <file>Std_3DPlot_Bar.png</file>
         <file>Std_Plot_3D_plot_scatter.svg</file>
         <file>Std_Plot_Spline.svg</file>
         <file>Std_Plot_Vertical_drop_lines.svg</file>       
@@ -351,15 +349,14 @@
         <file>Std_Plot3d_ColumnSelect.png</file>
         <file>Std_Plot3d_RowSelect.png</file>
 
-
         <file>Std_Plot3d_PointSelect.png</file>
-        <file>Std_3DPlot_Bar.png</file>
         <file>Std_PluginInstaller.svg</file>
         <file>preferences-plugin.svg</file>
         <file>banner.png</file>
         <file>banner_big.png</file>
         <file>icon-labrps.svg</file>
         <file>icon-labrps.png</file>
+        <file>AddonManager.svg</file>
 
     </qresource>
     <!-- Demonstrating support for an embedded icon theme -->

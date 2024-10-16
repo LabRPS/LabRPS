@@ -118,7 +118,7 @@ void Thumbnail::SaveDocFile (Base::Writer &writer) const
         uint mt = QDateTime::currentDateTime().toTime_t();
         QString mtime = QString::fromLatin1("%1").arg(mt);
         img.setText(QLatin1String("Software"), qApp->applicationName());
-        img.setText(QLatin1String("Thumb::Mimetype"), QLatin1String("application/x-extension-fcstd"));
+        img.setText(QLatin1String("Thumb::Mimetype"), QLatin1String("application/x-extension-rpsstd"));
         img.setText(QLatin1String("Thumb::MTime"), mtime);
         img.setText(QLatin1String("Thumb::URI"), this->uri.toString());
 

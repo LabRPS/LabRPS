@@ -45,14 +45,14 @@ run_all()
 # one special example
 from windlabexamples.manager import run_example as run
 
-doc = run("Deodatis1998_LocationDistribution")
-doc = run("Deodatis1998_MeanWind")
+doc = run("Deodatis1996_LocationDistribution")
+doc = run("Deodatis1996_MeanWind")
 
 """
 
 def setup_all():
-    run_example("Deodatis1998_LocationDistribution")
-    run_example("Deodatis1998_MeanWind")
+    run_example("Deodatis1996_LocationDistribution")
+    run_example("Deodatis1996_MeanWind")
 
 
 

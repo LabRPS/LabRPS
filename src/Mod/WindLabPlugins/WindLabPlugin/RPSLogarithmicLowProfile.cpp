@@ -125,34 +125,55 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindL
 
 	if (location.z < 0)
 	{
-        Base::Console().Warning("Negative height detected. The computation fails.\n");
+		Base::Console().Warning("Negative height detected. The computation fails.\n");
 		return false;
 	}
 
-    if(Data.stationarity.getValue())
-    {
+	if (Data.stationarity.getValue())
+	{
         dValue = logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
-    }
-    else if(!Data.stationarity.getValue() && Data.uniformModulation.getValue())
-    {
-        double dModValue = 0.0;
+	}
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	{
+		double dModValue = 0.0;
+		auto doc = App::GetApplication().getActiveDocument();
+		if (!doc)
+		{
+			return false;
+		}
 
-        auto doc = App::GetApplication().getActiveDocument();
-        if (!doc)
-        {
-            return false;
-        }
-        // Compute the location coordinate array
-        WindLabAPI::IrpsWLModulation* activeLocationDis = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.spatialDistribution.getValue()));
-        activeLocationDis->ComputeModulationValue(Data, location, dTime, dModValue);
+        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
 
-    if(!activeLocationDis)
-    {
-        Base::Console().Warning("The computation of the modulation function has failed.") ;
-       return false;
-    }
-        dValue = dModValue * logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
-    }
+		if (!activeFeature)
+		{
+            Base::Console().Error("The computation of the modulation value has failed.\n");
+			return false;
+		}
 
-    return true;
+		if (this->IsUniformlyModulated.getValue())
+		{
+			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
+
+			if (!returnResult)
+			{
+				Base::Console().Error("The computation of the modulation value has failed.\n");
+				return false;
+			}
+
+            dValue = dModValue * logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+
+		}
+		else
+		{
+            dValue = logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+		}
+
+	}
+	else
+	{
+        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        return false;
+	}
+
+	return true;
 }

@@ -39,7 +39,7 @@
 #include "SineModulation.h"
 #include "ExpoModulation.h"
 #include "ThreeParaModulation.h"
-#include "RPSDeodatis1987.h"
+#include "RPSDeodatis1996.h"
 #include "GeneralSpatialDistribution.h"
 #include "RPSKaimalAcrossSpectr.h"
 #include "RPSKaimalVerticalSpectr.h"
@@ -60,13 +60,45 @@
 #include <Mod/WindLabAPI/App/RPSWindLabpluginAPI.h>
 #include <Base/Console.h>
 
+#include <Base/Interpreter.h>
+#include <Base/PyObjectBase.h>
+
+
+// namespace WindLabPlugin
+// {
+// class Module: public Py::ExtensionModule<Module>
+// {
+// public:
+//     Module() : Py::ExtensionModule<Module>("WindLabPlugin")
+//     {
+//         initialize("This module is the WindLabPlugin module.");// register with Python
+//     }
+
+//     virtual ~Module() {}
+
+// private:
+// };
+
+// PyObject* initModule() { return Base::Interpreter().addModule(new Module); }
+
+// }// namespace WindLab
+
+// /* Python entry */
+// PyMOD_INIT_FUNC(WindLabPlugin)
+// {
+//     PyObject* mod = WindLabPlugin::initModule();
+//     Base::Console().Log("Loading WindLabPlugin module... done\n");
+//     PyMOD_Return(mod);
+// }
+
+
 std::string strPluginName = "WindLabPlugin";
 bool stationarity = true;
 
 PLUGIN_NAME("WindLabPlugin");
 RANDOM_PHENOMENON("Wind Velocity");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS");
+PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of wind velocity");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("0.1");
 API_VERSION("0.1");
@@ -588,12 +620,12 @@ std::string objLinkDeo_S = "https://doi.org/10.1061/(ASCE)0733-9399(1996)122:8(7
 std::string objAuthorsDeo_S = "George Deodatis";
 std::string objDateDeo_S = "15/06/2024";
 std::string objVersionDeo_S = "1.0";
-RPS_PLUGIN_FUNC IrpsWLSimuMethod* BuildRPSDeodatis1987()
+RPS_PLUGIN_FUNC IrpsWLSimuMethod* BuildRPSDeodatis1996()
 {
-    return new CRPSDeodatis1987;
+    return new CRPSDeodatis1996;
 }
 
-RPS_PLUGIN_FUNC void DestroyRPSDeodatis1987(IrpsWLSimuMethod* r)
+RPS_PLUGIN_FUNC void DestroyRPSDeodatis1996(IrpsWLSimuMethod* r)
 {
     delete r;
 }
@@ -749,8 +781,8 @@ PLUGIN_INIT_TYPE()
     if (WindLab::CThreeParaModulation::getClassTypeId() == Base::Type::badType()) {
         WindLab::CThreeParaModulation::init();
     }
-    if (WindLab::CRPSDeodatis1987::getClassTypeId() == Base::Type::badType()) {
-        WindLab::CRPSDeodatis1987::init();
+    if (WindLab::CRPSDeodatis1996::getClassTypeId() == Base::Type::badType()) {
+        WindLab::CRPSDeodatis1996::init();
     }
     if (WindLab::CRPSWavePassageEffect::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSWavePassageEffect::init();
@@ -861,7 +893,7 @@ INSTALL_PLUGIN()
     RegisterModulation(objNameExp_M, strPluginName, objDescriptionExp_M, BuildExpoModulation, DestroyExpoModulation);
     RegisterModulation(objNameSin_M, strPluginName, objDescriptionSin_M, BuildSineModulation, DestroySineModulation);
     
-    RegisterSimuMethod(objNameDeo_S, strPluginName, objDescriptionDeo_S, BuildRPSDeodatis1987, DestroyRPSDeodatis1987);
+    RegisterSimuMethod(objNameDeo_S, strPluginName, objDescriptionDeo_S, BuildRPSDeodatis1996, DestroyRPSDeodatis1996);
     RegisterWavePassageEffect(objNameWav_P, strPluginName, objDescriptionWav_P, BuildRPSWavePassageEffect, DestroyRPSWavePassageEffect);
     RegisterTableTool(objNameTar_C, strPluginName, objDescriptionTar_C, BuildRPSTargetCorrelation, DestroyRPSTargetCorrelation);
     RegisterTurbulenceIntensity(objNameAsc_T, strPluginName, objDescriptionAsc_T, BuildRPSTurbulenceIntensityASCE798, DestroyRPSTurbulenceIntensityASCE798);
