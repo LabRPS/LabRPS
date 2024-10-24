@@ -38,7 +38,6 @@
 #endif
 
 #include <string>
-#include <Inventor/fields/SoSFImage.h>
 
 #include <App/Application.h>
 #include <Base/Console.h>
@@ -523,123 +522,6 @@ QPixmap BitmapFactoryInst::disabled(const QPixmap& p) const
     return QApplication::style()->generatedIconPixmap(QIcon::Disabled, p, &opt);
 }
 
-void BitmapFactoryInst::convert(const QImage& p, SoSFImage& img) const
-{
-    SbVec2s size;
-    size[0] = p.width();
-    size[1] = p.height();
-
-#if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-    int buffersize = static_cast<int>(p.sizeInBytes());
-#else
-    int buffersize = p.byteCount();
-#endif
-    int numcomponents = 0;
-    QVector<QRgb> table = p.colorTable();
-    if (!table.isEmpty()) {
-        if (p.hasAlphaChannel()) {
-            if (p.allGray())
-                numcomponents = 2;
-            else
-                numcomponents = 4;
-        }
-        else {
-            if (p.allGray())
-                numcomponents = 1;
-            else
-                numcomponents = 3;
-        }
-    }
-    else {
-        numcomponents = buffersize / (size[0] * size[1]);
-    }
-
-    // allocate image data
-    img.setValue(size, numcomponents, nullptr);
-
-    unsigned char * bytes = img.startEditing(size, numcomponents);
-
-    int width  = (int)size[0];
-    int height = (int)size[1];
-
-    for (int y = 0; y < height; y++)
-    {
-        unsigned char * line = &bytes[width*numcomponents*(height-(y+1))];
-        for (int x = 0; x < width; x++)
-        {
-            QRgb rgb = p.pixel(x,y);
-            switch (numcomponents)
-            {
-            default:
-                break;
-            case 1:
-                line[0] = qGray( rgb );
-                break;
-            case 2:
-                line[0] = qGray( rgb );
-                line[1] = qAlpha( rgb );
-                break;
-            case 3:
-                line[0] = qRed( rgb );
-                line[1] = qGreen( rgb );
-                line[2] = qBlue( rgb );
-                break;
-            case 4:
-                line[0] = qRed( rgb );
-                line[1] = qGreen( rgb );
-                line[2] = qBlue( rgb );
-                line[3] = qAlpha( rgb );
-                break;
-            }
-
-            line += numcomponents;
-        }
-    }
-
-    img.finishEditing();
-}
-
-void BitmapFactoryInst::convert(const SoSFImage& p, QImage& img) const
-{
-    SbVec2s size;
-    int numcomponents;
-
-    const unsigned char * bytes = p.getValue(size, numcomponents);
-    if (!bytes)
-        return;
-
-    int width  = (int)size[0];
-    int height = (int)size[1];
-
-    img = QImage(width, height, QImage::Format_RGB32);
-    QRgb * bits = (QRgb*) img.bits();
-
-    for (int y = 0; y < height; y++)
-    {
-        const unsigned char * line = &bytes[width*numcomponents*(height-(y+1))];
-        for (int x = 0; x < width; x++)
-        {
-            switch (numcomponents)
-            {
-            default:
-            case 1:
-                *bits++ = qRgb(line[0], line[0], line[0]);
-                break;
-            case 2:
-                *bits++ = qRgba(line[0], line[0], line[0], line[1]);
-                break;
-            case 3:
-                *bits++ = qRgb(line[0], line[1], line[2]);
-                break;
-            case 4:
-                *bits++ = qRgba(line[0], line[1], line[2], line[3]);
-                break;
-            }
-
-            line += numcomponents;
-        }
-    }
-}
 
 QIcon BitmapFactoryInst::mergePixmap (const QIcon &base, const QPixmap &px, Gui::BitmapFactoryInst::Position position)
 {

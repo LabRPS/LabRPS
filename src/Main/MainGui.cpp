@@ -44,7 +44,7 @@
 #include <QMessageBox>
 #include <QTextCodec>
 
-// LabRPS header
+ //LabRPS header
 #include <App/Application.h>
 #include <Base/ConsoleObserver.h>
 #include <Base/Interpreter.h>
@@ -57,14 +57,7 @@ void PrintInitHelp(void);
 
 const char sBanner[] = "\xc2\xa9 Juergen Riegel, Werner Mayer, Yorik van Havre and others 2001-2022\n"\
 "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n"\
-"LabRPS wouldn't be possible without LabRPS community.\n"\
-"  #####                 ####  ###   ####  \n" \
-"  #                    #      # #   #   # \n" \
-"  #     ##  #### ####  #     #   #  #   # \n" \
-"  ####  # # #  # #  #  #     #####  #   # \n" \
-"  #     #   #### ####  #    #     # #   # \n" \
-"  #     #   #    #     #    #     # #   #  ##  ##  ##\n" \
-"  #     #   #### ####   ### #     # ####   ##  ##  ##\n\n" ;
+"LabRPS wouldn't be possible without LabRPS community.\n";
 
 #if defined(_MSC_VER)
 void InitMiniDumpWriter(const std::string&);
@@ -140,10 +133,6 @@ int main( int argc, char ** argv )
 #endif
 
 #if defined (RPS_OS_WIN32)
-    // we need to force Coin not to use Freetype in order to find installed fonts on Windows
-    // see https://forum.labrpsweb.org/viewtopic.php?p=485142#p485016
-    _putenv("COIN_FORCE_FREETYPE_OFF=1");
-
     int argc_ = argc;
     QVector<QByteArray> data;
     QVector<char *> argv_;
@@ -169,7 +158,7 @@ int main( int argc, char ** argv )
     App::Application::Config()["ExeName"] = "LabRPS";
     App::Application::Config()["ExeVendor"] = "LabRPS";
     App::Application::Config()["AppDataSkipVendor"] = "true";
-    App::Application::Config()["MaintainerUrl"] = "http://www.labrps.org/wiki/Main_Page";
+    App::Application::Config()["MaintainerUrl"] = "http://www.labrps.com/wiki/Main_Page";
 
     // set the banner (for logging and console)
     App::Application::Config()["CopyrightInfo"] = sBanner;

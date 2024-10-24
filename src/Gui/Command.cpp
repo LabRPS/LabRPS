@@ -23,9 +23,6 @@
 
 #include "PreCompiled.h"
 #ifndef _PreComp_
-# include <Inventor/SbSphere.h>
-# include <Inventor/actions/SoGetBoundingBoxAction.h>
-# include <Inventor/nodes/SoOrthographicCamera.h>
 # include <sstream>
 # include <QApplication>
 # include <QByteArray>
@@ -56,13 +53,12 @@
 #include "MainWindow.h"
 #include "Python.h"
 #include "Selection.h"
-#include "View3DInventor.h"
-#include "View3DInventorViewer.h"
 #include "ViewProviderLink.h"
 #include "WaitCursor.h"
 #include "WhatsThis.h"
 #include "WorkbenchManager.h"
 #include "Workbench.h"
+#include "MDIView.h"
 
 
 RPS_LOG_LEVEL_INIT("Command", true, true)
@@ -775,7 +771,7 @@ void Command::_copyVisual(const char *file, int line, const App::DocumentObject 
                         objCmd.c_str(),attr_to,getObjectCmd(obj).c_str(),it->second.c_str());
                 return;
             }
-            auto linked = obj->getLinkedObject(false,nullptr,false,depth);
+            auto linked = obj->getLinkedObject(false,depth);
             if(!linked || linked==obj)
                 break;
             obj = linked;
@@ -931,47 +927,6 @@ const char* Command::keySequenceToAccel(int sk) const
     QByteArray data = qs.toLatin1();
 
     return (strings[sk] = static_cast<const char*>(data)).c_str();
-}
-
-void Command::adjustCameraPosition()
-{
-    Gui::Document* doc = Gui::Application::Instance->activeDocument();
-    if (doc) {
-        Gui::View3DInventor* view = static_cast<Gui::View3DInventor*>(doc->getActiveView());
-        Gui::View3DInventorViewer* viewer = view->getViewer();
-        SoCamera* camera = viewer->getSoRenderManager()->getCamera();
-        if (!camera || !camera->isOfType(SoOrthographicCamera::getClassTypeId()))
-            return;
-
-        // get scene bounding box
-        SoGetBoundingBoxAction action(viewer->getSoRenderManager()->getViewportRegion());
-        action.apply(viewer->getSceneGraph());
-        SbBox3f box = action.getBoundingBox();
-        if (box.isEmpty())
-            return;
-
-        // get cirumscribing sphere and check if camera is inside
-        SbVec3f cam_pos = camera->position.getValue();
-        SbVec3f box_cnt = box.getCenter();
-        SbSphere bs;
-        bs.circumscribe(box);
-        float radius = bs.getRadius();
-        float distance_to_midpoint = (box_cnt-cam_pos).length();
-        if (radius >= distance_to_midpoint) {
-            // Move the camera to the edge of the bounding sphere, while still
-            // pointing at the scene.
-            SbVec3f direction = cam_pos - box_cnt;
-            (void) direction.normalize(); // we know this is not a null vector
-            camera->position.setValue(box_cnt + direction * radius);
-
-            // New distance to mid point
-            distance_to_midpoint =
-                (camera->position.getValue() - box.getCenter()).length();
-            camera->nearDistance = distance_to_midpoint - radius;
-            camera->farDistance = distance_to_midpoint + radius;
-            camera->focalDistance = distance_to_midpoint;
-        }
-    }
 }
 
 void Command::printConflictingAccelerators() const

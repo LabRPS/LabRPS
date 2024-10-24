@@ -34,11 +34,6 @@
 #include <bitset>
 #include <unordered_map>
 
-namespace Base
-{
-class Matrix4D;
-}
-
 namespace App
 {
 class Document;
@@ -331,16 +326,6 @@ public:
      * return the TopoShapePy, event if there is no sub-element reference, in
      * which case it returns the whole shape.
      *
-     * @param mat: If non zero, it is used as the current transformation matrix
-     * on input.  And output as the accumulated transformation up until and
-     * include the transformation applied by the final object reference in \c
-     * subname. For Part::Feature, the transformation is applied to the
-     * TopoShape inside \c pyObj before returning.
-     *
-     * @param transform: if false, then it will not apply the object's own
-     * transformation to \c mat, which lets you override the object's placement
-     * (and possibly scale).
-     *
      * @param depth: depth limitation as hint for cyclic link detection
      *
      * @return The last document object referred in subname. If subname is empty,
@@ -348,7 +333,7 @@ public:
      * zero.
      */
     virtual DocumentObject *getSubObject(const char *subname, PyObject **pyObj=nullptr,
-            Base::Matrix4D *mat=nullptr, bool transform=true, int depth=0) const;
+            int depth=0) const;
 
     /// Return a list of objects referenced by a given subname including this object
     std::vector<DocumentObject*> getSubObjectList(const char *subname) const;
@@ -386,18 +371,11 @@ public:
      * @param recurse: If false, return the immediate linked object, or else
      * recursively call this function to return the final linked object.
      *
-     * @param mat: If non zero, it is used as the current transformation matrix
-     * on input.  And output as the accumulated transformation till the final
-     * linked object.
-     *
-     * @param transform: if false, then it will not accumulate the object's own
-     * placement into \c mat, which lets you override the object's placement.
-     *
      * @return Return the linked object. This function must return itself if the
      * it is not a link or the link is invalid.
      */
     virtual DocumentObject *getLinkedObject(bool recurse=true,
-            Base::Matrix4D *mat=nullptr, bool transform=false, int depth=0) const;
+           int depth=0) const;
 
     /* Return true to cause PropertyView to show linked object's property */
     virtual bool canLinkProperties() const {return true;}
@@ -458,7 +436,7 @@ public:
      */
     App::DocumentObject *resolve(const char *subname, App::DocumentObject **parent=nullptr,
         std::string *childName=nullptr, const char **subElement=nullptr,
-        PyObject **pyObj=nullptr, Base::Matrix4D *mat=nullptr, bool transform=true, int depth=0) const;
+        PyObject **pyObj=nullptr, int depth=0) const;
 
     /** Resolve a link reference that is relative to this object reference
      *

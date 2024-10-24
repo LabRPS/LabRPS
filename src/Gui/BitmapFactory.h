@@ -29,7 +29,6 @@
 #include <QIcon>
 
 // forward declaration
-class SoSFImage;
 class QImage;
 
 namespace Gui {
@@ -127,12 +126,6 @@ public:
      * of all opaque pixels to a higher value.
      */
     QPixmap disabled(const QPixmap& p) const;
-    /** Converts a QImage into a SoSFImage to use it inside a SoImage node.
-     */
-    void convert(const QImage& img, SoSFImage& out) const;
-    /** Converts a SoSFImage into a QImage.
-     */
-    void convert(const SoSFImage& img, QImage& out) const;
 
     /// Helper method to merge a pixmap into one corner of a QIcon
     static QIcon mergePixmap (const QIcon &base, const QPixmap &px, Gui::BitmapFactoryInst::Position position);

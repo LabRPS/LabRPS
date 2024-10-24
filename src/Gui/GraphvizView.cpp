@@ -41,6 +41,7 @@
 
 #include <App/Application.h>
 #include <App/Document.h>
+#include <Gui/Document.h>
 
 #include "GraphvizView.h"
 #include "GraphicsViewZoom.h"
@@ -225,8 +226,8 @@ void GraphvizGraphicsView::mouseReleaseEvent(QMouseEvent* e)
 
 /* TRANSLATOR Gui::GraphvizView */
 
-GraphvizView::GraphvizView(App::Document & _doc, QWidget* parent)
-  : MDIView(nullptr, parent)
+GraphvizView::GraphvizView(App::Document& _doc, QWidget* parent, Gui::Document* pcDocument)
+  : MDIView(pcDocument, parent)
   , doc(_doc)
   , nPending(0)
 {
@@ -496,7 +497,14 @@ bool GraphvizView::onMsg(const char* pMsg,const char**)
         printPdf();
         return true;
     }
-
+    else if (strcmp("Undo", pMsg) == 0) {
+        getGuiDocument()->undo(1);
+        return true;
+    }
+    else if (strcmp("Redo", pMsg) == 0) {
+        getGuiDocument()->redo(1);
+        return true;
+    }
     return false;
 }
 
@@ -512,6 +520,14 @@ bool GraphvizView::onHasMsg(const char* pMsg) const
         return true;
     else if (strcmp("PrintPdf",pMsg) == 0)
         return true;
+    else if (strcmp("Undo", pMsg) == 0) {
+        App::Document* doc = getAppDocument();
+        return doc && doc->getAvailableUndos() > 0;
+    }
+    else if (strcmp("Redo", pMsg) == 0) {
+        App::Document* doc = getAppDocument();
+        return doc && doc->getAvailableRedos() > 0;
+    }
     return false;
 }
 

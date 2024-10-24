@@ -28,6 +28,12 @@
 #include <cmath>
 #include <cfloat>
 
+#include <Base/Console.h>
+
+#ifndef RPS_GLOBAL_H
+#include <RPSGlobal.h>
+#endif
+
 #ifndef  F_PI
 # define F_PI  3.1415926f
 #endif
@@ -246,6 +252,15 @@ template <class _Pr1, class _Pr2>
 inline Vector3<_Pr1> toVector(const Vector3<_Pr2>& v)
 {
     return Vector3<_Pr1>(static_cast<_Pr1>(v.x),static_cast<_Pr1>(v.y),static_cast<_Pr1>(v.z));
+}
+
+template<typename T> inline Vector3<T> getVectorFromTuple(PyObject* o)
+{
+    Py::Sequence tuple(o);
+    T x = static_cast<T>(Py::Float(tuple.getItem(0)));
+    T y = static_cast<T>(Py::Float(tuple.getItem(1)));
+    T z = static_cast<T>(Py::Float(tuple.getItem(2)));
+    return Vector3<T>(x, y, z);
 }
 
 typedef Vector3<float>  Vector3f;

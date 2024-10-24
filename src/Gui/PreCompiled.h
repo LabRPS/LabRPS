@@ -95,7 +95,6 @@
 #include <xercesc/util/TranscodingException.hpp>
 #include <xercesc/util/XMLString.hpp>
 
-#include "InventorAll.h"
 #include "QtAll.h"
 
 #elif defined(RPS_OS_WIN32)

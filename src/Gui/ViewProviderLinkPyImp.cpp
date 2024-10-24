@@ -26,8 +26,6 @@
 # include <sstream>
 #endif
 
-#include <Base/PlacementPy.h>
-
 // inclusion of the generated files (generated out of ViewProviderLinkPy.xml)
 #include "ViewProviderLinkPy.h"
 #include "ViewProviderLinkPy.cpp"
@@ -42,18 +40,6 @@ std::string ViewProviderLinkPy::representation() const
     str << "<ViewProviderLink at " << getViewProviderLinkPtr() << ">";
 
     return str.str();
-}
-
-Py::Object ViewProviderLinkPy::getDraggingPlacement() const {
-    return Py::asObject(new Base::PlacementPy(new Base::Placement(
-                    getViewProviderLinkPtr()->currentDraggingPlacement())));
-}
-
-void ViewProviderLinkPy::setDraggingPlacement(Py::Object arg) {
-    if(!PyObject_TypeCheck(arg.ptr(),&Base::PlacementPy::Type))
-        throw Py::TypeError("expects a placement");
-    getViewProviderLinkPtr()->updateDraggingPlacement(
-            *static_cast<Base::PlacementPy*>(arg.ptr())->getPlacementPtr());
 }
 
 Py::Boolean ViewProviderLinkPy::getUseCenterballDragger() const {

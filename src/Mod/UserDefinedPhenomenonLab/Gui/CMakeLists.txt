@@ -41,7 +41,6 @@ set(UserDefinedPhenomenonLabGui_LIBS
     UserDefinedPhenomenonLab
     LabRPSGui
     LabRPSApp
-    Part
 )
 
 if(BUILD_QT5)

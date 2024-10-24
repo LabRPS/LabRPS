@@ -73,5 +73,6 @@ def findAllVertexes():
     if App.GuiUp:
         import WindLabGui
         WindLabGui.WindLabPyTool.showArray(rows, cols, arr)
+    return arr
         # print(arr)
 ##  @}

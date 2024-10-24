@@ -23,7 +23,7 @@
 
 __title__ = "Objects WINDLAB"
 __author__ = "Koffi Daniel"
-__url__ = "https://www.labrps.org"
+__url__ = "https://www.labrps.com"
 
 ## \addtogroup WINDLAB
 #  @{

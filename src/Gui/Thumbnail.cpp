@@ -37,12 +37,11 @@
 
 #include "Thumbnail.h"
 #include "BitmapFactory.h"
-#include "View3DInventorViewer.h"
 
 
 using namespace Gui;
 
-Thumbnail::Thumbnail(int s) : viewer(nullptr), size(s)
+Thumbnail::Thumbnail(int s) : size(s)
 {
 }
 
@@ -50,10 +49,6 @@ Thumbnail::~Thumbnail()
 {
 }
 
-void Thumbnail::setViewer(View3DInventorViewer* v)
-{
-    this->viewer = v;
-}
 
 void Thumbnail::setSize(int s)
 {
@@ -85,49 +80,29 @@ void Thumbnail::Restore(Base::XMLReader &reader)
 
 void Thumbnail::SaveDocFile (Base::Writer &writer) const
 {
-    if (!this->viewer)
-        return;
-    QImage img;
-    if (this->viewer->isActiveWindow()) {
-        if (this->viewer->thread() != QThread::currentThread()) {
-            qWarning("Cannot create a thumbnail from non-GUI thread");
-            return;
-        }
+    // if (!this->viewer)
+    //     return;
+    // QImage img;
 
-        QColor invalid;
-        this->viewer->imageFromFramebuffer(this->size, this->size, 0, invalid, img);
-    }
+    // // Get app icon and resize to half size to insert in topbottom position over the current view snapshot
+    // QPixmap appIcon = Gui::BitmapFactory().pixmap(App::Application::Config()["AppIcon"].c_str());
+    // QPixmap px =  appIcon;
 
-    // Get app icon and resize to half size to insert in topbottom position over the current view snapshot
-    QPixmap appIcon = Gui::BitmapFactory().pixmap(App::Application::Config()["AppIcon"].c_str());
-    QPixmap px =  appIcon;
-    if (!img.isNull()) {
-        if (App::GetApplication().GetParameterGroupByPath
-            ("User parameter:BaseApp/Preferences/Document")->GetBool("AddThumbnailLogo",true)) {
-            // only scale app icon if an offscreen image could be created
-            appIcon =  appIcon.scaled(this->size / 4, this->size /4);
-            px = BitmapFactory().merge(QPixmap::fromImage(img), appIcon, BitmapFactoryInst::BottomRight);
-        }
-        else {
-            px = QPixmap::fromImage(img);
-        }
-    }
+    // if (!px.isNull()) {
+    //     // according to specification add some meta-information to the image
+    //     uint mt = QDateTime::currentDateTime().toTime_t();
+    //     QString mtime = QString::fromLatin1("%1").arg(mt);
+    //     img.setText(QLatin1String("Software"), qApp->applicationName());
+    //     img.setText(QLatin1String("Thumb::Mimetype"), QLatin1String("application/x-extension-rpsstd"));
+    //     img.setText(QLatin1String("Thumb::MTime"), mtime);
+    //     img.setText(QLatin1String("Thumb::URI"), this->uri.toString());
 
-    if (!px.isNull()) {
-        // according to specification add some meta-information to the image
-        uint mt = QDateTime::currentDateTime().toTime_t();
-        QString mtime = QString::fromLatin1("%1").arg(mt);
-        img.setText(QLatin1String("Software"), qApp->applicationName());
-        img.setText(QLatin1String("Thumb::Mimetype"), QLatin1String("application/x-extension-rpsstd"));
-        img.setText(QLatin1String("Thumb::MTime"), mtime);
-        img.setText(QLatin1String("Thumb::URI"), this->uri.toString());
-
-        QByteArray ba;
-        QBuffer buffer(&ba);
-        buffer.open(QIODevice::WriteOnly);
-        px.save(&buffer, "PNG");
-        writer.Stream().write(ba.constData(), ba.length());
-    }
+    //     QByteArray ba;
+    //     QBuffer buffer(&ba);
+    //     buffer.open(QIODevice::WriteOnly);
+    //     px.save(&buffer, "PNG");
+    //     writer.Stream().write(ba.constData(), ba.length());
+    // }
 }
 
 void Thumbnail::RestoreDocFile(Base::Reader &reader)

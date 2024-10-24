@@ -32,7 +32,7 @@
 #include <App/Document.h>
 #include <App/DocumentObject.h>
 #include <App/DocumentObjectPy.h>
-#include <App/GeoFeature.h>
+#include <App/RPSFeature.h>
 #include <Base/Console.h>
 #include <Base/Exception.h>
 #include <Base/Interpreter.h>
@@ -749,7 +749,7 @@ void SelectionSingleton::slotSelectionChanged(const SelectionChanges& msg)
         std::pair<std::string,std::string> elementName;
         auto &newElementName = elementName.first;
         auto &oldElementName = elementName.second;
-        auto pObject = App::GeoFeature::resolveElement(pParent,msg.pSubName,elementName);
+        auto pObject = App::RPSFeature::resolveElement(pParent,msg.pSubName,elementName);
         if (!pObject)
             return;
         SelectionChanges msg2(msg.Type,pObject->getDocument()->getName(),
@@ -822,7 +822,7 @@ int SelectionSingleton::setPreselect(const char* pDocName, const char* pObjectNa
         if (gateResolve != ResolveMode::NoResolve) {
             auto &newElementName = elementName.first;
             auto &oldElementName = elementName.second;
-            pObject = App::GeoFeature::resolveElement(pObject,pSubName,elementName);
+            pObject = App::RPSFeature::resolveElement(pObject,pSubName,elementName);
             if (!pObject)
                 return 0;
             if (gateResolve > ResolveMode::OldStyleElement)
@@ -1684,8 +1684,8 @@ int SelectionSingleton::checkSelection(const char *pDocName, const char *pObject
     sel.FeatName = sel.pObject->getNameInDocument();
     sel.TypeName = sel.pObject->getTypeId().getName();
     const char *element = nullptr;
-    sel.pResolvedObject = App::GeoFeature::resolveElement(sel.pObject,
-            pSubName,sel.elementName,false,App::GeoFeature::Normal,nullptr,&element);
+    sel.pResolvedObject = App::RPSFeature::resolveElement(sel.pObject,
+            pSubName,sel.elementName,false,App::RPSFeature::Normal,nullptr,&element);
     if(!sel.pResolvedObject) {
         if(!selList)
             RPS_ERR("Sub-object " << sel.DocName << '#' << sel.FeatName << '.' << sel.SubName << " not found");

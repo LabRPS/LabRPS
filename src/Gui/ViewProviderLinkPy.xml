@@ -13,12 +13,6 @@
 			<Author Licence="LGPL" Name="Zheng, Lei" EMail="realthunder.dev@gmail.com" />
 			<UserDocu>This is the ViewProviderLink class</UserDocu>
 		</Documentation>
-        <Attribute Name="DraggingPlacement">
-            <Documentation>
-                <UserDocu>Get/set dragger placement during dragging</UserDocu>
-            </Documentation>
-            <Parameter Name="DraggingPlacement" Type="Object" />
-        </Attribute>
         <Attribute Name="UseCenterballDragger">
             <Documentation>
                 <UserDocu>Get/set dragger type</UserDocu>

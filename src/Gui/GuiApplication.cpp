@@ -52,7 +52,6 @@
 #include "GuiApplication.h"
 #include "Application.h"
 #include "MainWindow.h"
-#include "SpaceballEvent.h"
 
 
 using namespace Gui;
@@ -77,10 +76,6 @@ bool GUIApplication::notify (QObject * receiver, QEvent * event)
         return false;
     }
     try {
-        if (event->type() == Spaceball::ButtonEvent::ButtonEventType ||
-            event->type() == Spaceball::MotionEvent::MotionEventType)
-            return processSpaceballEvent(receiver, event);
-        else
             return QApplication::notify(receiver, event);
     }
     catch (const Base::SystemExitException &e) {

@@ -25,16 +25,11 @@
 #ifndef _PreComp_
 # include <QAction>
 # include <QMenu>
-# include <Inventor/SoFullPath.h>
-# include <Inventor/SoPickedPoint.h>
-# include <Inventor/actions/SoSearchAction.h>
-# include <Inventor/details/SoDetail.h>
-# include <Inventor/misc/SoChildList.h>
-# include <Inventor/nodes/SoSeparator.h>
 #endif
 
 #include <App/Document.h>
-#include <App/Origin.h>
+#include <App/GroupExtension.h>
+
 #include <Base/Tools.h>
 
 #include "ViewProviderDocumentObjectPy.h"
@@ -43,7 +38,6 @@
 #include "Command.h"
 #include "Document.h"
 #include "MDIView.h"
-#include "SoFCUnifiedSelection.h"
 #include "Tree.h"
 #include "ViewProviderDocumentObject.h"
 #include "ViewProviderExtension.h"
@@ -205,12 +199,6 @@ void ViewProviderDocumentObject::onChanged(const App::Property* prop)
             }
         }
     }
-    else if (prop == &SelectionStyle) {
-        if(getRoot()->isOfType(SoFCSelectionRoot::getClassTypeId())) {
-            static_cast<SoFCSelectionRoot*>(getRoot())->selectionStyle = SelectionStyle.getValue()
-                ? SoFCSelectionRoot::Box : SoFCSelectionRoot::Full;
-        }
-    }
 
     if (prop && !prop->testStatus(App::Property::NoModify)
              && pcDocument
@@ -246,14 +234,15 @@ void ViewProviderDocumentObject::setShowable(bool enable)
         return;
 
     _Showable = enable;
-    int which = getModeSwitch()->whichChild.getValue();
+    /*int which = getModeSwitch()->whichChild.getValue();
     if (_Showable && which == -1 && Visibility.getValue()) {
         setModeSwitch();
     }
     else if (!_Showable) {
         if (which >= 0)
             ViewProvider::hide();
-    }
+    }*/
+    //koffi
 }
 
 void ViewProviderDocumentObject::startDefaultEditMode()
@@ -414,65 +403,6 @@ Gui::MDIView* ViewProviderDocumentObject::getEditingView() const
     return pGuiDoc->getEditingViewOfViewProvider(const_cast<ViewProviderDocumentObject*>(this));
 }
 
-Gui::MDIView* ViewProviderDocumentObject::getInventorView() const
-{
-    if(!pcObject)
-        throw Base::RuntimeError("View provider detached");
-    App::Document* pAppDoc = pcObject->getDocument();
-    Gui::Document* pGuiDoc = Gui::Application::Instance->getDocument(pAppDoc);
-
-    Gui::MDIView* mdi = pGuiDoc->getEditingViewOfViewProvider(const_cast<ViewProviderDocumentObject*>(this));
-    if (!mdi) {
-        mdi = pGuiDoc->getViewOfViewProvider(const_cast<ViewProviderDocumentObject*>(this));
-    }
-
-    return mdi;
-}
-
-Gui::MDIView* ViewProviderDocumentObject::getViewOfNode(SoNode* node) const
-{
-    if(!pcObject)
-        throw Base::RuntimeError("View provider detached");
-    App::Document* pAppDoc = pcObject->getDocument();
-    Gui::Document* pGuiDoc = Gui::Application::Instance->getDocument(pAppDoc);
-    return pGuiDoc->getViewOfNode(node);
-}
-
-SoNode* ViewProviderDocumentObject::findFrontRootOfType(const SoType& type) const
-{
-    if(!pcObject)
-        return nullptr;
-    // first get the document this object is part of and get its GUI counterpart
-    App::Document* pAppDoc = pcObject->getDocument();
-    Gui::Document* pGuiDoc = Gui::Application::Instance->getDocument(pAppDoc);
-
-    SoSearchAction searchAction;
-    searchAction.setType(type);
-    searchAction.setInterest(SoSearchAction::FIRST);
-
-    // search in all view providers for the node type
-    std::vector<App::DocumentObject*> obj = pAppDoc->getObjects();
-    for (std::vector<App::DocumentObject*>::iterator it = obj.begin(); it != obj.end(); ++it) {
-        const ViewProvider* vp = pGuiDoc->getViewProvider(*it);
-        // Ignore 'this' view provider. It could also happen that vp is 0, e.g. when
-        // several objects have been added to the App::Document before notifying the
-        // Gui::Document
-        if (!vp || vp == this)
-            continue;
-        SoSeparator* front = vp->getFrontRoot();
-        //if (front && front->getTypeId() == type)
-        //    return front;
-        if (front) {
-            searchAction.apply(front);
-            SoPath* path = searchAction.getPath();
-            if (path)
-                return path->getTail();
-        }
-    }
-
-    return nullptr;
-}
-
 void ViewProviderDocumentObject::setActiveMode()
 {
     if (DisplayMode.isValid()) {
@@ -488,8 +418,6 @@ bool ViewProviderDocumentObject::canDelete(App::DocumentObject* obj) const
 {
     Q_UNUSED(obj)
     if (getObject()->hasExtension(App::GroupExtension::getExtensionClassTypeId()))
-        return true;
-    if (getObject()->isDerivedFrom(App::Origin::getClassTypeId()))
         return true;
     return false;
 }
@@ -577,89 +505,6 @@ int ViewProviderDocumentObject::replaceObject(
 
 bool ViewProviderDocumentObject::showInTree() const {
     return ShowInTree.getValue();
-}
-
-bool ViewProviderDocumentObject::getElementPicked(const SoPickedPoint *pp, std::string &subname) const
-{
-    if(!isSelectable())
-        return false;
-    auto vector = getExtensionsDerivedFromType<Gui::ViewProviderExtension>();
-    for(Gui::ViewProviderExtension* ext : vector)
-        if(ext->extensionGetElementPicked(pp,subname))
-            return true;
-
-    auto childRoot = getChildRoot();
-    int idx;
-    if(!childRoot ||
-       (idx=pcModeSwitch->whichChild.getValue())<0 ||
-       pcModeSwitch->getChild(idx)!=childRoot)
-    {
-        return ViewProvider::getElementPicked(pp,subname);
-    }
-
-    SoPath* path = pp->getPath();
-    idx = path->findNode(childRoot);
-    if(idx<0 || idx+1>=path->getLength())
-        return false;
-    auto vp = getDocument()->getViewProvider(path->getNode(idx+1));
-    if(!vp)
-        return false;
-    auto obj = vp->getObject();
-    if(!obj || !obj->getNameInDocument())
-        return false;
-    std::ostringstream str;
-    str << obj->getNameInDocument() << '.';
-    if(vp->getElementPicked(pp,subname))
-        str << subname;
-    subname = str.str();
-    return true;
-}
-
-bool ViewProviderDocumentObject::getDetailPath(const char *subname, SoFullPath *path, bool append, SoDetail *&det) const
-{
-    auto len = path->getLength();
-    if(!append && len>=2)
-        len -= 2;
-    if(ViewProvider::getDetailPath(subname,path,append,det)) {
-        if(det || !subname || !*subname)
-            return true;
-    }
-
-    if(det) {
-        delete det;
-        det = nullptr;
-    }
-
-    const char *dot = strchr(subname,'.');
-    if(!dot)
-        return false;
-    auto obj = getObject();
-    if(!obj || !obj->getNameInDocument())
-        return false;
-    auto sobj = obj->getSubObject(std::string(subname,dot-subname+1).c_str());
-    if(!sobj)
-        return false;
-    auto vp = Application::Instance->getViewProvider(sobj);
-    if(!vp)
-        return false;
-
-    auto childRoot = getChildRoot();
-    if(!childRoot)
-        path->truncate(len);
-    else {
-        auto idx = pcModeSwitch->whichChild.getValue();
-        if(idx < 0 || pcModeSwitch->getChild(idx)!=childRoot)
-            return false;
-        path->append(childRoot);
-    }
-    bool ret = false;
-    if(path->getLength()) {
-        SoNode * tail = path->getTail();
-        const SoChildList * children = tail->getChildren();
-        if(children && children->find(vp->getRoot())>=0)
-            ret = vp->getDetailPath(dot+1,path,true,det);
-    }
-    return ret;
 }
 
 void ViewProviderDocumentObject::onPropertyStatusChanged(

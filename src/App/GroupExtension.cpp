@@ -26,7 +26,6 @@
 #include <Base/Tools.h>
 
 #include "Document.h"
-#include "GeoFeatureGroupExtension.h"
 #include "GroupExtensionPy.h"
 
 
@@ -91,16 +90,16 @@ std::vector< DocumentObject* > GroupExtension::addObjects(std::vector< DocumentO
         if(group && group != getExtendedObject())
             group->getExtensionByType<App::GroupExtension>()->removeObject(obj);
         
-        //if we are in a geofeaturegroup we need to ensure the object is too
-        auto geogrp = GeoFeatureGroupExtension::getGroupOfObject(getExtendedObject());
-        auto objgrp = GeoFeatureGroupExtension::getGroupOfObject(obj);
-        if( geogrp != objgrp ) {
-            //what to do depends on if we are in  geofeature group or not
-            if(geogrp)
-                geogrp->getExtensionByType<GeoFeatureGroupExtension>()->addObject(obj);
-            else 
-                objgrp->getExtensionByType<GeoFeatureGroupExtension>()->removeObject(obj);
-        }
+        ////if we are in a geofeaturegroup we need to ensure the object is too
+        //auto geogrp = GeoFeatureGroupExtension::getGroupOfObject(getExtendedObject());
+        //auto objgrp = GeoFeatureGroupExtension::getGroupOfObject(obj);
+        //if( geogrp != objgrp ) {
+        //    //what to do depends on if we are in  geofeature group or not
+        //    if(geogrp)
+        //        geogrp->getExtensionByType<GeoFeatureGroupExtension>()->addObject(obj);
+        //    else 
+        //        objgrp->getExtensionByType<GeoFeatureGroupExtension>()->removeObject(obj);
+        //}
         
         grp.push_back(obj);
         added.push_back(obj);
@@ -371,7 +370,7 @@ void GroupExtension::slotChildChanged(const DocumentObject &obj, const Property 
 }
 
 bool GroupExtension::extensionGetSubObject(DocumentObject *&ret, const char *subname,
-        PyObject **pyObj, Base::Matrix4D *mat, bool /*transform*/, int depth) const 
+        PyObject **pyObj, int depth) const 
 {
     const char *dot;
     if(!subname || *subname==0) {
@@ -395,7 +394,7 @@ bool GroupExtension::extensionGetSubObject(DocumentObject *&ret, const char *sub
     }
     if(!ret) 
         return false;
-    return ret->getSubObject(dot+1,pyObj,mat,true,depth+1);
+    return ret->getSubObject(dot+1,pyObj,depth+1);
 }
 
 bool GroupExtension::extensionGetSubObjects(std::vector<std::string> &ret, int) const {

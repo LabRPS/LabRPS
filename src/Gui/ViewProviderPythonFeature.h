@@ -26,14 +26,8 @@
 #include <App/AutoTransaction.h>
 #include <App/PropertyPythonObject.h>
 #include <App/FeaturePython.h>
-
-#include "ViewProviderGeometryObject.h"
+#include "ViewProviderDragger.h"
 #include "Document.h"
-
-
-class SoSensor;
-class SoDragger;
-class SoNode;
 
 namespace Gui {
 
@@ -55,15 +49,8 @@ public:
     QIcon getIcon() const;
     bool claimChildren(std::vector<App::DocumentObject*>&) const;
     ValueT useNewSelectionModel() const;
-    ValueT getElementPicked(const SoPickedPoint *pp, std::string &subname) const;
-    bool getElement(const SoDetail *det, std::string &) const;
-    bool getDetail(const char*, SoDetail *&det) const;
-    ValueT getDetailPath(const char *name, SoFullPath *path, bool append, SoDetail *&det) const;
-    std::vector<Base::Vector3d> getSelectionShape(const char* Element) const;
     ValueT setEdit(int ModNum);
     ValueT unsetEdit(int ModNum);
-    ValueT setEditViewer(View3DInventorViewer*, int ModNum);
-    ValueT unsetEditViewer(View3DInventorViewer*);
     ValueT doubleClicked();
     bool setupContextMenu(QMenu* menu);
 
@@ -135,15 +122,8 @@ private:
     RPS_PY_ELEMENT(getIcon) \
     RPS_PY_ELEMENT(claimChildren) \
     RPS_PY_ELEMENT(useNewSelectionModel) \
-    RPS_PY_ELEMENT(getElementPicked) \
-    RPS_PY_ELEMENT(getElement) \
-    RPS_PY_ELEMENT(getDetail) \
-    RPS_PY_ELEMENT(getDetailPath) \
-    RPS_PY_ELEMENT(getSelectionShape) \
     RPS_PY_ELEMENT(setEdit) \
     RPS_PY_ELEMENT(unsetEdit) \
-    RPS_PY_ELEMENT(setEditViewer) \
-    RPS_PY_ELEMENT(unsetEditViewer) \
     RPS_PY_ELEMENT(doubleClicked) \
     RPS_PY_ELEMENT(setupContextMenu) \
     RPS_PY_ELEMENT(attach) \
@@ -225,20 +205,6 @@ public:
         return res;
     }
 
-    /** @name Nodes */
-    //@{
-    virtual SoSeparator* getRoot() const override {
-        return ViewProviderT::getRoot();
-    }
-    virtual SoSeparator* getFrontRoot() const override {
-        return ViewProviderT::getFrontRoot();
-    }
-    // returns the root node of the Provider (3D)
-    virtual SoSeparator* getBackRoot() const override {
-        return ViewProviderT::getBackRoot();
-    }
-    //@}
-
     /** @name Selection handling */
     //@{
     virtual bool useNewSelectionModel() const override {
@@ -251,35 +217,7 @@ public:
             return ViewProviderT::useNewSelectionModel();
         }
     }
-    virtual bool getElementPicked(const SoPickedPoint *pp, std::string &subname) const override {
-        auto ret = imp->getElementPicked(pp,subname);
-        if(ret == ViewProviderPythonFeatureImp::NotImplemented)
-            return ViewProviderT::getElementPicked(pp,subname);
-        else if(ret == ViewProviderPythonFeatureImp::Accepted)
-            return true;
-        return false;
-    }
-    virtual std::string getElement(const SoDetail *det) const override {
-        std::string name;
-        if(!imp->getElement(det,name))
-            return ViewProviderT::getElement(det);
-        return name;
-    }
-    virtual SoDetail* getDetail(const char* name) const override {
-        SoDetail *det = nullptr;
-        if(imp->getDetail(name,det))
-            return det;
-        return ViewProviderT::getDetail(name);
-    }
-    virtual bool getDetailPath(const char *name, SoFullPath *path, bool append,SoDetail *&det) const override {
-        auto ret = imp->getDetailPath(name,path,append,det);
-        if(ret == ViewProviderPythonFeatureImp::NotImplemented)
-            return ViewProviderT::getDetailPath(name,path,append,det);
-        return ret == ViewProviderPythonFeatureImp::Accepted;
-    }
-    virtual std::vector<Base::Vector3d> getSelectionShape(const char* Element) const override {
-        return ViewProviderT::getSelectionShape(Element);
-    };
+
     //@}
 
     /** @name Update data methods*/
@@ -462,9 +400,9 @@ public:
     }
     /// set the display mode
     virtual void setDisplayMode(const char* ModeName) override {
-        std::string mask = imp->setDisplayMode(ModeName);
-        ViewProviderT::setDisplayMaskMode(mask.c_str());
-        ViewProviderT::setDisplayMode(ModeName);
+        //std::string mask = imp->setDisplayMode(ModeName);
+        //ViewProviderT::setDisplayMaskMode(mask.c_str());
+        //ViewProviderT::setDisplayMode(ModeName);
     }
     //@}
 
@@ -483,17 +421,6 @@ public:
         return ViewProviderT::getPyObject();
     }
 
-    virtual bool canAddToSceneGraph() const override {
-        switch(imp->canAddToSceneGraph()) {
-        case ViewProviderPythonFeatureImp::Accepted:
-            return true;
-        case ViewProviderPythonFeatureImp::Rejected:
-            return false;
-        default:
-            return ViewProviderT::canAddToSceneGraph();
-        }
-    }
-
 protected:
     virtual void onChanged(const App::Property* prop) override {
         if (prop == &Proxy) {
@@ -506,10 +433,6 @@ protected:
                     // needed to load the right display mode after they're known now
                     ViewProviderT::DisplayMode.touch();
                     ViewProviderT::setOverrideMode(viewerMode);
-                }
-                if (!this->testStatus(Gui::isRestoring) &&
-                    !canAddToSceneGraph()) {
-                    this->getDocument()->toggleInSceneGraph(this);
                 }
                 ViewProviderT::updateView();
             }
@@ -540,14 +463,6 @@ protected:
         default:
             return ViewProviderT::unsetEdit(ModNum);
         }
-    }
-    virtual void setEditViewer(View3DInventorViewer *viewer, int ModNum) override {
-        if (imp->setEditViewer(viewer,ModNum) == ViewProviderPythonFeatureImp::NotImplemented)
-            ViewProviderT::setEditViewer(viewer,ModNum);
-    }
-    virtual void unsetEditViewer(View3DInventorViewer *viewer) override {
-        if (imp->unsetEditViewer(viewer) == ViewProviderPythonFeatureImp::NotImplemented)
-            ViewProviderT::unsetEditViewer(viewer);
     }
 
     virtual std::string getDropPrefix() const override {
@@ -618,7 +533,6 @@ private:
 
 // Special Feature-Python classes
 typedef ViewProviderPythonFeatureT<ViewProviderDocumentObject> ViewProviderPythonFeature;
-typedef ViewProviderPythonFeatureT<ViewProviderGeometryObject> ViewProviderPythonGeometry;
 
 } // namespace Gui
 

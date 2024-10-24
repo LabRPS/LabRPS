@@ -68,9 +68,6 @@ class TestWorkbench ( Workbench ):
         list = ["Std_MDITest1", "Std_MDITest2", "Std_MDITest3"]
         self.appendMenu(menu,list)
 
-        list = ["Std_ViewExample1", "Std_ViewExample2", "Std_ViewExample3"]
-        self.appendMenu("Inventor View",list)
-
 Gui.addWorkbench(TestWorkbench())
 
 # Base system tests

@@ -138,7 +138,7 @@ ViewProviderWindLabFeatureLocationDistribution::ViewProviderWindLabFeatureLocati
   //ADD_PROPERTY_TYPE(FontSize, (font.pointSize()), "Font", App::Prop_None, "Font size");
   //ADD_PROPERTY_TYPE(FontName, ((const char*)font.family().toLatin1()), "Font", App::Prop_None, "Font name");
 
-   ADD_PROPERTY_TYPE(ShowSimulationPoints, (false), "Points", App::Prop_Hidden, "Whether to redraw the simulation point or not.");
+   ADD_PROPERTY_TYPE(ShowSimulationPoints, (false), "Points", App::Prop_Hidden, "Whether to show the simulation points in the 3D view or not.");
 }
 
 ViewProviderWindLabFeatureLocationDistribution::~ViewProviderWindLabFeatureLocationDistribution()
@@ -232,40 +232,19 @@ void ViewProviderWindLabFeatureLocationDistribution::setupContextMenu(QMenu* men
 
 bool ViewProviderWindLabFeatureLocationDistribution::ComputeLocationCoordinateMatrixP3()
 {
+    if (ShowSimulationPoints.getValue())
+    {
+        //compute and show the active simulation points in the 3D view and Alphaplot table
+        Base::Interpreter().runString("import WindLabUtils");
+        Base::Interpreter().runString("WindLabUtils.showSimulationPoints()");
+        return true;
+    }
+    else
+    {
+        //compute and show the active simulation points in the Alphaplot table only
+        return runFeatureMethod(WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3);
+    }
 
-    Base::Interpreter().runString("import WindLabUtils");
-    Base::Interpreter().runString("WindLabUtils.showSimulationPoints()");
-    return runFeatureMethod(WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3);
-
-    //if (ShowSimulationPoints.getValue() == true)
-    //{
-    //    //WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
-    //    //if (sim)
-    //    //{
-    //    //    WindLabAPI::WindLabSimuData* simData = sim->getSimulationData();
-    //    //    if (simData != nullptr) {
-    //    //        int nberOfSimPoint = sim->getSimulationData()->numberOfSpatialPosition.getValue();
-    //    //        mat dLocCoord(nberOfSimPoint, 4);
-    //    //        WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(*simData, dLocCoord);
-    //    //        auto doc = App::GetApplication().getActiveDocument();
-
-    //    //        std::vector<App::DocumentObject*> points;
-    //    //        App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(doc->addObject("App::DocumentObjectGroup", "SimulationPoints"));
-
-    //    //        if (doc)
-    //    //        {
-    //    //            for (int i = 0; i < nberOfSimPoint; i++) {
-    //    //           /* Part::Vertex* point = static_cast<Part::Vertex*>(doc->addObject("Part::Vertex", "Vertex"));
-    //    //            point->X.setValue(dLocCoord(i, 1));
-    //    //            point->Y.setValue(dLocCoord(i, 2));
-    //    //            point->Z.setValue(dLocCoord(i, 3));
-    //    //            group->addObject(point);*/
-    //    //            }
-    //    //            sim->addObject(group);
-    //    //        }
-    //    //    }
-    //    //}
-    //}
 }
 
 bool ViewProviderWindLabFeatureLocationDistribution::OnInitialSetting()

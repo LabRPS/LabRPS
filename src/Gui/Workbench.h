@@ -95,8 +95,6 @@ public:
     /// remove the added TaskWatcher
     void removeTaskWatcher();
 
-    static void createLinkMenu(MenuItem *);
-
     //// Shows a list of all toolbars
     std::list<std::string> listToolbars() const;
     /// Shows a list of all toolbars and their commands

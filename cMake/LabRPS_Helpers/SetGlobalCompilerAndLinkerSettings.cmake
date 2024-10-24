@@ -5,14 +5,6 @@ macro(SetGlobalCompilerAndLinkerSettings)
     include_directories(${CMAKE_BINARY_DIR}/src
                         ${CMAKE_SOURCE_DIR}/src)
 
-    # check for 64-bit platform
-    if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        message(STATUS "Platform is 64-bit, set -D_OCC64")
-        add_definitions(-D_OCC64 )
-    else(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        message(STATUS "Platform is 32-bit")
-    endif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-
     # check for mips64 platform
     if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "mips64")
         message(STATUS "Architecture: mips64")

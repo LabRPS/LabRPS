@@ -31,9 +31,9 @@
 #define  putpix()
 
 #include <App/Application.h>
+#include <Base/Type.h>
 
 class QCloseEvent;
-class SoNode;
 
 namespace Gui{
 class BaseView;
@@ -165,7 +165,6 @@ public:
     void setActiveDocument(Gui::Document* pcDocument);
     /// Getter for the editing document
     Gui::Document* editDocument() const;
-    Gui::MDIView* editViewOfNode(SoNode *node) const;
     /// Set editing document, which will reset editing of all other document
     void setEditDocument(Gui::Document* pcDocument);
     /** Retrieves a pointer to the Gui::Document whose App::Document has the name \a name.
@@ -240,7 +239,6 @@ public:
     static Application* Instance;
     static void initApplication();
     static void initTypes();
-    static void initOpenInventor();
     static void runInitGuiScript();
     static void runApplication();
     void tryClose( QCloseEvent * e );
@@ -321,8 +319,6 @@ public:
     static PyObject* sReload                   (PyObject *self,PyObject *args); // reload RPSStd file
     static PyObject* sLoadFile                 (PyObject *self,PyObject *args); // open all types of files
 
-    static PyObject* sCoinRemoveAllChildren    (PyObject *self,PyObject *args);
-
     static PyObject* sActiveDocument           (PyObject *self,PyObject *args);
     static PyObject* sSetActiveDocument        (PyObject *self,PyObject *args);
     static PyObject* sActiveView               (PyObject *self,PyObject *args);
@@ -347,19 +343,19 @@ public:
     static PyObject* sGetUserEditMode          (PyObject *self,PyObject *args);
     static PyObject* sSetUserEditMode          (PyObject *self,PyObject *args);
 
-    static PyObject* sInitializePythonPluginHandler(PyObject* self, PyObject* args);
-    static PyObject* sRegisterPythonPluginHandler(PyObject* self, PyObject* args);
-    static PyObject* sUnregisterPythonPluginHandler(PyObject* self, PyObject* args);
-    
-    static PyObject* sAddPythonPluginHandler      (PyObject *self,PyObject *args); // adds a new python plugin handler to a list
-    static PyObject* sRemovePythonPluginHandler   (PyObject *self,PyObject *args); // removes a python plugin handler from the list
-    static PyObject* sGetPythonPluginHandler      (PyObject *self,PyObject *args); // retrieves the python plugin handler
-    static PyObject* sListPythonPluginsHandler    (PyObject *self,PyObject *args); // retrieves a list of all python plugin handlers
-    static PyObject* sListRPSPythonFeatureMakersHandler   (PyObject *self,PyObject *args); // retrieves a list of all python plugin handlers
-    
-    static PyObject* getRPSPythonFeatureMakers();// retrieves a list of all python plugin handlers
-    static PyObject* AddRPSPythonFeatureMaker(PyObject* self, PyObject* args);
-    static PyObject* sGetRPSPythonFeatureMakerHandler(PyObject* self, PyObject* args);
+    //static PyObject* sInitializePythonPluginHandler(PyObject* self, PyObject* args);
+    //static PyObject* sRegisterPythonPluginHandler(PyObject* self, PyObject* args);
+    //static PyObject* sUnregisterPythonPluginHandler(PyObject* self, PyObject* args);
+    //
+    //static PyObject* sAddPythonPluginHandler      (PyObject *self,PyObject *args); // adds a new python plugin handler to a list
+    //static PyObject* sRemovePythonPluginHandler   (PyObject *self,PyObject *args); // removes a python plugin handler from the list
+    //static PyObject* sGetPythonPluginHandler      (PyObject *self,PyObject *args); // retrieves the python plugin handler
+    //static PyObject* sListPythonPluginsHandler    (PyObject *self,PyObject *args); // retrieves a list of all python plugin handlers
+    //static PyObject* sListRPSPythonFeatureMakersHandler   (PyObject *self,PyObject *args); // retrieves a list of all python plugin handlers
+    //
+    //static PyObject* getRPSPythonFeatureMakers();// retrieves a list of all python plugin handlers
+    //static PyObject* AddRPSPythonFeatureMaker(PyObject* self, PyObject* args);
+    //static PyObject* sGetRPSPythonFeatureMakerHandler(PyObject* self, PyObject* args);
 
     static PyMethodDef    Methods[];
 

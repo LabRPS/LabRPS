@@ -33,7 +33,6 @@
 # include <QTextBrowser>
 # include <QTextStream>
 # include <QWaitCondition>
-# include <Inventor/C/basic.h>
 #endif
 
 #include <App/Application.h>
@@ -503,13 +502,6 @@ void AboutDialog::showLibraryInformation()
     li.version = QLatin1String(BOOST_LIB_VERSION);
     libInfo << li;
 
-    // Coin3D
-    li.name = QLatin1String("Coin3D");
-    li.href = baseurl + QLatin1String("#_TocCoin3D");
-    li.url = QLatin1String("https://coin3d.github.io");
-    li.version = QLatin1String(COIN_VERSION);
-    libInfo << li;
-
     // Eigen3
     li.name = QLatin1String("Eigen");
     li.href = baseurl + QLatin1String("#_TocEigen");
@@ -531,28 +523,6 @@ void AboutDialog::showLibraryInformation()
     li.version.clear();
     libInfo << li;
 
-    // libarea
-    li.name = QLatin1String("libarea");
-    li.href = baseurl + QLatin1String("#_TocLibArea");
-    li.url = QLatin1String("https://github.com/danielfalck/libarea");
-    li.version.clear();
-    libInfo << li;
-
-    // OCCT
-#if defined(HAVE_OCC_VERSION)
-    li.name = QLatin1String("Open CASCADE Technology");
-    li.href = baseurl + QLatin1String("#_TocOCCT");
-    li.url = QLatin1String("https://www.opencascade.com/open-cascade-technology/");
-    li.version = QLatin1String(OCC_VERSION_STRING_EXT);
-    libInfo << li;
-#endif
-
-    // pcl
-    li.name = QLatin1String("Point Cloud Library");
-    li.href = baseurl + QLatin1String("#_TocPcl");
-    li.url = QLatin1String("https://www.pointclouds.org");
-    li.version = QString::fromLatin1(RPS_PCL_VERSION);
-    libInfo << li;
 
     // PyCXX
     li.name = QLatin1String("PyCXX");
@@ -582,25 +552,11 @@ void AboutDialog::showLibraryInformation()
     li.version = QLatin1String(QT_VERSION_STR);
     libInfo << li;
 
-    // Salome SMESH
-    li.name = QLatin1String("Salome SMESH");
-    li.href = baseurl + QLatin1String("#_TocSalomeSMESH");
-    li.url = QLatin1String("https://salome-platform.org");
-    li.version.clear();
-    libInfo << li;
-
     // Shiboken
     li.name = QLatin1String("Qt for Python (Shiboken)");
     li.href = baseurl + QLatin1String("#_TocPySide");
     li.url = QLatin1String("https://wiki.qt.io/Qt_for_Python");
     li.version = QString::fromLatin1(RPS_SHIBOKEN_VERSION);
-    libInfo << li;
-
-    // vtk
-    li.name = QLatin1String("vtk");
-    li.href = baseurl + QLatin1String("#_TocVtk");
-    li.url = QLatin1String("https://www.vtk.org");
-    li.version = QString::fromLatin1(RPS_VTK_VERSION);
     libInfo << li;
 
     // Xerces-C
@@ -729,18 +685,8 @@ void AboutDialog::on_copyButton_clicked()
     // report also the version numbers of the most important libraries in LabRPS
     str << "Python " << PY_VERSION << ", ";
     str << "Qt " << QT_VERSION_STR << ", ";
-    str << "Coin " << COIN_VERSION << ", ";
     str << "Vtk " << RPS_VTK_VERSION << ", ";
-#if defined(HAVE_OCC_VERSION)
-    str << "OCC "
-        << OCC_VERSION_MAJOR << "."
-        << OCC_VERSION_MINOR << "."
-        << OCC_VERSION_MAINTENANCE
-#ifdef OCC_VERSION_DEVELOPMENT
-        << "." OCC_VERSION_DEVELOPMENT
-#endif
-        << '\n';
-#endif
+
     QLocale loc;
     str << "Locale: " << loc.languageToString(loc.language()) << "/"
         << loc.countryToString(loc.country())

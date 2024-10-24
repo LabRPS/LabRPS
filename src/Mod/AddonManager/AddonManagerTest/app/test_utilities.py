@@ -60,7 +60,7 @@ class TestUtilities(unittest.TestCase):
 
         unrecognized_urls = [
             "https://google.com",
-            "https://labrps.org",
+            "https://labrps.com",
             "https://not.quite.github.com/LabRPS/LabRPS",
             "https://github.com.malware.com/",
         ]

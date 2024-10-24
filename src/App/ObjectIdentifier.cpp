@@ -29,7 +29,6 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 #include <App/DocumentObjectPy.h>
-#include <Base/GeometryPyCXX.h>
 #include <Base/Tools.h>
 #include <Base/Interpreter.h>
 #include <Base/QuantityPy.h>
@@ -1588,41 +1587,18 @@ Py::Object ObjectIdentifier::access(const ResolveResults &result,
         }
         break;
     } default: {
-        Base::Matrix4D mat;
         auto obj = result.resolvedDocumentObject;
         switch(ptype) {
         case PseudoPlacement:
         case PseudoMatrix:
         case PseudoLinkPlacement:
-        case PseudoLinkMatrix:
-            obj->getSubObject(result.subObjectName.getString().c_str(),nullptr,&mat);
-            break;
+
         default:
             break;
         }
         if(result.resolvedSubObject)
             obj = result.resolvedSubObject;
         switch(ptype) {
-        case PseudoPlacement:
-            pyobj = Py::Placement(Base::Placement(mat));
-            break;
-        case PseudoMatrix:
-            pyobj = Py::Matrix(mat);
-            break;
-        case PseudoLinkPlacement:
-        case PseudoLinkMatrix: {
-            auto linked = obj->getLinkedObject(true,&mat,false);
-            if(!linked || linked==obj) {
-                auto ext = obj->getExtensionByType<App::LinkBaseExtension>(true);
-                if(ext)
-                    ext->getTrueLinkedObject(true,&mat);
-            }
-            if(ptype == PseudoLinkPlacement)
-                pyobj = Py::Placement(Base::Placement(mat));
-            else
-                pyobj = Py::Matrix(mat);
-            break;
-        }
         case PseudoSelf:
             pyobj = Py::Object(obj->getPyObject(),true);
             break;

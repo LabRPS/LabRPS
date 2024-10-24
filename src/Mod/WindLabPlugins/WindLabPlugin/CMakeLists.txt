@@ -57,6 +57,7 @@ Widgets/DlgWavePassageEffect.ui
 Widgets/DlgKrenkCoherence.ui
 Widgets/DlgTurbulenceIntensityASCE798.ui
 Widgets/DlgGridPoints.ui
+Widgets/DlgImportSimulationPointsFromFile.ui
 
 
 )
@@ -142,6 +143,8 @@ Widgets/DlgTurbulenceIntensityASCE798.h
 Widgets/DlgTurbulenceIntensityASCE798.cpp
 Widgets/DlgGridPoints.h
 Widgets/DlgGridPoints.cpp
+Widgets/DlgImportSimulationPointsFromFile.h
+Widgets/DlgImportSimulationPointsFromFile.cpp
 
 
 RPSDoubleIndexFrequency.cpp
@@ -207,6 +210,8 @@ RPSTurbulenceIntensityASCE798.cpp
 RPSTurbulenceIntensityASCE798.h
 WLGridPoints.cpp
 WLGridPoints.h
+RPSImportSimulationPointsFromFile.h
+RPSImportSimulationPointsFromFile.cpp
 )
 
 SET(Metadata_Files

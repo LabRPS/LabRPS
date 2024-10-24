@@ -25,19 +25,19 @@
 
 #include "TaskView/TaskDialog.h"
 #include <App/DocumentObserver.h>
+#include <ViewProviderDocumentObject.h>
 
 
 namespace Gui
 {
   class QuantitySpinBox;
-  class SoFCCSysDragger;
   class ViewProviderDragger;
 
   class TaskCSysDragger : public Gui::TaskView::TaskDialog
   {
       Q_OBJECT
     public:
-      TaskCSysDragger(ViewProviderDocumentObject *vpObjectIn, SoFCCSysDragger *draggerIn);
+      TaskCSysDragger(ViewProviderDocumentObject *vpObjectIn);
       virtual ~TaskCSysDragger() override;
       virtual QDialogButtonBox::StandardButtons getStandardButtons() const override
         { return QDialogButtonBox::Ok;}
@@ -49,7 +49,6 @@ namespace Gui
     private:
       void setupGui();
       App::DocumentObjectT vpObject;
-      SoFCCSysDragger *dragger;
       QuantitySpinBox *tSpinBox;
       QuantitySpinBox *rSpinBox;
   };

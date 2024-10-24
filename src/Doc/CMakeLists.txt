@@ -32,8 +32,7 @@ if(DOXYGEN_FOUND)
 
     # directory order seems important for correct macro expansion
     # (files containing macros definitions must be parsed before the files using them)
-    SET(DOXYGEN_SOURCE_DIR ${COIN3D_INCLUDE_DIRS}/Inventor/fields/SoSubField.h 
-                           ${CMAKE_SOURCE_DIR}/src/CXX 
+    SET(DOXYGEN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/CXX 
                            ${CMAKE_SOURCE_DIR}/src/zipios++ 
                            ${CMAKE_SOURCE_DIR}/src/3rdParty
                            ${CMAKE_SOURCE_DIR}/src/Build 
@@ -63,13 +62,6 @@ if(DOXYGEN_FOUND)
     SET(DOXYGEN_OUTPUT_DIR ${CMAKE_BINARY_DIR}/doc/SourceDocu)
     SET(DOXYGEN_IMAGE_PATH ${CMAKE_SOURCE_DIR}/src/Gui/Icons)
     SET(DOXYGEN_LAYOUT_FILE ${CMAKE_SOURCE_DIR}/src/Doc/LabrpsDoxygenLayout.xml)
-
-    find_package(Coin3DDoc)
-    if( COIN3D_DOC_FOUND )
-        SET(DOXYGEN_TAGFILES 
-            ${COIN3D_DOC_TAGFILE}=${COIN3D_DOC_PATH}
-        )
-    endif( COIN3D_DOC_FOUND )
 
     # Try to get some git information about the source tree
     EXECUTE_PROCESS(COMMAND git rev-parse --abbrev-ref HEAD

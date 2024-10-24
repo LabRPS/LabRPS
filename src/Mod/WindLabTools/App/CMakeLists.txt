@@ -12,13 +12,11 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/..
     ${CMAKE_CURRENT_BINARY_DIR}/..
     ${Boost_INCLUDE_DIRS}
-    ${OCC_INCLUDE_DIR}
     ${ZLIB_INCLUDE_DIR}
     ${PYTHON_INCLUDE_DIRS}
     ${XercesC_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
 )
-link_directories(${OCC_LIBRARY_DIR})
 
 set(WindLabTools_LIBS
     LabRPSApp

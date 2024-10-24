@@ -198,13 +198,10 @@ private:
     QAction* createGroupAction;
     QAction* relabelObjectAction;
     QAction* finishEditingAction;
-    QAction* selectDependentsAction;
     QAction* skipRecomputeAction;
     QAction* allowPartialRecomputeAction;
     QAction* markRecomputeAction;
     QAction* recomputeObjectAction;
-    QAction* showHiddenAction;
-    QAction* hideInTreeAction;
     QAction* reloadDocAction;
     QAction* closeDocAction;
     QAction* searchObjectsAction;

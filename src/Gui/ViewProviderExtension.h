@@ -27,13 +27,6 @@
 #include <QIcon>
 #include <App/Extension.h>
 
-
-class SoDetail;
-class SoFullPath;
-class SoGroup;
-class SoPickedPoint;
-class SoSeparator;
-
 class QMenu;
 class QObject;
 
@@ -94,9 +87,6 @@ public:
 
     virtual void extensionModeSwitchChange() { }
 
-    virtual SoSeparator* extensionGetFrontRoot() const {return nullptr;}
-    virtual SoGroup*     extensionGetChildRoot() const {return nullptr;}
-    virtual SoSeparator* extensionGetBackRoot() const {return nullptr;}
     virtual void extensionAttach(App::DocumentObject* ) { }
     virtual void extensionReattach(App::DocumentObject* ) { }
     virtual void extensionSetDisplayMode(const char* ) { }
@@ -118,9 +108,6 @@ public:
 
     virtual void extensionStartRestoring() {}
     virtual void extensionFinishRestoring() {}
-
-    virtual bool extensionGetElementPicked(const SoPickedPoint *, std::string &) const {return false;}
-    virtual bool extensionGetDetailPath(const char *, SoFullPath *, SoDetail *&) const {return false;}
 
 private:
     bool m_ignoreOverlayIcon = false;

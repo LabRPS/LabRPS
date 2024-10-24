@@ -115,7 +115,7 @@ class TestMetadata(unittest.TestCase):
             filename = os.path.join(tempfile.gettempdir(), b'H\xc3\xa5vard.xml'.decode("utf-8"))
             xmlfile = codecs.open(filename, mode="w", encoding="utf-8")
             xmlfile.write(r"""<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<package format="1" xmlns="https://wiki.labrps.org/Package_Metadata">
+<package format="1" xmlns="https://wiki.labrps.com/Package_Metadata">
   <name>test</name>
   <description>Text</description>
   <version>1.0.0</version>

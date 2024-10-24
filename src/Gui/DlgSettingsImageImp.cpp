@@ -40,16 +40,15 @@ DlgSettingsImageImp::DlgSettingsImageImp( QWidget* parent )
   , ui(new Ui_DlgSettingsImage)
 {
     ui->setupUi(this);
-    SbVec2s res = SoOffscreenRenderer::getMaximumResolution();
-    ui->spinWidth->setMaximum((int)res[0]);
-    ui->spinHeight->setMaximum((int)res[1]);
+    //SbVec2s res = SoOffscreenRenderer::getMaximumResolution();
+    //ui->spinWidth->setMaximum((int)res[0]);
+    //ui->spinHeight->setMaximum((int)res[1]);
 
     _width = width();
     _height = height();
     _fRatio = (float)_width/(float)_height;
 
     ui->comboMethod->addItem(tr("Offscreen (New)"), QByteArray("QtOffscreenRenderer"));
-    ui->comboMethod->addItem(tr("Offscreen (Old)"), QByteArray("CoinOffscreenRenderer"));
     ui->comboMethod->addItem(tr("Framebuffer (custom)"), QByteArray("FramebufferObject"));
     ui->comboMethod->addItem(tr("Framebuffer (as is)"), QByteArray("GrabFramebuffer"));
 }

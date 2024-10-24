@@ -23,7 +23,6 @@ import LabRPS
 import LabRPSGui
 
 LabRPS.newDocument()
-LabRPSGui.activeDocument().activeView().viewDefaultOrientation()
 
 from StartPage import StartPage
 StartPage.postStart()

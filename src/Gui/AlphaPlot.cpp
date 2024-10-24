@@ -6703,12 +6703,12 @@ QStringList MainAlphaPlot::depending3DPlots(Matrix* m)
 {
     QList<QMdiSubWindow*> subwindowlist = subWindowsList();
     QStringList plots;
-    for (int i = 0; i < static_cast<int>(subwindowlist.count()); i++) {
+    /*for (int i = 0; i < static_cast<int>(subwindowlist.count()); i++) {
         MyWidget* w = qobject_cast<MyWidget*>(subwindowlist.at(i));
-        // if (isActiveSubWindow(w, SubWindowType::Plot3DSubWindow) &&
-        //     qobject_cast<Layout3D *>(w)->getMatrix() == m)
+         if (isActiveSubWindow(w, SubWindowType::Plot3DSubWindow) &&
+             qobject_cast<Layout3D *>(w)->getMatrix() == m)
         plots << w->name();
-    }
+    }*/
     return plots;
 }
 
@@ -10118,16 +10118,16 @@ void MainAlphaPlot::showWindowMenu(MyWidget* widget)
                          ->action());
         cm.addSeparator();
         //cm.addAction(ui_->actionCloseWindow);
-        cm.addAction(Application::Instance->commandManager()
-                         .getCommandByName("Std_PlotHideActiveWindow")
-                         ->getAction()
-                         ->action());
+        //cm.addAction(Application::Instance->commandManager()
+        //                 .getCommandByName("Std_PlotHideActiveWindow")
+        //                 ->getAction()
+        //                 ->action());
     }
-    cm.addAction(Application::Instance->commandManager()
-                     .getCommandByName("Std_PlotActivateWindow")
-                     ->getAction()
-                     ->action());
-    if (!hidden(widget)) {
+    //cm.addAction(Application::Instance->commandManager()
+    //                 .getCommandByName("Std_PlotActivateWindow")
+    //                 ->getAction()
+    //                 ->action());
+    /*if (!hidden(widget)) {
         cm.addAction(Application::Instance->commandManager()
                          .getCommandByName("Std_PlotMinimizeWindow")
                          ->getAction()
@@ -10138,7 +10138,7 @@ void MainAlphaPlot::showWindowMenu(MyWidget* widget)
                          ->action());
         cm.addSeparator();
         cm.addAction(tr("&Properties..."), this, SLOT(windowProperties()));
-    }
+    }*/
 
     int n;
     if (isActiveSubWindow(widget, SubWindowType::TableSubWindow)) {

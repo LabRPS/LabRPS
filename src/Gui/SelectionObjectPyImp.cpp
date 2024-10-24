@@ -24,7 +24,6 @@
 
 #include <App/Document.h>
 #include <App/DocumentObject.h>
-#include <Base/GeometryPyCXX.h>
 
 #include "Selection.h"
 #include "SelectionObject.h"
@@ -126,8 +125,7 @@ Py::Tuple SelectionObjectPy::getSubObjects() const
 
     for(const auto &subname : getSelectionObjectPtr()->getSubNames()) {
         PyObject *pyObj=nullptr;
-        Base::Matrix4D mat;
-        obj->getSubObject(subname.c_str(),&pyObj,&mat);
+        obj->getSubObject(subname.c_str(),&pyObj);
         if(pyObj)
             subObjs.push_back(pyObj);
     }
@@ -150,10 +148,10 @@ Py::Tuple SelectionObjectPy::getPickedPoints() const
     const std::vector<Base::Vector3d>& points = getSelectionObjectPtr()->getPickedPoints();
 
     Py::Tuple temp(points.size());
-    Py::sequence_index_type index = 0;
+    /*Py::sequence_index_type index = 0;
     for(std::vector<Base::Vector3d>::const_iterator it= points.begin();it!=points.end();++it)
-        temp.setItem(index++, Py::Vector(*it));
-
+        temp.setItem(index++, Py::Vector(*it));*/
+    //koffa
     return temp;
 }
 

@@ -22,10 +22,7 @@
 
 #include "PreCompiled.h"
 
-#include <Base/BoundBoxPy.h>
-#include <Base/MatrixPy.h>
 #include <App/DocumentObjectPy.h>
-#include <App/MaterialPy.h>
 
 #include "LinkViewPy.h"
 #include "LinkViewPy.cpp"
@@ -60,111 +57,6 @@ PyObject* LinkViewPy::reset(PyObject *args) {
         lv->setSize(0);
         lv->setLink(nullptr);
         Py_Return;
-    } PY_CATCH;
-}
-
-PyObject* LinkViewPy::setMaterial(PyObject *args) {
-    PyObject *pyObj;
-    if (!PyArg_ParseTuple(args, "O", &pyObj))
-        return nullptr;
-
-    PY_TRY {
-        auto lv = getLinkViewPtr();
-        if(pyObj == Py_None) {
-            lv->setMaterial(-1,nullptr);
-            Py_Return;
-        }
-        if(PyObject_TypeCheck(pyObj,&App::MaterialPy::Type)) {
-            lv->setMaterial(-1,static_cast<App::MaterialPy*>(pyObj)->getMaterialPtr());
-            Py_Return;
-        }
-        if(PyDict_Check(pyObj)) {
-            PyObject *key, *value;
-            Py_ssize_t pos = 0;
-            std::map<int,App::Material*> materials;
-            while(PyDict_Next(pyObj, &pos, &key, &value)) {
-                Py::Int idx(key);
-                if(value == Py_None)
-                    materials[(int)idx] = nullptr;
-                else if(!PyObject_TypeCheck(value,&App::MaterialPy::Type)) {
-                    PyErr_SetString(PyExc_TypeError, "exepcting a type of material");
-                    return nullptr;
-                }else
-                    materials[(int)idx] = static_cast<App::MaterialPy*>(value)->getMaterialPtr();
-            }
-            for(auto &v : materials)
-                lv->setMaterial(v.first,v.second);
-            Py_Return;
-        }
-        if(PySequence_Check(pyObj)) {
-            Py::Sequence seq(pyObj);
-            std::vector<App::Material*> materials;
-            materials.resize(seq.size(),nullptr);
-            for(Py_ssize_t i=0;i<seq.size();++i) {
-                PyObject* item = seq[i].ptr();
-                if(item == Py_None) continue;
-                if(!PyObject_TypeCheck(item,&App::MaterialPy::Type)) {
-                    PyErr_SetString(PyExc_TypeError, "exepcting a type of material");
-                    return nullptr;
-                }
-                materials[i] = static_cast<App::MaterialPy*>(item)->getMaterialPtr();
-            }
-            for(size_t i=0;i<materials.size();++i)
-                lv->setMaterial(i,materials[i]);
-            Py_Return;
-        }
-
-        PyErr_SetString(PyExc_TypeError, "exepcting a type of Material, [Material,...] or {Int:Material,}");
-        return nullptr;
-    } PY_CATCH;
-}
-
-PyObject* LinkViewPy::setTransform(PyObject *args) {
-    PyObject *pyObj;
-    if (!PyArg_ParseTuple(args, "O", &pyObj))
-        return nullptr;
-
-    PY_TRY {
-        auto lv = getLinkViewPtr();
-        if(PyObject_TypeCheck(pyObj,&Base::MatrixPy::Type)) {
-            lv->setTransform(-1,*static_cast<Base::MatrixPy*>(pyObj)->getMatrixPtr());
-            Py_Return;
-        }
-        if(PyDict_Check(pyObj)) {
-            PyObject *key, *value;
-            Py_ssize_t pos = 0;
-            std::map<int,Base::Matrix4D*> mat;
-            while(PyDict_Next(pyObj, &pos, &key, &value)) {
-                Py::Int idx(key);
-                if(!PyObject_TypeCheck(value,&Base::MatrixPy::Type)) {
-                    PyErr_SetString(PyExc_TypeError, "exepcting a type of Matrix");
-                    return nullptr;
-                }else
-                    mat[(int)idx] = static_cast<Base::MatrixPy*>(value)->getMatrixPtr();
-            }
-            for(auto &v : mat)
-                lv->setTransform(v.first,*v.second);
-            Py_Return;
-        }
-        if(PySequence_Check(pyObj)) {
-            Py::Sequence seq(pyObj);
-            std::vector<Base::Matrix4D*> mat;
-            mat.resize(seq.size(),nullptr);
-            for(Py_ssize_t i=0;i<seq.size();++i) {
-                PyObject* item = seq[i].ptr();
-                if(!PyObject_TypeCheck(item,&Base::MatrixPy::Type)) {
-                    PyErr_SetString(PyExc_TypeError, "exepcting a type of Matrix");
-                    return nullptr;
-                }
-                mat[i] = static_cast<Base::MatrixPy*>(item)->getMatrixPtr();
-            }
-            for(size_t i=0;i<mat.size();++i)
-                lv->setTransform(i,*mat[i]);
-            Py_Return;
-        }
-
-        PyErr_SetString(PyExc_TypeError, "exepcting a type of Matrix, [Matrix,...] or {Int:Matrix,...}");
-        return nullptr;
     } PY_CATCH;
 }
 
@@ -270,63 +162,6 @@ Py::Object LinkViewPy::getSubNames() const {
     return ret;
 }
 
-PyObject* LinkViewPy::getElementPicked(PyObject* args)
-{
-    PyObject *obj;
-    if (!PyArg_ParseTuple(args, "O",&obj))
-        return nullptr;
-    void *ptr = nullptr;
-    Base::Interpreter().convertSWIGPointerObj("pivy.coin", "SoPickedPoint *", obj, &ptr, 0);
-    SoPickedPoint *pp = reinterpret_cast<SoPickedPoint*>(ptr);
-    if(!pp)
-        throw Py::TypeError("type must be of coin.SoPickedPoint");
-    PY_TRY{
-        std::string name;
-        if(!getLinkViewPtr()->linkGetElementPicked(pp,name))
-            Py_Return;
-        return Py::new_reference_to(Py::String(name));
-    }PY_CATCH
-}
-
-PyObject* LinkViewPy::getDetailPath(PyObject* args)
-{
-    const char *sub;
-    PyObject *path;
-    if (!PyArg_ParseTuple(args, "sO",&sub,&path))
-        return nullptr;
-    void *ptr = nullptr;
-    Base::Interpreter().convertSWIGPointerObj("pivy.coin", "SoPath *", path, &ptr, 0);
-    SoPath *pPath = reinterpret_cast<SoPath*>(ptr);
-    if(!pPath)
-        throw Py::TypeError("type must be of coin.SoPath");
-    PY_TRY{
-        SoDetail *det = nullptr;
-        getLinkViewPtr()->linkGetDetailPath(sub,static_cast<SoFullPath*>(pPath),det);
-        if(!det)
-            Py_Return;
-        return Base::Interpreter().createSWIGPointerObj("pivy.coin", "SoDetail *", (void*)det, 0);
-    }PY_CATCH
-}
-
-PyObject* LinkViewPy::getBoundBox(PyObject* args) {
-    PyObject *vobj = Py_None;
-    if (!PyArg_ParseTuple(args, "O",&vobj))
-        return nullptr;
-    ViewProviderDocumentObject *vpd = nullptr;
-    if(vobj!=Py_None) {
-        if(!PyObject_TypeCheck(vobj,&ViewProviderDocumentObjectPy::Type)) {
-            PyErr_SetString(PyExc_TypeError, "exepcting a type of ViewProviderDocumentObject");
-            return nullptr;
-        }
-        vpd = static_cast<ViewProviderDocumentObjectPy*>(vobj)->getViewProviderDocumentObjectPtr();
-    }
-    PY_TRY {
-        auto bbox = getLinkViewPtr()->getBoundBox(vpd);
-        Py::Object ret(new Base::BoundBoxPy(new Base::BoundBox3d(bbox)));
-        return Py::new_reference_to(ret);
-    }PY_CATCH
-}
-
 PyObject *LinkViewPy::getCustomAttributes(const char*) const
 {
     return nullptr;
@@ -335,19 +170,6 @@ PyObject *LinkViewPy::getCustomAttributes(const char*) const
 int LinkViewPy::setCustomAttributes(const char*, PyObject*)
 {
     return 0;
-}
-
-Py::Object LinkViewPy::getRootNode() const
-{
-    try {
-        SoNode* node = getLinkViewPtr()->getLinkRoot();
-        PyObject* Ptr = Base::Interpreter().createSWIGPointerObj("pivy.coin","SoSeparator *", node, 1);
-        node->ref();
-        return Py::Object(Ptr, true);
-    }
-    catch (const Base::Exception& e) {
-        throw Py::RuntimeError(e.what());
-    }
 }
 
 Py::Object LinkViewPy::getVisibilities() const {

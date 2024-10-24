@@ -118,31 +118,10 @@ newObj : App.DocumentObject\n    New object.</UserDocu>
 Trigger double clicking the corresponding tree item of this view object.</UserDocu>
             </Documentation>
         </Methode>
-        <Methode Name="addDisplayMode">
-            <Documentation>
-                <UserDocu>addDisplayMode(obj, mode) -> None\n
-Add a new display mode to the view provider.\n
-obj : coin.SoNode\n    Display mode.
-mode : str\n    Name of the display mode.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="listDisplayModes">
-            <Documentation>
-                <UserDocu>listDisplayModes() -> list\n
-Show a list of all display modes.</UserDocu>
-            </Documentation>
-        </Methode>
         <Methode Name="toString">
             <Documentation>
                 <UserDocu>toString() -> str\n
-Return a string representation of the Inventor node.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="setTransformation">
-            <Documentation>
-                <UserDocu>setTransformation(trans) -> None\n
-Set a transformation on the Inventor node.\n
-trans : Base.Placement, Base.Matrix</UserDocu>
+Return a string representation of the node.</UserDocu>
             </Documentation>
         </Methode>
         <Methode Name="claimChildren" Const="true">
@@ -151,96 +130,17 @@ trans : Base.Placement, Base.Matrix</UserDocu>
 Returns list of objects that are to be grouped in tree under this object.</UserDocu>
             </Documentation>
         </Methode>
-        <Methode Name="partialRender">
-            <Documentation>
-                <UserDocu>partialRender(sub=None, clear=False) -> int\n
-Render only part of the object.\n
-sub: None, str, sequence of str\n    Refer to the subelement. If it is None then reset the partial rendering.
-clear: bool\n    True to add, or False to remove the subelement(s) for rendering.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="getElementColors">
-            <Documentation>
-                <UserDocu>getElementColors(elementName) -> dict\n
-Get a dictionary of the form {elementName : (r,g,b,a)}.
-If no element name is given a dictionary with all the elements is returned.\n
-elementName : str\n    Name of the element. Optional.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="setElementColors">
-            <Documentation>
-                <UserDocu>setElementColors(colors) -> None\n
-Set element colors.\n
-colors: dict\n    Color dictionary of the form {elementName:(r,g,b,a)}.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="getElementPicked" Const="true">
-            <Documentation>
-                <UserDocu>getElementPicked(pickPoint) -> str\n
-Return the picked subelement.\n
-pickPoint : coin.SoPickedPoint</UserDocu>
-            </Documentation>
-        </Methode>
-        <Methode Name="getDetailPath" Const="true">
-            <Documentation>
-                <UserDocu>getDetailPath(subelement, path, append=True) -> coin.SoDetail or None\n
-Return Coin detail and path of an subelement.\n
-subname: str\n    Dot separated string reference to the sub element.
-pPath: coin.SoPath\n    Output coin path leading to the returned element detail.
-append: bool\n    If True, path will be first appended with the root node and the mode
-    switch node of this view provider.</UserDocu>
-            </Documentation>
-        </Methode>
         <Methode Name="signalChangeIcon" Const="true">
             <Documentation>
                 <UserDocu>signalChangeIcon() -> None\n
 Trigger icon changed signal.</UserDocu>
             </Documentation>
         </Methode>
-        <Methode Name="getBoundingBox">
-            <Documentation>
-                <UserDocu>getBoundingBox(subName, transform=True, view) -> Base.BoundBox\n
-Obtain the bounding box of this view object.\n
-subName : str\n    Name referring a sub-object. Optional.
-transform: bool\n    Whether to apply the transformation matrix of this view provider.
-view: View3DInventorPy\n    Default to active view. Optional.</UserDocu>
-            </Documentation>
-        </Methode>
-        <Attribute Name="Annotation" ReadOnly="false">
-            <Documentation>
-                <UserDocu>A pivy Separator to add a custom scenegraph to this ViewProvider.</UserDocu>
-            </Documentation>
-            <Parameter Name="Annotation" Type="Object" />
-        </Attribute>
     <Attribute Name="Icon" ReadOnly="true">
       <Documentation>
         <UserDocu>The icon of this ViewProvider.</UserDocu>
       </Documentation>
       <Parameter Name="Icon" Type="Object" />
-    </Attribute>
-    <Attribute Name="RootNode" ReadOnly="false">
-      <Documentation>
-        <UserDocu>A pivy Separator with the root of this ViewProvider.</UserDocu>
-      </Documentation>
-      <Parameter Name="RootNode" Type="Object" />
-    </Attribute>
-    <Attribute Name="SwitchNode" ReadOnly="false">
-      <Documentation>
-        <UserDocu>A pivy SoSwitch for the display mode switch of this ViewProvider.</UserDocu>
-      </Documentation>
-      <Parameter Name="SwitchNode" Type="Object" />
-    </Attribute>
-    <Attribute Name="DefaultMode" ReadOnly="false">
-      <Documentation>
-        <UserDocu>Get/Set the default display mode in turns of coin node index.</UserDocu>
-      </Documentation>
-      <Parameter Name="DefaultNode" Type="Int" />
-    </Attribute>
-    <Attribute Name="IV" ReadOnly="true">
-      <Documentation>
-        <UserDocu>Represents the whole ViewProvider as an Inventor string.</UserDocu>
-      </Documentation>
-      <Parameter Name="IV" Type="String" />
     </Attribute>
     <Attribute Name="CanRemoveChildrenFromRoot" ReadOnly="true">
       <Documentation>

@@ -48,11 +48,7 @@
 #include <Gui/Application.h>
 #include <Gui/BitmapFactory.h>
 #include <Gui/MainWindow.h>
-#include <Gui/SoFCDB.h>
-#include <Gui/Quarter/Quarter.h>
-#include <Inventor/SoDB.h>
-#include <Inventor/SoInteraction.h>
-#include <Inventor/nodekits/SoNodeKit.h>
+#include <Gui/RPSPropItem.h>
 
 
 static bool _isSetupWithoutGui = false;
@@ -194,14 +190,9 @@ LabRPSGui_setupWithoutGUI(PyObject * /*self*/, PyObject *args)
         _isSetupWithoutGui = true;
         Q_UNUSED(app);
     }
-    if (!SoDB::isInitialized()) {
-        // init the Inventor subsystem
-        SoDB::init();
-        SoNodeKit::init();
-        SoInteraction::init();
-    }
-    if (!Gui::SoFCDB::isInitialized()) {
-        Gui::SoFCDB::init();
+
+    if (!Gui::RPSPropItem::isInitialized()) {
+    Gui::RPSPropItem::init();
     }
 
     Py_INCREF(Py_None);
@@ -301,11 +292,8 @@ QWidget* setupMainWindow()
         else
             mw->setWindowTitle(QString::fromLatin1(App::Application::Config()["ExeName"].c_str()));
 
-        if (!SoDB::isInitialized()) {
-            // init the Inventor subsystem
-            SoDB::init();
-            SIM::Coin3D::Quarter::Quarter::init();
-            Gui::SoFCDB::init();
+        if (!Gui::RPSPropItem::isInitialized()) {
+            Gui::RPSPropItem::init();
         }
 
         static bool init = false;

@@ -57,40 +57,13 @@
 #include "RPSKrenkCoherence.h"
 #include "RPSTurbulenceIntensityASCE798.h"
 #include "WLGridPoints.h"
+#include "RPSImportSimulationPointsFromFile.h"
+
 #include <Mod/WindLabAPI/App/RPSWindLabpluginAPI.h>
 #include <Base/Console.h>
 
 #include <Base/Interpreter.h>
 #include <Base/PyObjectBase.h>
-
-
-// namespace WindLabPlugin
-// {
-// class Module: public Py::ExtensionModule<Module>
-// {
-// public:
-//     Module() : Py::ExtensionModule<Module>("WindLabPlugin")
-//     {
-//         initialize("This module is the WindLabPlugin module.");// register with Python
-//     }
-
-//     virtual ~Module() {}
-
-// private:
-// };
-
-// PyObject* initModule() { return Base::Interpreter().addModule(new Module); }
-
-// }// namespace WindLab
-
-// /* Python entry */
-// PyMOD_INIT_FUNC(WindLabPlugin)
-// {
-//     PyObject* mod = WindLabPlugin::initModule();
-//     Base::Console().Log("Loading WindLabPlugin module... done\n");
-//     PyMOD_Return(mod);
-// }
-
 
 std::string strPluginName = "WindLabPlugin";
 bool stationarity = true;
@@ -195,6 +168,18 @@ RPS_PLUGIN_FUNC IrpsWLLocationDistribution* BuildGridPoints()
 RPS_PLUGIN_FUNC void DestroyGridPoints(IrpsWLLocationDistribution* r) {
     delete r;
 }
+
+std::string objNameImp_P = "Import Simulation Points from File";
+std::string objDescriptionImp_P = "This feature allows the user to import simulation points from a tab delimited text file ";
+std::string objTileImp_P = "LabRPS";
+std::string objLinkImp_P = "https://wiki.labrps.com";
+std::string objAuthorsImp_P = "LabRPS";
+std::string objDateImp_P = "15/06/2024";
+std::string objVersionImp_P = "1.0";
+
+RPS_PLUGIN_FUNC IrpsWLLocationDistribution* BuildImportPoints() { return new CRPSImportSimulationPointsFromFile; }
+
+RPS_PLUGIN_FUNC void DestroyImportPoints(IrpsWLLocationDistribution* r) { delete r; }
 
 
 std::string objNamePow_L = "Power Law Profile";
@@ -799,6 +784,9 @@ PLUGIN_INIT_TYPE()
     if (WindLab::WLGridPoints::getClassTypeId() == Base::Type::badType()) {
         WindLab::WLGridPoints::init();
     }
+    if (WindLab::CRPSImportSimulationPointsFromFile::getClassTypeId() == Base::Type::badType()) {
+        WindLab::CRPSImportSimulationPointsFromFile::init();
+    }
     return 1;
 }
 
@@ -809,7 +797,8 @@ PLUGIN_INIT()
     InitializeLocationDistribution(objNameHor_D, strPluginName, objTileHor_D, objLinkHor_D, objAuthorsHor_D, objDateHor_D, objVersionHor_D, stationarity);
     InitializeLocationDistribution(objNameVer_D, strPluginName, objTileVer_D, objLinkVer_D, objAuthorsVer_D, objDateVer_D, objVersionVer_D, stationarity);
     InitializeLocationDistribution(objNameGri_P, strPluginName, objTileGri_P, objLinkGri_P, objAuthorsGri_P, objDateGri_P, objVersionGri_P, stationarity);
-   
+    InitializeLocationDistribution(objNameImp_P, strPluginName, objTileImp_P, objLinkImp_P, objAuthorsImp_P, objDateImp_P, objVersionImp_P, stationarity);
+
     InitializeMean(objNamePow_L, strPluginName, objTilePow_L, objLinkPow_L, objAuthorsPow_L, objDatePow_L, objVersionPow_L, stationarity);
     InitializeMean(objNameLog_L, strPluginName, objTileLog_L, objLinkLog_L, objAuthorsLog_L, objDateLog_L, objVersionLog_L, stationarity);
     InitializeMean(objNameDea_H, strPluginName, objTileDea_H, objLinkDea_H, objAuthorsDea_H, objDateDea_H, objVersionDea_H, stationarity);
@@ -858,7 +847,8 @@ INSTALL_PLUGIN()
     RegisterLocationDistribution(objNameHor_D, strPluginName, objDescriptionHor_D, BuildHorizontalDistr, DestroyHorizontalDistr);
     RegisterLocationDistribution(objNameVer_D, strPluginName, objDescriptionVer_D, BuildVerticalDistr, DestroyVerticalDistr);
     RegisterLocationDistribution(objNameGri_P, strPluginName, objDescriptionGri_P, BuildGridPoints, DestroyGridPoints);
-   
+    RegisterLocationDistribution(objNameImp_P, strPluginName, objDescriptionImp_P, BuildImportPoints, DestroyImportPoints);
+
     RegisterMean(objNamePow_L, strPluginName, objDescriptionPow_L, BuildRPSPowerLowProfile, DestroyRPSPowerLowProfile);
     RegisterMean(objNameLog_L, strPluginName, objDescriptionLog_L, BuildRPSLogarithmicLowProfile, DestroyRPSLogarithmicLowProfile);
     RegisterMean(objNameDea_H, strPluginName, objDescriptionDea_H, BuildRPSDHLowProfile, DestroyRPSDHLowProfile);
@@ -908,7 +898,8 @@ UNINSTALL_PLUGIN()
     UnregisterLocationDistribution(objNameHor_D, strPluginName);
     UnregisterLocationDistribution(objNameVer_D, strPluginName);
     UnregisterLocationDistribution(objNameGri_P, strPluginName);
-   
+    UnregisterLocationDistribution(objNameImp_P, strPluginName);
+
     UnregisterMean(objNamePow_L, strPluginName);
     UnregisterMean(objNameLog_L, strPluginName);
     UnregisterMean(objNameDea_H, strPluginName);

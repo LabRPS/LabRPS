@@ -102,11 +102,6 @@ void StdCmdRandomColor::activated(int iMsg)
             cmdGuiObjectArgs(it->pObject, "ShapeMaterial.DiffuseColor=(%.2f,%.2f,%.2f)", fRed, fGrn, fBlu);
             continue;
         }
-        auto color = dynamic_cast<App::PropertyColor*>(view->getPropertyByName("ShapeColor"));
-        if (color) {
-            // get the view provider of the selected object and set the shape color
-            cmdGuiObjectArgs(it->pObject, "ShapeColor=(%.2f,%.2f,%.2f)", fRed, fGrn, fBlu);
-        }
     }
 }
 
@@ -171,28 +166,9 @@ void StdCmdSendToPythonConsole::activated(int iMsg)
             cmd = QString::fromLatin1("obj = doc.getObject(\"%1\")").arg(objname);
             Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
         }
-        if (obj->getTypeId().isDerivedFrom(App::GeoFeature::getClassTypeId())) {
-            const App::GeoFeature* geoObj = static_cast<const App::GeoFeature*>(obj);
-            const App::PropertyGeometry* geo = geoObj->getPropertyOfGeometry();
-            if (geo){
-                cmd = QString::fromLatin1("shp = obj.") + QLatin1String(geo->getName()); //"Shape", "Mesh", "Points", etc.
-                Gui::Command::runCommand(Gui::Command::Gui, cmd.toLatin1());
-                if (sels[0].hasSubNames()) {
-                    std::vector<std::string> subnames = sels[0].getSubNames();
-                    QString subname = QString::fromLatin1(subnames[0].c_str());
-                    cmd = QString::fromLatin1("sub = obj.getSubObject(\"%1\")").arg(subname);
-                    Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-                    if (subnames.size() > 1) {
-                        std::ostringstream strm;
-                        strm << "subs = [";
-                        for (std::vector<std::string>::iterator it = subnames.begin(); it != subnames.end(); ++it) {
-                            strm << "obj.getSubObject(\"" << *it << "\"),";
-                        }
-                        strm << "]";
-                        Gui::Command::runCommand(Gui::Command::Gui, strm.str().c_str());
-                    }
-                }
-            }
+        if (obj->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
+            const App::RPSFeature* geoObj = static_cast<const App::RPSFeature*>(obj);
+           
         }
         //show the python console if it's not already visible, and set the keyboard focus to it
         QWidget* pc = DockWindowManager::instance()->getDockWindow("Python console");

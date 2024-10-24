@@ -28,7 +28,6 @@
 # include <sstream>
 #endif
 
-#include <App/ComplexGeoData.h>
 #include <App/Document.h>
 
 #include "TaskElementColors.h"
@@ -84,7 +83,6 @@ public:
                 auto obj = vpParent->getObject();
                 editDoc = obj->getDocument()->getName();
                 editObj = obj->getNameInDocument();
-                editSub = Data::ComplexGeoData::noElementName(editSub.c_str());
             }
         }
         if(editDoc.empty()) {
@@ -125,14 +123,14 @@ public:
     }
 
     void populate() {
-        int i=0;
+      /*  int i=0;
         for(auto &v : vp->getElementColors())
             addItem(i++,v.first.c_str());
-        apply();
+        apply();*/
     }
 
     void addItem(int i,const char *sub, bool push=false) {
-        auto itE = elements.find(sub);
+        /*auto itE = elements.find(sub);
         if(i<0 && itE!=elements.end()) {
             if(push && !ViewProvider::hasHiddenMarker(sub))
                 items.push_back(itE->second);
@@ -169,11 +167,11 @@ public:
             if(push)
                 items.push_back(item);
             elements.emplace(v.first,item);
-        }
+        }*/
     }
 
     void apply() {
-        std::map<std::string,App::Color> info;
+        /*std::map<std::string,App::Color> info;
         int count = ui->elementList->count();
         for(int i=0;i<count;++i) {
             auto item = ui->elementList->item(i);
@@ -186,7 +184,7 @@ public:
             App::GetApplication().setActiveTransaction("Set colors");
         vp->setElementColors(info);
         touched = true;
-        Selection().clearSelection();
+        Selection().clearSelection();*/
     }
 
     void reset() {
@@ -379,7 +377,7 @@ void ElementColors::on_boxSelect_clicked()
 }
 
 void ElementColors::on_hideSelection_clicked() {
-    auto sels = Selection().getSelectionEx(d->editDoc.c_str(), App::DocumentObject::getClassTypeId(), ResolveMode::NoResolve);
+   /* auto sels = Selection().getSelectionEx(d->editDoc.c_str(), App::DocumentObject::getClassTypeId(), ResolveMode::NoResolve);
     for(auto &sel : sels) {
         if(d->editObj!=sel.getFeatName())
             continue;
@@ -395,7 +393,7 @@ void ElementColors::on_hideSelection_clicked() {
             d->apply();
         }
         return;
-    }
+    }*/
 }
 
 void ElementColors::on_addSelection_clicked()
@@ -468,15 +466,15 @@ void ElementColors::changeEvent(QEvent *e)
 void ElementColors::leaveEvent(QEvent *e) {
     QWidget::leaveEvent(e);
     Selection().rmvPreselect();
-    if(d->hiddenSub.size()) {
+    /*if(d->hiddenSub.size()) {
         d->vp->partialRender({d->hiddenSub},false);
         d->hiddenSub.clear();
-    }
+    }*/
 }
 
 void ElementColors::on_elementList_itemEntered(QListWidgetItem *item) {
     std::string name(qPrintable(item->data(Qt::UserRole+1).value<QString>()));
-    if(d->hiddenSub.size()) {
+    /*if(d->hiddenSub.size()) {
         d->vp->partialRender({d->hiddenSub},false);
         d->hiddenSub.clear();
     }
@@ -488,7 +486,7 @@ void ElementColors::on_elementList_itemEntered(QListWidgetItem *item) {
     Selection().setPreselect(d->editDoc.c_str(),
             d->editObj.c_str(), (d->editSub+name).c_str(),0,0,0,
             d->ui->onTop->isChecked() ? Gui::SelectionChanges::MsgSource::TreeView
-                                      : Gui::SelectionChanges::MsgSource::Internal);
+                                      : Gui::SelectionChanges::MsgSource::Internal);*/
 }
 
 void ElementColors::on_elementList_itemSelectionChanged() {

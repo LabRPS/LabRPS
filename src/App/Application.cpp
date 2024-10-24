@@ -52,25 +52,17 @@
 #include <QStandardPaths>
 #include <LibraryVersions.h>
 
-#include <App/MaterialPy.h>
 #include <App/MetadataPy.h>
 // LabRPS Base header
-#include <Base/AxisPy.h>
 #include <Base/BaseClass.h>
-#include <Base/BoundBoxPy.h>
 #include <Base/ConsoleObserver.h>
-#include <Base/CoordinateSystemPy.h>
 #include <Base/Exception.h>
 #include <Base/ExceptionFactory.h>
 #include <Base/FileInfo.h>
-#include <Base/GeometryPyCXX.h>
 #include <Base/Interpreter.h>
-#include <Base/MatrixPy.h>
 #include <Base/QuantityPy.h>
 #include <Base/Parameter.h>
 #include <Base/Persistence.h>
-#include <Base/PlacementPy.h>
-#include <Base/RotationPy.h>
 #include <Base/Sequencer.h>
 #include <Base/Tools.h>
 #include <Base/Translate.h>
@@ -80,9 +72,7 @@
 #include <Base/UnitsApi.h>
 #include <Base/VectorPy.h>
 
-#include "Annotation.h"
 #include "Application.h"
-#include "ComplexGeoData.h"
 #include "DocumentObjectFileIncluded.h"
 #include "DocumentObjectGroup.h"
 #include "DocumentObjectGroupPy.h"
@@ -91,20 +81,10 @@
 #include "ExpressionParser.h"
 #include "FeatureTest.h"
 #include "FeaturePython.h"
-#include "GeoFeature.h"
-#include "GeoFeatureGroupExtension.h"
-#include "InventorObject.h"
+#include "RPSFeature.h"
+//#include "GeoFeatureGroupExtension.h"
 #include "Link.h"
 #include "LinkBaseExtensionPy.h"
-#include "MaterialObject.h"
-#include "MeasureDistance.h"
-#include "Origin.h"
-#include "OriginFeature.h"
-#include "OriginGroupExtension.h"
-#include "OriginGroupExtensionPy.h"
-#include "Part.h"
-#include "PartPy.h"
-#include "Placement.h"
 #include "Property.h"
 #include "PropertyContainer.h"
 #include "PropertyExpressionEngine.h"
@@ -113,10 +93,10 @@
 #include "PropertyPythonObject.h"
 #include "TextDocument.h"
 #include "Transactions.h"
-#include "VRMLObject.h"
 #include "Simulation.h"
 #include "SimulationPy.h"
 #include "RPSFeaturePy.h"
+#include "GroupExtensionPy.h"
 
 
 // If you stumble here, run the target "BuildExtractRevision" on Windows systems
@@ -236,7 +216,6 @@ Application::Application(std::map<std::string,std::string> &mConfig)
   , _isClosingAll(false), _objCount(-1), _activeTransactionID(0)
   , _activeTransactionGuard(0), _activeTransactionTmpName(false)
 {
-    //_hApp = new ApplicationOCC;
     mpcPramManager["System parameter"] = _pcSysParamMngr;
     mpcPramManager["User parameter"] = _pcUserParamMngr;
 
@@ -276,11 +255,6 @@ void Application::setupPythonTypes()
     // call PyType_Ready, otherwise we run into a segmentation fault, later on.
     // This function is responsible for adding inherited slots from a type's base class.
     Base::Interpreter().addType(&Base::VectorPy::Type, pAppModule, "Vector");
-    Base::Interpreter().addType(&Base::MatrixPy::Type, pAppModule, "Matrix");
-    Base::Interpreter().addType(&Base::BoundBoxPy::Type, pAppModule, "BoundBox");
-    Base::Interpreter().addType(&Base::PlacementPy::Type, pAppModule, "Placement");
-    Base::Interpreter().addType(&Base::RotationPy::Type, pAppModule, "Rotation");
-    Base::Interpreter().addType(&Base::AxisPy::Type, pAppModule, "Axis");
 
     // Note: Create an own module 'Base' which should provide the python
     // binding classes from the base module. At a later stage we should
@@ -298,15 +272,8 @@ void Application::setupPythonTypes()
 
     // Python types
     Base::Interpreter().addType(&Base::VectorPy          ::Type,pBaseModule,"Vector");
-    Base::Interpreter().addType(&Base::MatrixPy          ::Type,pBaseModule,"Matrix");
-    Base::Interpreter().addType(&Base::BoundBoxPy        ::Type,pBaseModule,"BoundBox");
-    Base::Interpreter().addType(&Base::PlacementPy       ::Type,pBaseModule,"Placement");
-    Base::Interpreter().addType(&Base::RotationPy        ::Type,pBaseModule,"Rotation");
-    Base::Interpreter().addType(&Base::AxisPy            ::Type,pBaseModule,"Axis");
-    Base::Interpreter().addType(&Base::CoordinateSystemPy::Type,pBaseModule,"CoordinateSystem");
     Base::Interpreter().addType(&Base::TypePy            ::Type,pBaseModule,"TypeId");
 
-    Base::Interpreter().addType(&App::MaterialPy::Type, pAppModule, "Material");
     Base::Interpreter().addType(&App::MetadataPy::Type, pAppModule, "Metadata");
 
     // Add document types
@@ -315,15 +282,13 @@ void Application::setupPythonTypes()
     Base::Interpreter().addType(&App::DocumentPy::Type, pAppModule, "Document");
     Base::Interpreter().addType(&App::DocumentObjectPy::Type, pAppModule, "DocumentObject");
     Base::Interpreter().addType(&App::DocumentObjectGroupPy::Type, pAppModule, "DocumentObjectGroup");
-    Base::Interpreter().addType(&App::GeoFeaturePy::Type, pAppModule, "GeoFeature");
-    Base::Interpreter().addType(&App::PartPy::Type, pAppModule, "Part");
+    Base::Interpreter().addType(&App::RPSFeaturePy::Type, pAppModule, "RPSFeature");
 
     // Add extension types
     Base::Interpreter().addType(&App::ExtensionPy::Type, pAppModule, "Extension");
     Base::Interpreter().addType(&App::DocumentObjectExtensionPy::Type, pAppModule, "DocumentObjectExtension");
     Base::Interpreter().addType(&App::GroupExtensionPy::Type, pAppModule, "GroupExtension");
-    Base::Interpreter().addType(&App::GeoFeatureGroupExtensionPy::Type, pAppModule, "GeoFeatureGroupExtension");
-    Base::Interpreter().addType(&App::OriginGroupExtensionPy::Type, pAppModule, "OriginGroupExtension");
+    //Base::Interpreter().addType(&App::GeoFeatureGroupExtensionPy::Type, pAppModule, "GeoFeatureGroupExtension");
     Base::Interpreter().addType(&App::LinkBaseExtensionPy::Type, pAppModule, "LinkBaseExtension");
 
     //insert Base and Console
@@ -356,9 +321,9 @@ void Application::setupPythonTypes()
     Base::Interpreter().addType(Base::ProgressIndicatorPy::type_object(),
         pBaseModule,"ProgressIndicator");
 
-    Base::Vector2dPy::init_type();
-    Base::Interpreter().addType(Base::Vector2dPy::type_object(),
-        pBaseModule,"Vector2d");
+    //Base::Vector2dPy::init_type();
+    //Base::Interpreter().addType(Base::Vector2dPy::type_object(),
+    //    pBaseModule,"Vector2d");
 }
 
 void Application::setupPythonException(PyObject* module)
@@ -1926,10 +1891,6 @@ void Application::initTypes()
     Base::AbortException            ::init();
     Base::Persistence               ::init();
 
-    // Complex data classes
-    Data::ComplexGeoData            ::init();
-    Data::Segment                   ::init();
-
     // Properties
     App ::Property                  ::init();
     App ::PropertyContainer         ::init();
@@ -1990,22 +1951,11 @@ void Application::initTypes()
     App ::PropertyXLinkSubList      ::init();
     App ::PropertyXLinkList         ::init();
     App ::PropertyXLinkContainer    ::init();
-    App ::PropertyMatrix            ::init();
     App ::PropertyVector            ::init();
     App ::PropertyVectorDistance    ::init();
     App ::PropertyPosition          ::init();
     App ::PropertyDirection         ::init();
     App ::PropertyVectorList        ::init();
-    App ::PropertyPlacement         ::init();
-    App ::PropertyPlacementList     ::init();
-    App ::PropertyPlacementLink     ::init();
-    App ::PropertyRotation          ::init();
-    App ::PropertyGeometry          ::init();
-    App ::PropertyComplexGeoData    ::init();
-    App ::PropertyColor             ::init();
-    App ::PropertyColorList         ::init();
-    App ::PropertyMaterial          ::init();
-    App ::PropertyMaterialList      ::init();
     App ::PropertyPath              ::init();
     App ::PropertyFile              ::init();
     App ::PropertyFileIncluded      ::init();
@@ -2019,10 +1969,9 @@ void Application::initTypes()
     App ::DocumentObjectExtension       ::init();
     App ::GroupExtension                ::init();
     App ::GroupExtensionPython          ::init();
-    App ::GeoFeatureGroupExtension      ::init();
-    App ::GeoFeatureGroupExtensionPython::init();
-    App ::OriginGroupExtension          ::init();
-    App ::OriginGroupExtensionPython    ::init();
+    //App ::GeoFeatureGroupExtension      ::init();
+    //App ::GeoFeatureGroupExtensionPython::init();
+
     App ::LinkBaseExtension             ::init();
     App ::LinkBaseExtensionPython       ::init();
     App ::LinkExtension                 ::init();
@@ -2031,30 +1980,16 @@ void Application::initTypes()
     // Document classes
     App ::TransactionalObject       ::init();
     App ::DocumentObject            ::init();
-    App ::GeoFeature                ::init();
+    App ::RPSFeature                ::init();
     App ::FeatureTest               ::init();
     App ::FeatureTestException      ::init();
     App ::FeaturePython             ::init();
-    App ::GeometryPython            ::init();
+    App ::SimulationPython          ::init();
     App ::Document                  ::init();
     App ::DocumentObjectGroup       ::init();
     App ::DocumentObjectGroupPython ::init();
     App ::DocumentObjectFileIncluded::init();
-    App ::InventorObject            ::init();
-    App ::VRMLObject                ::init();
-    App ::Annotation                ::init();
-    App ::AnnotationLabel           ::init();
-    App ::MeasureDistance           ::init();
-    App ::MaterialObject            ::init();
-    App ::MaterialObjectPython      ::init();
     App ::TextDocument              ::init();
-    App ::Placement                 ::init();
-    App ::PlacementPython           ::init();
-    App ::OriginFeature             ::init();
-    App ::Plane                     ::init();
-    App ::Line                      ::init();
-    App ::Part                      ::init();
-    App ::Origin                    ::init();
     App ::Link                      ::init();
     App ::LinkPython                ::init();
     App ::LinkElement               ::init();
@@ -2342,11 +2277,7 @@ void processProgramOptions(const variables_map& vm, std::map<std::string,std::st
         if (vm.count("verbose")) {
             str << "\nLibrary versions:\n";
             str << "boost    " << BOOST_LIB_VERSION << '\n';
-            str << "Coin3D   " << RPS_COIN3D_VERSION << '\n';
             str << "Eigen3   " << RPS_EIGEN3_VERSION << '\n';
-#ifdef OCC_VERSION_STRING_EXT
-            str << "OCC      " << OCC_VERSION_STRING_EXT << '\n';
-#endif
             str << "Qt       " << QT_VERSION_STR << '\n';
             str << "Python   " << PY_VERSION << '\n';
             str << "PySide   " << RPS_PYSIDE_VERSION << '\n';
@@ -2642,10 +2573,6 @@ void Application::initConfig(int argc, char ** argv)
     // capture path
     SaveEnv("PATH");
 
-    // Save version numbers of the libraries
-#ifdef OCC_VERSION_STRING_EXT
-    mConfig["OCC_VERSION"] = OCC_VERSION_STRING_EXT;
-#endif
     mConfig["BOOST_VERSION"] = BOOST_LIB_VERSION;
     mConfig["PYTHON_VERSION"] = PY_VERSION;
     mConfig["QT_VERSION"] = QT_VERSION_STR;

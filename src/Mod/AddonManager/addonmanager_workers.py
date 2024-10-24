@@ -555,7 +555,7 @@ class UpdateChecker:
                 mac = macro_wrapper.macro.name.replace(" ", "_")
                 mac = mac.replace("&", "%26")
                 mac = mac.replace("+", "%2B")
-                url = "https://wiki.labrps.org/Macro_" + mac
+                url = "https://wiki.labrps.com/Macro_" + mac
                 macro_wrapper.macro.fill_details_from_wiki(url)
         except Exception:
             LabRPS.Console.PrintWarning(
@@ -780,11 +780,11 @@ class FillMacroListWorker(QtCore.QThread):
         """Retrieve macros from the wiki
 
         Read the wiki and emit a signal for each found macro.
-        Reads only the page https://wiki.labrps.org/Macros_recipes
+        Reads only the page https://wiki.labrps.com/Macros_recipes
         """
 
         p = NetworkManager.AM_NETWORK_MANAGER.blocking_get(
-            "https://wiki.labrps.org/Macros_recipes"
+            "https://wiki.labrps.com/Macros_recipes"
         )
         if not p:
             LabRPS.Console.PrintWarning(
@@ -817,7 +817,7 @@ class FillMacroListWorker(QtCore.QThread):
                 macro.on_wiki = True
                 macro.parsed = False
                 repo = Addon.from_macro(macro)
-                repo.url = "https://wiki.labrps.org/Macros_recipes"
+                repo.url = "https://wiki.labrps.com/Macros_recipes"
                 utils.update_macro_installation_details(repo)
                 self.add_macro_signal.emit(repo)
 
@@ -1305,7 +1305,7 @@ class GetMacroDetailsWorker(QtCore.QThread):
             mac = self.macro.name.replace(" ", "_")
             mac = mac.replace("&", "%26")
             mac = mac.replace("+", "%2B")
-            url = "https://wiki.labrps.org/Macro_" + mac
+            url = "https://wiki.labrps.com/Macro_" + mac
             self.macro.fill_details_from_wiki(url)
         message = (
             "<h1>"

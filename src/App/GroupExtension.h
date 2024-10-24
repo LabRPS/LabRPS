@@ -112,7 +112,7 @@ public:
     virtual void extensionOnChanged(const Property* p) override;
 
     virtual bool extensionGetSubObject(DocumentObject *&ret, const char *subname,
-        PyObject **pyObj, Base::Matrix4D *mat, bool transform, int depth) const override;
+        PyObject **pyObj, int depth) const override;
 
     virtual bool extensionGetSubObjects(std::vector<std::string> &ret, int reason) const override;
 

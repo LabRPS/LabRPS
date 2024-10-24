@@ -26,11 +26,8 @@
 #include "ViewProviderDocumentObject.h"
 
 
-class SbVec2s;
-
 namespace Gui {
 
-class View3DInventorViewer;
 
 class GuiExport ViewProviderFeature:public ViewProviderDocumentObject
 {
@@ -42,9 +39,6 @@ public:
 
     /// destructor.
     virtual ~ViewProviderFeature();
-
-    App::PropertyColorList    ColourList;
-
     /**
      * Attaches the document object to this view provider.
      */

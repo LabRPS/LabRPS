@@ -23,7 +23,6 @@
 
 #include "PreCompiled.h"
 #ifndef _PreComp_
-# include <Inventor/nodes/SoCamera.h>
 # include <QApplication>
 # include <QClipboard>
 # include <QDateTime>
@@ -38,7 +37,7 @@
 #include <App/Document.h>
 #include <App/DocumentObject.h>
 #include <App/Expression.h>
-#include <App/GeoFeature.h>
+#include <App/RPSFeature.h>
 #include <Base/Exception.h>
 #include <Base/FileInfo.h>
 #include <Base/Stream.h>
@@ -56,15 +55,11 @@
 #include "DlgProjectInformationImp.h"
 #include "DlgProjectUtility.h"
 #include "GraphvizView.h"
-#include "ManualAlignment.h"
 #include "MergeDocuments.h"
-#include "NavigationStyle.h"
-#include "Placement.h"
-#include "Transform.h"
-#include "View3DInventor.h"
-#include "View3DInventorViewer.h"
 #include "ViewProvider.h"
 #include "WaitCursor.h"
+#include "Document.h"
+#include "ViewProviderDocumentObject.h"
 
 RPS_LOG_LEVEL_INIT("Command", false)
 
@@ -230,14 +225,6 @@ void StdCmdImport::activated(int iMsg)
             getGuiApplication()->importFrom(it.key().toUtf8(),
                 getActiveGuiDocument()->getDocument()->getName(),
                 it.value().toLatin1());
-        }
-
-        if (emptyDoc) {
-            // only do a view fit if the document was empty before. See also parameter 'AutoFitToView' in importFrom()
-            std::list<Gui::MDIView*> views = getActiveGuiDocument()->getMDIViewsOfType(Gui::View3DInventor::getClassTypeId());
-            for (std::list<MDIView*>::iterator it = views.begin(); it != views.end(); ++it) {
-                (*it)->viewAll();
-            }
         }
     }
 }
@@ -560,8 +547,8 @@ StdCmdDependencyGraph::StdCmdDependencyGraph()
     // setting the
     sGroup        = "Tools";
     sMenuText     = QT_TR_NOOP("Dependency graph...");
-    sToolTipText  = QT_TR_NOOP("Show the dependency graph of the objects in the active document");
-    sStatusTip    = QT_TR_NOOP("Show the dependency graph of the objects in the active document");
+    sToolTipText  = QT_TR_NOOP("Creates a new view window and show the dependency graph of the objects in the active document");
+    sStatusTip    = QT_TR_NOOP("Creates a new view window and show the dependency graph of the objects in the active document");
     sWhatsThis    = "Std_DependencyGraph";
     eType         = 0;
     sPixmap       = "Std_DependencyGraph";
@@ -606,11 +593,6 @@ void StdCmdNew::activated(int iMsg)
     cmd = QString::fromLatin1("App.newDocument(\"%1\")")
         .arg(qApp->translate("StdCmdNew","Unnamed"));
     runCommand(Command::Doc,cmd.toUtf8());
-    doCommand(Command::Gui,"Gui.activeDocument().activeView().viewDefaultOrientation()");
-
-    ParameterGrp::handle hViewGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/View");
-    if (hViewGrp->GetBool("ShowAxisCross"))
-        doCommand(Command::Gui,"Gui.ActiveDocument.ActiveView.setAxisCross(True)");
 }
 
 //===========================================================================
@@ -1508,170 +1490,6 @@ bool StdCmdRefresh::isActive()
 }
 
 //===========================================================================
-// Std_Transform
-//===========================================================================
-DEF_STD_CMD_A(StdCmdTransform)
-
-StdCmdTransform::StdCmdTransform()
-  : Command("Std_Transform")
-{
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("Transform...");
-    sToolTipText  = QT_TR_NOOP("Transform the geometry of selected objects");
-    sStatusTip    = QT_TR_NOOP("Transform the geometry of selected objects");
-    sWhatsThis    = "Std_Transform";
-}
-
-void StdCmdTransform::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::Control().showDialog(new Gui::Dialog::TaskTransform());
-}
-
-bool StdCmdTransform::isActive()
-{
-    return (Gui::Control().activeDialog()==nullptr);
-}
-
-//===========================================================================
-// Std_Placement
-//===========================================================================
-DEF_STD_CMD_A(StdCmdPlacement)
-
-StdCmdPlacement::StdCmdPlacement()
-  : Command("Std_Placement")
-{
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("Placement...");
-    sToolTipText  = QT_TR_NOOP("Place the selected objects");
-    sStatusTip    = QT_TR_NOOP("Place the selected objects");
-    sWhatsThis    = "Std_Placement";
-    sPixmap       = "Std_Placement";
-}
-
-void StdCmdPlacement::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    std::vector<App::DocumentObject*> sel = Gui::Selection().getObjectsOfType(App::GeoFeature::getClassTypeId());
-    Gui::Dialog::TaskPlacement* plm = new Gui::Dialog::TaskPlacement();
-    if (!sel.empty()) {
-        App::Property* prop = sel.front()->getPropertyByName("Placement");
-        if (prop && prop->getTypeId() == App::PropertyPlacement::getClassTypeId())
-            plm->setPlacement(static_cast<App::PropertyPlacement*>(prop)->getValue());
-    }
-    Gui::Control().showDialog(plm);
-}
-
-bool StdCmdPlacement::isActive()
-{
-    return Gui::Selection().countObjectsOfType(App::GeoFeature::getClassTypeId()) >= 1;
-}
-
-//===========================================================================
-// Std_TransformManip
-//===========================================================================
-DEF_STD_CMD_A(StdCmdTransformManip)
-
-StdCmdTransformManip::StdCmdTransformManip()
-  : Command("Std_TransformManip")
-{
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("Transform");
-    sToolTipText  = QT_TR_NOOP("Transform the selected object in the 3d view");
-    sStatusTip    = QT_TR_NOOP("Transform the selected object in the 3d view");
-    sWhatsThis    = "Std_TransformManip";
-    sPixmap       = "Std_TransformManip";
-}
-
-void StdCmdTransformManip::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    if (getActiveGuiDocument()->getInEdit())
-        getActiveGuiDocument()->resetEdit();
-    std::vector<App::DocumentObject*> sel = Gui::Selection().getObjectsOfType(App::GeoFeature::getClassTypeId());
-    Gui::ViewProvider* vp = Application::Instance->getViewProvider(sel.front());
-    // FIXME: Need a way to force 'Transform' edit mode
-    // #0000477: Proper interface for edit modes of view provider
-    if (vp)
-        getActiveGuiDocument()->setEdit(vp, Gui::ViewProvider::Transform);
-}
-
-bool StdCmdTransformManip::isActive()
-{
-    return Gui::Selection().countObjectsOfType(App::GeoFeature::getClassTypeId()) == 1;
-}
-
-//===========================================================================
-// Std_Alignment
-//===========================================================================
-DEF_STD_CMD_A(StdCmdAlignment)
-
-StdCmdAlignment::StdCmdAlignment()
-  : Command("Std_Alignment")
-{
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("Alignment...");
-    sToolTipText  = QT_TR_NOOP("Align the selected objects");
-    sStatusTip    = QT_TR_NOOP("Align the selected objects");
-    sWhatsThis    = "Std_Alignment";
-    sPixmap       = "Std_Alignment";
-}
-
-void StdCmdAlignment::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    std::vector<App::DocumentObject*> sel = Gui::Selection().getObjectsOfType
-        (App::GeoFeature::getClassTypeId());
-    ManualAlignment* align = ManualAlignment::instance();
-    QObject::connect(align, SIGNAL(emitCanceled()), align, SLOT(deleteLater()));
-    QObject::connect(align, SIGNAL(emitFinished()), align, SLOT(deleteLater()));
-
-    // Get the fixed and moving meshes
-    FixedGroup fixedGroup;
-    std::map<int, MovableGroup> groupMap;
-    fixedGroup.addView(sel[0]);
-    groupMap[0].addView(sel[1]);
-
-    // add the fixed group
-    align->setFixedGroup(fixedGroup);
-
-    // create the model of movable groups
-    MovableGroupModel model;
-    model.addGroups(groupMap);
-    align->setModel(model);
-    Base::Type style = Base::Type::fromName("Gui::CADNavigationStyle");
-    Base::Vector3d upDir(0,1,0), viewDir(0,0,-1);
-    Gui::Document* doc = Application::Instance->activeDocument();
-    if (doc) {
-        View3DInventor* mdi = qobject_cast<View3DInventor*>(doc->getActiveView());
-        if (mdi) {
-            View3DInventorViewer* viewer = mdi->getViewer();
-            SoCamera* camera = viewer->getSoRenderManager()->getCamera();
-            if (camera) {
-                SbVec3f up(0,1,0), dir(0,0,-1);
-                camera->orientation.getValue().multVec(dir, dir);
-                viewDir.Set(dir[0],dir[1],dir[2]);
-                camera->orientation.getValue().multVec(up, up);
-                upDir.Set(up[0],up[1],up[2]);
-            }
-            style = viewer->navigationStyle()->getTypeId();
-        }
-    }
-
-    align->setMinPoints(1);
-    align->startAlignment(style);
-    align->setViewingDirections(viewDir,upDir, viewDir,upDir);
-    Gui::Selection().clearSelection();
-}
-
-bool StdCmdAlignment::isActive()
-{
-    if (ManualAlignment::hasInstance())
-        return false;
-    return Gui::Selection().countObjectsOfType(App::GeoFeature::getClassTypeId()) == 2;
-}
-
-//===========================================================================
 // Std_Edit
 //===========================================================================
 DEF_STD_CMD_A(StdCmdEdit)
@@ -1692,243 +1510,12 @@ StdCmdEdit::StdCmdEdit()
 void StdCmdEdit::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    Gui::MDIView* view = Gui::getMainWindow()->activeWindow();
-    if (view && view->isDerivedFrom(Gui::View3DInventor::getClassTypeId())) {
-        Gui::View3DInventorViewer* viewer = static_cast<Gui::View3DInventor*>(view)->getViewer();
-        if (viewer->isEditingViewProvider()) {
-            doCommand(Command::Gui,"Gui.activeDocument().resetEdit()");
-        } else {
-            if (Selection().getCompleteSelection().size() > 0) {
-                SelectionSingleton::SelObj obj = Selection().getCompleteSelection()[0];
-                doCommand(Command::Gui,"Gui.activeDocument().setEdit(\"%s\",0)",obj.FeatName);
-            }
-        }
-    }
 }
 
 bool StdCmdEdit::isActive()
 {
     return (Selection().getCompleteSelection().size() > 0) || (Gui::Control().activeDialog() != nullptr);
 }
-
-//======================================================================
-// StdCmdExpression
-//===========================================================================
-class StdCmdExpression : public Gui::Command
-{
-public:
-    StdCmdExpression() : Command("Std_Expressions")
-                       , pcActionCopyAll(nullptr)
-                       , pcActionCopySel(nullptr)
-                       , pcActionCopyActive(nullptr)
-                       , pcActionPaste(nullptr)
-    {
-        sGroup        = "Edit";
-        sMenuText     = QT_TR_NOOP("Expression actions");
-        sToolTipText  = QT_TR_NOOP("Expression actions");
-        sWhatsThis    = "Std_Expressions";
-        sStatusTip    = QT_TR_NOOP("Expression actions");
-        eType         = ForEdit;
-    }
-
-    virtual const char* className() const {return "StdCmdExpression";}
-protected:
-
-    virtual void activated(int iMsg) {
-        std::map<App::Document*, std::set<App::DocumentObject*> > objs;
-        switch(iMsg) {
-        case 0:
-            for(auto &sel : Selection().getCompleteSelection())
-                objs[sel.pObject->getDocument()].insert(sel.pObject);
-            break;
-        case 1:
-            if(App::GetApplication().getActiveDocument()) {
-                auto doc = App::GetApplication().getActiveDocument();
-                auto array = doc->getObjects();
-                auto &set = objs[doc];
-                set.insert(array.begin(),array.end());
-            }
-            break;
-        case 2:
-            for(auto doc : App::GetApplication().getDocuments()) {
-                auto &set = objs[doc];
-                auto array = doc->getObjects();
-                set.insert(array.begin(),array.end());
-            }
-            break;
-        case 3:
-            pasteExpressions();
-            break;
-        }
-        copyExpressions(objs);
-    }
-
-    virtual Gui::Action * createAction() {
-        ActionGroup* pcAction = new ActionGroup(this, getMainWindow());
-        pcAction->setDropDownMenu(true);
-        applyCommandData(this->className(), pcAction);
-
-        pcActionCopySel = pcAction->addAction(QObject::tr("Copy selected"));
-        pcActionCopyActive = pcAction->addAction(QObject::tr("Copy active document"));
-        pcActionCopyAll = pcAction->addAction(QObject::tr("Copy all documents"));
-        pcActionPaste = pcAction->addAction(QObject::tr("Paste"));
-
-        return pcAction;
-    }
-
-    void copyExpressions(const std::map<App::Document*, std::set<App::DocumentObject*> > &objs) {
-        std::ostringstream ss;
-        std::vector<App::Property*> props;
-        for(auto &v : objs) {
-            for(auto obj : v.second) {
-                props.clear();
-                obj->getPropertyList(props);
-                for(auto prop : props) {
-                    auto p = dynamic_cast<App::PropertyExpressionContainer*>(prop);
-                    if(!p) continue;
-                    for(auto &v : p->getExpressions()) {
-                        ss << "##@@ " << v.first.toString() << ' '
-                           << obj->getFullName() << '.' << p->getName()
-                           << " (" << obj->Label.getValue() << ')' << std::endl;
-                        ss << "##@@";
-                        if(v.second->comment.size()) {
-                            if(v.second->comment[0] == '&'
-                                    || v.second->comment.find('\n') != std::string::npos
-                                    || v.second->comment.find('\r') != std::string::npos)
-                            {
-                                std::string comment = v.second->comment;
-                                boost::replace_all(comment,"&","&amp;");
-                                boost::replace_all(comment,"\n","&#10;");
-                                boost::replace_all(comment,"\r","&#13;");
-                                ss << '&' << comment;
-                            }else
-                                ss << v.second->comment;
-                        }
-                        ss << std::endl << v.second->toString(true) << std::endl << std::endl;
-                    }
-                }
-            }
-        }
-        QApplication::clipboard()->setText(QString::fromUtf8(ss.str().c_str()));
-    }
-
-    void pasteExpressions() {
-        std::map<App::Document*, std::map<App::PropertyExpressionContainer*,
-            std::map<App::ObjectIdentifier, App::ExpressionPtr> > > exprs;
-
-        bool failed = false;
-        std::string txt = QApplication::clipboard()->text().toUtf8().constData();
-        const char *tstart = txt.c_str();
-        const char *tend = tstart + txt.size();
-
-        static boost::regex rule("^##@@ ([^ ]+) (\\w+)#(\\w+)\\.(\\w+) [^\n]+\n##@@([^\n]*)\n");
-        boost::cmatch m;
-        if(!boost::regex_search(tstart,m,rule)) {
-            RPS_WARN("No expression header found");
-            return;
-        }
-        boost::cmatch m2;
-        bool found = true;
-        for(;found;m=m2) {
-            found = boost::regex_search(m[0].second,tend,m2,rule);
-
-            auto pathName = m.str(1);
-            auto docName = m.str(2);
-            auto objName = m.str(3);
-            auto propName = m.str(4);
-            auto comment = m.str(5);
-
-            App::Document *doc = App::GetApplication().getDocument(docName.c_str());
-            if(!doc) {
-                RPS_WARN("Cannot find document '" << docName << "'");
-                continue;
-            }
-
-            auto obj = doc->getObject(objName.c_str());
-            if(!obj) {
-                RPS_WARN("Cannot find object '" << docName << '#' << objName << "'");
-                continue;
-            }
-
-            auto prop = dynamic_cast<App::PropertyExpressionContainer*>(
-                    obj->getPropertyByName(propName.c_str()));
-            if(!prop) {
-                RPS_WARN("Invalid property '" << docName << '#' << objName << '.' << propName << "'");
-                continue;
-            }
-
-            size_t len = (found?m2[0].first:tend) - m[0].second;
-            try {
-                App::ExpressionPtr expr(App::Expression::parse(obj,std::string(m[0].second,len)));
-                if(expr && comment.size()) {
-                    if(comment[0] == '&') {
-                        expr->comment = comment.c_str()+1;
-                        boost::replace_all(expr->comment,"&amp;","&");
-                        boost::replace_all(expr->comment,"&#10;","\n");
-                        boost::replace_all(expr->comment,"&#13;","\r");
-                    } else
-                        expr->comment = comment;
-                }
-                exprs[doc][prop][App::ObjectIdentifier::parse(obj,pathName)] = std::move(expr);
-            } catch(Base::Exception &e) {
-                RPS_ERR(e.what() << std::endl << m[0].str());
-                failed = true;
-            }
-        }
-        if(failed) {
-            QMessageBox::critical(getMainWindow(), QObject::tr("Expression error"),
-                QObject::tr("Failed to parse some of the expressions.\n"
-                            "Please check the Report View for more details."));
-            return;
-        }
-
-        openCommand(QT_TRANSLATE_NOOP("Command", "Paste expressions"));
-        try {
-            for(auto &v : exprs) {
-                for(auto &v2 : v.second) {
-                    auto &expressions = v2.second;
-                    auto old = v2.first->getExpressions();
-                    for(auto it=expressions.begin(),itNext=it;it!=expressions.end();it=itNext) {
-                        ++itNext;
-                        auto iter = old.find(it->first);
-                        if(iter != old.end() && it->second->isSame(*iter->second))
-                            expressions.erase(it);
-                    }
-                    if(expressions.size())
-                        v2.first->setExpressions(std::move(expressions));
-                }
-            }
-            commitCommand();
-        } catch (const Base::Exception& e) {
-            abortCommand();
-            QMessageBox::critical(getMainWindow(), QObject::tr("Failed to paste expressions"),
-                QString::fromLatin1(e.what()));
-            e.ReportException();
-        }
-    }
-
-    bool isActive() {
-        if(!App::GetApplication().getActiveDocument()) {
-            pcActionCopyAll->setEnabled(false);
-            pcActionCopySel->setEnabled(false);
-            pcActionCopyActive->setEnabled(false);
-            pcActionPaste->setEnabled(false);
-            return true;
-        }
-        pcActionCopyActive->setEnabled(true);
-        pcActionCopyAll->setEnabled(true);
-        pcActionCopySel->setEnabled(Selection().hasSelection());
-
-        pcActionPaste->setEnabled(
-                QApplication::clipboard()->text().startsWith(QLatin1String("##@@ ")));
-        return true;
-    }
-
-    QAction *pcActionCopyAll;
-    QAction *pcActionCopySel;
-    QAction *pcActionCopyActive;
-    QAction *pcActionPaste;
-};
 
 namespace Gui {
 
@@ -1963,12 +1550,7 @@ void CreateDocCommands()
     rcCmdMgr.addCommand(new StdCmdSelectAll());
     rcCmdMgr.addCommand(new StdCmdDelete());
     rcCmdMgr.addCommand(new StdCmdRefresh());
-    rcCmdMgr.addCommand(new StdCmdTransform());
-    rcCmdMgr.addCommand(new StdCmdPlacement());
-    rcCmdMgr.addCommand(new StdCmdTransformManip());
-    rcCmdMgr.addCommand(new StdCmdAlignment());
     rcCmdMgr.addCommand(new StdCmdEdit());
-    rcCmdMgr.addCommand(new StdCmdExpression());
 }
 
 } // namespace Gui

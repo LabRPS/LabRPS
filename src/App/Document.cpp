@@ -100,12 +100,10 @@ recompute path. Also, it enables more complicated dependencies beyond trees.
 #include "DocumentObserver.h"
 #include "DocumentObject.h"
 #include "ExpressionParser.h"
-#include "GeoFeature.h"
-#include "GeoFeatureGroupExtension.h"
+#include "RPSFeature.h"
+//#include "GeoFeatureGroupExtension.h"
 #include "Link.h"
 #include "MergeDocuments.h"
-#include "Origin.h"
-#include "OriginGroupExtension.h"
 #include "Transactions.h"
 #include "RPSFeature.h"
 
@@ -429,14 +427,14 @@ void Document::exportGraphviz(std::ostream& out) const
 
                 Graph* graph = nullptr;
                 graph = &DepList;
-                if (CSsubgraphs) {
+                /*if (CSsubgraphs) {
                     auto group = GeoFeatureGroupExtension::getGroupOfObject(obj);
                     if (group) {
                         auto it = GraphList.find(group);
                         if (it != GraphList.end())
                             graph = it->second;
                     }
-                }
+                }*/
 
                 // If documentObject has an expression, create a subgraph for it
                 if (graph && !GraphList[obj]) {
@@ -459,7 +457,7 @@ void Document::exportGraphviz(std::ostream& out) const
                         // Doesn't exist already?
                         if (o && !GraphList[o]) {
 
-                            if (CSsubgraphs) {
+                            /*if (CSsubgraphs) {
                                 auto group = GeoFeatureGroupExtension::getGroupOfObject(o);
                                 auto graph2 = group ? GraphList[group] : &DepList;
                                 if (graph2) {
@@ -467,7 +465,7 @@ void Document::exportGraphviz(std::ostream& out) const
                                     setGraphAttributes(o);
                                 }
                             }
-                            else if (graph) {
+                            else */if (graph) {
                                 GraphList[o] = &graph->create_subgraph();
                                 setGraphAttributes(o);
                             }
@@ -494,7 +492,7 @@ void Document::exportGraphviz(std::ostream& out) const
             //find the correct graph to add the vertex to. Check first expression graphs, afterwards
             //the parent CS and origin graphs
             Graph * sgraph = GraphList[docObj];
-            if(CSSubgraphs) {
+            /*if(CSSubgraphs) {
                 if(!sgraph) {
                     auto group = GeoFeatureGroupExtension::getGroupOfObject(docObj);
                     if(group) {
@@ -508,7 +506,7 @@ void Document::exportGraphviz(std::ostream& out) const
                     if(docObj->isDerivedFrom(OriginFeature::getClassTypeId()))
                         sgraph = GraphList[static_cast<OriginFeature*>(docObj)->getOrigin()];
                 }
-            }
+            }*/
             if(!sgraph)
                 sgraph = &DepList;
 
@@ -600,18 +598,18 @@ void Document::exportGraphviz(std::ostream& out) const
             get_property(sub, graph_graph_attribute)["style"] = "rounded,filled";
             setGraphLabel(sub, cs);
 
-            for(auto obj : cs->getOutList()) {
-                if (obj->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId())) {
-                    // in case of dependencies loops check if obj is already part of the
-                    // map to avoid infinite recursions
-                    auto it = GraphList.find(obj);
-                    if (it == GraphList.end())
-                        recursiveCSSubgraphs(obj, cs);
-                }
-            }
+            //for(auto obj : cs->getOutList()) {
+            //    if (obj->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId())) {
+            //        // in case of dependencies loops check if obj is already part of the
+            //        // map to avoid infinite recursions
+            //        auto it = GraphList.find(obj);
+            //        if (it == GraphList.end())
+            //            recursiveCSSubgraphs(obj, cs);
+            //    }
+            //}
 
             //setup the origin if available
-            if(cs->hasExtension(App::OriginGroupExtension::getExtensionClassTypeId())) {
+            /*if(cs->hasExtension(App::OriginGroupExtension::getExtensionClassTypeId())) {
                 auto origin = cs->getExtensionByType<OriginGroupExtension>()->Origin.getValue();
                 if (!origin) {
                     std::cerr << "Origin feature not found" << std::endl;
@@ -622,7 +620,7 @@ void Document::exportGraphviz(std::ostream& out) const
                 get_property(osub, graph_name) = getClusterName(origin);
                 get_property(osub, graph_graph_attribute)["bgcolor"] = "none";
                 setGraphLabel(osub, origin);
-            }
+            }*/
         }
 
         void addSubgraphs() {
@@ -630,17 +628,17 @@ void Document::exportGraphviz(std::ostream& out) const
             ParameterGrp::handle depGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/DependencyGraph");
             bool CSSubgraphs = depGrp->GetBool("GeoFeatureSubgraphs", true);
 
-            if(CSSubgraphs) {
-                //first build up the coordinate system subgraphs
-                for (auto objectIt : d->objectArray) {
-                    // do not require an empty inlist (#0003465: Groups breaking dependency graph)
-                    // App::Origin now has the GeoFeatureGroupExtension but it should not move its
-                    // group symbol outside its parent
-                    if (!objectIt->isDerivedFrom(Origin::getClassTypeId()) &&
-                         objectIt->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId()))
-                        recursiveCSSubgraphs(objectIt, nullptr);
-                }
-            }
+            //if(CSSubgraphs) {
+            //    //first build up the coordinate system subgraphs
+            //    for (auto objectIt : d->objectArray) {
+            //        // do not require an empty inlist (#0003465: Groups breaking dependency graph)
+            //        // App::Origin now has the GeoFeatureGroupExtension but it should not move its
+            //        // group symbol outside its parent
+            //        if (!objectIt->isDerivedFrom(Origin::getClassTypeId()) &&
+            //             objectIt->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId()))
+            //            recursiveCSSubgraphs(objectIt, nullptr);
+            //    }
+            //}
 
             // Internal document objects
             for (auto It = d->objectMap.begin(); It != d->objectMap.end();++It)
@@ -736,15 +734,15 @@ void Document::exportGraphviz(std::ostream& out) const
             // Add edges between document objects
             for (auto It = d->objectMap.begin(); It != d->objectMap.end();++It) {
 
-                if(omitGeoFeatureGroups) {
-                    //coordinate systems are represented by subgraphs
-                    if(It->second->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId()))
-                        continue;
+                //if(omitGeoFeatureGroups) {
+                //    //coordinate systems are represented by subgraphs
+                //    if(It->second->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId()))
+                //        continue;
 
-                    //as well as origins
-                    if(It->second->isDerivedFrom(Origin::getClassTypeId()))
-                        continue;
-                }
+                //    //as well as origins
+                //    if(It->second->isDerivedFrom(Origin::getClassTypeId()))
+                //        continue;
+                //}
 
                 std::map<DocumentObject*, int> dups;
                 std::vector<DocumentObject*> OutList = It->second->getOutList();
@@ -894,18 +892,18 @@ void Document::exportGraphviz(std::ostream& out) const
         void markOutOfScopeLinks() {
             const boost::property_map<Graph, boost::edge_attribute_t>::type& edgeAttrMap = boost::get(boost::edge_attribute, DepList);
 
-            for( auto obj : objects) {
+            //for( auto obj : objects) {
 
-                std::vector<App::DocumentObject*> invalids;
-                GeoFeatureGroupExtension::getInvalidLinkObjects(obj, invalids);
-                //isLinkValid returns true for non-link properties
-                for(auto linkedObj : invalids) {
+            //    std::vector<App::DocumentObject*> invalids;
+            //    GeoFeatureGroupExtension::getInvalidLinkObjects(obj, invalids);
+            //    //isLinkValid returns true for non-link properties
+            //    for(auto linkedObj : invalids) {
 
-                    auto res = edge(GlobalVertexList[getId(obj)], GlobalVertexList[getId(linkedObj)], DepList);
-                    if(res.second)
-                        edgeAttrMap[res.first]["color"] = "red";
-                }
-            }
+            //        auto res = edge(GlobalVertexList[getId(obj)], GlobalVertexList[getId(linkedObj)], DepList);
+            //        if(res.second)
+            //            edgeAttrMap[res.first]["color"] = "red";
+            //    }
+            //}
         }
 
         const struct DocumentP* d;
@@ -3038,7 +3036,7 @@ void Document::getLinksTo(std::set<DocumentObject*> &links,
         else {
             auto ext = o->getExtensionByType<LinkBaseExtension>(true);
             if(ext)
-                linked = ext->getTrueLinkedObject(false,nullptr,0,true);
+                linked = ext->getTrueLinkedObject(false,0,true);
             else
                 linked = o->getLinkedObject(false);
         }

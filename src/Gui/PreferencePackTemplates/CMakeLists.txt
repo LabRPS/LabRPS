@@ -1,15 +1,10 @@
 
 SET(PreferencePackTemplates_Files
-    Arch_Colors.cfg
     Console_Colors.cfg
-    Draft_Colors.cfg
     Editor_Colors.cfg
     Editor_Font.cfg
     Main_window_layout.cfg
-    Path_Colors.cfg
-    Sketcher_Colors.cfg
     Start_Colors.cfg
-    TechDraw_Colors.cfg
     Window_Colors.cfg
 )
 

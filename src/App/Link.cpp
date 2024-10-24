@@ -29,11 +29,8 @@
 #include <Base/Uuid.h>
 
 #include "Application.h"
-#include "ComplexGeoData.h"
-#include "ComplexGeoDataPy.h"
 #include "Document.h"
 #include "DocumentObserver.h"
-#include "GeoFeatureGroupExtension.h"
 #include "Link.h"
 #include "LinkBaseExtensionPy.h"
 
@@ -247,18 +244,6 @@ void LinkBaseExtension::setProperty(int idx, Property *prop) {
     case PropLinkCopyOnChangeSource:
     case PropLinkCopyOnChangeGroup:
         prop->setStatus(Property::Hidden, true);
-        break;
-    case PropLinkTransform:
-    case PropLinkPlacement:
-    case PropPlacement:
-        if(getLinkTransformProperty() &&
-           getLinkPlacementProperty() &&
-           getPlacementProperty())
-        {
-            bool transform = getLinkTransformValue();
-            getPlacementProperty()->setStatus(Property::Hidden,transform);
-            getLinkPlacementProperty()->setStatus(Property::Hidden,!transform);
-        }
         break;
     case PropElementList:
         getElementListProperty()->setScope(LinkScope::Global);
@@ -1052,7 +1037,7 @@ DocumentObject *LinkBaseExtension::getLink(int depth) const{
 }
 
 int LinkBaseExtension::getArrayIndex(const char *subname, const char **psubname) {
-    if(!subname || Data::ComplexGeoData::isMappedElement(subname))
+    if(!subname)
         return -1;
     const char *dot = strchr(subname,'.');
     if(!dot) dot= subname+strlen(subname);
@@ -1074,7 +1059,7 @@ int LinkBaseExtension::getArrayIndex(const char *subname, const char **psubname)
 }
 
 int LinkBaseExtension::getElementIndex(const char *subname, const char **psubname) const {
-    if(!subname || Data::ComplexGeoData::isMappedElement(subname))
+    if(!subname)
         return -1;
     int idx = -1;
     const char *dot = strchr(subname,'.');
@@ -1204,29 +1189,6 @@ void LinkBaseExtension::elementNameFromIndex(int idx, std::ostream &ss) const {
     ss << obj->getNameInDocument() << '.';
 }
 
-Base::Vector3d LinkBaseExtension::getScaleVector() const {
-    if(getScaleVectorProperty())
-        return getScaleVectorValue();
-    double s = getScaleValue();
-    return Base::Vector3d(s,s,s);
-}
-
-Base::Matrix4D LinkBaseExtension::getTransform(bool transform) const {
-    Base::Matrix4D mat;
-    if(transform) {
-        if(getLinkPlacementProperty())
-            mat = getLinkPlacementValue().toMatrix();
-        else if(getPlacementProperty())
-            mat = getPlacementValue().toMatrix();
-    }
-    if(getScaleProperty() || getScaleVectorProperty()) {
-        Base::Matrix4D s;
-        s.scale(getScaleVector());
-        mat *= s;
-    }
-    return mat;
-}
-
 bool LinkBaseExtension::extensionGetSubObjects(std::vector<std::string> &ret, int reason) const {
     if(!getLinkedObjectProperty() && getElementListProperty()) {
         for(auto obj : getElementListProperty()->getValues()) {
@@ -1258,159 +1220,140 @@ bool LinkBaseExtension::extensionGetSubObjects(std::vector<std::string> &ret, in
 }
 
 bool LinkBaseExtension::extensionGetSubObject(DocumentObject *&ret, const char *subname,
-        PyObject **pyObj, Base::Matrix4D *mat, bool transform, int depth) const
+        PyObject **pyObj, int depth) const
 {
-    ret = nullptr;
-    auto obj = getContainer();
-    if(!subname || !subname[0]) {
-        ret = const_cast<DocumentObject*>(obj);
-        Base::Matrix4D _mat;
-        if(mat) {
-            // 'mat' here is used as an output to return the accumulated
-            // transformation up until this object. Since 'subname' is empty
-            // here, it means the we are at the end of the hierarchy. We shall
-            // not include scale in the output transformation.
-            //
-            // Think of it this way, the transformation along object hierarchy
-            // is public, while transformation through linkage is private to
-            // link itself.
-            if(transform) {
-                if(getLinkPlacementProperty())
-                    *mat *= getLinkPlacementValue().toMatrix();
-                else if(getPlacementProperty())
-                    *mat *= getPlacementValue().toMatrix();
-            }
-            _mat = *mat;
-        }
+    //ret = nullptr;
+    //auto obj = getContainer();
+    //if(!subname || !subname[0]) {
+    //    ret = const_cast<DocumentObject*>(obj);
 
-        if(pyObj && !_getElementCountValue()
-                && _getElementListValue().empty() && mySubElements.size()<=1)
-        {
-            // Scale will be included here
-            if(getScaleProperty() || getScaleVectorProperty()) {
-                Base::Matrix4D s;
-                s.scale(getScaleVector());
-                _mat *= s;
-            }
-            auto linked = getTrueLinkedObject(false,&_mat,depth);
-            if(linked && linked!=obj) {
-                linked->getSubObject(mySubElements.empty()?nullptr:mySubElements.front().c_str(),
-                                     pyObj,&_mat,false,depth+1);
-                checkGeoElementMap(obj,linked,pyObj,nullptr);
-            }
-        }
-        return true;
-    }
+    //    if(pyObj && !_getElementCountValue()
+    //            && _getElementListValue().empty() && mySubElements.size()<=1)
+    //    {
+    //        // Scale will be included here
+    //        if(getScaleProperty() || getScaleVectorProperty()) {
+    //            Base::Matrix4D s;
+    //            s.scale(getScaleVector());
+    //            _mat *= s;
+    //        }
+    //        auto linked = getTrueLinkedObject(false,depth);
+    //        if(linked && linked!=obj) {
+    //            linked->getSubObject(mySubElements.empty()?nullptr:mySubElements.front().c_str(),
+    //                                 pyObj,&_mat,false,depth+1);
+    //            checkGeoElementMap(obj,linked,pyObj,nullptr);
+    //        }
+    //    }
+    //    return true;
+    //}
 
-    if(mat) *mat *= getTransform(transform);
+    //if(mat) *mat *= getTransform(transform);
 
-    //DocumentObject *element = 0;
-    bool isElement = false;
-    int idx = getElementIndex(subname,&subname);
-    if(idx>=0) {
-        const auto &elements = _getElementListValue();
-        if(elements.size()) {
-            if(idx>=(int)elements.size() || !elements[idx] || !elements[idx]->getNameInDocument())
-                return true;
-            ret = elements[idx]->getSubObject(subname,pyObj,mat,true,depth+1);
-            // do not resolve the link if this element is the last referenced object
-            if(!subname || Data::ComplexGeoData::isMappedElement(subname) || !strchr(subname,'.'))
-                ret = elements[idx];
-            return true;
-        }
+    ////DocumentObject *element = 0;
+    //bool isElement = false;
+    //int idx = getElementIndex(subname,&subname);
+    //if(idx>=0) {
+    //    const auto &elements = _getElementListValue();
+    //    if(elements.size()) {
+    //        if(idx>=(int)elements.size() || !elements[idx] || !elements[idx]->getNameInDocument())
+    //            return true;
+    //        ret = elements[idx]->getSubObject(subname,pyObj,mat,true,depth+1);
+    //        // do not resolve the link if this element is the last referenced object
+    //        if(!subname || Data::ComplexGeoData::isMappedElement(subname) || !strchr(subname,'.'))
+    //            ret = elements[idx];
+    //        return true;
+    //    }
 
-        int elementCount = _getElementCountValue();
-        if(idx>=elementCount)
-            return true;
-        isElement = true;
-        if(mat) {
-            auto placementList = getPlacementListProperty();
-            if(placementList && placementList->getSize()>idx)
-                *mat *= (*placementList)[idx].toMatrix();
-            auto scaleList = getScaleListProperty();
-            if(scaleList && scaleList->getSize()>idx) {
-                Base::Matrix4D s;
-                s.scale((*scaleList)[idx]);
-                *mat *= s;
-            }
-        }
-    }
+    //    int elementCount = _getElementCountValue();
+    //    if(idx>=elementCount)
+    //        return true;
+    //    isElement = true;
+    //    if(mat) {
+    //        auto placementList = getPlacementListProperty();
+    //        if(placementList && placementList->getSize()>idx)
+    //            *mat *= (*placementList)[idx].toMatrix();
+    //        auto scaleList = getScaleListProperty();
+    //        if(scaleList && scaleList->getSize()>idx) {
+    //            Base::Matrix4D s;
+    //            s.scale((*scaleList)[idx]);
+    //            *mat *= s;
+    //        }
+    //    }
+    //}
 
-    auto linked = getTrueLinkedObject(false,mat,depth);
-    if(!linked || linked==obj)
-        return true;
+    //auto linked = getTrueLinkedObject(false,mat,depth);
+    //if(!linked || linked==obj)
+    //    return true;
 
-    Base::Matrix4D matNext;
+    //Base::Matrix4D matNext;
 
-    // Because of the addition of LinkClaimChild, the linked object may be
-    // claimed as the first child. Regardless of the current value of
-    // LinkClaimChild, we must accept sub-object path that contains the linked
-    // object, because other link property may store such reference.
-    if (const char* dot=strchr(subname,'.')) {
-        auto group = getLinkCopyOnChangeGroupValue();
-        if (subname[0] == '$') {
-            CharRange sub(subname+1,dot);
-            if (group && boost::equals(sub, group->Label.getValue()))
-                linked = group;
-            else if(!boost::equals(sub, linked->Label.getValue()))
-                dot = nullptr;
-        } else {
-            CharRange sub(subname,dot);
-            if (group && boost::equals(sub, group->getNameInDocument()))
-                linked = group;
-            else if (!boost::equals(sub, linked->getNameInDocument()))
-                dot = nullptr;
-        }
-        if (dot) {
-            // Because of external linked object, It is possible for and
-            // child object to have the exact same internal name or label
-            // as the parent object. To resolve this potential ambiguity,
-            // try assuming the current subname is referring to the parent
-            // (i.e. the linked object), and if it fails, try again below.
-            if(mat) matNext = *mat;
-            ret = linked->getSubObject(dot+1,pyObj,mat?&matNext:nullptr,false,depth+1);
-            if (ret && dot[1])
-                subname = dot+1;
-        }
-    }
+    //// Because of the addition of LinkClaimChild, the linked object may be
+    //// claimed as the first child. Regardless of the current value of
+    //// LinkClaimChild, we must accept sub-object path that contains the linked
+    //// object, because other link property may store such reference.
+    //if (const char* dot=strchr(subname,'.')) {
+    //    auto group = getLinkCopyOnChangeGroupValue();
+    //    if (subname[0] == '$') {
+    //        CharRange sub(subname+1,dot);
+    //        if (group && boost::equals(sub, group->Label.getValue()))
+    //            linked = group;
+    //        else if(!boost::equals(sub, linked->Label.getValue()))
+    //            dot = nullptr;
+    //    } else {
+    //        CharRange sub(subname,dot);
+    //        if (group && boost::equals(sub, group->getNameInDocument()))
+    //            linked = group;
+    //        else if (!boost::equals(sub, linked->getNameInDocument()))
+    //            dot = nullptr;
+    //    }
+    //    if (dot) {
+    //        // Because of external linked object, It is possible for and
+    //        // child object to have the exact same internal name or label
+    //        // as the parent object. To resolve this potential ambiguity,
+    //        // try assuming the current subname is referring to the parent
+    //        // (i.e. the linked object), and if it fails, try again below.
+    //        if(mat) matNext = *mat;
+    //        ret = linked->getSubObject(dot+1,pyObj,mat?&matNext:nullptr,false,depth+1);
+    //        if (ret && dot[1])
+    //            subname = dot+1;
+    //    }
+    //}
 
-    if (!ret) {
-        if(mat) matNext = *mat;
-        ret = linked->getSubObject(subname,pyObj,mat?&matNext:nullptr,false,depth+1);
-    }
+    //if (!ret) {
+    //    if(mat) matNext = *mat;
+    //    ret = linked->getSubObject(subname,pyObj,mat?&matNext:nullptr,false,depth+1);
+    //}
 
-    std::string postfix;
-    if(ret) {
-        // do not resolve the link if we are the last referenced object
-        if(subname && !Data::ComplexGeoData::isMappedElement(subname) && strchr(subname,'.')) {
-            if(mat)
-                *mat = matNext;
-        }
-        // This is a useless check as 'element' is never set to a value other than null
-        //else if(element) {
-        //    ret = element;
-        //}
-        else if(!isElement) {
-            ret = const_cast<DocumentObject*>(obj);
-        }
-        else {
-            if(idx) {
-                postfix = Data::ComplexGeoData::indexPostfix();
-                postfix += std::to_string(idx);
-            }
-            if(mat)
-                *mat = matNext;
-        }
-    }
-    checkGeoElementMap(obj,linked,pyObj,postfix.size()?postfix.c_str():nullptr);
+    //std::string postfix;
+    //if(ret) {
+    //    // do not resolve the link if we are the last referenced object
+    //    if(subname && !Data::ComplexGeoData::isMappedElement(subname) && strchr(subname,'.')) {
+    //        if(mat)
+    //            *mat = matNext;
+    //    }
+    //    // This is a useless check as 'element' is never set to a value other than null
+    //    //else if(element) {
+    //    //    ret = element;
+    //    //}
+    //    else if(!isElement) {
+    //        ret = const_cast<DocumentObject*>(obj);
+    //    }
+    //    else {
+    //        if(idx) {
+    //            postfix = Data::ComplexGeoData::indexPostfix();
+    //            postfix += std::to_string(idx);
+    //        }
+    //        if(mat)
+    //            *mat = matNext;
+    //    }
+    //}
+    //checkGeoElementMap(obj,linked,pyObj,postfix.size()?postfix.c_str():nullptr);
     return true;
 }
 
 void LinkBaseExtension::checkGeoElementMap(const App::DocumentObject *obj,
         const App::DocumentObject *linked, PyObject **pyObj, const char *postfix) const
 {
-    if(!pyObj || !*pyObj || (!postfix && obj->getDocument()==linked->getDocument()) ||
-       !PyObject_TypeCheck(*pyObj, &Data::ComplexGeoDataPy::Type))
+    if(!pyObj || !*pyObj || (!postfix && obj->getDocument()==linked->getDocument()))
         return;
 
     // auto geoData = static_cast<Data::ComplexGeoDataPy*>(*pyObj)->getComplexGeoDataPtr();
@@ -1428,7 +1371,7 @@ void LinkBaseExtension::onExtendedUnsetupObject() {
 }
 
 DocumentObject *LinkBaseExtension::getTrueLinkedObject(
-        bool recurse, Base::Matrix4D *mat, int depth, bool noElement) const
+        bool recurse, int depth, bool noElement) const
 {
     if(noElement && extensionIsDerivedFrom(LinkElement::getExtensionClassTypeId())
             && !static_cast<const LinkElement*>(this)->canDelete())
@@ -1439,27 +1382,23 @@ DocumentObject *LinkBaseExtension::getTrueLinkedObject(
     auto ret = getLink(depth);
     if(!ret)
         return nullptr;
-    bool transform = linkTransform();
     const char *subname = getSubName();
-    if(subname || (mat && transform)) {
-        ret = ret->getSubObject(subname,nullptr,mat,transform,depth+1);
-        transform = false;
+    if(subname) {
+        ret = ret->getSubObject(subname,nullptr,depth+1);
     }
     if(ret && recurse)
-        ret = ret->getLinkedObject(recurse,mat,transform,depth+1);
+        ret = ret->getLinkedObject(recurse,depth+1);
     if(ret && !ret->getNameInDocument())
         return nullptr;
     return ret;
 }
 
 bool LinkBaseExtension::extensionGetLinkedObject(DocumentObject *&ret,
-        bool recurse, Base::Matrix4D *mat, bool transform, int depth) const
+        bool recurse,int depth) const
 {
-    if(mat)
-        *mat *= getTransform(transform);
     ret = nullptr;
     if(!_getElementCountValue())
-        ret = getTrueLinkedObject(recurse,mat,depth);
+        ret = getTrueLinkedObject(recurse,depth);
     if(!ret)
         ret = const_cast<DocumentObject*>(getContainer());
     // always return true to indicate we've handled getLinkObject() call
@@ -1474,36 +1413,36 @@ void LinkBaseExtension::extensionOnChanged(const Property *prop) {
 }
 
 void LinkBaseExtension::parseSubName() const {
-    // If user has ever linked to some sub-element, the Link shall always accept
-    // sub-element linking in the future, which affects how ViewProviderLink
-    // dropObjectEx() behave. So we will push an empty string later even if no
-    // sub-element linking this time.
-    bool hasSubElement = !mySubElements.empty();
-    mySubElements.clear();
-    mySubName.clear();
-    auto xlink = labrps_dynamic_cast<const PropertyXLink>(getLinkedObjectProperty());
-    if(!xlink || xlink->getSubValues().empty()) {
-        if(hasSubElement)
-            mySubElements.emplace_back("");
-        return;
-    }
-    const auto &subs = xlink->getSubValues();
-    auto subname = subs.front().c_str();
-    auto element = Data::ComplexGeoData::findElementName(subname);
-    if(!element || !element[0]) {
-        mySubName = subs[0];
-        if(hasSubElement)
-            mySubElements.emplace_back("");
-        return;
-    }
-    mySubElements.push_back(element);
-    mySubName = std::string(subname,element-subname);
-    for(std::size_t i=1;i<subs.size();++i) {
-        auto &sub = subs[i];
-        element = Data::ComplexGeoData::findElementName(sub.c_str());
-        if(element && element[0] && boost::starts_with(sub,mySubName))
-            mySubElements.push_back(element);
-    }
+    //// If user has ever linked to some sub-element, the Link shall always accept
+    //// sub-element linking in the future, which affects how ViewProviderLink
+    //// dropObjectEx() behave. So we will push an empty string later even if no
+    //// sub-element linking this time.
+    //bool hasSubElement = !mySubElements.empty();
+    //mySubElements.clear();
+    //mySubName.clear();
+    //auto xlink = labrps_dynamic_cast<const PropertyXLink>(getLinkedObjectProperty());
+    //if(!xlink || xlink->getSubValues().empty()) {
+    //    if(hasSubElement)
+    //        mySubElements.emplace_back("");
+    //    return;
+    //}
+    //const auto &subs = xlink->getSubValues();
+    //auto subname = subs.front().c_str();
+    //auto element = Data::ComplexGeoData::findElementName(subname);
+    //if(!element || !element[0]) {
+    //    mySubName = subs[0];
+    //    if(hasSubElement)
+    //        mySubElements.emplace_back("");
+    //    return;
+    //}
+    //mySubElements.push_back(element);
+    //mySubName = std::string(subname,element-subname);
+    //for(std::size_t i=1;i<subs.size();++i) {
+    //    auto &sub = subs[i];
+    //    element = Data::ComplexGeoData::findElementName(sub.c_str());
+    //    if(element && element[0] && boost::starts_with(sub,mySubName))
+    //        mySubElements.push_back(element);
+    //}
 }
 
 void LinkBaseExtension::slotChangedPlainGroup(const App::DocumentObject &obj, const App::Property &prop) {
@@ -1571,287 +1510,287 @@ void LinkBaseExtension::updateGroup() {
 }
 
 void LinkBaseExtension::update(App::DocumentObject *parent, const Property *prop) {
-    if(!prop)
-        return;
+    //if(!prop)
+    //    return;
 
-    if(prop == getLinkPlacementProperty() || prop == getPlacementProperty()) {
-        auto src = getLinkPlacementProperty();
-        auto dst = getPlacementProperty();
-        if(src!=prop) std::swap(src,dst);
-        if(src && dst) {
-            dst->setStatus(Property::User3,true);
-            dst->setValue(src->getValue());
-            dst->setStatus(Property::User3,false);
-        }
-    }else if(prop == getScaleProperty()) {
-        if(!prop->testStatus(Property::User3) && getScaleVectorProperty()) {
-            auto s = getScaleValue();
-            auto p = getScaleVectorProperty();
-            p->setStatus(Property::User3,true);
-            p->setValue(s,s,s);
-            p->setStatus(Property::User3,false);
-        }
-    }else if(prop == getScaleVectorProperty()) {
-        if(!prop->testStatus(Property::User3) && getScaleProperty()) {
-            const auto &v = getScaleVectorValue();
-            if(v.x == v.y && v.x == v.z) {
-                auto p = getScaleProperty();
-                p->setStatus(Property::User3,true);
-                p->setValue(v.x);
-                p->setStatus(Property::User3,false);
-            }
-        }
-    }else if(prop == _getShowElementProperty()) {
-        if(_getShowElementValue())
-            update(parent,_getElementCountProperty());
-        else {
-            auto objs = getElementListValue();
+    //if(prop == getLinkPlacementProperty() || prop == getPlacementProperty()) {
+    //    auto src = getLinkPlacementProperty();
+    //    auto dst = getPlacementProperty();
+    //    if(src!=prop) std::swap(src,dst);
+    //    if(src && dst) {
+    //        dst->setStatus(Property::User3,true);
+    //        dst->setValue(src->getValue());
+    //        dst->setStatus(Property::User3,false);
+    //    }
+    //}else if(prop == getScaleProperty()) {
+    //    if(!prop->testStatus(Property::User3) && getScaleVectorProperty()) {
+    //        auto s = getScaleValue();
+    //        auto p = getScaleVectorProperty();
+    //        p->setStatus(Property::User3,true);
+    //        p->setValue(s,s,s);
+    //        p->setStatus(Property::User3,false);
+    //    }
+    //}else if(prop == getScaleVectorProperty()) {
+    //    if(!prop->testStatus(Property::User3) && getScaleProperty()) {
+    //        const auto &v = getScaleVectorValue();
+    //        if(v.x == v.y && v.x == v.z) {
+    //            auto p = getScaleProperty();
+    //            p->setStatus(Property::User3,true);
+    //            p->setValue(v.x);
+    //            p->setStatus(Property::User3,false);
+    //        }
+    //    }
+    //}else if(prop == _getShowElementProperty()) {
+    //    if(_getShowElementValue())
+    //        update(parent,_getElementCountProperty());
+    //    else {
+    //        auto objs = getElementListValue();
 
-            // preserve element properties in ourself
-            std::vector<Base::Placement> placements;
-            placements.reserve(objs.size());
-            std::vector<Base::Vector3d> scales;
-            scales.reserve(objs.size());
-            for(size_t i=0;i<objs.size();++i) {
-                auto element = labrps_dynamic_cast<LinkElement>(objs[i]);
-                if(element) {
-                    placements.push_back(element->Placement.getValue());
-                    scales.push_back(element->getScaleVector());
-                }else{
-                    placements.emplace_back();
-                    scales.emplace_back(1,1,1);
-                }
-            }
-            // touch the property again to make sure view provider has been
-            // signaled before clearing the elements
-            getShowElementProperty()->setStatus(App::Property::User3,true);
-            getShowElementProperty()->touch();
-            getShowElementProperty()->setStatus(App::Property::User3,false);
+    //        // preserve element properties in ourself
+    //        std::vector<Base::Placement> placements;
+    //        placements.reserve(objs.size());
+    //        std::vector<Base::Vector3d> scales;
+    //        scales.reserve(objs.size());
+    //        for(size_t i=0;i<objs.size();++i) {
+    //            auto element = labrps_dynamic_cast<LinkElement>(objs[i]);
+    //            if(element) {
+    //                placements.push_back(element->Placement.getValue());
+    //                scales.push_back(element->getScaleVector());
+    //            }else{
+    //                placements.emplace_back();
+    //                scales.emplace_back(1,1,1);
+    //            }
+    //        }
+    //        // touch the property again to make sure view provider has been
+    //        // signaled before clearing the elements
+    //        getShowElementProperty()->setStatus(App::Property::User3,true);
+    //        getShowElementProperty()->touch();
+    //        getShowElementProperty()->setStatus(App::Property::User3,false);
 
-            getElementListProperty()->setValues(std::vector<App::DocumentObject*>());
+    //        getElementListProperty()->setValues(std::vector<App::DocumentObject*>());
 
-            if(getPlacementListProperty()) {
-                getPlacementListProperty()->setStatus(Property::User3,getScaleListProperty()!=nullptr);
-                getPlacementListProperty()->setValue(placements);
-                getPlacementListProperty()->setStatus(Property::User3,false);
-            }
-            if(getScaleListProperty())
-                getScaleListProperty()->setValue(scales);
+    //        if(getPlacementListProperty()) {
+    //            getPlacementListProperty()->setStatus(Property::User3,getScaleListProperty()!=nullptr);
+    //            getPlacementListProperty()->setValue(placements);
+    //            getPlacementListProperty()->setStatus(Property::User3,false);
+    //        }
+    //        if(getScaleListProperty())
+    //            getScaleListProperty()->setValue(scales);
 
-            for(auto obj : objs) {
-                if(obj && obj->getNameInDocument())
-                    obj->getDocument()->removeObject(obj->getNameInDocument());
-            }
-        }
-    }else if(prop == _getElementCountProperty()) {
-        size_t elementCount = getElementCountValue()<0?0:(size_t)getElementCountValue();
+    //        for(auto obj : objs) {
+    //            if(obj && obj->getNameInDocument())
+    //                obj->getDocument()->removeObject(obj->getNameInDocument());
+    //        }
+    //    }
+    //}else if(prop == _getElementCountProperty()) {
+    //    size_t elementCount = getElementCountValue()<0?0:(size_t)getElementCountValue();
 
-        auto propVis = getVisibilityListProperty();
-        if(propVis) {
-            if(propVis->getSize()>(int)elementCount)
-                propVis->setSize(getElementCountValue(),true);
-        }
+    //    auto propVis = getVisibilityListProperty();
+    //    if(propVis) {
+    //        if(propVis->getSize()>(int)elementCount)
+    //            propVis->setSize(getElementCountValue(),true);
+    //    }
 
-        if(!_getShowElementValue()) {
-            if(getScaleListProperty()) {
-                auto scales = getScaleListValue();
-                scales.resize(elementCount,Base::Vector3d(1,1,1));
-                getScaleListProperty()->setStatus(Property::User3,true);
-                getScaleListProperty()->setValue(scales);
-                getScaleListProperty()->setStatus(Property::User3,false);
-            }
-            if(getPlacementListProperty()) {
-                auto placements = getPlacementListValue();
-                if(placements.size()<elementCount) {
-                    for(size_t i=placements.size();i<elementCount;++i)
-                        placements.emplace_back(Base::Vector3d(i%10,(i/10)%10,i/100),Base::Rotation());
-                }else
-                    placements.resize(elementCount);
-                getPlacementListProperty()->setStatus(Property::User3,true);
-                getPlacementListProperty()->setValue(placements);
-                getPlacementListProperty()->setStatus(Property::User3,false);
-            }
-        }else if(getElementListProperty()) {
-            auto objs = getElementListValue();
-            if(elementCount>objs.size()) {
-                std::string name = parent->getNameInDocument();
-                auto doc = parent->getDocument();
-                name += "_i";
-                name = doc->getUniqueObjectName(name.c_str());
-                if(name[name.size()-1] != 'i')
-                    name += "_i";
-                auto offset = name.size();
-                auto placementProp = getPlacementListProperty();
-                auto scaleProp = getScaleListProperty();
-                const auto &vis = getVisibilityListValue();
+    //    if(!_getShowElementValue()) {
+    //        if(getScaleListProperty()) {
+    //            auto scales = getScaleListValue();
+    //            scales.resize(elementCount,Base::Vector3d(1,1,1));
+    //            getScaleListProperty()->setStatus(Property::User3,true);
+    //            getScaleListProperty()->setValue(scales);
+    //            getScaleListProperty()->setStatus(Property::User3,false);
+    //        }
+    //        if(getPlacementListProperty()) {
+    //            auto placements = getPlacementListValue();
+    //            if(placements.size()<elementCount) {
+    //                for(size_t i=placements.size();i<elementCount;++i)
+    //                    placements.emplace_back(Base::Vector3d(i%10,(i/10)%10,i/100),Base::Rotation());
+    //            }else
+    //                placements.resize(elementCount);
+    //            getPlacementListProperty()->setStatus(Property::User3,true);
+    //            getPlacementListProperty()->setValue(placements);
+    //            getPlacementListProperty()->setStatus(Property::User3,false);
+    //        }
+    //    }else if(getElementListProperty()) {
+    //        auto objs = getElementListValue();
+    //        if(elementCount>objs.size()) {
+    //            std::string name = parent->getNameInDocument();
+    //            auto doc = parent->getDocument();
+    //            name += "_i";
+    //            name = doc->getUniqueObjectName(name.c_str());
+    //            if(name[name.size()-1] != 'i')
+    //                name += "_i";
+    //            auto offset = name.size();
+    //            auto placementProp = getPlacementListProperty();
+    //            auto scaleProp = getScaleListProperty();
+    //            const auto &vis = getVisibilityListValue();
 
-                auto owner = getContainer();
-                long ownerID = owner?owner->getID():0;
+    //            auto owner = getContainer();
+    //            long ownerID = owner?owner->getID():0;
 
-                for(size_t i=objs.size();i<elementCount;++i) {
-                    name.resize(offset);
-                    name += std::to_string(i);
+    //            for(size_t i=objs.size();i<elementCount;++i) {
+    //                name.resize(offset);
+    //                name += std::to_string(i);
 
-                    // It is possible to have orphan LinkElement here due to,
-                    // for example, undo and redo. So we try to re-claim the
-                    // children element first.
-                    auto obj = labrps_dynamic_cast<LinkElement>(doc->getObject(name.c_str()));
-                    if(obj && (!obj->_LinkOwner.getValue() || obj->_LinkOwner.getValue()==ownerID)) {
-                        obj->Visibility.setValue(false);
-                    } else {
-                        obj = new LinkElement;
-                        parent->getDocument()->addObject(obj,name.c_str());
-                    }
+    //                // It is possible to have orphan LinkElement here due to,
+    //                // for example, undo and redo. So we try to re-claim the
+    //                // children element first.
+    //                auto obj = labrps_dynamic_cast<LinkElement>(doc->getObject(name.c_str()));
+    //                if(obj && (!obj->_LinkOwner.getValue() || obj->_LinkOwner.getValue()==ownerID)) {
+    //                    obj->Visibility.setValue(false);
+    //                } else {
+    //                    obj = new LinkElement;
+    //                    parent->getDocument()->addObject(obj,name.c_str());
+    //                }
 
-                    if(vis.size()>i && !vis[i])
-                        myHiddenElements.insert(obj);
+    //                if(vis.size()>i && !vis[i])
+    //                    myHiddenElements.insert(obj);
 
-                    if(placementProp && placementProp->getSize()>(int)i)
-                        obj->Placement.setValue(placementProp->getValues()[i]);
-                    else{
-                        Base::Placement pla(Base::Vector3d(i%10,(i/10)%10,i/100),Base::Rotation());
-                        obj->Placement.setValue(pla);
-                    }
-                    if(scaleProp && scaleProp->getSize()>(int)i)
-                        obj->Scale.setValue(scaleProp->getValues()[i].x);
-                    else
-                        obj->Scale.setValue(1);
-                    objs.push_back(obj);
-                }
-                if(getPlacementListProperty())
-                    getPlacementListProperty()->setSize(0);
-                if(getScaleListProperty())
-                    getScaleListProperty()->setSize(0);
+    //                if(placementProp && placementProp->getSize()>(int)i)
+    //                    obj->Placement.setValue(placementProp->getValues()[i]);
+    //                else{
+    //                    Base::Placement pla(Base::Vector3d(i%10,(i/10)%10,i/100),Base::Rotation());
+    //                    obj->Placement.setValue(pla);
+    //                }
+    //                if(scaleProp && scaleProp->getSize()>(int)i)
+    //                    obj->Scale.setValue(scaleProp->getValues()[i].x);
+    //                else
+    //                    obj->Scale.setValue(1);
+    //                objs.push_back(obj);
+    //            }
+    //            if(getPlacementListProperty())
+    //                getPlacementListProperty()->setSize(0);
+    //            if(getScaleListProperty())
+    //                getScaleListProperty()->setSize(0);
 
-                getElementListProperty()->setValue(objs);
+    //            getElementListProperty()->setValue(objs);
 
-            }else if(elementCount<objs.size()){
-                std::vector<App::DocumentObject*> tmpObjs;
-                auto owner = getContainer();
-                long ownerID = owner?owner->getID():0;
-                while(objs.size()>elementCount) {
-                    auto element = labrps_dynamic_cast<LinkElement>(objs.back());
-                    if(element && element->_LinkOwner.getValue()==ownerID)
-                        tmpObjs.push_back(objs.back());
-                    objs.pop_back();
-                }
-                getElementListProperty()->setValue(objs);
-                for(auto obj : tmpObjs) {
-                    if(obj && obj->getNameInDocument())
-                        obj->getDocument()->removeObject(obj->getNameInDocument());
-                }
-            }
-        }
-    }else if(prop == getVisibilityListProperty()) {
-        if(_getShowElementValue()) {
-            const auto &elements = _getElementListValue();
-            const auto &vis = getVisibilityListValue();
-            myHiddenElements.clear();
-            for(size_t i=0;i<vis.size();++i) {
-                if(i>=elements.size())
-                    break;
-                if(!vis[i])
-                    myHiddenElements.insert(elements[i]);
-            }
-        }
-    }else if(prop == getElementListProperty() || prop == &_ChildCache) {
+    //        }else if(elementCount<objs.size()){
+    //            std::vector<App::DocumentObject*> tmpObjs;
+    //            auto owner = getContainer();
+    //            long ownerID = owner?owner->getID():0;
+    //            while(objs.size()>elementCount) {
+    //                auto element = labrps_dynamic_cast<LinkElement>(objs.back());
+    //                if(element && element->_LinkOwner.getValue()==ownerID)
+    //                    tmpObjs.push_back(objs.back());
+    //                objs.pop_back();
+    //            }
+    //            getElementListProperty()->setValue(objs);
+    //            for(auto obj : tmpObjs) {
+    //                if(obj && obj->getNameInDocument())
+    //                    obj->getDocument()->removeObject(obj->getNameInDocument());
+    //            }
+    //        }
+    //    }
+    //}else if(prop == getVisibilityListProperty()) {
+    //    if(_getShowElementValue()) {
+    //        const auto &elements = _getElementListValue();
+    //        const auto &vis = getVisibilityListValue();
+    //        myHiddenElements.clear();
+    //        for(size_t i=0;i<vis.size();++i) {
+    //            if(i>=elements.size())
+    //                break;
+    //            if(!vis[i])
+    //                myHiddenElements.insert(elements[i]);
+    //        }
+    //    }
+    //}else if(prop == getElementListProperty() || prop == &_ChildCache) {
 
-        if(prop == getElementListProperty()) {
-            _ChildCache.setStatus(Property::User3,true);
-            updateGroup();
-            _ChildCache.setStatus(Property::User3,false);
-        }
+    //    if(prop == getElementListProperty()) {
+    //        _ChildCache.setStatus(Property::User3,true);
+    //        updateGroup();
+    //        _ChildCache.setStatus(Property::User3,false);
+    //    }
 
-        const auto &elements = _getElementListValue();
+    //    const auto &elements = _getElementListValue();
 
-        if(enableLabelCache)
-            myLabelCache.clear();
+    //    if(enableLabelCache)
+    //        myLabelCache.clear();
 
-        // Element list changed, we need to sychrnoize VisibilityList.
-        if(_getShowElementValue() && getVisibilityListProperty()) {
-            if(parent->getDocument()->isPerformingTransaction()) {
-                update(parent,getVisibilityListProperty());
-            }else{
-                boost::dynamic_bitset<> vis;
-                vis.resize(elements.size(),true);
-                std::unordered_set<const App::DocumentObject *> hiddenElements;
-                for(size_t i=0;i<elements.size();++i) {
-                    if(myHiddenElements.find(elements[i])!=myHiddenElements.end()) {
-                        hiddenElements.insert(elements[i]);
-                        vis[i] = false;
-                    }
-                }
-                myHiddenElements.swap(hiddenElements);
-                if(vis != getVisibilityListValue()) {
-                    auto propVis = getVisibilityListProperty();
-                    propVis->setStatus(Property::User3,true);
-                    propVis->setValue(vis);
-                    propVis->setStatus(Property::User3,false);
-                }
-            }
-        }
-        syncElementList();
-        if(_getShowElementValue()
-                && _getElementCountProperty()
-                && getElementListProperty()
-                && getElementCountValue()!=getElementListProperty()->getSize())
-        {
-            getElementCountProperty()->setValue(
-                    getElementListProperty()->getSize());
-        }
-    }else if(prop == getLinkedObjectProperty()) {
-        auto group = linkedPlainGroup();
-        if(getShowElementProperty())
-            getShowElementProperty()->setStatus(Property::Hidden, !!group);
-        if(getElementCountProperty())
-            getElementCountProperty()->setStatus(Property::Hidden, !!group);
-        if(group)
-            updateGroup();
-        else if(_ChildCache.getSize())
-            _ChildCache.setValue();
-        parseSubName();
-        syncElementList();
+    //    // Element list changed, we need to sychrnoize VisibilityList.
+    //    if(_getShowElementValue() && getVisibilityListProperty()) {
+    //        if(parent->getDocument()->isPerformingTransaction()) {
+    //            update(parent,getVisibilityListProperty());
+    //        }else{
+    //            boost::dynamic_bitset<> vis;
+    //            vis.resize(elements.size(),true);
+    //            std::unordered_set<const App::DocumentObject *> hiddenElements;
+    //            for(size_t i=0;i<elements.size();++i) {
+    //                if(myHiddenElements.find(elements[i])!=myHiddenElements.end()) {
+    //                    hiddenElements.insert(elements[i]);
+    //                    vis[i] = false;
+    //                }
+    //            }
+    //            myHiddenElements.swap(hiddenElements);
+    //            if(vis != getVisibilityListValue()) {
+    //                auto propVis = getVisibilityListProperty();
+    //                propVis->setStatus(Property::User3,true);
+    //                propVis->setValue(vis);
+    //                propVis->setStatus(Property::User3,false);
+    //            }
+    //        }
+    //    }
+    //    syncElementList();
+    //    if(_getShowElementValue()
+    //            && _getElementCountProperty()
+    //            && getElementListProperty()
+    //            && getElementCountValue()!=getElementListProperty()->getSize())
+    //    {
+    //        getElementCountProperty()->setValue(
+    //                getElementListProperty()->getSize());
+    //    }
+    //}else if(prop == getLinkedObjectProperty()) {
+    //    auto group = linkedPlainGroup();
+    //    if(getShowElementProperty())
+    //        getShowElementProperty()->setStatus(Property::Hidden, !!group);
+    //    if(getElementCountProperty())
+    //        getElementCountProperty()->setStatus(Property::Hidden, !!group);
+    //    if(group)
+    //        updateGroup();
+    //    else if(_ChildCache.getSize())
+    //        _ChildCache.setValue();
+    //    parseSubName();
+    //    syncElementList();
 
-        if(getLinkCopyOnChangeValue()==CopyOnChangeOwned
-                && !pauseCopyOnChange
-                && !parent->getDocument()->isPerformingTransaction())
-            getLinkCopyOnChangeProperty()->setValue(CopyOnChangeEnabled);
-        else
-            setupCopyOnChange(parent, true);
+    //    if(getLinkCopyOnChangeValue()==CopyOnChangeOwned
+    //            && !pauseCopyOnChange
+    //            && !parent->getDocument()->isPerformingTransaction())
+    //        getLinkCopyOnChangeProperty()->setValue(CopyOnChangeEnabled);
+    //    else
+    //        setupCopyOnChange(parent, true);
 
-    }else if(prop == getLinkCopyOnChangeProperty()) {
-        setupCopyOnChange(parent, getLinkCopyOnChangeSourceValue() == nullptr);
-    } else if (prop == getLinkCopyOnChangeSourceProperty()) {
-        if (auto source = getLinkCopyOnChangeSourceValue()) {
-            this->connCopyOnChangeSource = source->signalChanged.connect(
-                [this](const DocumentObject & obj, const Property &prop) {
-                    auto src = getLinkCopyOnChangeSourceValue();
-                    if (src != &obj || getLinkCopyOnChangeValue()==CopyOnChangeDisabled)
-                        return;
-                    if (App::Document::isAnyRestoring()
-                            || obj.testStatus(ObjectStatus::NoTouch) 
-                            || (prop.getType() & Prop_Output) 
-                            || prop.testStatus(Property::Output))
-                        return;
-                    if (auto propTouch = getLinkCopyOnChangeTouchedProperty())
-                        propTouch->setValue(true);
-                });
-        } else
-            this->connCopyOnChangeSource.disconnect();
+    //}else if(prop == getLinkCopyOnChangeProperty()) {
+    //    setupCopyOnChange(parent, getLinkCopyOnChangeSourceValue() == nullptr);
+    //} else if (prop == getLinkCopyOnChangeSourceProperty()) {
+    //    if (auto source = getLinkCopyOnChangeSourceValue()) {
+    //        this->connCopyOnChangeSource = source->signalChanged.connect(
+    //            [this](const DocumentObject & obj, const Property &prop) {
+    //                auto src = getLinkCopyOnChangeSourceValue();
+    //                if (src != &obj || getLinkCopyOnChangeValue()==CopyOnChangeDisabled)
+    //                    return;
+    //                if (App::Document::isAnyRestoring()
+    //                        || obj.testStatus(ObjectStatus::NoTouch) 
+    //                        || (prop.getType() & Prop_Output) 
+    //                        || prop.testStatus(Property::Output))
+    //                    return;
+    //                if (auto propTouch = getLinkCopyOnChangeTouchedProperty())
+    //                    propTouch->setValue(true);
+    //            });
+    //    } else
+    //        this->connCopyOnChangeSource.disconnect();
 
-    }else if(prop == getLinkTransformProperty()) {
-        auto linkPlacement = getLinkPlacementProperty();
-        auto placement = getPlacementProperty();
-        if(linkPlacement && placement) {
-            bool transform = getLinkTransformValue();
-            placement->setStatus(Property::Hidden,transform);
-            linkPlacement->setStatus(Property::Hidden,!transform);
-        }
-        syncElementList();
+    //}else if(prop == getLinkTransformProperty()) {
+    //    auto linkPlacement = getLinkPlacementProperty();
+    //    auto placement = getPlacementProperty();
+    //    if(linkPlacement && placement) {
+    //        bool transform = getLinkTransformValue();
+    //        placement->setStatus(Property::Hidden,transform);
+    //        linkPlacement->setStatus(Property::Hidden,!transform);
+    //    }
+    //    syncElementList();
 
-    } else {
-        checkCopyOnChange(parent, *prop);
-    }
+    //} else {
+    //    checkCopyOnChange(parent, *prop);
+    //}
 }
 
 void LinkBaseExtension::cacheChildLabel(int enable) const {
@@ -1868,16 +1807,9 @@ void LinkBaseExtension::cacheChildLabel(int enable) const {
     }
 }
 
-bool LinkBaseExtension::linkTransform() const {
-    if(!getLinkTransformProperty() &&
-       !getLinkPlacementProperty() &&
-       !getPlacementProperty())
-        return true;
-    return getLinkTransformValue();
-}
 
 void LinkBaseExtension::syncElementList() {
-    auto transform = getLinkTransformProperty();
+ /*   auto transform = getLinkTransformProperty();
     auto link = getLinkedObjectProperty();
     auto xlink = labrps_dynamic_cast<const PropertyXLink>(link);
 
@@ -1913,7 +1845,7 @@ void LinkBaseExtension::syncElementList() {
         {
             element->setLink(-1,link->getValue());
         }
-    }
+    }*/
 }
 
 void LinkBaseExtension::onExtendedDocumentRestored() {
@@ -1938,7 +1870,7 @@ void LinkBaseExtension::onExtendedDocumentRestored() {
             auto subs = xlink->getSubValues();
             xlink->setSubValues(std::move(subs));
         } else {
-            std::set<std::string> subset(mySubElements.begin(),mySubElements.end());
+           /* std::set<std::string> subset(mySubElements.begin(),mySubElements.end());
             auto sub = xlink->getSubValues().front();
             auto element = Data::ComplexGeoData::findElementName(sub.c_str());
             if(element && element[0]) {
@@ -1948,7 +1880,7 @@ void LinkBaseExtension::onExtendedDocumentRestored() {
             std::vector<std::string> subs;
             for(const auto &s : subset)
                 subs.push_back(sub + s);
-            xlink->setSubValues(std::move(subs));
+            xlink->setSubValues(std::move(subs));*/
         }
     }
     if(getScaleVectorProperty() && getScaleProperty()) {
@@ -2049,9 +1981,9 @@ void LinkBaseExtension::setLink(int index, DocumentObject *obj,
                 auto linked = link->getTrueLinkedObject(true);
                 if(linked)
                     link->Label.setValue(linked->Label.getValue());
-                auto pla = labrps_dynamic_cast<PropertyPlacement>(obj->getPropertyByName("Placement"));
+               /* auto pla = labrps_dynamic_cast<PropertyPlacement>(obj->getPropertyByName("Placement"));
                 if(pla)
-                    link->Placement.setValue(pla->getValue());
+                    link->Placement.setValue(pla->getValue());*/
                 link->Visibility.setValue(false);
                 obj = link;
             }

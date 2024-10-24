@@ -95,15 +95,9 @@ generate_from_xml(DocumentObjectExtensionPy)
 generate_from_xml(GroupExtensionPy)
 generate_from_xml(LinkBaseExtensionPy)
 generate_from_xml(DocumentObjectGroupPy)
-generate_from_xml(GeoFeaturePy)
-generate_from_xml(GeoFeatureGroupExtensionPy)
 generate_from_xml(MetadataPy)
-generate_from_xml(OriginGroupExtensionPy)
-generate_from_xml(PartPy)
 
-generate_from_xml(ComplexGeoDataPy)
 generate_from_xml(PropertyContainerPy)
-generate_from_xml(MaterialPy)
 generate_from_xml(SimulationPy)
 generate_from_xml(RPSFeaturePy)
 
@@ -119,14 +113,8 @@ SET(LabRPSApp_XML_SRCS
     MetadataPy.xml
     DocumentObjectGroupPy.xml
     DocumentObjectPy.xml
-    GeoFeaturePy.xml
-    GeoFeatureGroupExtensionPy.xml
-    OriginGroupExtensionPy.xml
-    PartPy.xml
     DocumentPy.xml
     PropertyContainerPy.xml
-    ComplexGeoDataPy.xml
-    MaterialPy.xml
     SimulationPy.xml
     RPSFeaturePy.xml
 )
@@ -134,7 +122,6 @@ SOURCE_GROUP("XML" FILES ${LabRPSApp_XML_SRCS})
 
 # The document stuff
 SET(Document_CPP_SRCS
-    Annotation.cpp
     Document.cpp
     DocumentObject.cpp
     Extension.cpp
@@ -148,7 +135,6 @@ SET(Document_CPP_SRCS
     DocumentObjectFileIncluded.cpp
     DocumentObjectGroup.cpp
     DocumentObjectGroupPyImp.cpp
-    GeoFeaturePyImp.cpp
     DocumentObjectPyImp.cpp
     DocumentObserver.cpp
     DocumentObserverPython.cpp
@@ -156,24 +142,10 @@ SET(Document_CPP_SRCS
     Expression.cpp
     FeaturePython.cpp
     FeatureTest.cpp
-    GeoFeature.cpp
-    GeoFeatureGroupExtensionPyImp.cpp
-    GeoFeatureGroupExtension.cpp
-    OriginGroupExtensionPyImp.cpp
-    OriginGroupExtension.cpp
-    PartPyImp.cpp
-    Part.cpp
-    Origin.cpp
     Path.cpp
-    InventorObject.cpp
-    MeasureDistance.cpp
-    Placement.cpp
-    OriginFeature.cpp
     Range.cpp
     Transactions.cpp
     TransactionalObject.cpp
-    VRMLObject.cpp
-    MaterialObject.cpp
     MergeDocuments.cpp
     TextDocument.cpp
     Link.cpp
@@ -185,7 +157,6 @@ SET(Document_CPP_SRCS
 )
 
 SET(Document_HPP_SRCS
-    Annotation.h
     Document.h
     DocumentObject.h
     Extension.h
@@ -204,21 +175,10 @@ SET(Document_HPP_SRCS
     FeaturePythonPyImp.h
     FeaturePythonPyImp.inl
     FeatureTest.h
-    GeoFeature.h
-    GeoFeatureGroupExtension.h
-    OriginGroupExtension.h
-    Part.h
-    Origin.h
     Path.h
-    InventorObject.h
-    MeasureDistance.h
-    Placement.h
-    OriginFeature.h
     Range.h
     Transactions.h
     TransactionalObject.h
-    VRMLObject.h
-    MaterialObject.h
     MergeDocuments.h
     TextDocument.h
     Link.h
@@ -272,18 +232,14 @@ SET(LabRPSApp_CPP_SRCS
     ApplicationPy.cpp
     AutoTransaction.cpp
     Branding.cpp
-    ColorModel.cpp
-    ComplexGeoData.cpp
-    ComplexGeoDataPyImp.cpp
     Enumeration.cpp
-    Material.cpp
-    MaterialPyImp.cpp
     Metadata.cpp
     MetadataPyImp.cpp
     RPSpluginManager.cpp
     WindLabUtils.cpp
     SeismicLabUtils.cpp
     SeaLabUtils.cpp
+    Color.cpp
 
 )
 
@@ -293,15 +249,13 @@ SET(LabRPSApp_HPP_SRCS
     Application.h
     AutoTransaction.h
     Branding.h
-    ColorModel.h
-    ComplexGeoData.h
     Enumeration.h
-    Material.h
     Metadata.h
     RPSpluginManager.h
     WindLabUtils.h
     SeismicLabUtils.h
     SeaLabUtils.h
+    Color.h
 
 )
 

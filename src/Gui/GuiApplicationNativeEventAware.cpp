@@ -29,7 +29,6 @@
 #include <RPSConfig.h>
 #include "Application.h"
 #include "GuiApplicationNativeEventAware.h"
-#include "SpaceballEvent.h"
 
 
 #if defined(_USE_3DCONNEXION_SDK) || defined(SPNAV_FOUND)
@@ -47,7 +46,7 @@
 #endif // Spacemice
 
 Gui::GUIApplicationNativeEventAware::GUIApplicationNativeEventAware(int &argc, char *argv[]) :
-        QApplication (argc, argv), spaceballPresent(false)
+        QApplication (argc, argv)
 {
 #if defined(_USE_3DCONNEXION_SDK) || defined(SPNAV_FOUND)
     nativeEvent = new Gui::GuiNativeEvent(this);
@@ -58,53 +57,6 @@ Gui::GUIApplicationNativeEventAware::~GUIApplicationNativeEventAware()
 {
 }
 
-void Gui::GUIApplicationNativeEventAware::initSpaceball(QMainWindow *window)
-{
-#if defined(_USE_3DCONNEXION_SDK) || defined(SPNAV_FOUND)
-    nativeEvent->initSpaceball(window);
-#else
-    Q_UNUSED(window);
-#endif
-    Spaceball::MotionEvent::MotionEventType = QEvent::registerEventType();
-    Spaceball::ButtonEvent::ButtonEventType = QEvent::registerEventType();
-}
-
-bool Gui::GUIApplicationNativeEventAware::processSpaceballEvent(QObject *object, QEvent *event)
-{
-    if (!activeWindow()) {
-        qDebug("No active window\n");
-        return true;
-    }
-
-    QApplication::notify(object, event);
-    if (event->type() == Spaceball::MotionEvent::MotionEventType)
-    {
-        Spaceball::MotionEvent *motionEvent = dynamic_cast<Spaceball::MotionEvent*>(event);
-        if (!motionEvent)
-            return true;
-        if (!motionEvent->isHandled())
-        {
-            //make a new event and post to parent.
-            Spaceball::MotionEvent *newEvent = new Spaceball::MotionEvent(*motionEvent);
-            postEvent(object->parent(), newEvent);
-        }
-    }
-
-    if (event->type() == Spaceball::ButtonEvent::ButtonEventType)
-    {
-        Spaceball::ButtonEvent *buttonEvent = dynamic_cast<Spaceball::ButtonEvent*>(event);
-        if (!buttonEvent)
-            return true;
-        if (!buttonEvent->isHandled())
-        {
-            //make a new event and post to parent.
-            Spaceball::ButtonEvent *newEvent = new Spaceball::ButtonEvent(*buttonEvent);
-            postEvent(object->parent(), newEvent);
-        }
-    }
-    return true;
-}
-
 void Gui::GUIApplicationNativeEventAware::postMotionEvent(std::vector<int> motionDataArray)
 {
 	auto currentWidget(focusWidget());
@@ -112,11 +64,6 @@ void Gui::GUIApplicationNativeEventAware::postMotionEvent(std::vector<int> motio
         return;
     }
     importSettings(motionDataArray);
-
-	Spaceball::MotionEvent *motionEvent = new Spaceball::MotionEvent();
-    motionEvent->setTranslations(motionDataArray[0], motionDataArray[1], motionDataArray[2]);
-    motionEvent->setRotations(motionDataArray[3], motionDataArray[4], motionDataArray[5]);
-    this->postEvent(currentWidget, motionEvent);
 }
 
 void Gui::GUIApplicationNativeEventAware::postButtonEvent(int buttonNumber, int buttonPress)
@@ -125,18 +72,6 @@ void Gui::GUIApplicationNativeEventAware::postButtonEvent(int buttonNumber, int 
     if (!currentWidget) {
         return;
     }
-
-    Spaceball::ButtonEvent *buttonEvent = new Spaceball::ButtonEvent();
-    buttonEvent->setButtonNumber(buttonNumber);
-    if (buttonPress)
-    {
-	  buttonEvent->setButtonStatus(Spaceball::BUTTON_PRESSED);
-    }
-    else
-    {
-	  buttonEvent->setButtonStatus(Spaceball::BUTTON_RELEASED);
-    }
-    this->postEvent(currentWidget, buttonEvent);
 }
 
 float Gui::GUIApplicationNativeEventAware::convertPrefToSensitivity(int value)

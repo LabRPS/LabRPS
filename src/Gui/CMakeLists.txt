@@ -39,18 +39,14 @@ endif(BUILD_ADDONMGR)
 include_directories(
     ${CMAKE_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Quarter
     ${CMAKE_CURRENT_BINARY_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/..
     ${CMAKE_CURRENT_BINARY_DIR}/..
     ${CMAKE_CURRENT_BINARY_DIR}/Language
     ${CMAKE_CURRENT_BINARY_DIR}/propertyeditor
     ${CMAKE_CURRENT_BINARY_DIR}/TaskView
-    ${CMAKE_CURRENT_BINARY_DIR}/Quarter
-    ${CMAKE_CURRENT_BINARY_DIR}/DAGView
     ${Boost_INCLUDE_DIRS}
     ${EIGEN3_INCLUDE_DIR}
-    ${COIN3D_INCLUDE_DIRS}
     ${PYTHON_INCLUDE_DIRS}
     ${XercesC_INCLUDE_DIRS}
     ${ZLIB_INCLUDE_DIR}
@@ -58,16 +54,8 @@ include_directories(
 )
 
 if(MSVC)
-    include_directories(
-        ${CMAKE_SOURCE_DIR}/src/3rdParty/OpenGL/api
-    )
-endif(MSVC)
-
-if(MSVC)
     set(LabRPSGui_LIBS
          LabRPSApp
-         ${COIN3D_LIBRARIES}
-         ${OPENGL_gl_LIBRARY}
          QtPropertyBrowser
          Alphaplot
     )
@@ -81,9 +69,7 @@ if(MSVC)
 else(MSVC)
     set(LabRPSGui_LIBS
         LabRPSApp
-        ${COIN3D_LIBRARIES}
         ${Boost_LIBRARIES}
-        ${OPENGL_gl_LIBRARY}
         ${3DCONNEXION_LINKFLAGS}
         QtPropertyBrowser
         Alphaplot
@@ -99,7 +85,6 @@ if (BUILD_QT5)
     include_directories(
         ${Qt5Core_INCLUDE_DIRS}
         ${Qt5Widgets_INCLUDE_DIRS}
-        ${Qt5OpenGL_INCLUDE_DIRS}
         ${Qt5PrintSupport_INCLUDE_DIRS}
         ${Qt5Svg_INCLUDE_DIRS}
         ${Qt5Network_INCLUDE_DIRS}
@@ -110,7 +95,6 @@ if (BUILD_QT5)
     list(APPEND LabRPSGui_LIBS
         ${Qt5Core_LIBRARIES}
         ${Qt5Widgets_LIBRARIES}
-        ${Qt5OpenGL_LIBRARIES}
         ${Qt5PrintSupport_LIBRARIES}
         ${Qt5Svg_LIBRARIES}
         ${Qt5Network_LIBRARIES}
@@ -247,7 +231,6 @@ generate_from_xml(WorkbenchPy)
 generate_from_xml(SelectionObjectPy)
 generate_from_xml(LinkViewPy)
 generate_from_xml(ViewProviderLinkPy)
-generate_from_xml(AxisOriginPy)
 generate_from_xml(CommandPy)
 
 generate_from_py(LabRPSGuiInit GuiInitScript.h)
@@ -263,7 +246,6 @@ SET(LabRPSGui_XML_SRCS
     DocumentPy.xml
     LinkViewPy.xml
     ViewProviderLinkPy.xml
-    AxisOriginPy.xml
     CommandPy.xml
 )
 SOURCE_GROUP("XML" FILES ${LabRPSApp_XML_SRCS})
@@ -316,8 +298,6 @@ set_property(SOURCE GraphvizView.h APPEND PROPERTY OBJECT_DEPENDS ${CMAKE_CURREN
 
 SET(Gui_UIC_SRCS
     AboutApplication.ui
-    Clipping.ui
-    DemoMode.ui
     DlgActions.ui
     DlgActivateWindow.ui
     DlgUnitsCalculator.ui
@@ -325,7 +305,6 @@ SET(Gui_UIC_SRCS
     DlgChooseIcon.ui
     DlgCommands.ui
     DlgCreateNewPreferencePack.ui
-    DlgCustomizeSpNavSettings.ui
     DlgDisplayProperties.ui
     DlgEditor.ui
     DlgGeneral.ui
@@ -334,7 +313,6 @@ SET(Gui_UIC_SRCS
     DlgMacroExecute.ui
     DlgRunExternal.ui
     DlgMacroRecord.ui
-    DlgMaterialProperties.ui
     DlgOnlineHelp.ui
     DlgParameter.ui
     DlgParameterFind.ui
@@ -345,13 +323,9 @@ SET(Gui_UIC_SRCS
     DlgPropertyLink.ui
     DlgReportView.ui
     DlgRevertToBackupConfig.ui
-    DlgSettings3DView.ui
     DlgSettingsCacheDirectory.ui
-    DlgSettingsNavigation.ui
     DlgSettingsSelection.ui
     DlgSettingsUnits.ui
-    DlgSettingsViewColor.ui
-    DlgSettingsColorGradient.ui
     DlgSettingsDocument.ui
     DlgSettingsImage.ui
     DlgSettingsLazyLoaded.ui
@@ -367,11 +341,7 @@ SET(Gui_UIC_SRCS
     DownloadManager.ui
     DownloadItem.ui
     DlgExpressionInput.ui
-    MouseButtons.ui
-    SceneInspector.ui
     InputVector.ui
-    Placement.ui
-    TextureMapping.ui
     TaskView/TaskAppearance.ui
     TaskView/TaskSelectLinkProperty.ui
     TaskElementColors.ui
@@ -406,12 +376,12 @@ SET(Command_CPP_SRCS
     Command.cpp
     CommandDoc.cpp
     CommandFeat.cpp
+    CommandStructure.cpp
     CommandMacro.cpp
     CommandStd.cpp
     CommandWindow.cpp
     CommandTest.cpp
     CommandView.cpp
-    CommandStructure.cpp
     CommandLink.cpp
     CommandPyImp.cpp
 )
@@ -426,8 +396,6 @@ SOURCE_GROUP("Command" FILES ${Command_SRCS})
 
 # The dialog sources
 SET(Dialog_CPP_SRCS
-    Clipping.cpp
-    DemoMode.cpp
     DlgActivateWindowImp.cpp
     DlgCreateNewPreferencePackImp.cpp
     DlgUnitsCalculatorImp.cpp
@@ -437,7 +405,6 @@ SET(Dialog_CPP_SRCS
     DlgRunExternal.cpp
     DlgEditFileIncludePropertyExternal.cpp
     DlgMacroRecordImp.cpp
-    DlgMaterialPropertiesImp.cpp
     DlgParameterImp.cpp
     DlgParameterFind.cpp
     DlgPreferencePackManagementImp.cpp
@@ -451,11 +418,7 @@ SET(Dialog_CPP_SRCS
     TaskCSysDragger.cpp
     DlgUndoRedo.cpp
     InputVector.cpp
-    Placement.cpp
     PropertyPage.cpp
-    SceneInspector.cpp
-    TextureMapping.cpp
-    Transform.cpp
     DownloadItem.cpp
     DownloadManager.cpp
     DocumentRecovery.cpp
@@ -468,8 +431,6 @@ SET(Dialog_CPP_SRCS
 )
 
 SET(Dialog_HPP_SRCS
-    Clipping.h
-    DemoMode.h
     DlgActivateWindowImp.h
     DlgCreateNewPreferencePackImp.h
     DlgUnitsCalculatorImp.h
@@ -479,7 +440,6 @@ SET(Dialog_HPP_SRCS
     DlgRunExternal.h
     DlgEditFileIncludePropertyExternal.h
     DlgMacroRecordImp.h
-    DlgMaterialPropertiesImp.h
     DlgParameterImp.h
     DlgParameterFind.h
     DlgPreferencePackManagementImp.h
@@ -493,11 +453,7 @@ SET(Dialog_HPP_SRCS
     TaskCSysDragger.h
     DlgUndoRedo.h
     InputVector.h
-    Placement.h
     PropertyPage.h
-    SceneInspector.h
-    TextureMapping.h
-    Transform.h
     DownloadItem.h
     DownloadManager.h
     DocumentRecovery.h
@@ -513,8 +469,6 @@ SET(Dialog_SRCS
     ${Dialog_CPP_SRCS}
     ${Dialog_HPP_SRCS}
     AboutApplication.ui
-    Clipping.ui
-    DemoMode.ui
     DlgActivateWindow.ui
     DlgUnitsCalculator.ui
     DlgAuthorization.ui
@@ -526,7 +480,6 @@ SET(Dialog_SRCS
     DlgMacroExecute.ui
     DlgRunExternal.ui
     DlgMacroRecord.ui
-    DlgMaterialProperties.ui
     DlgParameter.ui
     DlgParameterFind.ui
     DlgPreferencePackManagement.ui
@@ -541,11 +494,7 @@ SET(Dialog_SRCS
     DownloadManager.ui
     DownloadItem.ui
     DocumentRecovery.ui
-    MouseButtons.ui
     InputVector.ui
-    Placement.ui
-    SceneInspector.ui
-    TextureMapping.ui
     TaskElementColors.ui
     DlgObjectSelection.ui
     VectorListEditor.ui
@@ -559,8 +508,6 @@ SET(Dialog_Customize_CPP_SRCS
     DlgActionsImp.cpp
     DlgCommandsImp.cpp
     DlgCustomizeImp.cpp
-    DlgCustomizeSpaceball.cpp
-    DlgCustomizeSpNavSettings.cpp
     DlgKeyboardImp.cpp
     DlgToolbarsImp.cpp
     DlgWorkbenchesImp.cpp
@@ -570,8 +517,6 @@ SET(Dialog_Customize_HPP_SRCS
     DlgActionsImp.h
     DlgCommandsImp.h
     DlgCustomizeImp.h
-    DlgCustomizeSpaceball.h
-    DlgCustomizeSpNavSettings.h
     DlgKeyboardImp.h
     DlgToolbarsImp.h
     DlgWorkbenchesImp.h
@@ -583,7 +528,6 @@ SET(Dialog_Customize_SRCS
     DlgActions.ui
     DlgChooseIcon.ui
     DlgCommands.ui
-    DlgCustomizeSpNavSettings.ui
     DlgKeyboard.ui
     DlgToolbars.ui
     DlgWorkbenches.ui
@@ -597,13 +541,9 @@ SET(Dialog_Settings_CPP_SRCS
     DlgOnlineHelpImp.cpp
     DlgPreferencesImp.cpp
     DlgReportViewImp.cpp
-    DlgSettings3DViewImp.cpp
     DlgSettingsCacheDirectory.cpp
-    DlgSettingsNavigation.cpp
     DlgSettingsSelection.cpp
     DlgSettingsUnitsImp.cpp
-    DlgSettingsViewColor.cpp
-    DlgSettingsColorGradientImp.cpp
     DlgSettingsDocumentImp.cpp
     DlgSettingsImageImp.cpp
     DlgSettingsLazyLoadedImp.cpp
@@ -618,13 +558,9 @@ SET(Dialog_Settings_HPP_SRCS
     DlgOnlineHelpImp.h
     DlgPreferencesImp.h
     DlgReportViewImp.h
-    DlgSettings3DViewImp.h
     DlgSettingsCacheDirectory.h
-    DlgSettingsNavigation.h
     DlgSettingsSelection.h
     DlgSettingsUnitsImp.h
-    DlgSettingsViewColor.h
-    DlgSettingsColorGradientImp.h
     DlgSettingsDocumentImp.h
     DlgSettingsImageImp.h
     DlgSettingsLazyLoadedImp.h
@@ -641,13 +577,9 @@ SET(Dialog_Settings_SRCS
     DlgOnlineHelp.ui
     DlgPreferences.ui
     DlgReportView.ui
-    DlgSettings3DView.ui
     DlgSettingsCacheDirectory.ui
-    DlgSettingsNavigation.ui
     DlgSettingsSelection.ui
     DlgSettingsUnits.ui
-    DlgSettingsViewColor.ui
-    DlgSettingsColorGradient.ui
     DlgSettingsDocument.ui
     DlgSettingsImage.ui
     DlgSettingsLazyLoaded.ui
@@ -669,11 +601,6 @@ SET(Dock_Windows_CPP_SRCS
     Tree.cpp
     TreeView.cpp
     ProjectView.cpp
-    DAGView/DAGView.cpp
-    DAGView/DAGModel.cpp
-    DAGView/DAGRectItem.cpp
-    DAGView/DAGModelGraph.cpp
-    DAGView/DAGFilter.cpp
     PlotExplorer.cpp
     PlotPropertyEditor.cpp
     MyPlotTreeWidget.cpp
@@ -689,11 +616,6 @@ SET(Dock_Windows_HPP_SRCS
     Tree.h
     TreeView.h
     ProjectView.h
-    DAGView/DAGView.h
-    DAGView/DAGModel.h
-    DAGView/DAGRectItem.h
-    DAGView/DAGModelGraph.h
-    DAGView/DAGFilter.h
     PlotExplorer.h
     PlotPropertyEditor.h
     MyPlotTreeWidget.h
@@ -848,79 +770,13 @@ SOURCE_GROUP("Widget\\QSintActionPanel\\Mocs" FILES ${qsint_MOC_SRCS})
 
 # The 3d view
 SET(View3D_CPP_SRCS
-    Flag.cpp
-    GLBuffer.cpp
-    GLPainter.cpp
-    MouseSelection.cpp
-    NavigationStyle.cpp
-    InventorNavigationStyle.cpp
-    CADNavigationStyle.cpp
-    RevitNavigationStyle.cpp
-    BlenderNavigationStyle.cpp
-    MayaGestureNavigationStyle.cpp
-    OpenCascadeNavigationStyle.cpp
-    OpenSCADNavigationStyle.cpp
-    TinkerCADNavigationStyle.cpp
-    TouchpadNavigationStyle.cpp
-    GestureNavigationStyle.cpp
-    SplitView3DInventor.cpp
     View.cpp
-    View3DInventor.cpp
-    View3DInventorExamples.cpp
-    View3DInventorViewer.cpp
-    View3DInventorRiftViewer.cpp
-    CoinRiftWidget.cpp
-    View3DPy.cpp
-    View3DViewerPy.cpp
-    NaviCube.cpp
 )
 SET(View3D_SRCS
     ${View3D_CPP_SRCS}
-    Flag.h
-    GLBuffer.h
-    GLPainter.h
-    MouseSelection.h
-    NavigationStyle.h
-    GestureNavigationStyle.h
-    SplitView3DInventor.h
     View.h
-    View3DInventor.h
-    View3DInventorExamples.h
-    View3DInventorViewer.h
-    View3DPy.h
-    View3DInventorRiftViewer.h
-    CoinRiftWidget.h
-    View3DViewerPy.h
-    NaviCube.h
 )
 SOURCE_GROUP("View3D" FILES ${View3D_SRCS})
-
-#quarter sources
-FILE(GLOB_RECURSE Quarter_CPP_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} Quarter/*.cpp)
-FILE(GLOB_RECURSE Quarter_H_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} Quarter/*.h)
-
-SET(Quarter_MOC_HDR
-    Quarter/SignalThread.h
-    Quarter/InteractionMode.h
-    Quarter/SensorManager.h
-    Quarter/ContextMenu.h
-    Quarter/eventhandlers/FocusHandler.h
-    Quarter/eventhandlers/DragDropHandler.h
-    Quarter/eventhandlers/EventFilter.h
-    Quarter/QuarterWidget.h
-)
-if(BUILD_QT5)
-    qt5_wrap_cpp(Quarter_MOC_SRCS ${Quarter_MOC_HDR})
-else()
-    qt4_wrap_cpp(Quarter_MOC_SRCS ${Quarter_MOC_HDR})
-endif()
-
-SET(Quarter_SRCS 
-    ${Quarter_CPP_SRC} 
-    ${Quarter_H_SRC}
-    ${Quarter_MOC_SRCS}
-)
-SOURCE_GROUP("Quarter" FILES ${Quarter_SRCS})
 
 # The view provider sources
 SET(Viewprovider_CPP_SRCS
@@ -928,127 +784,40 @@ SET(Viewprovider_CPP_SRCS
     ViewProviderExtension.cpp
     ViewProviderExtensionPyImp.cpp
     ViewProviderGroupExtension.cpp
-    ViewProviderGeoFeatureGroupExtension.cpp
-    ViewProviderOriginGroupExtension.cpp
-    ViewProviderAnnotation.cpp
+    # ViewProviderGeoFeatureGroupExtension.cpp
     ViewProviderDocumentObject.cpp
     ViewProviderDocumentObjectGroup.cpp
     ViewProviderDocumentObjectPyImp.cpp
     ViewProviderDragger.cpp
     ViewProviderExtern.cpp
     ViewProviderFeature.cpp
-    ViewProviderGeometryObject.cpp
-    ViewProviderInventorObject.cpp
-    ViewProviderMeasureDistance.cpp
     ViewProviderPyImp.cpp
     ViewProviderPythonFeature.cpp
-    ViewProviderVRMLObject.cpp
     ViewProviderBuilder.cpp
-    ViewProviderPlacement.cpp
-    ViewProviderOriginFeature.cpp
-    ViewProviderPlane.cpp
-    ViewProviderLine.cpp
-    ViewProviderGeoFeatureGroup.cpp
-    ViewProviderOriginGroup.cpp
-    ViewProviderPart.cpp
-    ViewProviderOrigin.cpp
-    ViewProviderMaterialObject.cpp
+    # ViewProviderGeoFeatureGroup.cpp
     ViewProviderTextDocument.cpp
     ViewProviderLink.cpp
     LinkViewPyImp.cpp
     ViewProviderLinkPyImp.cpp
-    AxisOriginPyImp.cpp
-    AxisOrigin.cpp
 )
 SET(Viewprovider_SRCS
     ${Viewprovider_CPP_SRCS}
     ViewProvider.h
     ViewProviderExtension.h
     ViewProviderGroupExtension.h
-    ViewProviderGeoFeatureGroupExtension.h
-    ViewProviderOriginGroupExtension.h
-    ViewProviderAnnotation.h
+    # ViewProviderGeoFeatureGroupExtension.h
     ViewProviderDocumentObject.h
     ViewProviderDocumentObjectGroup.h
     ViewProviderDragger.h
     ViewProviderExtern.h
     ViewProviderFeature.h
-    ViewProviderGeometryObject.h
-    ViewProviderInventorObject.h
-    ViewProviderMeasureDistance.h
     ViewProviderPythonFeature.h
-    ViewProviderVRMLObject.h
     ViewProviderBuilder.h
-    ViewProviderPlacement.h
-    ViewProviderOriginFeature.h
-    ViewProviderPlane.h
-    ViewProviderLine.h
-    ViewProviderGeoFeatureGroup.h
-    ViewProviderOriginGroup.h
-    ViewProviderPart.h
-    ViewProviderOrigin.h
-    ViewProviderMaterialObject.h
+    # ViewProviderGeoFeatureGroup.h
     ViewProviderTextDocument.h
     ViewProviderLink.h
-    AxisOrigin.h
 )
 SOURCE_GROUP("View3D\\Viewprovider" FILES ${Viewprovider_SRCS})
-
-# The Inventor sources
-SET(Inventor_CPP_SRCS
-    Inventor/SoDrawingGrid.cpp
-    Inventor/SoAutoZoomTranslation.cpp
-    Inventor/MarkerBitmaps.cpp
-    Inventor/SmSwitchboard.cpp
-    SoFCBackgroundGradient.cpp
-    SoFCBoundingBox.cpp
-    SoFCColorBar.cpp
-    SoFCColorGradient.cpp
-    SoFCColorLegend.cpp
-    SoFCDB.cpp
-    SoFCInteractiveElement.cpp
-    SoFCOffscreenRenderer.cpp
-    SoFCSelection.cpp
-    SoFCUnifiedSelection.cpp
-    SoFCSelectionContext.cpp
-    SoFCSelectionAction.cpp
-    SoFCVectorizeSVGAction.cpp
-    SoFCVectorizeU3DAction.cpp
-    SoNavigationDragger.cpp
-    SoAxisCrossKit.cpp
-    SoTextLabel.cpp
-    SoTouchEvents.cpp
-    SoMouseWheelEvent.cpp
-    SoFCCSysDragger.cpp
-)
-SET(Inventor_SRCS
-    ${Inventor_CPP_SRCS}
-    Inventor/SoDrawingGrid.h
-    Inventor/SoAutoZoomTranslation.h
-    Inventor/MarkerBitmaps.h
-    Inventor/SmSwitchboard.h
-    SoFCBackgroundGradient.h
-    SoFCBoundingBox.h
-    SoFCColorBar.h
-    SoFCColorGradient.h
-    SoFCColorLegend.h
-    SoFCDB.h
-    SoFCInteractiveElement.h
-    SoFCOffscreenRenderer.h
-    SoFCSelection.h
-    SoFCUnifiedSelection.h
-    SoFCSelectionContext.h
-    SoFCSelectionAction.h
-    SoFCVectorizeSVGAction.h
-    SoFCVectorizeU3DAction.h
-    SoNavigationDragger.h
-    SoAxisCrossKit.h
-    SoTextLabel.h
-    SoTouchEvents.h
-    SoMouseWheelEvent.h
-    SoFCCSysDragger.h
-)
-SOURCE_GROUP("View3D\\Inventor" FILES ${Inventor_SRCS})
 
 # The widget sources
 SET(Widget_CPP_SRCS
@@ -1173,18 +942,17 @@ SET(LabRPSGui_CPP_SRCS
     Namespace.h
     resource.cpp
     Control.cpp
-    SpaceballEvent.cpp
     PreferencePackManager.cpp
     Thumbnail.cpp
     Utilities.cpp
     WaitCursor.cpp
-    ManualAlignment.cpp
     TransactionObject.cpp
     qcustomplot.cpp
     AlphaPlot.cpp
     AlphaPlotAprojHandler.cpp
     RPSPluginsInstallerWizard.cpp
-    # RPSPropItem.cpp
+    RPSPropItem.cpp
+
 )
 SET(LabRPSGui_SRCS 
     Application.h
@@ -1196,14 +964,13 @@ SET(LabRPSGui_SRCS
     DocumentObserverPython.h
     ExpressionBinding.h
     ExpressionBindingPy.h
+    GraphicsViewZoom.h
     ExpressionCompleter.h
     LabRPSGuiInit.py
-    GraphicsViewZoom.h
     GuiApplication.h
     GuiApplicationNativeEventAware.h
     3Dconnexion/GuiAbstractNativeEvent.h
     GuiConsole.h
-    InventorAll.h
     Macro.h
     MergeDocuments.h
     MetaTypes.h
@@ -1211,13 +978,11 @@ SET(LabRPSGui_SRCS
     PreCompiled.h
     QtAll.h
     Control.h
-    SpaceballEvent.h
     PreferencePackManager.h
     Thumbnail.h
     Tools.h
     Utilities.h
     WaitCursor.h
-    ManualAlignment.h
     TransactionObject.h
     ${LabRPSGui_SDK_MOC_HDRS}
     qcustomplot.h
@@ -1225,7 +990,7 @@ SET(LabRPSGui_SRCS
     AlphaPlotAprojHandler.h
     RPSGlobals.h
     RPSPluginsInstallerWizard.h
-    # RPSPropItem.h
+    RPSPropItem.h
 )
 
 SET(LabRPSGui_SRCS
@@ -1242,13 +1007,11 @@ SET(LabRPSGui_SRCS
     ${Dock_Windows_SRCS}
     ${Editor_SRCS}
     ${Help_SRCS}
-    ${Inventor_SRCS}
     ${Language_SRCS}
     ${Propertyeditor_SRCS}
     ${Task_View_SRCS}
     ${qsintActionPanel_SRCS}
     ${Resource_SRCS}
-    ${Quarter_SRCS}
     ${View3D_SRCS}
     ${Viewprovider_SRCS}
     ${Widget_SRCS}
@@ -1276,8 +1039,6 @@ if(MSVC)
         ${Dock_Windows_CPP_SRCS}
         ${Editor_CPP_SRCS}
         ${Help_CPP_SRCS}
-        ${Inventor_CPP_SRCS}
-        ${View3D_CPP_SRCS}
         ${Viewprovider_CPP_SRCS}
         ${Widget_CPP_SRCS}
         ${Workbench_CPP_SRCS}
@@ -1293,21 +1054,6 @@ endif(LABRPS_USE_PCH)
 if (LABRPS_USE_QT_FILEDIALOG)
     set_source_files_properties(FileDialog.cpp PROPERTIES COMPILE_FLAGS -DUSE_QT_FILEDIALOG)
 endif()
-
-# Suppress some very long Eigen3 warnings of older versions and
-# suppress this warning for the SbMatrix class
-if (EIGEN3_NO_DEPRECATED_COPY)
-    set_source_files_properties(
-        NaviCube.cpp
-        Inventor/SoAutoZoomTranslation.cpp
-        SoFCOffscreenRenderer.cpp
-        SoFCSelectionAction.cpp
-        SoNavigationDragger.cpp
-        SoFCCSysDragger.cpp
-        Quarter/QuarterWidget.cpp
-        View3DInventorViewer.cpp
-        PROPERTIES COMPILE_FLAGS ${EIGEN3_NO_DEPRECATED_COPY})
-endif ()
 
 add_library(LabRPSGui SHARED ${LabRPSGui_SRCS})
 target_link_libraries(LabRPSGui ${LabRPSGui_LIBS})

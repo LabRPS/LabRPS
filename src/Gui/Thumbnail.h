@@ -30,7 +30,6 @@
 class QImage;
 
 namespace Gui {
-class View3DInventorViewer;
 
 class Thumbnail : public Base::Persistence
 {
@@ -38,7 +37,6 @@ public:
     Thumbnail(int s = 128);
     ~Thumbnail();
 
-    void setViewer(View3DInventorViewer*);
     void setSize(int);
     void setFileName(const char*);
 
@@ -57,7 +55,6 @@ public:
 
 private:
     QUrl uri;
-    View3DInventorViewer* viewer;
     int size;
 };
 

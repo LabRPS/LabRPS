@@ -73,8 +73,6 @@
 #include <Mod/SeaLabAPI/App/SeaLabFeatureUserDefinedRPSObject.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureMatrixTool.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureTableTool.h>
-#include <Gui/View3DInventor.h>
-#include <Gui/View3DInventorViewer.h>
 #include <Gui/Command.h>
 #include <App/AutoTransaction.h>
 #include <Mod/SeaLabAPI/App/IrpsSeLSimulationMethod.h>
@@ -182,11 +180,6 @@ bool ViewProviderSeaLabSimulation::refresh() {
     }
 
     Gui::Document* doc = Gui::Application::Instance->activeDocument();
-    if (doc) {
-        Gui::View3DInventor* view = static_cast<Gui::View3DInventor*>(doc->getActiveView());
-        Gui::View3DInventorViewer* viewer = view->getViewer();
-        viewer->viewAll();
-    }
 
 	App::AutoTransaction trans("Recompute");
     Command::doCommand(Command::Doc, "App.getDocument(\"%s\").recompute()", doc->getDocument()->getName());

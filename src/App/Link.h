@@ -31,6 +31,7 @@
 #include "FeaturePython.h"
 #include "GroupExtension.h"
 #include "PropertyLinks.h"
+#include "PropertyGeo.h"
 
 
 //FIXME: ISO C++11 requires at least one argument for the "..." in a variadic macro
@@ -76,19 +77,8 @@ public:
      */
     //@{
 
-#define LINK_PARAM_LINK_PLACEMENT(...) \
-    (LinkPlacement, Base::Placement, App::PropertyPlacement, Base::Placement(), "Link placement", ##__VA_ARGS__)
-
-#define LINK_PARAM_PLACEMENT(...) \
-    (Placement, Base::Placement, App::PropertyPlacement, Base::Placement(), \
-     "Alias to LinkPlacement to make the link object compatibale with other objects", ##__VA_ARGS__)
-
 #define LINK_PARAM_OBJECT(...) \
     (LinkedObject, App::DocumentObject*, App::PropertyLink, 0, "Linked object", ##__VA_ARGS__)
-
-#define LINK_PARAM_TRANSFORM(...) \
-    (LinkTransform, bool, App::PropertyBool, false, \
-      "Set to false to override linked object's placement", ##__VA_ARGS__)
 
 #define LINK_PARAM_CLAIM_CHILD(...) \
     (LinkClaimChild, bool, App::PropertyBool, false, \
@@ -117,10 +107,6 @@ public:
 
 #define LINK_PARAM_SCALE_VECTOR(...) \
     (ScaleVector, Base::Vector3d, App::PropertyVector, Base::Vector3d(1,1,1), "Scale factors", ##__VA_ARGS__)
-
-#define LINK_PARAM_PLACEMENTS(...) \
-    (PlacementList, std::vector<Base::Placement>, App::PropertyPlacementList, std::vector<Base::Placement>(),\
-      "The placement for each link element", ##__VA_ARGS__)
 
 #define LINK_PARAM_SCALES(...) \
     (ScaleList, std::vector<Base::Vector3d>, App::PropertyVectorList, std::vector<Base::Vector3d>(),\
@@ -163,14 +149,10 @@ public:
     //@}
 
 #define LINK_PARAMS \
-    LINK_PARAM(PLACEMENT)\
-    LINK_PARAM(LINK_PLACEMENT)\
     LINK_PARAM(OBJECT)\
     LINK_PARAM(CLAIM_CHILD)\
-    LINK_PARAM(TRANSFORM)\
     LINK_PARAM(SCALE)\
     LINK_PARAM(SCALE_VECTOR)\
-    LINK_PARAM(PLACEMENTS)\
     LINK_PARAM(SCALES)\
     LINK_PARAM(VISIBILITIES)\
     LINK_PARAM(COUNT)\
@@ -261,12 +243,7 @@ public:
 
     DocumentObject *getLink(int depth=0) const;
 
-    Base::Matrix4D getTransform(bool transform) const;
-    Base::Vector3d getScaleVector() const;
-
     App::GroupExtension *linkedPlainGroup() const;
-
-    bool linkTransform() const;
 
     const char *getSubName() const {
         parseSubName();
@@ -279,12 +256,12 @@ public:
     }
 
     bool extensionGetSubObject(DocumentObject *&ret, const char *subname,
-            PyObject **pyObj=nullptr, Base::Matrix4D *mat=nullptr, bool transform=false, int depth=0) const override;
+            PyObject **pyObj=nullptr, int depth=0) const override;
 
     bool extensionGetSubObjects(std::vector<std::string>&ret, int reason) const override;
 
     bool extensionGetLinkedObject(DocumentObject *&ret,
-            bool recurse, Base::Matrix4D *mat, bool transform, int depth) const override;
+            bool recurse, int depth) const override;
 
     virtual App::DocumentObjectExecReturn *extensionExecute() override;
     virtual short extensionMustExecute() override;
@@ -311,13 +288,10 @@ public:
         const std::vector<std::string> &subs = std::vector<std::string>());
 
     DocumentObject *getTrueLinkedObject(bool recurse,
-            Base::Matrix4D *mat=nullptr,int depth=0, bool noElement=false) const;
+           int depth=0, bool noElement=false) const;
 
     typedef std::map<const Property*,std::pair<LinkBaseExtension*,int> > LinkPropMap;
 
-    bool hasPlacement() const {
-        return getLinkPlacementProperty() || getPlacementProperty();
-    }
 
     void cacheChildLabel(int enable=-1) const;
 
@@ -492,7 +466,6 @@ public:
     LINK_PARAM_EXT_ATYPE(SCALE_VECTOR,App::Prop_Hidden)\
     LINK_PARAM_EXT(SCALES)\
     LINK_PARAM_EXT(VISIBILITIES)\
-    LINK_PARAM_EXT(PLACEMENTS)\
     LINK_PARAM_EXT(ELEMENTS)
 
 #define LINK_PROP_DEFINE(_1,_2,_param) LINK_ETYPE(_param) LINK_ENAME(_param);
@@ -522,9 +495,6 @@ public:
 #define LINK_PARAMS_LINK \
     LINK_PARAM_EXT_TYPE(OBJECT, App::PropertyXLink)\
     LINK_PARAM_EXT(CLAIM_CHILD)\
-    LINK_PARAM_EXT(TRANSFORM)\
-    LINK_PARAM_EXT(LINK_PLACEMENT)\
-    LINK_PARAM_EXT(PLACEMENT)\
     LINK_PARAM_EXT(SHOW_ELEMENT)\
     LINK_PARAM_EXT_TYPE(COUNT,App::PropertyIntegerConstraint)\
     LINK_PARAM_EXT(LINK_EXECUTE)\
@@ -569,9 +539,6 @@ public:
     LINK_PARAM_EXT(SCALE)\
     LINK_PARAM_EXT_ATYPE(SCALE_VECTOR,App::Prop_Hidden)\
     LINK_PARAM_EXT_TYPE(OBJECT, App::PropertyXLink)\
-    LINK_PARAM_EXT(TRANSFORM) \
-    LINK_PARAM_EXT(LINK_PLACEMENT)\
-    LINK_PARAM_EXT(PLACEMENT)\
     LINK_PARAM_EXT(COPY_ON_CHANGE)\
     LINK_PARAM_EXT_TYPE(COPY_ON_CHANGE_SOURCE, App::PropertyXLink)\
     LINK_PARAM_EXT(COPY_ON_CHANGE_GROUP)\
@@ -610,7 +577,6 @@ public:
 
 #define LINK_PARAMS_GROUP \
     LINK_PARAM_EXT(ELEMENTS)\
-    LINK_PARAM_EXT(PLACEMENT)\
     LINK_PARAM_EXT(VISIBILITIES)\
     LINK_PARAM_EXT(MODE)\
     LINK_PARAM_EXT_ATYPE(COLORED_ELEMENTS,App::Prop_Hidden)

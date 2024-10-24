@@ -48,14 +48,6 @@ find_library(XercesC_LIBRARY_DEBUG xerces-c_3D "${LABRPS_LIBPACK_DIR}/lib")
 set (XercesC_LIBRARIES debug ${XercesC_LIBRARY_DEBUG} optimized ${XercesC_LIBRARY_RELEASE})
 set(XercesC_FOUND TRUE) 
 
-find_library(COIN3D_LIBRARY_RELEASE coin4 "${LABRPS_LIBPACK_DIR}/lib")
-find_library(COIN3D_LIBRARY_DEBUG coin4d "${LABRPS_LIBPACK_DIR}/lib")
-set(COIN3D_LIBRARIES optimized ${COIN3D_LIBRARY_RELEASE}
-                     debug ${COIN3D_LIBRARY_DEBUG})
-set(COIN3D_FOUND TRUE)
-
-set(NETGENDATA ${LABRPS_LIBPACK_DIR}/include/netgen)
-
 if(LABRPS_USE_FREETYPE)
     set(FREETYPE_INCLUDE_DIR_freetype2 ${LABRPS_LIBPACK_DIR}/include/freetype2)
 endif(LABRPS_USE_FREETYPE)

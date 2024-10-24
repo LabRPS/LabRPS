@@ -35,7 +35,7 @@
 #include <App/PropertyLinks.h>
 #include <App/PropertyStandard.h>
 #include <App/DynamicProperty.h>
-#include <App/Material.h>
+#include <App/Color.h>
 #include <App/Range.h>
 #include <App/FeaturePython.h>
 #include <Base/Unit.h>
