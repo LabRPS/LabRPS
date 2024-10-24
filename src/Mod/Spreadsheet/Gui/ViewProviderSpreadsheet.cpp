@@ -46,7 +46,6 @@
 #include <Gui/MainWindow.h>
 #include <Gui/Command.h>
 #include <Gui/Document.h>
-#include <Gui/View3DInventor.h>
 #include <Base/FileInfo.h>
 #include <Base/Stream.h>
 #include <Base/Console.h>
@@ -153,7 +152,7 @@ void ViewProviderSheet::beforeDelete()
     if(!view)
         return;
     if(view==Gui::getMainWindow()->activeWindow())
-        getDocument()->setActiveView(nullptr,Gui::View3DInventor::getClassTypeId());
+        getDocument()->setActiveView(nullptr);
     Gui::getMainWindow()->removeWindow(view);
 }
 

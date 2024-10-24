@@ -491,7 +491,7 @@ StdCmdOnlineHelpWebsite::StdCmdOnlineHelpWebsite()
 void StdCmdOnlineHelpWebsite::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.org/Online_Help_Toc").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.com/Online_Help_Toc").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("OnlineHelp", defaulturl.c_str());
     hURLGrp->SetASCII("OnlineHelp", url.c_str());
@@ -520,7 +520,7 @@ void StdCmdLabRPSDonation::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
-    std::string url = hURLGrp->GetASCII("DonatePage", "https://wiki.labrps.org/Donate");
+    std::string url = hURLGrp->GetASCII("DonatePage", "https://wiki.labrps.com/Donate");
     hURLGrp->SetASCII("DonatePage", url.c_str());
     OpenURLInBrowser(url.c_str());
 }
@@ -546,7 +546,7 @@ StdCmdLabRPSWebsite::StdCmdLabRPSWebsite()
 void StdCmdLabRPSWebsite::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://www.labrps.org").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://www.labrps.com").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("WebPage", defaulturl.c_str());
     hURLGrp->SetASCII("WebPage", url.c_str());
@@ -574,7 +574,7 @@ StdCmdLabRPSUserHub::StdCmdLabRPSUserHub()
 void StdCmdLabRPSUserHub::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.org/User_hub").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.com/User_hub").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("Documentation", defaulturl.c_str());
     hURLGrp->SetASCII("Documentation", url.c_str());
@@ -602,7 +602,7 @@ StdCmdLabRPSPowerUserHub::StdCmdLabRPSPowerUserHub()
 void StdCmdLabRPSPowerUserHub::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.org/Power_users_hub").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.com/Power_users_hub").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("PowerUsers", defaulturl.c_str());
     hURLGrp->SetASCII("PowerUsers", url.c_str());
@@ -630,7 +630,7 @@ StdCmdLabRPSForum::StdCmdLabRPSForum()
 void StdCmdLabRPSForum::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://forum.labrps.org").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://forum.labrps.com").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("UserForum", defaulturl.c_str());
     hURLGrp->SetASCII("UserForum", url.c_str());
@@ -658,7 +658,7 @@ StdCmdLabRPSFAQ::StdCmdLabRPSFAQ()
 void StdCmdLabRPSFAQ::activated(int iMsg)
 {
     Q_UNUSED(iMsg);
-    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.org/Frequently_asked_questions").toStdString();
+    std::string defaulturl = QCoreApplication::translate(this->className(),"https://wiki.labrps.com/Frequently_asked_questions").toStdString();
     ParameterGrp::handle hURLGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Websites");
     std::string url = hURLGrp->GetASCII("FAQ", defaulturl.c_str());
     hURLGrp->SetASCII("FAQ", url.c_str());

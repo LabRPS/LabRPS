@@ -24,15 +24,13 @@
 
 #ifndef _PreComp_
 # include <cstring>
-# include <Inventor/nodes/SoSeparator.h>
-# include <Inventor/nodes/SoSwitch.h>
+
 #endif
 
 #include <Base/Exception.h>
 #include <Base/Stream.h>
 
 #include "ViewProviderExtern.h"
-#include "SoFCSelection.h"
 
 
 using std::vector;
@@ -56,14 +54,11 @@ ViewProviderExtern::~ViewProviderExtern()
 
 void ViewProviderExtern::setModeByString(const char* name, const char* ivFragment)
 {
-    SoInput in;
-    in.setBuffer((void*)ivFragment,std::strlen(ivFragment));
-    setModeBySoInput(name,in);
+
 }
 
 void ViewProviderExtern::setModeByFile(const char* name, const char* ivFileName)
 {
-    SoInput in;
     Base::ifstream file(ivFileName, std::ios::in | std::ios::binary);
     if (file){
         std::streamoff size = 0;
@@ -84,57 +79,13 @@ void ViewProviderExtern::setModeByFile(const char* name, const char* ivFileName)
         }
 
         file.close();
-        in.setBuffer(&(content[0]),content.size());
-        setModeBySoInput(name,in);
     }
 }
 
-void ViewProviderExtern::setModeBySoInput(const char* name, SoInput &ivFileInput)
-{
-    SoSeparator * root = SoDB::readAll(&ivFileInput);
-    if (root) {
-        std::vector<std::string>::iterator pos = std::find<std::vector<std::string>
-           ::iterator,string>(modes.begin(),modes.end(),string(name));
-        if (pos == modes.end()) {
-            // new mode
-            modes.push_back(name);
-            addDisplayMaskMode(root, name);
-            setDisplayMaskMode(name);
-        }
-        else {
-            // existing mode
-            // not implemented yet
-            assert(0);
-            root->unref();
-        }
-    }
-    else {
-        throw Base::RuntimeError("No valid Inventor input");
-    }
-
-    return;
-}
 
 void ViewProviderExtern::adjustDocumentName(const char* docname)
 {
-    for (int i=0; i<this->pcModeSwitch->getNumChildren(); i++) {
-        SoNode* child = this->pcModeSwitch->getChild(i);
-        adjustRecursiveDocumentName(child, docname);
-    }
-}
-
-void ViewProviderExtern::adjustRecursiveDocumentName(SoNode* child, const char* docname)
-{
-    if (child->getTypeId().isDerivedFrom(SoFCSelection::getClassTypeId())) {
-        static_cast<SoFCSelection*>(child)->documentName = docname;
-    }
-    else if (child->getTypeId().isDerivedFrom( SoGroup::getClassTypeId())) {
-        SoGroup* group = (SoGroup*)child;
-        for (int i=0; i<group->getNumChildren(); i++) {
-            SoNode* subchild = group->getChild(i);
-            adjustRecursiveDocumentName(subchild, docname);
-        }
-    }
+   
 }
 
 const char* ViewProviderExtern::getDefaultDisplayMode() const

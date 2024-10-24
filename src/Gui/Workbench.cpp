@@ -341,35 +341,6 @@ void Workbench::createMainWindowPopupMenu(MenuItem*) const
 {
 }
 
-void Workbench::createLinkMenu(MenuItem *item) {
-    if(!item || !App::GetApplication().getActiveDocument())
-        return;
-    MenuItem* linkMenu = new MenuItem;
-    linkMenu->setCommand("Link actions");
-    *linkMenu << "Std_LinkMakeGroup" << "Std_LinkMake";
-
-    auto &rMgr = Application::Instance->commandManager();
-    const char *cmds[] = {"Std_LinkMakeRelative",nullptr,"Std_LinkUnlink","Std_LinkReplace",
-        "Std_LinkImport","Std_LinkImportAll",nullptr,"Std_LinkSelectLinked",
-        "Std_LinkSelectLinkedFinal","Std_LinkSelectAllLinks"};
-    bool separator = true;
-    for(size_t i=0;i<sizeof(cmds)/sizeof(cmds[0]);++i) {
-        if(!cmds[i]) {
-            if(separator) {
-                separator = false;
-                *linkMenu << "Separator";
-            }
-            continue;
-        }
-        auto cmd = rMgr.getCommandByName(cmds[i]);
-        if(cmd->isActive()) {
-            separator = true;
-            *linkMenu << cmds[i];
-        }
-    }
-    *item << linkMenu;
-}
-
 std::vector<std::pair<std::string, std::string>> Workbench::staticMenuItems;
 
 void Workbench::addPermanentMenuItem(const std::string& cmd, const std::string& after)
@@ -532,11 +503,6 @@ std::list<std::string> Workbench::listCommandbars() const
 
     qApp->translate("Workbench", "&File");
     qApp->translate("Workbench", "&Edit");
-    qApp->translate("Workbench", "Standard views");
-    qApp->translate("Workbench", "Axonometric");
-    qApp->translate("Workbench", "&Stereo");
-    qApp->translate("Workbench", "&Zoom");
-    qApp->translate("Workbench", "Visibility");
     qApp->translate("Workbench", "&View");
     qApp->translate("Workbench", "&Tools");
     qApp->translate("Workbench", "&Macro");
@@ -576,37 +542,15 @@ void StdWorkbench::setupContextMenu(const char* recipient, MenuItem* item) const
 {
     if (strcmp(recipient,"View") == 0)
     {
-        createLinkMenu(item);
-        *item << "Separator";
-
-        MenuItem* StdViews = new MenuItem;
-        StdViews->setCommand( "Standard views" );
-
-        *StdViews << "Std_ViewIsometric" << "Separator" << "Std_ViewHome" << "Std_ViewFront" << "Std_ViewTop" << "Std_ViewRight"
-                  << "Std_ViewRear" << "Std_ViewBottom" << "Std_ViewLeft"
-                  << "Separator" << "Std_ViewRotateLeft" << "Std_ViewRotateRight";
-
-        MenuItem *measure = new MenuItem();
-        measure->setCommand("Measure");
-        *measure << "View_Measure_Toggle_All" << "View_Measure_Clear_All";
-
-        *item << "Std_ViewFitAll" << "Std_ViewFitSelection" << "Std_DrawStyle" << StdViews << measure
-              << "Separator" << "Std_ViewDockUndockFullscreen";
-
         if (Gui::Selection().countObjectsOfType(App::DocumentObject::getClassTypeId()) > 0) {
-            *item << "Separator" << "Std_SetAppearance" << "Std_ToggleVisibility"
-                  << "Std_ToggleSelectability" << "Std_TreeSelection"
-                  << "Std_RandomColor" << "Separator" << "Std_Delete"
-                  << "Std_SendToPythonConsole" << "Std_TransformManip";
+            *item << "Std_TreeSelection" << "Std_Delete"
+                  << "Std_SendToPythonConsole";
         }
     }
     else if (strcmp(recipient,"Tree") == 0)
     {
         if (Gui::Selection().countObjectsOfType(App::DocumentObject::getClassTypeId()) > 0) {
-            *item << "Std_ToggleVisibility" << "Std_ShowSelection" << "Std_HideSelection"
-                  << "Std_ToggleSelectability" << "Std_TreeSelectAllInstances" << "Separator"
-                  << "Std_SetAppearance" << "Std_RandomColor" << "Separator"
-                  << "Std_Cut" << "Std_Copy" << "Std_Paste" << "Std_Delete"
+            *item << "Std_Cut" << "Std_Copy" << "Std_Paste" << "Std_Delete"
                   << "Std_SendToPythonConsole" << "Separator";
         }
     }
@@ -645,65 +589,15 @@ MenuItem* StdWorkbench::setupMenuBar() const
     edit->setCommand("&Edit");
     *edit << "Std_Undo" << "Std_Redo" << "Separator" << "Std_Cut" << "Std_Copy"
           << "Std_Paste" << "Std_DuplicateSelection" << "Separator"
-          << "Std_Refresh" << "Std_BoxSelection" << "Std_BoxElementSelection"
+          << "Std_Refresh"
           << "Std_SelectAll" << "Std_Delete" << "Std_SendToPythonConsole"
-          << "Separator" << "Std_Placement" << "Std_TransformManip" << "Std_Alignment"
-          << "Std_Edit" << "Separator" << "Std_UserEditMode" << "Separator" << "Std_DlgPreferences";
-
-    MenuItem* axoviews = new MenuItem;
-    axoviews->setCommand("Axonometric");
-    *axoviews << "Std_ViewIsometric"
-              << "Std_ViewDimetric"
-              << "Std_ViewTrimetric";
-
-    // Standard views
-    MenuItem* stdviews = new MenuItem;
-    stdviews->setCommand("Standard views");
-    *stdviews << "Std_ViewFitAll" << "Std_ViewFitSelection" << axoviews
-              << "Separator" << "Std_ViewHome" << "Std_ViewFront" << "Std_ViewTop"
-              << "Std_ViewRight" << "Separator" << "Std_ViewRear"
-              << "Std_ViewBottom" << "Std_ViewLeft"
-              << "Separator" << "Std_ViewRotateLeft" << "Std_ViewRotateRight";
-
-    // stereo
-    MenuItem* view3d = new MenuItem;
-    view3d->setCommand("&Stereo");
-    *view3d << "Std_ViewIvStereoRedGreen" << "Std_ViewIvStereoQuadBuff"
-            << "Std_ViewIvStereoInterleavedRows" << "Std_ViewIvStereoInterleavedColumns"
-            << "Std_ViewIvStereoOff" << "Separator" << "Std_ViewIvIssueCamPos";
-
-    // zoom
-    MenuItem* zoom = new MenuItem;
-    zoom->setCommand("&Zoom");
-    *zoom << "Std_ViewZoomIn" << "Std_ViewZoomOut" << "Separator" << "Std_ViewBoxZoom";
-
-    // Visibility
-    MenuItem* visu = new MenuItem;
-    visu->setCommand("Visibility");
-    *visu << "Std_ToggleVisibility" << "Std_ShowSelection" << "Std_HideSelection"
-          << "Std_SelectVisibleObjects"
-          << "Separator" << "Std_ToggleObjects" << "Std_ShowObjects" << "Std_HideObjects"
-          << "Separator" << "Std_ToggleSelectability"
-          << "Separator" << "View_Measure_Toggle_All" << "View_Measure_Clear_All";
-    
-    // CAD
-    MenuItem* CAD = new MenuItem;
-    CAD->setCommand("CAD");
-    *CAD << "Std_OrthographicCamera" << "Std_PerspectiveCamera" << "Separator" << stdviews 
-          << "Std_DrawStyle" << "Std_SelBoundingBox"
-          << "Separator" << view3d << zoom  << "Std_AxisCross" << "Std_ToggleClipPlane"
-          << "Std_TextureMapping"
-          << "Separator" << visu
-          << "Std_ToggleVisibility" << "Std_ToggleNavigation"
-          << "Std_SetAppearance" << "Std_RandomColor" ;
+          << "Std_Edit" << "Separator" << "Std_DlgPreferences";
 
     // View
     MenuItem* view = new MenuItem( menuBar );
     view->setCommand("&View");
-    *view << CAD << "Std_ViewCreate"
-          << "Std_MainFullscreen" 
-          << "Std_FreezeViews" 
-          << "Std_ViewDockUndockFullscreen"<< "Separator"
+    *view << "Std_MainFullscreen" 
+          << "Separator"
           << "Std_Workbench" << "Std_ToolBarMenu" << "Std_DockViewMenu" << "Separator"
           << "Std_TreeViewActions"
           << "Std_ViewStatusBar";
@@ -871,6 +765,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
            << "Std_TableConvertToMatrix"
            << "Std_TableAddColToTable"
            << "Std_DuplicateWindow"
+           << "Std_PlotHideActiveWindow"
            << "Std_ClearTable"
            << "Std_ExportTableASCII"
            << "Std_ImportTableASCII";
@@ -880,6 +775,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
     MenuItem* Matrix = new MenuItem;
     Matrix->setCommand("Matrix");
     *Matrix << "Std_DuplicateWindow"
+            << "Std_PlotHideActiveWindow"
             << "Std_MatrixConvertToTable"
             << "Std_MatrixDeterminant"
             << "Std_InvertMatrix";
@@ -894,18 +790,15 @@ MenuItem* StdWorkbench::setupMenuBar() const
     tool->setCommand("&Tools");
     *tool << "Std_DlgParameter"
           << "Separator"
-          << "Std_ViewScreenShot"
-          << "Std_SceneInspector"
           << "Std_DependencyGraph"
           << "Std_ProjectUtil"
           << "Separator" 
           << AlphaPlot
           << "Separator"
-          << "Std_MeasureDistance"
-          << "Separator"
           << "Std_TextDocument"
           << "Separator"
-          << "Std_DemoMode"
+          << "Std_Group"
+          << "Separator"
           << "Std_UnitsCalculator"
           << "Separator"
           << "Std_DlgCustomize"
@@ -975,20 +868,6 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     *macro << "Std_DlgMacroRecord" << "Std_MacroStopRecord" << "Std_DlgMacroExecute"
            << "Std_DlgMacroExecuteDirect";
 
-    // View
-    ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    view->setCommand("CAD View");
-    *view << "Std_ViewFitAll" << "Std_ViewFitSelection" << "Std_DrawStyle" << "Std_SelBoundingBox"
-          << "Separator" << "Std_SelBack" << "Std_SelForward" << "Std_LinkSelectActions"
-          << "Separator" << "Std_TreeViewActions" << "Std_ViewIsometric" << "Separator" << "Std_ViewFront"
-          << "Std_ViewTop" << "Std_ViewRight" << "Separator" << "Std_ViewRear" << "Std_ViewBottom"
-          << "Std_ViewLeft" << "Separator" << "Std_MeasureDistance" ;
-
-    // Structure
-    ToolBarItem* structure = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    structure->setCommand("CAD Structure");
-    *structure << "Std_Part" << "Std_Group" << "Std_LinkMake" << "Std_LinkActions";
-
       Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
     GraphTools->setCommand("Graph Tools");
     *GraphTools << "Std_DisableTools"
@@ -1052,12 +931,6 @@ ToolBarItem* StdWorkbench::setupCommandBars() const
 {
     ToolBarItem* root = new ToolBarItem;
 
-    // View
-    ToolBarItem* view = new ToolBarItem( root );
-    view->setCommand("Standard views");
-    *view << "Std_ViewFitAll" << "Std_ViewFitSelection" << "Std_ViewIsometric" << "Separator"
-          << "Std_ViewFront" << "Std_ViewRight" << "Std_ViewTop" << "Separator"
-          << "Std_ViewRear" << "Std_ViewLeft" << "Std_ViewBottom";
     // Special Ops
     ToolBarItem* macro = new ToolBarItem( root );
     macro->setCommand("Special Ops");
@@ -1082,14 +955,6 @@ DockWindowItems* StdWorkbench::setupDockWindows() const
     root->addDockWidget("Std_PlotPropertyView", Qt::RightDockWidgetArea, true, false);
     root->addDockWidget("Std_ResultView", Qt::BottomDockWidgetArea, true, true);
     
-    //Dagview through parameter.
-    ParameterGrp::handle group = App::GetApplication().GetUserParameter().
-          GetGroup("BaseApp")->GetGroup("Preferences")->GetGroup("DockWindows")->GetGroup("DAGView");
-
-    bool enabled = group->GetBool("Enabled", false);
-    if (enabled)
-      root->addDockWidget("Std_DAGView", Qt::RightDockWidgetArea, false, false);
-
     return root;
 }
 
@@ -1242,12 +1107,6 @@ MenuItem* TestWorkbench::setupMenuBar() const
     test->setCommand( "Test &Commands" );
     *test << "Std_Test1" << "Std_Test2" << "Std_Test3" << "Std_Test4" << "Std_Test5"
           << "Std_Test6" << "Std_Test7" << "Std_Test8";
-
-    // Inventor View
-    MenuItem* opiv = new MenuItem;
-    menuBar->insertItem( item, opiv );
-    opiv->setCommand("&Inventor View");
-    *opiv << "Std_ViewExample1" << "Std_ViewExample2" << "Std_ViewExample3";
 
     return menuBar;
 }
@@ -1562,6 +1421,7 @@ bool Workbench::installPlugin(const std::string pluginName) { return false; }
 bool Workbench::unInstallPlugin(const std::string pluginName) { return false; }
 
 void Workbench::createSimulation(const std::string simulationName) {}
+
 void Workbench::createFeature(const std::string simulationName, const std::string featureTypeName, const std::string featureName, const std::string featureGroup, const int featureType)
 {
 

@@ -514,7 +514,7 @@ void ProgressBar::enterControlEvents(bool grab)
 {
     qApp->installEventFilter(this);
 
-    // Make sure that we get the key events, otherwise the Inventor viewer usurps the key events
+    // Make sure that we get the key events, otherwise the viewer usurps the key events
     // This also disables accelerators.
 #if defined(Q_OS_LINUX)
     Q_UNUSED(grab)

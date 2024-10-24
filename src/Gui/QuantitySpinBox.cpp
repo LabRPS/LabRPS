@@ -436,13 +436,6 @@ bool QuantitySpinBox::apply(const std::string & propName)
             /* Skip update if property is bound and we know it is read-only */
             if (prop && prop->isReadOnly())
                 return true;
-
-            if (prop && prop->getTypeId().isDerivedFrom(App::PropertyPlacement::getClassTypeId())) {
-                std::string p = path.getSubPathStr();
-                if (p == ".Rotation.Angle") {
-                    dValue = Base::toRadians(dValue);
-                }
-            }
         }
 
         Gui::Command::doCommand(Gui::Command::Doc, "%s = %f", propName.c_str(), dValue);

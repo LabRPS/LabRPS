@@ -83,7 +83,6 @@ set(SeaLabGui_LIBS
     SeaLab
     LabRPSGui
     LabRPSApp
-    Part
 )
 
 if(BUILD_QT5)

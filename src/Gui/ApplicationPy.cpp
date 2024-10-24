@@ -27,9 +27,6 @@
 # include <QDir>
 # include <QPrinter>
 # include <QFileInfo>
-# include <Inventor/SoInput.h>
-# include <Inventor/actions/SoGetPrimitiveCountAction.h>
-# include <Inventor/nodes/SoSeparator.h>
 # include <xercesc/util/TranscodingException.hpp>
 # include <xercesc/util/XMLString.hpp>
 #endif
@@ -56,16 +53,13 @@
 #include "MainWindowPy.h"
 #include "PythonEditor.h"
 #include "PythonWrapper.h"
-#include "SoFCDB.h"
-#include "SplitView3DInventor.h"
-#include "View3DInventor.h"
 #include "ViewProvider.h"
 #include "WaitCursor.h"
 #include "WidgetFactory.h"
 #include "Workbench.h"
 #include "WorkbenchManager.h"
-#include "Inventor/MarkerBitmaps.h"
 #include "Language/Translator.h"
+#include "GraphvizView.h"
 
 
 using namespace Gui;
@@ -245,13 +239,13 @@ PyMethodDef Application::Methods[] = {
   {"open",                    (PyCFunction) Application::sOpen, METH_VARARGS,
    "open(fileName) -> None\n"
    "\n"
-   "Open a macro, Inventor or VRML file.\n"
+   "Open a macro file.\n"
    "\n"
    "fileName : str, bytes, bytearray\n    File name."},
   {"insert",                  (PyCFunction) Application::sInsert, METH_VARARGS,
    "insert(fileName, docName) -> None\n"
    "\n"
-   "Insert a macro, Inventor or VRML file. If no document name\n"
+   "Insert a macro file. If no document name\n"
    "is given the active document is used.\n"
    "\n"
    "fileName : str, bytes, bytearray\n    File name.\n"
@@ -259,7 +253,7 @@ PyMethodDef Application::Methods[] = {
   {"export",                  (PyCFunction) Application::sExport, METH_VARARGS,
    "export(objs, fileName) -> None\n"
    "\n"
-   "Save scene to Inventor or VRML file.\n"
+   "Save file.\n"
    "\n"
    "objs : sequence of App.DocumentObject\n    Sequence of objects to save.\n"
    "fileName : str, bytes, bytearray\n    File name."},
@@ -330,7 +324,7 @@ PyMethodDef Application::Methods[] = {
    "grp: str\n    Group to show.\n"
    "index : int\n    Page index."},
   {"createViewer",               (PyCFunction) Application::sCreateViewer, METH_VARARGS,
-   "createViewer(views=1, name) -> View3DInventorPy or AbstractSplitViewPy\n"
+   "createViewer(views=1, name) -> View\n"
    "\n"
    "Show and returns a viewer.\n"
    "\n"
@@ -386,12 +380,7 @@ PyMethodDef Application::Methods[] = {
    "\n"
    "fileName : str\n"
    "module : str"},
-  {"coinRemoveAllChildren",     (PyCFunction) Application::sCoinRemoveAllChildren, METH_VARARGS,
-   "coinRemoveAllChildren(node) -> None\n"
-   "\n"
-   "Remove all children from a group node.\n"
-   "\n"
-   "node : object"},
+
   {nullptr, nullptr, 0, nullptr}    /* Sentinel */
 };
 
@@ -441,9 +430,8 @@ PyObject* Gui::Application::sActiveView(PyObject * /*self*/, PyObject *args)
             if(!res.isNone() || !type.isBad())
                 return Py::new_reference_to(res);
         }
-
         if(type.isBad())
-            type = Gui::View3DInventor::getClassTypeId();
+            type = Gui::GraphvizView::getClassTypeId();
         Instance->activateView(type, true);
         mdiView = Instance->activeView();
         if (mdiView)
@@ -610,39 +598,7 @@ PyObject* Application::sOpen(PyObject * /*self*/, PyObject *args)
             }
         }
 
-        if (ext == QLatin1String("iv")) {
-            if (!Application::Instance->activeDocument())
-                App::GetApplication().newDocument();
-            //QString cmd = QString("Gui.activeDocument().addAnnotation(\"%1\",\"%2\")").arg(fi.baseName()).arg(fi.absoluteFilePath());
-            QString cmd = QString::fromLatin1(
-                "App.ActiveDocument.addObject(\"App::InventorObject\",\"%1\")."
-                "FileName=\"%2\"\n"
-                "App.ActiveDocument.ActiveObject.Label=\"%1\"\n"
-                "App.ActiveDocument.recompute()")
-                .arg(fi.baseName(), fi.absoluteFilePath());
-            Base::Interpreter().runString(cmd.toUtf8());
-        }
-        else if (ext == QLatin1String("wrl") ||
-                 ext == QLatin1String("vrml") ||
-                 ext == QLatin1String("wrz")) {
-            if (!Application::Instance->activeDocument())
-                App::GetApplication().newDocument();
-
-            // Add this to the search path in order to read inline files (#0002029)
-            QByteArray path = fi.absolutePath().toUtf8();
-            SoInput::addDirectoryFirst(path.constData());
-
-            //QString cmd = QString("Gui.activeDocument().addAnnotation(\"%1\",\"%2\")").arg(fi.baseName()).arg(fi.absoluteFilePath());
-            QString cmd = QString::fromLatin1(
-                "App.ActiveDocument.addObject(\"App::VRMLObject\",\"%1\")."
-                "VrmlFile=\"%2\"\n"
-                "App.ActiveDocument.ActiveObject.Label=\"%1\"\n"
-                "App.ActiveDocument.recompute()")
-                .arg(fi.baseName(), fi.absoluteFilePath());
-            Base::Interpreter().runString(cmd.toUtf8());
-            SoInput::removeDirectory(path.constData());
-        }
-        else if (ext == QLatin1String("py") ||
+        if (ext == QLatin1String("py") ||
                  ext == QLatin1String("rpsmacro") ||
                  ext == QLatin1String("fcscript")) {
             PythonEditor* editor = new PythonEditor();
@@ -676,47 +632,7 @@ PyObject* Application::sInsert(PyObject * /*self*/, PyObject *args)
         QFileInfo fi;
         fi.setFile(fileName);
         QString ext = fi.suffix().toLower();
-        if (ext == QLatin1String("iv")) {
-            App::Document *doc = nullptr;
-            if (DocName)
-                doc = App::GetApplication().getDocument(DocName);
-            else
-                doc = App::GetApplication().getActiveDocument();
-            if (!doc)
-                doc = App::GetApplication().newDocument(DocName);
-
-            App::DocumentObject* obj = doc->addObject("App::InventorObject",
-                (const char*)fi.baseName().toUtf8());
-            obj->Label.setValue((const char*)fi.baseName().toUtf8());
-            static_cast<App::PropertyString*>(obj->getPropertyByName("FileName"))
-                ->setValue((const char*)fi.absoluteFilePath().toUtf8());
-            doc->recompute();
-        }
-        else if (ext == QLatin1String("wrl") ||
-                 ext == QLatin1String("vrml") ||
-                 ext == QLatin1String("wrz")) {
-            App::Document *doc = nullptr;
-            if (DocName)
-                doc = App::GetApplication().getDocument(DocName);
-            else
-                doc = App::GetApplication().getActiveDocument();
-            if (!doc)
-                doc = App::GetApplication().newDocument(DocName);
-
-            // Add this to the search path in order to read inline files (#0002029)
-            QByteArray path = fi.absolutePath().toUtf8();
-            SoInput::addDirectoryFirst(path.constData());
-
-            App::DocumentObject* obj = doc->addObject("App::VRMLObject",
-                (const char*)fi.baseName().toUtf8());
-            obj->Label.setValue((const char*)fi.baseName().toUtf8());
-            static_cast<App::PropertyFileIncluded*>(obj->getPropertyByName("VrmlFile"))
-                ->setValue((const char*)fi.absoluteFilePath().toUtf8());
-            doc->recompute();
-
-            SoInput::removeDirectory(path.constData());
-        }
-        else if (ext == QLatin1String("py") ||
+        if (ext == QLatin1String("py") ||
                  ext == QLatin1String("rpsmacro") ||
                  ext == QLatin1String("fcscript")) {
             PythonEditor* editor = new PythonEditor();
@@ -760,53 +676,12 @@ PyObject* Application::sExport(PyObject * /*self*/, PyObject *args)
         QFileInfo fi;
         fi.setFile(fileName);
         QString ext = fi.suffix().toLower();
-        if (ext == QLatin1String("iv") ||
-            ext == QLatin1String("wrl") ||
-            ext == QLatin1String("vrml") ||
-            ext == QLatin1String("wrz") ||
-            ext == QLatin1String("x3d") ||
-            ext == QLatin1String("x3dz") ||
-            ext == QLatin1String("xhtml")) {
-
-            // build up the graph
-            SoSeparator* sep = new SoSeparator();
-            sep->ref();
-
-            for (Py::Sequence::iterator it = list.begin(); it != list.end(); ++it) {
-                PyObject* item = (*it).ptr();
-                if (PyObject_TypeCheck(item, &(App::DocumentObjectPy::Type))) {
-                    App::DocumentObject* obj = static_cast<App::DocumentObjectPy*>(item)->getDocumentObjectPtr();
-
-                    Gui::ViewProvider* vp = Gui::Application::Instance->getViewProvider(obj);
-                    if (vp) {
-                        sep->addChild(vp->getRoot());
-                    }
-                }
-            }
-
-
-            SoGetPrimitiveCountAction action;
-            action.setCanApproximate(true);
-            action.apply(sep);
-
-            bool binary = false;
-            if (action.getTriangleCount() > 100000 ||
-                action.getPointCount() > 30000 ||
-                action.getLineCount() > 10000)
-                binary = true;
-
-            SoFCDB::writeToFile(sep, Utf8Name.c_str(), binary);
-            sep->unref();
-        }
-        else if (ext == QLatin1String("pdf")) {
+        if (ext == QLatin1String("pdf")) {
             // get the view that belongs to the found document
             Gui::Document* gui_doc = Application::Instance->getDocument(doc);
             if (gui_doc) {
                 Gui::MDIView* view = gui_doc->getActiveView();
                 if (view) {
-                    View3DInventor* view3d = qobject_cast<View3DInventor*>(view);
-                    if (view3d)
-                        view3d->viewAll();
                     QPrinter printer(QPrinter::ScreenResolution);
                     printer.setOutputFormat(QPrinter::PdfFormat);
                     printer.setOutputFileName(fileName);
@@ -1484,7 +1359,7 @@ PyObject* Application::sShowPreferences(PyObject * /*self*/, PyObject *args)
 
 PyObject* Application::sCreateViewer(PyObject * /*self*/, PyObject *args)
 {
-    int num_of_views = 1;
+   int num_of_views = 1;
     char* title = nullptr;
     // if one argument (int) is given
     if (!PyArg_ParseTuple(args, "|is", &num_of_views, &title))
@@ -1495,14 +1370,7 @@ PyObject* Application::sCreateViewer(PyObject * /*self*/, PyObject *args)
         return nullptr;
     }
     else if (num_of_views == 1) {
-        View3DInventor* viewer = new View3DInventor(nullptr, nullptr);
-        if (title)
-            viewer->setWindowTitle(QString::fromUtf8(title));
-        Gui::getMainWindow()->addWindow(viewer);
-        return viewer->getPyObject();
-    }
-    else {
-        SplitView3DInventor* viewer = new SplitView3DInventor(num_of_views, nullptr, nullptr);
+        GraphvizView* viewer = new GraphvizView(*App::GetApplication().getActiveDocument(), nullptr);
         if (title)
             viewer->setWindowTitle(QString::fromUtf8(title));
         Gui::getMainWindow()->addWindow(viewer);
@@ -1552,7 +1420,7 @@ PyObject* Application::sGetMarkerIndex(PyObject * /*self*/, PyObject *args)
         if (std::find(std::begin(sizeList), std::end(sizeList), defSize) == std::end(sizeList))
             defSize = 9;
 
-        return Py_BuildValue("i", Gui::Inventor::MarkerBitmaps::getMarkerIndex(marker_arg, defSize));
+        return Py_BuildValue("i", 1); //koffa
     }
     PY_CATCH;
 }
@@ -1626,21 +1494,6 @@ PyObject* Application::sRemoveDocObserver(PyObject * /*self*/, PyObject *args)
 
     PY_TRY {
         DocumentObserverPython::removeObserver(Py::Object(o));
-        Py_Return;
-    }
-    PY_CATCH;
-}
-
-PyObject* Application::sCoinRemoveAllChildren(PyObject * /*self*/, PyObject *args)
-{
-    PyObject *pynode;
-    if (!PyArg_ParseTuple(args, "O", &pynode))
-        return nullptr;
-
-    PY_TRY {
-        void* ptr = nullptr;
-        Base::Interpreter().convertSWIGPointerObj("pivy.coin","_p_SoGroup", pynode, &ptr, 0);
-        coinRemoveAllChildren(reinterpret_cast<SoGroup*>(ptr));
         Py_Return;
     }
     PY_CATCH;

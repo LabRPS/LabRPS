@@ -22,30 +22,16 @@
 
 #include "PreCompiled.h"
 #ifndef _PreComp_
-# include <Inventor/SbRotation.h>
-# include <Inventor/SoFullPath.h>
-# include <Inventor/details/SoDetail.h>
-# include <Inventor/nodes/SoSeparator.h>
-# include <Inventor/nodes/SoSwitch.h>
 # include <QByteArray>
 # include <QDataStream>
 #endif
 
-#include <Base/BoundBoxPy.h>
-
 #include "PythonWrapper.h"
-#include "SoFCDB.h"
 
 // inclusion of the generated files (generated out of ViewProviderPy.xml)
 #include <Gui/ViewProviderPy.h>
 #include <Gui/ViewProviderPy.cpp>
-#include <Gui/View3DPy.h>
-#include <Gui/View3DInventor.h>
 #include <Base/Interpreter.h>
-#include <Base/Matrix.h>
-#include <Base/MatrixPy.h>
-#include <Base/Placement.h>
-#include <Base/PlacementPy.h>
 #include <App/Document.h>
 #include <App/DocumentObject.h>
 #include <App/DocumentObjectPy.h>
@@ -321,50 +307,6 @@ PyObject* ViewProviderPy::replaceObject(PyObject *args)
     PY_CATCH;
 }
 
-PyObject* ViewProviderPy::addDisplayMode(PyObject * args)
-{
-    char* mode;
-    PyObject* obj;
-    if (!PyArg_ParseTuple(args, "Os", &obj, &mode))
-        return nullptr;
-
-    void* ptr = nullptr;
-    try {
-        Base::Interpreter().convertSWIGPointerObj("pivy.coin","_p_SoNode", obj, &ptr, 0);
-    }
-    catch (const Base::Exception& e) {
-        PyErr_SetString(PyExc_RuntimeError, e.what());
-        return nullptr;
-    }
-
-    PY_TRY {
-        SoNode* node = reinterpret_cast<SoNode*>(ptr);
-        getViewProviderPtr()->addDisplayMaskMode(node,mode);
-        Py_Return;
-    }
-    PY_CATCH;
-}
-
-PyObject*  ViewProviderPy::listDisplayModes(PyObject *args)
-{
-    if (!PyArg_ParseTuple(args, ""))
-        return nullptr;
-
-    PY_TRY {
-        std::vector<std::string> modes = getViewProviderPtr()->getDisplayModes();
-        PyObject* pyList = PyList_New(modes.size());
-        int i=0;
-
-        for ( std::vector<std::string>::iterator it = modes.begin(); it != modes.end(); ++it ) {
-            PyObject* str = PyUnicode_FromString(it->c_str());
-            PyList_SetItem(pyList, i++, str);
-        }
-
-        return pyList;
-    }
-    PY_CATCH;
-}
-
 PyObject*  ViewProviderPy::toString(PyObject *args)
 {
     if (!PyArg_ParseTuple(args, ""))
@@ -375,27 +317,6 @@ PyObject*  ViewProviderPy::toString(PyObject *args)
         return Py::new_reference_to(Py::String(buffer));
     }
     PY_CATCH;
-}
-
-PyObject*  ViewProviderPy::setTransformation(PyObject *args)
-{
-    PyObject* p;
-    Base::Matrix4D mat;
-    if (PyArg_ParseTuple(args, "O!",&(Base::MatrixPy::Type),&p)) {
-        mat = *static_cast<Base::MatrixPy*>(p)->getMatrixPtr();
-        getViewProviderPtr()->setTransformation(mat);
-        Py_Return;
-    }
-    PyErr_Clear();
-
-    if (PyArg_ParseTuple(args, "O!",&(Base::PlacementPy::Type),&p)) {
-        Base::PlacementPy* plc = static_cast<Base::PlacementPy*>(p);
-        getViewProviderPtr()->setTransformation(plc->getPlacementPtr()->toMatrix());
-        Py_Return;
-    }
-
-    PyErr_SetString(PyExc_TypeError, "The transformation must be a Base.Matrix or a Base.Placement");
-    return nullptr;
 }
 
 PyObject* ViewProviderPy::claimChildren(PyObject* args)
@@ -414,125 +335,6 @@ PyObject* ViewProviderPy::claimChildren(PyObject* args)
     return Py::new_reference_to(ret);
 }
 
-PyObject* ViewProviderPy::partialRender(PyObject* args)
-{
-    PyObject *value = Py_None;
-    PyObject *clear = Py_False;
-    if (!PyArg_ParseTuple(args, "|OO!",&value,&PyBool_Type,&clear))
-        return nullptr;
-
-    std::vector<std::string> values;
-    if(value != Py_None) {
-        PyObject *item = nullptr;
-        Py_ssize_t nSize;
-        if (PyList_Check(value) || PyTuple_Check(value))
-            nSize = PySequence_Size(value);
-        else {
-            item = value;
-            value = nullptr;
-            nSize = 1;
-        }
-        values.resize(nSize);
-        for (Py_ssize_t i = 0; i < nSize; ++i) {
-            if(value)
-                item = PySequence_GetItem(value, i);
-            if (PyUnicode_Check(item)) {
-                values[i] = PyUnicode_AsUTF8(item);
-            }
-            else {
-                std::string error = std::string("type must be str");
-                error += " not, ";
-                error += item->ob_type->tp_name;
-                throw Base::TypeError(error);
-            }
-        }
-    }
-
-    Py::Int ret(getViewProviderPtr()->partialRender(values, PyObject_IsTrue(clear) ? true : false));
-    return Py::new_reference_to(ret);
-}
-
-PyObject* ViewProviderPy::getElementColors(PyObject* args)
-{
-    const char *element = nullptr;
-    if (!PyArg_ParseTuple(args, "|s", &element))
-        return nullptr;
-
-    Py::Dict dict;
-    for(auto &v : getViewProviderPtr()->getElementColors(element)) {
-        auto &c = v.second;
-        dict.setItem(Py::String(v.first),
-                Py::TupleN(Py::Float(c.r),Py::Float(c.g),Py::Float(c.b),Py::Float(c.a)));
-    }
-    return Py::new_reference_to(dict);
-}
-
-PyObject* ViewProviderPy::setElementColors(PyObject* args)
-{
-    PyObject *pyObj;
-    if (!PyArg_ParseTuple(args, "O", &pyObj))
-        return nullptr;
-
-    if(!PyDict_Check(pyObj))
-        throw Py::TypeError("Expect a dict");
-
-    std::map<std::string,App::Color> colors;
-    Py::Dict dict(pyObj);
-    for(auto it=dict.begin();it!=dict.end();++it) {
-        const auto &value = *it;
-        if(!value.first.isString() || !value.second.isSequence())
-            throw Py::TypeError("Expect the dictionary to contain items of type elementName:(r,g,b,a)");
-
-        App::PropertyColor prop;
-        prop.setPyObject(value.second.ptr());
-        colors[value.first.as_string()] = prop.getValue();
-    }
-    getViewProviderPtr()->setElementColors(colors);
-    Py_Return;
-}
-
-PyObject* ViewProviderPy::getElementPicked(PyObject* args)
-{
-    PyObject *obj;
-    if (!PyArg_ParseTuple(args, "O",&obj))
-        return nullptr;
-
-    void *ptr = nullptr;
-    Base::Interpreter().convertSWIGPointerObj("pivy.coin", "_p_SoPickedPoint", obj, &ptr, 0);
-    SoPickedPoint *pp = reinterpret_cast<SoPickedPoint*>(ptr);
-    if(!pp)
-        throw Base::TypeError("type must be coin.SoPickedPoint");
-
-    std::string name;
-    if(!getViewProviderPtr()->getElementPicked(pp,name))
-        Py_Return;
-
-    return Py::new_reference_to(Py::String(name));
-}
-
-PyObject* ViewProviderPy::getDetailPath(PyObject* args)
-{
-    const char *sub;
-    PyObject *path;
-    PyObject *append = Py_True;
-    if (!PyArg_ParseTuple(args, "sO|O!",&sub,&path,&PyBool_Type,&append))
-        return nullptr;
-
-    void *ptr = nullptr;
-    Base::Interpreter().convertSWIGPointerObj("pivy.coin", "_p_SoPath", path, &ptr, 0);
-    SoPath *pPath = reinterpret_cast<SoPath*>(ptr);
-    if(!pPath)
-        throw Base::TypeError("'path' must be a coin.SoPath");
-    SoDetail *det = nullptr;
-    if(!getViewProviderPtr()->getDetailPath(sub,static_cast<SoFullPath*>(pPath),append,det)) {
-        delete det;
-        Py_Return;
-    }
-    if(!det)
-        Py_Return;
-    return Base::Interpreter().createSWIGPointerObj("pivy.coin", "_p_SoDetail", (void*)det, 0);
-}
-
 PyObject *ViewProviderPy::signalChangeIcon(PyObject *args)
 {
     if (!PyArg_ParseTuple(args, ""))
@@ -540,23 +342,6 @@ PyObject *ViewProviderPy::signalChangeIcon(PyObject *args)
 
     getViewProviderPtr()->signalChangeIcon();
     Py_Return;
-}
-
-PyObject *ViewProviderPy::getBoundingBox(PyObject *args) {
-    PyObject *transform=Py_True;
-    PyObject *pyView = nullptr;
-    const char *subname = nullptr;
-    if (!PyArg_ParseTuple(args, "|sO!O!", &subname,&PyBool_Type,&transform,View3DInventorPy::type_object(),&pyView))
-        return nullptr;
-
-    PY_TRY {
-        View3DInventor *view = nullptr;
-        if(pyView)
-            view = static_cast<View3DInventorPy*>(pyView)->getView3DIventorPtr();
-        auto bbox = getViewProviderPtr()->getBoundingBox(subname,PyObject_IsTrue(transform),view);
-        return new Base::BoundBoxPy(new Base::BoundBox3d(bbox));
-    }
-    PY_CATCH;
 }
 
 PyObject *ViewProviderPy::doubleClicked(PyObject *args) {
@@ -600,65 +385,6 @@ int ViewProviderPy::setCustomAttributes(const char* attr, PyObject* value)
     }
 }
 
-Py::Object ViewProviderPy::getAnnotation() const
-{
-    try {
-        auto node = getViewProviderPtr()->getAnnotation();
-        PyObject* Ptr = Base::Interpreter().createSWIGPointerObj("pivy.coin", "_p_SoSeparator", node, 1);
-        node->ref();
-        return Py::Object(Ptr, true);
-    }
-    catch (const Base::Exception& e) {
-        throw Py::RuntimeError(e.what());
-    }
-}
-
-void  ViewProviderPy::setAnnotation(Py::Object)
-{
-
-}
-
-Py::Object ViewProviderPy::getRootNode() const
-{
-    try {
-        SoSeparator* node = getViewProviderPtr()->getRoot();
-        PyObject* Ptr = Base::Interpreter().createSWIGPointerObj("pivy.coin","_p_SoSeparator", node, 1);
-        node->ref();
-        return Py::Object(Ptr, true);
-    }
-    catch (const Base::Exception& e) {
-        throw Py::RuntimeError(e.what());
-    }
-}
-
-void  ViewProviderPy::setRootNode(Py::Object)
-{
-
-}
-
-Py::Object ViewProviderPy::getSwitchNode() const
-{
-    try {
-        SoSwitch* node = getViewProviderPtr()->getModeSwitch();
-        PyObject* Ptr = Base::Interpreter().createSWIGPointerObj("pivy.coin","_p_SoSwitch", node, 1);
-        node->ref();
-        return Py::Object(Ptr, true);
-    }
-    catch (const Base::Exception& e) {
-        throw Py::RuntimeError(e.what());
-    }
-}
-
-void  ViewProviderPy::setSwitchNode(Py::Object)
-{
-
-}
-
-Py::String ViewProviderPy::getIV() const
-{
-    std::string buf = Gui::SoFCDB::writeNodesToString(getViewProviderPtr()->getRoot());
-    return Py::String(buf);
-}
 
 Py::Object ViewProviderPy::getIcon() const
 {
@@ -677,15 +403,6 @@ Py::Object ViewProviderPy::getIcon() const
 #endif
 }
 
-Py::Int ViewProviderPy::getDefaultMode() const
-{
-    return Py::Int((long)getViewProviderPtr()->getDefaultMode());
-}
-
-void ViewProviderPy::setDefaultMode(Py::Int arg)
-{
-    return getViewProviderPtr()->setDefaultMode(arg);
-}
 
 Py::Boolean ViewProviderPy::getCanRemoveChildrenFromRoot() const
 {

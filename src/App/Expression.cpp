@@ -43,10 +43,7 @@
 #include <App/ObjectIdentifier.h>
 #include <App/PropertyUnits.h>
 #include <Base/Interpreter.h>
-#include <Base/MatrixPy.h>
-#include <Base/PlacementPy.h>
 #include <Base/QuantityPy.h>
-#include <Base/RotationPy.h>
 #include <Base/VectorPy.h>
 
 #include "ExpressionParser.h"
@@ -2027,28 +2024,28 @@ Py::Object FunctionExpression::evaluate(const Expression *expr, int f, const std
             _EXPR_THROW("Function requires at least two arguments.",expr);
         Py::Object pymat = args[0]->getPyValue();
         Py::Object pyscale;
-        if(PyObject_TypeCheck(pymat.ptr(),&Base::MatrixPy::Type)) {
-            if(args.size() == 2) {
-                Py::Object obj = args[1]->getPyValue();
-                if(obj.isSequence() && PySequence_Size(obj.ptr())==3)
-                    pyscale = Py::Tuple(Py::Sequence(obj));
-            } else if(args.size() == 4) {
-                Py::Tuple tuple(3);
-                tuple.setItem(0,args[1]->getPyValue());
-                tuple.setItem(1,args[2]->getPyValue());
-                tuple.setItem(2,args[3]->getPyValue());
-                pyscale = tuple;
-            }
-        }
+        //if(PyObject_TypeCheck(pymat.ptr(),&Base::MatrixPy::Type)) {
+        //    if(args.size() == 2) {
+        //        Py::Object obj = args[1]->getPyValue();
+        //        if(obj.isSequence() && PySequence_Size(obj.ptr())==3)
+        //            pyscale = Py::Tuple(Py::Sequence(obj));
+        //    } else if(args.size() == 4) {
+        //        Py::Tuple tuple(3);
+        //        tuple.setItem(0,args[1]->getPyValue());
+        //        tuple.setItem(1,args[2]->getPyValue());
+        //        tuple.setItem(2,args[3]->getPyValue());
+        //        pyscale = tuple;
+        //    }
+        //}
         if(!pyscale.isNone()) {
             Base::Vector3d vec;
             if (!PyArg_ParseTuple(pyscale.ptr(), "ddd", &vec.x,&vec.y,&vec.z))
                 PyErr_Clear();
-            else {
+            /*else {
                 auto mat = static_cast<Base::MatrixPy*>(pymat.ptr())->value();
                 mat.scale(vec);
                 return Py::asObject(new Base::MatrixPy(mat));
-            }
+            }*/
         }
         _EXPR_THROW("Function requires arguments to be either "
                 "(matrix,vector) or (matrix,number,number,number).", expr);
@@ -2057,7 +2054,7 @@ Py::Object FunctionExpression::evaluate(const Expression *expr, int f, const std
     if(args.empty())
         _EXPR_THROW("Function requires at least one argument.",expr);
 
-    if (f == MINVERT) {
+/*    if (f == MINVERT) {
         Py::Object pyobj = args[0]->getPyValue();
         if (PyObject_TypeCheck(pyobj.ptr(),&Base::MatrixPy::Type)) {
             auto m = static_cast<Base::MatrixPy*>(pyobj.ptr())->value();
@@ -2076,20 +2073,20 @@ Py::Object FunctionExpression::evaluate(const Expression *expr, int f, const std
         }
          _EXPR_THROW("Function requires the first argument to be either Matrix, Placement or Rotation.",expr);
 
-    } else if (f == CREATE) {
+    } else*/ if (f == CREATE) {
         Py::Object pytype = args[0]->getPyValue();
         if(!pytype.isString())
             _EXPR_THROW("Function requires the first argument to be a string.",expr);
         std::string type(pytype.as_string());
         Py::Object res;
-        if(boost::iequals(type,"matrix"))
+        /*if(boost::iequals(type,"matrix"))
             res = Py::asObject(new Base::MatrixPy(Base::Matrix4D()));
-        else if(boost::iequals(type,"vector"))
+        else */if(boost::iequals(type,"vector"))
             res = Py::asObject(new Base::VectorPy(Base::Vector3d()));
-        else if(boost::iequals(type,"placement"))
+        /*else if(boost::iequals(type,"placement"))
             res = Py::asObject(new Base::PlacementPy(Base::Placement()));
         else if(boost::iequals(type,"rotation"))
-            res = Py::asObject(new Base::RotationPy(Base::Rotation()));
+            res = Py::asObject(new Base::RotationPy(Base::Rotation()));*/
         else
             _EXPR_THROW("Unknown type '" << type << "'.",expr);
         if(args.size()>1) {

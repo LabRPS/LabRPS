@@ -26,10 +26,6 @@
 
 #include "ViewProvider.h"
 
-
-class SoNode;
-class SoInput;
-
 namespace Gui {
 
 
@@ -46,7 +42,6 @@ public:
 
     void setModeByString(const char* name, const char* ivFragment);
     void setModeByFile(const char* name, const char* ivFileName);
-    void setModeBySoInput(const char* name, SoInput &ivFileInput);
     void adjustDocumentName(const char* docname);
 
     virtual const char* getDefaultDisplayMode() const;
@@ -54,7 +49,6 @@ public:
     virtual void updateData(const App::Property*){}
 
 private:
-    void adjustRecursiveDocumentName(SoNode*, const char* docname);
 
 protected:
     std::vector<std::string> modes;

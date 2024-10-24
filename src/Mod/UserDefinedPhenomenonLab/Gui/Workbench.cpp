@@ -38,8 +38,6 @@
 #include <App/Document.h>
 #include <Gui/Application.h>
 #include <Gui/MainWindow.h>
-#include <Gui/View3DInventor.h>
-#include <Gui/View3DInventorViewer.h>
 #include <Mod/UserDefinedPhenomenonLabAPI/App/RPSUserDefinedPhenomenonLabpluginAPI.h>
 #include <Mod/UserDefinedPhenomenonLabAPI/App/UserDefinedPhenomenonLabFeatureDescription.h>
 

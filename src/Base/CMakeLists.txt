@@ -79,14 +79,8 @@ endif()
 
 generate_from_xml(TypePy)
 generate_from_xml(BaseClassPy)
-generate_from_xml(BoundBoxPy)
-generate_from_xml(CoordinateSystemPy)
 generate_from_xml(PersistencePy)
 generate_from_xml(VectorPy)
-generate_from_xml(MatrixPy)
-generate_from_xml(RotationPy)
-generate_from_xml(PlacementPy)
-generate_from_xml(AxisPy)
 generate_from_xml(UnitPy)
 generate_from_xml(QuantityPy)
 generate_from_any(Parameter.xsd Parameter.inl xmlSchemeString)
@@ -163,14 +157,8 @@ endif ()
 SOURCE_GROUP("pycxx" FILES ${PYCXX_SOURCES})
 
 SET(LabRPSBase_XML_SRCS
-    AxisPy.xml
     BaseClassPy.xml
-    BoundBoxPy.xml
-    CoordinateSystemPy.xml
-    MatrixPy.xml
     PersistencePy.xml
-    PlacementPy.xml
-    RotationPy.xml
     VectorPy.xml
     QuantityPy.xml
     TypePy.xml
@@ -213,18 +201,12 @@ SET(SWIG_SRCS
 )
 
 SET(LabRPSBase_CPP_SRCS
-    Axis.cpp
-    AxisPyImp.cpp
     Base64.cpp
     BaseClass.cpp
     BaseClassPyImp.cpp
     BindingManager.cpp
-    BoundBoxPyImp.cpp
-    Builder3D.cpp
     Console.cpp
     ConsoleObserver.cpp
-    CoordinateSystem.cpp
-    CoordinateSystemPyImp.cpp
     Debugger.cpp
     DualQuaternion.cpp
     Exception.cpp
@@ -235,25 +217,18 @@ SET(LabRPSBase_CPP_SRCS
     FutureWatcherProgress.cpp
     gzstream.cpp
     gzstream.h
-    GeometryPyCXX.cpp
     Handle.cpp
     InputSource.cpp
     Interpreter.cpp
-    Matrix.cpp
-    MatrixPyImp.cpp
     MemDebug.cpp
     Parameter.xsd
     Parameter.cpp
     ParameterPy.cpp
     Persistence.cpp
     PersistencePyImp.cpp
-    Placement.cpp
-    PlacementPyImp.cpp
     PyExport.cpp
     PyObjectBase.cpp
     Reader.cpp
-    Rotation.cpp
-    RotationPyImp.cpp
     Sequencer.cpp
     SmartPtrPy.cpp
     Stream.cpp
@@ -261,14 +236,12 @@ SET(LabRPSBase_CPP_SRCS
     ${SWIG_SRCS}
     TimeInfo.cpp
     Tools.cpp
-    Tools2D.cpp
     Translate.cpp
     Type.cpp
     TypePyImp.cpp
     Uuid.cpp
     Vector3D.cpp
     VectorPyImp.cpp
-    ViewProj.cpp
     Writer.cpp
     XMLTools.cpp
 )
@@ -278,17 +251,13 @@ SET(SWIG_HEADERS
 )
 
 SET(LabRPSBase_HPP_SRCS
-    Axis.h
     Base64.h
     BaseClass.h
     BindingManager.h
     Bitmask.h
-    BoundBox.h
-    Builder3D.h
     Console.h
     ConsoleObserver.h
     Converter.h
-    CoordinateSystem.h
     Debugger.h
     DualNumber.h
     DualQuaternion.h
@@ -300,20 +269,16 @@ SET(LabRPSBase_HPP_SRCS
     FutureWatcherProgress.h
     fdstream.hpp
     gzstream.h
-    GeometryPyCXX.h
     Handle.h
     InputSource.h
     Interpreter.h
-    Matrix.h
     MemDebug.h
     Observer.h
     Parameter.h
     Persistence.h
-    Placement.h
     PyExport.h
     PyObjectBase.h
     Reader.h
-    Rotation.h
     Sequencer.h
     SmartPtrPy.h
     Stream.h
@@ -321,12 +286,10 @@ SET(LabRPSBase_HPP_SRCS
     ${SWIG_HEADERS}
     TimeInfo.h
     Tools.h
-    Tools2D.h
     Translate.h
     Type.h
     Uuid.h
     Vector3D.h
-    ViewProj.h
     Writer.h
     XMLTools.h
 )

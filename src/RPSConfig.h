@@ -81,38 +81,8 @@
 #elif defined(__CYGWIN__)
 #   ifndef RPS_OS_CYGWIN
 #   define RPS_OS_CYGWIN
-// Avoid conflicts with Inventor
-#   define HAVE_INT8_T
-#   define HAVE_UINT8_T
-#   define HAVE_INT16_T
-#   define HAVE_UINT16_T
-#   define HAVE_INT32_T
-#   define HAVE_UINT32_T
-#   define HAVE_INT64_T
-#   define HAVE_UINT64_T
-#   define HAVE_INTPTR_T
-#   define HAVE_UINTPTR_T
 #endif
-//#elif defined(sun) || defined(__sun) || defined(__sun__)
-//# if defined(__SVR4)
-//#     define _RPS_OS_SOLARIS
-//# else
-//#     define _RPS_OS_SUN_
-//# endif
-//#elif defined(hpux) || defined(__hpux) || defined(__hpux__)
-//# define RPS_OS_HPUX_
-//#elif defined(__FreeBSD__)
-//# define RPS_OS_FREEBSD
-//#elif defined(__NetBSD__)
-//# define RPS_OS_NETBSD
-//#elif defined(__OpenBSD__)
-//# define RPS_OS_OPENBSD
-//#elif defined(sgi) || defined(__sgi)
-//# define RPS_OS_IRIX
-//#elif defined(_AIX)
-//# define RPS_OS_AIX
-//#elif defined(__GNU__)
-//# define RPS_OS_GNU
+
 #else
 #   error "LabRPS is not ported to this OS yet. For help see www.freecadweb.org"
 #endif
@@ -170,8 +140,6 @@ typedef __int64             int64_t;
 typedef unsigned __int64    uint64_t;
 #endif
 
-/* avoid to redefine the HAVE_* in Coin's inttypes.h file */
-#define COIN_CONFIGURE_BUILD
 /* The <inttypes.h> header file. */
 #define HAVE_INTTYPES_H 1
 /* The <stdint.h> header file. */
@@ -182,49 +150,6 @@ typedef unsigned __int64    uint64_t;
 #define HAVE_STDDEF_H 1
 
 #endif
-
-
-//FIXME: Move to modules where OCC is needed
-//**************************************************************************
-// Open CasCade
-
-#ifdef _MSC_VER
-#   ifndef WNT
-#   define WNT
-#   endif
-#   ifndef WIN32
-#   define WIN32
-#   endif
-#   ifndef _WINDOWS
-#   define _WINDOWS
-#   endif
-#endif
-
-#ifdef RPS_OS_LINUX
-#   define LIN
-#   define LININTEL
-//#       define NO_CXX_EXCEPTION
-#endif
-
-#define CSFDB
-
-/// enables the use of the OCC DocumentBrowser
-#ifndef RPS_OS_LINUX
-#   define RPS_USE_OCAFBROWSER
-#endif
-
-
-#ifdef RPS_OCC_DEBUG
-#   ifdef RPS_DEBUG
-#       define DEBUG 1
-#   else
-#       undef  DEBUG
-#   ifndef NDEBUG
-#       define NDEBUG
-#   endif
-#   endif
-#endif
-
 
 //**************************************************************************
 // Qt
@@ -246,35 +171,6 @@ typedef unsigned __int64    uint64_t;
 
 #ifndef QT_ALTERNATE_QTSMANIP
 # define QT_ALTERNATE_QTSMANIP
-#endif
-
-
-//**************************************************************************
-// Coin3D
-#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
-# ifndef RPSGui //COIN_DLL is defined in the LabRPSGui target
-#  ifndef COIN_DLL
-#    define COIN_DLL
-#  endif
-# endif
-#endif
-
-//**************************************************************************
-// SoQt
-#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
-# ifndef SOQT_DLL
-#   define SOQT_DLL
-# endif
-#endif
-
-//**************************************************************************
-// Quarter
-#if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
-# ifndef QUARTER_INTERNAL
-#  ifndef QUARTER_DLL
-#   define QUARTER_DLL
-#  endif
-# endif
 #endif
 
 // stops inclusion of the QT 3 header through the SoQT header...

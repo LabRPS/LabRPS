@@ -30,7 +30,6 @@
 #include "Vector3D.h"
 
 // inclusion of the generated files (generated out of VectorPy.xml)
-#include "GeometryPyCXX.h"
 #include "VectorPy.h"
 #include "VectorPy.cpp"
 

@@ -90,7 +90,7 @@ DocumentObject* DocumentObjectExtension::getExtendedObject() {
 }
 
 bool DocumentObjectExtension::extensionGetSubObject(DocumentObject *&,
-        const char *, PyObject **, Base::Matrix4D *, bool, int) const
+        const char *, PyObject **, int) const
 {
     return false;
 }
@@ -101,7 +101,7 @@ bool DocumentObjectExtension::extensionGetSubObjects(std::vector<std::string>&, 
 }
 
 bool DocumentObjectExtension::extensionGetLinkedObject(
-        DocumentObject *&, bool, Base::Matrix4D *, bool, int) const
+        DocumentObject *&, bool, int) const
 {
     return false;
 }

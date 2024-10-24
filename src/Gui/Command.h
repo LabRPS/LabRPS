@@ -1022,26 +1022,5 @@ protected: \
     virtual Gui::Action * createAction(void);\
 };
 
-/** The Command Macro view
- *  This macro makes it easier to define a new command for the 3D View
- *  It activate the command only when a 3DView is active.
- *  The parameters are the class name
- *  @author Jürgen Riegel
- */
-#define DEF_3DV_CMD(X) class X : public Gui::Command \
-{\
-public:\
-    X();\
-    virtual ~X(){}\
-    virtual const char* className() const\
-    { return #X; }\
-protected: \
-    virtual void activated(int iMsg);\
-    virtual bool isActive(void)\
-    {\
-        Gui::MDIView* view = Gui::getMainWindow()->activeWindow();\
-        return view && view->isDerivedFrom(Gui::View3DInventor::getClassTypeId());\
-    }\
-};
 
 #endif // GUI_COMMAND_H

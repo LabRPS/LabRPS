@@ -73,5 +73,6 @@ def findAllVertexes():
     if App.GuiUp:
         import SeismicLabGui
         SeismicLabGui.SeismicLabPyTool.showArray(rows, cols, arr)
+    return arr
         # print(arr)
 ##  @}

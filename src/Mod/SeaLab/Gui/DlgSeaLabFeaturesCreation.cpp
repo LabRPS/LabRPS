@@ -46,8 +46,6 @@
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
 #include <App/AutoTransaction.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureDescription.h>
-#include <Gui/View3DInventor.h>
-#include <Gui/View3DInventorViewer.h>
 
 using namespace SeaLabGui;
 using namespace Gui;
@@ -172,11 +170,7 @@ void DlgSeaLabFeaturesCreation::createDlgSeaLabFeature(const QString& simulation
     simParent->setEnums(type);
 
 	Gui::Document* doc = Gui::Application::Instance->activeDocument();
-    if (doc) {
-        Gui::View3DInventor* view = static_cast<Gui::View3DInventor*>(doc->getActiveView());
-        Gui::View3DInventorViewer* viewer = view->getViewer();
-        viewer->viewAll();
-    }
+
     docApp->commitTransaction();
 
 	App::AutoTransaction trans("Recompute");

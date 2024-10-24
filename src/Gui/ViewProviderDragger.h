@@ -26,15 +26,8 @@
 
 #include "ViewProviderDocumentObject.h"
 
-class SoDragger;
-class SoTransform;
-
-namespace Base { class Placement;}
-
 namespace Gui {
 
-class View3DInventorViewer;
-class SoFCCSysDragger;
 
 /**
  * The base class for all view providers modifying the placement
@@ -60,25 +53,14 @@ public:
 
     virtual ViewProvider *startEditing(int ModNum=0) override;
 
-    /*! synchronize From FC placement to Coin placement*/
-    static void updateTransform(const Base::Placement &from, SoTransform *to);
-
 protected:
     bool setEdit(int ModNum) override;
     void unsetEdit(int ModNum) override;
-    void setEditViewer(View3DInventorViewer*, int ModNum) override;
-    void unsetEditViewer(View3DInventorViewer*) override;
     //@}
-    SoFCCSysDragger *csysDragger = nullptr;
 
 private:
-    static void dragStartCallback(void * data, SoDragger * d);
-    static void dragFinishCallback(void * data, SoDragger * d);
-
-    static void updatePlacementFromDragger(ViewProviderDragger *sudoThis, SoFCCSysDragger *draggerIn);
 
     bool checkLink();
-
     ViewProvider *_linkDragger = nullptr;
 };
 

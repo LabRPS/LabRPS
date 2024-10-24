@@ -53,7 +53,7 @@ translate = LabRPS.Qt.translate
 
 __title__ = "LabRPS Addon Manager Module"
 __author__ = "Yorik van Havre", "Jonathan Wiedemann", "Kurt Kremitzki", "Chris Hennes"
-__url__ = "http://www.labrps.org"
+__url__ = "http://www.labrps.com"
 
 """
 LabRPS Addon Manager Module
@@ -62,7 +62,7 @@ Fetches various types of addons from a variety of sources. Built-in sources are:
 * https://github.com/LabRPS/LabRPS-addons
 * https://github.com/LabRPS/LabRPS-macros
 * https://github.com/LabRPS/LabRPS-plugins
-* https://wiki.labrps.org/
+* https://wiki.labrps.com/
 
 Additional git sources may be configure via user preferences.
 

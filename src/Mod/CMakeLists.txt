@@ -2,23 +2,6 @@ if(BUILD_ADDONMGR)
   add_subdirectory(AddonManager)
 endif(BUILD_ADDONMGR)
 
-# if(BUILD_IDF)
-#   add_subdirectory(Idf)
-# endif(BUILD_IDF)
-
-# if(BUILD_IMAGE)
-#   add_subdirectory(Image)
-# endif(BUILD_IMAGE)
-
-if(BUILD_IMPORT)
-  add_subdirectory(Import)
-endif(BUILD_IMPORT)
-
-if(BUILD_PART)
-  add_subdirectory(Part)
-  add_subdirectory(Measure)
-endif(BUILD_PART)
-
 if(BUILD_PLOT)
   add_subdirectory(Plot)
 endif(BUILD_PLOT)
@@ -30,8 +13,6 @@ endif(BUILD_SPREADSHEET)
 if(BUILD_START)
   add_subdirectory(Start)
 endif(BUILD_START)
-
-#add_subdirectory(TemplatePyMod)
 
 # if(BUILD_TEST)
 #   add_subdirectory(Test)

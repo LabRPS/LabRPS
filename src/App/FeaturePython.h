@@ -25,8 +25,8 @@
 #ifndef APP_FEATUREPYTHON_H
 #define APP_FEATUREPYTHON_H
 
-#include <App/GeoFeature.h>
 #include <App/PropertyPythonObject.h>
+#include "RPSFeature.h"
 
 
 namespace App
@@ -57,12 +57,12 @@ public:
     PyObject *getPyObject(void);
 
     bool getSubObject(App::DocumentObject *&ret, const char *subname, PyObject **pyObj, 
-            Base::Matrix4D *mat, bool transform, int depth) const;
+            int depth) const;
 
     bool getSubObjects(std::vector<std::string> &ret, int reason) const;
 
     bool getLinkedObject(App::DocumentObject *&ret, bool recurse, 
-                         Base::Matrix4D *mat, bool transform, int depth) const;
+                         int depth) const;
 
     ValueT canLinkProperties() const;
 
@@ -211,12 +211,12 @@ public:
     }
 
     virtual App::DocumentObject *getSubObject(const char *subname, PyObject **pyObj, 
-            Base::Matrix4D *mat, bool transform, int depth) const override 
+            int depth) const override 
     {
         App::DocumentObject *ret = nullptr;
-        if(imp->getSubObject(ret,subname,pyObj,mat,transform,depth))
+        if(imp->getSubObject(ret,subname,pyObj,depth))
             return ret;
-        return FeatureT::getSubObject(subname,pyObj,mat,transform,depth);
+        return FeatureT::getSubObject(subname,pyObj,depth);
     }
 
     virtual std::vector<std::string> getSubObjects(int reason=0) const override {
@@ -227,12 +227,12 @@ public:
     }
 
     virtual App::DocumentObject *getLinkedObject(bool recurse, 
-            Base::Matrix4D *mat, bool transform, int depth) const override
+            int depth) const override
     {
         App::DocumentObject *ret = nullptr;
-        if(imp->getLinkedObject(ret,recurse,mat,transform,depth))
+        if(imp->getLinkedObject(ret,recurse,depth))
             return ret;
-        return FeatureT::getLinkedObject(recurse,mat,transform,depth);
+        return FeatureT::getLinkedObject(recurse,depth);
     }
 
     /// return true to activate tree view group object handling
@@ -350,7 +350,7 @@ private:
 
 // Special Feature-Python classes
 typedef FeaturePythonT<DocumentObject> FeaturePython;
-typedef FeaturePythonT<GeoFeature    > GeometryPython;
+typedef FeaturePythonT<RPSFeature    > SimulationPython;
 
 } //namespace App
 

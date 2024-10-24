@@ -79,8 +79,6 @@
 #include <Mod/WindLabAPI/App/WindLabFeatureUserDefinedRPSObject.h>
 #include <Mod/WindLabAPI/App/WindLabFeatureMatrixTool.h>
 #include <Mod/WindLabAPI/App/WindLabFeatureTableTool.h>
-#include <Gui/View3DInventor.h>
-#include <Gui/View3DInventorViewer.h>
 #include <Gui/Command.h>
 #include <App/AutoTransaction.h>
 #include <Mod/WindLabAPI/App/IrpsWLSimuMethod.h>
@@ -188,12 +186,7 @@ bool ViewProviderWindLabSimulation::refresh() {
     }
 
     Gui::Document* doc = Gui::Application::Instance->activeDocument();
-    if (doc) {
-        Gui::View3DInventor* view = static_cast<Gui::View3DInventor*>(doc->getActiveView());
-        Gui::View3DInventorViewer* viewer = view->getViewer();
-        viewer->viewAll();
-    }
-
+ 
 	App::AutoTransaction trans("Recompute");
     Command::doCommand(Command::Doc, "App.getDocument(\"%s\").recompute()", doc->getDocument()->getName());
 

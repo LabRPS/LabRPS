@@ -17,7 +17,5 @@ macro(CheckInterModuleDependencies)
         endif(${dependent})
     endfunction(REQUIRES_MODS)
 
-    REQUIRES_MODS(BUILD_IDF                BUILD_PART)
-    REQUIRES_MODS(BUILD_IMPORT             BUILD_PART)
     REQUIRES_MODS(BUILD_START              BUILD_WEB)
 endmacro(CheckInterModuleDependencies)

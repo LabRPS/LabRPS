@@ -27,7 +27,7 @@
  * \section Overview
  * In C++ applications there are a lot of ways to handle memory allocation and deallocation.
  * As many ways to do it wrong or simply forget to free memory. One way to overcome
- * this problem is e.g. usage of handle classes (like OpenCASCADE does) or use a lot of factories.
+ * this problem is e.g. usage of handle classes  or use a lot of factories.
  * But all of them have drawbacks or performance penalties. One good way to get memory
  * problems hunted down is the MSCRT Heap debugging facility. This set of functions
  * opens the possibility to track and locate all kind of memory problems, e.g.

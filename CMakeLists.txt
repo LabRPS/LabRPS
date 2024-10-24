@@ -67,20 +67,7 @@ if(NOT LABRPS_LIBPACK_USE OR LABRPS_LIBPACK_CHECKFILE_CLBUNDLER)
     SetupXercesC()
     find_package(ZLIB REQUIRED)
     find_package(PyCXX REQUIRED)
-    SetupOpenCasCade()
-    if(BUILD_GUI)
-        # Do this before the check for SMESH because it depends on vtk
-        # that may have its own OpenGL check but possibly fails and leaves
-        # OPENGL_gl_LIBRARY empty that results into linker errors
-        SetupOpenGL()
-    endif(BUILD_GUI)
     SetupBoost()
-    SetupSalomeSMESH()
-    if (BUILD_FEM_NETGEN)
-        find_package(NETGEN)
-    endif(BUILD_FEM_NETGEN)
-    # not needed at the moment
-    #find_package(OpenCV REQUIRED)
     SetupSwig()
     SetupEigen()
     # This file is included directly due to some cMake macros that are defined within.
@@ -89,16 +76,10 @@ if(NOT LABRPS_LIBPACK_USE OR LABRPS_LIBPACK_CHECKFILE_CLBUNDLER)
     SetupFreetype()
 
     if(BUILD_GUI)
-        SetupCoin3D()
-        SetupSpaceball()
         SetupShibokenAndPyside()
         SetupMatplotlib()
     endif(BUILD_GUI)
 endif(NOT LABRPS_LIBPACK_USE OR LABRPS_LIBPACK_CHECKFILE_CLBUNDLER)
-
-if(BUILD_VR)
-    find_package(Rift)
-endif(BUILD_VR)
 
 SetLibraryVersions()
 SetGlobalCompilerAndLinkerSettings()

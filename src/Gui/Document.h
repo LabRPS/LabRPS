@@ -32,13 +32,6 @@
 #include <Base/Persistence.h>
 #include <Gui/TreeItemMode.h>
 
-class SoNode;
-class SoPath;
-
-namespace Base {
-class Matrix4D;
-}
-
 namespace App {
 class Document;
 class DocumentObject;
@@ -179,7 +172,6 @@ public:
     void setActiveWindow(Gui::MDIView* view);
     Gui::MDIView* getEditingViewOfViewProvider(Gui::ViewProvider*) const;
     Gui::MDIView* getViewOfViewProvider(const Gui::ViewProvider*) const;
-    Gui::MDIView* getViewOfNode(SoNode*) const;
     /// Create a new view
     MDIView *createView(const Base::Type& typeId);
     /// Create a clone of the given view
@@ -200,12 +192,6 @@ public:
     void attachView(Gui::BaseView* pcView, bool bPassiv=false);
     /// Detach a view (get called by the MDIView destructor)
     void detachView(Gui::BaseView* pcView, bool bPassiv=false);
-    /// helper for selection
-    ViewProviderDocumentObject* getViewProviderByPathFromTail(SoPath * path) const;
-    /// helper for selection
-    ViewProviderDocumentObject* getViewProviderByPathFromHead(SoPath * path) const;
-    /// Get all view providers along the path and the corresponding node index in the path
-    std::vector<std::pair<ViewProviderDocumentObject*,int> > getViewProvidersByPath(SoPath * path) const;
     /// call update on all attached views
     void onUpdate();
     /// call relabel to all attached views
@@ -222,27 +208,16 @@ public:
     //@{
     /// Get the view provider for that object
     ViewProvider* getViewProvider(const App::DocumentObject *) const;
-    ViewProviderDocumentObject *getViewProvider(SoNode *node) const;
-    /// set an annotation view provider
-    void setAnnotationViewProvider(const char* name, ViewProvider *pcProvider);
-    /// get an annotation view provider
-    ViewProvider * getAnnotationViewProvider(const char* name) const;
-    /// remove an annotation view provider
-    void removeAnnotationViewProvider(const char* name);
     /// test if the feature is in show
     bool isShow(const char* name);
     /// put the feature in show
     void setShow(const char* name);
     /// set the feature in Noshow
     void setHide(const char* name);
-    /// set the feature transformation (only viewing)
-    void setPos(const char* name, const Base::Matrix4D& rclMtrx);
     std::vector<ViewProvider*> getViewProvidersOfType(const Base::Type& typeId) const;
     ViewProvider *getViewProviderByName(const char* name) const;
     /// set the ViewProvider in special edit mode
     bool setEdit(Gui::ViewProvider* p, int ModNum=0, const char *subname=nullptr);
-    const Base::Matrix4D &getEditingTransform() const;
-    void setEditingTransform(const Base::Matrix4D &mat);
     /// reset from edit mode, this cause all document to reset edit
     void resetEdit();
     /// reset edit of this document
@@ -252,12 +227,6 @@ public:
             std::string *subname=nullptr, int *mode=nullptr, std::string *subElement=nullptr) const;
     /// set the in edit ViewProvider subname reference
     void setInEdit(ViewProviderDocumentObject *parentVp, const char *subname);
-    /** Add or remove view provider from scene graphs of all views
-     *
-     * It calls ViewProvider::canAddToSceneGraph() to decide whether to add the
-     * view provider or remove it
-     */
-    void toggleInSceneGraph(ViewProvider *vp);
     //@}
 
     /** @name methods for the UNDO REDO handling */
@@ -303,8 +272,6 @@ protected:
     Gui::DocumentPy *_pcDocPy;
 
 private:
-    //handles the scene graph nodes to correctly group child and parents
-    void handleChildren3D(ViewProvider* viewProvider, bool deleting=false);
 
     /// Check other documents for the same transaction ID
     bool checkTransactionID(bool undo, int iSteps);

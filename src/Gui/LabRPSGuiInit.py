@@ -272,21 +272,6 @@ LabRPSGui.Workbench = Workbench
 
 Gui.addWorkbench(NoneWorkbench())
 
-# Monkey patching pivy.coin.SoGroup.removeAllChildren to work around a bug
-# https://bitbucket.org/Coin3D/coin/pull-requests/119/fix-sochildlist-auditing/diff
-
-def _SoGroup_init(self,*args):
-    import types
-    _SoGroup_init_orig(self,*args)
-    self.removeAllChildren = \
-        types.MethodType(LabRPSGui.coinRemoveAllChildren,self)
-try:
-    from pivy import coin
-    _SoGroup_init_orig = coin.SoGroup.__init__
-    coin.SoGroup.__init__ = _SoGroup_init
-except Exception:
-    pass
-
 # init modules
 InitApplications()
 
@@ -294,15 +279,7 @@ InitApplications()
 Gui.activateWorkbench("NoneWorkbench")
 
 # Register .py, .FCScript and .RPSMacro
-LabRPS.addImportType("Inventor V2.1 (*.iv)","LabRPSGui")
-LabRPS.addImportType("VRML V2.0 (*.wrl *.vrml *.wrz *.wrl.gz)","LabRPSGui")
 LabRPS.addImportType("Python (*.py *.RPSMacro *.FCScript)","LabRPSGui")
-LabRPS.addExportType("Inventor V2.1 (*.iv)","LabRPSGui")
-LabRPS.addExportType("VRML V2.0 (*.wrl *.vrml *.wrz *.wrl.gz)","LabRPSGui")
-LabRPS.addExportType("X3D Extensible 3D (*.x3d *.x3dz)","LabRPSGui")
-LabRPS.addExportType("WebGL/X3D (*.xhtml)","LabRPSGui")
-#LabRPS.addExportType("IDTF (for 3D PDF) (*.idtf)","LabRPSGui")
-#LabRPS.addExportType("3D View (*.svg)","LabRPSGui")
 LabRPS.addExportType("Portable Document Format (*.pdf)","LabRPSGui")
 
 del(InitApplications)

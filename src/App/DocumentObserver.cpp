@@ -26,10 +26,9 @@
 #include <Base/Tools.h>
 
 #include "Application.h"
-#include "ComplexGeoData.h"
 #include "Document.h"
 #include "DocumentObserver.h"
-#include "GeoFeature.h"
+#include "RPSFeature.h"
 
 using namespace App;
 namespace sp = std::placeholders;
@@ -362,11 +361,11 @@ const std::string &SubObjectT::getSubName() const {
 }
 
 std::string SubObjectT::getSubNameNoElement() const {
-    return Data::ComplexGeoData::noElementName(subname.c_str());
+    return /*Data::ComplexGeoData::noElementName*/(subname.c_str());//koffa
 }
 
 const char *SubObjectT::getElementName() const {
-    return Data::ComplexGeoData::findElementName(subname.c_str());
+    return /*Data::ComplexGeoData::findElementName*/(subname.c_str());//koffa
 }
 
 std::string SubObjectT::getNewElementName() const {
@@ -374,7 +373,7 @@ std::string SubObjectT::getNewElementName() const {
     auto obj = getObject();
     if(!obj)
         return std::string();
-    GeoFeature::resolveElement(obj,subname.c_str(),element);
+    RPSFeature::resolveElement(obj,subname.c_str(),element);
     return std::move(element.first);
 }
 
@@ -383,7 +382,7 @@ std::string SubObjectT::getOldElementName(int *index) const {
     auto obj = getObject();
     if(!obj)
         return std::string();
-    GeoFeature::resolveElement(obj,subname.c_str(),element);
+    RPSFeature::resolveElement(obj,subname.c_str(),element);
     if(!index)
         return std::move(element.second);
     std::size_t pos = element.second.find_first_of("0123456789");

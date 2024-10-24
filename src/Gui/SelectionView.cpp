@@ -33,9 +33,8 @@
 # include <QVBoxLayout>
 #endif
 
-#include <App/ComplexGeoData.h>
 #include <App/Document.h>
-#include <App/GeoFeature.h>
+#include <App/RPSFeature.h>
 
 #include "SelectionView.h"
 #include "Application.h"
@@ -550,21 +549,20 @@ QString SelectionView::getModule(const char* type) const
 QString SelectionView::getProperty(App::DocumentObject* obj) const
 {
     QString property;
-    if (obj->getTypeId().isDerivedFrom(App::GeoFeature::getClassTypeId())) {
-        App::GeoFeature* geo = static_cast<App::GeoFeature*>(obj);
-        const App::PropertyComplexGeoData* data = geo->getPropertyOfGeometry();
+   /* if (obj->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
+        App::RPSFeature* rps = static_cast<App::RPSFeature*>(obj);
         const char* name = data ? data->getName() : nullptr;
         if (App::Property::isValidName(name)) {
             property = QString::fromLatin1(name);
         }
-    }
-
+    }*/
+    //koffa
     return property;
 }
 
 bool SelectionView::supportPart(App::DocumentObject* obj, const QString& part) const
 {
-    if (obj->getTypeId().isDerivedFrom(App::GeoFeature::getClassTypeId())) {
+    /*if (obj->getTypeId().isDerivedFrom(App::GeoFeature::getClassTypeId())) {
         App::GeoFeature* geo = static_cast<App::GeoFeature*>(obj);
         const App::PropertyComplexGeoData* data = geo->getPropertyOfGeometry();
         if (data) {
@@ -575,7 +573,7 @@ bool SelectionView::supportPart(App::DocumentObject* obj, const QString& part) c
                     return true;
             }
         }
-    }
+    }*/
 
     return false;
 }

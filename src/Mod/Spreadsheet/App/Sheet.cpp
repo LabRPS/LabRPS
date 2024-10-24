@@ -38,7 +38,6 @@
 #include <App/ExpressionParser.h>
 #include <Base/Exception.h>
 #include <Base/FileInfo.h>
-#include <Base/Placement.h>
 #include <Base/Reader.h>
 #include <Base/Stream.h>
 #include <Base/Writer.h>

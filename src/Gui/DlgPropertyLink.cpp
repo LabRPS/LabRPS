@@ -30,7 +30,7 @@
 
 #include <App/Document.h>
 #include <App/DocumentObject.h>
-#include <App/GeoFeature.h>
+#include <App/RPSFeature.h>
 #include <App/ObjectIdentifier.h>
 #include <App/PropertyPythonObject.h>
 #include <Base/Interpreter.h>
@@ -44,7 +44,6 @@
 #include "PropertyView.h"
 #include "Selection.h"
 #include "Tree.h"
-#include "View3DInventor.h"
 #include "ViewProviderDocumentObject.h"
 
 
@@ -371,8 +370,8 @@ void DlgPropertyLink::init(const App::DocumentObjectT &prop, bool tryFilter) {
 
         Base::Type baseType;
         // get only geometric types
-        if (objType.isDerivedFrom(App::GeoFeature::getClassTypeId()))
-            baseType = App::GeoFeature::getClassTypeId();
+        if (objType.isDerivedFrom(App::RPSFeature::getClassTypeId()))
+            baseType = App::RPSFeature::getClassTypeId();
         else
             baseType = App::DocumentObject::getClassTypeId();
 
@@ -509,17 +508,6 @@ void DlgPropertyLink::onItemSelectionChanged()
 
     bool focus = false;
     // Do auto view switch if tree view does not do it
-    if(!TreeParams::Instance()->SyncView()) {
-        focus = ui->treeWidget->hasFocus();
-        auto doc = Gui::Application::Instance->getDocument(sobjs.front().getDocumentName().c_str());
-        if(doc) {
-            auto vp = Base::labrps_dynamic_cast<Gui::ViewProviderDocumentObject>(
-                    doc->getViewProvider(obj));
-            if(vp) {
-                doc->setActiveView(vp, Gui::View3DInventor::getClassTypeId());
-            }
-        }
-    }
 
     // Sync 3d view selection. To give a better visual feedback, we
     // only keep the latest selection.
@@ -625,7 +613,7 @@ void DlgPropertyLink::onSelectionChanged(const Gui::SelectionChanges& msg)
     std::pair<std::string,std::string> elementName;
     const char *subname = msg.pSubName;
     if(!ui->checkSubObject->isChecked()) {
-        selObj = App::GeoFeature::resolveElement(selObj,subname,elementName);
+        selObj = App::RPSFeature::resolveElement(selObj, subname, elementName);
         if(!selObj)
             return;
         subname = elementName.second.c_str();

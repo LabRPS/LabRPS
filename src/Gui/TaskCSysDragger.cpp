@@ -35,7 +35,6 @@
 #include "BitmapFactory.h"
 #include "Command.h"
 #include "QuantitySpinBox.h"
-#include "SoFCCSysDragger.h"
 #include "ViewProviderDragger.h"
 #include "TaskView/TaskView.h"
 
@@ -49,22 +48,15 @@ static double degreesToRadians(const double &degreesIn)
 }
 
 
-TaskCSysDragger::TaskCSysDragger(Gui::ViewProviderDocumentObject* vpObjectIn, Gui::SoFCCSysDragger* draggerIn) :
-  dragger(draggerIn)
+TaskCSysDragger::TaskCSysDragger(Gui::ViewProviderDocumentObject* vpObjectIn)
 {
   assert(vpObjectIn);
-  assert(draggerIn);
   vpObject = vpObjectIn->getObject();
-  dragger->ref();
-
   setupGui();
 }
 
 TaskCSysDragger::~TaskCSysDragger()
 {
-  dragger->unref();
-  Gui::Application::Instance->commandManager().getCommandByName("Std_OrthographicCamera")->setEnabled(true);
-  Gui::Application::Instance->commandManager().getCommandByName("Std_PerspectiveCamera")->setEnabled(true);
 }
 
 void TaskCSysDragger::setupGui()
@@ -106,12 +98,10 @@ void TaskCSysDragger::setupGui()
 
 void TaskCSysDragger::onTIncrementSlot(double freshValue)
 {
-  dragger->translationIncrement.setValue(freshValue);
 }
 
 void TaskCSysDragger::onRIncrementSlot(double freshValue)
 {
-  dragger->rotationIncrement.setValue(degreesToRadians(freshValue));
 }
 
 void TaskCSysDragger::open()

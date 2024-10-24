@@ -24,20 +24,12 @@
 #ifndef GUI_VIEWPROVIDER_DOCUMENTOBJECT_H
 #define GUI_VIEWPROVIDER_DOCUMENTOBJECT_H
 
-#include <Inventor/SoType.h>
-
 #include "ViewProvider.h"
 #include <App/DocumentObject.h>
-
-class SoMaterial;
-class SoDrawStyle;
-class SoNode;
-class SoType;
 
 namespace App
 {
   class DocumentObject;
-  class Material;
 }
 
 
@@ -98,11 +90,6 @@ public:
     Gui::Document* getDocument() const;
     /// Get the python wrapper for that ViewProvider
     PyObject* getPyObject() override;
-
-    /// return a hit element given the picked point which contains the full node path
-    virtual bool getElementPicked(const SoPickedPoint *, std::string &subname) const override;
-    /// return the coin node detail and path to the node of the subname
-    virtual bool getDetailPath(const char *subname, SoFullPath *pPath, bool append, SoDetail *&det) const override;
 
     /* Force update visual
      *
@@ -170,28 +157,10 @@ protected:
       If a value different to 0 is returned it is guaranteed to be a 3d view.
      */
     Gui::MDIView* getEditingView() const;
-    /*! Get any mdi view of the document this view provider is part of.
-      In case there is an mdi view in editing mode that contains this
-      view provider that mdi view is returned. Otherwise any other
-      3d view that contains this view provider is returned.
-      If a value different to 0 is returned it is guaranteed to be a 3d view.
-     */
-    Gui::MDIView* getInventorView() const;
-    /*! Get the mdi view of the document that contains the given \a node.
-     */
-    Gui::MDIView* getViewOfNode(SoNode* node) const;
     /// get called before the value is changed
     virtual void onBeforeChange(const App::Property* prop) override;
     /// Gets called by the container whenever a property has been changed
     virtual void onChanged(const App::Property* prop) override;
-    /** Searches in all view providers that are attached to an object that
-     * is part of the same document as the object this view provider is
-     * attached to for an front root of \a type.
-     * Before calling this function this view provider has to be attached
-     * to an object. The method returns after the first front root node
-     * matches. If no front root node matches, 0 is returned.
-     */
-    SoNode* findFrontRootOfType(const SoType& type) const;
 
     /** @name Transaction handling
      */

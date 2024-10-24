@@ -48,7 +48,7 @@
 #include <App/Document.h>
 #include <App/DocumentObjectGroup.h>
 #include <App/AutoTransaction.h>
-#include <App/GeoFeatureGroupExtension.h>
+//#include <App/GeoFeatureGroupExtension.h>
 #include <App/Link.h>
 
 #include "Tree.h"
@@ -59,7 +59,7 @@
 #include "Macro.h"
 #include "MainWindow.h"
 #include "MenuManager.h"
-#include "View3DInventor.h"
+#include "GraphvizView.h"
 #include "ViewProviderDocumentObject.h"
 #include "Widgets.h"
 #include "Workbench.h"
@@ -455,15 +455,15 @@ TreeWidget::TreeWidget(const char* name, QWidget* parent)
     this->setColumnCount(2);
     this->setItemDelegate(new TreeWidgetEditDelegate(this));
 
-    this->showHiddenAction = new QAction(this);
-    this->showHiddenAction->setCheckable(true);
-    connect(this->showHiddenAction, SIGNAL(triggered()),
-        this, SLOT(onShowHidden()));
+    //this->showHiddenAction = new QAction(this);
+    //this->showHiddenAction->setCheckable(true);
+    //connect(this->showHiddenAction, SIGNAL(triggered()),
+    //    this, SLOT(onShowHidden()));
 
-    this->hideInTreeAction = new QAction(this);
-    this->hideInTreeAction->setCheckable(true);
-    connect(this->hideInTreeAction, SIGNAL(triggered()),
-        this, SLOT(onHideInTree()));
+    //this->hideInTreeAction = new QAction(this);
+    //this->hideInTreeAction->setCheckable(true);
+    //connect(this->hideInTreeAction, SIGNAL(triggered()),
+    //    this, SLOT(onHideInTree()));
 
     this->createGroupAction = new QAction(this);
     connect(this->createGroupAction, SIGNAL(triggered()),
@@ -480,9 +480,9 @@ TreeWidget::TreeWidget(const char* name, QWidget* parent)
     connect(this->finishEditingAction, SIGNAL(triggered()),
         this, SLOT(onFinishEditing()));
 
-    this->selectDependentsAction = new QAction(this);
-    connect(this->selectDependentsAction, SIGNAL(triggered()),
-        this, SLOT(onSelectDependents()));
+    //this->selectDependentsAction = new QAction(this);
+    //connect(this->selectDependentsAction, SIGNAL(triggered()),
+    //    this, SLOT(onSelectDependents()));
 
     this->closeDocAction = new QAction(this);
     connect(this->closeDocAction, SIGNAL(triggered()),
@@ -827,8 +827,8 @@ void TreeWidget::contextMenuEvent(QContextMenuEvent* e)
     MenuItem view;
     Gui::Application::Instance->setupContextMenu("Tree", &view);
 
-    view << "Std_Expressions";
-    Workbench::createLinkMenu(&view);
+    //view << "Std_Expressions";
+    //Workbench::createLinkMenu(&view);
 
     QMenu contextMenu;
 
@@ -847,8 +847,8 @@ void TreeWidget::contextMenuEvent(QContextMenuEvent* e)
         DocumentItem* docitem = static_cast<DocumentItem*>(this->contextItem);
         App::Document* doc = docitem->document()->getDocument();
         App::GetApplication().setActiveDocument(doc);
-        showHiddenAction->setChecked(docitem->showHidden());
-        contextMenu.addAction(this->showHiddenAction);
+        //showHiddenAction->setChecked(docitem->showHidden());
+        //contextMenu.addAction(this->showHiddenAction);
         contextMenu.addAction(this->searchObjectsAction);
         contextMenu.addAction(this->closeDocAction);
         if (doc->testStatus(App::Document::PartialDoc))
@@ -860,7 +860,7 @@ void TreeWidget::contextMenuEvent(QContextMenuEvent* e)
                     break;
                 }
             }
-            contextMenu.addAction(this->selectDependentsAction);
+            //contextMenu.addAction(this->selectDependentsAction);
             this->skipRecomputeAction->setChecked(doc->testStatus(App::Document::SkipRecompute));
             contextMenu.addAction(this->skipRecomputeAction);
             this->allowPartialRecomputeAction->setChecked(doc->testStatus(App::Document::AllowPartialRecompute));
@@ -887,18 +887,18 @@ void TreeWidget::contextMenuEvent(QContextMenuEvent* e)
             }
         }
 
-        showHiddenAction->setChecked(doc->ShowHidden.getValue());
-        contextMenu.addAction(this->showHiddenAction);
+        //showHiddenAction->setChecked(doc->ShowHidden.getValue());
+        //contextMenu.addAction(this->showHiddenAction);
 
-        hideInTreeAction->setChecked(!objitem->object()->showInTree());
-        contextMenu.addAction(this->hideInTreeAction);
+        //hideInTreeAction->setChecked(!objitem->object()->showInTree());
+        //contextMenu.addAction(this->hideInTreeAction);
 
         if (!acrossDocuments) { // is only sensible for selections within one document
             if (objitem->object()->getObject()->isDerivedFrom(App::DocumentObjectGroup::getClassTypeId()))
                 contextMenu.addAction(this->createGroupAction);
             // if there are dependent objects in the selection, add context menu to add them to selection
-            if (CheckForDependents())
-                contextMenu.addAction(this->selectDependentsAction);
+            //if (CheckForDependents())
+            //    contextMenu.addAction(this->selectDependentsAction);
         }
 
         contextMenu.addSeparator();
@@ -1336,7 +1336,7 @@ void TreeWidget::onActivateDocument(QAction* active)
     QByteArray docname = active->data().toByteArray();
     Gui::Document* doc = Application::Instance->getDocument((const char*)docname);
     if (doc && !doc->setActiveView())
-        doc->setActiveView(nullptr, View3DInventor::getClassTypeId());
+        doc->setActiveView(nullptr, GraphvizView::getClassTypeId());
 }
 
 Qt::DropActions TreeWidget::supportedDropActions() const
@@ -1464,7 +1464,7 @@ void TreeWidget::mouseDoubleClickEvent(QMouseEvent* event)
                 return;
             }
             if (!doc->setActiveView())
-                doc->setActiveView(nullptr, View3DInventor::getClassTypeId());
+                doc->setActiveView(nullptr, GraphvizView::getClassTypeId());
         }
         else if (item->type() == TreeWidget::ObjectType) {
             DocumentObjectItem* objitem = static_cast<DocumentObjectItem*>(item);
@@ -1935,7 +1935,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     }
                 }
 
-                Base::Matrix4D mat;
+              /*  Base::Matrix4D mat;
                 App::PropertyPlacement* propPlacement = nullptr;
                 if (syncPlacement) {
                     if (info.topObj.size()) {
@@ -1957,7 +1957,7 @@ void TreeWidget::dropEvent(QDropEvent* event)
                         if (propPlacement)
                             mat = propPlacement->getValue().toMatrix();
                     }
-                }
+                }*/
 
                 auto dropParent = targetParent;
 
@@ -1994,9 +1994,9 @@ void TreeWidget::dropEvent(QDropEvent* event)
                         inList = parentObj->getInListEx(true);
                         inList.insert(parentObj);
 
-                        // TODO: link adjustment and placement adjustment does
-                        // not work together at the moment.
-                        propPlacement = nullptr;
+                        //// TODO: link adjustment and placement adjustment does
+                        //// not work together at the moment.
+                        //propPlacement = nullptr;
                     }
                 }
 
@@ -2063,8 +2063,8 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     targetSubname.seekp(pos);
                 }
 
-                Base::Matrix4D newMat;
-                auto sobj = dropParent->getSubObject(dropName.c_str(), nullptr, &newMat);
+                //Base::Matrix4D newMat;
+                auto sobj = dropParent->getSubObject(dropName.c_str(), nullptr/*, &newMat*/);
                 if (!sobj) {
                     RPS_LOG("failed to find dropped object "
                         << dropParent->getFullName() << '.' << dropName);
@@ -2072,22 +2072,22 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     continue;
                 }
 
-                if (da != Qt::CopyAction && propPlacement) {
-                    // try to adjust placement
-                    if ((info.dragging && sobj == obj) ||
-                        (!info.dragging && sobj->getLinkedObject(false) == obj))
-                    {
-                        if (!info.dragging)
-                            propPlacement = Base::labrps_dynamic_cast<App::PropertyPlacement>(
-                                sobj->getPropertyByName("Placement"));
-                        if (propPlacement) {
-                            newMat *= propPlacement->getValue().inverse().toMatrix();
-                            newMat.inverseGauss();
-                            Base::Placement pla(newMat * mat);
-                            propPlacement->setValueIfChanged(pla);
-                        }
-                    }
-                }
+                //if (da != Qt::CopyAction && propPlacement) {
+                //    // try to adjust placement
+                //    if ((info.dragging && sobj == obj) ||
+                //        (!info.dragging && sobj->getLinkedObject(false) == obj))
+                //    {
+                //        if (!info.dragging)
+                //            propPlacement = Base::labrps_dynamic_cast<App::PropertyPlacement>(
+                //                sobj->getPropertyByName("Placement"));
+                //        if (propPlacement) {
+                //            newMat *= propPlacement->getValue().inverse().toMatrix();
+                //            newMat.inverseGauss();
+                //            Base::Placement pla(newMat * mat);
+                //            propPlacement->setValueIfChanged(pla);
+                //        }
+                //    }
+                //}
                 droppedObjects.emplace_back(dropParent, dropName);
             }
             Base::FlagToggler<> guard(_DisableCheckTopParent);
@@ -2193,29 +2193,29 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     continue;
                 }
 
-                Base::Matrix4D mat;
-                App::PropertyPlacement* propPlacement = nullptr;
-                if (syncPlacement) {
-                    if (info.topObj.size()) {
-                        auto doc = App::GetApplication().getDocument(info.topDoc.c_str());
-                        if (doc) {
-                            auto topObj = doc->getObject(info.topObj.c_str());
-                            if (topObj) {
-                                auto sobj = topObj->getSubObject(info.topSubname.c_str(), nullptr, &mat);
-                                if (sobj == obj) {
-                                    propPlacement = dynamic_cast<App::PropertyPlacement*>(
-                                        obj->getPropertyByName("Placement"));
-                                }
-                            }
-                        }
-                    }
-                    else {
-                        propPlacement = dynamic_cast<App::PropertyPlacement*>(
-                            obj->getPropertyByName("Placement"));
-                        if (propPlacement)
-                            mat = propPlacement->getValue().toMatrix();
-                    }
-                }
+                //Base::Matrix4D mat;
+                //App::PropertyPlacement* propPlacement = nullptr;
+                //if (syncPlacement) {
+                //    if (info.topObj.size()) {
+                //        auto doc = App::GetApplication().getDocument(info.topDoc.c_str());
+                //        if (doc) {
+                //            auto topObj = doc->getObject(info.topObj.c_str());
+                //            if (topObj) {
+                //                auto sobj = topObj->getSubObject(info.topSubname.c_str(), nullptr, &mat);
+                //                if (sobj == obj) {
+                //                    propPlacement = dynamic_cast<App::PropertyPlacement*>(
+                //                        obj->getPropertyByName("Placement"));
+                //                }
+                //            }
+                //        }
+                //    }
+                //    else {
+                //        propPlacement = dynamic_cast<App::PropertyPlacement*>(
+                //            obj->getPropertyByName("Placement"));
+                //        if (propPlacement)
+                //            mat = propPlacement->getValue().toMatrix();
+                //    }
+                //}
 
                 if (da == Qt::LinkAction) {
                     std::string name = thisDoc->getUniqueObjectName("Link");
@@ -2225,9 +2225,9 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     if (!link)
                         continue;
                     FCMD_OBJ_CMD(link, "Label='" << obj->getLinkedObject(true)->Label.getValue() << "'");
-                    propPlacement = dynamic_cast<App::PropertyPlacement*>(link->getPropertyByName("Placement"));
-                    if (propPlacement)
-                        propPlacement->setValueIfChanged(Base::Placement(mat));
+                    //propPlacement = dynamic_cast<App::PropertyPlacement*>(link->getPropertyByName("Placement"));
+                    //if (propPlacement)
+                    //    propPlacement->setValueIfChanged(Base::Placement(mat));
                     droppedObjs.push_back(link);
                 }
                 else if (info.parent.size()) {
@@ -2255,18 +2255,18 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     //make sure it is not part of a geofeaturegroup anymore.
                     //When this has happen we need to handle all removed
                     //objects
-                    auto grp = App::GeoFeatureGroupExtension::getGroupOfObject(obj);
-                    if (grp) {
-                        FCMD_OBJ_CMD(grp, "removeObject(" << Command::getObjectCmd(obj) << ")");
-                    }
+                    //auto grp = App::GeoFeatureGroupExtension::getGroupOfObject(obj);
+                    //if (grp) {
+                    //    FCMD_OBJ_CMD(grp, "removeObject(" << Command::getObjectCmd(obj) << ")");
+                    //}
 
                     // check if the object has been deleted
                     obj = doc->getObject(info.obj.c_str());
                     if (!obj || !obj->getNameInDocument())
                         continue;
                     droppedObjs.push_back(obj);
-                    if (propPlacement)
-                        propPlacement->setValueIfChanged(Base::Placement(mat));
+                    //if (propPlacement)
+                    //    propPlacement->setValueIfChanged(Base::Placement(mat));
                 }
                 else {
                     std::ostringstream ss;
@@ -2282,10 +2282,10 @@ void TreeWidget::dropEvent(QDropEvent* event)
                     else
                         res = thisDoc->moveObject(obj, true);
                     if (res) {
-                        propPlacement = dynamic_cast<App::PropertyPlacement*>(
-                            res->getPropertyByName("Placement"));
-                        if (propPlacement)
-                            propPlacement->setValueIfChanged(Base::Placement(mat));
+                        //propPlacement = dynamic_cast<App::PropertyPlacement*>(
+                        //    res->getPropertyByName("Placement"));
+                        //if (propPlacement)
+                        //    propPlacement->setValueIfChanged(Base::Placement(mat));
                         droppedObjs.push_back(res);
                     }
                     manager->addLine(MacroManager::App, ss.str().c_str());
@@ -2828,11 +2828,11 @@ void TreeWidget::setupText()
     this->headerItem()->setText(1, tr("Description"));
     this->rootItem->setText(0, tr("Application"));
 
-    this->showHiddenAction->setText(tr("Show hidden items"));
-    this->showHiddenAction->setStatusTip(tr("Show hidden tree view items"));
+    //this->showHiddenAction->setText(tr("Show hidden items"));
+    //this->showHiddenAction->setStatusTip(tr("Show hidden tree view items"));
 
-    this->hideInTreeAction->setText(tr("Hide item"));
-    this->hideInTreeAction->setStatusTip(tr("Hide the item in tree"));
+    //this->hideInTreeAction->setText(tr("Hide item"));
+    //this->hideInTreeAction->setStatusTip(tr("Hide the item in tree"));
 
     this->createGroupAction->setText(tr("Create group..."));
     this->createGroupAction->setStatusTip(tr("Create a group"));
@@ -2843,8 +2843,8 @@ void TreeWidget::setupText()
     this->finishEditingAction->setText(tr("Finish editing"));
     this->finishEditingAction->setStatusTip(tr("Finish editing object"));
 
-    this->selectDependentsAction->setText(tr("Add dependent objects to selection"));
-    this->selectDependentsAction->setStatusTip(tr("Adds all dependent objects to the selection"));
+    //this->selectDependentsAction->setText(tr("Add dependent objects to selection"));
+    //this->selectDependentsAction->setStatusTip(tr("Adds all dependent objects to the selection"));
 
     this->closeDocAction->setText(tr("Close document"));
     this->closeDocAction->setStatusTip(tr("Close the document"));
@@ -2887,15 +2887,15 @@ void TreeWidget::onShowHidden()
         docItem = static_cast<DocumentItem*>(contextItem);
     else if (this->contextItem->type() == ObjectType)
         docItem = static_cast<DocumentObjectItem*>(contextItem)->getOwnerDocument();
-    if (docItem)
-        docItem->setShowHidden(showHiddenAction->isChecked());
+    //if (docItem)
+    //    docItem->setShowHidden(showHiddenAction->isChecked());
 }
 
 void TreeWidget::onHideInTree()
 {
     if (this->contextItem && this->contextItem->type() == ObjectType) {
         auto item = static_cast<DocumentObjectItem*>(contextItem);
-        item->object()->ShowInTree.setValue(!hideInTreeAction->isChecked());
+        //item->object()->ShowInTree.setValue(!hideInTreeAction->isChecked());
     }
 }
 
@@ -3849,14 +3849,14 @@ void TreeWidget::updateChildren(App::DocumentObject* obj,
         if (!selectTimer->isActive())
             onSelectionChanged(SelectionChanges());
 
-        //if the item is in a GeoFeatureGroup we may need to update that too, as the claim children
-        //of the geofeaturegroup depends on what the childs claim
-        auto grp = App::GeoFeatureGroupExtension::getGroupOfObject(obj);
-        if (grp && !ChangedObjects.count(grp)) {
-            auto iter = ObjectTable.find(grp);
-            if (iter != ObjectTable.end())
-                updateChildren(grp, iter->second, true, false);
-        }
+        ////if the item is in a GeoFeatureGroup we may need to update that too, as the claim children
+        ////of the geofeaturegroup depends on what the childs claim
+        //auto grp = App::GeoFeatureGroupExtension::getGroupOfObject(obj);
+        //if (grp && !ChangedObjects.count(grp)) {
+        //    auto iter = ObjectTable.find(grp);
+        //    if (iter != ObjectTable.end())
+        //        updateChildren(grp, iter->second, true, false);
+        //}
     }
 }
 
@@ -4189,11 +4189,11 @@ void DocumentItem::updateItemSelection(DocumentObjectItem* item) {
     App::DocumentObject* topParent = nullptr;
     item->getSubName(str, topParent);
     if (topParent) {
-        if (topParent->hasExtension(App::GeoFeatureGroupExtension::getExtensionClassTypeId())) {
-            // remove legacy selection, i.e. those without subname
-            Gui::Selection().rmvSelection(obj->getDocument()->getName(),
-                obj->getNameInDocument(), nullptr);
-        }
+        //if (topParent->hasExtension(App::GeoFeatureGroupExtension::getExtensionClassTypeId())) {
+        //    // remove legacy selection, i.e. those without subname
+        //    Gui::Selection().rmvSelection(obj->getDocument()->getName(),
+        //        obj->getNameInDocument(), nullptr);
+        //}
         if (!obj->redirectSubName(str, topParent, nullptr))
             str << obj->getNameInDocument() << '.';
         obj = topParent;
@@ -5019,9 +5019,9 @@ enum GroupType {
 int DocumentObjectItem::isGroup() const {
     auto obj = object()->getObject();
     auto linked = obj->getLinkedObject(true);
-    if (linked && linked->hasExtension(
-        App::GeoFeatureGroupExtension::getExtensionClassTypeId()))
-        return PartGroup;
+    //if (linked && linked->hasExtension(
+    //    App::GeoFeatureGroupExtension::getExtensionClassTypeId()))
+    //    return PartGroup;
     if (obj->hasChildElement())
         return LinkGroup;
     if (obj->hasExtension(App::GroupExtension::getExtensionClassTypeId(), false)) {

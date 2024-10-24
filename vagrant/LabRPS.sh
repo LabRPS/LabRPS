@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Vagrant provisioning script to build up LabRPS based on OCCT 7 and Salome 7.7.1 on Linux Ubuntu
+# Vagrant provisioning script to build up LabRPS based on Linux Ubuntu
 # (c) 2016 Jean-Marie Verdun / vejmarie (vejmarie@ruggedpod.qyshare.com)
 # Released under GPL v2.0
 # Provided without any warranty
@@ -9,7 +9,7 @@
 # Must add a lightdm start / reboot ?
 
 LABRPS_GIT="https://github.com/vejmarie/LabRPS"
-LABRPS_BRANCH="occt7"
+LABRPS_BRANCH=""
 
 function create_deb {
 rm -rf /tmp/$1-$2
@@ -172,72 +172,19 @@ fi
 
 create_deb MED 3.10 ""
 
-# Building VTK
-
-wget http://www.vtk.org/files/release/7.0/VTK-7.0.0.tar.gz
-gunzip VTK-7.0.0.tar.gz
-tar xf VTK-7.0.0.tar
-rm VTK-7.0.0.tar
-cd VTK-7.0.0
-mkdir build
-cd build
-# cmake .. -DVTK_RENDERING_BACKEND=OpenGL
-cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/opt/local/LabRPS-0.17 -DVTK_Group_Rendering:BOOL=OFF -DVTK_Group_StandAlone:BOOL=ON -DVTK_RENDERING_BACKEND=None
-make -j 2
-sudo make install
-
-create_deb VTK 7.0 ""
-
-# Building OCCT
-
-cd ../..
-wget "http://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=b00770133187b83761e651df50051b2fa3433858;sf=tgz"
-mv "index.html?p=occt.git;a=snapshot;h=b00770133187b83761e651df50051b2fa3433858;sf=tgz" occt.tgz
-gunzip occt.tgz
-tar xf occt.tar
-rm occt.tar
-cd occt-b007701
-grep -v vtkRenderingFreeTypeOpenGL src/TKIVtk/EXTERNLIB >& /tmp/EXTERNLIB
-\cp /tmp/EXTERNLIB src/TKIVtk/EXTERNLIB
-grep -v vtkRenderingFreeTypeOpenGL src/TKIVtkDraw/EXTERNLIB >& /tmp/EXTERNLIB
-\cp /tmp/EXTERNLIB src/TKIVtkDraw/EXTERNLIB
-mkdir build
-cd build
-# cmake .. -DUSE_VTK:BOOL=ON
-cmake .. -DCMAKE_INSTALL_PREFIX:PATH=/opt/local/LabRPS-0.17 -DUSE_VTK:BOOL=OFF
-sudo make -j 2
-sudo make install
-
-create_deb OCCT 7.0 "vtk (>= 7.0), med (>= 3.10)"
-
-# Building Netgen
-
-cd ../..
-git clone https://github.com/vejmarie/Netgen
-cd Netgen/netgen-5.3.1
-./configure --prefix=/opt/local/LabRPS-0.17 --with-tcl=/usr/lib/tcl8.5 --with-tk=/usr/lib/tk8.5  --enable-occ --with-occ=/opt/local/LabRPS-0.17 --enable-shared --enable-nglib CXXFLAGS="-DNGLIB_EXPORTS -std=gnu++11"
-make -j 2
-sudo make install
-cd ../..
-sudo cp -rf Netgen/netgen-5.3.1 /usr/share/netgen
-
-create_deb Netgen 5.3.1 "occt (>= 7.0)"
 
 #building LabRPS
 
 git clone $LABRPS_GIT
 cd LabRPS
 git checkout $LABRPS_BRANCH
-cat cMake/FindOpenCasCade.cmake | sed 's/\/usr\/local\/share\/cmake\//\/opt\/local\/LabRPS-0.17\/lib\/cmake/' > /tmp/FindOpenCasCade.cmake
-cp /tmp/FindOpenCasCade.cmake cMake/FindOpenCasCade.cmake
-cp cMake/FindOpenCasCade.cmake cMake/FindOPENCASCADE.cmake
 cd ..
 mkdir build
 cd build
 cmake ../LabRPS -DCMAKE_INSTALL_PREFIX:PATH=/opt/local/LabRPS-0.17 -DBUILD_ASSEMBLY=1 -DBUILD_FEM=1 -DBUILD_FEM_VTK=1 -DBUILD_FEM_NETGEN=1 -DCMAKE_CXX_FLAGS="-DNETGEN_V5"
 make -j 2
 make install
-create_deb LabRPS 0.17 "netgen (>= 5.3.1), occt (>= 7.0), med (>= 3.10)"
+create_deb LabRPS 0.17 "med (>= 3.10)"
 source_dir=`pwd`
 cd /tmp
 mkdir deb

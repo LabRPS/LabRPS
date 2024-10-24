@@ -29,47 +29,20 @@
 #include <vector>
 #include <QIcon>
 #include <boost_signals2.hpp>
-#include <boost/intrusive_ptr.hpp>
 
-#include <App/Material.h>
 #include <App/TransactionalObject.h>
-#include <Base/BoundBox.h>
 #include <Base/Vector3D.h>
 
 
-class SbVec2s;
-class SbVec3f;
-class SoNode;
-class SoPath;
-class SoSeparator;
-class SoEvent;
-class SoSwitch;
-class SoTransform;
-class SbMatrix;
-class SoEventCallback;
-class SoPickedPoint;
-class SoDetail;
-class SoFullPath;
 class QString;
 class QMenu;
 class QObject;
-
-
-namespace Base {
-  class Matrix4D;
-}
-namespace App {
-  class Color;
-}
-
-class SoGroup;
 
 
 namespace Gui {
     namespace TaskView {
         class TaskContent;
     }
-class View3DInventorViewer;
 class ViewProviderPy;
 class ObjectItem;
 class MDIView;
@@ -83,31 +56,6 @@ enum ViewStatus {
 };
 
 
-/** Convenience smart pointer to wrap coin node.
- *
- * It is basically boost::intrusive plus implicit pointer conversion to save the
- * trouble of typing get() all the time.
- */
-template<class T>
-class CoinPtr: public boost::intrusive_ptr<T> {
-public:
-    // Too bad, VC2013 does not support constructor inheritance
-    //using boost::intrusive_ptr<T>::intrusive_ptr;
-    typedef boost::intrusive_ptr<T> inherited;
-    CoinPtr() {}
-    CoinPtr(T *p, bool add_ref=true):inherited(p,add_ref){}
-    template<class Y> CoinPtr(CoinPtr<Y> const &r):inherited(r){}
-
-    operator T *() const {
-        return this->get();
-    }
-};
-
-/** Helper function to deal with bug in SoNode::removeAllChildren()
- *
- * @sa https://bitbucket.org/Coin3D/coin/pull-requests/119/fix-sochildlist-auditing/diff
- */
-void GuiExport coinRemoveAllChildren(SoGroup *node);
 
 /** General interface for all visual stuff in LabRPS
   * This class is used to generate and handle all around
@@ -127,29 +75,6 @@ public:
     /// destructor.
     virtual ~ViewProvider();
 
-    // returns the root node of the Provider (3D)
-    virtual SoSeparator* getRoot() const {return pcRoot;}
-    // return the mode switch node of the Provider (3D)
-    SoSwitch *getModeSwitch() const {return pcModeSwitch;}
-    SoTransform *getTransformNode() const {return pcTransform;}
-    // returns the root for the Annotations.
-    SoSeparator* getAnnotation();
-    // returns the root node of the Provider (3D)
-    virtual SoSeparator* getFrontRoot() const;
-    // returns the root node where the children gets collected(3D)
-    virtual SoGroup* getChildRoot() const;
-    // returns the root node of the Provider (3D)
-    virtual SoSeparator* getBackRoot() const;
-    ///Indicate whether to be added to scene graph or not
-    virtual bool canAddToSceneGraph() const {return true;}
-
-    /** deliver the children belonging to this object
-      * this method is used to deliver the objects to
-      * the 3DView which should be grouped under its
-      * scene graph. This affects the visibility and the 3D
-      * position of the object.
-      */
-    virtual std::vector<App::DocumentObject*> claimChildren3D() const;
 
     /** @name Selection handling
       * This group of methods do the selection handling.
@@ -161,55 +86,8 @@ public:
     /// indicates if the ViewProvider use the new Selection model
     virtual bool useNewSelectionModel() const;
     virtual bool isSelectable() const {return true;}
-    /// return a hit element given the picked point which contains the full node path
-    virtual bool getElementPicked(const SoPickedPoint *, std::string &subname) const;
-    /// return a hit element to the selection path or 0
-    virtual std::string getElement(const SoDetail *) const { return std::string(); }
-    /// return the coin node detail of the subelement
-    virtual SoDetail* getDetail(const char *) const { return nullptr; }
 
-    /** return the coin node detail and path to the node of the subelement
-     *
-     * @param subname: dot separated string reference to the sub element
-     * @param pPath: output coin path leading to the returned element detail
-     * @param append: If true, pPath will be first appended with the root node and
-     * the mode switch node of this view provider.
-     *
-     * @return the coint detail of the subelement
-     *
-     * If this view provider links to other view provider, then the
-     * implementation of getDetailPath() shall also append all intermediate
-     * nodes starting just after the mode switch node up till the mode switch of
-     * the linked view provider.
-     */
-    virtual bool getDetailPath(const char *subname, SoFullPath *pPath, bool append, SoDetail *&det) const;
-
-    /** partial rendering setup
-     *
-     * @param subelements: a list of dot separated string refer to the sub element
-     * @param clear: if true, remove the the subelement from partial rendering.
-     * If else, add the subelement for rendering.
-     *
-     * @return Return the number of subelement found
-     *
-     * Partial rendering only works if there is at least one SoFCSelectRoot node
-     * in this view provider
-     */
-    int partialRender(const std::vector<std::string> &subelements, bool clear);
-
-    virtual std::vector<Base::Vector3d> getModelPoints(const SoPickedPoint *) const;
-    /// return the highlight lines for a given element or the whole shape
-    virtual std::vector<Base::Vector3d> getSelectionShape(const char* Element) const {
-        (void)Element;
-        return std::vector<Base::Vector3d>();
-    }
-
-    /** Return the bound box of this view object
-     *
-     * This method shall work regardless whether the current view object is
-     * visible or not.
-     */
-    Base::BoundBox3d getBoundingBox(const char *subname=nullptr, bool transform=true, MDIView *view=nullptr) const;
+  
 
     /**
      * Get called if the object is about to get deleted.
@@ -404,13 +282,13 @@ public:
     /** @name Color management methods
      */
     //@{
-    virtual std::map<std::string, App::Color> getElementColors(const char *element=nullptr) const {
-        (void)element;
-        return {};
-    }
-    virtual void setElementColors(const std::map<std::string, App::Color> &colors) {
-        (void)colors;
-    }
+    //virtual std::map<std::string, App::Color> getElementColors(const char *element=nullptr) const {
+    //    (void)element;
+    //    return {};
+    //}
+    //virtual void setElementColors(const std::map<std::string, App::Color> &colors) {
+    //    (void)colors;
+    //}
     static const std::string &hiddenMarker();
     static const char *hasHiddenMarker(const char *subname);
     //@}
@@ -440,10 +318,7 @@ public:
     virtual ViewProvider *startEditing(int ModNum=0);
     bool isEditing() const;
     void finishEditing();
-    /// adjust viewer settings when editing a view provider
-    virtual void setEditViewer(View3DInventorViewer*, int ModNum);
-    /// restores viewer settings when leaving editing mode
-    virtual void unsetEditViewer(View3DInventorViewer*);
+
     //@}
 
     /** @name Task panel
@@ -463,81 +338,22 @@ public:
     virtual const char* getTransactionText() const { return nullptr; }
     /// is called by the tree if the user double clicks on the object
     virtual bool doubleClicked() { return false; }
-    /// is called when the provider is in edit and the mouse is moved
-    virtual bool mouseMove(const SbVec2s &cursorPos, View3DInventorViewer* viewer);
-    /// is called when the Provider is in edit and the mouse is clicked
-    virtual bool mouseButtonPressed(int button, bool pressed, const SbVec2s &cursorPos,
-                                    const View3DInventorViewer* viewer);
-
-    virtual bool mouseWheelEvent(int delta, const SbVec2s &cursorPos, const View3DInventorViewer* viewer);
     /// set up the context-menu with the supported edit modes
     virtual void setupContextMenu(QMenu*, QObject*, const char*);
-
-    /** @name direct handling methods
-     *  This group of methods is to direct influence the
-     *  appearance of the viewed content. It's only for fast
-     *  interactions! If you want to set the visual parameters
-     *  you have to do it on the object viewed by this provider!
-     */
-    //@{
-    /// set the viewing transformation of the provider
-    virtual void setTransformation(const Base::Matrix4D &rcMatrix);
-    virtual void setTransformation(const SbMatrix &rcMatrix);
-    static SbMatrix convert(const Base::Matrix4D &rcMatrix);
-    static Base::Matrix4D convert(const SbMatrix &sbMat);
-    //@}
 
     virtual MDIView *getMDIView() const {
         return nullptr;
     }
 
 public:
-    // this method is called by the viewer when the ViewProvider is in edit
-    static void eventCallback(void * ud, SoEventCallback * node);
 
     //restoring the object from document:
     //this may be of interest to extensions, hence call them
     virtual void Restore(Base::XMLReader& reader);
     bool isRestoring() {return testStatus(Gui::isRestoring);}
 
-
-    /** @name Display mask modes
-     * Mainly controls an SoSwitch node which selects the display mask modes.
-     * The number of display mask modes doesn't necessarily match with the number
-     * of display modes.
-     * E.g. various display modes like Gaussian curvature, mean curvature or gray
-     * values are displayed by one display mask mode that handles color values.
-     */
-    //@{
-    /// Adds a new display mask mode
-    void addDisplayMaskMode( SoNode *node, const char* type );
-    /// Activates the display mask mode \a type
-    void setDisplayMaskMode( const char* type );
-    /// Get the node to the display mask mode \a type
-    SoNode* getDisplayMaskMode(const char* type) const;
-    /// Returns a list of added display mask modes
-    std::vector<std::string> getDisplayMaskModes() const;
-    void setDefaultMode(int);
-    int getDefaultMode() const;
-    //@}
-
-    virtual void setRenderCacheMode(int);
-
 protected:
-    /** Helper method to check that the node is valid, i.e. it must not cause
-     * and infinite recursion.
-     */
-    bool checkRecursion(SoNode*);
-    /** Helper method to get picked entities while editing.
-     * It's in the responsibility of the caller to delete the returned instance.
-     */
-    SoPickedPoint* getPointOnRay(const SbVec2s& pos,
-                                 const View3DInventorViewer* viewer) const;
-    /** Helper method to get picked entities while editing.
-     * It's in the responsibility of the caller to delete the returned instance.
-     */
-    SoPickedPoint* getPointOnRay(const SbVec3f& pos, const SbVec3f& dir,
-                                 const View3DInventorViewer* viewer) const;
+   
     /// Reimplemented from subclass
     void onBeforeChange(const App::Property* prop);
     /// Reimplemented from subclass
@@ -554,15 +370,7 @@ protected:
     virtual void setModeSwitch();
 
 protected:
-    /// The root Separator of the ViewProvider
-    SoSeparator *pcRoot;
-    /// this is transformation for the provider
-    SoTransform *pcTransform;
     const char* sPixmap;
-    /// this is the mode switch, all the different viewing modes are collected here
-    SoSwitch    *pcModeSwitch;
-    /// The root separator for annotations
-    SoSeparator *pcAnnotation;
     ViewProviderPy* pyViewObject;
     std::string overrideMode;
     std::bitset<32> StatusBits;

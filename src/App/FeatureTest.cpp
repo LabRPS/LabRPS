@@ -27,7 +27,6 @@
 #include <Base/Unit.h>
 
 #include "FeatureTest.h"
-#include "Material.h"
 
 #ifdef _MSC_VER
 #pragma warning( disable : 4700 )
@@ -61,13 +60,6 @@ FeatureTest::FeatureTest()
   ADD_PROPERTY(ConstraintFloat ,(5.0));
   ConstraintFloat.setConstraints(&floatPercent);
 
-  App::Color c;
-  App::Material mat(App::Material::GOLD);
-  ADD_PROPERTY(Colour      ,(c) );
-  ADD_PROPERTY(ColourList  ,(c) );
-  ADD_PROPERTY(Material    ,(mat));
-  ADD_PROPERTY(MaterialList,(mat));
-
   ADD_PROPERTY(Distance,(47.11f) );
   ADD_PROPERTY(Angle   ,(3.0f) );
 
@@ -81,8 +73,6 @@ FeatureTest::FeatureTest()
 
   ADD_PROPERTY(Vector    ,(1.0,2.0,3.0));
   ADD_PROPERTY(VectorList,(3.0,2.0,1.0));
-  ADD_PROPERTY(Matrix    ,(Base::Matrix4D(1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,12.0,13.0,14.0,15.0,16.0)));
-  ADD_PROPERTY(Placement ,(Base::Placement()));
 
   // properties for recompute testing
   static const char* group = "Feature Test";

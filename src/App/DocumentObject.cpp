@@ -29,17 +29,15 @@
 
 #include <App/DocumentObjectPy.h>
 #include <Base/Console.h>
-#include <Base/Matrix.h>
 #include <Base/Tools.h>
 #include <Base/Writer.h>
 
 #include "Application.h"
-#include "ComplexGeoData.h"
 #include "Document.h"
 #include "DocumentObject.h"
 #include "DocumentObjectExtension.h"
 #include "DocumentObjectGroup.h"
-#include "GeoFeatureGroupExtension.h"
+//#include "GeoFeatureGroupExtension.h"
 #include "ObjectIdentifier.h"
 #include "PropertyExpressionEngine.h"
 #include "PropertyLinks.h"
@@ -103,7 +101,7 @@ void DocumentObject::printInvalidLinks() const
         // Truncate the invalid object list name strings for readability, if they happen to be very long.
         std::vector<App::DocumentObject*> invalid_linkobjs;
         std::string objnames = "", scopenames = "";
-        GeoFeatureGroupExtension::getInvalidLinkObjects(this, invalid_linkobjs);
+        //GeoFeatureGroupExtension::getInvalidLinkObjects(this, invalid_linkobjs);
         for (auto& obj : invalid_linkobjs) {
             objnames += obj->getNameInDocument();
             objnames += " ";
@@ -147,10 +145,10 @@ void DocumentObject::printInvalidLinks() const
 
 App::DocumentObjectExecReturn *DocumentObject::recompute()
 {
-    //check if the links are valid before making the recompute
-    if (!GeoFeatureGroupExtension::areLinksValid(this)) {
-        printInvalidLinks();
-    }
+    ////check if the links are valid before making the recompute
+    //if (!GeoFeatureGroupExtension::areLinksValid(this)) {
+    //    printInvalidLinks();
+    //}
 
     // set/unset the execution bit
     Base::ObjectStatusLocker<ObjectStatus, DocumentObject> exe(App::Recompute, this);
@@ -825,12 +823,12 @@ PyObject *DocumentObject::getPyObject(void)
 }
 
 DocumentObject *DocumentObject::getSubObject(const char *subname,
-        PyObject **pyObj, Base::Matrix4D *mat, bool transform, int depth) const
+        PyObject **pyObj, int depth) const
 {
     DocumentObject *ret = nullptr;
     auto exts = getExtensionsDerivedFromType<App::DocumentObjectExtension>();
     for(auto ext : exts) {
-        if(ext->extensionGetSubObject(ret,subname,pyObj,mat,transform, depth))
+        if(ext->extensionGetSubObject(ret,subname,pyObj, depth))
             return ret;
     }
 
@@ -862,14 +860,9 @@ DocumentObject *DocumentObject::getSubObject(const char *subname,
     // TODO: By right, normal object's placement does not transform its sub
     // objects (think of the claimed children of a Fusion). But I do think we
     // should change that.
-    if(transform && mat) {
-        auto pla = Base::labrps_dynamic_cast<PropertyPlacement>(getPropertyByName("Placement"));
-        if(pla)
-            *mat *= pla->getValue().toMatrix();
-    }
 
     if(ret && dot)
-        return ret->getSubObject(dot+1,pyObj,mat,true,depth+1);
+        return ret->getSubObject(dot+1,pyObj,depth+1);
     return ret;
 }
 
@@ -914,8 +907,8 @@ std::vector<std::pair<App::DocumentObject *,std::string>> DocumentObject::getPar
             continue;
         }
 
-        if (!parent->hasChildElement() &&
-            !parent->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId())) {
+        if (!parent->hasChildElement()/* &&
+            !parent->hasExtension(GeoFeatureGroupExtension::getExtensionClassTypeId())*/) {
             continue;
         }
 
@@ -942,19 +935,19 @@ std::vector<std::pair<App::DocumentObject *,std::string>> DocumentObject::getPar
 }
 
 DocumentObject *DocumentObject::getLinkedObject(
-        bool recursive, Base::Matrix4D *mat, bool transform, int depth) const 
+        bool recursive, int depth) const 
 {
     DocumentObject *ret = nullptr;
     auto exts = getExtensionsDerivedFromType<App::DocumentObjectExtension>();
     for(auto ext : exts) {
-        if(ext->extensionGetLinkedObject(ret,recursive,mat,transform,depth))
+        if(ext->extensionGetLinkedObject(ret,recursive, depth))
             return ret;
     }
-    if(transform && mat) {
+    /*if(transform && mat) {
         auto pla = dynamic_cast<PropertyPlacement*>(getPropertyByName("Placement"));
         if(pla)
             *mat *= pla->getValue().toMatrix();
-    }
+    }*/
     return const_cast<DocumentObject*>(this);
 }
 
@@ -1109,13 +1102,13 @@ bool DocumentObject::hasChildElement() const {
 
 DocumentObject *DocumentObject::resolve(const char *subname, 
         App::DocumentObject **parent, std::string *childName, const char **subElement, 
-        PyObject **pyObj, Base::Matrix4D *pmat, bool transform, int depth) const
+        PyObject **pyObj, int depth) const
 {
     auto self = const_cast<DocumentObject*>(this);
     if(parent) *parent = nullptr;
     if(subElement) *subElement = nullptr;
 
-    auto obj = getSubObject(subname,pyObj,pmat,transform,depth);
+    auto obj = getSubObject(subname,pyObj,depth);
     if(!obj || !subname || *subname==0)
         return self;
 
@@ -1127,7 +1120,7 @@ DocumentObject *DocumentObject::resolve(const char *subname,
     // following it. So finding the last dot will give us the end of the last
     // object name.
     const char *dot=nullptr;
-    if(Data::ComplexGeoData::isMappedElement(subname) ||
+    if(/*Data::ComplexGeoData::isMappedElement(subname) ||*/
        !(dot=strrchr(subname,'.')) ||
        dot == subname) 
     {
@@ -1150,13 +1143,13 @@ DocumentObject *DocumentObject::resolve(const char *subname,
             if(!elementMapChecked) {
                 elementMapChecked = true;
                 const char *sub = dot==subname?dot:dot+1;
-                if(Data::ComplexGeoData::isMappedElement(sub)) {
+                /*if(Data::ComplexGeoData::isMappedElement(sub)) {
                     lastDot = dot;
                     if(dot==subname) 
                         break;
                     else
                         continue;
-                }
+                }*/
             }
             if(dot==subname)
                 break;

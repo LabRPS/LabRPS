@@ -25,7 +25,6 @@
 #define BASE_CONVERTER_H
 
 #include <tuple>
-#include "Rotation.h"
 #include "Vector3D.h"
 
 
@@ -35,38 +34,12 @@ template <class vecT>
 struct vec_traits { };
 
 template <>
-struct vec_traits<Vector3f> {
-    typedef Vector3f vec_type;
-    typedef float float_type;
-    vec_traits(const vec_type& v) : v(v){}
-    inline std::tuple<float_type,float_type,float_type> get() const {
-        return std::make_tuple(v.x, v.y, v.z);
-    }
-private:
-    const vec_type& v;
-};
-
-template <>
 struct vec_traits<Vector3d> {
     typedef Vector3d vec_type;
     typedef double float_type;
     vec_traits(const vec_type& v) : v(v){}
     inline std::tuple<float_type,float_type,float_type> get() const {
         return std::make_tuple(v.x, v.y, v.z);
-    }
-private:
-    const vec_type& v;
-};
-
-template <>
-struct vec_traits<Rotation> {
-    typedef Rotation vec_type;
-    typedef double float_type;
-    vec_traits(const vec_type& v) : v(v){}
-    inline std::tuple<float_type,float_type,float_type,float_type> get() const {
-        float_type q1,q2,q3,q4;
-        v.getValue(q1,q2,q3,q4);
-        return std::make_tuple(q1, q2, q3, q4);
     }
 private:
     const vec_type& v;

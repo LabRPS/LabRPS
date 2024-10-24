@@ -83,7 +83,6 @@ set(SeismicLabGui_LIBS
     SeismicLab
     LabRPSGui
     LabRPSApp
-    Part
 )
 
 if(BUILD_QT5)

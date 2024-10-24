@@ -40,8 +40,6 @@
 #include <App/Document.h>
 #include <Gui/Application.h>
 #include <Gui/MainWindow.h>
-#include <Gui/View3DInventor.h>
-#include <Gui/View3DInventorViewer.h>
 #include <Mod/SeismicLabAPI/App/RPSSeismicLabpluginAPI.h>
 #include <App/RPSpluginManager.h>
 

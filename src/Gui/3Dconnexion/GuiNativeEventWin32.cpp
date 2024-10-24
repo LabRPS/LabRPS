@@ -271,7 +271,7 @@ Gui::GuiNativeEvent::~GuiNativeEvent()
 
 void Gui::GuiNativeEvent::initSpaceball(QMainWindow *mainWindow)
 {
-    mainApp->setSpaceballPresent(Is3dmouseAttached());
+   /* mainApp->setSpaceballPresent(Is3dmouseAttached());
 
     if (mainApp->isSpaceballPresent()) {
         fLast3dmouseInputTime = 0;
@@ -289,7 +289,7 @@ void Gui::GuiNativeEvent::initSpaceball(QMainWindow *mainWindow)
         }
     } else {
         Base::Console().Log("3Dconnexion device not attached.\n");
-    }
+    }*/
 }
 
 // Methods for windows events

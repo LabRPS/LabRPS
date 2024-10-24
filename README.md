@@ -23,12 +23,8 @@ Overview
 * **Cross platform** LabRPS runs on Windows, macOS and Linux operating systems.
 
 * **Underlying technology**
-    * **FreeCAD** An open-source parametric 3D modeler made primarily to design real-life objects of any size.
-    * **OpenCASCADE** A powerful geometry kernel, only for visualization.
-    * **Coin3D library** Open Inventor-compliant 3D scene representation model.
     * **Python** LabRPS offers a broad Python API.
     * **Qt** Graphical user interface built with Qt.
-    * **Alphaplot** A free application for Scientific Data Analysis and Visualization.
 
 Installing
 ----------

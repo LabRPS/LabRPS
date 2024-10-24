@@ -60,7 +60,7 @@ class TestAddon(unittest.TestCase):
         maintainer_list = addon.metadata.Maintainer
         self.assertEqual(len(maintainer_list),1,"Wrong number of maintainers found")
         self.assertEqual(maintainer_list[0]["name"],"LabRPS Developer")
-        self.assertEqual(maintainer_list[0]["email"],"developer@labrps.org")
+        self.assertEqual(maintainer_list[0]["email"],"developer@labrps.com")
 
         license_list = addon.metadata.License
         self.assertEqual(len(license_list),1,"Wrong number of licenses found")

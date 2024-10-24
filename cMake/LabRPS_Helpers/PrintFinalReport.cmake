@@ -26,12 +26,6 @@ macro(PrintFinalReport)
     # Qt5 needs/sets PYTHON_CONFIG_SUFFIX regarding Shiboken
     message(STATUS "Python:              ${PYTHON_VERSION_STRING} [${PYTHON_EXECUTABLE}] [${PYTHON_CONFIG_SUFFIX}]")
 
-    if(DEFINED PCL_FOUND)
-        message(STATUS "PCL:                 ${PCL_VERSION}")
-    else(DEFINED PCL_FOUND)
-        message(STATUS "PCL:                 not enabled")
-    endif(DEFINED PCL_FOUND)
-
     if(DEFINED pybind11_FOUND)
         message(STATUS "pybind11:            ${pybind11_VERSION}")
     else(DEFINED pybind11_FOUND)
@@ -47,7 +41,6 @@ macro(PrintFinalReport)
 
     message(STATUS "PyCXX:               ${PYCXX_VERSION} [${PYCXX_INCLUDE_DIR}]")
 
-    message(STATUS "OCC:                 ${OCC_VERSION_STRING} [${OCC_LIBRARIES}] [${OCC_LIBRARY_DIR}] [${OCC_INCLUDE_DIR}]")
 
     if(BUILD_SMESH)
         if(LABRPS_USE_EXTERNAL_SMESH)
@@ -175,10 +168,6 @@ macro(PrintFinalReport)
     message(STATUS "OpenGL:              ${OPENGL_gl_LIBRARY}")
     message(STATUS "OpenGLU:             [${OPENGL_glu_LIBRARY}][${OPENGL_INCLUDE_DIR}]")
 
-    message(STATUS "Coin3D:              ${COIN3D_VERSION} [${COIN3D_LIBRARIES}] [${COIN3D_INCLUDE_DIRS}]")
-    message(STATUS "Pivy:                ${PIVY_VERSION}") 
-
-
     if (WIN32)
     #message(STATUS "SPNAV:               not available yet for your OS") # LABRPS_USE_3DCONNEXION instead...
     else(WIN32)
@@ -208,11 +197,6 @@ macro(PrintFinalReport)
     if(DOXYGEN_FOUND)
         message(STATUS "Doxygen:             ${DOXYGEN_VERSION}")
         message(STATUS " Language:           ${DOXYGEN_LANGUAGE}")
-        if(COIN3D_DOC_FOUND)
-            message(STATUS " Coin3D_DOC:         found [${COIN3D_DOC_PATH}]")
-        else(COIN3D_DOC_FOUND)
-            message(STATUS " Coin3D_DOC:         not found")
-        endif(COIN3D_DOC_FOUND)
     else(DOXYGEN_FOUND)
         message(STATUS "Doxygen:             not found")
     endif(DOXYGEN_FOUND)

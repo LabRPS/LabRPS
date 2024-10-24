@@ -26,9 +26,6 @@
 
 #include "Extension.h"
 
-namespace Base {
-class Matrix4D;
-}
 namespace App {
 class DocumentObject;
 class DocumentObjectExecReturn;
@@ -78,7 +75,7 @@ public:
      * @return Return turn if handled, the sub object is returned in \c ret
      */
     virtual bool extensionGetSubObject(DocumentObject *&ret, const char *subname,
-        PyObject **pyObj, Base::Matrix4D *mat, bool transform, int depth) const;
+        PyObject **pyObj, int depth) const;
 
     /** Get name references of all sub objects
      * @sa DocumentObject::getSubObjects()
@@ -93,7 +90,7 @@ public:
      * @return Return turn if handled, the linked object is returned in \c ret
      */
     virtual bool extensionGetLinkedObject(DocumentObject *&ret, bool recursive,
-            Base::Matrix4D *mat, bool transform, int depth) const;
+            int depth) const;
 
     virtual int extensionSetElementVisible(const char *, bool) {return -1;}
     virtual int extensionIsElementVisible(const char *) {return -1;}

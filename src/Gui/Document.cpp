@@ -28,19 +28,15 @@
 # include <QFileInfo>
 # include <QMessageBox>
 # include <QTextStream>
-# include <Inventor/actions/SoSearchAction.h>
-# include <Inventor/nodes/SoSeparator.h>
 #endif
 
 #include <App/AutoTransaction.h>
-#include <App/ComplexGeoData.h>
 #include <App/Document.h>
 #include <App/DocumentObject.h>
 #include <App/DocumentObjectGroup.h>
 #include <App/Transactions.h>
 #include <Base/Console.h>
 #include <Base/Exception.h>
-#include <Base/Matrix.h>
 #include <Base/Reader.h>
 #include <Base/Writer.h>
 #include <Base/Tools.h>
@@ -56,11 +52,10 @@
 #include "Selection.h"
 #include "Thumbnail.h"
 #include "Tree.h"
-#include "View3DInventor.h"
-#include "View3DInventorViewer.h"
 #include "ViewProviderDocumentObject.h"
 #include "ViewProviderDocumentObjectGroup.h"
 #include "WaitCursor.h"
+#include "GraphvizView.h"
 
 
 RPS_LOG_LEVEL_INIT("Gui", true, true)
@@ -86,8 +81,6 @@ struct DocumentP
     ViewProviderDocumentObject* _editViewProviderParent;
     std::string                 _editSubname;
     std::string                 _editSubElement;
-    Base::Matrix4D              _editingTransform;
-    View3DInventorViewer*       _editingViewer;
     std::set<const App::DocumentObject*> _editObjs;
 
     Application*    _pcAppWnd;
@@ -98,8 +91,6 @@ struct DocumentP
     /// List of all registered views
     std::list<Gui::BaseView*> passiveViews;
     std::map<const App::DocumentObject*,ViewProviderDocumentObject*> _ViewProviderMap;
-    std::map<SoSeparator *,ViewProviderDocumentObject*> _CoinMap;
-    std::map<std::string,ViewProvider*> _ViewProviderMapAnnotation;
     std::list<ViewProviderDocumentObject*> _redoViewProviders;
 
     typedef boost::signals2::connection Connection;
@@ -154,7 +145,6 @@ Document::Document(App::Document* pcDocument,Application * app)
     d->_editViewProvider = nullptr;
     d->_editingObject = nullptr;
     d->_editViewProviderParent = nullptr;
-    d->_editingViewer = nullptr;
     d->_editMode = 0;
 
     // Setup the connections
@@ -264,9 +254,6 @@ Document::~Document()
     std::map<const App::DocumentObject*,ViewProviderDocumentObject*>::iterator jt;
     for (jt = d->_ViewProviderMap.begin();jt != d->_ViewProviderMap.end(); ++jt)
         delete jt->second;
-    std::map<std::string,ViewProvider*>::iterator it2;
-    for (it2 = d->_ViewProviderMapAnnotation.begin();it2 != d->_ViewProviderMapAnnotation.end(); ++it2)
-        delete it2->second;
 
     // remove the reference from the object
     Base::PyGILStateLocker lock;
@@ -364,7 +351,6 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         return false;
     }
 
-    d->_editingTransform = Base::Matrix4D();
     // Geo feature group now handles subname like link group. So no need of the
     // following code.
     //
@@ -375,7 +361,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
     //         d->_editingTransform = ext->globalGroupPlacement().toMatrix();
     //     }
     // }
-    auto sobj = obj->getSubObject(subname,nullptr,&d->_editingTransform);
+    auto sobj = obj->getSubObject(subname,nullptr);
     if(!sobj || !sobj->getNameInDocument()) {
         RPS_ERR("Invalid sub object '" << obj->getFullName()
                 << '.' << (subname?subname:"") << "'");
@@ -391,12 +377,6 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         }
     }
 
-    View3DInventor *view3d = dynamic_cast<View3DInventor *>(getActiveView());
-    // if the currently active view is not the 3d view search for it and activate it
-    if (view3d)
-        getMainWindow()->setActiveWindow(view3d);
-    else
-        view3d = dynamic_cast<View3DInventor *>(setActiveView(vp));
     Application::Instance->setEditDocument(this);
 
     d->_editViewProviderParent = vp;
@@ -404,14 +384,7 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
     d->_editSubname.clear();
 
     if (subname) {
-        const char *element = Data::ComplexGeoData::findElementName(subname);
-        if (element) {
-            d->_editSubname = std::string(subname,element-subname);
-            d->_editSubElement = element;
-        }
-        else {
-            d->_editSubname = subname;
-        }
+        d->_editSubname = subname;
     }
 
     auto sobjs = obj->getSubObjectList(subname);
@@ -429,10 +402,6 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
         return false;
     }
 
-    if(view3d) {
-        view3d->getViewer()->setEditingViewProvider(d->_editViewProvider,ModNum);
-        d->_editingViewer = view3d->getViewer();
-    }
     Gui::TaskView::TaskDialog* dlg = Gui::Control().activeDialog();
     if (dlg)
         dlg->setDocumentName(this->getDocument()->getName());
@@ -445,18 +414,6 @@ bool Document::setEdit(Gui::ViewProvider* p, int ModNum, const char *subname)
     return true;
 }
 
-const Base::Matrix4D &Document::getEditingTransform() const {
-    return d->_editingTransform;
-}
-
-void Document::setEditingTransform(const Base::Matrix4D &mat) {
-    d->_editObjs.clear();
-    d->_editingTransform = mat;
-    View3DInventor *activeView = dynamic_cast<View3DInventor *>(getActiveView());
-    if (activeView)
-        activeView->getViewer()->setEditingTransform(mat);
-}
-
 void Document::resetEdit() {
     Application::Instance->setEditDocument(nullptr);
 }
@@ -465,11 +422,6 @@ void Document::_resetEdit()
 {
     std::list<Gui::BaseView*>::iterator it;
     if (d->_editViewProvider) {
-        for (it = d->baseViews.begin();it != d->baseViews.end();++it) {
-            View3DInventor *activeView = dynamic_cast<View3DInventor *>(*it);
-            if (activeView)
-                activeView->getViewer()->resetEditingViewProvider();
-        }
 
         d->_editViewProvider->finishEditing();
 
@@ -501,7 +453,6 @@ void Document::_resetEdit()
         App::GetApplication().closeActiveTransaction();
     }
     d->_editViewProviderParent = nullptr;
-    d->_editingViewer = nullptr;
     d->_editObjs.clear();
     d->_editingObject = nullptr;
     if(Application::Instance->editDocument() == this)
@@ -517,9 +468,6 @@ ViewProvider *Document::getInEdit(ViewProviderDocumentObject **parentVp,
     if(mode) *mode = d->_editMode;
 
     if (d->_editViewProvider) {
-        // there is only one 3d view which is in edit mode
-        View3DInventor *activeView = dynamic_cast<View3DInventor *>(getActiveView());
-        if (activeView && activeView->getViewer()->isEditingViewProvider())
             return d->_editViewProvider;
     }
 
@@ -532,49 +480,6 @@ void Document::setInEdit(ViewProviderDocumentObject *parentVp, const char *subna
         d->_editSubname = subname?subname:"";
     }
 }
-
-void Document::setAnnotationViewProvider(const char* name, ViewProvider *pcProvider)
-{
-    std::list<Gui::BaseView*>::iterator vIt;
-
-    // already in ?
-    std::map<std::string,ViewProvider*>::iterator it = d->_ViewProviderMapAnnotation.find(name);
-    if (it != d->_ViewProviderMapAnnotation.end())
-        removeAnnotationViewProvider(name);
-
-    // add
-    d->_ViewProviderMapAnnotation[name] = pcProvider;
-
-    // cycling to all views of the document
-    for (vIt = d->baseViews.begin();vIt != d->baseViews.end();++vIt) {
-        View3DInventor *activeView = dynamic_cast<View3DInventor *>(*vIt);
-        if (activeView)
-            activeView->getViewer()->addViewProvider(pcProvider);
-    }
-}
-
-ViewProvider * Document::getAnnotationViewProvider(const char* name) const
-{
-    std::map<std::string,ViewProvider*>::const_iterator it = d->_ViewProviderMapAnnotation.find(name);
-    return ( (it != d->_ViewProviderMapAnnotation.end()) ? it->second : 0 );
-}
-
-void Document::removeAnnotationViewProvider(const char* name)
-{
-    std::map<std::string,ViewProvider*>::iterator it = d->_ViewProviderMapAnnotation.find(name);
-    std::list<Gui::BaseView*>::iterator vIt;
-
-    // cycling to all views of the document
-    for (vIt = d->baseViews.begin();vIt != d->baseViews.end();++vIt) {
-        View3DInventor *activeView = dynamic_cast<View3DInventor *>(*vIt);
-        if (activeView)
-            activeView->getViewer()->removeViewProvider(it->second);
-    }
-
-    delete it->second;
-    d->_ViewProviderMapAnnotation.erase(it);
-}
-
 
 ViewProvider* Document::getViewProvider(const App::DocumentObject* Feat) const
 {
@@ -606,12 +511,6 @@ ViewProvider *Document::getViewProviderByName(const char* name) const
 
         if (it != d->_ViewProviderMap.end())
             return it->second;
-    } else {
-        // then try annotation name
-        std::map<std::string,ViewProvider*>::const_iterator it2 = d->_ViewProviderMapAnnotation.find( name );
-
-        if (it2 != d->_ViewProviderMapAnnotation.end())
-            return it2->second;
     }
 
     return nullptr;
@@ -641,15 +540,6 @@ void Document::setHide(const char* name)
     if (pcProv && pcProv->getTypeId().isDerivedFrom(ViewProviderDocumentObject::getClassTypeId())) {
         ((ViewProviderDocumentObject*)pcProv)->Visibility.setValue(false);
     }
-}
-
-/// set the feature in Noshow
-void Document::setPos(const char* name, const Base::Matrix4D& rclMtrx)
-{
-    ViewProvider* pcProv = getViewProviderByName(name);
-    if (pcProv)
-        pcProv->setTransformation(rclMtrx);
-
 }
 
 //*****************************************************************************************************
@@ -687,7 +577,6 @@ void Document::slotNewObject(const App::DocumentObject& Obj)
 
         setModified(true);
         d->_ViewProviderMap[&Obj] = pcProvider;
-        d->_CoinMap[pcProvider->getRoot()] = pcProvider;
         pcProvider->setStatus(Gui::ViewStatus::TouchDocument, d->_changeViewTouchDocument);
 
         try {
@@ -717,20 +606,10 @@ void Document::slotNewObject(const App::DocumentObject& Obj)
     }
 
     if (pcProvider) {
-        std::list<Gui::BaseView*>::iterator vIt;
-        // cycling to all views of the document
-        for (vIt = d->baseViews.begin();vIt != d->baseViews.end();++vIt) {
-            View3DInventor *activeView = dynamic_cast<View3DInventor *>(*vIt);
-            if (activeView)
-                activeView->getViewer()->addViewProvider(pcProvider);
-        }
-
         // adding to the tree
         signalNewObject(*pcProvider);
         pcProvider->pcDocument = this;
 
-        // it is possible that a new viewprovider already claims children
-        handleChildren3D(pcProvider);
         if (d->_isTransacting) {
             d->_redoViewProviders.push_back(pcProvider);
         }
@@ -757,20 +636,12 @@ void Document::slotDeletedObject(const App::DocumentObject& Obj)
             Application::Instance->setEditDocument(nullptr);
     }
 
-    handleChildren3D(viewProvider,true);
-
 #if 0 // With this we can show child objects again if this method was called by undo
     viewProvider->onDelete(std::vector<std::string>());
 #endif
     if (viewProvider && viewProvider->getTypeId().isDerivedFrom
         (ViewProviderDocumentObject::getClassTypeId())) {
-        // go through the views
-        for (vIt = d->baseViews.begin();vIt != d->baseViews.end();++vIt) {
-            View3DInventor *activeView = dynamic_cast<View3DInventor *>(*vIt);
-            if (activeView)
-                activeView->getViewer()->removeViewProvider(viewProvider);
-        }
-
+        
         // removing from tree
         signalDeletedObject(*(static_cast<ViewProviderDocumentObject*>(viewProvider)));
     }
@@ -801,22 +672,6 @@ void Document::slotChangedObject(const App::DocumentObject& Obj, const App::Prop
     if (viewProvider) {
         try {
             viewProvider->update(&Prop);
-            if(d->_editingViewer
-                    && d->_editingObject
-                    && d->_editViewProviderParent
-                    && (Prop.isDerivedFrom(App::PropertyPlacement::getClassTypeId())
-                        // Issue ID 0004230 : getName() can return null in which case strstr() crashes
-                        || (Prop.getName() && strstr(Prop.getName(),"Scale")))
-                    && d->_editObjs.count(&Obj))
-            {
-                Base::Matrix4D mat;
-                auto sobj = d->_editViewProviderParent->getObject()->getSubObject(
-                                                        d->_editSubname.c_str(),nullptr,&mat);
-                if(sobj == d->_editingObject && d->_editingTransform!=mat) {
-                    d->_editingTransform = mat;
-                    d->_editingViewer->setEditingTransform(d->_editingTransform);
-                }
-            }
         }
         catch(const Base::MemoryException& e) {
             RPS_ERR("Memory exception in " << Obj.getFullName() << " thrown: " << e.what());
@@ -830,8 +685,6 @@ void Document::slotChangedObject(const App::DocumentObject& Obj, const App::Prop
         catch (...) {
             RPS_ERR("Cannot update representation for " << Obj.getFullName());
         }
-
-        handleChildren3D(viewProvider);
 
         if (viewProvider->isDerivedFrom(ViewProviderDocumentObject::getClassTypeId()))
             signalChangedObject(static_cast<ViewProviderDocumentObject&>(*viewProvider), Prop);
@@ -868,10 +721,6 @@ void Document::slotTransactionRemove(const App::DocumentObject& obj, App::Transa
     it = d->_ViewProviderMap.find(&obj);
     if (it != d->_ViewProviderMap.end()) {
         ViewProvider* viewProvider = it->second;
-
-        auto itC = d->_CoinMap.find(viewProvider->getRoot());
-        if(itC != d->_CoinMap.end())
-            d->_CoinMap.erase(itC);
 
         d->_ViewProviderMap.erase(&obj);
         // transaction being a nullptr indicates that undo/redo is off and the object
@@ -963,7 +812,6 @@ void Document::addViewProvider(Gui::ViewProviderDocumentObject* vp)
     assert(d->_ViewProviderMap.find(vp->getObject()) == d->_ViewProviderMap.end());
     vp->setStatus(Detach, false);
     d->_ViewProviderMap[vp->getObject()] = vp;
-    d->_CoinMap[vp->getRoot()] = vp;
 }
 
 void Document::setModified(bool b)
@@ -981,59 +829,6 @@ void Document::setModified(bool b)
 bool Document::isModified() const
 {
     return d->_isModified;
-}
-
-
-ViewProviderDocumentObject* Document::getViewProviderByPathFromTail(SoPath * path) const
-{
-    // Get the lowest root node in the pick path!
-    for (int i = 0; i < path->getLength(); i++) {
-        SoNode *node = path->getNodeFromTail(i);
-        if (node->isOfType(SoSeparator::getClassTypeId())) {
-            auto it = d->_CoinMap.find(static_cast<SoSeparator*>(node));
-            if(it!=d->_CoinMap.end())
-                return it->second;
-        }
-    }
-
-    return nullptr;
-}
-
-ViewProviderDocumentObject* Document::getViewProviderByPathFromHead(SoPath * path) const
-{
-    for (int i = 0; i < path->getLength(); i++) {
-        SoNode *node = path->getNode(i);
-        if (node->isOfType(SoSeparator::getClassTypeId())) {
-            auto it = d->_CoinMap.find(static_cast<SoSeparator*>(node));
-            if(it!=d->_CoinMap.end())
-                return it->second;
-        }
-    }
-
-    return nullptr;
-}
-
-ViewProviderDocumentObject *Document::getViewProvider(SoNode *node) const {
-    if(!node || !node->isOfType(SoSeparator::getClassTypeId()))
-        return nullptr;
-    auto it = d->_CoinMap.find(static_cast<SoSeparator*>(node));
-    if(it!=d->_CoinMap.end())
-        return it->second;
-    return nullptr;
-}
-
-std::vector<std::pair<ViewProviderDocumentObject*,int> > Document::getViewProvidersByPath(SoPath * path) const
-{
-    std::vector<std::pair<ViewProviderDocumentObject*,int> > ret;
-    for (int i = 0; i < path->getLength(); i++) {
-        SoNode *node = path->getNodeFromTail(i);
-        if (node->isOfType(SoSeparator::getClassTypeId())) {
-            auto it = d->_CoinMap.find(static_cast<SoSeparator*>(node));
-            if(it!=d->_CoinMap.end())
-                ret.emplace_back(it->second,i);
-        }
-    }
-    return ret;
 }
 
 App::Document* Document::getDocument() const
@@ -1363,17 +1158,6 @@ void Document::Save (Base::Writer &writer) const
         if (hGrp->GetBool("SaveThumbnail", false)) {
             int size = hGrp->GetInt("ThumbnailSize", 128);
             size = Base::clamp<int>(size, 64, 512);
-            std::list<MDIView*> mdi = getMDIViews();
-            for (std::list<MDIView*>::iterator it = mdi.begin(); it != mdi.end(); ++it) {
-                if ((*it)->getTypeId().isDerivedFrom(View3DInventor::getClassTypeId())) {
-                    View3DInventorViewer* view = static_cast<View3DInventor*>(*it)->getViewer();
-                    d->thumb.setFileName(d->_pcDocument->FileName.getValue());
-                    d->thumb.setSize(size);
-                    d->thumb.setViewer(view);
-                    d->thumb.Save(writer);
-                    break;
-                }
-            }
         }
     }
 }
@@ -1485,8 +1269,6 @@ void Document::slotFinishRestoreObject(const App::DocumentObject &obj) {
     if(vpd) {
         vpd->setStatus(Gui::isRestoring,false);
         vpd->finishRestoring();
-        if(!vpd->canAddToSceneGraph())
-            toggleInSceneGraph(vpd);
     }
 }
 
@@ -1734,67 +1516,25 @@ void Document::addRootObjectsToGroup(const std::vector<App::DocumentObject*>& ob
 
 MDIView *Document::createView(const Base::Type& typeId)
 {
-    if (!typeId.isDerivedFrom(MDIView::getClassTypeId()))
+ if (!typeId.isDerivedFrom(MDIView::getClassTypeId()))
         return nullptr;
 
     std::list<MDIView*> theViews = this->getMDIViewsOfType(typeId);
-    if (typeId == View3DInventor::getClassTypeId()) {
+    if (typeId == GraphvizView::getClassTypeId()) {
 
-        QtGLWidget* shareWidget = nullptr;
-        // VBO rendering doesn't work correctly when we don't share the OpenGL widgets
-        if (!theViews.empty()) {
-            View3DInventor* firstView = static_cast<View3DInventor*>(theViews.front());
-            shareWidget = qobject_cast<QtGLWidget*>(firstView->getViewer()->getGLWidget());
-
-            const char *ppReturn = nullptr;
-            firstView->onMsg("GetCamera",&ppReturn);
-            saveCameraSettings(ppReturn);
-        }
-
-        View3DInventor* view3D = new View3DInventor(this, getMainWindow(), shareWidget);
-        if (!theViews.empty()) {
-            View3DInventor* firstView = static_cast<View3DInventor*>(theViews.front());
-            std::string overrideMode = firstView->getViewer()->getOverrideMode();
-            view3D->getViewer()->setOverrideMode(overrideMode);
-        }
-
-        // attach the viewproviders. we need to make sure that we only attach the toplevel ones
-        // and not viewproviders which are claimed by other providers. To ensure this we first
-        // add all providers and then remove the ones already claimed
-        std::map<const App::DocumentObject*,ViewProviderDocumentObject*>::const_iterator It1;
-        std::vector<App::DocumentObject*> child_vps;
-        for (It1=d->_ViewProviderMap.begin();It1!=d->_ViewProviderMap.end();++It1) {
-            view3D->getViewer()->addViewProvider(It1->second);
-            std::vector<App::DocumentObject*> children = It1->second->claimChildren3D();
-            child_vps.insert(child_vps.end(), children.begin(), children.end());
-        }
-        std::map<std::string,ViewProvider*>::const_iterator It2;
-        for (It2=d->_ViewProviderMapAnnotation.begin();It2!=d->_ViewProviderMapAnnotation.end();++It2) {
-            view3D->getViewer()->addViewProvider(It2->second);
-            std::vector<App::DocumentObject*> children = It2->second->claimChildren3D();
-            child_vps.insert(child_vps.end(), children.begin(), children.end());
-        }
-
-        for (App::DocumentObject* obj : child_vps)
-            view3D->getViewer()->removeViewProvider(getViewProvider(obj));
+        GraphvizView* graphvizView = new GraphvizView(*App::GetApplication().getActiveDocument(), getMainWindow(), this);
 
         const char* name = getDocument()->Label.getValue();
         QString title = QString::fromLatin1("%1 : %2[*]")
             .arg(QString::fromUtf8(name)).arg(d->_iWinCount++);
 
-        view3D->setWindowTitle(title);
-        view3D->setWindowModified(this->isModified());
-        view3D->setWindowIcon(QApplication::windowIcon());
-        view3D->resize(400, 300);
-        view3D->getViewer()->redraw();
+        graphvizView->setWindowTitle(title);
+        graphvizView->setWindowModified(this->isModified());
+        graphvizView->setWindowIcon(QApplication::windowIcon());
+        graphvizView->resize(400, 300);
 
-        if (!cameraSettings.empty()) {
-            const char *ppReturn = nullptr;
-            view3D->onMsg(cameraSettings.c_str(),&ppReturn);
-        }
-
-        getMainWindow()->addWindow(view3D);
-        return view3D;
+        getMainWindow()->addWindow(graphvizView);
+        return graphvizView;
     }
     return nullptr;
 }
@@ -1803,51 +1543,6 @@ Gui::MDIView* Document::cloneView(Gui::MDIView* oldview)
 {
     if (!oldview)
         return nullptr;
-
-    if (oldview->getTypeId() == View3DInventor::getClassTypeId()) {
-        View3DInventor* view3D = new View3DInventor(this, getMainWindow());
-
-        View3DInventor* firstView = static_cast<View3DInventor*>(oldview);
-        std::string overrideMode = firstView->getViewer()->getOverrideMode();
-        view3D->getViewer()->setOverrideMode(overrideMode);
-
-        view3D->getViewer()->setAxisCross(firstView->getViewer()->hasAxisCross());
-
-        // attach the viewproviders. we need to make sure that we only attach the toplevel ones
-        // and not viewproviders which are claimed by other providers. To ensure this we first
-        // add all providers and then remove the ones already claimed
-        std::map<const App::DocumentObject*,ViewProviderDocumentObject*>::const_iterator It1;
-        std::vector<App::DocumentObject*> child_vps;
-        for (It1=d->_ViewProviderMap.begin();It1!=d->_ViewProviderMap.end();++It1) {
-            view3D->getViewer()->addViewProvider(It1->second);
-            std::vector<App::DocumentObject*> children = It1->second->claimChildren3D();
-            child_vps.insert(child_vps.end(), children.begin(), children.end());
-        }
-        std::map<std::string,ViewProvider*>::const_iterator It2;
-        for (It2=d->_ViewProviderMapAnnotation.begin();It2!=d->_ViewProviderMapAnnotation.end();++It2) {
-            view3D->getViewer()->addViewProvider(It2->second);
-            std::vector<App::DocumentObject*> children = It2->second->claimChildren3D();
-            child_vps.insert(child_vps.end(), children.begin(), children.end());
-        }
-
-        for (App::DocumentObject* obj : child_vps)
-            view3D->getViewer()->removeViewProvider(getViewProvider(obj));
-
-        view3D->setWindowTitle(oldview->windowTitle());
-        view3D->setWindowModified(oldview->isWindowModified());
-        view3D->setWindowIcon(oldview->windowIcon());
-        view3D->resize(oldview->size());
-
-        // FIXME: Add parameter to define behaviour by the calling instance
-        // View provider editing
-        if (d->_editViewProvider) {
-            firstView->getViewer()->resetEditingViewProvider();
-            view3D->getViewer()->setEditingViewProvider(d->_editViewProvider, d->_editMode);
-        }
-
-        return view3D;
-    }
-
     return nullptr;
 }
 
@@ -2140,7 +1835,7 @@ MDIView* Document::getActiveView() const
         // hidden page has view but not in the list. By right, the view will
         // self delete, but not the case for TechDraw, especially during
         // document restore.
-        if(windows.contains(*rit) || (*rit)->isDerivedFrom(View3DInventor::getClassTypeId()))
+        if (windows.contains(*rit) || (*rit)->isDerivedFrom(GraphvizView::getClassTypeId()))
             return *rit;
     }
     return nullptr;
@@ -2173,7 +1868,7 @@ MDIView *Document::setActiveView(ViewProviderDocumentObject *vp, Base::Type type
                     if (active && active->containsViewProvider(vp))
                         view = active;
                     else
-                        typeId = View3DInventor::getClassTypeId();
+                        typeId = GraphvizView::getClassTypeId();
                 }
             }
         }
@@ -2229,34 +1924,14 @@ void Document::setActiveWindow(Gui::MDIView* view)
     getMainWindow()->setActiveWindow(view);
 }
 
-Gui::MDIView* Document::getViewOfNode(SoNode* node) const
-{
-    std::list<MDIView*> mdis = getMDIViewsOfType(View3DInventor::getClassTypeId());
-    for (std::list<MDIView*>::const_iterator it = mdis.begin(); it != mdis.end(); ++it) {
-        View3DInventor* view = static_cast<View3DInventor*>(*it);
-        if (view->getViewer()->searchNode(node))
-            return *it;
-    }
-
-    return nullptr;
-}
 
 Gui::MDIView* Document::getViewOfViewProvider(const Gui::ViewProvider* vp) const
 {
-    return getViewOfNode(vp->getRoot());
+    return nullptr;
 }
 
 Gui::MDIView* Document::getEditingViewOfViewProvider(Gui::ViewProvider* vp) const
 {
-    std::list<MDIView*> mdis = getMDIViewsOfType(View3DInventor::getClassTypeId());
-    for (std::list<MDIView*>::const_iterator it = mdis.begin(); it != mdis.end(); ++it) {
-        View3DInventor* view = static_cast<View3DInventor*>(*it);
-        View3DInventorViewer* viewer = view->getViewer();
-        // there is only one 3d view which is in edit mode
-        if (viewer->hasViewProvider(vp) && viewer->isEditingViewProvider())
-            return *it;
-    }
-
     return nullptr;
 }
 
@@ -2396,8 +2071,6 @@ void Document::redo(int iSteps)
     }
     App::GetApplication().signalRedo();
 
-    for (auto it : d->_redoViewProviders)
-        handleChildren3D(it);
     d->_redoViewProviders.clear();
 }
 
@@ -2405,119 +2078,6 @@ PyObject* Document::getPyObject()
 {
     _pcDocPy->IncRef();
     return _pcDocPy;
-}
-
-void Document::handleChildren3D(ViewProvider* viewProvider, bool deleting)
-{
-    // check for children
-    if (viewProvider && viewProvider->getChildRoot()) {
-        std::vector<App::DocumentObject*> children = viewProvider->claimChildren3D();
-        SoGroup* childGroup =  viewProvider->getChildRoot();
-        SoGroup* frontGroup = viewProvider->getFrontRoot();
-        SoGroup* backGroup = viewProvider->getFrontRoot();
-
-        // size not the same -> build up the list new
-        if (deleting || childGroup->getNumChildren() != static_cast<int>(children.size())) {
-
-            std::set<ViewProviderDocumentObject*> oldChildren;
-            for(int i=0,count=childGroup->getNumChildren();i<count;++i) {
-                auto it = d->_CoinMap.find(static_cast<SoSeparator*>(childGroup->getChild(i)));
-                if(it == d->_CoinMap.end()) continue;
-                oldChildren.insert(it->second);
-            }
-
-            Gui::coinRemoveAllChildren(childGroup);
-            Gui::coinRemoveAllChildren(frontGroup);
-            Gui::coinRemoveAllChildren(backGroup);
-
-            if(!deleting) {
-                for (std::vector<App::DocumentObject*>::iterator it=children.begin();it!=children.end();++it) {
-                    ViewProvider* ChildViewProvider = getViewProvider(*it);
-                    if (ChildViewProvider) {
-                        auto itOld = oldChildren.find(static_cast<ViewProviderDocumentObject*>(ChildViewProvider));
-                        if(itOld!=oldChildren.end()) oldChildren.erase(itOld);
-
-                        SoSeparator* childRootNode =  ChildViewProvider->getRoot();
-                        childGroup->addChild(childRootNode);
-
-                        SoSeparator* childFrontNode = ChildViewProvider->getFrontRoot();
-                        if (frontGroup && childFrontNode)
-                            frontGroup->addChild(childFrontNode);
-
-                        SoSeparator* childBackNode = ChildViewProvider->getBackRoot();
-                        if (backGroup && childBackNode)
-                            backGroup->addChild(childBackNode);
-
-                        // cycling to all views of the document to remove the viewprovider from the viewer itself
-                        for (std::list<Gui::BaseView*>::iterator vIt = d->baseViews.begin();vIt != d->baseViews.end();++vIt) {
-                            View3DInventor *activeView = dynamic_cast<View3DInventor *>(*vIt);
-                            if (activeView && activeView->getViewer()->hasViewProvider(ChildViewProvider)) {
-                                // @Note hasViewProvider()
-                                // remove the viewprovider serves the purpose of detaching the inventor nodes from the
-                                // top level root in the viewer. However, if some of the children were grouped beneath the object
-                                // earlier they are not anymore part of the toplevel inventor node. we need to check for that.
-                                activeView->getViewer()->removeViewProvider(ChildViewProvider);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // add the remaining old children back to toplevel invertor node
-            for(auto vpd : oldChildren) {
-                auto obj = vpd->getObject();
-                if(!obj || !obj->getNameInDocument())
-                    continue;
-
-                for (BaseView* view : d->baseViews) {
-                    View3DInventor *activeView = dynamic_cast<View3DInventor *>(view);
-                    if (activeView && !activeView->getViewer()->hasViewProvider(vpd))
-                        activeView->getViewer()->addViewProvider(vpd);
-                }
-            }
-        }
-    }
-}
-
-void Document::toggleInSceneGraph(ViewProvider *vp)
-{
-    // FIXME: What's the point of having this function?
-    //
-    for (auto view : d->baseViews) {
-        View3DInventor *activeView = dynamic_cast<View3DInventor *>(view);
-        if (!activeView)
-            continue;
-
-        auto root = vp->getRoot();
-        if (!root)
-            continue;
-
-        auto scenegraph = dynamic_cast<SoGroup*>(
-                activeView->getViewer()->getSceneGraph());
-        if (!scenegraph)
-            continue;
-
-        // If it cannot be added then only check the top-level nodes
-        if (!vp->canAddToSceneGraph()) {
-            int idx = scenegraph->findChild(root);
-            if (idx >= 0) scenegraph->removeChild(idx);
-        }
-        else {
-            // Do a deep search of the scene because the root node
-            // isn't necessarily a top-level node when claimed by
-            // another view provider.
-            // This is to avoid to add a node twice to the scene.
-            SoSearchAction sa;
-            sa.setNode(root);
-            sa.setSearchingAll(false);
-            sa.apply(scenegraph);
-
-            SoPath* path = sa.getPath();
-            if (!path) {
-                scenegraph->addChild(root);
-            }
-        }
-    }
 }
 
 void Document::slotChangePropertyEditor(const App::Document &doc, const App::Property &Prop) {

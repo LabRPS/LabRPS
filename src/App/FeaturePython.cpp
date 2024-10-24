@@ -28,7 +28,6 @@
 
 #include <App/DocumentObjectPy.h>
 #include <Base/Interpreter.h>
-#include <Base/MatrixPy.h>
 #include <Base/Tools.h>
 
 #include "FeaturePython.h"
@@ -233,21 +232,17 @@ void FeaturePythonImp::onDocumentRestored()
 }
 
 bool FeaturePythonImp::getSubObject(DocumentObject *&ret, const char *subname,
-    PyObject **pyObj, Base::Matrix4D *_mat, bool transform, int depth) const
+    PyObject **pyObj, int depth) const
 {
     RPS_PY_CALL_CHECK(getSubObject);
     Base::PyGILStateLocker lock;
     try {
-        Py::Tuple args(6);
+        Py::Tuple args(3);
         args.setItem(0, Py::Object(object->getPyObject(), true));
         if(!subname) subname = "";
         args.setItem(1,Py::String(subname));
         args.setItem(2,Py::Int(pyObj?2:1));
-        Base::MatrixPy *pyMat = new Base::MatrixPy(new Base::Matrix4D);
-        if(_mat) *pyMat->getMatrixPtr() = *_mat;
-        args.setItem(3,Py::asObject(pyMat));
-        args.setItem(4,Py::Boolean(transform));
-        args.setItem(5,Py::Int(depth));
+        args.setItem(3,Py::Int(depth));
 
         Py::Object res(Base::pyCall(py_getSubObject.ptr(),args.ptr()));
         if(res.isNone()) {
@@ -261,13 +256,10 @@ bool FeaturePythonImp::getSubObject(DocumentObject *&ret, const char *subname,
         Py::Sequence seq(res);
         if(seq.length() < 2 ||
                 (!seq.getItem(0).isNone() &&
-                 !PyObject_TypeCheck(seq.getItem(0).ptr(),&DocumentObjectPy::Type)) ||
-                !PyObject_TypeCheck(seq.getItem(1).ptr(),&Base::MatrixPy::Type))
+                 !PyObject_TypeCheck(seq.getItem(0).ptr(),&DocumentObjectPy::Type)))
         {
             throw Py::TypeError("getSubObject expects return type of (obj,matrix,pyobj)");
         }
-        if(_mat)
-            *_mat = *static_cast<Base::MatrixPy*>(seq.getItem(1).ptr())->getMatrixPtr();
         if(pyObj) {
             if(seq.length()>2)
                 *pyObj = Py::new_reference_to(seq.getItem(2));
@@ -325,19 +317,15 @@ bool FeaturePythonImp::getSubObjects(std::vector<std::string> &ret, int reason) 
 }
 
 bool FeaturePythonImp::getLinkedObject(DocumentObject *&ret, bool recurse,
-        Base::Matrix4D *_mat, bool transform, int depth) const
+        int depth) const
 {
     RPS_PY_CALL_CHECK(getLinkedObject);
     Base::PyGILStateLocker lock;
     try {
-        Py::Tuple args(5);
+        Py::Tuple args(3);
         args.setItem(0, Py::Object(object->getPyObject(), true));
         args.setItem(1,Py::Boolean(recurse));
-        Base::MatrixPy *pyMat = new Base::MatrixPy(new Base::Matrix4D);
-        if(_mat) *pyMat->getMatrixPtr() = *_mat;
-        args.setItem(2,Py::asObject(pyMat));
-        args.setItem(3,Py::Boolean(transform));
-        args.setItem(4,Py::Int(depth));
+        args.setItem(2,Py::Int(depth));
 
         Py::Object res(Base::pyCall(py_getLinkedObject.ptr(),args.ptr()));
         if(!res.isTrue()) {
@@ -349,13 +337,11 @@ bool FeaturePythonImp::getLinkedObject(DocumentObject *&ret, bool recurse,
         Py::Sequence seq(res);
         if(seq.length() != 2 ||
                 (!seq.getItem(0).isNone() &&
-                 !PyObject_TypeCheck(seq.getItem(0).ptr(),&DocumentObjectPy::Type)) ||
-                !PyObject_TypeCheck(seq.getItem(1).ptr(),&Base::MatrixPy::Type))
+                 !PyObject_TypeCheck(seq.getItem(0).ptr(),&DocumentObjectPy::Type)))
         {
             throw Py::TypeError("getLinkedObject expects return type of (object,matrix)");
         }
-        if(_mat)
-            *_mat = *static_cast<Base::MatrixPy*>(seq.getItem(1).ptr())->getMatrixPtr();
+
         if(seq.getItem(0).isNone())
             ret = object;
         else
@@ -601,10 +587,11 @@ template class AppExport FeaturePythonT<DocumentObject>;
 // ---------------------------------------------------------
 
 namespace App {
-PROPERTY_SOURCE_TEMPLATE(App::GeometryPython, App::GeoFeature)
-template<> const char* App::GeometryPython::getViewProviderName(void) const {
+PROPERTY_SOURCE_TEMPLATE(App::SimulationPython, App::RPSFeature)
+template<> const char* App::SimulationPython::getViewProviderName(void) const
+{
     return "Gui::ViewProviderPythonGeometry";
 }
 // explicit template instantiation
-template class AppExport FeaturePythonT<GeoFeature>;
+template class AppExport FeaturePythonT<RPSFeature>;
 }

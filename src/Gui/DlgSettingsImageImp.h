@@ -23,9 +23,6 @@
 #ifndef GUI_DIALOG_DLGSETTINGSIMAGE_IMP_H
 #define GUI_DIALOG_DLGSETTINGSIMAGE_IMP_H
 
-#include <Inventor/SbMatrix.h>
-#include <Inventor/SoOffscreenRenderer.h>
-
 #include <QWidget>
 #include <memory>
 
@@ -35,7 +32,6 @@ class Ui_DlgSettingsImage;
 
 /**
  * The DlgSettingsImageImp class implements a preference page to change settings
- * for the Inventor viewer.
  * @author Werner Mayer
  */
 class DlgSettingsImageImp : public QWidget
@@ -86,7 +82,6 @@ private:
     std::unique_ptr<Ui_DlgSettingsImage> ui;
     float _fRatio;
     int _width, _height;
-    SbMatrix _Matrix;
 };
 
 } // namespace Dialog

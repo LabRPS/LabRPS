@@ -73,5 +73,6 @@ def findAllVertexes():
     if App.GuiUp:
         import SeaLabGui
         SeaLabGui.SeaLabPyTool.showArray(rows, cols, arr)
+    return arr
         # print(arr)
 ##  @}

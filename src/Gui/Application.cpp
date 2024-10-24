@@ -24,8 +24,6 @@
 
 #ifndef _PreComp_
 # include <boost/interprocess/sync/file_lock.hpp>
-# include <Inventor/errors/SoDebugError.h>
-# include <Inventor/errors/SoError.h>
 # include <QCloseEvent>
 # include <QDir>
 # include <QFileInfo>
@@ -54,7 +52,6 @@
 
 #include "Application.h"
 #include "AutoSaver.h"
-#include "AxisOriginPy.h"
 #include "BitmapFactory.h"
 #include "Command.h"
 #include "CommandPy.h"
@@ -75,48 +72,31 @@
 #include "PythonDebugger.h"
 #include "MainWindowPy.h"
 #include "MDIViewPy.h"
-#include "SoFCDB.h"
 #include "Selection.h"
-#include "SplitView3DInventor.h"
 #include "TaskView/TaskView.h"
 #include "TaskView/TaskDialogPython.h"
 #include "TransactionObject.h"
 #include "TextDocumentEditorView.h"
 #include "UiLoader.h"
-#include "View3DPy.h"
-#include "View3DViewerPy.h"
-#include "View3DInventor.h"
-#include "ViewProviderAnnotation.h"
 #include "ViewProviderDocumentObject.h"
 #include "ViewProviderDocumentObjectGroup.h"
 #include "ViewProviderDragger.h"
 #include "ViewProviderExtension.h"
 #include "ViewProviderExtern.h"
 #include "ViewProviderFeature.h"
-#include "ViewProviderGeoFeatureGroup.h"
-#include "ViewProviderGeometryObject.h"
 #include "ViewProviderGroupExtension.h"
-#include "ViewProviderInventorObject.h"
-#include "ViewProviderLine.h"
 #include "ViewProviderLink.h"
 #include "ViewProviderLinkPy.h"
-#include "ViewProviderMaterialObject.h"
-#include "ViewProviderMeasureDistance.h"
-#include "ViewProviderOrigin.h"
-#include "ViewProviderOriginFeature.h"
-#include "ViewProviderOriginGroup.h"
-#include "ViewProviderPlacement.h"
-#include "ViewProviderPlane.h"
-#include "ViewProviderPart.h"
 #include "ViewProviderPythonFeature.h"
 #include "ViewProviderTextDocument.h"
-#include "ViewProviderVRMLObject.h"
 #include "WaitCursor.h"
 #include "Workbench.h"
 #include "WorkbenchManager.h"
 #include "WidgetFactory.h"
 #include "plugininstallerbrowser.h"
 #include "App/RPSpluginManager.h"
+#include "RPSPropItem.h"
+#include "GraphvizView.h"
 
 using namespace Gui;
 using namespace Gui::DockWnd;
@@ -198,126 +178,7 @@ struct ApplicationP
     ViewProviderMap viewproviderMap;
 };
 
-static PyObject *
-LabRPSGui_subgraphFromObject(PyObject * /*self*/, PyObject *args)
-{
-    PyObject *o;
-    if (!PyArg_ParseTuple(args, "O!",&(App::DocumentObjectPy::Type), &o))
-        return nullptr;
-    App::DocumentObject* obj = static_cast<App::DocumentObjectPy*>(o)->getDocumentObjectPtr();
-    std::string vp = obj->getViewProviderName();
-    SoNode* node = nullptr;
-    try {
-        Base::BaseClass* base = static_cast<Base::BaseClass*>(Base::Type::createInstanceByName(vp.c_str(), true));
-        if (base && base->getTypeId().isDerivedFrom(Gui::ViewProviderDocumentObject::getClassTypeId())) {
-            std::unique_ptr<Gui::ViewProviderDocumentObject> vp(static_cast<Gui::ViewProviderDocumentObject*>(base));
-            std::map<std::string, App::Property*> Map;
-            obj->getPropertyMap(Map);
-            vp->attach(obj);
-
-            // this is needed to initialize Python-based view providers
-            App::Property* pyproxy = vp->getPropertyByName("Proxy");
-            if (pyproxy && pyproxy->getTypeId() == App::PropertyPythonObject::getClassTypeId()) {
-                static_cast<App::PropertyPythonObject*>(pyproxy)->setValue(Py::Long(1));
-            }
-
-            for (std::map<std::string, App::Property*>::iterator it = Map.begin(); it != Map.end(); ++it) {
-                vp->updateData(it->second);
-            }
-
-            std::vector<std::string> modes = vp->getDisplayModes();
-            if (!modes.empty())
-                vp->setDisplayMode(modes.front().c_str());
-            node = vp->getRoot()->copy();
-            node->ref();
-            std::string prefix = "So";
-            std::string type = node->getTypeId().getName().getString();
-            // doesn't start with the prefix 'So'
-            if (type.rfind("So", 0) != 0) {
-                type = prefix + type;
-            }
-            else if (type == "SoFCSelectionRoot") {
-                type = "SoSeparator";
-            }
-
-            type += " *";
-            PyObject* proxy = nullptr;
-            proxy = Base::Interpreter().createSWIGPointerObj("pivy.coin", type.c_str(), (void*)node, 1);
-            return Py::new_reference_to(Py::Object(proxy, true));
-        }
-    }
-    catch (const Base::Exception& e) {
-        if (node) node->unref();
-        PyErr_SetString(PyExc_RuntimeError, e.what());
-        return nullptr;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject *
-LabRPSGui_exportSubgraph(PyObject * /*self*/, PyObject *args)
-{
-    const char* format = "VRML";
-    PyObject* proxy;
-    PyObject* output;
-    if (!PyArg_ParseTuple(args, "OO|s", &proxy, &output, &format))
-        return nullptr;
-
-    void* ptr = nullptr;
-    try {
-        Base::Interpreter().convertSWIGPointerObj("pivy.coin", "SoNode *", proxy, &ptr, 0);
-        SoNode* node = reinterpret_cast<SoNode*>(ptr);
-        if (node) {
-            std::string formatStr(format);
-            std::string buffer;
-
-            if (formatStr == "VRML") {
-                SoFCDB::writeToVRML(node, buffer);
-            }
-            else if (formatStr == "IV") {
-                buffer = SoFCDB::writeNodesToString(node);
-            }
-            else {
-                throw Base::ValueError("Unsupported format");
-            }
-
-            Base::PyStreambuf buf(output);
-            std::ostream str(nullptr);
-            str.rdbuf(&buf);
-            str << buffer;
-        }
-
-        Py_INCREF(Py_None);
-        return Py_None;
-    }
-    catch (const Base::Exception& e) {
-        PyErr_SetString(PyExc_RuntimeError, e.what());
-        return nullptr;
-    }
-}
-
-static PyObject *
-LabRPSGui_getSoDBVersion(PyObject * /*self*/, PyObject *args)
-{
-    if (!PyArg_ParseTuple(args, ""))
-        return nullptr;
-    return PyUnicode_FromString(SoDB::getVersion());
-}
-
 struct PyMethodDef LabRPSGui_methods[] = {
-    {"subgraphFromObject",LabRPSGui_subgraphFromObject,METH_VARARGS,
-     "subgraphFromObject(object) -> Node\n\n"
-     "Return the Inventor subgraph to an object"},
-    {"exportSubgraph",LabRPSGui_exportSubgraph,METH_VARARGS,
-     "exportSubgraph(Node, File or Buffer, [Format='VRML']) -> None\n\n"
-     "Exports the sub-graph in the requested format"
-     "The format string can be VRML or IV"},
-    {"getSoDBVersion",LabRPSGui_getSoDBVersion,METH_VARARGS,
-     "getSoDBVersion() -> String\n\n"
-     "Return a text string containing the name\n"
-     "of the Coin library and version information"},
     {nullptr, nullptr, 0, nullptr}  /* sentinel */
 };
 
@@ -341,13 +202,6 @@ Application::Application(bool GUIenabled)
         QString lang = QLocale::languageToString(QLocale().language());
         Translator::instance()->activateLanguage(hPGrp->GetASCII("Language", (const char*)lang.toLatin1()).c_str());
         GetWidgetFactorySupplier();
-
-        // Coin3d disabled VBO support for all Intel drivers but in the meantime they have improved
-        // so we can try to override the workaround by setting COIN_VBO
-        ParameterGrp::handle hViewGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/View");
-        if (hViewGrp->GetBool("UseVBO",false)) {
-            (void)coin_setenv("COIN_VBO", "0", true);
-        }
 
         // Check for the symbols for group separator and decimal point. They must be different otherwise
         // Qt doesn't work properly.
@@ -436,7 +290,6 @@ Application::Application(bool GUIenabled)
             Py::Object(Gui::TaskView::ControlPy::getInstance(), true));
 
         Base::Interpreter().addType(&LinkViewPy::Type,module,"LinkView");
-        Base::Interpreter().addType(&AxisOriginPy::Type,module,"AxisOrigin");
         Base::Interpreter().addType(&CommandPy::Type,module, "Command");
         Base::Interpreter().addType(&DocumentPy::Type, module, "Document");
         Base::Interpreter().addType(&ViewProviderPy::Type, module, "ViewProvider");
@@ -458,8 +311,6 @@ Application::Application(bool GUIenabled)
         Py_DECREF(descr);
     }
 
-    App::Application::Config()["COIN_VERSION"] = COIN_VERSION;
-
     // Python console binding
     PythonDebugModule           ::init_module();
     PythonStdout                ::init_type();
@@ -469,9 +320,6 @@ Application::Application(bool GUIenabled)
     PythonStdin                 ::init_type();
     MainWindowPy                ::init_type();
     MDIViewPy                   ::init_type();
-    View3DInventorPy            ::init_type();
-    View3DInventorViewerPy      ::init_type();
-    AbstractSplitViewPy         ::init_type();
 
     d = new ApplicationP(GUIenabled);
 
@@ -499,21 +347,6 @@ Application::~Application()
     WidgetFactorySupplier::destruct();
     BitmapFactoryInst::destruct();
 
-#if 0
-    // we must run the garbage collector before shutting down the SoDB
-    // subsystem because we may reference some class objects of them in Python
-    Base::Interpreter().cleanupSWIG("SoBase *");
-    // finish also Inventor subsystem
-    SoFCDB::finish();
-
-#if (COIN_MAJOR_VERSION >= 2) && (COIN_MINOR_VERSION >= 4)
-    SoDB::finish();
-#elif (COIN_MAJOR_VERSION >= 3)
-    SoDB::finish();
-#else
-    SoDB::cleanup();
-#endif
-#endif
     {
     Base::PyGILStateLocker lock;
     Py_DECREF(_pcWorkbenchDictionary);
@@ -802,7 +635,7 @@ void Application::slotNewDocument(const App::Document& Doc, bool isMainDoc)
 
     signalNewDocument(*pDoc, isMainDoc);
     if (isMainDoc)
-        pDoc->createView(View3DInventor::getClassTypeId());
+        pDoc->createView(GraphvizView::getClassTypeId());
 }
 
 void Application::slotDeleteDocument(const App::Document& Doc)
@@ -960,7 +793,7 @@ void Application::onLastWindowClosed(Gui::Document* pcDoc)
 
                 if (gdoc) {
                     setActiveDocument(gdoc);
-                    activateView(View3DInventor::getClassTypeId(),true);
+                    activateView(GraphvizView::getClassTypeId(), true);
                 }
             }
         }
@@ -1064,11 +897,6 @@ Gui::Document* Application::activeDocument() const
 Gui::Document* Application::editDocument() const
 {
     return d->editDocument;
-}
-
-Gui::MDIView* Application::editViewOfNode(SoNode *node) const
-{
-    return d->editDocument?d->editDocument->getViewOfNode(node):nullptr;
 }
 
 void Application::setEditDocument(Gui::Document *doc) {
@@ -1724,36 +1552,6 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 #endif
 }
 
-#ifdef RPS_DEBUG // redirect Coin messages to LabRPS
-void messageHandlerCoin(const SoError * error, void * /*userdata*/)
-{
-    if (error && error->getTypeId() == SoDebugError::getClassTypeId()) {
-        const SoDebugError* dbg = static_cast<const SoDebugError*>(error);
-        const char* msg = error->getDebugString().getString();
-        switch (dbg->getSeverity())
-        {
-        case SoDebugError::INFO:
-            Base::Console().Message("%s\n", msg);
-            break;
-        case SoDebugError::WARNING:
-            Base::Console().Warning("%s\n", msg);
-            break;
-        default: // error
-            Base::Console().Error("%s\n", msg);
-            break;
-        }
-#ifdef RPS_OS_WIN32
-    if (old_qtmsg_handler)
-        (*old_qtmsg_handler)(QtDebugMsg, QMessageLogContext(), QString::fromLatin1(msg));
-#endif
-    }
-    else if (error) {
-        const char* msg = error->getDebugString().getString();
-        Base::Console().Log( msg );
-    }
-}
-
-#endif
 
 // To fix bug #0000345 move Q_INIT_RESOURCE() outside initApplication()
 static void init_resources()
@@ -1790,9 +1588,6 @@ void Application::initTypes()
     // views
     Gui::BaseView                               ::init();
     Gui::MDIView                                ::init();
-    Gui::View3DInventor                         ::init();
-    Gui::AbstractSplitView                      ::init();
-    Gui::SplitView3DInventor                    ::init();
     Gui::TextDocumentEditorView                 ::init();
     Gui::EditorView                             ::init();
     Gui::PythonEditorView                       ::init();
@@ -1802,43 +1597,18 @@ void Application::initTypes()
     Gui::ViewProviderExtensionPython            ::init();
     Gui::ViewProviderGroupExtension             ::init();
     Gui::ViewProviderGroupExtensionPython       ::init();
-    Gui::ViewProviderGeoFeatureGroupExtension   ::init();
-    Gui::ViewProviderGeoFeatureGroupExtensionPython::init();
-    Gui::ViewProviderOriginGroupExtension       ::init();
-    Gui::ViewProviderOriginGroupExtensionPython ::init();
     Gui::ViewProviderExtern                     ::init();
     Gui::ViewProviderDocumentObject             ::init();
     Gui::ViewProviderFeature                    ::init();
     Gui::ViewProviderDocumentObjectGroup        ::init();
     Gui::ViewProviderDocumentObjectGroupPython  ::init();
     Gui::ViewProviderDragger                    ::init();
-    Gui::ViewProviderGeometryObject             ::init();
-    Gui::ViewProviderInventorObject             ::init();
-    Gui::ViewProviderVRMLObject                 ::init();
-    Gui::ViewProviderAnnotation                 ::init();
-    Gui::ViewProviderAnnotationLabel            ::init();
-    Gui::ViewProviderPointMarker                ::init();
-    Gui::ViewProviderMeasureDistance            ::init();
     Gui::ViewProviderPythonFeature              ::init();
-    Gui::ViewProviderPythonGeometry             ::init();
-    Gui::ViewProviderPlacement                  ::init();
-    Gui::ViewProviderPlacementPython            ::init();
-    Gui::ViewProviderOriginFeature              ::init();
-    Gui::ViewProviderPlane                      ::init();
-    Gui::ViewProviderLine                       ::init();
-    Gui::ViewProviderGeoFeatureGroup            ::init();
-    Gui::ViewProviderGeoFeatureGroupPython      ::init();
-    Gui::ViewProviderOriginGroup                ::init();
-    Gui::ViewProviderPart                       ::init();
-    Gui::ViewProviderOrigin                     ::init();
-    Gui::ViewProviderMaterialObject             ::init();
-    Gui::ViewProviderMaterialObjectPython       ::init();
     Gui::ViewProviderTextDocument               ::init();
     Gui::ViewProviderLinkObserver               ::init();
     Gui::LinkView                               ::init();
     Gui::ViewProviderLink                       ::init();
     Gui::ViewProviderLinkPython                 ::init();
-    Gui::AxisOrigin                             ::init();
 
     // Workbench
     Gui::Workbench                              ::init();
@@ -1850,17 +1620,12 @@ void Application::initTypes()
     Gui::PythonBlankWorkbench                   ::init();
     Gui::PythonWorkbench                        ::init();
 
+    // Property editor items
+    RPSPropItem::init();
+
     // register transaction type
     new App::TransactionProducer<TransactionViewProvider>
             (ViewProviderDocumentObject::getClassTypeId());
-}
-
-void Application::initOpenInventor()
-{
-    // init the Inventor subsystem
-    SoDB::init();
-    SIM::Coin3D::Quarter::Quarter::init();
-    SoFCDB::init();
 }
 
 void Application::runInitGuiScript()
@@ -2101,26 +1866,7 @@ void Application::runApplication()
         QWindow window;
         window.setSurfaceType(QWindow::OpenGLSurface);
         window.create();
-
-        QOpenGLContext context;
-        if (context.create()) {
-            context.makeCurrent(&window);
-            if (!context.functions()->hasOpenGLFeature(QOpenGLFunctions::Framebuffers)) {
-                Base::Console().Log("This system does not support framebuffer objects\n");
-            }
-            if (!context.functions()->hasOpenGLFeature(QOpenGLFunctions::NPOTTextures)) {
-                Base::Console().Log("This system does not support NPOT textures\n");
-            }
-
-            int major = context.format().majorVersion();
-            int minor = context.format().minorVersion();
-            const char* glVersion = reinterpret_cast<const char*>(glGetString(GL_VERSION));
-            Base::Console().Log("OpenGL version is: %d.%d (%s)\n", major, minor, glVersion);
-        }
     }
-
-    // init the Inventor subsystem
-    initOpenInventor();
 
     QString home = QString::fromStdString(App::Application::getHomePath());
 
@@ -2224,13 +1970,6 @@ void Application::runApplication()
     }
 
     app.setStyleSheet(QLatin1String(style.c_str()), hGrp->GetBool("TiledBackground", false));
-
-    //initialize spaceball.
-    mainApp.initSpaceball(&mw);
-
-#ifdef RPS_DEBUG // redirect Coin messages to LabRPS
-    SoDebugError::setHandlerCallback( messageHandlerCoin, 0 );
-#endif
 
     // Now run the background autoload, for workbenches that should be loaded at startup, but not
     // displayed to the user immediately
@@ -2479,7 +2218,7 @@ App::Document *Application::reopen(App::Document *doc) {
             if(gdoc) {
                 setActiveDocument(gdoc);
                 if(!gdoc->setActiveView())
-                    gdoc->setActiveView(nullptr,View3DInventor::getClassTypeId());
+                    gdoc->setActiveView(nullptr, GraphvizView::getClassTypeId());
             }
             return doc;
         }

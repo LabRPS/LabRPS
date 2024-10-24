@@ -29,8 +29,6 @@
 # include <QFileInfo>
 # include <QMenu>
 # include <QPixmap>
-# include <Inventor/SoPickedPoint.h>
-# include <Inventor/details/SoDetail.h>
 #endif
 
 #include <App/DocumentObjectPy.h>
@@ -42,7 +40,6 @@
 #include "BitmapFactory.h"
 #include "Document.h"
 #include "PythonWrapper.h"
-#include "View3DInventorViewer.h"
 #include "ViewProviderDocumentObjectPy.h"
 
 
@@ -420,151 +417,6 @@ ViewProviderPythonFeatureImp::useNewSelectionModel() const
     return Accepted;
 }
 
-bool ViewProviderPythonFeatureImp::getElement(const SoDetail *det, std::string &res) const
-{
-    _RPS_PY_CALL_CHECK(getElement,return(false));
-
-    // Run the onChanged method of the proxy object.
-    Base::PyGILStateLocker lock;
-    try {
-        PyObject* pivy = nullptr;
-        // Note: As there is no ref'counting mechanism for the SoDetail class we must
-        // pass '0' as the last parameter so that the Python object does not 'own'
-        // the detail object.
-        pivy = Base::Interpreter().createSWIGPointerObj("pivy.coin", "SoDetail *", (void*)det, 0);
-        Py::Tuple args(1);
-        args.setItem(0, Py::Object(pivy, true));
-        Py::String name(Base::pyCall(py_getElement.ptr(),args.ptr()));
-        res = name;
-        return true;
-    }
-    catch (const Base::Exception& e) {
-        e.ReportException();
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return false;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
-
-    return true;
-}
-
-ViewProviderPythonFeatureImp::ValueT
-ViewProviderPythonFeatureImp::getElementPicked(const SoPickedPoint *pp, std::string &subname) const
-{
-    RPS_PY_CALL_CHECK(getElementPicked);
-
-    Base::PyGILStateLocker lock;
-    try {
-        PyObject* pivy = nullptr;
-        pivy = Base::Interpreter().createSWIGPointerObj("pivy.coin", "SoPickedPoint *", (void*)pp, 0);
-        Py::Tuple args(1);
-        args.setItem(0, Py::Object(pivy, true));
-        Py::Object ret(Base::pyCall(py_getElementPicked.ptr(),args.ptr()));
-        if(!ret.isString())
-            return Rejected;
-        subname = ret.as_string();
-        return Accepted;
-    }
-    catch (const Base::Exception& e) {
-        e.ReportException();
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return NotImplemented;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
-
-    return Rejected;
-}
-
-bool ViewProviderPythonFeatureImp::getDetail(const char* name, SoDetail *&det) const
-{
-    _RPS_PY_CALL_CHECK(getDetail,return(false));
-
-    // Run the onChanged method of the proxy object.
-    Base::PyGILStateLocker lock;
-    try {
-        Py::Tuple args(1);
-        args.setItem(0, Py::String(name));
-        Py::Object pydet(Base::pyCall(py_getDetail.ptr(),args.ptr()));
-        void* ptr = nullptr;
-        Base::Interpreter().convertSWIGPointerObj("pivy.coin", "SoDetail *", pydet.ptr(), &ptr, 0);
-        SoDetail* detail = reinterpret_cast<SoDetail*>(ptr);
-        det = detail ? detail->copy() : nullptr;
-        return true;
-    }
-    catch (const Base::Exception& e) {
-        e.ReportException();
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return false;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
-
-    return true;
-}
-
-ViewProviderPythonFeatureImp::ValueT ViewProviderPythonFeatureImp::getDetailPath(
-        const char* name, SoFullPath *path, bool append, SoDetail *&det) const
-{
-    RPS_PY_CALL_CHECK(getDetailPath);
-
-    Base::PyGILStateLocker lock;
-    auto length = path->getLength();
-    try {
-        PyObject* pivy = nullptr;
-        pivy = Base::Interpreter().createSWIGPointerObj("pivy.coin", "SoFullPath *", (void*)path, 1);
-        path->ref();
-        Py::Tuple args(3);
-        args.setItem(0, Py::String(name));
-        args.setItem(1, Py::Object(pivy, true));
-        args.setItem(2, Py::Boolean(append));
-        Py::Object pyDet(Base::pyCall(py_getDetailPath.ptr(),args.ptr()));
-        if(!pyDet.isTrue())
-            return Rejected;
-        if(pyDet.isBoolean())
-            return Accepted;
-        void* ptr = nullptr;
-        Base::Interpreter().convertSWIGPointerObj("pivy.coin", "SoDetail *", pyDet.ptr(), &ptr, 0);
-        SoDetail* detail = reinterpret_cast<SoDetail*>(ptr);
-        det = detail ? detail->copy() : nullptr;
-        if(det)
-            return Accepted;
-        delete det;
-    }
-    catch (const Base::Exception& e) {
-        e.ReportException();
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return NotImplemented;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
-    path->truncate(length);
-    return Rejected;
-}
-
-
-std::vector<Base::Vector3d> ViewProviderPythonFeatureImp::getSelectionShape(const char* /*Element*/) const
-{
-    return std::vector<Base::Vector3d>();
-}
-
 ViewProviderPythonFeatureImp::ValueT
 ViewProviderPythonFeatureImp::setEdit(int ModNum)
 {
@@ -644,56 +496,6 @@ ViewProviderPythonFeatureImp::unsetEdit(int ModNum)
         e.ReportException();
     }
 
-    return Rejected;
-}
-
-ViewProviderPythonFeatureImp::ValueT
-ViewProviderPythonFeatureImp::setEditViewer(View3DInventorViewer *viewer, int ModNum)
-{
-    RPS_PY_CALL_CHECK(setEditViewer)
-
-    Base::PyGILStateLocker lock;
-    try {
-        Py::Tuple args(3);
-        args.setItem(0, Py::Object(object->getPyObject(),true));
-        args.setItem(1, Py::Object(viewer->getPyObject(),true));
-        args.setItem(2, Py::Int(ModNum));
-        Py::Object ret(Base::pyCall(py_setEditViewer.ptr(),args.ptr()));
-        return ret.isTrue()?Accepted:Rejected;
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return NotImplemented;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
-    return Rejected;
-}
-
-ViewProviderPythonFeatureImp::ValueT
-ViewProviderPythonFeatureImp::unsetEditViewer(View3DInventorViewer *viewer)
-{
-    RPS_PY_CALL_CHECK(unsetEditViewer)
-
-    // Run the onChanged method of the proxy object.
-    Base::PyGILStateLocker lock;
-    try {
-        Py::Tuple args(2);
-        args.setItem(0, Py::Object(object->getPyObject(),true));
-        args.setItem(1, Py::Object(viewer->getPyObject(),true));
-        Py::Object ret(Base::pyCall(py_unsetEditViewer.ptr(),args.ptr()));
-        return ret.isTrue()?Accepted:Rejected;
-    }
-    catch (Py::Exception&) {
-        if (PyErr_ExceptionMatches(PyExc_NotImplementedError)) {
-            PyErr_Clear();
-            return NotImplemented;
-        }
-        Base::PyException e; // extract the Python error text
-        e.ReportException();
-    }
     return Rejected;
 }
 
@@ -1450,14 +1252,6 @@ namespace Gui {
 PROPERTY_SOURCE_TEMPLATE(Gui::ViewProviderPythonFeature, Gui::ViewProviderDocumentObject)
 // explicit template instantiation
 template class GuiExport ViewProviderPythonFeatureT<ViewProviderDocumentObject>;
-}
-
-// ---------------------------------------------------------
-
-namespace Gui {
-PROPERTY_SOURCE_TEMPLATE(Gui::ViewProviderPythonGeometry, Gui::ViewProviderGeometryObject)
-// explicit template instantiation
-template class GuiExport ViewProviderPythonFeatureT<ViewProviderGeometryObject>;
 }
 
 

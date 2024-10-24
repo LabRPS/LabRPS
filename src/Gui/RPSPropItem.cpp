@@ -68,15 +68,11 @@ void Gui::RPSPropItem::init()
     PropertyVectorDistanceItem      ::init();
     PropertyPositionItem            ::init();
     PropertyDirectionItem           ::init();
-    PropertyMatrixItem              ::init();
-    PropertyRotationItem            ::init();
     PropertyEnumItem                ::init();
     PropertyStringListItem          ::init();
     PropertyFloatListItem           ::init();
     PropertyIntegerListItem         ::init();
-    PropertyColorItem               ::init();
-    PropertyMaterialItem            ::init();
-    PropertyMaterialListItem        ::init();
+    //PropertyColorItem               ::init();
     PropertyFileItem                ::init();
     PropertyPathItem                ::init();
     PropertyTransientFileItem       ::init();

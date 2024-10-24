@@ -83,21 +83,31 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const WindLabAPI::WindLabSi
        
     }
 
-    QString line;   
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QTextStream stream(&file);
-        // FOR EACH ROW
-	          for (int j = 0; j < Data.numberOfFrequency.getValue(); j++)
-	          {
-				     // FOR EACH COL
-		          for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++)
-		          {
-			          // FOR EACH ROW AND COL
-			          stream >> dRandomValueArray(j, k);
-		          }
-	          }
+ QFile inputFile(file_path);
+
+    if (inputFile.open(QIODevice::ReadOnly)) {
+     
+     QString line;
+
+     QTextStream in(&inputFile);
+        for (int j = 0; j < Data.numberOfFrequency.getValue(); j++)
+	    {
+            if (!in.atEnd()) {
+                line = in.readLine();
+                QStringList fields = line.split('\t');
+
+                 // FOR EACH COL
+                for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {
+
+                    // FOR EACH ROW AND COL
+                    dRandomValueArray(j, k) = fields[k].toDouble();
+                }
+            }
+	 
+	    }
+
+        inputFile.close();
     }
-    file.close();
 
 return 1;
 }

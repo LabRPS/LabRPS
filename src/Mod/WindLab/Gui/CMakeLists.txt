@@ -95,7 +95,6 @@ set(WindLabGui_LIBS
     WindLab
     LabRPSGui
     LabRPSApp
-    Part
 )
 
 if(BUILD_QT5)

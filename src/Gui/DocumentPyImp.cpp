@@ -27,8 +27,6 @@
 #endif
 
 #include <App/Document.h>
-#include <Base/Matrix.h>
-#include <Base/MatrixPy.h>
 #include <Base/Stream.h>
 
 #include "Application.h"
@@ -80,24 +78,6 @@ PyObject* DocumentPy::hide(PyObject *args)
 
     PY_TRY {
         getDocumentPtr()->setHide(psFeatStr);
-        Py_Return;
-    }
-    PY_CATCH;
-}
-
-PyObject* DocumentPy::setPos(PyObject *args)
-{
-    char *psFeatStr;
-    Base::Matrix4D mat;
-    PyObject *pcMatObj;
-    if (!PyArg_ParseTuple(args, "sO!;Name of the Feature and the transformation matrix have to be given!",
-                          &psFeatStr, &(Base::MatrixPy::Type), &pcMatObj))
-        return nullptr;
-
-    mat = static_cast<Base::MatrixPy*>(pcMatObj)->value();
-
-    PY_TRY {
-        getDocumentPtr()->setPos(psFeatStr,mat);
         Py_Return;
     }
     PY_CATCH;
@@ -169,25 +149,6 @@ PyObject* DocumentPy::resetEdit(PyObject *args)
     getDocumentPtr()->resetEdit();
 
     Py_Return;
-}
-
-PyObject* DocumentPy::addAnnotation(PyObject *args)
-{
-    char *psAnnoName,*psFileName,*psModName = nullptr;
-    if (!PyArg_ParseTuple(args, "ss|s;Name of the Annotation and a file name have to be given!",
-                          &psAnnoName,&psFileName,&psModName))
-        return nullptr;
-
-    PY_TRY {
-        ViewProviderExtern *pcExt = new ViewProviderExtern();
-
-        pcExt->setModeByFile(psModName ? psModName : "Main", psFileName);
-        pcExt->adjustDocumentName(getDocumentPtr()->getDocument()->getName());
-        getDocumentPtr()->setAnnotationViewProvider(psAnnoName,pcExt);
-
-        Py_Return;
-    }
-    PY_CATCH;
 }
 
 PyObject* DocumentPy::update(PyObject *args)
@@ -366,17 +327,6 @@ PyObject* DocumentPy::scrollToTreeItem(PyObject *args)
     Py_Return;
 }
 
-PyObject* DocumentPy::toggleInSceneGraph(PyObject *args) {
-    PyObject *view;
-    if (!PyArg_ParseTuple(args,"O!",&(Gui::ViewProviderPy::Type), &view))
-        return nullptr;
-
-    Gui::ViewProvider* vp = static_cast<ViewProviderPy*>(view)->getViewProviderPtr();
-    getDocumentPtr()->toggleInSceneGraph(vp);
-
-    Py_Return;
-}
-
 Py::Object DocumentPy::getActiveObject() const
 {
     App::DocumentObject *object = getDocumentPtr()->getDocument()->getActiveObject();
@@ -423,20 +373,6 @@ Py::Object DocumentPy::getDocument() const
     }
 }
 
-Py::Object DocumentPy::getEditingTransform() const
-{
-    return Py::asObject(new Base::MatrixPy(new Base::Matrix4D(
-                    getDocumentPtr()->getEditingTransform())));
-}
-
-void DocumentPy::setEditingTransform(Py::Object arg)
-{
-    if (!PyObject_TypeCheck(arg.ptr(),&Base::MatrixPy::Type))
-        throw Py::TypeError("Expecting type of matrix");
-
-    getDocumentPtr()->setEditingTransform(
-            *static_cast<Base::MatrixPy*>(arg.ptr())->getMatrixPtr());
-}
 
 Py::Object DocumentPy::getInEditInfo() const {
     ViewProviderDocumentObject *vp = nullptr;

@@ -64,7 +64,6 @@
 #include <Base/FileInfo.h>
 #include <Base/Interpreter.h>
 #include <Base/Stream.h>
-#include <DAGView/DAGView.h>
 #include <TaskView/TaskView.h>
 
 #include "MainWindow.h"
@@ -89,14 +88,11 @@
 #include "WaitCursor.h"
 #include "WorkbenchManager.h"
 #include "Workbench.h"
-
+#include "Document.h"
 
 #include "MergeDocuments.h"
 #include "ViewProviderExtern.h"
 
-#include "SpaceballEvent.h"
-#include "View3DInventor.h"
-#include "View3DInventorViewer.h"
 #include "DlgObjectSelection.h"
 #include "Tools.h"
 
@@ -489,12 +485,6 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags f)
               GetGroup("BaseApp")->GetGroup("Preferences")->GetGroup("DockWindows")->GetGroup("DAGView");
         enabled = group->GetBool("Enabled", enabled);
         group->SetBool("Enabled", enabled); //ensure entry exists.
-        if (enabled) {
-            DAG::DockWindow *dagDockWindow = new DAG::DockWindow(nullptr, this);
-            dagDockWindow->setObjectName
-                (QString::fromLatin1(QT_TRANSLATE_NOOP("QDockWidget","DAG View")));
-            pDockMgr->registerDockWindow("Std_DAGView", dagDockWindow);
-        }
     }
 #endif
 
@@ -792,46 +782,7 @@ bool MainWindow::event(QEvent *e)
             if (action) action->setIcon(QApplication::windowIcon());
         }
     }
-    else if (e->type() == Spaceball::ButtonEvent::ButtonEventType) {
-        Spaceball::ButtonEvent *buttonEvent = dynamic_cast<Spaceball::ButtonEvent *>(e);
-        if (!buttonEvent)
-            return true;
-        buttonEvent->setHandled(true);
-        //only going to respond to button press events.
-        if (buttonEvent->buttonStatus() != Spaceball::BUTTON_PRESSED)
-            return true;
-        ParameterGrp::handle group = App::GetApplication().GetUserParameter().GetGroup("BaseApp")->
-                GetGroup("Spaceball")->GetGroup("Buttons");
-        QByteArray groupName(QVariant(buttonEvent->buttonNumber()).toByteArray());
-        if (group->HasGroup(groupName.data())) {
-            ParameterGrp::handle commandGroup = group->GetGroup(groupName.data());
-            std::string commandName(commandGroup->GetASCII("Command"));
-            if (commandName.empty())
-                return true;
-            else
-                Application::Instance->commandManager().runCommandByName(commandName.c_str());
-        }
-        else
-            return true;
-    }
-    else if (e->type() == Spaceball::MotionEvent::MotionEventType) {
-        Spaceball::MotionEvent *motionEvent = dynamic_cast<Spaceball::MotionEvent *>(e);
-        if (!motionEvent)
-            return true;
-        motionEvent->setHandled(true);
-        Gui::Document *doc = Application::Instance->activeDocument();
-        if (!doc)
-            return true;
-        View3DInventor *temp = dynamic_cast<View3DInventor *>(doc->getActiveView());
-        if (!temp)
-            return true;
-        View3DInventorViewer *view = temp->getViewer();
-        if (view) {
-            Spaceball::MotionEvent anotherEvent(*motionEvent);
-            qApp->sendEvent(view, &anotherEvent);
-        }
-        return true;
-    }else if(e->type() == QEvent::StatusTip) {
+    else if(e->type() == QEvent::StatusTip) {
         // make sure warning and error message don't get blocked by tooltips
         if(std::abs(d->currentStatusType) <= MainWindow::Wrn)
             return true;
@@ -1314,8 +1265,6 @@ void MainWindow::delayedStartup()
     if (hGrp->GetBool("CreateNewDoc", false)) {
         if (App::GetApplication().getDocuments().size()==0){
             App::GetApplication().newDocument();
-            Gui::Command::doCommand(Gui::Command::Gui,
-                "Gui.activeDocument().activeView().viewDefaultOrientation()");
         }
     }
 
@@ -2040,19 +1989,6 @@ void MainWindow::customEvent(QEvent* e)
         QString msg = ce->message();
         switch(ce->type()) {
         case MainWindow::Log: {
-            if (msg.startsWith(QLatin1String("#Inventor V2.1 ascii "))) {
-                Gui::Document *d = Application::Instance->activeDocument();
-                if (d) {
-                    ViewProviderExtern *view = new ViewProviderExtern();
-                    try {
-                        view->setModeByString("1",msg.toLatin1().constData());
-                        d->setAnnotationViewProvider("Vdbg",view);
-                    }
-                    catch (...) {
-                        delete view;
-                    }
-                }
-            }
             break;
         } case MainWindow::Tmp: {
             showMessage(msg, ce->timeout());
