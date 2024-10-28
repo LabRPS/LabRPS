@@ -17,21 +17,7 @@
    <item row="0" column="0">
     <widget class="QCheckBox" name="checkBoxAutoSwitch">
      <property name="text">
-      <string>Auto switch to the 3D view containing the selected item</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QCheckBox" name="checkBoxAutoExpand">
-     <property name="text">
-      <string>Auto expand tree item when the corresponding object is selected in 3D view</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="checkBoxPreselect">
-     <property name="text">
-      <string>Preselect the object in 3D view when mouse over the tree item</string>
+      <string>Auto switch to the dependency graph view containing the selected item</string>
      </property>
     </widget>
    </item>

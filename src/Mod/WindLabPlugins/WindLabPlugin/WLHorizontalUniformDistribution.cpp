@@ -62,8 +62,8 @@ bool CWLHorizontalUniformDistribution::ComputeLocationCoordinateMatrixP3(const W
 
 bool CWLHorizontalUniformDistribution::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 {
-	//WindLabGui::HorizontalLocationDistributionDialogEdit* dlg = new WindLabGui::HorizontalLocationDistributionDialogEdit(FirstPoint, Spacing,Data.spatialDistribution);
- //   Gui::Control().showDialog(dlg);
+	WindLabGui::HorizontalLocationDistributionDialogEdit* dlg = new WindLabGui::HorizontalLocationDistributionDialogEdit(FirstPoint, Spacing,Data.spatialDistribution);
+    Gui::Control().showDialog(dlg);
 
 	return true;
 }

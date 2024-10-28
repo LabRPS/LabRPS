@@ -427,7 +427,7 @@ StdTreeSyncView::StdTreeSyncView()
 {
     sGroup       = "TreeView";
     sMenuText    = QT_TR_NOOP("Sync view");
-    sToolTipText = QT_TR_NOOP("Auto switch to the 3D view containing the selected item");
+    sToolTipText = QT_TR_NOOP("Auto switch to the dependency graph view containing the selected item");
     sStatusTip   = sToolTipText;
     sWhatsThis   = "Std_TreeSyncView";
     sPixmap      = "tree-sync-view";
@@ -445,7 +445,7 @@ StdTreeSyncSelection::StdTreeSyncSelection()
 {
     sGroup       = "TreeView";
     sMenuText    = QT_TR_NOOP("Sync selection");
-    sToolTipText = QT_TR_NOOP("Auto expand tree item when the corresponding object is selected in 3D view");
+    sToolTipText = QT_TR_NOOP("Auto expand tree item when the corresponding object is selected in dependency graph view (not available yet)");
     sStatusTip   = sToolTipText;
     sWhatsThis   = "Std_TreeSyncSelection";
     sPixmap      = "tree-sync-sel";
@@ -481,7 +481,7 @@ StdTreePreSelection::StdTreePreSelection()
 {
     sGroup       = "TreeView";
     sMenuText    = QT_TR_NOOP("Pre-selection");
-    sToolTipText = QT_TR_NOOP("Preselect the object in 3D view when mouse over the tree item");
+    sToolTipText = QT_TR_NOOP("Preselect the object in dependency graph view when mouse over the tree item (not available yet)");
     sStatusTip   = sToolTipText;
     sWhatsThis   = "Std_TreePreSelection";
     sPixmap      = "tree-pre-sel";
@@ -556,9 +556,9 @@ public:
         bCanLog       = false;
 
         addCommand(new StdTreeSyncView());
-        addCommand(new StdTreeSyncSelection());
-        addCommand(new StdTreeSyncPlacement());
-        addCommand(new StdTreePreSelection());
+        // addCommand(new StdTreeSyncSelection());
+        // addCommand(new StdTreeSyncPlacement());
+        // addCommand(new StdTreePreSelection());
         addCommand(new StdTreeRecordSelection());
 
         addCommand();
@@ -571,6 +571,12 @@ public:
 
         addCommand(new StdTreeDrag(),cmds.size());
         addCommand(new StdTreeSelection(),cmds.size());
+
+        addCommand();
+
+        addCommand(new StdCmdSelBack());
+        addCommand(new StdCmdSelForward());
+
     }
     virtual const char* className() const {return "StdCmdTreeViewActions";}
 };
@@ -591,8 +597,8 @@ void CreateViewStdCommands()
     rcCmdMgr.addCommand(new StdCmdTreeExpand());
     rcCmdMgr.addCommand(new StdCmdTreeCollapse());
     rcCmdMgr.addCommand(new StdCmdTreeSelectAllInstances());
-    rcCmdMgr.addCommand(new StdCmdSelBack());
-    rcCmdMgr.addCommand(new StdCmdSelForward());
+    // rcCmdMgr.addCommand(new StdCmdSelBack());
+    // rcCmdMgr.addCommand(new StdCmdSelForward());
     rcCmdMgr.addCommand(new StdCmdTreeViewActions());
 
 

@@ -41,17 +41,23 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLab
 
 	bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, locationJ, dVarVector);
     
-	if (!returnResult) 
-		return false;
+	if (!returnResult) {
+        Base::Console().Error("The computation of the discrete frequencies vector has failed.\n");
+        return false;
+    }
 
     cx_mat dCPSDDecomMatrix(n,n);
 
 	mat locationCoord(Data.numberOfSpatialPosition.getValue(), 4);
-
+	
     returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, locationCoord);
 
-    if (!returnResult)
-     return false;
+    if (!returnResult) {
+        
+		Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
+
+        return false;
+    }
 
 	int locationIndexJ = CRPSWindLabFramework::getLocationIndex(Data, locationJ);
     int locationIndexK = CRPSWindLabFramework::getLocationIndex(Data, locationK);
@@ -90,9 +96,15 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const WindLab
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCPSDDecomMatrix)
 {
     cx_mat psdMatrix(Data.numberOfSpatialPosition.getValue(), Data.numberOfSpatialPosition.getValue());
-    bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(Data, dFrequency,dTime, psdMatrix);
-    if (!returnResult)//the computation of the psd matrix has failed.
+    
+	bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(Data, dFrequency,dTime, psdMatrix);
+
+	if (!returnResult) {
+        
+		Base::Console().Error("The computation of the power spectral density matrix has failed.\n");
+
         return false;
+    }
 
 	rps::General::CholeskyDecomposition decomposition;
    

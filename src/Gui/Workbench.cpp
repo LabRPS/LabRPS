@@ -590,8 +590,8 @@ MenuItem* StdWorkbench::setupMenuBar() const
     *edit << "Std_Undo" << "Std_Redo" << "Separator" << "Std_Cut" << "Std_Copy"
           << "Std_Paste" << "Std_DuplicateSelection" << "Separator"
           << "Std_Refresh"
-          << "Std_SelectAll" << "Std_Delete" << "Std_SendToPythonConsole"
-          << "Std_Edit" << "Separator" << "Std_DlgPreferences";
+          << "Std_SelectAll" << "Std_Delete"
+          << "Separator" << "Std_DlgPreferences";
 
     // View
     MenuItem* view = new MenuItem( menuBar );
@@ -605,72 +605,72 @@ MenuItem* StdWorkbench::setupMenuBar() const
    // Scatter
     MenuItem* Scatter = new MenuItem;
     Scatter->setCommand("Scatter");
-    *Scatter << "Std_Scatter"
-             << "Std_ScatterWithXError"
-             << "Std_ScatterWithYError"
-             << "Std_ScatterWithXYError";
+    *Scatter << "Std_Plot_Scatters"
+             << "Std_Plot_Scatters_with_xerr"
+             << "Std_Plot_Scatters_with_yerr"
+             << "Std_Plot_Scatters_with_xyerr";
 
     // Statistical graphs
     MenuItem* StatisticalGraphs = new MenuItem;
     StatisticalGraphs->setCommand("Statistical Graphs");
-    *StatisticalGraphs << "Std_BoxPlot"
-                       << "Std_Histogram"
-                       << "Std_StackedHistogram";
+    *StatisticalGraphs << "Std_Plot_SG_box_plot"
+                       << "Std_Plot_SG_histogram"
+                       << "Std_Plot_SG_stacked_histogram";
 
     // Layout grids
     MenuItem* LayoutGrids = new MenuItem;
     LayoutGrids->setCommand("Layout Grids");
-    *LayoutGrids << "Std_VerticalTwoLayouts"
-                 << "Std_HorizontalTwoLayouts"
-                 << "Std_FourLayouts";
+    *LayoutGrids << "Std_Plot_Layout_grids_vertical_2_layouts"
+                 << "Std_Plot_Layout_grids_horizontal_2_layouts"
+                 << "Std_Plot_Layout_grids_4_layouts";
 
     // plot
     MenuItem* plot = new MenuItem;
     plot->setCommand("Plot");
-    *plot << "Std_Line" << Scatter << "Std_LineAndSymbol"
-          << "Std_SpecialLineAndSymbol"
+    *plot << "Std_Plot_Line" << Scatter << "Std_Plot_LineSymbol"
+          << "Std_Plot_Special_lineSymbol"
           << "Separator"
-          << "Std_VerticalBars"
-          << "Std_VerticalStackedBars"
-          << "Std_VerticalGroupedBars"
-          << "Std_HorizontalBars"
-          << "Std_HorizontalStackedBars"
-          << "Std_HorizontalGroupedBars"
-          << "Std_Area"
-          << "Std_ChannelFill"
-          << "Std_Pie"
-          << "Std_HalfPie"
-          << "Std_VectorsXYXY"
-          << "Std_VectorsXYAM"
+          << "Std_Plot_Vertical_Bars"
+          << "Std_Plot_Vertical_Stacked_bars"
+          << "Std_Plot_Vertical_Grouped_bars"
+          << "Std_Plot_Horizontal_Bars"
+          << "Std_Plot_Horizontal_Stacked_bars"
+          << "Std_Plot_Horizontal_Grouped_bars"
+          << "Std_Plot_Area"
+          << "Std_Plot_Channel_fil"
+          << "Std_Plot_Pie"
+          << "Std_Plot_Half_pie"
+          << "Std_Plot_Vectors_XYXY"
+          << "Std_Plot_Vectors_XYAM"
           << "Separator" << StatisticalGraphs << "Separator" << LayoutGrids;
 
     // 3D Plot
     MenuItem* TreeDPlot = new MenuItem;
     TreeDPlot->setCommand("3D Plot");
-    *TreeDPlot << "Std_3DWireFrame"
-               << "Std_3DSurface"
-               << "Std_3DWireFrameSurface"
+    *TreeDPlot << "Std_3DPlot_3D_Wire_frame"
+               << "Std_3DPlot_3D_Surface"
+               << "Std_3DPlot_3D_Wire_frame_surface"
                << "Separator"
-               << "Std_3DPlotBar"
-               << "Std_3DPlotScatter"
+               << "Std_3DPlot_Bar"
+               << "Std_3DPlot_Scatter"
                << "Separator"
-               << "Std_ContourAndColourFill"
-               << "Std_ContourLines"
-               << "Std_GrayScaleMap"
+               << "Std_3DPlot_Countour_color_fill"
+               << "Std_3DPlot_Countour_lines"
+               << "Std_3DPlot_Gray_scale_map"
                << "Separator"
-               << "Std_3DWireFramePolar"
-               << "Std_3DWireSurfacePolar"
-               << "Std_3DWireFrameSurfacePolar"
+               << "Std_3DPlot_3D_Wire_frame_polar"
+               << "Std_3DPlot_3D_Surface_polar"
+               << "Std_3DPlot_3D_Wire_frame_surface_polar"
                << "Separator"
-               << "Std_3DScatterPolar"
+               << "Std_3DPlot_3D_Scatter_polar"
                << "Separator"
-               << "Std_PolarSpectogram";
+               << "Std_3DPlot_Polar_spectrogram";
 
     // Add And Remove other Plots
     MenuItem* AddAndRemoveOtherPlots = new MenuItem;
     AddAndRemoveOtherPlots->setCommand("Add/Remove other Plots");
-    *AddAndRemoveOtherPlots << "Std_AddRemovePlotY"
-                            << "Std_AddRemoveVectorPlot";
+    *AddAndRemoveOtherPlots << "Std_Graph_AddRemove_other_plots_y"
+                            << "Std_Graph_AddRemove_other_plots_vector";
 
     // Add left axis
     MenuItem* AddLeftAxis = new MenuItem;
@@ -720,41 +720,41 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Add layout
     MenuItem* AddLayout = new MenuItem;
     AddLayout->setCommand("Add Layout");
-    *AddLayout << "Std_AddLayoutUp"
-               << "Std_AddLayoutDown"
-               << "Std_AddLayoutLeft"
-               << "Std_AddLayoutRight";
+    *AddLayout << "Std_Graph_Add_layout_up"
+               << "Std_Graph_Add_layout_down"
+               << "Std_Graph_Add_layout_left"
+               << "Std_Graph_Add_layout_right";
 
     // Graph tools
     MenuItem* GraphTools = new MenuItem;
     GraphTools->setCommand("Graph Tools");
-    *GraphTools << "Std_DisableTools"
-                << "Std_DataReader"
-                << "Std_ScreenReader"
-                << "Std_SelectDataRange"
-                << "Std_MoveDataPoints"
-                << "Std_RemoveBadDataPoints"
+    *GraphTools << "Std_Tools_Disable_tools"
+                << "Std_Tools_Data_reader"
+                << "Std_Tools_Screen_reader"
+                << "Std_Tools_Select_data_range"
+                << "Std_Tools_Move_data_points"
+                << "Std_Tools_Remove_bad_data_points"
                 << "Separator"
-                << "Std_DragRange"
-                << "Std_ZoomRang"
-                << "Std_RescaleToShowAll";
+                << "Std_Graph_Drag_range"
+                << "Std_Tools_Zoom_range"
+                << "Std_Tools_Rescale_to_show_all";
 
     // Graph
     MenuItem* Graph = new MenuItem;
     Graph->setCommand("Graph");
-    *Graph << "Std_AddRemovePlotXYAndXYY"
-           << "Std_AddFunction"
-           << "Std_AddErrorBars" << AddAndRemoveOtherPlots << AddAxis << "Std_LegendReoder"
+    *Graph << "Std_Graph_AddRemove_plot_xyxyy"
+           << "Std_Graph_Add_function"
+           << "Std_Graph_Add_error_bars" << AddAndRemoveOtherPlots << AddAxis << "Std_Graph_Lengend_reorder"
            << "Separator"
-           << "Std_AddText"
-           << "Std_AddTimeStamp"
-           << "Std_AddImage"
-           << "Std_AddLine"
-           << "Std_AddArrow"
-           << "Std_AddEllipse"
-           << "Std_AddNestedLayout"
-           << "Separator" << AddLayout << "Std_RemoveLayout"
-           << "Std_SwapLayouts" << GraphTools;
+           << "Std_Graph_Add_text"
+           << "Std_Graph_Add_time_stamp"
+           << "Std_Graph_Add_image"
+           << "Std_Graph_Draw_line"
+           << "Std_Graph_Draw_arrow"
+           << "Std_Graph_Draw_ellipse"
+           << "Std_Graph_Add_nested_layout"
+           << "Separator" << AddLayout << "Std_Graph_Remove_layout"
+           << "Std_Graph_Swap_layouts" << GraphTools;
 
 
     // Table
@@ -762,12 +762,11 @@ MenuItem* StdWorkbench::setupMenuBar() const
     Table->setCommand("Table");
     *Table << "Std_TableShowExportASCIIDialog"
            << "Std_TableExportPDF"
-           << "Std_TableConvertToMatrix"
-           << "Std_TableAddColToTable"
+           << "Std_Table_Convert_to_matrix"
+           << "Std_Table_Add_column"
            << "Std_DuplicateWindow"
-           << "Std_PlotHideActiveWindow"
-           << "Std_ClearTable"
-           << "Std_ExportTableASCII"
+           << "Std_Table_Clear_table"
+           << "Std_Table_Export_ASCII"
            << "Std_ImportTableASCII";
     
 
@@ -775,10 +774,9 @@ MenuItem* StdWorkbench::setupMenuBar() const
     MenuItem* Matrix = new MenuItem;
     Matrix->setCommand("Matrix");
     *Matrix << "Std_DuplicateWindow"
-            << "Std_PlotHideActiveWindow"
-            << "Std_MatrixConvertToTable"
-            << "Std_MatrixDeterminant"
-            << "Std_InvertMatrix";
+            << "Std_Matrix_Convert_to_table"
+            << "Std_Matrix_Determinant"
+            << "Std_Matrix_Invert";
 
     // Graph
     MenuItem* AlphaPlot = new MenuItem;
@@ -790,7 +788,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
     tool->setCommand("&Tools");
     *tool << "Std_DlgParameter"
           << "Separator"
-          << "Std_DependencyGraph"
+          << "Std_ExportDependencyGraph"
           << "Std_ProjectUtil"
           << "Separator" 
           << AlphaPlot
@@ -802,7 +800,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
           << "Std_UnitsCalculator"
           << "Separator"
           << "Std_DlgCustomize"
-          << "Std_PluginInstaller";
+          << "Std_DlgRPSFeatures";
 #ifdef BUILD_ADDONMGR
     *tool << "Std_AddonMgr";
 #endif
@@ -838,7 +836,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Help
     MenuItem* help = new MenuItem( menuBar );
     help->setCommand("&Help");
-    *help << "Std_OnlineHelp" << "Std_LabRPSWebsite" << "Std_LabRPSDonation"
+    *help << "Std_OnlineHelp" << "Std_Homepage" << "Std_LabRPSDonation"
           << "Std_LabRPSUserHub" << "Std_LabRPSPowerUserHub"
           << "Std_PythonHelp" << "Std_LabRPSForum" << "Std_LabRPSFAQ"
           << "Std_ReportBug" << "Std_About" << "Std_WhatsThis";
@@ -855,7 +853,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     file->setCommand("File");
     *file << "Std_New"<< "Std_File_New_aspect" << "Std_Open" << "Std_Save" << "Std_Print" << "Separator" << "Std_Cut"
           << "Std_Copy" << "Std_Paste" << "Separator" << "Std_Undo" << "Std_Redo" << "Separator"
-          << "Std_UserEditMode" << "Separator" << "Std_Refresh" << "Separator" << "Std_WhatsThis";
+          << "Std_Refresh" << "Separator" << "Std_WhatsThis";
 
     // Workbench switcher
     ToolBarItem* wb = new ToolBarItem( root );
@@ -868,46 +866,51 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     *macro << "Std_DlgMacroRecord" << "Std_MacroStopRecord" << "Std_DlgMacroExecute"
            << "Std_DlgMacroExecuteDirect";
 
+      // View
+    ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    view->setCommand("View");
+    *view << "Std_SelBack" << "Std_SelForward" << "Std_TreeViewActions";
+
       Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
     GraphTools->setCommand("Graph Tools");
-    *GraphTools << "Std_DisableTools"
-                << "Std_DataReader"
-                << "Std_ScreenReader"
-                << "Std_SelectDataRange"
-                << "Std_MoveDataPoints"
-                << "Std_RemoveBadDataPoints"
+    *GraphTools << "Std_Tools_Disable_tools"
+                << "Std_Tools_Data_reader"
+                << "Std_Tools_Screen_reader"
+                << "Std_Tools_Select_data_range"
+                << "Std_Tools_Move_data_points"
+                << "Std_Tools_Remove_bad_data_points"
                 << "Separator"
-                << "Std_DragRange"
-                << "Std_ZoomRang"
-                << "Std_RescaleToShowAll";
+                << "Std_Graph_Drag_range"
+                << "Std_Tools_Zoom_range"
+                << "Std_Tools_Rescale_to_show_all";
 
     Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
     TableTools->setCommand("Alphaplot Table Tools");
     *TableTools << "Std_StdScatters"
                 << "Std_LinesAndSteps"
                 << "Std_VerticalAndHorizontalBars"
-                << "Std_Area"
-                << "Std_ChannelFill"
-                << "Std_Histogram"
-                << "Std_BoxPlot"
+                << "Std_Plot_Area"
+                << "Std_Plot_Channel_fil"
+                << "Std_Plot_SG_histogram"
+                << "Std_Plot_SG_box_plot"
                 << "Std_VectorPlots"
                 << "Std_PiePlots"
                 << "Separator"
-                << "Std_3DPlotBar"
-                << "Std_3DPlotScatter";
+                << "Std_3DPlot_Bar"
+                << "Std_3DPlot_Scatter";
     // 3D Plot
     Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root);
     TreeDPlot->setCommand("3D Plot");
-    *TreeDPlot << "Std_3DWireFrame"
-               << "Std_3DSurface"
-               << "Std_3DWireFrameSurface"
+    *TreeDPlot << "Std_3DPlot_3D_Wire_frame"
+               << "Std_3DPlot_3D_Surface"
+               << "Std_3DPlot_3D_Wire_frame_surface"
                << "Separator"
-               << "Std_3DPlotBar"
-               << "Std_3DPlotScatter"
+               << "Std_3DPlot_Bar"
+               << "Std_3DPlot_Scatter"
                << "Separator"
-               << "Std_ContourAndColourFill"
-               << "Std_ContourLines"
-               << "Std_GrayScaleMap";
+               << "Std_3DPlot_Countour_color_fill"
+               << "Std_3DPlot_Countour_lines"
+               << "Std_3DPlot_Gray_scale_map";
 
     // 3D Plot Tools
     Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root);

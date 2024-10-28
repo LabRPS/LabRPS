@@ -288,9 +288,9 @@ void SeismicLabSimulation::seismicLabFeatureInitalSetting(QString group, QString
         SeismicLabAPI::IrpsSLCoherence* activefeature = static_cast<SeismicLabAPI::IrpsSLCoherence*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
         auto simuData = getSimulationData();
         if (simuData)
@@ -301,262 +301,262 @@ void SeismicLabSimulation::seismicLabFeatureInitalSetting(QString group, QString
         SeismicLabAPI::IrpsSLCorrelation* activefeature = static_cast<SeismicLabAPI::IrpsSLCorrelation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupCumulativeProbabilityDistribution) {
         SeismicLabAPI::IrpsSLCumulativeProbabilityDistribution* activefeature =
     static_cast<SeismicLabAPI::IrpsSLCumulativeProbabilityDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupFrequencyDistribution) {
         SeismicLabAPI::IrpsSLFrequencyDistribution* activefeature =
     static_cast<SeismicLabAPI::IrpsSLFrequencyDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupKurtosis) {
         SeismicLabAPI::IrpsSLKurtosis* activefeature = static_cast<SeismicLabAPI::IrpsSLKurtosis*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupLocationDistribution) {
         SeismicLabAPI::IrpsSLLocationDistribution* activefeature =
     static_cast<SeismicLabAPI::IrpsSLLocationDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupMatrixTool) {
         SeismicLabAPI::IrpsSLMatrixTool* activefeature = static_cast<SeismicLabAPI::IrpsSLMatrixTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupMeanAccelerationProfile) {
         SeismicLabAPI::IrpsSLMeanAcceleration* activefeature = static_cast<SeismicLabAPI::IrpsSLMeanAcceleration*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupModulationFunction) {
         SeismicLabAPI::IrpsSLModulation* activefeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupPeakFactor) {
         SeismicLabAPI::IrpsSLPeakFactor* activefeature = static_cast<SeismicLabAPI::IrpsSLPeakFactor*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupProbabilityDensityFunction) {
         SeismicLabAPI::IrpsSLProbabilityDensityFunction* activefeature =
     static_cast<SeismicLabAPI::IrpsSLProbabilityDensityFunction*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupSpectrumDecompositionMethod) {
         SeismicLabAPI::IrpsSLPSDdecompositionMethod* activefeature =
     static_cast<SeismicLabAPI::IrpsSLPSDdecompositionMethod*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupRandomnessProvider) {
         SeismicLabAPI::IrpsSLRandomness* activefeature = static_cast<SeismicLabAPI::IrpsSLRandomness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupShearVelocityOfFlow) {
         SeismicLabAPI::IrpsSLShearVelocityOfFlow* activefeature =
     static_cast<SeismicLabAPI::IrpsSLShearVelocityOfFlow*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupSimulationMethod) {
         SeismicLabAPI::IrpsSLSimulationMethod* activefeature = static_cast<SeismicLabAPI::IrpsSLSimulationMethod*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupSimulationMethod) {
         SeismicLabAPI::IrpsSLSkewness* activefeature = static_cast<SeismicLabAPI::IrpsSLSkewness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupStandardDeviation) {
         SeismicLabAPI::IrpsSLStandardDeviation* activefeature =
     static_cast<SeismicLabAPI::IrpsSLStandardDeviation*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupTableTool) {
         SeismicLabAPI::IrpsSLTableTool* activefeature = static_cast<SeismicLabAPI::IrpsSLTableTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupUserDefinedRPSObject) {
         SeismicLabAPI::IrpsSLUserDefinedRPSObject* activefeature =
     static_cast<SeismicLabAPI::IrpsSLUserDefinedRPSObject*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupVariance) {
         SeismicLabAPI::IrpsSLVariance* activefeature = static_cast<SeismicLabAPI::IrpsSLVariance*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupWavePassageEffect) {
         SeismicLabAPI::IrpsSLWavePassageEffect* activefeature =
     static_cast<SeismicLabAPI::IrpsSLWavePassageEffect*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeismicLab::SeismicLabUtils::objGroupSpectrum) {
         SeismicLabAPI::IrpsSLSpectrum* activefeature = static_cast<SeismicLabAPI::IrpsSLSpectrum*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
 }
 

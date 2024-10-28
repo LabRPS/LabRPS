@@ -283,9 +283,9 @@ void SeaLabSimulation::seaLabFeatureInitalSetting(QString group, QString current
         SeaLabAPI::IrpsSeLCoherence* activefeature = static_cast<SeaLabAPI::IrpsSeLCoherence*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
         auto simuData = getSimulationData();
         if (simuData)
@@ -296,262 +296,262 @@ void SeaLabSimulation::seaLabFeatureInitalSetting(QString group, QString current
         SeaLabAPI::IrpsSeLCorrelation* activefeature = static_cast<SeaLabAPI::IrpsSeLCorrelation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupCumulativeProbabilityDistribution) {
         SeaLabAPI::IrpsSeLCumulativeProbabilityDistribution* activefeature =
     static_cast<SeaLabAPI::IrpsSeLCumulativeProbabilityDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupFrequencyDistribution) {
         SeaLabAPI::IrpsSeLFrequencyDistribution* activefeature =
     static_cast<SeaLabAPI::IrpsSeLFrequencyDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupKurtosis) {
         SeaLabAPI::IrpsSeLKurtosis* activefeature = static_cast<SeaLabAPI::IrpsSeLKurtosis*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupLocationDistribution) {
         SeaLabAPI::IrpsSeLLocationDistribution* activefeature =
     static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupMatrixTool) {
         SeaLabAPI::IrpsSeLMatrixTool* activefeature = static_cast<SeaLabAPI::IrpsSeLMatrixTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupMeanAccelerationProfile) {
         SeaLabAPI::IrpsSeLMeanAcceleration* activefeature = static_cast<SeaLabAPI::IrpsSeLMeanAcceleration*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupModulationFunction) {
         SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupPeakFactor) {
         SeaLabAPI::IrpsSeLPeakFactor* activefeature = static_cast<SeaLabAPI::IrpsSeLPeakFactor*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupProbabilityDensityFunction) {
         SeaLabAPI::IrpsSeLProbabilityDensityFunction* activefeature =
     static_cast<SeaLabAPI::IrpsSeLProbabilityDensityFunction*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod) {
         SeaLabAPI::IrpsSeLPSDdecompositionMethod* activefeature =
     static_cast<SeaLabAPI::IrpsSeLPSDdecompositionMethod*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupRandomnessProvider) {
         SeaLabAPI::IrpsSeLRandomness* activefeature = static_cast<SeaLabAPI::IrpsSeLRandomness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupShearVelocityOfFlow) {
         SeaLabAPI::IrpsSeLShearVelocityOfFlow* activefeature =
     static_cast<SeaLabAPI::IrpsSeLShearVelocityOfFlow*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupSimulationMethod) {
         SeaLabAPI::IrpsSeLSimulationMethod* activefeature = static_cast<SeaLabAPI::IrpsSeLSimulationMethod*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupSimulationMethod) {
         SeaLabAPI::IrpsSeLSkewness* activefeature = static_cast<SeaLabAPI::IrpsSeLSkewness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupStandardDeviation) {
         SeaLabAPI::IrpsSeLStandardDeviation* activefeature =
     static_cast<SeaLabAPI::IrpsSeLStandardDeviation*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupTableTool) {
         SeaLabAPI::IrpsSeLTableTool* activefeature = static_cast<SeaLabAPI::IrpsSeLTableTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupUserDefinedRPSObject) {
         SeaLabAPI::IrpsSeLUserDefinedRPSObject* activefeature =
     static_cast<SeaLabAPI::IrpsSeLUserDefinedRPSObject*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupVariance) {
         SeaLabAPI::IrpsSeLVariance* activefeature = static_cast<SeaLabAPI::IrpsSeLVariance*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupWavePassageEffect) {
         SeaLabAPI::IrpsSeLWavePassageEffect* activefeature =
     static_cast<SeaLabAPI::IrpsSeLWavePassageEffect*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
         SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
 }
 

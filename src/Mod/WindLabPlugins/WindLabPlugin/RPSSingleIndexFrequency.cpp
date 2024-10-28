@@ -75,32 +75,3 @@ bool CRPSSingleIndexFrequency::ComputeFrequencyValue(const WindLabAPI::WindLabSi
     dValue = Data.minFrequency.getValue() + frequencyIndex * Data.frequencyIncrement.getValue();
 	return true;
 }
-
-//short CRPSSingleIndexFrequency::mustExecute(void) const
-//{
-//    return WindLabFeature::mustExecute();
-//}
-//
-//App::DocumentObjectExecReturn* CRPSSingleIndexFrequency::recompute(void)
-//{
-//    try {
-//        return WindLabAPI::WindLabFeature::recompute();
-//    }
-//    catch (Base::Exception& e) {
-//
-//        App::DocumentObjectExecReturn* ret = new App::DocumentObjectExecReturn(e.what());
-//        if (ret->Why.empty()) ret->Why = "Unknown exception";
-//        return ret;
-//    }
-//}
-//
-//App::DocumentObjectExecReturn* CRPSSingleIndexFrequency::execute(void)
-//{
-//    return WindLabFeature::execute();
-//}
-//
-//void CRPSSingleIndexFrequency::onChanged(const App::Property* prop)
-//{
-//
-//    WindLabFeature::onChanged(prop);
-//}

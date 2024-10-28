@@ -450,7 +450,7 @@ QByteArray GraphvizView::exportGraph(const QString& format)
 
 bool GraphvizView::onMsg(const char* pMsg,const char**)
 {
-    if (strcmp("Save",pMsg) == 0 || strcmp("SaveAs",pMsg) == 0) {
+    if (strcmp("SaveAs",pMsg) == 0) {
         QList< QPair<QString, QString> > formatMap;
         formatMap << qMakePair(QString::fromLatin1("%1 (*.png)").arg(tr("PNG format")), QString::fromLatin1("png"));
         formatMap << qMakePair(QString::fromLatin1("%1 (*.bmp)").arg(tr("Bitmap format")), QString::fromLatin1("bmp"));
@@ -483,6 +483,11 @@ bool GraphvizView::onMsg(const char* pMsg,const char**)
                 file.close();
             }
         }
+
+        return true;
+    }
+    else if (strcmp("Save", pMsg) == 0) {
+        getGuiDocument()->save();
         return true;
     }
     else if (strcmp("Print",pMsg) == 0) {
@@ -503,6 +508,10 @@ bool GraphvizView::onMsg(const char* pMsg,const char**)
     }
     else if (strcmp("Redo", pMsg) == 0) {
         getGuiDocument()->redo(1);
+        return true;
+    }
+    else if (strcmp("SaveCopy", pMsg) == 0) {
+        getGuiDocument()->saveCopy();
         return true;
     }
     return false;

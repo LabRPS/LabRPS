@@ -10,6 +10,8 @@ macro(CreatePackagingTargets)
               --minor=${PACKAGE_VERSION_MINOR}
               WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
+    set_target_properties(dist-git PROPERTIES FOLDER "Packaging Staffs")
+
     add_custom_target(distdfsg-git
         COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/src/Tools/makedist.py
               --bindir=${CMAKE_BINARY_DIR}
@@ -18,6 +20,8 @@ macro(CreatePackagingTargets)
               --dfsg
               WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
+    set_target_properties(distdfsg-git PROPERTIES FOLDER "Packaging Staffs")
+
     if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_COMPILER_IS_CLANGXX OR MINGW)
         add_custom_target(distcheck-git
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/src/Tools/makedist.py
@@ -27,6 +31,8 @@ macro(CreatePackagingTargets)
                   --check
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
+        set_target_properties(distcheck-git PROPERTIES FOLDER "Packaging Staffs")
+
         add_custom_target(distcheckdfsg-git
             COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/src/Tools/makedist.py
                   --bindir=${CMAKE_BINARY_DIR}
@@ -36,6 +42,9 @@ macro(CreatePackagingTargets)
                   --check
                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         )
+
+        set_target_properties(distcheckdfsg-git PROPERTIES FOLDER "Packaging Staffs")
+
     endif()
 
 endmacro(CreatePackagingTargets)

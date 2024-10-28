@@ -6,6 +6,8 @@ SET(Examples_Files
 ADD_CUSTOM_TARGET(Example_data ALL
     SOURCES ${Examples_Files}
 )
+set_target_properties(Example_data PROPERTIES FOLDER "Data")
+
 
 # 0001097: CMake stops with error "Circular ... <- ... dependency dropped."
 if(NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
@@ -116,6 +118,8 @@ if (WIN32 AND LABRPS_LIBPACK_USE)
         ${LABRPS_LIBPACK_PYTHON}
     )
     add_custom_target(LibPack_Files ALL SOURCES ${LABRPS_LIBPACK_FILES})
+    set_target_properties(LibPack_Files PROPERTIES FOLDER "Data")
+
 
 endif(WIN32 AND LABRPS_LIBPACK_USE)
 

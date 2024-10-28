@@ -36,6 +36,7 @@ SET(StartPage_Resources
 add_custom_target(StartPage ALL
     SOURCES ${StartPage_Scripts} ${StartPage_Resources}
 )
+set_target_properties(StartPage PROPERTIES FOLDER "Workbenches/StartPage")
 
 rps_target_copy_resource(StartPage
     ${CMAKE_SOURCE_DIR}/src/Mod/Start/StartPage

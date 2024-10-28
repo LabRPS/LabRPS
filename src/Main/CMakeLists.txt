@@ -52,6 +52,7 @@ if(BUILD_GUI)
 
     add_executable(LabRPSMain WIN32 ${LabRPS_SRCS})
     target_link_libraries(LabRPSMain ${LabRPS_LIBS})
+    set_target_properties(LabRPSMain PROPERTIES FOLDER "LabRPS")
 
     SET_BIN_DIR(LabRPSMain LabRPS)
 
@@ -109,6 +110,8 @@ target_link_libraries(LabRPSMainCmd
     ${LabRPSMainCmd_LIBS}
 )
 
+set_target_properties(LabRPSMainCmd PROPERTIES FOLDER "LabRPS")
+
 SET_BIN_DIR(LabRPSMainCmd LabRPSCmd)
 
 if(WIN32)
@@ -136,6 +139,8 @@ SET(LabRPSMainPy_SRCS
 add_library(LabRPSMainPy SHARED ${LabRPSMainPy_SRCS})
 
 target_link_libraries(LabRPSMainPy LabRPSApp)
+set_target_properties(LabRPSMainPy PROPERTIES FOLDER "LabRPS")
+
 
 SET_BIN_DIR(LabRPSMainPy LabRPS)
 SET_PYTHON_PREFIX_SUFFIX(LabRPSMainPy)
@@ -161,6 +166,8 @@ if(BUILD_GUI)
     add_library(LabRPSGuiPy SHARED ${LabRPSGuiPy_SRCS})
 
     target_link_libraries(LabRPSGuiPy LabRPSGui)
+    set_target_properties(LabRPSGuiPy PROPERTIES FOLDER "LabRPS")
+
 
     SET_BIN_DIR(LabRPSGuiPy LabRPSGui)
     SET_PYTHON_PREFIX_SUFFIX(LabRPSGuiPy)

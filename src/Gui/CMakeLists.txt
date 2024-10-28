@@ -1057,6 +1057,7 @@ endif()
 
 add_library(LabRPSGui SHARED ${LabRPSGui_SRCS})
 target_link_libraries(LabRPSGui ${LabRPSGui_LIBS})
+set_target_properties(LabRPSGui PROPERTIES FOLDER "Gui")
 
 SET_BIN_DIR(LabRPSGui LabRPSGui)
 

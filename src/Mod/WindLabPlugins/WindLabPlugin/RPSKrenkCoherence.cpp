@@ -45,76 +45,35 @@ RPSKrenkCoherence::RPSKrenkCoherence()
 
 bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
-    bool returnResult = true;
+  bool returnResult = true;
 
     double MEANj = 0.0;
     double MEANk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
     if (!returnResult) {
-        Base::Console().Error("The computation of mean wind speed fails\n");
-        return returnResult;
+        Base::Console().Error("The computation of mean wind speed at location %s has failed.\n");
+        return false;
     }
+
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
     if (!returnResult) {
         Base::Console().Error("The computation of mean wind speed fails\n");
-        return returnResult;
+        return false;
     }
 
     WindLabTools::KrenkCoherence krenkCoherence;
 
-	if (Data.stationarity.getValue())
+    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
+	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
 	{
-		dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+           //stationarity here is taken into account in the mean wind speed. so we have only one formula here for both stationary and non-stationary
+	 dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+
     }
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
 	{
-		double dModValueJ = 0.0;
-        double dModValueK = 0.0;
-
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = 0.5 * (dModValueJ + dModValueJ) * krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
-
-		}
-		else
-		{
-			dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
-        }
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        Base::Console().Error("The computation of the cross coherence value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
         return false;
 	}
 

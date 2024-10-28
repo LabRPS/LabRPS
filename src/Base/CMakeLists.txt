@@ -343,6 +343,7 @@ endif(LABRPS_USE_PCH)
 add_library(LabRPSBase SHARED ${LabRPSBase_SRCS})
 
 target_link_libraries(LabRPSBase ${LabRPSBase_LIBS})
+set_target_properties(LabRPSBase PROPERTIES FOLDER "Base")
 
 SET_BIN_DIR(LabRPSBase LabRPSBase)
 

@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 22.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1"
-	 id="svg3052" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 600 600"
-	 style="enable-background:new 0 0 600 600;" xml:space="preserve">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:none;stroke:#060074;stroke-width:32;stroke-miterlimit:10;}
+	.st0{fill:#F6F6F6;fill-opacity:0;}
+	.st1{fill:#F6F6F6;}
+	.st2{fill:#424242;}
+	.st3{fill:#F0EFF1;}
 </style>
-<title  id="title930">FEM_ConstraintFlowVelocity</title>
-<path class="st0" d="M174,318.5h349.6c27.8-5.9,49.7-25,56.3-49.4c10.1-37.6-18.8-78.9-52.1-83.2c-34.5-4.5-76.8,29.9-76.5,81.9"/>
-<path class="st0" d="M66.4,377h343.3c27.3,5.9,48.8,25,55.3,49.4c9.9,37.6-18.4,78.9-51.2,83.2c-33.8,4.5-75.4-29.9-75.1-81.9"/>
-<path class="st0" d="M5.5,257.7h353.7c28.1-5.9,50.3-25,57-49.4c10.2-37.6-19-78.9-52.7-83.2c-34.9-4.5-77.7,29.9-77.3,81.9"/>
+<g id="outline">
+	<path class="st0" d="M0,0h16v16H0V0z"/>
+	<path class="st1" d="M0,15V0h16v15H0z"/>
+</g>
+<path id="icon_x5F_bg" class="st2" d="M1,1v13h14V1H1z M2,2h12v1h-2v2.4L9,9L6,6V4H4v2.1L2,8.2V2z M14,13H2v-3l3-3l3,3v2h2V9.8L14,5
+	V13z"/>
+<g id="icon_x5F_fg">
+	<path class="st3" d="M2,2v6.2l2-2.1V4h2v2l3,3l3-3.6V3h2V2H2z"/>
+	<path class="st3" d="M10,12H8v-2L5,7l-3,3v3h12V5l-4,4.8V12z"/>
+</g>
+<polyline class="st2" points="2.5,6.4 2.5,5.4 3.5,5.4 3.5,6.4 "/>
+<polyline class="st2" points="10.5,6.4 10.5,5.4 11.5,5.4 11.5,6.4 "/>
+<polyline class="st2" points="8.5,6.4 8.5,5.4 9.5,5.4 9.5,6.4 "/>
+<polyline class="st2" points="4.5,6.4 4.5,5.4 5.5,5.4 5.5,6.4 "/>
+<polyline class="st2" points="6.5,6.4 6.5,5.4 7.5,5.4 7.5,6.4 "/>
+<polyline class="st2" points="12.5,6.4 12.5,5.4 13.5,5.4 13.5,6.4 "/>
 </svg>

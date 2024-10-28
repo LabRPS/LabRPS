@@ -61,83 +61,6 @@ ViewProviderWindLabFeatureLocationDistribution::ViewProviderWindLabFeatureLocati
 {
   sPixmap = ":/icons/WindLabFeatures/WindLab_Feature_LocationObj.svg";
 
-  //// get default line color
-  //unsigned long lcol = Gui::ViewParams::instance()->getDefaultShapeLineColor();// dark grey (25,25,25)
-  //float lr, lg, lb;
-  //lr = ((lcol >> 24) & 0xff) / 255.0;
-  //lg = ((lcol >> 16) & 0xff) / 255.0;
-  //lb = ((lcol >> 8) & 0xff) / 255.0;
- 
-  //// get default vertex color
-  //unsigned long vcol = Gui::ViewParams::instance()->getDefaultShapeVertexColor();
-  //float vr, vg, vb;
-  //vr = ((vcol >> 24) & 0xff) / 255.0;
-  //vg = ((vcol >> 16) & 0xff) / 255.0;
-  //vb = ((vcol >> 8) & 0xff) / 255.0;
-  //int lwidth = Gui::ViewParams::instance()->getDefaultShapeLineWidth();
-  //int psize = Gui::ViewParams::instance()->getDefaultShapePointSize();
-
-  //static const char* osgroup = "Object Style";
-
-  //App::Material lmat;
-  //lmat.ambientColor.set(0.2f, 0.2f, 0.2f);
-  //lmat.diffuseColor.set(lr, lg, lb);
-  //lmat.specularColor.set(0.0f, 0.0f, 0.0f);
-  //lmat.emissiveColor.set(0.0f, 0.0f, 0.0f);
-  //lmat.shininess = 1.0f;
-  //lmat.transparency = 0.0f;
-
-  //App::Material vmat;
-  //vmat.ambientColor.set(0.4f, 0.30f, 0.15f);
-  //vmat.diffuseColor.set(vr, vg, vb);
-  //vmat.specularColor.set(0.0f, 0.0f, 0.0f);
-  //vmat.emissiveColor.set(0.0f, 0.0f, 0.0f);
-  //vmat.shininess = 1.0f;
-  //vmat.transparency = 0.0f;
-
-  //ADD_PROPERTY_TYPE(LineMaterial, (lmat), osgroup, App::Prop_None, "Object line material.");
-  //ADD_PROPERTY_TYPE(PointMaterial, (vmat), osgroup, App::Prop_None, "Object point material.");
-  //ADD_PROPERTY_TYPE(LineColor, (lmat.diffuseColor), osgroup, App::Prop_None,"Set object line color.");
-  //ADD_PROPERTY_TYPE(PointColor, (vmat.diffuseColor), osgroup, App::Prop_None,"Set object point color");
-  //ADD_PROPERTY_TYPE(PointColorArray, (PointColor.getValue()), osgroup, App::Prop_None,"Object point color array.");
-  //ADD_PROPERTY_TYPE(LineColorArray, (LineColor.getValue()), osgroup, App::Prop_None, "Object line color array.");
-  //ADD_PROPERTY_TYPE(LineWidth, (lwidth), osgroup, App::Prop_None, "Set object line width.");
-  //
-  //LineWidth.setConstraints(&sizeRange);
-  //PointSize.setConstraints(&sizeRange);
-  //
-  //ADD_PROPERTY_TYPE(PointSize, (psize), osgroup, App::Prop_None, "Set object point size.");
-  //ADD_PROPERTY_TYPE(ShowGround, (true), "Ground", App::Prop_None,"Whether to show the ground or not.");
-  //ADD_PROPERTY_TYPE(GroundLength, (100), "Ground", App::Prop_None, "Set ground length.");
-  //ADD_PROPERTY_TYPE(GroundWidth, (100), "Ground", App::Prop_None, "Set ground width.");
-  //ADD_PROPERTY_TYPE(GroundColor, (vmat.ambientColor), "Ground", App::Prop_None,"Set object ground color");
-  //ADD_PROPERTY_TYPE(GroundOpacity, (0.6), "Ground", App::Prop_None, "Set ground opacity.");
-  //ADD_PROPERTY_TYPE(ShowGrid, (true), "Grid", App::Prop_None,"Whether to show the grid or not.");
-  //ADD_PROPERTY_TYPE(ShowAxis, (true), "Coordinate Axis", App::Prop_None,"Whether to show the axis or not.");
-  //ADD_PROPERTY_TYPE(AxisScale, (0.5), "Coordinate Axis", App::Prop_None, "The scale of the axis.");
-  //ADD_PROPERTY_TYPE(ShowPointNumbering, (true), "Point Numbering", App::Prop_None, "Whether to show the point numbers or not.");
-  //ADD_PROPERTY_TYPE(NumberingOffsetX, (0.5), "Point Numbering", App::Prop_None,"The offset of the number in x direction.");
-  //ADD_PROPERTY_TYPE(NumberingOffsetY, (0.5), "Point Numbering", App::Prop_None, "The offset of the number in y direction.");
-  //ADD_PROPERTY_TYPE(NumberingOffsetZ, (0.5), "Point Numbering", App::Prop_None,"The offset of the number in z direction.");
-
-  //QFont font;
-  //font.setFamily(QString::fromLatin1(App::GetApplication()
-  //                                       .GetUserParameter()
-  //                                       .GetGroup("BaseApp")
-  //                                       ->GetGroup("Preferences")
-  //                                       ->GetGroup("Editor")
-  //                                       ->GetASCII("Font", font.family().toLatin1())
-  //                                       .c_str()));
-  //font.setPointSize(App::GetApplication()
-  //                      .GetUserParameter()
-  //                      .GetGroup("BaseApp")
-  //                      ->GetGroup("Preferences")
-  //                      ->GetGroup("Editor")
-  //                      ->GetInt("FontSize", font.pointSize()));
-
-  //ADD_PROPERTY_TYPE(FontSize, (font.pointSize()), "Font", App::Prop_None, "Font size");
-  //ADD_PROPERTY_TYPE(FontName, ((const char*)font.family().toLatin1()), "Font", App::Prop_None, "Font name");
-
    ADD_PROPERTY_TYPE(ShowSimulationPoints, (false), "Points", App::Prop_Hidden, "Whether to show the simulation points in the 3D view or not.");
 }
 
@@ -178,7 +101,7 @@ auto doc = App::GetApplication().getActiveDocument();
     if (!parentSim) {Base::Console().Warning("The parent simulation of the selected feature couldn't be actived.\n");return false;}
 
     bool isfeatureStationary = static_cast<WindLabAPI::WindLabFeature*>(obj)->IsStationary.getValue();
-    if (parentSim->Stationarity.getValue() != isfeatureStationary)
+    if (true == parentSim->Stationarity.getValue() && false == isfeatureStationary)
     {
         Base::Console().Warning("Simulation stationarity and that of the feature does not match. The feature couldn't be activated.\n");
         return false;
@@ -258,80 +181,7 @@ bool ViewProviderWindLabFeatureLocationDistribution::OnInitialSetting()
 
 void ViewProviderWindLabFeatureLocationDistribution::onChanged(const App::Property* prop)
 {
-    //if (prop == &LineWidth) {
-    //    //pcLineStyle->lineWidth = LineWidth.getValue();
-    //}
-    //else if (prop == &PointSize) {
-    //    //pcPointStyle->pointSize = PointSize.getValue();
-    //}
-    //else if (prop == &LineColor) {
-    //   /* const App::Color& c = LineColor.getValue();
-    //    pcLineMaterial->diffuseColor.setValue(c.r, c.g, c.b);
-    //    if (c != LineMaterial.getValue().diffuseColor)
-    //        LineMaterial.setDiffuseColor(c);
-    //    LineColorArray.setValue(LineColor.getValue());*/
-    //}
-    //else if (prop == &PointColor) {
-    //    /*const App::Color& c = PointColor.getValue();
-    //    pcPointMaterial->diffuseColor.setValue(c.r, c.g, c.b);
-    //    if (c != PointMaterial.getValue().diffuseColor)
-    //        PointMaterial.setDiffuseColor(c);
-    //    PointColorArray.setValue(PointColor.getValue());*/
-    //}
-    //else if (prop == &LineMaterial) {
-    //   /* const App::Material& Mat = LineMaterial.getValue();
-    //    if (LineColor.getValue() != Mat.diffuseColor)
-    //        LineColor.setValue(Mat.diffuseColor);
-    //    pcLineMaterial->ambientColor.setValue(Mat.ambientColor.r, Mat.ambientColor.g,
-    //                                          Mat.ambientColor.b);
-    //    pcLineMaterial->diffuseColor.setValue(Mat.diffuseColor.r, Mat.diffuseColor.g,
-    //                                          Mat.diffuseColor.b);
-    //    pcLineMaterial->specularColor.setValue(Mat.specularColor.r, Mat.specularColor.g,
-    //                                           Mat.specularColor.b);
-    //    pcLineMaterial->emissiveColor.setValue(Mat.emissiveColor.r, Mat.emissiveColor.g,
-    //                                           Mat.emissiveColor.b);
-    //    pcLineMaterial->shininess.setValue(Mat.shininess);
-    //    pcLineMaterial->transparency.setValue(Mat.transparency);*/
-    //}
-    //else if (prop == &PointMaterial) {
-    //   /* const App::Material& Mat = PointMaterial.getValue();
-    //    if (PointColor.getValue() != Mat.diffuseColor)
-    //        PointColor.setValue(Mat.diffuseColor);
-    //    pcPointMaterial->ambientColor.setValue(Mat.ambientColor.r, Mat.ambientColor.g,
-    //                                           Mat.ambientColor.b);
-    //    pcPointMaterial->diffuseColor.setValue(Mat.diffuseColor.r, Mat.diffuseColor.g,
-    //                                           Mat.diffuseColor.b);
-    //    pcPointMaterial->specularColor.setValue(Mat.specularColor.r, Mat.specularColor.g,
-    //                                            Mat.specularColor.b);
-    //    pcPointMaterial->emissiveColor.setValue(Mat.emissiveColor.r, Mat.emissiveColor.g,
-    //                                            Mat.emissiveColor.b);
-    //    pcPointMaterial->shininess.setValue(Mat.shininess);
-    //    pcPointMaterial->transparency.setValue(Mat.transparency);*/
-    //}
-    //else if (prop == &PointColorArray) {
-    //    //setHighlightedPoints(PointColorArray.getValues());
-    //}
-    //else if (prop == &LineColorArray) {
-    //    //setHighlightedEdges(LineColorArray.getValues());
-    //}
-    //else if (prop == &ShowGround) {
-
-    //}
-    //else if (prop == &GroundLength) {}
-    //else if (prop == &GroundWidth) {}
-    //else if (prop == &GroundColor) {}
-    //else if (prop == &GroundOpacity) {}
-    //else if (prop == &ShowGrid) {}
-    //else if (prop == &ShowAxis) {}
-    //else if (prop == &AxisScale) {}
-    //else if (prop == &ShowPointNumbering) {}
-    //else if (prop == &NumberingOffsetX) {}
-    //else if (prop == &NumberingOffsetY) {}
-    //else if (prop == &NumberingOffsetZ) {}
-    //else if (prop == &FontSize) {}
-    //else if (prop == &FontName) {}
-
-    ViewProviderDocumentObject::onChanged(prop);
+   ViewProviderDocumentObject::onChanged(prop);
 }
 
 
