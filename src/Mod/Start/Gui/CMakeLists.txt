@@ -44,6 +44,8 @@ SET(StartGuiIcon_SVG
 add_library(StartGui SHARED ${StartGui_SRCS} ${StartGuiIcon_SVG})
 target_link_libraries(StartGui ${StartGui_LIBS})
 
+set_target_properties(StartGui PROPERTIES FOLDER "Workbenches/StartGui")
+
 SET_BIN_DIR(StartGui StartGui /Mod/Start)
 SET_PYTHON_PREFIX_SUFFIX(StartGui)
 

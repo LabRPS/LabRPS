@@ -95,6 +95,8 @@ if(DOXYGEN_FOUND)
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
+    set_target_properties(DevDoc PROPERTIES FOLDER "Doc")
+
     # lightweight version for the web
     ADD_CUSTOM_TARGET(WebDoc
         ${CMAKE_COMMAND} -D BUILD_GUI:BOOL=ON -D BUILD_FEM:BOOL=ON ${CMAKE_SOURCE_DIR}
@@ -107,4 +109,5 @@ if(DOXYGEN_FOUND)
 else( DOXYGEN_FOUND )
     ADD_CUSTOM_TARGET(DevDoc
                       echo "Doxygen not found.  Install it and rerun CMake")
+    set_target_properties(DevDoc PROPERTIES FOLDER "Doc")
 endif( DOXYGEN_FOUND )

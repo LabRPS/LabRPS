@@ -75,11 +75,10 @@ bool CRPSSimuAcrossWindSpectrum::ComputeYCrossSpectrumVectorT(const WindLabAPI::
 }
 bool CRPSSimuAcrossWindSpectrum::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
-	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
     
     bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-        if(!returnResult)
+    if(!returnResult)
     {
        Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
        return false;
@@ -88,9 +87,9 @@ bool CRPSSimuAcrossWindSpectrum::ComputeYCrossSpectrumMatrixPP(const WindLabAPI:
     Base::Vector3d locationJ(0, 0, 0);
     Base::Vector3d locationK(0, 0, 0);
 
-    for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition.getValue(); loop1++)
+    for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop1++)
     {
-        for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition.getValue(); loop2++)
+        for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop2++)
         {
            Base::Vector3d locationJ(dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop1, 3));
            Base::Vector3d locationK(dLocCoord(loop2, 1), dLocCoord(loop2, 2), dLocCoord(loop2, 3));
@@ -109,154 +108,83 @@ bool CRPSSimuAcrossWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuD
     return true;
 }
 
-
 bool CRPSSimuAcrossWindSpectrum::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
-{     bool returnResult = true;
+{
+    bool returnResult = true;
 
     double MEANj = 0.0;
     double MEANk = 0.0;
+
     std::complex<double> COHjk = 0.0;
+
     double PSDj = 0.0;
     double PSDk = 0.0;
 
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
     if (!returnResult) {
         Base::Console().Error("The computation of mean wind speed fails\n");
-        return returnResult;
+        return false;
     }
     returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
     if (!returnResult) {
         Base::Console().Error("The computation of mean wind speed fails\n");
-        return returnResult;
+        return false;
     }
     returnResult = CRPSWindLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
     if (!returnResult) {
         Base::Console().Error("The computation of coherence fails\n");
-        return returnResult;
+        return false;
     }
 
   	WindLabTools::SimuSpectrum simuPSD;
-    PSDj = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-    PSDk = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-
-	if (Data.stationarity.getValue())
+  
+    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
+	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
 	{
+        PSDj = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+        PSDk = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
         dValue = std::sqrt(PSDj * PSDk) * COHjk;
     }
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
 	{
-		double dModValueJ = 0.0;
-        double dModValueK = 0.0;
-
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = std::sqrt(dModValueJ * PSDj * dModValueK * PSDk) * COHjk;
-		}
-		else
-		{
-            dValue = std::sqrt(PSDj * PSDk) * COHjk;
-        }
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
+        
         return false;
 	}
 
-	return true;
+	return true;   
 }
 
 bool CRPSSimuAcrossWindSpectrum::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
-    WindLabTools::SimuSpectrum simuPSD;
+    bool returnResult = true;
 
-   bool returnResult = true;
+    double MEAN = 0.0;
 
-   double MEAN = 0.0;
+    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, location, dTime, MEAN);
+    if (!returnResult) {
+        Base::Console().Error("The computation of mean wind speed fails\n");
+        return false;
+    }
 
-   returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, location, dTime, MEAN);
-   if (!returnResult)
-   {
-        Base::Console().Warning("The computation of mean wind speed fails\n");
-        return returnResult;
-   }
-
-	if (Data.stationarity.getValue())
+  	WindLabTools::SimuSpectrum simuPSD;
+  
+    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
+	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
 	{
-    dValue = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-	}
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+        dValue = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+
+    }
+	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
 	{
-		double dModValue = 0.0;
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = dModValue * simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-		}
-		else
-		{
-            dValue = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-		}
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
+        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
+        
         return false;
 	}
 
 	return true;
-}    
+} 
+
 bool CRPSSimuAcrossWindSpectrum::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
@@ -284,6 +212,7 @@ bool CRPSSimuAcrossWindSpectrum::ComputeYAutoSpectrumVectorT(const WindLabAPI::W
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
         dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        
         returnResult = ComputeYAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }
 

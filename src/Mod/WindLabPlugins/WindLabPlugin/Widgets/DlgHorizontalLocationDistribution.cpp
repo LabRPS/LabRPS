@@ -36,7 +36,7 @@ using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgHorizontalLocationDistribution */
 
-DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent)
+DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(const App::PropertyVector& firstPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent)
 	, ui(new Ui_DlgHorizontalLocationDistribution), _featureName(featureName.getStrValue())
 {
@@ -47,17 +47,15 @@ DlgHorizontalLocationDistribution::DlgHorizontalLocationDistribution(const App::
     ui->doubleSpinBox_Z->setRange(10.00, DBL_MAX);
     ui->doubleSpinBox_Spacing->setRange(0.00, DBL_MAX);
 
-    //ui->doubleSpinBox_X->setValue(lowestPoint.getValue().x);
-    //ui->doubleSpinBox_Y->setValue(lowestPoint.getValue().y);
-    //ui->doubleSpinBox_Z->setValue(lowestPoint.getValue().z);
-    //ui->doubleSpinBox_Spacing->setValue(spacing.getQuantityValue());
-
     ui->doubleSpinBox_X->setUnit(Base::Unit::Length);
     ui->doubleSpinBox_Y->setUnit(Base::Unit::Length);
     ui->doubleSpinBox_Z->setUnit(Base::Unit::Length);
     ui->doubleSpinBox_Spacing->setUnit(Base::Unit::Length);
 
-
+    ui->doubleSpinBox_X->setValue(firstPoint.getValue().x);
+    ui->doubleSpinBox_Y->setValue(firstPoint.getValue().y);
+    ui->doubleSpinBox_Z->setValue(firstPoint.getValue().z);
+    ui->doubleSpinBox_Spacing->setValue(spacing.getQuantityValue());
 
     ui->label_Image->setPixmap(QPixmap(":icons/HorizontalPointsDistribution0.png"));
 
@@ -79,8 +77,8 @@ void DlgHorizontalLocationDistribution::accept()
     WindLab::CWLHorizontalUniformDistribution* activefeature = static_cast<WindLab::CWLHorizontalUniformDistribution*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;
-    Base::Vector3d lowestPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
-    activefeature->FirstPoint.setValue(lowestPoint);
+    Base::Vector3d firstPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
+    activefeature->FirstPoint.setValue(firstPoint);
     activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());
 }
 

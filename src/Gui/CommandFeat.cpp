@@ -65,124 +65,124 @@ void StdCmdFeatRecompute::activated(int iMsg)
     Q_UNUSED(iMsg);
 }
 
-//===========================================================================
-// Std_RandomColor
-//===========================================================================
+// //===========================================================================
+// // Std_RandomColor
+// //===========================================================================
 
-DEF_STD_CMD_A(StdCmdRandomColor)
+// DEF_STD_CMD_A(StdCmdRandomColor)
 
-StdCmdRandomColor::StdCmdRandomColor()
-  :Command("Std_RandomColor")
-{
-    sGroup        = "File";
-    sMenuText     = QT_TR_NOOP("Random color");
-    sToolTipText  = QT_TR_NOOP("Random color");
-    sWhatsThis    = "Std_RandomColor";
-    sStatusTip    = QT_TR_NOOP("Random color");
-    sPixmap       = "Std_RandomColor";
-}
+// StdCmdRandomColor::StdCmdRandomColor()
+//   :Command("Std_RandomColor")
+// {
+//     sGroup        = "File";
+//     sMenuText     = QT_TR_NOOP("Random color");
+//     sToolTipText  = QT_TR_NOOP("Random color");
+//     sWhatsThis    = "Std_RandomColor";
+//     sStatusTip    = QT_TR_NOOP("Random color");
+//     sPixmap       = "Std_RandomColor";
+// }
 
-void StdCmdRandomColor::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
+// void StdCmdRandomColor::activated(int iMsg)
+// {
+//     Q_UNUSED(iMsg);
 
-    // get the complete selection
-    std::vector<SelectionSingleton::SelObj> sel = Selection().getCompleteSelection();
-    for (std::vector<SelectionSingleton::SelObj>::iterator it = sel.begin(); it != sel.end(); ++it) {
-        float fMax = (float)RAND_MAX;
-        float fRed = (float)rand()/fMax;
-        float fGrn = (float)rand()/fMax;
-        float fBlu = (float)rand()/fMax;
+//     // get the complete selection
+//     std::vector<SelectionSingleton::SelObj> sel = Selection().getCompleteSelection();
+//     for (std::vector<SelectionSingleton::SelObj>::iterator it = sel.begin(); it != sel.end(); ++it) {
+//         float fMax = (float)RAND_MAX;
+//         float fRed = (float)rand()/fMax;
+//         float fGrn = (float)rand()/fMax;
+//         float fBlu = (float)rand()/fMax;
 
-        ViewProvider* view = Application::Instance->getDocument(it->pDoc)->getViewProvider(it->pObject);
-        auto vpLink = dynamic_cast<ViewProviderLink*>(view);
-        if(vpLink) {
-            if(!vpLink->OverrideMaterial.getValue())
-                cmdGuiObjectArgs(it->pObject, "OverrideMaterial = True");
-            cmdGuiObjectArgs(it->pObject, "ShapeMaterial.DiffuseColor=(%.2f,%.2f,%.2f)", fRed, fGrn, fBlu);
-            continue;
-        }
-    }
-}
+//         ViewProvider* view = Application::Instance->getDocument(it->pDoc)->getViewProvider(it->pObject);
+//         auto vpLink = dynamic_cast<ViewProviderLink*>(view);
+//         if(vpLink) {
+//             if(!vpLink->OverrideMaterial.getValue())
+//                 cmdGuiObjectArgs(it->pObject, "OverrideMaterial = True");
+//             cmdGuiObjectArgs(it->pObject, "ShapeMaterial.DiffuseColor=(%.2f,%.2f,%.2f)", fRed, fGrn, fBlu);
+//             continue;
+//         }
+//     }
+// }
 
-bool StdCmdRandomColor::isActive()
-{
-    return (Gui::Selection().size() != 0);
-}
+// bool StdCmdRandomColor::isActive()
+// {
+//     return (Gui::Selection().size() != 0);
+// }
 
 
-//===========================================================================
-// Std_SendToPythonConsole
-//===========================================================================
+// //===========================================================================
+// // Std_SendToPythonConsole
+// //===========================================================================
 
-DEF_STD_CMD_A(StdCmdSendToPythonConsole)
+// DEF_STD_CMD_A(StdCmdSendToPythonConsole)
 
-StdCmdSendToPythonConsole::StdCmdSendToPythonConsole()
-  :Command("Std_SendToPythonConsole")
-{
-    // setting the
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("&Send to Python Console");
-    sToolTipText  = QT_TR_NOOP("Sends the selected object to the Python console");
-    sWhatsThis    = "Std_SendToPythonConsole";
-    sStatusTip    = QT_TR_NOOP("Sends the selected object to the Python console");
-    sPixmap       = "applications-python";
-    sAccel        = "Ctrl+Shift+P";
-}
+// StdCmdSendToPythonConsole::StdCmdSendToPythonConsole()
+//   :Command("Std_SendToPythonConsole")
+// {
+//     // setting the
+//     sGroup        = "Edit";
+//     sMenuText     = QT_TR_NOOP("&Send to Python Console");
+//     sToolTipText  = QT_TR_NOOP("Sends the selected object to the Python console");
+//     sWhatsThis    = "Std_SendToPythonConsole";
+//     sStatusTip    = QT_TR_NOOP("Sends the selected object to the Python console");
+//     sPixmap       = "applications-python";
+//     sAccel        = "Ctrl+Shift+P";
+// }
 
-bool StdCmdSendToPythonConsole::isActive()
-{
-    //active only if either 1 object is selected or multiple subobjects from the same object
-    return Gui::Selection().getSelectionEx().size() == 1;
-}
+// bool StdCmdSendToPythonConsole::isActive()
+// {
+//     //active only if either 1 object is selected or multiple subobjects from the same object
+//     return Gui::Selection().getSelectionEx().size() == 1;
+// }
 
-void StdCmdSendToPythonConsole::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    const std::vector<Gui::SelectionObject> &sels = Gui::Selection().getSelectionEx("*", App::DocumentObject::getClassTypeId(),
-                                                                                    ResolveMode::OldStyleElement, false);
-    if (sels.empty())
-        return;
-    const App::DocumentObject *obj = sels[0].getObject();
-    if (!obj)
-        return;
-    QString docname = QString::fromLatin1(obj->getDocument()->getName());
-    QString objname = QString::fromLatin1(obj->getNameInDocument());
-    try {
-        // clear variables from previous run, if any
-        QString cmd = QLatin1String("try:\n    del(doc,lnk,obj,shp,sub,subs)\nexcept Exception:\n    pass\n");
-        Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-        cmd = QString::fromLatin1("doc = App.getDocument(\"%1\")").arg(docname);
-        Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-        //support links
-        if (obj->getTypeId().isDerivedFrom(App::Link::getClassTypeId())) {
-            cmd = QString::fromLatin1("lnk = doc.getObject(\"%1\")").arg(objname);
-            Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-            cmd = QString::fromLatin1("obj = lnk.getLinkedObject()");
-            Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-            const App::Link* link = static_cast<const App::Link*>(obj);
-            obj = link->getLinkedObject();
-        } else {
-            cmd = QString::fromLatin1("obj = doc.getObject(\"%1\")").arg(objname);
-            Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
-        }
-        if (obj->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
-            const App::RPSFeature* geoObj = static_cast<const App::RPSFeature*>(obj);
+// void StdCmdSendToPythonConsole::activated(int iMsg)
+// {
+//     Q_UNUSED(iMsg);
+//     const std::vector<Gui::SelectionObject> &sels = Gui::Selection().getSelectionEx("*", App::DocumentObject::getClassTypeId(),
+//                                                                                     ResolveMode::OldStyleElement, false);
+//     if (sels.empty())
+//         return;
+//     const App::DocumentObject *obj = sels[0].getObject();
+//     if (!obj)
+//         return;
+//     QString docname = QString::fromLatin1(obj->getDocument()->getName());
+//     QString objname = QString::fromLatin1(obj->getNameInDocument());
+//     try {
+//         // clear variables from previous run, if any
+//         QString cmd = QLatin1String("try:\n    del(doc,lnk,obj,shp,sub,subs)\nexcept Exception:\n    pass\n");
+//         Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
+//         cmd = QString::fromLatin1("doc = App.getDocument(\"%1\")").arg(docname);
+//         Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
+//         //support links
+//         if (obj->getTypeId().isDerivedFrom(App::Link::getClassTypeId())) {
+//             cmd = QString::fromLatin1("lnk = doc.getObject(\"%1\")").arg(objname);
+//             Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
+//             cmd = QString::fromLatin1("obj = lnk.getLinkedObject()");
+//             Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
+//             const App::Link* link = static_cast<const App::Link*>(obj);
+//             obj = link->getLinkedObject();
+//         } else {
+//             cmd = QString::fromLatin1("obj = doc.getObject(\"%1\")").arg(objname);
+//             Gui::Command::runCommand(Gui::Command::Gui,cmd.toLatin1());
+//         }
+//         if (obj->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
+//             const App::RPSFeature* geoObj = static_cast<const App::RPSFeature*>(obj);
            
-        }
-        //show the python console if it's not already visible, and set the keyboard focus to it
-        QWidget* pc = DockWindowManager::instance()->getDockWindow("Python console");
-        PythonConsole *pcPython = qobject_cast<PythonConsole*>(pc);
-        if (pcPython) {
-            DockWindowManager::instance()->activate(pcPython);
-            pcPython->setFocus();
-        }
-    }
-    catch (const Base::Exception& e) {
-        e.ReportException();
-    }
+//         }
+//         //show the python console if it's not already visible, and set the keyboard focus to it
+//         QWidget* pc = DockWindowManager::instance()->getDockWindow("Python console");
+//         PythonConsole *pcPython = qobject_cast<PythonConsole*>(pc);
+//         if (pcPython) {
+//             DockWindowManager::instance()->activate(pcPython);
+//             pcPython->setFocus();
+//         }
+//     }
+//     catch (const Base::Exception& e) {
+//         e.ReportException();
+//     }
 
-}
+// }
 
 
 namespace Gui {
@@ -192,8 +192,8 @@ void CreateFeatCommands()
     CommandManager &rcCmdMgr = Application::Instance->commandManager();
 
     rcCmdMgr.addCommand(new StdCmdFeatRecompute());
-    rcCmdMgr.addCommand(new StdCmdRandomColor());
-    rcCmdMgr.addCommand(new StdCmdSendToPythonConsole());
+    // rcCmdMgr.addCommand(new StdCmdRandomColor());
+    // rcCmdMgr.addCommand(new StdCmdSendToPythonConsole());
 }
 
 } // namespace Gui

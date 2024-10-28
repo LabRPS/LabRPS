@@ -3928,16 +3928,14 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
                     doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
 
             if (!activeSpatialDistr) {
-                Base::Console().Warning("No valid active location distribution feature found.\n");
+                Base::Console().Error("No valid active location distribution feature found.\n");
                 return false;
             }
 
             mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
-            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
-                *m_sim->getSimulationData(), locationCoord);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(*m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Warning(
-                    "The computation of the location coordinates has failed.\n");
+                Base::Console().Error("The computation of the location coordinates has failed.\n");
                 return false;
             }
 

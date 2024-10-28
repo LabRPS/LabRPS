@@ -94,7 +94,7 @@ auto doc = App::GetApplication().getActiveDocument();
     if (!parentSim) {Base::Console().Warning("The parent simulation of the selected feature couldn't be actived.\n");return false;}
 
     bool isfeatureStationary = static_cast<UserDefinedPhenomenonLabAPI::UserDefinedPhenomenonLabFeature*>(obj)->IsStationary.getValue();
-    if (parentSim->Stationarity.getValue() != isfeatureStationary)
+    if (true == parentSim->Stationarity.getValue() && false == isfeatureStationary)
     {
         Base::Console().Warning("Simulation stationarity and that of the feature does not match. The feature couldn't be activated.\n");
         return false;

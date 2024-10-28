@@ -2381,31 +2381,31 @@ void MainAlphaPlot::initTable(Table* table)
     table->showComments(d_show_table_comments);
 
     QMenu* Scatter = new QMenu(tr("Scatter"));
-    auto cmdScatter1 = Application::Instance->commandManager().getCommandByName("Std_Scatter");
+    auto cmdScatter1 = Application::Instance->commandManager().getCommandByName("Std_Plot_Scatters");
     auto cmdScatter2 =
-        Application::Instance->commandManager().getCommandByName("Std_ScatterWithXError");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Scatters_with_xerr");
     auto cmdScatter3 =
-        Application::Instance->commandManager().getCommandByName("Std_ScatterWithYError");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Scatters_with_yerr");
     auto cmdScatter4 =
-        Application::Instance->commandManager().getCommandByName("Std_ScatterWithXYError");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Scatters_with_xyerr");
     Scatter->addAction(cmdScatter1->getAction()->action());
     Scatter->addAction(cmdScatter2->getAction()->action());
     Scatter->addAction(cmdScatter3->getAction()->action());
     Scatter->addAction(cmdScatter4->getAction()->action());
 
     QMenu* submenu = new QMenu(tr("Plot"));
-    auto cmd = Application::Instance->commandManager().getCommandByName("Std_Line");
+    auto cmd = Application::Instance->commandManager().getCommandByName("Std_Plot_Line");
     submenu->addAction(cmd->getAction()->action());
     submenu->addMenu(Scatter);
 
-    auto cmd1 = Application::Instance->commandManager().getCommandByName("Std_LineAndSymbol");
+    auto cmd1 = Application::Instance->commandManager().getCommandByName("Std_Plot_LineSymbol");
     submenu->addAction(cmd1->getAction()->action());
     
     QMenu* SpecialLineAndSymbol = new QMenu(tr("Special Line + Symbol"));
-    auto SpecialLineAndSymbolCmd1 = Application::Instance->commandManager().getCommandByName("Std_VerticaDropLine");
-    auto SpecialLineAndSymbolCmd2 = Application::Instance->commandManager().getCommandByName("Std_Spline");
-    auto SpecialLineAndSymbolCmd3 = Application::Instance->commandManager().getCommandByName("Std_VerticalStep");
-    auto SpecialLineAndSymbolCmd4 = Application::Instance->commandManager().getCommandByName("Std_HorizontalStep");
+    auto SpecialLineAndSymbolCmd1 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vertical_drop_lines");
+    auto SpecialLineAndSymbolCmd2 = Application::Instance->commandManager().getCommandByName("Std_Plot_Spline");
+    auto SpecialLineAndSymbolCmd3 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vertical_steps");
+    auto SpecialLineAndSymbolCmd4 = Application::Instance->commandManager().getCommandByName("Std_Plot_Horizontal_steps");
     SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd1->getAction()->action());
     SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd2->getAction()->action());
     SpecialLineAndSymbol->addAction(SpecialLineAndSymbolCmd3->getAction()->action());
@@ -2413,20 +2413,20 @@ void MainAlphaPlot::initTable(Table* table)
     submenu->addMenu(SpecialLineAndSymbol);
     submenu->addSeparator();
 
-    auto cmd3 = Application::Instance->commandManager().getCommandByName("Std_VerticalBars");
-    auto cmd4 = Application::Instance->commandManager().getCommandByName("Std_VerticalStackedBars");
-    auto cmd5 = Application::Instance->commandManager().getCommandByName("Std_VerticalGroupedBars");
-    auto cmd6 = Application::Instance->commandManager().getCommandByName("Std_HorizontalBars");
+    auto cmd3 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vertical_Bars");
+    auto cmd4 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vertical_Stacked_bars");
+    auto cmd5 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vertical_Grouped_bars");
+    auto cmd6 = Application::Instance->commandManager().getCommandByName("Std_Plot_Horizontal_Bars");
     auto cmd7 =
-        Application::Instance->commandManager().getCommandByName("Std_HorizontalStackedBars");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Horizontal_Stacked_bars");
     auto cmd8 =
-        Application::Instance->commandManager().getCommandByName("Std_HorizontalGroupedBars");
-    auto cmd9 = Application::Instance->commandManager().getCommandByName("Std_Area");
-    auto cmd10 = Application::Instance->commandManager().getCommandByName("Std_ChannelFill");
-    auto cmd11 = Application::Instance->commandManager().getCommandByName("Std_Pie");
-    auto cmd12 = Application::Instance->commandManager().getCommandByName("Std_HalfPie");
-    auto cmd13 = Application::Instance->commandManager().getCommandByName("Std_VectorsXYXY");
-    auto cmd14 = Application::Instance->commandManager().getCommandByName("Std_VectorsXYAM");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Horizontal_Grouped_bars");
+    auto cmd9 = Application::Instance->commandManager().getCommandByName("Std_Plot_Area");
+    auto cmd10 = Application::Instance->commandManager().getCommandByName("Std_Plot_Channel_fil");
+    auto cmd11 = Application::Instance->commandManager().getCommandByName("Std_Plot_Pie");
+    auto cmd12 = Application::Instance->commandManager().getCommandByName("Std_Plot_Half_pie");
+    auto cmd13 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vectors_XYXY");
+    auto cmd14 = Application::Instance->commandManager().getCommandByName("Std_Plot_Vectors_XYAM");
     submenu->addAction(cmd1->getAction()->action());
     //submenu->addAction(cmd2->getAction()->action());
     submenu->addAction(cmd3->getAction()->action());
@@ -2446,11 +2446,11 @@ void MainAlphaPlot::initTable(Table* table)
     // Statistical graphs
     QMenu* StatisticalGraphs = new QMenu(tr("Statistical Graphs"));
     auto StatisticalGraphs1 =
-        Application::Instance->commandManager().getCommandByName("Std_BoxPlot");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_SG_box_plot");
     auto StatisticalGraphs2 =
-        Application::Instance->commandManager().getCommandByName("Std_Histogram");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_SG_histogram");
     auto StatisticalGraphs3 =
-        Application::Instance->commandManager().getCommandByName("Std_StackedHistogram");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_SG_stacked_histogram");
     StatisticalGraphs->addAction(StatisticalGraphs1->getAction()->action());
     StatisticalGraphs->addAction(StatisticalGraphs2->getAction()->action());
     StatisticalGraphs->addAction(StatisticalGraphs3->getAction()->action());
@@ -2459,10 +2459,10 @@ void MainAlphaPlot::initTable(Table* table)
     // Layout grids
     QMenu* LayoutGrids = new QMenu(tr("Layout Grids"));
     auto LayoutGrids1 =
-        Application::Instance->commandManager().getCommandByName("Std_VerticalTwoLayouts");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Layout_grids_vertical_2_layouts");
     auto LayoutGrids2 =
-        Application::Instance->commandManager().getCommandByName("Std_HorizontalTwoLayouts");
-    auto LayoutGrids3 = Application::Instance->commandManager().getCommandByName("Std_FourLayouts");
+        Application::Instance->commandManager().getCommandByName("Std_Plot_Layout_grids_horizontal_2_layouts");
+    auto LayoutGrids3 = Application::Instance->commandManager().getCommandByName("Std_Plot_Layout_grids_4_layouts");
     LayoutGrids->addAction(LayoutGrids1->getAction()->action());
     LayoutGrids->addAction(LayoutGrids2->getAction()->action());
     LayoutGrids->addAction(LayoutGrids3->getAction()->action());
@@ -4958,17 +4958,17 @@ void MainAlphaPlot::showCurvesDialog(QAction* action)
         return;
     AddPlot2DDialog::Type type;
     if (action == /*ui_->actionAddRemovePloty*/ Application::Instance->commandManager()
-                      .getCommandByName("Std_AddRemovePlotY")
+                      .getCommandByName("Std_Graph_AddRemove_other_plots_y")
                       ->getAction()
                       ->action())
         type = AddPlot2DDialog::Type::Table_Y;
     else if (action == /*ui_->actionAddRemoveCurve*/ Application::Instance->commandManager()
-                           .getCommandByName("Std_AddRemovePlotXYAndXYY")
+                           .getCommandByName("Std_Graph_AddRemove_plot_xyxyy")
                            ->getAction()
                            ->action())
         type = AddPlot2DDialog::Type::Table_X_Y;
     else if (action == /*ui_->actionAddRemoveVector*/ Application::Instance->commandManager()
-                           .getCommandByName("Std_AddRemoveVectorPlot")
+                           .getCommandByName("Std_Graph_AddRemove_other_plots_vector")
                            ->getAction()
                            ->action())
         type = AddPlot2DDialog::Type::Table_X_Y_Y_Y;
@@ -6776,9 +6776,9 @@ void MainAlphaPlot::showWindowContextMenu()
 
 
         auto cmd1 =
-            Application::Instance->commandManager().getCommandByName("Std_AddRemovePlotXYAndXYY");
-        auto cmd2 = Application::Instance->commandManager().getCommandByName("Std_AddFunction");
-        auto cmd3 = Application::Instance->commandManager().getCommandByName("Std_AddErrorBars");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_AddRemove_plot_xyxyy");
+        auto cmd2 = Application::Instance->commandManager().getCommandByName("Std_Graph_Add_function");
+        auto cmd3 = Application::Instance->commandManager().getCommandByName("Std_Graph_Add_error_bars");
         cm.addAction(cmd1->getAction()->action());
         cm.addAction(cmd2->getAction()->action());
         cm.addAction(cmd3->getAction()->action());
@@ -6786,9 +6786,9 @@ void MainAlphaPlot::showWindowContextMenu()
         // Add And Remove other Plots
         QMenu* AddAndRemoveOtherPlots = new QMenu(tr("Add/Remove curves"));
         auto AddAndRemoveOtherPlots1 =
-            Application::Instance->commandManager().getCommandByName("Std_AddRemovePlotY");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_AddRemove_other_plots_y");
         auto AddAndRemoveOtherPlots2 =
-            Application::Instance->commandManager().getCommandByName("Std_AddRemoveVectorPlot");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_AddRemove_other_plots_vector");
         AddAndRemoveOtherPlots->addAction(AddAndRemoveOtherPlots1->getAction()->action());
         AddAndRemoveOtherPlots->addAction(AddAndRemoveOtherPlots2->getAction()->action());
         cm.addMenu(AddAndRemoveOtherPlots);
@@ -6888,13 +6888,13 @@ void MainAlphaPlot::showWindowContextMenu()
         // Add layout
         QMenu* AddLayout = new QMenu(tr("Add Layout"));
         auto AddLayout1 =
-            Application::Instance->commandManager().getCommandByName("Std_AddLayoutUp");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_Add_layout_up");
         auto AddLayout2 =
-            Application::Instance->commandManager().getCommandByName("Std_AddLayoutDown");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_Add_layout_down");
         auto AddLayout3 =
-            Application::Instance->commandManager().getCommandByName("Std_AddLayoutLeft");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_Add_layout_left");
         auto AddLayout4 =
-            Application::Instance->commandManager().getCommandByName("Std_AddLayoutRight");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_Add_layout_right");
         AddLayout->addAction(AddLayout1->getAction()->action());
         AddLayout->addAction(AddLayout2->getAction()->action());
         AddLayout->addAction(AddLayout3->getAction()->action());
@@ -6903,13 +6903,13 @@ void MainAlphaPlot::showWindowContextMenu()
         cm.addMenu(AddAxis);
 
         QMenu* AddItems = new QMenu(tr("Add Items..."));
-        auto AddItem1 = Application::Instance->commandManager().getCommandByName("Std_AddText");
+        auto AddItem1 = Application::Instance->commandManager().getCommandByName("Std_Graph_Add_text");
         auto AddItem2 =
-            Application::Instance->commandManager().getCommandByName("Std_AddTimeStamp");
-        auto AddItem3 = Application::Instance->commandManager().getCommandByName("Std_AddImage");
-        auto AddItem4 = Application::Instance->commandManager().getCommandByName("Std_AddLine");
-        auto AddItem5 = Application::Instance->commandManager().getCommandByName("Std_AddArrow");
-        auto AddItem6 = Application::Instance->commandManager().getCommandByName("Std_AddEllipse");
+            Application::Instance->commandManager().getCommandByName("Std_Graph_Add_time_stamp");
+        auto AddItem3 = Application::Instance->commandManager().getCommandByName("Std_Graph_Add_image");
+        auto AddItem4 = Application::Instance->commandManager().getCommandByName("Std_Graph_Draw_line");
+        auto AddItem5 = Application::Instance->commandManager().getCommandByName("Std_Graph_Draw_arrow");
+        auto AddItem6 = Application::Instance->commandManager().getCommandByName("Std_Graph_Draw_ellipse");
         AddItems->addAction(AddItem1->getAction()->action());
         AddItems->addAction(AddItem2->getAction()->action());
         AddItems->addAction(AddItem3->getAction()->action());
@@ -6917,10 +6917,10 @@ void MainAlphaPlot::showWindowContextMenu()
         AddItems->addAction(AddItem5->getAction()->action());
         AddItems->addAction(AddItem6->getAction()->action());
 
-        auto cmd4 = Application::Instance->commandManager().getCommandByName("Std_LegendReoder");
-        auto cmd5 = Application::Instance->commandManager().getCommandByName("Std_AddNestedLayout");
-        auto cmd6 = Application::Instance->commandManager().getCommandByName("Std_RemoveLayout");
-        auto cmd7 = Application::Instance->commandManager().getCommandByName("Std_SwapLayouts");
+        auto cmd4 = Application::Instance->commandManager().getCommandByName("Std_Graph_Lengend_reorder");
+        auto cmd5 = Application::Instance->commandManager().getCommandByName("Std_Graph_Add_nested_layout");
+        auto cmd6 = Application::Instance->commandManager().getCommandByName("Std_Graph_Remove_layout");
+        auto cmd7 = Application::Instance->commandManager().getCommandByName("Std_Graph_Swap_layouts");
 
         cm.addAction(cmd4->getAction()->action());
         cm.addMenu(AddItems);
@@ -7864,43 +7864,43 @@ void MainAlphaPlot::pickGraphTool(QAction* action)
     if (!layout)
         return;
     auto actionDisableGraphTools = Application::Instance->commandManager()
-                                       .getCommandByName("Std_DisableTools")
+                                       .getCommandByName("Std_Tools_Disable_tools")
                                        ->getAction()
                                        ->action();
     auto actionGraphDataReader = Application::Instance->commandManager()
-                                     .getCommandByName("Std_DataReader")
+                                     .getCommandByName("Std_Tools_Data_reader")
                                      ->getAction()
                                      ->action();
     auto actionGraphSelectDataRange = Application::Instance->commandManager()
-                                          .getCommandByName("Std_SelectDataRange")
+                                          .getCommandByName("Std_Tools_Select_data_range")
                                           ->getAction()
                                           ->action();
     auto actionGraphDragRange = Application::Instance->commandManager()
-                                    .getCommandByName("Std_DragRange")
+                                    .getCommandByName("Std_Graph_Drag_range")
                                     ->getAction()
                                     ->action();
     auto actionGraphZoomRange = Application::Instance->commandManager()
-                                    .getCommandByName("Std_ZoomRang")
+                                    .getCommandByName("Std_Tools_Zoom_range")
                                     ->getAction()
                                     ->action();
     auto actionGraphScreenReader = Application::Instance->commandManager()
-                                       .getCommandByName("Std_ScreenReader")
+                                       .getCommandByName("Std_Tools_Screen_reader")
                                        ->getAction()
                                        ->action();
     auto actionGraphMoveDataPoints = Application::Instance->commandManager()
-                                         .getCommandByName("Std_MoveDataPoints")
+                                         .getCommandByName("Std_Tools_Move_data_points")
                                          ->getAction()
                                          ->action();
     auto actionGraphRemoveBadDataPoints = Application::Instance->commandManager()
-                                              .getCommandByName("Std_RemoveBadDataPoints")
+                                              .getCommandByName("Std_Tools_Remove_bad_data_points")
                                               ->getAction()
                                               ->action();
     auto actionDrawArrow = Application::Instance->commandManager()
-                               .getCommandByName("Std_AddArrow")
+                               .getCommandByName("Std_Graph_Draw_arrow")
                                ->getAction()
                                ->action();
     auto actionDrawLine = Application::Instance->commandManager()
-                              .getCommandByName("Std_AddLine")
+                              .getCommandByName("Std_Graph_Draw_line")
                               ->getAction()
                               ->action();
 
@@ -10099,7 +10099,7 @@ void MainAlphaPlot::showWindowMenu(MyWidget* widget)
         if (isActiveSubWindow(widget, SubWindowType::TableSubWindow))
         {
             cm.addAction(Application::Instance->commandManager()
-                             .getCommandByName("Std_ExportTableASCII")
+                             .getCommandByName("Std_Table_Export_ASCII")
                              ->getAction()
                              ->action());
         }

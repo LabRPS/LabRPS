@@ -307,349 +307,349 @@ void WindLabSimulation::windLabFeatureInitalSetting(QString group, QString curre
         WindLabAPI::IrpsWLCoherence* activefeature = static_cast<WindLabAPI::IrpsWLCoherence*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-        auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
 
     }
     else if (group == WindLab::WindLabUtils::objGroupCorrelationFunction) {
         WindLabAPI::IrpsWLCorrelation* activefeature = static_cast<WindLabAPI::IrpsWLCorrelation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupCumulativeProbabilityDistribution) {
         WindLabAPI::IrpsWLCumulativeProbabilityDistribution* activefeature =
     static_cast<WindLabAPI::IrpsWLCumulativeProbabilityDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupFrequencyDistribution) {
         WindLabAPI::IrpsWLFrequencyDistribution* activefeature =
     static_cast<WindLabAPI::IrpsWLFrequencyDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupGustFactor) {
         WindLabAPI::IrpsWLGustFactor* activefeature = static_cast<WindLabAPI::IrpsWLGustFactor*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupKurtosis) {
         WindLabAPI::IrpsWLKurtosis* activefeature = static_cast<WindLabAPI::IrpsWLKurtosis*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupLocationDistribution) {
         WindLabAPI::IrpsWLLocationDistribution* activefeature =
     static_cast<WindLabAPI::IrpsWLLocationDistribution*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupMatrixTool) {
         WindLabAPI::IrpsWLMatrixTool* activefeature = static_cast<WindLabAPI::IrpsWLMatrixTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupMeanWindProfile) {
         WindLabAPI::IrpsWLMean* activefeature = static_cast<WindLabAPI::IrpsWLMean*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupModulationFunction) {
         WindLabAPI::IrpsWLModulation* activefeature = static_cast<WindLabAPI::IrpsWLModulation*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupPeakFactor) {
         WindLabAPI::IrpsWLPeakFactor* activefeature = static_cast<WindLabAPI::IrpsWLPeakFactor*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupProbabilityDensityFunction) {
         WindLabAPI::IrpsWLProbabilityDensityFunction* activefeature =
     static_cast<WindLabAPI::IrpsWLProbabilityDensityFunction*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupSpectrumDecompositionMethod) {
         WindLabAPI::IrpsWLPSDdecompositionMethod* activefeature =
     static_cast<WindLabAPI::IrpsWLPSDdecompositionMethod*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupRandomnessProvider) {
         WindLabAPI::IrpsWLRandomness* activefeature = static_cast<WindLabAPI::IrpsWLRandomness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupRoughness) {
         WindLabAPI::IrpsWLRoughness* activefeature = static_cast<WindLabAPI::IrpsWLRoughness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupShearVelocityOfFlow) {
         WindLabAPI::IrpsWLShearVelocityOfFlow* activefeature =
     static_cast<WindLabAPI::IrpsWLShearVelocityOfFlow*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupSimulationMethod) {
         WindLabAPI::IrpsWLSimuMethod* activefeature = static_cast<WindLabAPI::IrpsWLSimuMethod*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupSimulationMethod) {
         WindLabAPI::IrpsWLSkewness* activefeature = static_cast<WindLabAPI::IrpsWLSkewness*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupStandardDeviation) {
         WindLabAPI::IrpsWLStandardDeviation* activefeature =
     static_cast<WindLabAPI::IrpsWLStandardDeviation*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupTableTool) {
         WindLabAPI::IrpsWLTableTool* activefeature = static_cast<WindLabAPI::IrpsWLTableTool*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupTurbulenceIntensity) {
         WindLabAPI::IrpsWLTurbulenceIntensity* activefeature =
     static_cast<WindLabAPI::IrpsWLTurbulenceIntensity*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupTurbulenceScale) {
         WindLabAPI::IrpsWLTurbulenceScale* activefeature =
     static_cast<WindLabAPI::IrpsWLTurbulenceScale*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupUserDefinedRPSObject) {
         WindLabAPI::IrpsWLUserDefinedRPSObject* activefeature =
     static_cast<WindLabAPI::IrpsWLUserDefinedRPSObject*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupVariance) {
         WindLabAPI::IrpsWLVariance* activefeature = static_cast<WindLabAPI::IrpsWLVariance*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupWavePassageEffect) {
         WindLabAPI::IrpsWLWavePassageEffect* activefeature =
     static_cast<WindLabAPI::IrpsWLWavePassageEffect*>(
         doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupAlongWindSpectrum) {
         WindLabAPI::IrpsWLXSpectrum* activefeature = static_cast<WindLabAPI::IrpsWLXSpectrum*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupAcrossWindSpectrum) {
         WindLabAPI::IrpsWLYSpectrum* activefeature = static_cast<WindLabAPI::IrpsWLYSpectrum*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
     else if (group == WindLab::WindLabUtils::objGroupVerticalWindSpectrum) {
         WindLabAPI::IrpsWLZSpectrum* activefeature = static_cast<WindLabAPI::IrpsWLZSpectrum*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
-        if (!activefeature) {
-    return;
-        }
+    if (!activefeature) {
+        return;
+    }
 
-         auto simuData = getSimulationData();
-        if (simuData)
-    activefeature->OnInitialSetting(*simuData);
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
     }
 }
 

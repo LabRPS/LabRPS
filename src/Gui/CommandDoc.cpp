@@ -542,14 +542,14 @@ bool StdCmdMergeProjects::isActive()
 DEF_STD_CMD_A(StdCmdDependencyGraph)
 
 StdCmdDependencyGraph::StdCmdDependencyGraph()
-  : Command("Std_DependencyGraph")
+  : Command("Std_ExportDependencyGraph")
 {
     // setting the
     sGroup        = "Tools";
     sMenuText     = QT_TR_NOOP("Dependency graph...");
     sToolTipText  = QT_TR_NOOP("Creates a new view window and show the dependency graph of the objects in the active document");
     sStatusTip    = QT_TR_NOOP("Creates a new view window and show the dependency graph of the objects in the active document");
-    sWhatsThis    = "Std_DependencyGraph";
+    sWhatsThis    = "Std_ExportDependencyGraph";
     eType         = 0;
     sPixmap       = "Std_DependencyGraph";
 }
@@ -559,7 +559,7 @@ void StdCmdDependencyGraph::activated(int iMsg)
     Q_UNUSED(iMsg);
     App::Document* doc = App::GetApplication().getActiveDocument();
     Gui::GraphvizView* view = new Gui::GraphvizView(*doc);
-    view->setWindowTitle(qApp->translate("Std_DependencyGraph","Dependency graph"));
+    view->setWindowTitle(qApp->translate("Std_ExportDependencyGraph","Dependency graph"));
     getMainWindow()->addWindow(view);
 }
 
@@ -567,6 +567,48 @@ bool StdCmdDependencyGraph::isActive()
 {
     return (getActiveGuiDocument() ? true : false);
 }
+
+//===========================================================================
+// Std_ExportDependencyGraph
+//===========================================================================
+
+DEF_STD_CMD_A(StdCmdExportDependencyGraph)
+
+StdCmdExportDependencyGraph::StdCmdExportDependencyGraph()
+  : Command("Std_ExportDependencyGraph")
+{
+    sGroup        = "Tools";
+    sMenuText     = QT_TR_NOOP("Export dependency graph...");
+    sToolTipText  = QT_TR_NOOP("Export the dependency graph to a file");
+    sStatusTip    = QT_TR_NOOP("Export the dependency graph to a file");
+    sWhatsThis    = "Std_ExportDependencyGraph";
+    eType         = 0;
+    sPixmap       = "Std_DependencyGraph";
+}
+
+void StdCmdExportDependencyGraph::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    App::Document* doc = App::GetApplication().getActiveDocument();
+    QString format = QString::fromLatin1("%1 (*.gv)").arg(Gui::GraphvizView::tr("Graphviz format"));
+    QString fn = Gui::FileDialog::getSaveFileName(Gui::getMainWindow(), Gui::GraphvizView::tr("Export graph"), QString(), format);
+    if (!fn.isEmpty()) {
+        QFile file(fn);
+        if (file.open(QFile::WriteOnly)) {
+            std::stringstream str;
+            doc->exportGraphviz(str);
+            QByteArray buffer = QByteArray::fromStdString(str.str());
+            file.write(buffer);
+            file.close();
+        }
+    }
+}
+
+bool StdCmdExportDependencyGraph::isActive()
+{
+    return (getActiveGuiDocument() ? true : false);
+}
+
 
 //===========================================================================
 // Std_New
@@ -1489,33 +1531,33 @@ bool StdCmdRefresh::isActive()
     return this->getDocument() && this->getDocument()->mustExecute();
 }
 
-//===========================================================================
-// Std_Edit
-//===========================================================================
-DEF_STD_CMD_A(StdCmdEdit)
+// //===========================================================================
+// // Std_Edit
+// //===========================================================================
+// DEF_STD_CMD_A(StdCmdEdit)
 
-StdCmdEdit::StdCmdEdit()
-  : Command("Std_Edit")
-{
-    sGroup        = "Edit";
-    sMenuText     = QT_TR_NOOP("Toggle &Edit mode");
-    sToolTipText  = QT_TR_NOOP("Toggles the selected object's edit mode");
-    sWhatsThis    = "Std_Edit";
-    sStatusTip    = QT_TR_NOOP("Activates or Deactivates the selected object's edit mode");
-    sAccel        = "";
-    sPixmap       = "edit-edit";
-    eType         = ForEdit;
-}
+// StdCmdEdit::StdCmdEdit()
+//   : Command("Std_Edit")
+// {
+//     sGroup        = "Edit";
+//     sMenuText     = QT_TR_NOOP("Toggle &Edit mode");
+//     sToolTipText  = QT_TR_NOOP("Toggles the selected object's edit mode");
+//     sWhatsThis    = "Std_Edit";
+//     sStatusTip    = QT_TR_NOOP("Activates or Deactivates the selected object's edit mode");
+//     sAccel        = "";
+//     sPixmap       = "edit-edit";
+//     eType         = ForEdit;
+// }
 
-void StdCmdEdit::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-}
+// void StdCmdEdit::activated(int iMsg)
+// {
+//     Q_UNUSED(iMsg);
+// }
 
-bool StdCmdEdit::isActive()
-{
-    return (Selection().getCompleteSelection().size() > 0) || (Gui::Control().activeDialog() != nullptr);
-}
+// bool StdCmdEdit::isActive()
+// {
+//     return (Selection().getCompleteSelection().size() > 0) || (Gui::Control().activeDialog() != nullptr);
+// }
 
 namespace Gui {
 
@@ -1529,6 +1571,7 @@ void CreateDocCommands()
     rcCmdMgr.addCommand(new StdCmdExport());
     rcCmdMgr.addCommand(new StdCmdMergeProjects());
     rcCmdMgr.addCommand(new StdCmdDependencyGraph());
+    rcCmdMgr.addCommand(new StdCmdExportDependencyGraph());
 
     rcCmdMgr.addCommand(new StdCmdSave());
     rcCmdMgr.addCommand(new StdCmdSaveAs());
@@ -1550,7 +1593,7 @@ void CreateDocCommands()
     rcCmdMgr.addCommand(new StdCmdSelectAll());
     rcCmdMgr.addCommand(new StdCmdDelete());
     rcCmdMgr.addCommand(new StdCmdRefresh());
-    rcCmdMgr.addCommand(new StdCmdEdit());
+    // rcCmdMgr.addCommand(new StdCmdEdit());
 }
 
 } // namespace Gui

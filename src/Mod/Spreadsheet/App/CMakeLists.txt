@@ -51,6 +51,7 @@ generate_from_xml(PropertyRowHeightsPy)
 
 add_library(Spreadsheet SHARED ${Spreadsheet_SRCS})
 target_link_libraries(Spreadsheet ${Spreadsheet_LIBS})
+set_target_properties(Spreadsheet PROPERTIES FOLDER "Workbenches/Spreadsheet")
 
 
 SET_BIN_DIR(Spreadsheet Spreadsheet /Mod/Spreadsheet)

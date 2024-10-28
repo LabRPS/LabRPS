@@ -123,6 +123,7 @@ endif()
 
 add_library(SpreadsheetGui SHARED ${SpreadsheetGui_SRCS} ${SpreadsheetGuiIcon_SVG})
 target_link_libraries(SpreadsheetGui ${SpreadsheetGui_LIBS})
+set_target_properties(SpreadsheetGui PROPERTIES FOLDER "Workbenches/Spreadsheet")
 
 SET_BIN_DIR(SpreadsheetGui SpreadsheetGui /Mod/Spreadsheet)
 SET_PYTHON_PREFIX_SUFFIX(SpreadsheetGui)

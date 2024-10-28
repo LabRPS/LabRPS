@@ -20,7 +20,7 @@
    <item row="0" column="0">
     <widget class="QGroupBox" name="GroupBox5_3">
      <property name="title">
-      <string>Lowest Point Coordinates</string>
+      <string>First Point Coordinates</string>
      </property>
      <layout class="QGridLayout" name="_3">
       <property name="leftMargin">

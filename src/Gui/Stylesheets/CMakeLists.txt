@@ -23,6 +23,7 @@ SOURCE_GROUP("images_dark-light" FILES ${Images_Files})
 ADD_CUSTOM_TARGET(Stylesheets_data ALL
     SOURCES ${Stylesheets_Files} ${Images_Files}
 )
+set_target_properties(Stylesheets_data PROPERTIES FOLDER "Gui")
 
 rps_copy_sources(Stylesheets_data "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Gui/Stylesheets"
                                   ${Stylesheets_Files} ${Images_Files})

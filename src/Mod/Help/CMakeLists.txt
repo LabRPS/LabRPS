@@ -12,6 +12,7 @@ SET(Help_SRCS
 SOURCE_GROUP("" FILES ${Help_SRCS})
 
 ADD_CUSTOM_TARGET(Help ALL SOURCES ${Help_SRCS} ${Help_QRC_SRCS})
+set_target_properties(Help PROPERTIES FOLDER "Workbenches/Help")
 
 rps_copy_sources(Help "${CMAKE_BINARY_DIR}/Mod/Help" ${Help_SRCS})
 

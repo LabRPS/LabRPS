@@ -31,6 +31,7 @@ SET(Web_SRCS
 
 add_library(Web SHARED ${Web_SRCS})
 target_link_libraries(Web ${Web_LIBS})
+set_target_properties(Web PROPERTIES FOLDER "Workbenches/Web")
 
 
 SET_BIN_DIR(Web Web /Mod/Web)

@@ -82,9 +82,13 @@ ADD_CUSTOM_TARGET(AddonManager ALL
     SOURCES ${AddonManager_SRCS} ${AddonManager_QRC_SRCS}
 )
 
+set_target_properties(AddonManager PROPERTIES FOLDER "Workbenches/AddonManager")
+
 ADD_CUSTOM_TARGET(AddonManagerTests ALL
     SOURCES ${AddonManagerTests_ALL}
 )
+set_target_properties(AddonManagerTests PROPERTIES FOLDER "Workbenches/Tests")
+
 
 rps_copy_sources(AddonManager "${CMAKE_BINARY_DIR}/Mod/AddonManager" ${AddonManager_SRCS})
 

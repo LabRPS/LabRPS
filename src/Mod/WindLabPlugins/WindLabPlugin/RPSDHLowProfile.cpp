@@ -30,6 +30,7 @@
 #include <App/Application.h>
 #include <Base/Console.h>
 #include <Gui/Control.h>
+#include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -48,25 +49,16 @@ CRPSDHLowProfile::CRPSDHLowProfile()
 
 bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
-	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
-	//get the active document
-	auto doc = App::GetApplication().getActiveDocument();
-	if (!doc)
-	{
-		return false;
-	}
-	// Compute the location coordinate array
-	WindLabAPI::IrpsWLLocationDistribution* activeFeature = static_cast<WindLabAPI::IrpsWLLocationDistribution*>(doc->getObject(Data.spatialDistribution.getValue()));
+    bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
 
-	if (!activeFeature)
-	{
-		Base::Console().Warning("The computation of the location coordinates matrix has failed.\n");
-		return false;
-	}
-
-	activeFeature->ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
+    if(!returnResult)
+    {
+        Base::Console().Error("The computation of the location coordinates matrix has failed.");
+        
+        return false;
+    }
 
 	//const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * Data.timeIndex.getValue();
     Base::Vector3d location(0, 0, 0);
@@ -75,7 +67,9 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimu
 	for (int loop = 0; loop < Data.numberOfSpatialPosition.getValue(); loop++)
 	{
         location = Base::Vector3d(dLocCoord(loop, 1), dLocCoord(loop, 2), dLocCoord(loop, 3));
+
 		dVarVector(loop) = loop + 1;
+
         ComputeMeanWindSpeedValue(Data, location, dTime, dValVector(loop));
 	}
 
@@ -84,32 +78,24 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimu
 
 bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
-	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
-	//get the active document
-	auto doc = App::GetApplication().getActiveDocument();
-	if (!doc)
-	{
-		return false;
-	}
-	// Compute the location coordinate array
-	WindLabAPI::IrpsWLLocationDistribution* activeFeature = static_cast<WindLabAPI::IrpsWLLocationDistribution*>(doc->getObject(Data.spatialDistribution.getValue()));
+    bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
 
-	if (!activeFeature)
-	{
-		Base::Console().Warning("The computation of the location coordinates matrix has failed.\n");
-		return false;
-	}
-
-	activeFeature->ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-
+    if(!returnResult)
+    {
+        Base::Console().Error("The computation of the location coordinates matrix has failed.");
+        
+        return false;
+    }
 
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue(); loop++)
 	{
 		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * loop;
+
         ComputeMeanWindSpeedValue(Data, location, dTime, dValVector(loop));
+
 		dVarVector(loop) = dTime;
 	}
 
@@ -130,50 +116,29 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimuDa
 
 	if (location.z < 0)
 	{
-		Base::Console().Warning("Negative height detected. The computation fails.\n");
+        Base::Console().Error("Negative height detected. The computation fails.\n");
 		return false;
 	}
 
-	if (Data.stationarity.getValue())
+	if (Data.stationarity.getValue())//stationary
 	{
 		dValue = deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
-	}
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
+	
+	}//non stationary with uniforme modulation
+	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue())
 	{
 		double dModValue = 0.0;
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-		// Compute the location coordinate array
-		WindLabAPI::IrpsWLModulation* activeFeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
 
-		if (!activeFeature)
-		{
+		bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeModulationValue(Data, location, dTime, dModValue);
+
+        if(!returnResult)
+        {
             Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-			dValue = dModValue * deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
-
-		}
-		else
-		{
-			dValue = deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
-		}
-
-	}
+            return false;
+        }
+        
+        dValue = dModValue * deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
+	}//non-stationary with non-uniform modulation. Not possible with this feature.
 	else
 	{
         Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");

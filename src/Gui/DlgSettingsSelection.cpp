@@ -47,8 +47,8 @@ void DlgSettingsSelection::saveSettings()
 {
     auto handle = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/TreeView");
     handle->SetBool("SyncView", ui->checkBoxAutoSwitch->isChecked());
-    handle->SetBool("SyncSelection", ui->checkBoxAutoExpand->isChecked());
-    handle->SetBool("PreSelection", ui->checkBoxPreselect->isChecked());
+    // handle->SetBool("SyncSelection", ui->checkBoxAutoExpand->isChecked());
+    // handle->SetBool("PreSelection", ui->checkBoxPreselect->isChecked());
     handle->SetBool("RecordSelection", ui->checkBoxRecord->isChecked());
     handle->SetBool("CheckBoxesSelection", ui->checkBoxSelectionCheckBoxes->isChecked());
 }
@@ -57,8 +57,8 @@ void DlgSettingsSelection::loadSettings()
 {
     auto handle = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/TreeView");
     ui->checkBoxAutoSwitch->setChecked(handle->GetBool("SyncView", true));
-    ui->checkBoxAutoExpand->setChecked(handle->GetBool("SyncSelection", true));
-    ui->checkBoxPreselect->setChecked(handle->GetBool("PreSelection", true));
+    // ui->checkBoxAutoExpand->setChecked(handle->GetBool("SyncSelection", true));
+    // ui->checkBoxPreselect->setChecked(handle->GetBool("PreSelection", true));
     ui->checkBoxRecord->setChecked(handle->GetBool("RecordSelection", true));
     ui->checkBoxSelectionCheckBoxes->setChecked(handle->GetBool("CheckBoxesSelection"));
 }

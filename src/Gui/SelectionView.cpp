@@ -590,17 +590,11 @@ void SelectionView::onItemContextMenu(const QPoint& point)
     QAction *deselectAction = menu.addAction(tr("Deselect"),this,SLOT(deselect()));
     deselectAction->setIcon(QIcon::fromTheme(QString::fromLatin1("view-unselectable")));
     deselectAction->setToolTip(tr("Deselects this object"));
-    QAction *zoomAction = menu.addAction(tr("Zoom fit"),this,SLOT(zoom()));
-    zoomAction->setIcon(QIcon::fromTheme(QString::fromLatin1("zoom-fit-best")));
-    zoomAction->setToolTip(tr("Selects and fits this object in the 3D window"));
     QAction *gotoAction = menu.addAction(tr("Go to selection"),this,SLOT(treeSelect()));
     gotoAction->setToolTip(tr("Selects and locates this object in the tree view"));
     QAction *touchAction = menu.addAction(tr("Mark to recompute"),this,SLOT(touch()));
     touchAction->setIcon(QIcon::fromTheme(QString::fromLatin1("view-refresh")));
     touchAction->setToolTip(tr("Mark this object to be recomputed"));
-    QAction *toPythonAction = menu.addAction(tr("To python console"),this,SLOT(toPython()));
-    toPythonAction->setIcon(QIcon::fromTheme(QString::fromLatin1("applications-python")));
-    toPythonAction->setToolTip(tr("Reveals this object and its subelements in the python console."));
 
     QStringList elements = item->data(Qt::UserRole).toStringList();
     if (elements.length() > 2) {

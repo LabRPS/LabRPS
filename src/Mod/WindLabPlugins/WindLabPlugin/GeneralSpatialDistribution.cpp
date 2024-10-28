@@ -47,7 +47,6 @@ bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const WindLab
         dLocCoord(j, 2) = it->y;
         dLocCoord(j, 3) = it->z;
 
-        //dLocCoord(j, 1) = (Base::Quantity(it->x, ())).getValueAs(Base::Quantity::Metre);
         j++;
     }
 	return true;

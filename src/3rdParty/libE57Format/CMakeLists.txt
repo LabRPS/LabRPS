@@ -173,6 +173,7 @@ endif()
 
 # Target Libraries
 target_link_libraries( E57Format PRIVATE XercesC::XercesC )
+set_target_properties(E57Format PROPERTIES FOLDER "3rdParty")
 
 # Install
 install(

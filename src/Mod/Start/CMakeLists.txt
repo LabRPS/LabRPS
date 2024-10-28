@@ -24,9 +24,15 @@ add_custom_target(StartScripts ALL
     SOURCES ${Start_Scripts}
 )
 
+set_target_properties(StartScripts PROPERTIES FOLDER "Workbenches/StartScripts")
+
+
 add_custom_target(StartTests ALL
     SOURCES ${Start_Test_Files}
 )
+
+set_target_properties(StartTests PROPERTIES FOLDER "Workbenches/StartScripts")
+
 
 rps_target_copy_resource(StartScripts
     ${CMAKE_CURRENT_SOURCE_DIR}

@@ -18,6 +18,8 @@ add_custom_target(SpreadsheetScripts ALL
     SOURCES ${Spreadsheet_Scripts}
 )
 
+set_target_properties(SpreadsheetScripts PROPERTIES FOLDER "Workbenches/Spreadsheet")
+
 rps_target_copy_resource(SpreadsheetScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/Spreadsheet

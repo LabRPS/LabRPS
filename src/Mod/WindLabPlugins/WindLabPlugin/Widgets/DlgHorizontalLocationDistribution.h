@@ -46,7 +46,7 @@ class DlgHorizontalLocationDistribution : public QWidget
     Q_OBJECT
 
 public:
-    DlgHorizontalLocationDistribution(const App::PropertyVector& lowestPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgHorizontalLocationDistribution(const App::PropertyVector& firstPoint, const App::PropertyLength& spacing, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgHorizontalLocationDistribution();
     void accept();
     void reject();

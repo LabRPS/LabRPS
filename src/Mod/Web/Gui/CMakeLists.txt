@@ -49,6 +49,7 @@ SET(WebGuiIcon_SVG
 
 add_library(WebGui SHARED ${WebGui_SRCS} ${WebGuiIcon_SVG})
 target_link_libraries(WebGui ${WebGui_LIBS})
+set_target_properties(WebGui PROPERTIES FOLDER "Workbenches/WebGui")
 
 
 SET_BIN_DIR(WebGui WebGui /Mod/Web)

@@ -51,13 +51,13 @@ bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuData &
 
 bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
-	//double 	dTime;
+    double dTime = 0.0;
+
     WindLabTools::SineModulation sineModulation;
 
-	 //For each time increment
-	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
+	for (int k = 0; k < Data.numberOfTimeIncrements.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); k++)
 	{
-		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+		dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
 		dVarVector(k) = dTime;	
         dValVector(k) = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
 	}
@@ -66,13 +66,11 @@ bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData
 
 bool CSineModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
-    //double 	dTime;
     WindLabTools::SineModulation sineModulation;
-    //const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * Data.timeIndex.getValue();
-    const double dModValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
 
-     //For each time increment
-    for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++)
+    const double dModValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
+    
+	for (int k = 0; k < Data.numberOfSpatialPosition.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); k++)
     {
         dVarVector(k) = k+1;
         dValVector(k) = dModValue;
