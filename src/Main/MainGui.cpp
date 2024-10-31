@@ -55,7 +55,7 @@
 
 void PrintInitHelp(void);
 
-const char sBanner[] = "\xc2\xa9 Juergen Riegel, Werner Mayer, Yorik van Havre and others 2001-2022\n"\
+const char sBanner[] = "\xc2\xa9 Koffi Daniel and others 2015-2024\n"\
 "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n"\
 "LabRPS wouldn't be possible without LabRPS community.\n";
 
