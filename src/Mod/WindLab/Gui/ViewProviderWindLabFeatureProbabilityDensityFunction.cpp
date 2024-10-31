@@ -50,7 +50,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureProbabilityDensityFunction, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureProbabilityDensityFunction, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureProbabilityDensityFunction::ViewProviderWindLabFeatureProbabilityDensityFunction()
@@ -147,6 +147,9 @@ void ViewProviderWindLabFeatureProbabilityDensityFunction::setupContextMenu(QMen
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureProbabilityDensityFunction::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureProbabilityDensityFunction::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureProbabilityDensityFunction::computePDFVectorX()

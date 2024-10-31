@@ -39,7 +39,7 @@ namespace SpreadsheetGui
 
 class SheetView;
 
-class SpreadsheetGuiExport ViewProviderSheet : public Gui::ViewProviderDocumentObject
+class SpreadsheetGuiExport ViewProviderSheet: public Gui::ViewProviderDocumentObject
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SpreadsheetGui::ViewProviderSheet);
 

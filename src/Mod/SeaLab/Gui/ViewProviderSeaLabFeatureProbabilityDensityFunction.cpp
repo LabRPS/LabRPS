@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureProbabilityDensityFunction, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureProbabilityDensityFunction, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureProbabilityDensityFunction::ViewProviderSeaLabFeatureProbabilityDensityFunction()
@@ -147,6 +147,9 @@ void ViewProviderSeaLabFeatureProbabilityDensityFunction::setupContextMenu(QMenu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureProbabilityDensityFunction::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureProbabilityDensityFunction::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureProbabilityDensityFunction::computePDFVectorX()

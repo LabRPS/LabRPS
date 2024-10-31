@@ -44,13 +44,14 @@
 #include <Gui/MainWindow.h>
 #include <Mod/WindLabAPI/App/IrpsWLCoherence.h>
 #include <CXX/Objects.hxx>
+#include <Gui/Command.h>
 
 using namespace WindLabGui;
 
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCoherence, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCoherence, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureCoherence::ViewProviderWindLabFeatureCoherence()
@@ -160,7 +161,11 @@ void ViewProviderWindLabFeatureCoherence::setupContextMenu(QMenu* menu, QObject*
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureCoherence::ActivateFeature, this));
-}
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureCoherence::goToPublication, this));
+
+  }
 
 bool ViewProviderWindLabFeatureCoherence::ComputeCrossCoherenceValue() 
 {
@@ -181,6 +186,27 @@ bool ViewProviderWindLabFeatureCoherence::ComputeCrossCoherenceMatrixPP()
 {
     return runFeatureMethod(WindLab::WindLabUtils::ComputeCrossCoherenceMatrixPP, this->ComplexNumberDisplay.getValueAsString());
 }
+
+//bool ViewProviderWindLabFeatureCoherence::goToPublication()
+//{
+//    ActivateFeature();
+//
+//    auto doc = App::GetApplication().getActiveDocument();
+//    if (!doc)
+//        return false;
+//    auto obj = doc->getObject(this->getObject()->getNameInDocument());
+//    if (!obj)
+//        return false;
+//    auto active = static_cast<WindLabAPI::WindLabFeature*>(obj);
+//    if (!active)
+//        return false;
+//
+//    Gui::Command::doCommand(Gui::Command::Doc, "import WebGui");
+//    Gui::Command::doCommand(Gui::Command::Doc, "WebGui.openBrowser(\"%s\")", active->LinkToPublication.getStrValue().c_str());
+//
+//    return true;
+//}
+
 
 bool ViewProviderWindLabFeatureCoherence::OnInitialSetting()
 {

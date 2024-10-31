@@ -50,7 +50,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureMatrixTool, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureMatrixTool, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureMatrixTool::ViewProviderWindLabFeatureMatrixTool()
@@ -147,6 +147,9 @@ void ViewProviderWindLabFeatureMatrixTool::setupContextMenu(QMenu* menu, QObject
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureMatrixTool::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureMatrixTool::goToPublication, this));
 }
 
 

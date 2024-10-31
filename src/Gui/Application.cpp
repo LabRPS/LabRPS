@@ -80,6 +80,7 @@
 #include "UiLoader.h"
 #include "ViewProviderDocumentObject.h"
 #include "ViewProviderDocumentObjectGroup.h"
+#include "ViewProviderRPSFeature.h"
 #include "ViewProviderDragger.h"
 #include "ViewProviderExtension.h"
 #include "ViewProviderExtern.h"
@@ -1599,6 +1600,7 @@ void Application::initTypes()
     Gui::ViewProviderGroupExtensionPython       ::init();
     Gui::ViewProviderExtern                     ::init();
     Gui::ViewProviderDocumentObject             ::init();
+    Gui::ViewProviderRPSFeature                 ::init();
     Gui::ViewProviderFeature                    ::init();
     Gui::ViewProviderDocumentObjectGroup        ::init();
     Gui::ViewProviderDocumentObjectGroupPython  ::init();

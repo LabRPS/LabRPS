@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSkewness, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSkewness, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureSkewness::ViewProviderSeaLabFeatureSkewness()
@@ -149,6 +149,9 @@ void ViewProviderSeaLabFeatureSkewness::setupContextMenu(QMenu* menu, QObject*, 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureSkewness::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureSkewness::goToPublication, this));
 }
 
 

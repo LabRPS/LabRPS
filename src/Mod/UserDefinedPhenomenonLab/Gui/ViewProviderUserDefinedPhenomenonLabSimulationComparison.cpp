@@ -47,7 +47,7 @@ using namespace UserDefinedPhenomenonLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(UserDefinedPhenomenonLabGui::ViewProviderUserDefinedPhenomenonLabSimulationComparison, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(UserDefinedPhenomenonLabGui::ViewProviderUserDefinedPhenomenonLabSimulationComparison,  Gui::ViewProviderDocumentObject)
 
 
 ViewProviderUserDefinedPhenomenonLabSimulationComparison::ViewProviderUserDefinedPhenomenonLabSimulationComparison()

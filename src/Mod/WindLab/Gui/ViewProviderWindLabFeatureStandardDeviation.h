@@ -24,7 +24,7 @@
 #ifndef WINDLABGUI_VIEWPROVIDERWINDLABFEATURESTANDARDDEV_H
 #define WINDLABGUI_VIEWPROVIDERWINDLABFEATURESTANDARDDEV_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace WindLabGui {
 
 
-class WindLabGuiExport ViewProviderWindLabFeatureStandardDeviation : public Gui::ViewProviderDocumentObject
+class WindLabGuiExport ViewProviderWindLabFeatureStandardDeviation : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(WindLabGui::ViewProviderWindLabFeatureStandardDeviation);
 

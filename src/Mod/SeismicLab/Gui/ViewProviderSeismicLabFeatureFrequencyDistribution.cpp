@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureFrequencyDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureFrequencyDistribution, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureFrequencyDistribution::ViewProviderSeismicLabFeatureFrequencyDistribution()
@@ -149,6 +149,9 @@ void ViewProviderSeismicLabFeatureFrequencyDistribution::setupContextMenu(QMenu*
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureFrequencyDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureFrequencyDistribution::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureFrequencyDistribution::computeFrequencyValue()

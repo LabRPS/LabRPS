@@ -24,7 +24,7 @@
 #ifndef WINDLABGUI_VIEWPROVIDERWINDLABFEATURETURBUSCALE_H
 #define WINDLABGUI_VIEWPROVIDERWINDLABFEATURETURBUSCALE_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace WindLabGui {
 
 
-class WindLabGuiExport ViewProviderWindLabFeatureTurbulenceScale : public Gui::ViewProviderDocumentObject
+class WindLabGuiExport ViewProviderWindLabFeatureTurbulenceScale : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(WindLabGui::ViewProviderWindLabFeatureTurbulenceScale);
 

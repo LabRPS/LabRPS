@@ -24,7 +24,7 @@
 #ifndef SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATURECORRELATION_H
 #define SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATURECORRELATION_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeismicLab/SeismicLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -33,7 +33,7 @@
 namespace SeismicLabGui {
 
 
-class SeismicLabGuiExport ViewProviderSeismicLabFeatureCorrelation : public Gui::ViewProviderDocumentObject
+class SeismicLabGuiExport ViewProviderSeismicLabFeatureCorrelation : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeismicLabGui::ViewProviderSeismicLabFeatureCorrelation);
 

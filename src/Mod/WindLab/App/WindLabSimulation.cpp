@@ -61,6 +61,8 @@
 #include <Mod/WindLabAPI/App/WindLabFeatureZSpectrum.h>
 #include <Base/Console.h>
 #include <Mod/WindLab/App/WindLabSimulationPy.h>
+#include <App/DocumentObjectPy.h>
+#include <App/FeaturePythonPyImp.h>
 
 using namespace App;
 using namespace WindLab;
@@ -4531,3 +4533,46 @@ App::DocumentObject*  WindLabSimulation::addFeature(const std::string featureNam
 
     return newFeature;
     }
+
+// Dummy class 'DocumentObject' in WindLab namespace
+PROPERTY_SOURCE_ABSTRACT(WindLab::DocumentObject, App::DocumentObject)
+// Python feature ---------------------------------------------------------
+
+namespace App
+{
+/// @cond DOXERR
+PROPERTY_SOURCE_TEMPLATE(WindLab::WindLabSimulationPython, WindLab::WindLabSimulation)
+template<>
+const char* WindLab::WindLabSimulationPython::getViewProviderName() const
+{
+    return "WindLabGui::ViewProviderWindLabSimulationPython";
+}
+
+// explicit template instantiation
+template class WindLabExport FeaturePythonT<WindLab::WindLabSimulation>;
+}  // namespace App
+
+// ---------------------------------------------------------
+
+namespace App
+{
+/// @cond DOXERR
+PROPERTY_SOURCE_TEMPLATE(WindLab::FeaturePython, WindLab::DocumentObject)
+template<>
+const char* WindLab::FeaturePython::getViewProviderName() const
+{
+    return "Gui::ViewProviderFeaturePython";
+}
+template<>
+PyObject* WindLab::FeaturePython::getPyObject()
+{
+    if (PythonObject.is(Py::_None())) {
+        // ref counter is set to 1
+        PythonObject = Py::Object(new App::FeaturePythonPyT<App::DocumentObjectPy>(this), true);
+    }
+    return Py::new_reference_to(PythonObject);
+}
+// explicit template instantiation
+template class WindLabExport FeaturePythonT<WindLab::DocumentObject>;
+/// @endcond
+}  // namespace App

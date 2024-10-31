@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureShearVelocityOfFlow, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureShearVelocityOfFlow, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureShearVelocityOfFlow::ViewProviderSeismicLabFeatureShearVelocityOfFlow()
@@ -150,6 +150,9 @@ void ViewProviderSeismicLabFeatureShearVelocityOfFlow::setupContextMenu(QMenu* m
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureShearVelocityOfFlow::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureShearVelocityOfFlow::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureShearVelocityOfFlow::computeShearVelocityOfFlowValue()

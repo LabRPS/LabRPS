@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureMeanAcceleration, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureMeanAcceleration, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureMeanAcceleration::ViewProviderSeismicLabFeatureMeanAcceleration()
@@ -149,6 +149,9 @@ void ViewProviderSeismicLabFeatureMeanAcceleration::setupContextMenu(QMenu* menu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureMeanAcceleration::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureMeanAcceleration::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureMeanAcceleration::computeMeanAccelerationValue()

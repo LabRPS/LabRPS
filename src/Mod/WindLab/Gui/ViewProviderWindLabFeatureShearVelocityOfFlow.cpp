@@ -50,7 +50,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureShearVelocityOfFlow, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureShearVelocityOfFlow, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureShearVelocityOfFlow::ViewProviderWindLabFeatureShearVelocityOfFlow()
@@ -150,6 +150,9 @@ void ViewProviderWindLabFeatureShearVelocityOfFlow::setupContextMenu(QMenu* menu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureShearVelocityOfFlow::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureShearVelocityOfFlow::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureShearVelocityOfFlow::computeShearVelocityOfFlowValue()

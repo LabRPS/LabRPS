@@ -33,7 +33,7 @@
 using namespace Gui;
 
 
-PROPERTY_SOURCE_WITH_EXTENSIONS(Gui::ViewProviderDocumentObjectGroup, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE_WITH_EXTENSIONS(Gui::ViewProviderDocumentObjectGroup,  Gui::ViewProviderDocumentObject)
 
 
 /**

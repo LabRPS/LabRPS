@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureFrequencyDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureFrequencyDistribution, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureFrequencyDistribution::ViewProviderSeaLabFeatureFrequencyDistribution()
@@ -149,6 +149,9 @@ void ViewProviderSeaLabFeatureFrequencyDistribution::setupContextMenu(QMenu* men
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureFrequencyDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureFrequencyDistribution::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureFrequencyDistribution::computeFrequencyValue()

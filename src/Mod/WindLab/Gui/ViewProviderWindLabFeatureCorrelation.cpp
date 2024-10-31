@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCorrelation, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCorrelation, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureCorrelation::ViewProviderWindLabFeatureCorrelation()
@@ -149,6 +149,9 @@ void ViewProviderWindLabFeatureCorrelation::setupContextMenu(QMenu* menu, QObjec
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureCorrelation::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureCorrelation::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureCorrelation::computeCrossCorrelationValue()

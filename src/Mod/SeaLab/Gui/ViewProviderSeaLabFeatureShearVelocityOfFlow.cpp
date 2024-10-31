@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureShearVelocityOfFlow, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureShearVelocityOfFlow, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureShearVelocityOfFlow::ViewProviderSeaLabFeatureShearVelocityOfFlow()
@@ -150,6 +150,9 @@ void ViewProviderSeaLabFeatureShearVelocityOfFlow::setupContextMenu(QMenu* menu,
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureShearVelocityOfFlow::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureShearVelocityOfFlow::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureShearVelocityOfFlow::computeShearVelocityOfFlowValue()

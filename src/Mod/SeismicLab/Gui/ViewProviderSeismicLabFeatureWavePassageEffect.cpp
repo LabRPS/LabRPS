@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureWavePassageEffect, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureWavePassageEffect, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureWavePassageEffect::ViewProviderSeismicLabFeatureWavePassageEffect()
@@ -152,6 +152,9 @@ void ViewProviderSeismicLabFeatureWavePassageEffect::setupContextMenu(QMenu* men
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureWavePassageEffect::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureWavePassageEffect::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureWavePassageEffect::computeWavePassageEffectValue()

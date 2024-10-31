@@ -58,7 +58,7 @@ using namespace SpreadsheetGui;
 using namespace Spreadsheet;
 
 
-PROPERTY_SOURCE(SpreadsheetGui::ViewProviderSheet, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SpreadsheetGui::ViewProviderSheet,  Gui::ViewProviderDocumentObject)
 
 ViewProviderSheet::ViewProviderSheet()
     : Gui::ViewProviderDocumentObject()

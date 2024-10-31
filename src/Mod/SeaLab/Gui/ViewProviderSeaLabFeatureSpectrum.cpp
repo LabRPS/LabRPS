@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSpectrum, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSpectrum, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureSpectrum::ViewProviderSeaLabFeatureSpectrum()
@@ -168,6 +168,9 @@ void ViewProviderSeaLabFeatureSpectrum::setupContextMenu(QMenu* menu, QObject*, 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureSpectrum::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureSpectrum::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumValue()

@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureCumulativeProbabilityDistribution::ViewProviderSeaLabFeatureCumulativeProbabilityDistribution()
@@ -145,6 +145,9 @@ void ViewProviderSeaLabFeatureCumulativeProbabilityDistribution::setupContextMen
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureCumulativeProbabilityDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureCumulativeProbabilityDistribution::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureCumulativeProbabilityDistribution::computeCPDVectorX()

@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSkewness, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSkewness, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureSkewness::ViewProviderSeismicLabFeatureSkewness()
@@ -149,6 +149,9 @@ void ViewProviderSeismicLabFeatureSkewness::setupContextMenu(QMenu* menu, QObjec
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureSkewness::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureSkewness::goToPublication, this));
 }
 
 

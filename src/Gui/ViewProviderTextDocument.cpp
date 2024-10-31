@@ -41,7 +41,7 @@
 
 using namespace Gui;
 
-PROPERTY_SOURCE(Gui::ViewProviderTextDocument, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(Gui::ViewProviderTextDocument,  Gui::ViewProviderDocumentObject)
 const char* ViewProviderTextDocument::SyntaxEnums[]= {"None","Python",nullptr};
 
 ViewProviderTextDocument::ViewProviderTextDocument()

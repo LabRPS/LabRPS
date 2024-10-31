@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureZSpectrum, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureZSpectrum, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureZSpectrum::ViewProviderWindLabFeatureZSpectrum()
@@ -167,6 +167,9 @@ void ViewProviderWindLabFeatureZSpectrum::setupContextMenu(QMenu* menu, QObject*
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureZSpectrum::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureZSpectrum::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureZSpectrum::computeZCrossSpectrumValue()

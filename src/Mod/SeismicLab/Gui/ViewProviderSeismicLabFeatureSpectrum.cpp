@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSpectrum, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSpectrum, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureSpectrum::ViewProviderSeismicLabFeatureSpectrum()
@@ -168,6 +168,9 @@ void ViewProviderSeismicLabFeatureSpectrum::setupContextMenu(QMenu* menu, QObjec
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureSpectrum::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureSpectrum::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureSpectrum::computeCrossSpectrumValue()

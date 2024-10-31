@@ -24,7 +24,7 @@
 #ifndef USERDEFINEDPHENOMENONLABGUI_VIEWPROVIDERUSERDEFINEDPHENOMENONLABFEATURESIMETHO_H
 #define USERDEFINEDPHENOMENONLABGUI_VIEWPROVIDERUSERDEFINEDPHENOMENONLABFEATURESIMETHO_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/UserDefinedPhenomenonLab/UserDefinedPhenomenonLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace UserDefinedPhenomenonLabGui {
 
 
-class UserDefinedPhenomenonLabGuiExport ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod : public Gui::ViewProviderDocumentObject
+class UserDefinedPhenomenonLabGuiExport ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(UserDefinedPhenomenonLabGui::ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod);
 

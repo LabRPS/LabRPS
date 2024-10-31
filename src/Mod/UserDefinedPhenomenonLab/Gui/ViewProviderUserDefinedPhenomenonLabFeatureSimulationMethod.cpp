@@ -49,7 +49,7 @@ using namespace UserDefinedPhenomenonLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(UserDefinedPhenomenonLabGui::ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(UserDefinedPhenomenonLabGui::ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod::ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod()
@@ -145,6 +145,10 @@ void ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod::setupContextMe
 
     QAction* stop = menu->addAction(QObject::tr("Stop"));
     func->trigger(stop, boost::bind(&ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod::stop, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod::goToPublication, this));
+
 }
 
 bool ViewProviderUserDefinedPhenomenonLabFeatureSimulationMethod::simulate()

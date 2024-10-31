@@ -53,7 +53,7 @@ namespace bp = boost::placeholders;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureLocationDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureLocationDistribution, Gui::ViewProviderRPSFeature)
 
 App::PropertyFloatConstraint::Constraints ViewProviderWindLabFeatureLocationDistribution::sizeRange = {1.0, 64.0, 1.0};
 
@@ -150,6 +150,9 @@ void ViewProviderWindLabFeatureLocationDistribution::setupContextMenu(QMenu* men
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureLocationDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureLocationDistribution::goToPublication, this));
 }
 
 

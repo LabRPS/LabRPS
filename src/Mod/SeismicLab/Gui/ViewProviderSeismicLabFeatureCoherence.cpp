@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureCoherence, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureCoherence, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureCoherence::ViewProviderSeismicLabFeatureCoherence()
@@ -160,6 +160,9 @@ void ViewProviderSeismicLabFeatureCoherence::setupContextMenu(QMenu* menu, QObje
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureCoherence::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureCoherence::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureCoherence::ComputeCrossCoherenceValue() 

@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureSimulationMethod::ViewProviderSeaLabFeatureSimulationMethod()
