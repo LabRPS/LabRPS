@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureSkewness, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureSkewness, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureSkewness::ViewProviderWindLabFeatureSkewness()
@@ -149,6 +149,9 @@ void ViewProviderWindLabFeatureSkewness::setupContextMenu(QMenu* menu, QObject*,
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureSkewness::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureSkewness::goToPublication, this));
 }
 
 

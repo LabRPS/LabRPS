@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureWavePassageEffect, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureWavePassageEffect, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureWavePassageEffect::ViewProviderWindLabFeatureWavePassageEffect()
@@ -152,6 +152,9 @@ void ViewProviderWindLabFeatureWavePassageEffect::setupContextMenu(QMenu* menu, 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureWavePassageEffect::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureWavePassageEffect::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureWavePassageEffect::computeWavePassageEffectValue()

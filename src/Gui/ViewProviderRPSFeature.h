@@ -21,43 +21,44 @@
  ***************************************************************************/
 
 
-#ifndef SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
-#define SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
+#ifndef WINDLABGUI_VIEWPROVIDERRPSFEATURE_H
+#define WINDLABGUI_VIEWPROVIDERRPSFEATURE_H
 
-#include <Gui/ViewProviderRPSFeature.h>
-#include <Libraries/Alphaplot/Table.h>
-#include <Mod/SeismicLab/SeismicLabGlobal.h>
+#include <Gui/ViewProviderDocumentObject.h>
+#include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
-#include <Mod/SeismicLab/Gui/SeismicLabAllFeaturesComputation.h>
-namespace SeismicLabGui {
+#include <Mod/WindLab/Gui/WindLabAllFeaturesComputation.h>
+
+namespace Gui {
 
 
-class SeismicLabGuiExport ViewProviderSeismicLabFeatureVariance : public Gui::ViewProviderRPSFeature
+class GuiExport ViewProviderRPSFeature: public Gui::ViewProviderDocumentObject
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(SeismicLabGui::ViewProviderSeismicLabFeatureVariance);
+    PROPERTY_HEADER_WITH_OVERRIDE(Gui::ViewProviderRPSFeature);
 
 public:
     /// constructor
-    ViewProviderSeismicLabFeatureVariance();
+    ViewProviderRPSFeature();
     /// destructor
-    virtual ~ViewProviderSeismicLabFeatureVariance();
+    virtual ~ViewProviderRPSFeature();
 
     virtual bool doubleClicked(void);
     void setupContextMenu(QMenu*, QObject*, const char*);
 
-    bool computeVarianceValue();
-    bool computeVarianceVectorP();
-    bool computeVarianceVectorT();
-    bool ActivateFeature();
+    bool goToPublication();
 
-    bool OnInitialSetting();
+
+public:
 
 protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
 
+protected:
+    /// get called by the container whenever a property has been changed
+    virtual void onChanged(const App::Property* prop) override;
+
 private:
-    QPointer<Table> tableWidget;
 
 public:
     virtual PyObject* getPyObject() override;
@@ -66,15 +67,10 @@ public:
 protected:// attributes
     Py::SmartPtr PythonObject;
 
-public:
-    SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
-
-public:
-    bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");
 };
 
-} // namespace PartGui
+} // namespace Gui
 
 
-#endif // SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
+#endif // WINDLABGUI_VIEWPROVIDERRPSFEATURE_H
 

@@ -40,7 +40,7 @@
 
 using namespace Gui;
 
-PROPERTY_SOURCE(Gui::ViewProviderDragger, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(Gui::ViewProviderDragger,  Gui::ViewProviderDocumentObject)
 
 ViewProviderDragger::ViewProviderDragger()
 {

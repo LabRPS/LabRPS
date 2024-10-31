@@ -24,7 +24,7 @@
 #ifndef WINDLABGUI_VIEWPROVIDERWINDLABFEATURERANDOMNESS_H
 #define WINDLABGUI_VIEWPROVIDERWINDLABFEATURERANDOMNESS_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace WindLabGui {
 
 
-class WindLabGuiExport ViewProviderWindLabFeatureRandomness : public Gui::ViewProviderDocumentObject
+class WindLabGuiExport ViewProviderWindLabFeatureRandomness : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(WindLabGui::ViewProviderWindLabFeatureRandomness);
 

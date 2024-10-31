@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureVariance, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureVariance, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureVariance::ViewProviderSeaLabFeatureVariance()
@@ -149,6 +149,9 @@ void ViewProviderSeaLabFeatureVariance::setupContextMenu(QMenu* menu, QObject*, 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureVariance::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureVariance::goToPublication, this));
 }
 
 

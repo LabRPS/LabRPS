@@ -86,7 +86,7 @@ private:
         pcBrowserView->resize(400, 300);
         pcBrowserView->load(url);
         Gui::getMainWindow()->addWindow(pcBrowserView);
-        if (!Gui::getMainWindow()->activeWindow())
+        // if (!Gui::getMainWindow()->activeWindow())
             Gui::getMainWindow()->setActiveWindow(pcBrowserView);
 
         return Py::None();

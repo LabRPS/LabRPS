@@ -30,7 +30,7 @@ namespace WindLabGui
 {
 
 
-class GuiExport ViewProviderWindLabSimulation : public Gui::ViewProviderDocumentObjectGroup
+class GuiExport ViewProviderWindLabSimulation: public Gui::ViewProviderDocumentObjectGroup
 {
     Q_DECLARE_TR_FUNCTIONS(WindLabGui::ViewProviderWindLabSimulation)
     PROPERTY_HEADER(WindLabGui::ViewProviderWindLabSimulation);

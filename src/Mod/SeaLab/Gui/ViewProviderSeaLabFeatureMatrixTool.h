@@ -24,7 +24,7 @@
 #ifndef SEALABGUI_VIEWPROVIDERSEALABFEATUREMATRIXTOOL_H
 #define SEALABGUI_VIEWPROVIDERSEALABFEATUREMATRIXTOOL_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeaLab/SeaLabGlobal.h>"
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace SeaLabGui {
 
 
-class SeaLabGuiExport ViewProviderSeaLabFeatureMatrixTool : public Gui::ViewProviderDocumentObject
+class SeaLabGuiExport ViewProviderSeaLabFeatureMatrixTool : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeaLabGui::ViewProviderSeaLabFeatureMatrixTool);
 

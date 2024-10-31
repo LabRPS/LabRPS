@@ -47,7 +47,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabSimulationComparison, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabSimulationComparison,  Gui::ViewProviderDocumentObject)
 
 
 ViewProviderWindLabSimulationComparison::ViewProviderWindLabSimulationComparison()

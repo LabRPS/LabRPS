@@ -53,7 +53,7 @@ namespace bp = boost::placeholders;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureLocationDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureLocationDistribution, Gui::ViewProviderRPSFeature)
 
 App::PropertyFloatConstraint::Constraints ViewProviderSeaLabFeatureLocationDistribution::sizeRange = {1.0, 64.0, 1.0};
 
@@ -227,6 +227,9 @@ void ViewProviderSeaLabFeatureLocationDistribution::setupContextMenu(QMenu* menu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureLocationDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureLocationDistribution::goToPublication, this));
 }
 
 

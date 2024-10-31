@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureRandomness, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureRandomness, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureRandomness::ViewProviderSeismicLabFeatureRandomness()
@@ -143,6 +143,9 @@ void ViewProviderSeismicLabFeatureRandomness::setupContextMenu(QMenu* menu, QObj
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureRandomness::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureRandomness::goToPublication, this));
 }
 
 

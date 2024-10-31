@@ -1249,7 +1249,7 @@ bool ViewProviderPythonFeatureImp::editProperty(const char *name)
 // ---------------------------------------------------------
 
 namespace Gui {
-PROPERTY_SOURCE_TEMPLATE(Gui::ViewProviderPythonFeature, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE_TEMPLATE(Gui::ViewProviderPythonFeature,  Gui::ViewProviderDocumentObject)
 // explicit template instantiation
 template class GuiExport ViewProviderPythonFeatureT<ViewProviderDocumentObject>;
 }

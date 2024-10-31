@@ -24,7 +24,7 @@
 #ifndef WINDLABGUI_VIEWPROVIDERWINDLABSIMULATIONCOMPARISON_H
 #define WINDLABGUI_VIEWPROVIDERWINDLABSIMULATIONCOMPARISON_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace WindLabGui {
 
 
-class WindLabGuiExport ViewProviderWindLabSimulationComparison : public Gui::ViewProviderDocumentObject
+class WindLabGuiExport ViewProviderWindLabSimulationComparison: public Gui::ViewProviderDocumentObject
 {
     PROPERTY_HEADER_WITH_OVERRIDE(WindLabGui::ViewProviderWindLabSimulationComparison);
 

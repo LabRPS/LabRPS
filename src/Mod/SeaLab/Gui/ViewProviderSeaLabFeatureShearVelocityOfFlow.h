@@ -24,7 +24,7 @@
 #ifndef SEALABGUI_VIEWPROVIDERSEALABFEATURESHEARVELO_H
 #define SEALABGUI_VIEWPROVIDERSEALABFEATURESHEARVELO_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeaLab/SeaLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace SeaLabGui {
 
 
-class SeaLabGuiExport ViewProviderSeaLabFeatureShearVelocityOfFlow : public Gui::ViewProviderDocumentObject
+class SeaLabGuiExport ViewProviderSeaLabFeatureShearVelocityOfFlow : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeaLabGui::ViewProviderSeaLabFeatureShearVelocityOfFlow);
 

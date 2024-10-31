@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureSimulationMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureSimulationMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureSimulationMethod::ViewProviderWindLabFeatureSimulationMethod()

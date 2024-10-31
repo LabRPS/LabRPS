@@ -378,6 +378,14 @@ protected:
     Py::SmartPtr PythonObject;
 };
 
+class WindLabExport DocumentObject: public App::DocumentObject
+{
+    PROPERTY_HEADER_WITH_OVERRIDE(WindLab::DocumentObject);
+};
+
+using WindLabSimulationPython = App::FeaturePythonT<WindLabSimulation>;
+using FeaturePython = App::FeaturePythonT<DocumentObject>;
+
 } //namespace WindLab
 
 

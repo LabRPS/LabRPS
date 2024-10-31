@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution()
@@ -145,6 +145,9 @@ void ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::setupContex
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::computeCPDVectorX()

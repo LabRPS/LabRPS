@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureProbabilityDensityFunction, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureProbabilityDensityFunction, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureProbabilityDensityFunction::ViewProviderSeismicLabFeatureProbabilityDensityFunction()
@@ -147,6 +147,9 @@ void ViewProviderSeismicLabFeatureProbabilityDensityFunction::setupContextMenu(Q
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureProbabilityDensityFunction::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureProbabilityDensityFunction::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureProbabilityDensityFunction::computePDFVectorX()

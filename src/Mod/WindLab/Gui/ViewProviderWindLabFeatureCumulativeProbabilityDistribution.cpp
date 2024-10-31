@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureCumulativeProbabilityDistribution, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureCumulativeProbabilityDistribution::ViewProviderWindLabFeatureCumulativeProbabilityDistribution()
@@ -145,6 +145,9 @@ void ViewProviderWindLabFeatureCumulativeProbabilityDistribution::setupContextMe
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureCumulativeProbabilityDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureCumulativeProbabilityDistribution::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureCumulativeProbabilityDistribution::computeCPDVectorX()

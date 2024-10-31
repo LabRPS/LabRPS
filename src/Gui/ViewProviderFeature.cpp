@@ -30,7 +30,7 @@
 using namespace Gui;
 
 
-PROPERTY_SOURCE(Gui::ViewProviderFeature, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(Gui::ViewProviderFeature,  Gui::ViewProviderDocumentObject)
 
 ViewProviderFeature::ViewProviderFeature()
 {

@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureSimulationMethod::ViewProviderSeismicLabFeatureSimulationMethod()

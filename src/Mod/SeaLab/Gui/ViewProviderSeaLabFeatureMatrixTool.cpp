@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureMatrixTool, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureMatrixTool, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureMatrixTool::ViewProviderSeaLabFeatureMatrixTool()
@@ -147,6 +147,9 @@ void ViewProviderSeaLabFeatureMatrixTool::setupContextMenu(QMenu* menu, QObject*
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureMatrixTool::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureMatrixTool::goToPublication, this));
 }
 
 

@@ -49,7 +49,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureUserDefinedRPSObject, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureUserDefinedRPSObject, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeatureUserDefinedRPSObject::ViewProviderSeismicLabFeatureUserDefinedRPSObject()
@@ -118,6 +118,9 @@ void ViewProviderSeismicLabFeatureUserDefinedRPSObject::setupContextMenu(QMenu* 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureUserDefinedRPSObject::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureUserDefinedRPSObject::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeatureUserDefinedRPSObject::userDefinedRPSObjectCompute()

@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCoherence, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCoherence, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureCoherence::ViewProviderSeaLabFeatureCoherence()
@@ -160,6 +160,9 @@ void ViewProviderSeaLabFeatureCoherence::setupContextMenu(QMenu* menu, QObject*,
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureCoherence::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureCoherence::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureCoherence::ComputeCrossCoherenceValue() 

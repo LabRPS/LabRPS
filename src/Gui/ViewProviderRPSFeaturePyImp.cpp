@@ -20,61 +20,29 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "PreCompiled.h"
 
-#ifndef SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
-#define SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
+#include "ViewProviderRPSFeaturePy.h"
+#include "ViewProviderRPSFeaturePy.cpp"
+#include <CXX/Objects.hxx>
 
-#include <Gui/ViewProviderRPSFeature.h>
-#include <Libraries/Alphaplot/Table.h>
-#include <Mod/SeismicLab/SeismicLabGlobal.h>
-#include <Base/SmartPtrPy.h>
-#include <Mod/SeismicLab/Gui/SeismicLabAllFeaturesComputation.h>
-namespace SeismicLabGui {
+#include "ViewProviderRPSFeature.h"
 
+using namespace Gui;
 
-class SeismicLabGuiExport ViewProviderSeismicLabFeatureVariance : public Gui::ViewProviderRPSFeature
+// returns a string which represents the object e.g. when printed in python
+std::string ViewProviderRPSFeaturePy::representation(void) const
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(SeismicLabGui::ViewProviderSeismicLabFeatureVariance);
+    return std::string("<ViewProviderRPSFeature object>");
+}
 
-public:
-    /// constructor
-    ViewProviderSeismicLabFeatureVariance();
-    /// destructor
-    virtual ~ViewProviderSeismicLabFeatureVariance();
-
-    virtual bool doubleClicked(void);
-    void setupContextMenu(QMenu*, QObject*, const char*);
-
-    bool computeVarianceValue();
-    bool computeVarianceVectorP();
-    bool computeVarianceVectorT();
-    bool ActivateFeature();
-
-    bool OnInitialSetting();
-
-protected:
-    virtual bool setEdit(int ModNum);
-    virtual void unsetEdit(int ModNum);
-
-private:
-    QPointer<Table> tableWidget;
-
-public:
-    virtual PyObject* getPyObject() override;
-
-    /// python object of this class
-protected:// attributes
-    Py::SmartPtr PythonObject;
-
-public:
-    SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
-
-public:
-    bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");
-};
-
-} // namespace PartGui
+PyObject *ViewProviderRPSFeaturePy::getCustomAttributes(const char* /*attr*/) const
+{
+    return nullptr;
+}
 
 
-#endif // SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREVARIANCE_H
-
+int ViewProviderRPSFeaturePy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+{
+    return 0;
+}

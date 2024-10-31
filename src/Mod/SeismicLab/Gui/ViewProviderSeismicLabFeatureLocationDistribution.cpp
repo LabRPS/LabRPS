@@ -53,7 +53,7 @@ namespace bp = boost::placeholders;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureLocationDistribution, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeatureLocationDistribution, Gui::ViewProviderRPSFeature)
 
 App::PropertyFloatConstraint::Constraints ViewProviderSeismicLabFeatureLocationDistribution::sizeRange = {1.0, 64.0, 1.0};
 
@@ -227,6 +227,9 @@ void ViewProviderSeismicLabFeatureLocationDistribution::setupContextMenu(QMenu* 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeatureLocationDistribution::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureLocationDistribution::goToPublication, this));
 }
 
 

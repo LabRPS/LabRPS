@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureMeanAcceleration, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureMeanAcceleration, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureMeanAcceleration::ViewProviderSeaLabFeatureMeanAcceleration()
@@ -149,6 +149,9 @@ void ViewProviderSeaLabFeatureMeanAcceleration::setupContextMenu(QMenu* menu, QO
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureMeanAcceleration::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureMeanAcceleration::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureMeanAcceleration::computeMeanAccelerationValue()

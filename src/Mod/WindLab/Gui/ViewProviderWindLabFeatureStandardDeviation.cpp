@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureStandardDeviation, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureStandardDeviation, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureStandardDeviation::ViewProviderWindLabFeatureStandardDeviation()
@@ -148,6 +148,9 @@ void ViewProviderWindLabFeatureStandardDeviation::setupContextMenu(QMenu* menu, 
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureStandardDeviation::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureStandardDeviation::goToPublication, this));
 }
 
 

@@ -24,7 +24,7 @@
 #ifndef SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREMEANACCELERATION_H
 #define SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREMEANACCELERATION_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeismicLab/SeismicLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace SeismicLabGui {
 
 
-class SeismicLabGuiExport ViewProviderSeismicLabFeatureMeanAcceleration : public Gui::ViewProviderDocumentObject
+class SeismicLabGuiExport ViewProviderSeismicLabFeatureMeanAcceleration : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeismicLabGui::ViewProviderSeismicLabFeatureMeanAcceleration);
 

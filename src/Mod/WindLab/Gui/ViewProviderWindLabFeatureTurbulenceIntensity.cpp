@@ -49,7 +49,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureTurbulenceIntensity, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureTurbulenceIntensity, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureTurbulenceIntensity::ViewProviderWindLabFeatureTurbulenceIntensity()
@@ -148,6 +148,9 @@ void ViewProviderWindLabFeatureTurbulenceIntensity::setupContextMenu(QMenu* menu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureTurbulenceIntensity::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureTurbulenceIntensity::goToPublication, this));
 }
 
 

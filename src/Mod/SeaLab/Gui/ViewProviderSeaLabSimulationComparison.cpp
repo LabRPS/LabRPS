@@ -47,7 +47,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabSimulationComparison, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabSimulationComparison,  Gui::ViewProviderDocumentObject)
 
 
 ViewProviderSeaLabSimulationComparison::ViewProviderSeaLabSimulationComparison()

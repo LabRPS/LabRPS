@@ -232,6 +232,7 @@ generate_from_xml(SelectionObjectPy)
 generate_from_xml(LinkViewPy)
 generate_from_xml(ViewProviderLinkPy)
 generate_from_xml(CommandPy)
+generate_from_xml(ViewProviderRPSFeaturePy)
 
 generate_from_py(LabRPSGuiInit GuiInitScript.h)
 
@@ -247,6 +248,7 @@ SET(LabRPSGui_XML_SRCS
     LinkViewPy.xml
     ViewProviderLinkPy.xml
     CommandPy.xml
+    ViewProviderRPSFeaturePy.xml
 )
 SOURCE_GROUP("XML" FILES ${LabRPSApp_XML_SRCS})
 
@@ -788,6 +790,8 @@ SET(Viewprovider_CPP_SRCS
     ViewProviderDocumentObject.cpp
     ViewProviderDocumentObjectGroup.cpp
     ViewProviderDocumentObjectPyImp.cpp
+    ViewProviderRPSFeature.cpp
+    ViewProviderRPSFeaturePyImp.cpp
     ViewProviderDragger.cpp
     ViewProviderExtern.cpp
     ViewProviderFeature.cpp
@@ -808,6 +812,7 @@ SET(Viewprovider_SRCS
     # ViewProviderGeoFeatureGroupExtension.h
     ViewProviderDocumentObject.h
     ViewProviderDocumentObjectGroup.h
+    ViewProviderRPSFeature.h
     ViewProviderDragger.h
     ViewProviderExtern.h
     ViewProviderFeature.h

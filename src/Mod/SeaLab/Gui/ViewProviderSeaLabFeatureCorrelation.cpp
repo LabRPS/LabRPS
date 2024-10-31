@@ -49,7 +49,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCorrelation, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureCorrelation, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeatureCorrelation::ViewProviderSeaLabFeatureCorrelation()
@@ -149,6 +149,9 @@ void ViewProviderSeaLabFeatureCorrelation::setupContextMenu(QMenu* menu, QObject
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureCorrelation::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureCorrelation::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureCorrelation::computeCrossCorrelationValue()

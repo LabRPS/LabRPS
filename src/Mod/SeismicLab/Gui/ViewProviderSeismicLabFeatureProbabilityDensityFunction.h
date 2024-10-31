@@ -24,7 +24,7 @@
 #ifndef SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREPDF_H
 #define SEISMICLABGUI_VIEWPROVIDERSEISMICLABFEATUREPDF_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeismicLab/SeismicLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace SeismicLabGui {
 
 
-class SeismicLabGuiExport ViewProviderSeismicLabFeatureProbabilityDensityFunction : public Gui::ViewProviderDocumentObject
+class SeismicLabGuiExport ViewProviderSeismicLabFeatureProbabilityDensityFunction : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeismicLabGui::ViewProviderSeismicLabFeatureProbabilityDensityFunction);
 

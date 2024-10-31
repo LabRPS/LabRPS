@@ -52,7 +52,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeaturePSDDecompositionMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeaturePSDDecompositionMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeaturePSDDecompositionMethod::ViewProviderWindLabFeaturePSDDecompositionMethod()
@@ -152,6 +152,9 @@ void ViewProviderWindLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu* m
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeaturePSDDecompositionMethod::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeaturePSDDecompositionMethod::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()

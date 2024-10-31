@@ -50,7 +50,7 @@ using namespace WindLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureRoughness, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabFeatureRoughness, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderWindLabFeatureRoughness::ViewProviderWindLabFeatureRoughness()
@@ -150,6 +150,9 @@ void ViewProviderWindLabFeatureRoughness::setupContextMenu(QMenu* menu, QObject*
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderWindLabFeatureRoughness::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureRoughness::goToPublication, this));
 }
 
 

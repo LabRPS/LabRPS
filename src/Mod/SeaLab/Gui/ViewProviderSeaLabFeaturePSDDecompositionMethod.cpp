@@ -50,7 +50,7 @@ using namespace SeaLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeaturePSDDecompositionMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeaturePSDDecompositionMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeaLabFeaturePSDDecompositionMethod::ViewProviderSeaLabFeaturePSDDecompositionMethod()
@@ -150,6 +150,9 @@ void ViewProviderSeaLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu* me
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()

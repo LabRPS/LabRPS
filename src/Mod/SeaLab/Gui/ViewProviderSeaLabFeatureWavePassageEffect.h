@@ -24,7 +24,7 @@
 #ifndef SEALABGUI_VIEWPROVIDERSEALABFEATUREWPE_H
 #define SEALABGUI_VIEWPROVIDERSEALABFEATUREWPE_H
 
-#include <Gui/ViewProviderDocumentObject.h>
+#include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
 #include <Mod/SeaLab/SeaLabGlobal.h>
 #include <Base/SmartPtrPy.h>
@@ -32,7 +32,7 @@
 namespace SeaLabGui {
 
 
-class SeaLabGuiExport ViewProviderSeaLabFeatureWavePassageEffect : public Gui::ViewProviderDocumentObject
+class SeaLabGuiExport ViewProviderSeaLabFeatureWavePassageEffect : public Gui::ViewProviderRPSFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(SeaLabGui::ViewProviderSeaLabFeatureWavePassageEffect);
 

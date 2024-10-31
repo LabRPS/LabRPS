@@ -58,6 +58,9 @@ PyMOD_INIT_FUNC(WindLab)
 
     WindLab::WindLabSimulation           ::init();
     WindLab::WindLabSimulationComparison ::init();
+    WindLab::DocumentObject              ::init();
+    WindLab::FeaturePython               ::init();
+    WindLab::WindLabSimulationPython     ::init();
 
     Base::Console().Log("Loading WindLab module... done\n");
 

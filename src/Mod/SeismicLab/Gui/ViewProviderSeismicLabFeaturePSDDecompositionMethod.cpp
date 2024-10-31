@@ -50,7 +50,7 @@ using namespace SeismicLabGui;
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeaturePSDDecompositionMethod, Gui::ViewProviderDocumentObject)
+PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabFeaturePSDDecompositionMethod, Gui::ViewProviderRPSFeature)
 
 
 ViewProviderSeismicLabFeaturePSDDecompositionMethod::ViewProviderSeismicLabFeaturePSDDecompositionMethod()
@@ -150,6 +150,9 @@ void ViewProviderSeismicLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
     func->trigger(act, boost::bind(&ViewProviderSeismicLabFeaturePSDDecompositionMethod::ActivateFeature, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeaturePSDDecompositionMethod::goToPublication, this));
 }
 
 bool ViewProviderSeismicLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()
