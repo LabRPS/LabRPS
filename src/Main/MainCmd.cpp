@@ -50,7 +50,7 @@
 using Base::Console;
 using App::Application;
 
-const char sBanner[] = "(c) Kfdani and others 2023-2024\n"\
+const char sBanner[] = "(c) Kfdani and others 2015-2024\n"\
                        "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n\n" ;
 
 

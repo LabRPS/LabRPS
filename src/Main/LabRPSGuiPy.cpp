@@ -353,7 +353,7 @@ PyMOD_INIT_FUNC(LabRPSGui)
         Base::Interpreter().loadModule("LabRPS");
         App::Application::Config()["AppIcon"] = "labrps";
         App::Application::Config()["SplashScreen"] = "labrpssplash";
-        App::Application::Config()["CopyrightInfo"] = "\xc2\xa9 Juergen Riegel, Werner Mayer, Yorik van Havre and others 2001-2022\n";
+        App::Application::Config()["CopyrightInfo"] = "\xc2\xa9 Koffi Daniel and others 2015-2024\n";
         App::Application::Config()["LicenseInfo"] = "LabRPS is free and open-source software licensed under the terms of LGPL2+ license.\n";
         App::Application::Config()["CreditsInfo"] = "LabRPS wouldn't be possible without LabRPS community.\n";
         // it's possible that the GUI is already initialized when the Gui version of the executable
