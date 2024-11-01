@@ -81,6 +81,7 @@
 #include "ViewProviderDocumentObject.h"
 #include "ViewProviderDocumentObjectGroup.h"
 #include "ViewProviderRPSFeature.h"
+#include "ViewProviderRPSFeaturePy.h"
 #include "ViewProviderDragger.h"
 #include "ViewProviderExtension.h"
 #include "ViewProviderExtern.h"
@@ -296,6 +297,8 @@ Application::Application(bool GUIenabled)
         Base::Interpreter().addType(&ViewProviderPy::Type, module, "ViewProvider");
         Base::Interpreter().addType(&ViewProviderDocumentObjectPy::Type, module, "ViewProviderDocumentObject");
         Base::Interpreter().addType(&ViewProviderLinkPy::Type, module, "ViewProviderLink");
+        Base::Interpreter().addType(&ViewProviderRPSFeaturePy::Type, module, "ViewProviderRPSFeature");
+
     }
 
     Base::PyGILStateLocker lock;
