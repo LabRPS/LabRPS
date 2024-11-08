@@ -2012,7 +2012,6 @@ void Application::initTypes()
 
     //simulation
     App::Simulation                 ::init();
-    App::RPSFeature                 ::init();
 
     // register transaction type
     new App::TransactionProducer<TransactionDocumentObject>
@@ -2871,7 +2870,7 @@ void Application::LoadParameters(void)
 }
 
 
-#if defined(_MSC_VER) && BOOST_VERSION < 108300
+#if defined(_MSC_VER) && BOOST_VERSION < 108600
     // fix weird error while linking boost (all versions of VC)
     // VS2010: https://forum.freecad.org/viewtopic.php?f=4&t=1886&p=12553&hilit=boost%3A%3Afilesystem%3A%3Aget#p12553
     namespace boost { namespace program_options { std::string arg="arg"; } }

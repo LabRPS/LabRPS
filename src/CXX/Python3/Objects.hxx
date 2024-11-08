@@ -1441,7 +1441,7 @@ namespace Py
             }
         }
 
-        class PYCXX_EXPORT iterator
+        class iterator
         {
         public:
             using iterator_category = std::random_access_iterator_tag;
@@ -1600,7 +1600,7 @@ namespace Py
             return iterator( this, length() );
         }
 
-        class PYCXX_EXPORT const_iterator
+        class const_iterator
         {
         public:
             using iterator_category = std::random_access_iterator_tag;

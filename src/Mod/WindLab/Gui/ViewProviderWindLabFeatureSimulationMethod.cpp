@@ -145,6 +145,9 @@ void ViewProviderWindLabFeatureSimulationMethod::setupContextMenu(QMenu* menu, Q
 
     QAction* stop = menu->addAction(QObject::tr("Stop"));
     func->trigger(stop, boost::bind(&ViewProviderWindLabFeatureSimulationMethod::stop, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureSimulationMethod::goToPublication, this));
 }
 
 bool ViewProviderWindLabFeatureSimulationMethod::simulate()

@@ -145,6 +145,9 @@ void ViewProviderSeaLabFeatureSimulationMethod::setupContextMenu(QMenu* menu, QO
 
     QAction* stop = menu->addAction(QObject::tr("Stop"));
     func->trigger(stop, boost::bind(&ViewProviderSeaLabFeatureSimulationMethod::stop, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureSimulationMethod::goToPublication, this));
 }
 
 bool ViewProviderSeaLabFeatureSimulationMethod::simulate()

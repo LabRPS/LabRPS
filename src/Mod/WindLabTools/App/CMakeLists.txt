@@ -49,8 +49,6 @@ generate_from_xml(meanWindSpeed/PowerLawMeanWindSpeedPy)
 generate_from_xml(meanWindSpeed/HongandHong2021MeanWindSpeedPy)
 
 
-
-
 generate_from_xml(spectrum/WindSpectrumPy)
 generate_from_xml(spectrum/KaimalSpectrumPy)
 generate_from_xml(spectrum/SimuSpectrumPy)
@@ -168,7 +166,9 @@ SET(Python_SRCS
     turbulenceIntensity/TurbulenceIntensityPy.xml
     turbulenceIntensity/TurbulenceIntensityPyImp.cpp
 
+
 )
+
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
 
 SET(WindModule_SRCS

@@ -100,7 +100,7 @@
          </property>
          <property name="icon">
           <iconset resource="Resources/SeaLab.qrc">
-           <normaloff>:/icons/SeaLabFeatures/SeaLab_Feature_SpectrumXObj.svg</normaloff>:/icons/SeaLabFeatures/SeaLab_Feature_SpectrumXObj.svg</iconset>
+           <normaloff>:/icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg</normaloff>:/icons/SeaLabFeatures/SeaLab_Feature_SpectrumXObj.svg</iconset>
          </property>
         </item>
         <item>

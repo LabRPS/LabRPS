@@ -590,7 +590,7 @@ namespace App {
 PROPERTY_SOURCE_TEMPLATE(App::SimulationPython, App::RPSFeature)
 template<> const char* App::SimulationPython::getViewProviderName(void) const
 {
-    return "Gui::ViewProviderPythonGeometry";
+    return "Gui::ViewProviderSimulationPython";
 }
 // explicit template instantiation
 template class AppExport FeaturePythonT<RPSFeature>;

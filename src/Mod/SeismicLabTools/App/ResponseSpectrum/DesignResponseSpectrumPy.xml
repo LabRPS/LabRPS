@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="BaseDesignResponseSpectrumPy"
+    Name="DesignResponseSpectrumPy"
+    Twin="DesignResponseSpectrum"
+    TwinPointer="DesignResponseSpectrum"
+    Include="Mod/SeismicLabTools/App/ResponseSpectrum/DesignResponseSpectrum.h"
+    Namespace="SeismicLabTools"
+    FatherInclude="Mod/SeismicLabTools/App/ResponseSpectrum/BaseDesignResponseSpectrumPy.h" 
+    FatherNamespace="SeismicLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows the computation of wind spectrum using the von Karman spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="compute_Euro_EN1998_1_2004_Hori_Elastic_Response_Spectrum">
+      <Documentation>
+        <UserDocu>
+        compute_Euro_EN1998_1_2004_Hori_Elastic_Response_Spectrum(time, nationalAnnex, damping, pga, spectrumType, groundType, importanceClass, behaviorFactor, lowerBoundFactor)
+        time = the instant at which the response acceleration spectrum is calculated.
+        nationalAnnex = this allows to compute the response spectrum by considering the national annexes requirements.
+        damping = this is the damping ration. It is 5% by default. 
+        pga  = this is the reference peak ground acceleration. It defines the seismic intensity.
+        spectrumType = the type of spectrum (1 or 2). It affects the response spectrum.
+        groundType = the type of soil (A to E). The ground type modifies the spectral acceleration. This introduces a soil amplification factor which is determined based on the input soil type. Different soil types (A, B, C, D, E) modify the spectral acceleration based on the expected amplification of seismic waves in those conditions.
+        importanceClass = the importance class (I to IV). It affects the design of the structure. The importance class determines the level of seismic resistance required. Structures classified as critical require higher spectral accelerations.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="compute_Euro_EN1998_1_2004_Hori_Design_Response_Spectrum">
+      <Documentation>
+        <UserDocu>
+        compute_Euro_EN1998_1_2004_Hori_Design_Response_Spectrum(time, nationalAnnex, damping, pga, spectrumType, groundType, importanceClass, behaviorFactor, lowerBoundFactor)
+        time = the instant at which the response acceleration spectrum is calculated.
+        nationalAnnex = this allows to compute the response spectrum by considering the national annexes requirements.
+        damping = this is the damping ration. It is 5% by default. 
+        pga  = this is the reference peak ground acceleration. It defines the seismic intensity.
+        spectrumType = the type of spectrum (1 or 2). It affects the response spectrum.
+        groundType = the type of soil (A to E). The ground type modifies the spectral acceleration. This introduces a soil amplification factor which is determined based on the input soil type. Different soil types (A, B, C, D, E) modify the spectral acceleration based on the expected amplification of seismic waves in those conditions.
+        importanceClass = the importance class (I to IV). It affects the design of the structure. The importance class determines the level of seismic resistance required. Structures classified as critical require higher spectral accelerations.
+        behaviorFactor = the behavior factor reduces the spectral acceleration for structures that can exhibit non-linear behavior.
+        lowerBoundFactor = the lower bound factor. Adjusts the spectral acceleration for higher periods beyond Tb.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="compute_Euro_EN1998_1_2004_Vert_Elastic_Response_Spectrum">
+      <Documentation>
+        <UserDocu>
+        compute_Euro_EN1998_1_2004_Vert_Elastic_Response_Spectrum(time, nationalAnnex, damping, pga, spectrumType, groundType, importanceClass, behaviorFactor, lowerBoundFactor)
+        time = the instant at which the response acceleration spectrum is calculated.
+        nationalAnnex = this allows to compute the response spectrum by considering the national annexes requirements.
+        damping = this is the damping ration. It is 5% by default. 
+        pga  = this is the reference peak ground acceleration. It defines the seismic intensity.
+        spectrumType = the type of spectrum (1 or 2). It affects the response spectrum.
+        groundType = the type of soil (A to E). The ground type modifies the spectral acceleration. This introduces a soil amplification factor which is determined based on the input soil type. Different soil types (A, B, C, D, E) modify the spectral acceleration based on the expected amplification of seismic waves in those conditions.
+        importanceClass = the importance class (I to IV). It affects the design of the structure. The importance class determines the level of seismic resistance required. Structures classified as critical require higher spectral accelerations.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+    <Methode Name="compute_Euro_EN1998_1_2004_Vert_Design_Response_Spectrum">
+      <Documentation>
+        <UserDocu>
+        compute_Euro_EN1998_1_2004_Vert_Design_Response_Spectrum(time, nationalAnnex, damping, pga, spectrumType, groundType, importanceClass, behaviorFactor, lowerBoundFactor)
+        time = the instant at which the response acceleration spectrum is calculated.
+        nationalAnnex = this allows to compute the response spectrum by considering the national annexes requirements.
+        damping = this is the damping ration. It is 5% by default. 
+        pga  = this is the reference peak ground acceleration. It defines the seismic intensity.
+        spectrumType = the type of spectrum (1 or 2). It affects the response spectrum.
+        groundType = the type of soil (A to E). The ground type modifies the spectral acceleration. This introduces a soil amplification factor which is determined based on the input soil type. Different soil types (A, B, C, D, E) modify the spectral acceleration based on the expected amplification of seismic waves in those conditions.
+        importanceClass = the importance class (I to IV). It affects the design of the structure. The importance class determines the level of seismic resistance required. Structures classified as critical require higher spectral accelerations.
+        behaviorFactor = the behavior factor reduces the spectral acceleration for structures that can exhibit non-linear behavior.
+        lowerBoundFactor = the lower bound factor. Adjusts the spectral acceleration for higher periods beyond Tb.
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

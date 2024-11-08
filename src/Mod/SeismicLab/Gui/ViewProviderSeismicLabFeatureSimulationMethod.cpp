@@ -145,6 +145,10 @@ void ViewProviderSeismicLabFeatureSimulationMethod::setupContextMenu(QMenu* menu
 
     QAction* stop = menu->addAction(QObject::tr("Stop"));
     func->trigger(stop, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::stop, this));
+
+    QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
+    func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::goToPublication, this));
+
 }
 
 bool ViewProviderSeismicLabFeatureSimulationMethod::simulate()

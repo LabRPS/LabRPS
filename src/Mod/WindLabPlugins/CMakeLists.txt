@@ -7,4 +7,8 @@ add_subdirectory(RPSCholeskyDecomposition)
 add_subdirectory(ErgodicityCheckToolPlugin)
 add_subdirectory(PDFCheckToolPlugin)
 add_subdirectory(CorrelationErgodicityPlugin)
+add_subdirectory(WindLabSmeltPlugin)
+add_subdirectory(WindLabQBladePlugin)
+
+
 
