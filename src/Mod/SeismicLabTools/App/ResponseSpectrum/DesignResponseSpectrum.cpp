@@ -106,9 +106,10 @@ double get_soil_factor(int soil_type, int spectrum_type) {
 // Function to get the importance factor based on importance class
 double get_importance_factor(int importance_class) {
     if (importance_class == 1) return 1.0;  // Normal buildings
-    if (importance_class == 2) return 1.2;  // Important buildings
-    if (importance_class == 3) return 1.5;  // Critical infrastructure
-    throw std::invalid_argument("Invalid importance class. Valid options are: 1, 2, 3.");
+    if (importance_class == 2) return 1.0;  // Important buildings
+    if (importance_class == 3) return 1.0;  // Critical infrastructure
+    if (importance_class == 4) return 1.0;  // Critical infrastructure
+    throw std::invalid_argument("Invalid importance class. Valid options are: 1, 2, 3, 4.");
 }
 
 // Function to get the damping factor (for typical buildings, damping factor < 1.0)
