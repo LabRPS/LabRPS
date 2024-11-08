@@ -45,8 +45,8 @@ if(BUILD_SEALAB)
 endif(BUILD_SEALAB)
 
 if(BUILD_USERDEFINIED_PHENOMENONLAB)
-  add_subdirectory(UserDefinedPhenomenonLab)
-  add_subdirectory(UserDefinedPhenomenonLabAPI)
+  add_subdirectory(UserLab)
+  add_subdirectory(UserLabAPI)
 endif(BUILD_USERDEFINIED_PHENOMENONLAB)
 
 if(BUILD_WINDLAB_PLUGIN)
