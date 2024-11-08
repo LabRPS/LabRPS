@@ -183,11 +183,7 @@ AboutDialogFactory::~AboutDialogFactory()
 
 QDialog *AboutDialogFactory::create(QWidget *parent) const
 {
-#ifdef _USE_3DCONNEXION_SDK
-    return new AboutDialog(true, parent);
-#else
     return new AboutDialog(false, parent);
-#endif
 }
 
 const AboutDialogFactory *AboutDialogFactory::defaultFactory()
@@ -468,14 +464,6 @@ QString AboutDialog::getAdditionalLicenseInformation() const
     // Please set title in <h2> tags, license text in <p> tags
     // and add an <hr/> tag at the end to nicely separate license blocks
     QString info;
-#ifdef _USE_3DCONNEXION_SDK
-    info += QString::fromUtf8(
-        "<h2>3D Mouse Support</h2>"
-        "<p>Development tools and related technology provided under license from 3Dconnexion.<br/>"
-        "Copyright &#169; 1992&ndash;2012 3Dconnexion. All rights reserved.</p>"
-        "<hr/>"
-    );
-#endif
     return info;
 }
 

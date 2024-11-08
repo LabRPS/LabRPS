@@ -19,15 +19,6 @@ IF(CMAKE_BUILD_TYPE)
     add_definitions(-DCMAKE_BUILD_TYPE="${CMAKE_BUILD_TYPE}")
 ENDIF(CMAKE_BUILD_TYPE)
 
-if (LABRPS_USE_3DCONNEXION)
-    add_definitions(-D_USE_3DCONNEXION_SDK)
-    if(APPLE)
-        set(3DCONNEXION_LINKFLAGS "-F/Library/Frameworks -weak_framework 3DconnexionClient")
-        set(3DCONNEXION_INCLUDE_DIR ${3DCONNEXIONCLIENT_FRAMEWORK}/Headers
-                                    ${3DCONNEXIONCLIENT_FRAMEWORK}/Headers/3DconnexionClient )
-    endif(APPLE)
-endif(LABRPS_USE_3DCONNEXION)
-
 if (BUILD_VR)
     add_definitions(-DBUILD_VR )
 endif(BUILD_VR)
@@ -50,7 +41,6 @@ include_directories(
     ${PYTHON_INCLUDE_DIRS}
     ${XercesC_INCLUDE_DIRS}
     ${ZLIB_INCLUDE_DIR}
-    ${3DCONNEXION_INCLUDE_DIR}
 )
 
 if(MSVC)
@@ -60,17 +50,10 @@ if(MSVC)
          Alphaplot
     )
 
-    if(LABRPS_USE_3DCONNEXION)
-        list(APPEND LabRPSGui_LIBS
-            hid
-        )
-    endif()
-
 else(MSVC)
     set(LabRPSGui_LIBS
         LabRPSApp
         ${Boost_LIBRARIES}
-        ${3DCONNEXION_LINKFLAGS}
         QtPropertyBrowser
         Alphaplot
     )
@@ -134,25 +117,7 @@ IF(SPNAV_FOUND)
             ${X11_X11_LIB}
         )
       endif(X11_FOUND)
-      SET(LabRPSGui_SDK_SRCS
-        3Dconnexion/GuiAbstractNativeEvent.cpp
-        3Dconnexion/GuiNativeEventLinuxX11.cpp
-        )
-      SET(LabRPSGui_SDK_MOC_HDRS
-        3Dconnexion/GuiAbstractNativeEvent.h
-        3Dconnexion/GuiNativeEventLinuxX11.h
-        )
-    else(SPNAV_USE_X11)
-      SET(LabRPSGui_SDK_SRCS
-        3Dconnexion/GuiAbstractNativeEvent.cpp
-        3Dconnexion/GuiNativeEventLinux.cpp
-      )
-      SET(LabRPSGui_SDK_MOC_HDRS
-        3Dconnexion/GuiAbstractNativeEvent.h
-        3Dconnexion/GuiNativeEventLinux.h
-      )
     endif(SPNAV_USE_X11)
-    SOURCE_GROUP("3D connexion SDK" FILES ${LabRPSGui_SDK_SRCS})
 
     add_definitions(-DSPNAV_FOUND)
     include_directories(
@@ -251,34 +216,6 @@ SET(LabRPSGui_XML_SRCS
     ViewProviderRPSFeaturePy.xml
 )
 SOURCE_GROUP("XML" FILES ${LabRPSApp_XML_SRCS})
-
-# The 3D Connexion SDK files
-if(LABRPS_USE_3DCONNEXION AND MSVC)
-SET(LabRPSGui_SDK_SRCS
-    3Dconnexion/I3dMouseParams.h
-    3Dconnexion/MouseParameters.cpp
-    3Dconnexion/MouseParameters.h
-    3Dconnexion/GuiAbstractNativeEvent.cpp
-    3Dconnexion/GuiNativeEventWin32.cpp
-)
-SOURCE_GROUP("3D connexion SDK" FILES ${LabRPSGui_SDK_SRCS})
-SET(LabRPSGui_SDK_MOC_HDRS
-  3Dconnexion/GuiAbstractNativeEvent.h
-  3Dconnexion/GuiNativeEventWin32.h
-)
-endif(LABRPS_USE_3DCONNEXION AND MSVC)
-
-if(LABRPS_USE_3DCONNEXION AND APPLE)
-SET(LabRPSGui_SDK_SRCS
-    3Dconnexion/GuiAbstractNativeEvent.cpp
-    3Dconnexion/GuiNativeEventMac.cpp
-)
-SOURCE_GROUP("3D connexion SDK" FILES ${LabRPSGui_SDK_SRCS})
-SET(LabRPSGui_SDK_MOC_HDRS
-  3Dconnexion/GuiAbstractNativeEvent.h
-  3Dconnexion/GuiNativeEventMac.h
-)
-endif(LABRPS_USE_3DCONNEXION AND APPLE)
 
 if (BUILD_QT5)
     set_property(SOURCE GraphvizView.h GraphvizView.cpp PROPERTY SKIP_AUTOMOC ON)
@@ -974,7 +911,6 @@ SET(LabRPSGui_SRCS
     LabRPSGuiInit.py
     GuiApplication.h
     GuiApplicationNativeEventAware.h
-    3Dconnexion/GuiAbstractNativeEvent.h
     GuiConsole.h
     Macro.h
     MergeDocuments.h
@@ -1098,12 +1034,8 @@ set(LabRPSGui_Scripts
     RemoteDebugger.py
 )
 
-set(LabRPSGui_Configs
-    3Dconnexion/3DConnexion.xml
-)
-
 add_custom_target(LabRPSGui_Resources ALL
-    SOURCES ${LabRPSGui_Scripts} ${LabRPSGui_Configs}
+    SOURCES ${LabRPSGui_Scripts}
 )
 set_target_properties(LabRPSGui_Resources PROPERTIES FOLDER "Gui")
 
@@ -1112,22 +1044,9 @@ rps_copy_sources(LabRPSGui_Resources
     ${LabRPSGui_Scripts}
 )
 
-rps_target_copy_resource(LabRPSGui_Resources
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}
-    ${LabRPSGui_Configs}
-)
-
 INSTALL(
     FILES
         ${LabRPSGui_Scripts}
     DESTINATION
         Ext/labrps/gui
-)
-
-INSTALL(
-    FILES
-        ${LabRPSGui_Configs}
-    DESTINATION
-        ${CMAKE_INSTALL_DATADIR}/3Dconnexion
 )

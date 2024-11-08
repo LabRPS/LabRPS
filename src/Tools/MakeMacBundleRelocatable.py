@@ -13,8 +13,7 @@ import logging
 #  * We need to be able to add multiple rpaths in some libraries.
 
 # Assume any libraries in these paths don't need to be bundled
-systemPaths = [ "/System/", "/usr/lib/",
-                "/Library/Frameworks/3DconnexionClient.framework/" ]
+systemPaths = [ "/System/", "/usr/lib/" ]
 
 # If a library is in these paths, but not systemPaths, a warning will be
 # issued and it will NOT be bundled.  Generally, libraries installed by

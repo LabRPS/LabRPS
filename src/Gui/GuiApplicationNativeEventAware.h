@@ -31,9 +31,6 @@ class QMainWindow;
 
 namespace Gui
 {
-#if defined(_USE_3DCONNEXION_SDK) || defined(SPNAV_FOUND)
-    class GuiNativeEvent;
-#endif // Spacemice
     class GUIApplicationNativeEventAware : public QApplication
     {
         Q_OBJECT
@@ -45,9 +42,6 @@ namespace Gui
     private:
         void importSettings(std::vector<int>& motionDataArray);
         float convertPrefToSensitivity(int value);
-      #if defined(_USE_3DCONNEXION_SDK) || defined(SPNAV_FOUND)
-        GuiNativeEvent *nativeEvent;
-      #endif
     }; // end class GUIApplicationNativeEventAware
 } // end namespace Gui
 

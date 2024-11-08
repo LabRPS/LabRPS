@@ -39,7 +39,6 @@ def main():
         gitattr.write("zipios++    export-ignore\n")
         gitattr.write("Pivy-0.5    export-ignore\n")
         gitattr.write("Pivy    export-ignore\n")
-        gitattr.write("3Dconnexion    export-ignore\n")
         gitattr.write("Kuka    export-ignore\n")
         gitattr.close()
 
