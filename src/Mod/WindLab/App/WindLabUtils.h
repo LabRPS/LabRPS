@@ -60,7 +60,7 @@ class WindLabExport WindLabUtils {
   static QString objGroupTableTool;
   static QString objGroupMatrixTool;
   static QString objGroupUserDefinedRPSObject;
-  static QString objGroupUserDefinedPhenomenonObject;
+  static QString objGroupUserObject;
   static QString objGroupCumulativeProbabilityDistribution;
   static QString objGroupGustFactor;
   static QString objGroupKurtosis;
