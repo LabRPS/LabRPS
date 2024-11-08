@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 16 16" style="enable-background:new 0 0 16 16;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#F6F6F6;fill-opacity:0;}
+	.st1{fill:#F6F6F6;}
+	.st2{fill:#424242;}
+	.st3{fill:#F0EFF1;}
+</style>
+<g id="outline">
+	<path class="st0" d="M0,0h16v16H0V0z"/>
+	<path class="st1" d="M0,15V0h16v15H0z"/>
+</g>
+<path id="icon_x5F_bg" class="st2" d="M1,1v13h14V1H1z M2,2h12v1h-2v2.4L9,9L6,6V4H4v2.1L2,8.2V2z M14,13H2v-3l3-3l3,3v2h2V9.8L14,5
+	V13z"/>
+<g id="icon_x5F_fg">
+	<path class="st3" d="M2,2v6.2l2-2.1V4h2v2l3,3l3-3.6V3h2V2H2z"/>
+	<path class="st3" d="M10,12H8v-2L5,7l-3,3v3h12V5l-4,4.8V12z"/>
+</g>
+<polyline class="st2" points="2.5,6.4 2.5,5.4 3.5,5.4 3.5,6.4 "/>
+<polyline class="st2" points="10.5,6.4 10.5,5.4 11.5,5.4 11.5,6.4 "/>
+<polyline class="st2" points="8.5,6.4 8.5,5.4 9.5,5.4 9.5,6.4 "/>
+<polyline class="st2" points="4.5,6.4 4.5,5.4 5.5,5.4 5.5,6.4 "/>
+<polyline class="st2" points="6.5,6.4 6.5,5.4 7.5,5.4 7.5,6.4 "/>
+<polyline class="st2" points="12.5,6.4 12.5,5.4 13.5,5.4 13.5,6.4 "/>
+</svg>
