@@ -1,1 +1,3 @@
 add_subdirectory(SeismicLabPlugin)
+add_subdirectory(SeismicLabSmeltPlugin)
+add_subdirectory(DesignResponseSpectrumPlugin)

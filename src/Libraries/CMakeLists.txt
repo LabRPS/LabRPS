@@ -1,3 +1,5 @@
 add_subdirectory(Alphaplot)
 add_subdirectory(QtPropertyBrowser)
-# add_subdirectory(smelt)
+add_subdirectory(smelt)
+add_subdirectory(kissfft)
+add_subdirectory(nlohmann_json)

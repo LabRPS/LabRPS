@@ -57,7 +57,8 @@ generate_from_xml(modulation/JenningsEtAl1968ModulationPy)
 generate_from_xml(modulation/SaragoniHart1974ModulationPy)
 generate_from_xml(modulation/BogdanoffGoldbergBernardModulationPy)
 generate_from_xml(modulation/BoxCarModulationPy)
-
+generate_from_xml(ResponseSpectrum/BaseDesignResponseSpectrumPy)
+generate_from_xml(ResponseSpectrum/DesignResponseSpectrumPy)
 
 
 
@@ -78,7 +79,8 @@ SET(SeismicLabTools_CPP_SRCS
     modulation/SaragoniHart1974Modulation.cpp
     modulation/BogdanoffGoldbergBernardModulation.cpp
     modulation/BoxCarModulation.cpp
-
+    ResponseSpectrum/BaseDesignResponseSpectrum.cpp
+    ResponseSpectrum/DesignResponseSpectrum.cpp
     
 )
 
@@ -100,7 +102,8 @@ SET(SeismicLabTools_HPP_SRCS
     modulation/SaragoniHart1974Modulation.h
     modulation/BogdanoffGoldbergBernardModulation.h
     modulation/BoxCarModulation.h
-
+    ResponseSpectrum/BaseDesignResponseSpectrum.h
+    ResponseSpectrum/DesignResponseSpectrum.h
     
     
 )
@@ -142,7 +145,10 @@ SET(Python_SRCS
     modulation/BogdanoffGoldbergBernardModulationPy.xml
     modulation/BoxCarModulationPyImp.cpp
     modulation/BoxCarModulationPy.xml
-
+    ResponseSpectrum/BaseDesignResponseSpectrumPy.xml
+    ResponseSpectrum/DesignResponseSpectrumPy.xml
+    ResponseSpectrum/BaseDesignResponseSpectrumPyImp.cpp
+    ResponseSpectrum/DesignResponseSpectrumPyImp.cpp
     
 )
 

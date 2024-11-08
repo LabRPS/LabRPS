@@ -58,6 +58,7 @@ SET(TestGuiIcon_SVG
 )
 
 add_library(QtUnitGui SHARED ${TestGui_SRCS} ${TestGuiPy_SRCS} ${TestGuiIcon_SVG})
+set_target_properties(QtUnitGui PROPERTIES FOLDER "Tests")
 
 target_link_libraries(QtUnitGui ${TestGui_LIBS})
 add_dependencies(QtUnitGui Test)

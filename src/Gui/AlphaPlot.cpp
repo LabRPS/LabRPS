@@ -6312,6 +6312,8 @@ void MainAlphaPlot::removeWindowFromLists(MyWidget* widgrt)
     QString caption = widgrt->name();
     if (isActiveSubwindow(SubWindowType::TableSubWindow)) {
         Table* table = qobject_cast<Table*>(widgrt);
+        if (!table)
+            return;
         for (int i = 0; i < table->numCols(); i++) {
             QString name = table->colName(i);
             removeCurves(table, name);

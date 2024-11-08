@@ -39,7 +39,8 @@
 #include <Mod/SeismicLabTools/App/modulation/SaragoniHart1974ModulationPy.h>
 #include <Mod/SeismicLabTools/App/modulation/TrapezoidalModulationPy.h>
 #include <Mod/SeismicLabTools/App/modulation/BogdanoffGoldbergBernardModulationPy.h>
-
+#include <Mod/SeismicLabTools/App/ResponseSpectrum/BaseDesignResponseSpectrumPy.h>
+#include <Mod/SeismicLabTools/App/ResponseSpectrum/DesignResponseSpectrumPy.h>
 
 namespace SeismicLabTools {
 extern PyObject* initModule();
@@ -65,6 +66,9 @@ PyMOD_INIT_FUNC(SeismicLabTools)
     Base::Interpreter().addType(&SeismicLabTools::SaragoniHart1974ModulationPy ::Type, SeismicLabToolsModule, "SaragoniHart1974Modulation");
     Base::Interpreter().addType(&SeismicLabTools::TrapezoidalModulationPy ::Type, SeismicLabToolsModule, "TrapezoidalModulation");
     Base::Interpreter().addType(&SeismicLabTools::BogdanoffGoldbergBernardModulationPy ::Type, SeismicLabToolsModule, "BogdanoffGoldbergBernardModulation");
+
+    Base::Interpreter().addType(&SeismicLabTools::BaseDesignResponseSpectrumPy ::Type, SeismicLabToolsModule, "BaseDesignResponseSpectrum");
+    Base::Interpreter().addType(&SeismicLabTools::DesignResponseSpectrumPy ::Type, SeismicLabToolsModule, "DesignResponseSpectrum");
 
     Base::Console().Log("Loading SeismicLabTools module... done\n");
 

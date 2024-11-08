@@ -48,7 +48,6 @@
 #include <Base/Tools.h>
 
 #include <Language/Translator.h>
-#include <Quarter/Quarter.h>
 
 #include "Application.h"
 #include "AutoSaver.h"

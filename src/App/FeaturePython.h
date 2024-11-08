@@ -350,7 +350,7 @@ private:
 
 // Special Feature-Python classes
 typedef FeaturePythonT<DocumentObject> FeaturePython;
-typedef FeaturePythonT<RPSFeature    > SimulationPython;
+typedef FeaturePythonT<RPSFeature> SimulationPython;
 
 } //namespace App
 

@@ -543,15 +543,14 @@ void StdWorkbench::setupContextMenu(const char* recipient, MenuItem* item) const
     if (strcmp(recipient,"View") == 0)
     {
         if (Gui::Selection().countObjectsOfType(App::DocumentObject::getClassTypeId()) > 0) {
-            *item << "Std_TreeSelection" << "Std_Delete"
-                  << "Std_SendToPythonConsole";
+            *item << "Std_TreeSelection" << "Std_Delete";
         }
     }
     else if (strcmp(recipient,"Tree") == 0)
     {
         if (Gui::Selection().countObjectsOfType(App::DocumentObject::getClassTypeId()) > 0) {
             *item << "Std_Cut" << "Std_Copy" << "Std_Paste" << "Std_Delete"
-                  << "Std_SendToPythonConsole" << "Separator";
+                  << "Separator";
         }
     }
 }

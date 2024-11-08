@@ -28,10 +28,6 @@ CRPSQBladeMethods::CRPSQBladeMethods()
     ADD_PROPERTY_TYPE(SignalSamplingRate, (20), "Timeseries Conversion Parameters", App::Prop_None, "Parameter");
     ADD_PROPERTY_TYPE(AmplitudeThreshold, (0.001), "Timeseries Conversion Parameters", App::Prop_None, "Parameter");
     
-    //ADD_PROPERTY_TYPE(SpectrumType, ((long int)2), "Frequency Spectrum", App::Prop_None, "Parameter");
-    //static const char* spectrumTypes[] = {"JONSWAP", "ISSC", "TORSETHAUGEN", "OCHI-HUBBLE", nullptr};
-    //SpectrumType.setEnums(spectrumTypes);
-    
     ADD_PROPERTY_TYPE(SignificantWaveHeight, (8.1), "Main Seastate Parameters", App::Prop_None, "Parameter");
     ADD_PROPERTY_TYPE(SignificantWaveAmplitude, (4.05), "Main Seastate Parameters", App::Prop_None, "Parameter");
     ADD_PROPERTY_TYPE(PeakPeriod, (12.7), "Main Seastate Parameters", App::Prop_None, "Parameter");
@@ -82,17 +78,15 @@ CRPSQBladeMethods::CRPSQBladeMethods()
     ADD_PROPERTY_TYPE(AnimationTimeIncrement, (0.1), "Animation", App::Prop_None, "Parameter");
     ADD_PROPERTY_TYPE(AnimationFrameDelay, (0.001), "Animation", App::Prop_None, "Parameter");
     ADD_PROPERTY_TYPE(Animate, (false), "Animation", App::Prop_None, "Parameter");
-
-    
+   
     ADD_PROPERTY_TYPE(RequestedVariable, ((long int)0), "Computed Variable", App::Prop_None, "Parameter");
     static const char* requestedVariables[] = {"Wave Elevation", "Wave MSL Velocity x", "Wave MSL Velocity y", "Wave MSL Velocity z", "Wave MSL Acceleration x", "Wave MSL Acceleration y", "Wave MSL Acceleration z", nullptr};
     RequestedVariable.setEnums(requestedVariables);
 }
 
-
 bool CRPSQBladeMethods::OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& Data)
 {
-    QMessageBox::warning(0,QString::fromLatin1("Deodatis method"), QString::fromLatin1("No additional data required."));
+    QMessageBox::warning(0,QString::fromLatin1("QBlade Method"), QString::fromLatin1("No additional data required."));
     return true;
 }
 
@@ -141,22 +135,16 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
          linearWave->randomPhases.resize(linearWave->discF, Data.numberOfSpatialPosition.getValue());
          returnResult = SeaLabAPI::CRPSSeaLabFramework::GenerateRandomMatrixFP(Data, linearWave->randomPhases);
 
-       //linearWave->PrepareGraphData(0,AminationTime.getQuantityValue().getValueAs(Base::Quantity::Second), AnimationTimeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second), WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre));
-    // /*for (int j = 0; j < 6000 && false == Data.isInterruptionRequested.getValue(); j++)
-    // {
-    //    dVelocityArray(j, 0) = linearWave->m_VariableData.at(0).at(j);
-    //    dVelocityArray(j, 1) = linearWave->m_VariableData.at(1).at(j);
-    //    dVelocityArray(j, 2) = linearWave->m_VariableData.at(2).at(j);
-    //    dVelocityArray(j, 3) = linearWave->m_VariableData.at(3).at(j);
-    // }*/
-
+         if (!returnResult)
+         {
+            Base::Console().Warning("The computation of the random phases has failed.\n");
+            return returnResult;
+         }
          if (RequestedVariable.getValue() == 0)
          {
              
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -169,14 +157,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
          else if (RequestedVariable.getValue() == 1)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -192,14 +177,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
           else if (RequestedVariable.getValue() == 2)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -215,14 +197,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
   else if (RequestedVariable.getValue() == 3)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -238,14 +217,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
           else if (RequestedVariable.getValue() == 4)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -261,14 +237,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
           else if (RequestedVariable.getValue() == 5)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -284,14 +257,11 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
           else if (RequestedVariable.getValue() == 6)
          {
      
          double time = 0.0;
-#pragma omp parallel default(none) shared(time, dVelocityArray)
-         {
-#pragma omp for
+
             for (int i = 0; i < Data.numberOfSpatialPosition.getValue(); i++) {
                 linearWave->locationIndex = i;
                 linearWave->GenerateWaveTrains();
@@ -307,132 +277,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 }
             }
          }
-         }
    return true;
-}
-
-// The simulation function
-bool CRPSQBladeMethods::stationaryWind(const SeaLabAPI::SeaLabSimulationData& Data, mat &dVelocityArray)
-{
-    //auto PbuInfo = CRPSSeaLabFramework::getSeaLabFeatureDescription(Data.frequencyDistribution.getValue());
-
-    //if (!PbuInfo)
-    //{
-    //   Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n") ;
-    //   return false;
-    //}
-
-    //if ((PbuInfo->type.getValue(), "Double Index Frequency") == 0 || (PbuInfo->PluginName.getValue(), "SeaLabPlugin") == 0)
-    //{
-    //    Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency distribution implemented by the windLab plugin.\n");
-    //    return false;
-    //}
-
-    //int n = Data.numberOfSpatialPosition.getValue();
-    //int N = Data.numberOfFrequency.getValue();
-    //double dt = Data.timeIncrement.getValue();
-    //double timeMin = Data.minTime.getValue();
-    //double deltaomega = Data.frequencyIncrement.getValue();
-    //int M = 2*N;
-    //int T = Data.numberOfTimeIncrements.getValue();
-
-    //cx_mat decomposedPSD2D(n, n);
-    //cx_cube decomposedPSD3D(n, n, N);
-    //
-    //cx_cube B(n, n, M);
-    //cx_cube G(n, n, M);
-    //B.setZero();
-    //G.setZero();
-
-    //cx_vec xxx(M);
-    //cx_vec yyy(M);
-    //xxx.setZero();
-    //yyy.setZero();
-
-    //// local array for the location coordinates
-    //mat dLocCoord(n, 4);
-    //mat frequencies(N,n);
-
-    ////compute the simulation point coordinates
-    //bool returnResult = SeaLabAPI::CRPSSeaLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-    //
-    //if(!returnResult)
-    //{
-    //   Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
-    //   return false;
-    //}
-
-    //// generate n sequences of random phase angles phi(l), l = 1, 2, ..., N
-    //mat thet(N, n);
-    //returnResult = SeaLabAPI::CRPSSeaLabFramework::GenerateRandomMatrixFP(Data, thet);
-    //
-    //if(!returnResult)
-    //{
-    //   Base::Console().Warning("The generation of the random phase matrix has failed.\n") ;
-    //   return false;
-    //}
-
-    //// compute le frequency matrix. Note that this method required the double indexing frequency
-    //returnResult = SeaLabAPI::CRPSSeaLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
-
-    //if(!returnResult)
-    //{
-    //   Base::Console().Warning("The computation of the frequency increments has failed.\n") ;
-    //   return false;
-    //}
-
-    //    // the imaginary i
-    //std::complex<double> i2(0, 1);
-
-    //// fast fourier transform
-    //Eigen::FFT<double> fft;
-
-    //// this method is for stationry wind. Spectrum is not function of time
-    //double time = 0;
-
-    //for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
-    //   for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult; l++) { 
-    //       returnResult = SeaLabAPI::CRPSSeaLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
-    //       for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++) {
-    //           decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
-    //       }
-    //   }
-
-    //   // compute matrix B
-    //   for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-    //       for (int j = 1; j <= m && false == Data.isInterruptionRequested.getValue(); j++) {
-    //           B(m - 1, j - 1, l - 1) = 2 * sqrt(deltaomega)
-    //               * abs(decomposedPSD3D(m - 1, j - 1, l - 1)) * exp(i2 * thet(l - 1, j - 1));
-    //       }
-    //   }
-
-    //   //compute matrix G
-    //   for (int j = 1; j <= m && false == Data.isInterruptionRequested.getValue(); j++) {
-    //       for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-    //           xxx(l - 1) = B(m - 1, j - 1, l - 1);
-    //       }
-
-    //       yyy = (double)(M)*fft.inv(xxx);
-
-    //       for (int l = 1; l <= M && false == Data.isInterruptionRequested.getValue(); l++) {
-    //           G(m - 1, j - 1, l - 1) = yyy(l - 1);
-    //       }
-    //   }
-
-    //   double time = 0;
-    //   int q = 0;
-    //   // Generate the wind velocity
-
-    //   for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-    //       q = fmod(p - 1, M);
-    //       for (int k = 1; k <= m && false == Data.isInterruptionRequested.getValue(); k++) {
-    //           time = (p - 1) * dt + timeMin;
-    //           dVelocityArray(p - 1, 0) = time;
-    //           dVelocityArray(p - 1, m) = dVelocityArray(p - 1, m) + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n)));
-    //       }
-    //   }
-    //}
-    return true;
 }
 
 // The simulation function in large scale mode
@@ -441,8 +286,3 @@ bool CRPSQBladeMethods::SimulateInLargeScaleMode(const SeaLabAPI::SeaLabSimulati
     return false;
 }
 
-
-//void CRPSQBladeMethods::onChanged(const App::Property* prop)
-//{
-//    SeaLabAPI::SeaLabFeatureSimulationMethod::onChanged(prop);
-//}
