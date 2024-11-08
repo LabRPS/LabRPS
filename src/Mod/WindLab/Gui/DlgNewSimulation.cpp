@@ -48,6 +48,9 @@
 #include "ui_DlgWindLabFeatures.h"
 #include <App/DocumentObjectGroup.h>
 #include <Mod/WindLab/App/WindLabUtils.h>
+#include <Gui/Macro.h>
+
+using namespace Gui;
 using namespace WindLabGui;
 
 DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation* sim)
@@ -269,6 +272,14 @@ void DlgNewSimulation::createNewSimulation()
 	WindLab::WindLabSimulation* newSim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->createSimulation(uniqueName, "WindLab::WindLabSimulation"));
     Base::Interpreter().runString("import WindLabGui");
 	Base::Interpreter().runString("WindLabGui.setActiveSimulation(LabRPS.ActiveDocument.ActiveObject)");
+	
+	//std::string cmd;
+ //   cmd += "import WindLabGui\n";
+ //   cmd += "import WindLabObjects\n";
+ //   cmd += "WindLabObjects.makeSimulation(LabRPS.ActiveDocument)\n";
+ //   cmd += "WindLabGui.setActiveSimulation(LabRPS.ActiveDocument.ActiveObject)";
+ //   Gui::Application::Instance->macroManager()->addLine(MacroManager::Cmt, cmd.c_str());
+
 	doc->commitTransaction();
     saveSimulation(doc, newSim);
     App::GetApplication().getActiveDocument()->recompute();

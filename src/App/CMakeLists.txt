@@ -96,11 +96,9 @@ generate_from_xml(GroupExtensionPy)
 generate_from_xml(LinkBaseExtensionPy)
 generate_from_xml(DocumentObjectGroupPy)
 generate_from_xml(MetadataPy)
-
 generate_from_xml(PropertyContainerPy)
 generate_from_xml(SimulationPy)
 generate_from_xml(RPSFeaturePy)
-
 generate_from_py(LabRPSInit InitScript.h)
 generate_from_py(LabRPSTest TestScript.h)
 

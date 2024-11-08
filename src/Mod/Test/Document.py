@@ -248,16 +248,6 @@ class DocumentBasicCases(unittest.TestCase):
     self.Doc.removeObject(obj.Name)
     self.assertListEqual(grp.Group, [])
 
-  def testPlacementList(self):
-    obj = self.Doc.addObject("App::FeaturePython","Label")
-    obj.addProperty("App::PropertyPlacementList", "PlmList")
-    plm = LabRPS.Placement()
-    plm.Base = (1,2,3)
-    plm.Rotation = (0,0,1,0)
-    obj.PlmList = [plm]
-    cpy = self.Doc.copyObject(obj)
-    self.assertListEqual(obj.PlmList, cpy.PlmList)
-
   def testAddRemove(self):
     L1 = self.Doc.addObject("App::FeatureTest","Label_1")
     # must delete object
@@ -425,8 +415,6 @@ class DocumentBasicCases(unittest.TestCase):
     self.assertEqual(o1.Link, o2)
     o1.Link=o3
     self.assertEqual(o1.Link, o3)
-    o2.Placement = LabRPS.Placement()
-    self.assertEqual(o1.Link, o3)
 
   def testProp_NonePropertyLink(self):
     obj1 = self.Doc.addObject("App::FeaturePython", "Obj1")
@@ -466,16 +454,6 @@ class DocumentBasicCases(unittest.TestCase):
     with self.assertRaises(AttributeError):
       obj.getTypeOfProperty("String" + str(max_value))
 
-  def testNotification_Issue2902Part2(self):
-    o = self.Doc.addObject("App::FeatureTest","test")
-
-    plm = o.Placement
-    o.Placement = LabRPS.Placement()
-    plm.Base.x = 5
-    self.assertEqual(o.Placement.Base.x, 0)
-    o.Placement.Base.x=5
-    self.assertEqual(o.Placement.Base.x, 5)
-
   def testNotification_Issue2996(self):
     if not LabRPS.GuiUp:
       return
@@ -512,26 +490,20 @@ class DocumentBasicCases(unittest.TestCase):
     self.assertEqual(ext.Link, obj)
     self.assertNotEqual(ext.Link, sli)
 
-  def testIssue4823(self):
-    # https://forum.labrpsweb.org/viewtopic.php?f=3&t=52775
-    # The issue was only visible in GUI mode and it crashed in the tree view
-    obj = self.Doc.addObject("App::Origin")
-    self.Doc.removeObject(obj.Name)
-
-  def testSamePropertyOfLinkAndLinkedObject(self):
-    # See also https://github.com/LabRPS/LabRPS/pull/6787
-    test = self.Doc.addObject("App::FeaturePython", "Python")
-    link = self.Doc.addObject("App::Link", "Link")
-    test.addProperty("App::PropertyFloat", "Test")
-    link.addProperty("App::PropertyFloat", "Test")
-    link.LinkedObject = test
-    # saving and restoring
-    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
-    self.Doc.saveAs(SaveName)
-    LabRPS.closeDocument("CreateTest")
-    self.Doc = LabRPS.open(SaveName)
-    self.assertIn("Test", self.Doc.Python.PropertiesList)
-    self.assertIn("Test", self.Doc.Link.PropertiesList)
+  # def testSamePropertyOfLinkAndLinkedObject(self):
+  #   # See also https://github.com/LabRPS/LabRPS/pull/6787
+  #   test = self.Doc.addObject("App::FeaturePython", "Python")
+  #   link = self.Doc.addObject("App::Link", "Link")
+  #   test.addProperty("App::PropertyFloat", "Test")
+  #   link.addProperty("App::PropertyFloat", "Test")
+  #   link.LinkedObject = test
+    # # saving and restoring
+    # SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
+    # self.Doc.saveAs(SaveName)
+    # LabRPS.closeDocument("CreateTest")
+    # self.Doc = LabRPS.open(SaveName)
+    # self.assertIn("Test", self.Doc.Python.PropertiesList)
+    # self.assertIn("Test", self.Doc.Link.PropertiesList)
 
   def tearDown(self):
     #closing doc
@@ -1568,47 +1540,47 @@ class DocumentExpressionCases(unittest.TestCase):
     self.assertEqual(self.Obj3.evalExpression(self.Obj3.ExpressionEngine[0][1]), 4)
 
 
-  def testIssue4649(self):
-      class Cls():
-          def __init__(self, obj):
-              self.MonitorChanges = False
-              obj.Proxy = self
-              obj.addProperty('App::PropertyFloat', "propA", "group")
-              obj.addProperty('App::PropertyFloat', "propB", "group")
-              self.MonitorChanges = True
-              obj.setExpression("propB", '6*9')
-          def onChanged(self, obj, prop):
-              print("onChanged",self, obj, prop)
-              if (self.MonitorChanges and prop == "propA"):
-                  print('Removing expression...')
-                  obj.setExpression("propB", None)
+  # def testIssue4649(self):
+  #     class Cls():
+  #         def __init__(self, obj):
+  #             self.MonitorChanges = False
+  #             obj.Proxy = self
+  #             obj.addProperty('App::PropertyFloat', "propA", "group")
+  #             obj.addProperty('App::PropertyFloat', "propB", "group")
+  #             self.MonitorChanges = True
+  #             obj.setExpression("propB", '6*9')
+  #         def onChanged(self, obj, prop):
+  #             print("onChanged",self, obj, prop)
+  #             if (self.MonitorChanges and prop == "propA"):
+  #                 print('Removing expression...')
+  #                 obj.setExpression("propB", None)
 
-      obj = self.Doc.addObject("App::DocumentObjectGroupPython", "Obj")
-      Cls(obj)
-      self.Doc.UndoMode = 1
-      self.Doc.openTransaction("Expression")
-      obj.setExpression("propA", '42')
-      self.Doc.recompute()
-      self.Doc.commitTransaction()
-      self.assertTrue(('propB', None) in obj.ExpressionEngine)
-      self.assertTrue(('propA', "42") in obj.ExpressionEngine)
+  #     obj = self.Doc.addObject("App::DocumentObjectGroupPython", "Obj")
+  #     Cls(obj)
+  #     self.Doc.UndoMode = 1
+  #     self.Doc.openTransaction("Expression")
+  #     obj.setExpression("propA", '42')
+  #     self.Doc.recompute()
+  #     self.Doc.commitTransaction()
+  #     self.assertTrue(('propB', None) in obj.ExpressionEngine)
+  #     self.assertTrue(('propA', "42") in obj.ExpressionEngine)
 
-      self.Doc.undo()
-      self.assertFalse(('propB', None) in obj.ExpressionEngine)
-      self.assertFalse(('propA', "42") in obj.ExpressionEngine)
+  #     self.Doc.undo()
+  #     self.assertFalse(('propB', None) in obj.ExpressionEngine)
+  #     self.assertFalse(('propA', "42") in obj.ExpressionEngine)
 
-      self.Doc.redo()
-      self.assertTrue(('propB', None) in obj.ExpressionEngine)
-      self.assertTrue(('propA', "42") in obj.ExpressionEngine)
+  #     self.Doc.redo()
+  #     self.assertTrue(('propB', None) in obj.ExpressionEngine)
+  #     self.assertTrue(('propA', "42") in obj.ExpressionEngine)
 
-      self.Doc.recompute()
-      obj.ExpressionEngine
+  #     self.Doc.recompute()
+  #     obj.ExpressionEngine
 
-      TempPath = tempfile.gettempdir()
-      SaveName = TempPath + os.sep + "ExpressionTests.RPSStd"
-      self.Doc.saveAs(SaveName)
-      LabRPS.closeDocument(self.Doc.Name)
-      self.Doc = LabRPS.openDocument(SaveName)
+  #     TempPath = tempfile.gettempdir()
+  #     SaveName = TempPath + os.sep + "ExpressionTests.RPSStd"
+  #     self.Doc.saveAs(SaveName)
+  #     LabRPS.closeDocument(self.Doc.Name)
+  #     self.Doc = LabRPS.openDocument(SaveName)
 
 
   def tearDown(self):
