@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>LabRPS-ის&lt;a href="http://forum.labrpsweb.org"&gt; ფორუმი&lt;/a&gt; შესანიშნავი ადგილია LabRPS-ის სხვა მომხმარებლებისა და დეველოპერებისგან დახმარების მისაღებად. ფორუმს აქვს მრავალი სექცია სხვადასხვა ტიპის საკითხებისა და სადისკუსიო თემებისთვის. თუ ეჭვი გეპარებათ, გამოაქვეყნეთ უფრო ზოგადი&lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt; დახმარება LabRPS&lt;/a&gt; განყოფილების გამოყენების შესახებ.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>LabRPS-ის&lt;a href="http://forum.freecadweb.org"&gt; ფორუმი&lt;/a&gt; შესანიშნავი ადგილია LabRPS-ის სხვა მომხმარებლებისა და დეველოპერებისგან დახმარების მისაღებად. ფორუმს აქვს მრავალი სექცია სხვადასხვა ტიპის საკითხებისა და სადისკუსიო თემებისთვის. თუ ეჭვი გეპარებათ, გამოაქვეყნეთ უფრო ზოგადი&lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt; დახმარება LabRPS&lt;/a&gt; განყოფილების გამოყენების შესახებ.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>თუ ფორუმზე პოსტ სპირველად აქვეყნებთ, აუცილებლად &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;წაიკითხეთ სახელმძღვანელო &lt;/a&gt;მითითებები!</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>თუ ფორუმზე პოსტ სპირველად აქვეყნებთ, აუცილებლად &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;წაიკითხეთ სახელმძღვანელო &lt;/a&gt;მითითებები!</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS ასევე ინახავს შეცდომების საჯარო&lt;a href="https://www.freecadweb.org/tracker"&gt; ტრეკერს&lt;/a&gt;, სადაც ნებისმიერს შეუძლია წარადგინოს შეცდომები და შესთავაზოს ახალი ფუნქციები. იმისათვის, რომ თავიდან აიცილოთ ზედმეტი სამუშაოს გამოწვევა და საუკეთესო შანსები მისცეთ, რომ ნახოთ თქვენი ხარვეზი მოგვარებული, დარწმუნდით, რომ წაიკითხეთ&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; შეცდომების წარდგენის სახელმძღვანელო&lt;/a&gt; გამოქვეყნებამდე.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS ასევე ინახავს შეცდომების საჯარო&lt;a href="https://www.freecadweb.org/tracker"&gt; ტრეკერს&lt;/a&gt;, სადაც ნებისმიერს შეუძლია წარადგინოს შეცდომები და შესთავაზოს ახალი ფუნქციები. იმისათვის, რომ თავიდან აიცილოთ ზედმეტი სამუშაოს გამოწვევა და საუკეთესო შანსები მისცეთ, რომ ნახოთ თქვენი ხარვეზი მოგვარებული, დარწმუნდით, რომ წაიკითხეთ&lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt; შეცდომების წარდგენის სახელმძღვანელო&lt;/a&gt; გამოქვეყნებამდე.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>ბოლო პოსტები &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS-ის ფორუმზე&lt;/a&gt;:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>ბოლო პოსტები &lt;a href="https://forum.freecadweb.org"&gt;LabRPS-ის ფორუმზე&lt;/a&gt;:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

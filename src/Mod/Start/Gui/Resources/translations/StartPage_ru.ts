@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt;форум LabRPS&lt;/a&gt; является прекрасным местом для получения помощи от других пользователей и разработчиков LabRPS. На форуме много разделов для различных типов вопросов и обсуждаемых тем. Если вы сомневаетесь, напишите в более общий &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;помощь по использованию LabRPS&lt;/a&gt; раздел.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt;форум LabRPS&lt;/a&gt; является прекрасным местом для получения помощи от других пользователей и разработчиков LabRPS. На форуме много разделов для различных типов вопросов и обсуждаемых тем. Если вы сомневаетесь, напишите в более общий &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;помощь по использованию LabRPS&lt;/a&gt; раздел.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>Если это ваша первая публикация на форуме, сначала обязательно прочтите &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;руководство!&lt;/a&gt;</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>Если это ваша первая публикация на форуме, сначала обязательно прочтите &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;руководство!&lt;/a&gt;</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS также предоставляет публичный &lt;a href="https://www.freecadweb.org/tracker"&gt;трэкер ошибок&lt;/a&gt;, где любой может сообщить об ошибке и предложить новые функции. Для избежания лишней работы и большей вероятности увидеть скорое решение вашего сообщения об ошибке, убедитесь, что вы прочитали &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;руководство по отправке ошибок&lt;/a&gt; перед публикацией.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS также предоставляет публичный &lt;a href="https://www.freecadweb.org/tracker"&gt;трэкер ошибок&lt;/a&gt;, где любой может сообщить об ошибке и предложить новые функции. Для избежания лишней работы и большей вероятности увидеть скорое решение вашего сообщения об ошибке, убедитесь, что вы прочитали &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;руководство по отправке ошибок&lt;/a&gt; перед публикацией.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>Последние сообщения на &lt;a href="https://forum.labrpsweb.org"&gt;форуме LabRPS &lt;/a&gt;:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>Последние сообщения на &lt;a href="https://forum.freecadweb.org"&gt;форуме LabRPS &lt;/a&gt;:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

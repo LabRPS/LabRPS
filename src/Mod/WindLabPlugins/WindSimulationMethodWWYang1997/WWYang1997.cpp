@@ -61,10 +61,10 @@ bool CWWYang1997::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVeloci
 
     int n = Data.numberOfSpatialPosition.getValue();
     int N = Data.numberOfFrequency.getValue();
-    double dt = Data.timeIncrement.getValue();
-    double timeMin = Data.minTime.getValue();
+    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
 
-    double deltaomega = Data.frequencyIncrement.getValue();
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int M = 2*N                     ;
     int T = Data.numberOfTimeIncrements.getValue();
 
@@ -214,8 +214,8 @@ bool CWWYang1997::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Da
 //
 //    int n = Data.numberOfSpatialPosition.getValue();
 //    int N = Data.numberOfFrequency.getValue();
-//    double dt = Data.timeIncrement.getValue();
-//    double deltaomega = Data.frequencyIncrement.getValue();
+//    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+//    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 //    int M = 2*N;
 //    int T = Data.numberOfTimeIncrements.getValue();
 //

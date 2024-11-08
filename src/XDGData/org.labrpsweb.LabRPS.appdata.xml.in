@@ -39,22 +39,16 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://wiki.labrpsweb.org/images/7/72/Labrps016_screenshot1.jpg</image>
+      <image>https://wiki.labrps.com/images/7/72/Labrps01_screenshot1.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://wiki.labrpsweb.org/images/f/f7/LabRPS_highlight_3_0.19.jpg</image>
-    </screenshot>
-    <screenshot>
-      <image>https://wiki.labrpsweb.org/images/c/c3/Arch_tutorial_43.jpg</image>
-    </screenshot>
-    <screenshot>
-      <image>https://wiki.labrpsweb.org/images/f/f4/Labrps-document-01.jpg</image>
+      <image>https://wiki.labrps.com/images/f/f4/Labrps-document-01.jpg</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://www.freecadweb.org</url>
-  <url type="bugtracker">https://www.freecadweb.org/tracker</url>
-  <url type="help">https://forum.labrpsweb.org</url>
-  <url type="donation">https://www.freecadweb.org/wiki/Donate</url>
+  <url type="homepage">https://www.labrps.com</url>
+  <url type="bugtracker">https://www.labrps.com/tracker</url>
+  <url type="help">https://labrps.com/boards</url>
+  <url type="donation">https://www.wiki.labrps.com/Donate</url>
   <update_contact>yorik_AT_uncreated.net</update_contact>
   <content_rating type="oars-1.1"/>
   <releases>

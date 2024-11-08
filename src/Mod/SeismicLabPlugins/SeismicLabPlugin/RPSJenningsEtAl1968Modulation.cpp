@@ -48,7 +48,7 @@ bool CRPSJenningsEtAl1968Modulation::ComputeModulationVectorT(const SeismicLabSi
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
 	{
-		const double 	dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+		const double 	dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
         dVarVector(k) = dTime;
 		dValVector(k) = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue());
 	}

@@ -117,7 +117,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorT(const Wind
 	double intensity = 0.0;
 	for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
 	{
-       const double time = Data.minTime.getValue() + Data.timeIncrement.getValue() * (loop);
+       const double time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * (loop);
 
        returnResult = ComputeTurbulenceIntensityValue(Data, location, time, intensity);
        dVarVector(loop) = time;

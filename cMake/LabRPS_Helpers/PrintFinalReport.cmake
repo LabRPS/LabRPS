@@ -169,7 +169,6 @@ macro(PrintFinalReport)
     message(STATUS "OpenGLU:             [${OPENGL_glu_LIBRARY}][${OPENGL_INCLUDE_DIR}]")
 
     if (WIN32)
-    #message(STATUS "SPNAV:               not available yet for your OS") # LABRPS_USE_3DCONNEXION instead...
     else(WIN32)
         if(DEFINED SPNAV_FOUND)
             message(STATUS "SPNAV:               [${SPNAV_LIBRARY}] [${SPNAV_INCLUDE_DIR}]")

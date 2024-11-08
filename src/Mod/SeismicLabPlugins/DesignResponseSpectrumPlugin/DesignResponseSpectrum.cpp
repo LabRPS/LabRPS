@@ -99,7 +99,7 @@ bool DesignResponseSpectrum::TableToolCompute(const SeismicLabAPI::SeismicLabSim
     	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && !Data.isInterruptionRequested.getValue(); loop++)
 	{
-		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * loop;
+		const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * loop;
         outputTable(loop, 0) = dTime;
         outputTable(loop, 1) = computeResponseSpectrum(dTime, designResponseSpectrum);
 

@@ -96,9 +96,9 @@ class QCustomPlot;
 
         };
 
-        enum class UserDefinedPhenomenonObjectPropertyItemType : int {
-            UserDefinedPhenomenonPlugin = 0,
-            UserDefinedPhenomenon = 1,
+        enum class UserObjectPropertyItemType : int {
+            UserPlugin = 0,
+            User = 1,
         };
 
 

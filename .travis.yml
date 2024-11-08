@@ -22,14 +22,14 @@ env:
   global:
     - GENERATOR="Unix Makefiles"
     - CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE:-Release}
-#    - LABRPS_RELEASE="0.18"
+#    - LABRPS_RELEASE="0.1"
 #    - DEPLOY_RELEASE=${DEPLOY_RELEASE:-$LABRPS_RELEASE}
 #    - OSX_PORTS_CACHE=${OSX_PORTS_CACHE:-LabRPS/LabRPS-ports-cache}
 #    - DEPLOY=${DEPLOY:-0}
 
 # jobs:
-    # chunk.io key (if needed, obtain it with Yorik, PrzemoF, Kunda1)
-    # secure: MJu0ZU/9Yqut6bUkHoSrXTV/c/WhCLR0KnHKCsnEU081PYoukzH6ngzgKk7/trAH2In080d/ra4B2OmTNl/LAgV6DXKFY9dO1aG8QwcrHgaMPf0pHYUy/OfwQSFYFByQDV2OEMAHcIWc/dtNkzK2QUi44Kn7d0GtSEiN4s816lriWtjg0vmEGAU8MjvcAGss4gKyn05Xm1NUCYPKgpgIHsywLbpE76lv0eOYoosEuKv5Q9Pb4FMQts02+JUlqE8eY4ZZ3nV8iQbgIDdseOSA7Ixn05zWjU/ZRZ74TrYxMnzfUAwQcJe9OcqoESq+pPWQt5HYG66VmeVxQim1gmsiDASH51U/nswKt0Q4bISj3tVk0YZMFV8Ax+SzPvLEmFZJQGfgO1mg7HdNcz9N9G5JHPawrV19DwYIEFbAw8MCSAoIXFOcPQZUWXCbtjm7NO9vCjMrqyVJMDD9L8omvQajHoajuHbOT8KB250gFokeLj3z8yu++Tz+IrZX5inUMrXsARVt/ALXpi8rJPXmoFMpMUjyWmDPqPWlnqUhLtTtEtKpuOWP8ZnWVwkg4QYOUhCy95C1okJSGkG+ylHWncWfY4mS+UBT525laoh+GOhH+sRW+p2xkI21xGFRqg1oHjjgY1yIYF6nnSHPzxMBRYmZwagyXsjkFG5FPMWR2oYk0Yg
+    # chunk.io key 
+    # secure: 
 
 git:
   depth: 5000
@@ -86,7 +86,7 @@ jobs:
           - CXX=g++-10
           - CC_FOR_BUILD=gcc-10
           - CXX_FOR_BUILD=g++-10
-          - CMAKE_ARGS="-DCMAKE_CXX_COMPILER=/usr/bin/c++ -DCMAKE_C_COMPILER=/usr/bin/cc -DPYTHON_EXECUTABLE=/usr/bin/python3 -DBUILD_FEM_NETGEN=ON"
+          - CMAKE_ARGS="-DCMAKE_CXX_COMPILER=/usr/bin/c++ -DCMAKE_C_COMPILER=/usr/bin/cc -DPYTHON_EXECUTABLE=/usr/bin/python3"
           - CACHE_NAME=JOB2
 
             #      - os: osx
@@ -99,14 +99,14 @@ jobs:
             #            - $HOME/Library/Caches/Homebrew
             #            - /usr/local/Homebrew
             #        env:
-            #          - CMAKE_OPTS="-DBUILD_QT5=ON -DBUILD_ENABLE_CXX_STD='C++17' -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DBUILD_FEM_NETGEN=1 -DBUILD_FEM=1 -DBUILD_TECHDRAW=0 -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DBUILD_FEM_NETGEN:BOOL=ON -DLABRPS_USE_EXTERNAL_KDL=ON -DCMAKE_BUILD_TYPE=Release"
+            #          - CMAKE_OPTS="-DBUILD_QT5=ON -DBUILD_ENABLE_CXX_STD='C++17' -DUSE_PYTHON3=1 -DCMAKE_CXX_FLAGS='-Wno-deprecated-declarations' -DCMAKE_PREFIX_PATH='/usr/local/opt/qt/lib/cmake;/usr/local/opt/nglib/Contents/Resources' -DCMAKE_BUILD_TYPE=Release"
             #          - PATH=/usr/local/bin:$PATH
             #          - CACHE_NAME=OSX1
 
       - os: windows
         language: cpp
         env:
-          - CMAKE_OPTS="-DBUILD_FEM_NETGEN=OFF -DLABRPS_RELEASE_PDB=OFF -DLABRPS_RELEASE_SEH=OFF"
+          - CMAKE_OPTS=" -DLABRPS_RELEASE_PDB=OFF -DLABRPS_RELEASE_SEH=OFF"
           - GENERATOR="Visual Studio 15 2017 Win64"
           - PYTHON_MAJOR_VERSION=3
           - MSBUILD_PATH="c:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin"
@@ -141,7 +141,7 @@ before_install:
   case "${TRAVIS_OS_NAME}" in
 
    "linux")
-       # Daily PPA for OCCT, Pivy, Netgen, PySide ... packages
+       # Daily PPA forPivy, PySide ... packages
        sudo apt-add-repository -y ppa:labrps-maintainers/labrps-daily 
        sudo apt-get update -qq
        # Build deps
@@ -187,15 +187,12 @@ before_install:
                                doxygen                          \
                                graphviz                         \
                                libnglib-dev                     \
-                               netgen                           \
-                               netgen-headers                   \
                                libmetis-dev                     \
                                libspnav-dev
        # Runtime deps
        sudo apt-get install -y --no-install-recommends labrps-daily-python3 python-pivy python3-pivy python-ply python3-ply
 
        # Use newer Eigen to suppress warnings
-       # https://github.com/LabRPS/LabRPS/pull/3485
        wget http://mirrors.kernel.org/ubuntu/pool/universe/e/eigen3/libeigen3-dev_3.3.7-2_all.deb
        sudo dpkg -i libeigen3-dev_3.3.7-2_all.deb
 
@@ -231,31 +228,14 @@ before_install:
        brew install boost
        brew install boost-python3
        brew tap LabRPS/labrps
-       brew install labrps/labrps/coin 
        brew install labrps/labrps/nglib
        brew install labrps/labrps/med-file
-       brew install labrps/labrps/opencamlib
        brew install labrps/labrps/shiboken2
        brew install labrps/labrps/pyside2
        brew install labrps/labrps/pyside2-tools
        brew install labrps/labrps/pivy
        brew install labrps/labrps/matplotlib
 
-       ##Install the 3DConnexion frameworks
-       if [ ! -d /Library/Frameworks/3DconnexionClient.framework ]; then
-        curl -o /tmp/3dFW.dmg -L 'https://download.3dconnexion.com/drivers/mac/10-6-6_360DF97D-ED08-4ccf-A55E-0BF905E58476/3DxWareMac_v10-6-6_r3234.dmg'
-        hdiutil attach -readonly /tmp/3dFW.dmg
-        sudo installer -package /Volumes/3Dconnexion\ Software/Install\ 3Dconnexion\ software.pkg -target /
-        diskutil eject /Volumes/3Dconnexion\ Software
-       fi
-       export CMAKE_OPTS="${CMAKE_OPTS} -DLABRPS_CREATE_MAC_APP=OFF"
-       export INSTALLED_APP_PATH="/usr/local/MacOS/LabRPS"
-
-       export CMAKE_ARGS="${CMAKE_OPTS} -DLABRPS_USE_EXTERNAL_KDL=ON"
-       brew link --overwrite matplotlib
-       if [ -f "/usr/local/Cellar/opencascade/7.4.0_1/include/opencascade/Standard_Macro.hxx" ]; then
-          sed '1,$s/\[\[nodiscard\]\]//' /usr/local/Cellar/opencascade/7.4.0_1/include/opencascade/Standard_Macro.hxx > /tmp/Standard_Macro.hxx && cp /tmp/Standard_Macro.hxx /usr/local/Cellar/opencascade/7.4.0_1/include/opencascade/Standard_Macro.hxx ;
-       fi
        ;;
 
    "windows")
@@ -276,7 +256,7 @@ before_install:
        rm -f LabRPSLibs.7z
        export LABRPS_LIBPACK_DIR="$TRAVIS_BUILD_DIR\LabRPSLibs\LabRPSLibs_12.5.3_x64_VC17"
 
-       export CMAKE_ARGS="${CMAKE_OPTS} -DLABRPS_LIBPACK_DIR=$TRAVIS_BUILD_DIR\LabRPSLibs\LabRPSLibs_12.5.3_x64_VC17 -DPYTHON_EXECUTABLE=$TRAVIS_BUILD_DIR\LabRPSLibs\LabRPSLibs_12.5.3_x64_VC17\bin\python.exe \
+       export CMAKE_ARGS="${CMAKE_OPTS} -DLABRPS_LIBPACK_DIR=$TRAVIS_BUILD_DIR\LabRPSLibs\LabRPSLibs_0.1_x64_VC17 -DPYTHON_EXECUTABLE=$TRAVIS_BUILD_DIR\LabRPSLibs\LabRPSLibs_0.1_x64_VC17\bin\python.exe \
        -DBUILD_QT5=TRUE"
        export PATH=$MSBUILD_PATH:$PATH
        ;;
@@ -308,7 +288,7 @@ script:
         cmd.exe //C 'C:\Users\travis\build\LabRPS\LabRPS\.travis\build.bat'
         # ls -lahR
         mkdir bin/
-        mv ../LabRPSLibs/LabRPSLibs_12.5.3_x64_VC17/bin/* bin/
+        mv ../LabRPSLibs/LabRPSLibs_0.1_x64_VC17/bin/* bin/
         du -hs bin/
         # show clcache hit stats
         cmd.exe //C 'C:\Users\travis\build\LabRPS\LabRPS\clcache.exe -s'
@@ -337,21 +317,5 @@ script:
         grep --file=../.log_errors /tmp/LabRPS_installed.log ; [ $? == 1 ] && echo "No errors from .log_errors file found in the log after start from /usr/local/bin" || ( echo "Error from .log_errors found!" && false )
     fi
 
-#after_success:
-#  Package and deploy the build to GitHub.  This will only run for builds on
-#  master (i.e. pull requests are only built and tested but not deployed).
-#
-#  GH_TOKEN must be set in order to deploy releases to GitHub
-#
-#- |
-#  if [ "${TRAVIS_OS_NAME}" == "osx" -a "${TRAVIS_PULL_REQUEST}" == "false" -a "${DEPLOY}" == "1" ]; then
-#     brew ls --versions jq || brew install jq
-#     npm install -g appdmg
-#     export VSN=$(python ${TRAVIS_BUILD_DIR}/src/Tools/ArchiveNameFromVersionHeader.py ${TRAVIS_BUILD_DIR}/build/src/Build/Version.h)
-#     export DEPLOYMENT_ARCHIVE=${VSN}-${QT}.dmg
-#     appdmg ${TRAVIS_BUILD_DIR}/src/MacAppBundle/DiskImage/layout.json "${DEPLOYMENT_ARCHIVE}"
-#     deployContext=$(create_helper_context repo=${TRAVIS_REPO_SLUG} auth_token=${GH_TOKEN} release=${DEPLOY_RELEASE})
-#     gitHub_deploy_asset_to_release_named $deployContext ${DEPLOYMENT_ARCHIVE}
-#     gitHub_prune_assets_for_release_named $deployContext "-${QT}" 1
-#  fi
+
 

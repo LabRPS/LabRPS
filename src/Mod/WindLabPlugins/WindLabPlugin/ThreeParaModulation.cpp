@@ -65,7 +65,7 @@ bool CThreeParaModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSim
 	// For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
 	{
-		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+		const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
 		dVarVector(k) = dTime;
 		// compute approximate buffeting force 
         dValVector(k) = threeParametersModulation.computeModulation(Alpha.getValue(), Betta.getValue(), Lambda.getValue(), dTime);
@@ -94,7 +94,7 @@ bool CThreeParaModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSim
 
     //  Maximum value of modulation function
     double max = 0.0;
-    //const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * Data.timeIndex.getValue();
+    //const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * Data.timeIndex.getValue();
     const double dModValue = threeParametersModulation.computeModulation(dTime, Alpha.getValue(), Betta.getValue(), Lambda.getValue());
 
     // For each time increment

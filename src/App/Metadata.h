@@ -152,7 +152,7 @@ namespace App {
      *
      * The metadata format is based on https://ros.org/reps/rep-0149.html, modified for LabRPS
      * use. Full format documentation is available at the LabRPS Wiki:
-     * https://wiki.labrpsweb.org/Package_Metadata
+     * https://wiki.labrps.com/Package_Metadata
      */
     class AppExport Metadata {
     public:

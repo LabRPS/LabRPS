@@ -115,7 +115,7 @@ public:
     {
         return QString::fromLatin1("0.1");
     }
-    QString getUserDefinedPhenomenonAPIVersion()
+    QString getUserAPIVersion()
     {
         return QString::fromLatin1("0.1");
     }

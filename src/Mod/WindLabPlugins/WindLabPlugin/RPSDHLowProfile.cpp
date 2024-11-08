@@ -60,7 +60,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimu
         return false;
     }
 
-	//const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * Data.timeIndex.getValue();
+	//const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * Data.timeIndex.getValue();
     Base::Vector3d location(0, 0, 0);
 
 	// Compute the mean wind speed matrix
@@ -92,7 +92,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimu
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue(); loop++)
 	{
-		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * loop;
+		const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * loop;
 
         ComputeMeanWindSpeedValue(Data, location, dTime, dValVector(loop));
 

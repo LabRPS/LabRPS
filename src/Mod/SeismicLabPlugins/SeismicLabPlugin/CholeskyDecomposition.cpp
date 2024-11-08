@@ -60,7 +60,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const Seismic
 
 	for (int l = 0; l < T && false == Data.isInterruptionRequested.getValue() && true == returnResult; l++)
 	{
-        dVarVector(l) = Data.minTime.getValue() + l * Data.timeIncrement.getValue();
+        dVarVector(l) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + l * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeDecomposedCrossSpectrumMatrixPP(Data, dFrequency, dVarVector(l), dCPSDDecomMatrix);
         dValVector(l) = dCPSDDecomMatrix(Data.locationJ.getValue(), Data.locationK.getValue());
 	}

@@ -183,18 +183,18 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  SeaLab::SeaLabSimulation* s
 
 	ui->waveMinLengthSpinBox->setMinimum(0.00);
 	ui->waveMinLengthSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveMinLengthSpinBox->setValue(simData->minWaveLength.getValue());
-	ui->waveMinLengthSpinBox->setUnit(Base::Unit(-1));
+	ui->waveMinLengthSpinBox->setValue(simData->minWaveLength.getQuantityValue().getValue());
+	ui->waveMinLengthSpinBox->setUnit(Base::Unit::Length);
 
 	ui->waveMaxLengthSpinBox->setMinimum(0.00);
 	ui->waveMaxLengthSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveMaxLengthSpinBox->setValue(simData->maxWaveLength.getValue());
-	ui->waveMaxLengthSpinBox->setUnit(Base::Unit(-1));
+	ui->waveMaxLengthSpinBox->setValue(simData->maxWaveLength.getQuantityValue().getValue());
+	ui->waveMaxLengthSpinBox->setUnit(Base::Unit(Base::Unit::Length));
 
 	ui->waveLengthIncrementSpinBox->setMinimum(0.00);
 	ui->waveLengthIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveLengthIncrementSpinBox->setValue(simData->waveLengthIncrement.getValue());
-	ui->waveLengthIncrementSpinBox->setUnit(Base::Unit(-1));
+	ui->waveLengthIncrementSpinBox->setValue(simData->waveLengthIncrement.getQuantityValue().getValue());
+	ui->waveLengthIncrementSpinBox->setUnit(Base::Unit::Length);
 
 	//direction discretization
 	ui->directionNumberOfIncrementSpinBox->setMinimum(1);

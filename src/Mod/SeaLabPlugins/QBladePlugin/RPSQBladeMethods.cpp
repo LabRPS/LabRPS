@@ -151,7 +151,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     dVelocityArray(j, 0) = time; 
                     dVelocityArray(j, i + 1) = linearWave->GetElevation(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time);
                 }
@@ -168,7 +168,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);
@@ -188,7 +188,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);
@@ -208,7 +208,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);
@@ -228,7 +228,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);
@@ -248,7 +248,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);
@@ -268,7 +268,7 @@ bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, ma
                 linearWave->CalculateDispersion(Gravity.getValue(),PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
                 for (int j = 0; j < Data.numberOfTimeIncrements.getValue(); j++) {
-                    time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                    time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                     Base::Vector3d velocity(0, 0, 0);
                     Base::Vector3d acceleration(0, 0, 0);
                     linearWave->GetVelocityAndAcceleration(Base::Vector3d(dLocCoord(i, 1), dLocCoord(i, 2), dLocCoord(i, 3)), time, 0, WaterDepth.getQuantityValue().getValueAs(Base::Quantity::Metre), VERTICAL, &velocity, &acceleration);

@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt; LabRPS forumu &lt;/a&gt; diğer LabRPS kullanıcıları ve geliştiricilerinden yardım almak için harika bir yerdir. Forumda farklı türde konular ve tartışma konuları için birçok bölüm bulunmaktadır. Eğer sorunuz hakkında kararsızlık içinde iseniz, daha genel &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt; LabRPS kullanımayla ilgili yardım&lt;/a&gt; bölümüne gönderin.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt; LabRPS forumu &lt;/a&gt; diğer LabRPS kullanıcıları ve geliştiricilerinden yardım almak için harika bir yerdir. Forumda farklı türde konular ve tartışma konuları için birçok bölüm bulunmaktadır. Eğer sorunuz hakkında kararsızlık içinde iseniz, daha genel &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt; LabRPS kullanımayla ilgili yardım&lt;/a&gt; bölümüne gönderin.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>Eğer bu, forumda yayınlayacağınız ilk gönderi ise, öncelikle &lt; A href="http://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264" &gt; yönergeleri okuyun! &lt; / a &gt;!</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>Eğer bu, forumda yayınlayacağınız ilk gönderi ise, öncelikle &lt; A href="http://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264" &gt; yönergeleri okuyun! &lt; / a &gt;!</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS ayrıca herkesin hata gönderebileceği ve yeni özellikler önerebileceği herkese açık bir &lt;a href="https://www.freecadweb.org/tracker"&gt; hata izleyici &lt;/a&gt; sağlar. İlave iş yüküne neden olmamak ve hatanın çözümünü görme ihtimaline karşın mesaj göndermeden önce &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; hata gönderme kılavuzu&lt;/a&gt;'nu okuduğunuzdan emin olun.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS ayrıca herkesin hata gönderebileceği ve yeni özellikler önerebileceği herkese açık bir &lt;a href="https://www.freecadweb.org/tracker"&gt; hata izleyici &lt;/a&gt; sağlar. İlave iş yüküne neden olmamak ve hatanın çözümünü görme ihtimaline karşın mesaj göndermeden önce &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt; hata gönderme kılavuzu&lt;/a&gt;'nu okuduğunuzdan emin olun.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>&lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; Sayfasındaki son gönderiler:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>&lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; Sayfasındaki son gönderiler:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

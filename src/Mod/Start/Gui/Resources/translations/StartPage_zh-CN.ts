@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt; LabRPS 论坛&lt;/a&gt;是从其他 LabRPS 用户和开发人员那里获得帮助的好地方。 该论坛有许多部分，讨论不同类型的问题和讨论主题。 如有疑问，请在更一般的&lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;使用 LabRPS 的帮助&lt;/a&gt; 部分中发布。</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt; LabRPS 论坛&lt;/a&gt;是从其他 LabRPS 用户和开发人员那里获得帮助的好地方。 该论坛有许多部分，讨论不同类型的问题和讨论主题。 如有疑问，请在更一般的&lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;使用 LabRPS 的帮助&lt;/a&gt; 部分中发布。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>如果这是您第一次在论坛上发布评论，请一定 &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;先阅读指南&lt;/a&gt;！</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>如果这是您第一次在论坛上发布评论，请一定 &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;先阅读指南&lt;/a&gt;！</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS 也保持开放 &lt;a href="https://www.freecadweb.org/tracker"&gt;bug Tracker&lt;/a&gt; 任何人都可以提交 bug 和提出新功能。为了避免造成额外的工作，并且提供最佳机会查看您的 bug 被解决，请确保您阅读了 &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;错误提交指南&lt;/a&gt; 之前。</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS 也保持开放 &lt;a href="https://www.freecadweb.org/tracker"&gt;bug Tracker&lt;/a&gt; 任何人都可以提交 bug 和提出新功能。为了避免造成额外的工作，并且提供最佳机会查看您的 bug 被解决，请确保您阅读了 &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;错误提交指南&lt;/a&gt; 之前。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>&lt;a href="https://forum.labrpsweb.org"&gt;LabRPS 论坛&lt;/a&gt;上的最新帖子：</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>&lt;a href="https://forum.freecadweb.org"&gt;LabRPS 论坛&lt;/a&gt;上的最新帖子：</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

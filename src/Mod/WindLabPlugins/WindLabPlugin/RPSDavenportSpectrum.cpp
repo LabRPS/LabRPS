@@ -65,7 +65,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindL
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeXCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
@@ -254,7 +254,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLa
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         
         returnResult = ComputeXAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }

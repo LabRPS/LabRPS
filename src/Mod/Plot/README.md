@@ -6,7 +6,7 @@ From LabRPS v0.20 Plot workbench is split into an [external addon](https://githu
 
 ## Documentation
 
-Plot documentation can be found on the LabRPS wiki [Plot Workbench](https://wiki.labrpsweb.org/Plot_Workbench) page
+Plot documentation can be found on the LabRPS wiki [Plot Workbench](https://wiki.freecadweb.org/Plot_Workbench) page
 
 ## Authors
 

@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt;LabRPS フォーラム&lt;/a&gt; は他の LabRPS ユーザーや開発者から手助けを得られるすばらしい場所です。フォーラムはさまざまな種類の問題や議題を扱うたくさんのセクションがあります。もしどこに投稿すればいいかわからなければ一般的な話題を扱う &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;LabRPS 使用時のヘルプ&lt;/a&gt; に投稿してください。</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt;LabRPS フォーラム&lt;/a&gt; は他の LabRPS ユーザーや開発者から手助けを得られるすばらしい場所です。フォーラムはさまざまな種類の問題や議題を扱うたくさんのセクションがあります。もしどこに投稿すればいいかわからなければ一般的な話題を扱う &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;LabRPS 使用時のヘルプ&lt;/a&gt; に投稿してください。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>初めてフォーラムに投稿する場合は最初に&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;ガイドラインを読んで&lt;/a&gt;確認してください。</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>初めてフォーラムに投稿する場合は最初に&lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;ガイドラインを読んで&lt;/a&gt;確認してください。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS には公開&lt;a href="https://www.freecadweb.org/tracker"&gt;バグトラッカー&lt;/a&gt;も用意されていて、誰でもバグや新しい機能の提案を投稿することができます。余分な作業を発生させず、見つけたバグを解決できる可能性を上げるために、投稿する前には必ず&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;バグ報告ガイドライン&lt;/a&gt;を読んでください。</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS には公開&lt;a href="https://www.freecadweb.org/tracker"&gt;バグトラッカー&lt;/a&gt;も用意されていて、誰でもバグや新しい機能の提案を投稿することができます。余分な作業を発生させず、見つけたバグを解決できる可能性を上げるために、投稿する前には必ず&lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;バグ報告ガイドライン&lt;/a&gt;を読んでください。</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>&lt;a href="https://forum.labrpsweb.org"&gt;LabRPS フォーラム&lt;/a&gt;の最新の投稿:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>&lt;a href="https://forum.freecadweb.org"&gt;LabRPS フォーラム&lt;/a&gt;の最新の投稿:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

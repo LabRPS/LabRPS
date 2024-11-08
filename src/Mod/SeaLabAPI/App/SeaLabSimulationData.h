@@ -29,6 +29,8 @@
 #include <App/PropertyStandard.h>
 #include <Mod/SeaLabAPI/SeaLabAPIGlobal.h>
 #include <Base/SmartPtrPy.h>
+#include <App/PropertyUnits.h>
+
 #include "RPS.h"
 
 #include <QString>
@@ -107,41 +109,18 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 	
 	App::PropertyBool uniformModulation;
 
-	// Minimum Time, 0 by default
-	App::PropertyFloat minTime;
-
-	// Maximum Time,
-	App::PropertyFloat maxTime;
-
-	// Time increment
-	App::PropertyFloat timeIncrement;
-
-	// The minimum frequency
-	App::PropertyFloat minFrequency;
-
-	// The current frequency increment
-	App::PropertyFloat frequencyIncrement;
-
-	// The maximum frequency
-	App::PropertyFloat maxFrequency;
-
-	// The minimum wave length
-	App::PropertyFloat minWaveLength;
-
-	// The maximum wave length
-	App::PropertyFloat maxWaveLength;
-
-	// The current wave length increment
-	App::PropertyFloat waveLengthIncrement;
-
-	// The minimum direction
-	App::PropertyFloat minDirection;
-
-	// The maximum direction
-	App::PropertyFloat maxDirection;
-
-	// The current direction increment
-	App::PropertyFloat directionIncrement;
+	App::PropertyTime minTime;
+    App::PropertyTime maxTime;
+    App::PropertyTime timeIncrement;
+    App::PropertyFrequency minFrequency;
+    App::PropertyFrequency frequencyIncrement;
+    App::PropertyFrequency maxFrequency;
+    App::PropertyLength minWaveLength;
+    App::PropertyLength maxWaveLength;
+    App::PropertyLength waveLengthIncrement;
+    App::PropertyAngle minDirection;
+    App::PropertyAngle maxDirection;
+    App::PropertyAngle directionIncrement;
 
 	App::PropertyFloat incrementOfVariableX;
 

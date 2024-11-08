@@ -63,7 +63,7 @@ bool ZervaModelFrequencyDistribution::OnInitialSetting(const WindLabAPI::WindLab
 
 bool ZervaModelFrequencyDistribution::ComputeFrequencyValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
-    dValue = Data.minFrequency.getValue() + (1 + 0.5 * frequencyIndex) * Data.frequencyIncrement.getValue();
+    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + (1 + 0.5 * frequencyIndex) * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 	return true;
 }
 
