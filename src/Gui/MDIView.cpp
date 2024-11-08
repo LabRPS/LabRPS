@@ -108,7 +108,7 @@ void MDIView::deleteSelf()
     // Use deleteLater() instead of delete operator.
     QWidget* parent = this->parentWidget();
     if (qobject_cast<QMdiSubWindow*>(parent)) {
-        // https://forum.labrpsweb.org/viewtopic.php?f=22&t=23070
+        // https://forum.freecadweb.org/viewtopic.php?f=22&t=23070
         parent->close();
     }
     else {

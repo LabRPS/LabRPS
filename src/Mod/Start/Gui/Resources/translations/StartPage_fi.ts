@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS foorumi&lt;/a&gt; on loistava paikka saada apua muilta LabRPSin käyttäjiltä ja kehittäjiltä. Foorumissa on useita osioita, joissa käsitellään erityyppisiä aiheita ja keskustelunaiheita. Jos olet epävarma, lähetä yleisempään &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Käyttöapua LabRPS&lt;/a&gt; -osion käyttöön.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS foorumi&lt;/a&gt; on loistava paikka saada apua muilta LabRPSin käyttäjiltä ja kehittäjiltä. Foorumissa on useita osioita, joissa käsitellään erityyppisiä aiheita ja keskustelunaiheita. Jos olet epävarma, lähetä yleisempään &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Käyttöapua LabRPS&lt;/a&gt; -osion käyttöön.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>Jos tämä on ensimmäinen kerta, kun olet viestittelemässä foorumilla, muista &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;lukea ohjeet&lt;/a&gt; ensin!</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>Jos tämä on ensimmäinen kerta, kun olet viestittelemässä foorumilla, muista &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;lukea ohjeet&lt;/a&gt; ensin!</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS ylläpitää myös julkista &lt;a href="https://www.freecadweb.org/tracker"&gt;vikaseurantapalvelinta&lt;/a&gt;, jossa kuka tahansa voi lähettää vikotietoja ja ehdottaa uusia ominaisuuksia. Välttääksesi ylimääräistä työtä ja antaaksesi parhaat mahdollisuudet nähdä ilmoittamasi vian ratkaistun, varmista, että olet lukenut &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;vikailmoituksen oppaan&lt;/a&gt; ennen lähettämistä.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS ylläpitää myös julkista &lt;a href="https://www.freecadweb.org/tracker"&gt;vikaseurantapalvelinta&lt;/a&gt;, jossa kuka tahansa voi lähettää vikotietoja ja ehdottaa uusia ominaisuuksia. Välttääksesi ylimääräistä työtä ja antaaksesi parhaat mahdollisuudet nähdä ilmoittamasi vian ratkaistun, varmista, että olet lukenut &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;vikailmoituksen oppaan&lt;/a&gt; ennen lähettämistä.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>Viimeisimmät viestit &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS foorumilla&lt;/a&gt;:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>Viimeisimmät viestit &lt;a href="https://forum.freecadweb.org"&gt;LabRPS foorumilla&lt;/a&gt;:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

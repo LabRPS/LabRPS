@@ -97,7 +97,7 @@ bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const WindLabAPI::WindLabSi
         return false;
     }
 
-    dValue = Data.minFrequency.getValue() + frequencyIndex * Data.frequencyIncrement.getValue() + (locationIndex + 1)*Data.frequencyIncrement.getValue() / Data.numberOfSpatialPosition.getValue();
+    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + (locationIndex + 1)*Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) / Data.numberOfSpatialPosition.getValue();
 
     return true;
 }

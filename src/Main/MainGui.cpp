@@ -109,7 +109,7 @@ int main( int argc, char ** argv )
     // Make sure to setup the Qt locale system before setting LANG and LC_ALL to C.
     // which is needed to use the system locale settings.
     (void)QLocale::system();
-    // See https://forum.labrpsweb.org/viewtopic.php?f=18&t=20600
+    // See https://forum.freecadweb.org/viewtopic.php?f=18&t=20600
     // See Gui::Application::runApplication()
     putenv("LC_NUMERIC=C");
     putenv("PYTHONPATH=");
@@ -123,8 +123,8 @@ int main( int argc, char ** argv )
         _putenv_s("PYTHONHOME", mingw_prefix);
 #else
     _putenv("PYTHONPATH=");
-    // https://forum.labrpsweb.org/viewtopic.php?f=4&t=18288
-    // https://forum.labrpsweb.org/viewtopic.php?f=3&t=20515
+    // https://forum.freecadweb.org/viewtopic.php?f=4&t=18288
+    // https://forum.freecadweb.org/viewtopic.php?f=3&t=20515
     const char* rps_py_home = getenv("RPS_PYTHONHOME");
     if (rps_py_home)
         _putenv_s("PYTHONHOME", rps_py_home);

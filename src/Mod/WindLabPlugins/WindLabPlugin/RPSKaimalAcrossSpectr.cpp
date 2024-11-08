@@ -66,7 +66,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorT(const WindLabAPI::Wind
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeYCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
@@ -209,7 +209,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindL
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         
         returnResult = ComputeYAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }

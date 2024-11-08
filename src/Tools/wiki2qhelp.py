@@ -38,7 +38,7 @@ from urllib2 import urlopen, HTTPError
 
 #    CONFIGURATION       #################################################
 
-DEFAULTURL = "www.freecadweb.org/wiki" #default URL if no URL is passed
+DEFAULTURL = "www.wiki.labrps.com" #default URL if no URL is passed
 INDEX = "Online_Help_Toc" # the start page from where to crawl the wiki
 NORETRIEVE = ['Manual','Developer_hub','Power_users_hub','Users_hub','Source_documentation', 'User_hub','Main_Page','About_this_site'] # pages that won't be fetched (kept online)
 GETTRANSLATIONS = True # Set true if you want to get the translations too.

@@ -112,9 +112,9 @@ bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimuData& Data, m
 
     int n = Data.numberOfSpatialPosition.getValue();
     int N = Data.numberOfFrequency.getValue();
-    double dt = Data.timeIncrement.getValue();
-    double timeMin = Data.minTime.getValue();
-    double deltaomega = Data.frequencyIncrement.getValue();
+    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int M = 2*N;
     int T = Data.numberOfTimeIncrements.getValue();
 
@@ -236,9 +236,9 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuDat
 
     int n = Data.numberOfSpatialPosition.getValue();
     int N = Data.numberOfFrequency.getValue();
-    double dt = Data.timeIncrement.getValue();
-    double timeMin = Data.minTime.getValue();
-    double deltaomega = Data.frequencyIncrement.getValue();
+    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int M = 2*N;
     int T = Data.numberOfTimeIncrements.getValue();
 

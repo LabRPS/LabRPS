@@ -43,7 +43,7 @@ bool CRPSPiersonMoskowitzSpectrum::ComputeCrossSpectrumVectorT(const SeaLabAPI::
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
@@ -141,7 +141,7 @@ bool CRPSPiersonMoskowitzSpectrum::ComputeAutoSpectrumVectorT(const SeaLabAPI::S
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }
 

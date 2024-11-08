@@ -143,12 +143,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -219,9 +219,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
@@ -288,9 +288,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -337,12 +337,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeCrossCoherenceMatrixPP(
@@ -407,9 +407,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             double correlationValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeCrossCorrelationValue(locationJ, locationK, time,
@@ -477,9 +477,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -527,9 +527,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -567,9 +567,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCPDValue()
             m_ResultMatrix.resize(1, 2);
 
             double CPDValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeCPDValue(CPDValue, time, featureName);
@@ -824,9 +824,9 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeKurtosisValue(locationJ, time, computedValue, featureName);
@@ -886,9 +886,9 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeKurtosisVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -949,9 +949,9 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -1059,9 +1059,9 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationValue()
                                     locationCoord(locationIndexJ, 2),
                                     locationCoord(locationIndexJ, 3));
             double meanValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -1102,9 +1102,9 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeMeanAccelerationVectorP(time, m_ResultVectorVar,
@@ -1212,9 +1212,9 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationValue()
                                     locationCoord(locationIndexJ, 2),
                                     locationCoord(locationIndexJ, 3));
             double modulationValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -1253,9 +1253,9 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeModulationVectorP(time, m_ResultVectorVar,
@@ -1373,9 +1373,9 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult =
@@ -1436,9 +1436,9 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computePeakFactorVectorP(time, m_ResultVectorVar,
@@ -1499,9 +1499,9 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -1655,9 +1655,9 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
@@ -1729,9 +1729,9 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -1781,12 +1781,12 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeDecomposedCrossSpectrumMatrixPP(
@@ -1893,9 +1893,9 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult =
@@ -1956,9 +1956,9 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeShearVelocityOfFlowVectorP(time, m_ResultVectorVar,
@@ -2020,9 +2020,9 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -2155,9 +2155,9 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeSkewnessValue(locationJ, time, computedValue, featureName);
@@ -2217,9 +2217,9 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeSkewnessVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -2280,9 +2280,9 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -2344,9 +2344,9 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult =
@@ -2407,9 +2407,9 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeStandardDeviationVectorP(time, m_ResultVectorVar,
@@ -2471,9 +2471,9 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -2620,9 +2620,9 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeVarianceValue(locationJ, time, computedValue, featureName);
@@ -2682,9 +2682,9 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeVarianceVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -2745,9 +2745,9 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -2815,12 +2815,12 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeWavePassageEffectValue(locationJ, locationK, frequency,
@@ -2891,9 +2891,9 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
@@ -2962,9 +2962,9 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -3013,12 +3013,12 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeWavePassageEffectMatrixPP(
@@ -3084,12 +3084,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue(0.0, 0.0);
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -3159,9 +3159,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
@@ -3227,9 +3227,9 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -3278,12 +3278,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeCrossSpectrumMatrixPP(
@@ -3344,12 +3344,12 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
                                      locationCoord(locationIndexJ, 2),
                                      locationCoord(locationIndexJ, 3));
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -3414,9 +3414,9 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
@@ -3478,9 +3478,9 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();

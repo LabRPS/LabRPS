@@ -1166,7 +1166,7 @@ void MainWindow::closeEvent (QCloseEvent * e)
         /*emit*/ mainWindowClosed();
         d->activityTimer->stop();
 
-        // https://forum.labrpsweb.org/viewtopic.php?f=8&t=67748
+        // https://forum.freecadweb.org/viewtopic.php?f=8&t=67748
         // When the session manager jumps in it can happen that the closeEvent()
         // function is triggered twice and for the second call the main window might be
         // invisible. In this case the window settings shouldn't be saved.

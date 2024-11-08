@@ -140,7 +140,7 @@ bool QbladeMethods::Simulate(const WindLabAPI::WindLabSimuData& Data, mat& dVelo
                     p = (k * windField->m_pointsPerSideY) + i;
                     thePoints.push_back(Base::Vector3d(0, windField->m_yCoordinatesNormalized[i], windField->m_zCoordinatesNormalized[k]));
                     for (int j = 0; j < rows; j++) {
-                        time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                        time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                         dVelocityArray(j, p + 1) = windField->getWindspeed(Vec3(0, windField->m_yCoordinatesNormalized[i], windField->m_zCoordinatesNormalized[k]), time,false,false,0.0).x;
                     }
                 }
@@ -153,14 +153,14 @@ bool QbladeMethods::Simulate(const WindLabAPI::WindLabSimuData& Data, mat& dVelo
          {
              for (int k = 0; k < Probes.getSize(); k++) {
                     for (int j = 0; j < rows; j++) {
-                        time = Data.minTime.getValue() + j * Data.timeIncrement.getValue();
+                        time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
                         dVelocityArray(j, k + 1) = windField->getWindspeed(Vec3(Probes.getValues()[k].x, Probes.getValues()[k].y, Probes.getValues()[k].z), time,false,false,0.0).x;
                     }
              }
          }
 
             for (int j = 0; j < rows; j++) {
-                  dVelocityArray(j, 0) = Data.minTime.getValue() + j * Data.timeIncrement.getValue(); 
+                  dVelocityArray(j, 0) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + j * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second); 
               }
          }
 

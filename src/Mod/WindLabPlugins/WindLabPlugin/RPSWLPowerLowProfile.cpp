@@ -70,7 +70,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLab
 		return false;
 	}
 
-	//const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * Data.timeIndex.getValue();
+	//const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * Data.timeIndex.getValue();
     Base::Vector3d location(0, 0, 0);
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfSpatialPosition.getValue(); loop++)
@@ -105,7 +105,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLab
 	// Compute the mean wind speed matrix
 	for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue(); loop++)
 	{
-		const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * loop;
+		const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * loop;
         ComputeMeanWindSpeedValue(Data, location, dTime, dValVector(loop));
 		dVarVector(loop) = dTime;
 	}

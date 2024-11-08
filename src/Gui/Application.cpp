@@ -216,7 +216,7 @@ Application::Application(bool GUIenabled)
         }
 #endif
 #if 0 // QuantitySpinBox and InputField try to handle the group separator now
-        // http://forum.labrpsweb.org/viewtopic.php?f=10&t=6910
+        // http://forum.freecadweb.org/viewtopic.php?f=10&t=6910
         // A workaround is to disable the group separator for double-to-string conversion, i.e.
         // setting the flag 'OmitGroupSeparator'.
         QLocale loc;
@@ -1695,7 +1695,7 @@ void Application::runApplication()
     // if application not yet created by the splasher
     int argc = App::Application::GetARGC();
     GUISingleApplication mainApp(argc, App::Application::GetARGV());
-    // http://forum.labrpsweb.org/viewtopic.php?f=3&t=15540
+    // http://forum.freecadweb.org/viewtopic.php?f=3&t=15540
     mainApp.setAttribute(Qt::AA_DontShowIconsInMenus, false);
 
     // Make sure that we use '.' as decimal point. See also
@@ -1774,7 +1774,7 @@ void Application::runApplication()
     QIcon::setThemeName(QLatin1String("LabRPS-default"));
 #else
     // Option to opt-out from using a Linux desktop icon theme.
-    // https://forum.labrpsweb.org/viewtopic.php?f=4&t=35624
+    // https://forum.freecadweb.org/viewtopic.php?f=4&t=35624
     bool themePaths = hTheme->GetBool("ThemeSearchPaths",true);
     if (!themePaths) {
         QStringList searchPaths;
@@ -2001,7 +2001,7 @@ void Application::runApplication()
     Base::Console().Log("Init: Entering event loop\n");
 
     // boot phase reference point
-    // https://forum.labrpsweb.org/viewtopic.php?f=10&t=21665
+    // https://forum.freecadweb.org/viewtopic.php?f=10&t=21665
     Gui::getMainWindow()->setProperty("eventLoop", true);
 
     try {
@@ -2087,7 +2087,7 @@ void Application::setStyleSheet(const QString& qssFile, bool tiledBackground)
     // }
     //
     // See https://stackoverflow.com/questions/5497799/how-do-i-customise-the-appearance-of-links-in-qlabels-using-style-sheets
-    // and https://forum.labrpsweb.org/viewtopic.php?f=34&t=50744
+    // and https://forum.freecadweb.org/viewtopic.php?f=34&t=50744
     static bool init = true;
     if (init) {
         init = false;
@@ -2164,7 +2164,7 @@ void Application::setStyleSheet(const QString& qssFile, bool tiledBackground)
     // At startup time unpolish() mustn't be executed because otherwise the QSint widget
     // appear incorrect due to an outdated cache.
     // See https://doc.qt.io/qt-5/qstyle.html#unpolish-1
-    // See https://forum.labrpsweb.org/viewtopic.php?f=17&t=50783
+    // See https://forum.freecadweb.org/viewtopic.php?f=17&t=50783
     if (d->startingUp == false) {
         if (mdi->style())
             mdi->style()->unpolish(qApp);

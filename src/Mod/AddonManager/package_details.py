@@ -630,7 +630,7 @@ class PackageDetails(QWidget):
             }
         }
     } else if (url.hostname === "wiki.labrps.com" || 
-               url.hostname === "wiki.labrpsweb.org") {
+               url.hostname === "wiki.freecadweb.org") {
         const first_heading = document.getElementById('firstHeading');
         const body_content = document.getElementById('bodyContent');
         const new_node = document.createElement("div");
@@ -786,7 +786,7 @@ if HAS_QTWEBENGINE:
                 # See if the link is to a LabRPS Wiki page -- if so, follow it, otherwise ask the OS to open it
                 if (
                     url.host() == "wiki.labrps.com"
-                    or url.host() == "wiki.labrpsweb.org"
+                    or url.host() == "wiki.freecadweb.org"
                 ):
                     return super().acceptNavigationRequest(url, _type, isMainFrame)
                 else:

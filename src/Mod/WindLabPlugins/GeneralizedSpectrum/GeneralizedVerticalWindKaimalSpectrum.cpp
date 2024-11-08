@@ -73,7 +73,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorT(con
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeZCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
@@ -216,7 +216,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorT(cons
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        dVarVector(loop) = Data.minTime.getValue() + loop * Data.timeIncrement.getValue();
+        dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeZAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }
 

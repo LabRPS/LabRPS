@@ -146,7 +146,7 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->timeMinSpinBox->setMinimum(0.00);
 	ui->timeMinSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->timeMinSpinBox->setValue(simData->minTime.getValue());
+	ui->timeMinSpinBox->setValue(simData->minTime.getQuantityValue().getValueAs(Base::Quantity::Second));
 	ui->timeMinSpinBox->setUnit(Base::Unit::TimeSpan);
 
 	ui->timeMaxSpinBox->setMinimum(0.00);
@@ -156,7 +156,7 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->timeIncrementSpinBox->setMinimum(0.00);
 	ui->timeIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->timeIncrementSpinBox->setValue(simData->timeIncrement.getValue());
+	ui->timeIncrementSpinBox->setValue(simData->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second));
 	ui->timeIncrementSpinBox->setUnit(Base::Unit::TimeSpan);
 
 	//frequency discretization
@@ -166,17 +166,17 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->frequencyMinSpinBox->setMinimum(0.00);
 	ui->frequencyMinSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyMinSpinBox->setValue(simData->minFrequency.getValue());
+	ui->frequencyMinSpinBox->setValue(simData->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
 	ui->frequencyMinSpinBox->setUnit(Base::Unit::Frequency);
 
 	ui->frequencyMaxSpinBox->setMinimum(0.00);
 	ui->frequencyMaxSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyMaxSpinBox->setValue(simData->maxFrequency.getValue());
+	ui->frequencyMaxSpinBox->setValue(simData->maxFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
 	ui->frequencyMaxSpinBox->setUnit(Base::Unit::Frequency);
 
 	ui->frequencyIncrementSpinBox->setMinimum(0.00);
 	ui->frequencyIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyIncrementSpinBox->setValue(simData->frequencyIncrement.getValue());
+	ui->frequencyIncrementSpinBox->setValue(simData->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
 	ui->frequencyIncrementSpinBox->setUnit(Base::Unit::Frequency);
 
 	//wave length discretization
@@ -186,17 +186,17 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->waveMinLengthSpinBox->setMinimum(0.00);
 	ui->waveMinLengthSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveMinLengthSpinBox->setValue(simData->minWaveLength.getValue());
+	ui->waveMinLengthSpinBox->setValue(simData->minWaveLength.getQuantityValue().getValueAs(Base::Quantity::Metre));
 	ui->waveMinLengthSpinBox->setUnit(Base::Unit(-1));
 
 	ui->waveMaxLengthSpinBox->setMinimum(0.00);
 	ui->waveMaxLengthSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveMaxLengthSpinBox->setValue(simData->maxWaveLength.getValue());
+	ui->waveMaxLengthSpinBox->setValue(simData->maxWaveLength.getQuantityValue().getValueAs(Base::Quantity::Metre));
 	ui->waveMaxLengthSpinBox->setUnit(Base::Unit(-1));
 
 	ui->waveLengthIncrementSpinBox->setMinimum(0.00);
 	ui->waveLengthIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->waveLengthIncrementSpinBox->setValue(simData->waveLengthIncrement.getValue());
+	ui->waveLengthIncrementSpinBox->setValue(simData->waveLengthIncrement.getQuantityValue().getValueAs(Base::Quantity::Metre));
 	ui->waveLengthIncrementSpinBox->setUnit(Base::Unit(-1));
 
 	//direction discretization
@@ -206,17 +206,17 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->directionMinSpinBox->setMinimum(0.00);
 	ui->directionMinSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->directionMinSpinBox->setValue(simData->minDirection.getValue());
+	ui->directionMinSpinBox->setValue(simData->minDirection.getQuantityValue().getValueAs(Base::Quantity::Degree));
 	ui->directionMinSpinBox->setUnit(Base::Unit::Angle);
 
 	ui->directionMaxSpinBox->setMinimum(0.00);
 	ui->directionMaxSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->directionMaxSpinBox->setValue(simData->maxDirection.getValue());
+	ui->directionMaxSpinBox->setValue(simData->maxDirection.getQuantityValue().getValueAs(Base::Quantity::Degree));
 	ui->directionMaxSpinBox->setUnit(Base::Unit::Angle);
 
 	ui->directionIncrementSpinBox->setMinimum(0.00);
 	ui->directionIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->directionIncrementSpinBox->setValue(simData->directionIncrement.getValue());
+	ui->directionIncrementSpinBox->setValue(simData->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Degree));
 	ui->directionIncrementSpinBox->setUnit(Base::Unit::Angle);
 }
 

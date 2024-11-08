@@ -57,7 +57,7 @@ bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData
 
 	for (int k = 0; k < Data.numberOfTimeIncrements.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); k++)
 	{
-		dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+		dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
 		dVarVector(k) = dTime;	
         dValVector(k) = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
 	}

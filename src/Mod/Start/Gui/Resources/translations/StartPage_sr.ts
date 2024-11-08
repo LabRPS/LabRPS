@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt;Форум LabRPS-а&lt;/a&gt; је сјајно место за добијање помоћи од других корисника и програмера LabRPS-а. Форум има много одељака за различите врсте проблема и теме дискусије. Ако сте неодлучни, објавите у општијем одељаку &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Помоћ при коришћењу LabRPS-а&lt;/a&gt;.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt;Форум LabRPS-а&lt;/a&gt; је сјајно место за добијање помоћи од других корисника и програмера LabRPS-а. Форум има много одељака за различите врсте проблема и теме дискусије. Ако сте неодлучни, објавите у општијем одељаку &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Помоћ при коришћењу LabRPS-а&lt;/a&gt;.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>Ако по први пут објављујете на форуму, као прво &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;прочитајте смернице&lt;/a&gt;!</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>Ако по први пут објављујете на форуму, као прво &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;прочитајте смернице&lt;/a&gt;!</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS такође одржава јавног &lt;a href="https://www.freecadweb.org/tracker"&gt;пратиоца грешака&lt;/a&gt; где савако може да преда грешке и предложи нове функције. Да избегнете сувишан посао и да добијете најбољу прилика да ваша грешка буде решена, као прво прочитајте &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;упутство о предаји грешке&lt;/a&gt; пре објављивања.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS такође одржава јавног &lt;a href="https://www.freecadweb.org/tracker"&gt;пратиоца грешака&lt;/a&gt; где савако може да преда грешке и предложи нове функције. Да избегнете сувишан посао и да добијете најбољу прилика да ваша грешка буде решена, као прво прочитајте &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;упутство о предаји грешке&lt;/a&gt; пре објављивања.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>Последње објаве на &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS форуму&lt;/a&gt;:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>Последње објаве на &lt;a href="https://forum.freecadweb.org"&gt;LabRPS форуму&lt;/a&gt;:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

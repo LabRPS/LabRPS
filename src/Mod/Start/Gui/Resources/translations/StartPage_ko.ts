@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt; LabRPS 포럼 &lt;/a&gt;은 다른 LabRPS 사용자 및 개발자의 도움을 받을 수 있는 좋은 곳입니다. 이 포럼에는 다양한 유형의 쟁점과 토론 주제에 대한 섹션이 많이 있습니다. 질문이 있는 경우 &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt; LabRPS 사용에 대한 도움말 &lt;/a&gt; 섹션에 게시하십시오.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt; LabRPS 포럼 &lt;/a&gt;은 다른 LabRPS 사용자 및 개발자의 도움을 받을 수 있는 좋은 곳입니다. 이 포럼에는 다양한 유형의 쟁점과 토론 주제에 대한 섹션이 많이 있습니다. 질문이 있는 경우 &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt; LabRPS 사용에 대한 도움말 &lt;/a&gt; 섹션에 게시하십시오.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>포럼에 처음으로 게시물을 올리는 경우 먼저 &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt; 지침을 읽으십시오&lt;/a&gt;.</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>포럼에 처음으로 게시물을 올리는 경우 먼저 &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt; 지침을 읽으십시오&lt;/a&gt;.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>LabRPS는 누구든지 버그를 제출하고 새로운 기능을 제안 할 수있는 공개 &lt;a href="https://www.freecadweb.org/tracker"&gt; 버그 추적기&lt;/a&gt;가 있습니다. 추가 작업이 발생하지 않도록 하고 버그를 해결할 수있는 가장 좋은 기회를 제공하려면 게시하기 전에&lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt; 버그 제출 안내서를 읽으십시오.&lt;/a&gt;</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>LabRPS는 누구든지 버그를 제출하고 새로운 기능을 제안 할 수있는 공개 &lt;a href="https://www.freecadweb.org/tracker"&gt; 버그 추적기&lt;/a&gt;가 있습니다. 추가 작업이 발생하지 않도록 하고 버그를 해결할 수있는 가장 좋은 기회를 제공하려면 게시하기 전에&lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt; 버그 제출 안내서를 읽으십시오.&lt;/a&gt;</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>&lt;a href="https://forum.labrpsweb.org"&gt; LabRPS 포럼&lt;/a&gt;에 게시 된 최신 게시물:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>&lt;a href="https://forum.freecadweb.org"&gt; LabRPS 포럼&lt;/a&gt;에 게시 된 최신 게시물:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

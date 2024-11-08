@@ -44,7 +44,7 @@ bool CRPSConstantModulation::ComputeModulationVectorT(const SeismicLabSimulation
 	 //For each time increment
 	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
 	{
-		const double 	dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() * k;
+		const double 	dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
         dVarVector(k) = dTime;
 		dValVector(k) = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue());
 	}

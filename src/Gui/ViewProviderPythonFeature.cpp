@@ -50,7 +50,7 @@ using namespace Gui;
 namespace bp = boost::placeholders;
 
 // #0003564: Python objects: updateData calls to proxy instance that should have been deleted
-// See https://forum.labrpsweb.org/viewtopic.php?f=22&t=30429&p=252429#p252429
+// See https://forum.freecadweb.org/viewtopic.php?f=22&t=30429&p=252429#p252429
 #if 0
 namespace Gui {
 

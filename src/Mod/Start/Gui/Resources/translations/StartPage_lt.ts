@@ -105,18 +105,18 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="62"/>
-      <source>The &lt;a href="http://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
-      <translation>&lt;a href="http://forum.labrpsweb.org"&gt;„LabRPS“ forumas&lt;/a&gt;yra puiki vieta gauti pagalbos iš kitų programos naudotojų ir kūrėjų. Forume rasite daug skilčių įvairiausioms bėdoms ar temoms aptrarti. Jei esate pasimetę, į kurią skiltį kreiptis, palikite įrašą bendresnėje skiltyje &lt;a href="https://forum.labrpsweb.org/viewforum.php?f=3"&gt;Pagalba, kaip naudoti „LabRPS“&lt;/a&gt;.</translation>
+      <source>The &lt;a href="http://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt; is a great place to get help from other LabRPS users and developers. The forum has many sections for different types of issues and discussion subjects. If in doubt, post in the more general &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Help on using LabRPS&lt;/a&gt; section.</source>
+      <translation>&lt;a href="http://forum.freecadweb.org"&gt;„LabRPS“ forumas&lt;/a&gt;yra puiki vieta gauti pagalbos iš kitų programos naudotojų ir kūrėjų. Forume rasite daug skilčių įvairiausioms bėdoms ar temoms aptrarti. Jei esate pasimetę, į kurią skiltį kreiptis, palikite įrašą bendresnėje skiltyje &lt;a href="https://forum.freecadweb.org/viewforum.php?f=3"&gt;Pagalba, kaip naudoti „LabRPS“&lt;/a&gt;.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="63"/>
-      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
-      <translation>Jei tai pirmas kartas, kai skelbiate įrašą forume, pirmiausia primigtynai siūlome perskaityti &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=2264"&gt;įrašų skelbimo patarimus&lt;/a&gt;!</translation>
+      <source>If it is the first time you are posting on the forum, be sure to &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;read the guidelines&lt;/a&gt; first!</source>
+      <translation>Jei tai pirmas kartas, kai skelbiate įrašą forume, pirmiausia primigtynai siūlome perskaityti &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=2264"&gt;įrašų skelbimo patarimus&lt;/a&gt;!</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="64"/>
-      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
-      <translation>„LabRPS“ taip pat prižiūri viešą &lt;a href="https://www.freecadweb.org/tracker"&gt;žinomų klaidų sąrašą&lt;/a&gt;, kur kiekvienas gali pranešti apie rastas klaidas ar pasiūlyti naujas programos ypatybes. Kad išvengtumėte papildomo darbo ir suteiktumėte geriausias galimybes pamatyti savo klaidą išspręstą, prieš pranešdami apie ją būtinai perskaitykite &lt;a href="https://forum.labrpsweb.org/viewtopic.php?f=3&amp;t=5236"&gt;patarimus, kaip pranešti apie klaidas&lt;/a&gt;.</translation>
+      <source>LabRPS also maintains a public &lt;a href="https://www.freecadweb.org/tracker"&gt;bug tracker&lt;/a&gt; where anybody can submit bugs and propose new features. To avoid causing extra work and give the best chances to see your bug solved, make sure you read the &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;bug submission guide&lt;/a&gt; before posting.</source>
+      <translation>„LabRPS“ taip pat prižiūri viešą &lt;a href="https://www.freecadweb.org/tracker"&gt;žinomų klaidų sąrašą&lt;/a&gt;, kur kiekvienas gali pranešti apie rastas klaidas ar pasiūlyti naujas programos ypatybes. Kad išvengtumėte papildomo darbo ir suteiktumėte geriausias galimybes pamatyti savo klaidą išspręstą, prieš pranešdami apie ją būtinai perskaitykite &lt;a href="https://forum.freecadweb.org/viewtopic.php?f=3&amp;t=5236"&gt;patarimus, kaip pranešti apie klaidas&lt;/a&gt;.</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="65"/>
@@ -185,8 +185,8 @@
     </message>
     <message>
       <location filename="TranslationTexts.py" line="78"/>
-      <source>The latest posts on the &lt;a href="https://forum.labrpsweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
-      <translation>Naujausi &lt;a href="https://forum.labrpsweb.org"&gt;„LabRPS“ forumo&lt;/a&gt; įrašai:</translation>
+      <source>The latest posts on the &lt;a href="https://forum.freecadweb.org"&gt;LabRPS forum&lt;/a&gt;:</source>
+      <translation>Naujausi &lt;a href="https://forum.freecadweb.org"&gt;„LabRPS“ forumo&lt;/a&gt; įrašai:</translation>
     </message>
     <message>
       <location filename="TranslationTexts.py" line="79"/>

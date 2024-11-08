@@ -115,7 +115,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSi
 
     for (int loop3 = 0; loop3 < Data.numberOfTimeIncrements.getValue()  && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop3++)
     {
-       dVarVector(loop3) = Data.minTime.getValue() + Data.timeIncrement.getValue() * (loop3);
+       dVarVector(loop3) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * (loop3);
                 
        returnResult = ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dVarVector(loop3), dCoherenceValue);
 

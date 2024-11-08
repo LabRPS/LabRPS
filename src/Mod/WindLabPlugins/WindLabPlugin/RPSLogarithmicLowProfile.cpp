@@ -92,7 +92,7 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::Win
     // Compute the mean wind speed matrix
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        const double dTime = Data.minTime.getValue() + Data.timeIncrement.getValue() *loop;
+        const double dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) *loop;
         
         returnResult = ComputeMeanWindSpeedValue(Data, location, dTime, dValVector(loop));
         

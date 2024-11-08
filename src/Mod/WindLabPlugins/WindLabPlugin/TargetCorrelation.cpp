@@ -47,7 +47,7 @@ TargetCorrelation::TargetCorrelation()
 bool TargetCorrelation::TableToolCompute(const WindLabAPI::WindLabSimuData& Data, const mat& inputTable, mat& outputTable)
 {
 	int N = Data.numberOfFrequency.getValue();
-	double dt = Data.timeIncrement.getValue();
+	double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 	int T = Data.numberOfTimeIncrements.getValue();
 	double fs = 1 / dt;
 
@@ -88,8 +88,8 @@ bool TargetCorrelation::ComputeTargetCorrelation(const WindLabAPI::WindLabSimuDa
 {
 	int n = Data.numberOfSpatialPosition.getValue();
 	int N = Data.numberOfFrequency.getValue();
-	double dt = Data.timeIncrement.getValue();
-	double wu = Data.maxFrequency.getValue();
+	double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+	double wu = Data.maxFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 	int T = Data.numberOfTimeIncrements.getValue();
 
 	// the computed simulated correlation is not correct when the number of time increment of the
@@ -126,7 +126,7 @@ bool TargetCorrelation::ComputeTargetCorrelation(const WindLabAPI::WindLabSimuDa
 
      Base::Vector3d locationJ(locationCoord(locationIndexJ, 1), locationCoord(locationIndexJ, 2), locationCoord(locationIndexJ, 3));
      Base::Vector3d locationK(locationCoord(locationIndexK, 1), locationCoord(locationIndexK, 2), locationCoord(locationIndexK, 3));
-     double time = Data.minTime.getValue() + Data.timeIndex.getValue() * Data.timeIncrement.getValue();
+     double time = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIndex.getValue() * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
 	returnResult = CRPSWindLabFramework::ComputeCrossSpectrumVectorF(Data, locationJ, locationK, time, frequencies, Sij);
 

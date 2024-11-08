@@ -143,12 +143,12 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -219,9 +219,9 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -289,9 +289,9 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
@@ -338,12 +338,12 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeCrossCoherenceMatrixPP(
@@ -408,9 +408,9 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             double correlationValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeCrossCorrelationValue(locationJ, locationK, time,
@@ -478,9 +478,9 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -529,9 +529,9 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -569,9 +569,9 @@ bool RPSWindLabSimulationWorker::workerComputeCPDValue()
             m_ResultMatrix.resize(1, 2);
 
             double CPDValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeCPDValue(CPDValue, time, featureName);
@@ -826,9 +826,9 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorValue()
                                      locationCoord(locationIndexJ, 3));
 
             double gustFactorValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -890,9 +890,9 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeGustFactorVectorP(time, m_ResultVectorVar,
@@ -953,9 +953,9 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -1019,9 +1019,9 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -1082,9 +1082,9 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeKurtosisVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -1145,9 +1145,9 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -1256,9 +1256,9 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedValue()
                                     locationCoord(locationIndexJ, 2),
                                     locationCoord(locationIndexJ, 3));
             double meanValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -1299,9 +1299,9 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeMeanWindSpeedVectorP(time, m_ResultVectorVar,
@@ -1409,9 +1409,9 @@ bool RPSWindLabSimulationWorker::workerComputeModulationValue()
                                     locationCoord(locationIndexJ, 2),
                                     locationCoord(locationIndexJ, 3));
             double modulationValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -1450,9 +1450,9 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeModulationVectorP(time, m_ResultVectorVar,
@@ -1570,9 +1570,9 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -1634,9 +1634,9 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computePeakFactorVectorP(time, m_ResultVectorVar,
@@ -1697,9 +1697,9 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -1854,9 +1854,9 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -1929,9 +1929,9 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -1982,12 +1982,12 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeDecomposedCrossSpectrumMatrixPP(
@@ -2095,9 +2095,9 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -2159,9 +2159,9 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeRoughnessVectorP(time, m_ResultVectorVar,
@@ -2222,9 +2222,9 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -2288,9 +2288,9 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -2352,9 +2352,9 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeShearVelocityOfFlowVectorP(time, m_ResultVectorVar,
@@ -2416,9 +2416,9 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -2552,9 +2552,9 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -2615,9 +2615,9 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeSkewnessVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -2678,9 +2678,9 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -2743,9 +2743,9 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -2807,9 +2807,9 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeStandardDeviationVectorP(time, m_ResultVectorVar,
@@ -2871,9 +2871,9 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -2987,9 +2987,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -3051,9 +3051,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeTurbulenceIntensityVectorP(time, m_ResultVectorVar,
@@ -3115,9 +3115,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -3181,9 +3181,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -3246,9 +3246,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeTurbulenceScaleVectorP(time, m_ResultVectorVar,
@@ -3310,9 +3310,9 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -3409,9 +3409,9 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -3472,9 +3472,9 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorP()
             m_ResultVectorVal.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeVarianceVectorP(time, m_ResultVectorVar, m_ResultVectorVal,
@@ -3535,9 +3535,9 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -3606,12 +3606,12 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -3683,9 +3683,9 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -3755,9 +3755,9 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -3807,12 +3807,12 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeWavePassageEffectMatrixPP(
@@ -3878,12 +3878,12 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue(0.0, 0.0);
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -3952,9 +3952,9 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4022,9 +4022,9 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4074,12 +4074,12 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeXCrossSpectrumMatrixPP(
@@ -4140,12 +4140,12 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumValue()
                                      locationCoord(locationIndexJ, 2),
                                      locationCoord(locationIndexJ, 3));
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4212,9 +4212,9 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4277,9 +4277,9 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4346,12 +4346,12 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumValue()
                                      locationCoord(locationIndexK, 2),
                                      locationCoord(locationIndexK, 3));
             std::complex<double> computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -4422,9 +4422,9 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4492,9 +4492,9 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4544,12 +4544,12 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeYCrossSpectrumMatrixPP(
@@ -4611,12 +4611,12 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -4682,9 +4682,9 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4747,9 +4747,9 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4812,12 +4812,12 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumValue()
                                      locationCoord(locationIndexJ, 2),
                                      locationCoord(locationIndexJ, 3));
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
             watch.start();
@@ -4887,9 +4887,9 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -4957,9 +4957,9 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -5009,12 +5009,12 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
-            double time = m_sim->getSimulationData()->minTime.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeZCrossSpectrumMatrixPP(
@@ -5076,12 +5076,12 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumValue()
                                      locationCoord(locationIndexJ, 3));
 
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -5148,9 +5148,9 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorF()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
 
-            double time = m_sim->getSimulationData()->minTime.getValue()
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getValue();
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;
@@ -5213,9 +5213,9 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getValue()
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getValue();
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             //compute the mean wind velocity vector at all locations
             Base::StopWatch watch;

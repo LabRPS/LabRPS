@@ -1144,7 +1144,7 @@ class SpreadsheetCases(unittest.TestCase):
         sheet.setAlias('C3','test')
 
     def testCrossLinkEmptyPropertyName(self):
-        # https://forum.labrpsweb.org/viewtopic.php?f=3&t=58603
+        # https://forum.freecadweb.org/viewtopic.php?f=3&t=58603
         base = LabRPS.newDocument("base")
         sheet = base.addObject('Spreadsheet::Sheet','Spreadsheet')
         sheet.setAlias('A1', 'x')
@@ -1185,7 +1185,7 @@ class SpreadsheetCases(unittest.TestCase):
         LabRPS.closeDocument(base.Name)
 
     def testExpressionWithAlias(self):
-        # https://forum.labrpsweb.org/viewtopic.php?p=564502#p564502
+        # https://forum.freecadweb.org/viewtopic.php?p=564502#p564502
         ss1 = self.doc.addObject("Spreadsheet::Sheet", "Input")
         ss1.setAlias('A1', 'one')
         ss1.setAlias('A2', 'two')
