@@ -13,6 +13,7 @@
 Overview
 --------
 
+
 * **Purposes**  LabRPS is designed to fit a wide range of uses around sciences and engineerings, such as random vibration in mechanical engineering, buffeting analysis in bridge engineering, study of passengers confort on ship, etc.... LabRPS is mainly to assist reseachers in related fields to quickly implement new simulation methods programmatically in their new research work based on the existing works, help engineers and researchers to numerically generate random phenomena in a more realistic way, helps students and new comers to this field to learn quickly. 
 
 * **Modular System** LabRPS is highly modular. It is designed to allow the usage of modules, each serving a specific function or purpose. These modules can be developed, updated, and maintained independently, allowing for greater flexibility, scalability, and ease of integration. This architecture facilitates reusability, as modules can be used in various configurations to meet changing requirements and enhance collaboration among engineers, researchers, students and others.
