@@ -9,8 +9,7 @@
 
 [![Release](https://img.shields.io/github/release/labrps/labrps.svg)](https://github.com/labrps/labrps/releases/latest) 
 
-<img src="https://labrps.com/images/LabRPS_Screenshot.png" width="800"/>
-
+![LabRPS with SeaLab actived](https://github.com/LabRPS/Images/blob/main/LabRPS_Screenshot_1.png?raw=true)
 Overview
 --------
 
