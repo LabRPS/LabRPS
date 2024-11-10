@@ -8,7 +8,7 @@ using namespace SeismicLab;
 using namespace SeismicLabAPI;
 
 PLUGIN_NAME("DesignResponseSpectrumPlugin");
-RANDOM_PHENOMENON("Wind Velocity");
+RANDOM_PHENOMENON("Seismic Ground Motion");
 PLUGIN_AUTHOR("LabRPS Team");
 PLUGIN_DESCRIPTION("This plugin allows the user to check the probability density function of the simulated wind velocity.");
 PLUGIN_VERSION("1.00");

@@ -102,7 +102,7 @@ UserLabSimulation::UserLabSimulation()
 	ADD_PROPERTY_TYPE(IncrementOfVariableX, (0.1), "Variable X", Prop_None, "This is the variable x increment value");
 	ADD_PROPERTY_TYPE(MinVariableX, (-5.00), "Variable X", Prop_None, "This is the minimum x variable value");
 
-    ADD_PROPERTY_TYPE(Phenomenon, ("Wind Velocity"), 0, Prop_ReadOnly, "The random phenonenon name");
+    ADD_PROPERTY_TYPE(Phenomenon, ("Name"), 0, Prop_None, "The random phenonenon name");
     ADD_PROPERTY_TYPE(WorkingDirectoryPath, (Application::getHomePath()), 0, Prop_None, "The working directory path.");
 
     SimulationMethod.setEnums(someEnums);

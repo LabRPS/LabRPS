@@ -884,7 +884,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                 << "Std_Tools_Rescale_to_show_all";
 
     Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
-    TableTools->setCommand("Alphaplot Table Tools");
+    TableTools->setCommand("Table Tools");
     *TableTools << "Std_StdScatters"
                 << "Std_LinesAndSteps"
                 << "Std_VerticalAndHorizontalBars"
@@ -898,7 +898,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                 << "Std_3DPlot_Bar"
                 << "Std_3DPlot_Scatter";
     // 3D Plot
-    Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root);
+    Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
     TreeDPlot->setCommand("3D Plot");
     *TreeDPlot << "Std_3DPlot_3D_Wire_frame"
                << "Std_3DPlot_3D_Surface"
@@ -912,7 +912,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                << "Std_3DPlot_Gray_scale_map";
 
     // 3D Plot Tools
-    Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root);
+    Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
     TreeDPlotT->setCommand("3D Plot Tools");
     *TreeDPlotT << "Std_PlotPlot3dModecolumnSelect"
                 << "Std_PlotPlot3dModeRowSelect"
@@ -920,7 +920,7 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                 << "Std_PlotPlot3dAnimate";
 
     // Table statistics
-    Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root);
+    Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
     TableStatistics->setCommand("Table Statistics");
     *TableStatistics << "Std_AppendNewColumnToTable"
                      << "Std_ShowColumnStatistics"
