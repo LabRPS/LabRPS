@@ -85,16 +85,16 @@
         </dc:creator>
         <dc:title>PlotWorkbench</dc:title>
         <dc:date>2016-02-26</dc:date>
-        <dc:relation>http://www.freecadweb.org/wiki/index.php?title=Artwork</dc:relation>
+        <dc:relation>http://www.labrps.com/wiki/index.php?title=Artwork</dc:relation>
         <dc:publisher>
           <cc:Agent>
-            <dc:title>FreeCAD</dc:title>
+            <dc:title>LabRPS</dc:title>
           </cc:Agent>
         </dc:publisher>
-        <dc:identifier>FreeCAD/src/Mod/Plot/resources/icons/PlotWorkbench.svg</dc:identifier>
+        <dc:identifier>LabRPS/src/Mod/Plot/resources/icons/PlotWorkbench.svg</dc:identifier>
         <dc:rights>
           <cc:Agent>
-            <dc:title>FreeCAD LGPL2+</dc:title>
+            <dc:title>LabRPS LGPL2+</dc:title>
           </cc:Agent>
         </dc:rights>
         <cc:license>https://www.gnu.org/copyleft/lesser.html</cc:license>
