@@ -34,6 +34,7 @@ PROPERTY_SOURCE(WindLab::CCholeskyDecomposition, WindLabAPI::WindLabFeaturePSDDe
 CCholeskyDecomposition::CCholeskyDecomposition() {
 
 }
+
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	int n = Data.numberOfSpatialPosition.getValue();

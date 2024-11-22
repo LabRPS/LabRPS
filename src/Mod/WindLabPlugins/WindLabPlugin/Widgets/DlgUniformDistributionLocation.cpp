@@ -85,7 +85,7 @@ void DlgUniformLocationDistribution::accept()
     Base::Vector3d lowestPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
     activefeature->FirstPoint.setValue(lowestPoint);
     activefeature->Spacing.setValue(ui->doubleSpinBox_Spacing->value().getValue());
-    activefeature->Directions.setValue(ui->comboBox->currentText().toUtf8().constData());
+    activefeature->Direction.setValue(ui->comboBox->currentText().toUtf8().constData());
 }
 
 void DlgUniformLocationDistribution::reject()
