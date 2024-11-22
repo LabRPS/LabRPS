@@ -90,7 +90,7 @@ if(DOXYGEN_FOUND)
     # generate source documentation
     # delete CMakeCache to reset to default build options next time 
     ADD_CUSTOM_TARGET(DevDoc
-        ${CMAKE_COMMAND} -D BUILD_GUI:BOOL=ON -D BUILD_FEM:BOOL=ON ${CMAKE_SOURCE_DIR}
+        ${CMAKE_COMMAND} -D BUILD_GUI:BOOL=ON ${CMAKE_SOURCE_DIR}
         COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/BuildDevDoc.cfg
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
@@ -99,7 +99,7 @@ if(DOXYGEN_FOUND)
 
     # lightweight version for the web
     ADD_CUSTOM_TARGET(WebDoc
-        ${CMAKE_COMMAND} -D BUILD_GUI:BOOL=ON -D BUILD_FEM:BOOL=ON ${CMAKE_SOURCE_DIR}
+        ${CMAKE_COMMAND} -D BUILD_GUI:BOOL=ON ${CMAKE_SOURCE_DIR}
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/src/Doc/templates ${CMAKE_CURRENT_BINARY_DIR}/templates
         COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/BuildWebDoc.cfg
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
