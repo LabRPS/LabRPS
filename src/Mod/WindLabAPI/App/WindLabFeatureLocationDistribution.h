@@ -30,7 +30,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all location distribution feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureLocationDistribution : public WindLabAPI::WindLabFeature
 {

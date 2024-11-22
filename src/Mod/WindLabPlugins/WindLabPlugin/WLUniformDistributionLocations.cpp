@@ -41,9 +41,9 @@ WLUniformDistributionLocations::WLUniformDistributionLocations()
 
     ADD_PROPERTY_TYPE(FirstPoint, (Base::Vector3d(0,0,40000)), locationgroup, App::Prop_None, "the first point the distribution will start from");
     ADD_PROPERTY_TYPE(Spacing, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points");
-	ADD_PROPERTY_TYPE(Directions, ((long int)0), locationgroup, App::Prop_None,"The direction in which the simulation points are uniformly distributed.");
+	ADD_PROPERTY_TYPE(Direction, ((long int)0), locationgroup, App::Prop_None,"The direction in which the simulation points are uniformly distributed.");
 
-    Directions.setEnums(directionEnum);
+    Direction.setEnums(directionEnum);
 }
 
 
@@ -52,9 +52,9 @@ bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const Win
 	// Computing the location coordinates
 	for (int loop = 0; loop < Data.numberOfSpatialPosition.getValue(); loop++)
 	{		
-		static const char* locationgroup = Directions.getValueAsString();
+		static const char* locationgroup = Direction.getValueAsString();
 
-		if (QString::fromLatin1(Directions.getValueAsString()) == QString::fromLatin1("X"))
+		if (QString::fromLatin1(Direction.getValueAsString()) == QString::fromLatin1("X"))
 		{
             //dLocCoord(loop, 0) = loop + 1;		
             //dLocCoord(loop, 1) = FirstPoint.getValue().x + loop * Spacing.getValue();
@@ -67,7 +67,7 @@ bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const Win
        dLocCoord(loop, 3) = (Base::Quantity(FirstPoint.getValue().z, FirstPoint.getUnit())).getValueAs(Base::Quantity::Metre);
 
 		}
-        else if (QString::fromLatin1(Directions.getValueAsString()) == QString::fromLatin1("Y")) {
+        else if (QString::fromLatin1(Direction.getValueAsString()) == QString::fromLatin1("Y")) {
             //dLocCoord(loop, 0) = loop + 1;		
             //dLocCoord(loop, 1) = FirstPoint.getValue().x;
             //dLocCoord(loop, 2) = FirstPoint.getValue().y + loop * Spacing.getValue();
@@ -78,7 +78,7 @@ bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const Win
        dLocCoord(loop, 3) = (Base::Quantity(FirstPoint.getValue().z, FirstPoint.getUnit())).getValueAs(Base::Quantity::Metre);
 
         }
-        else if (QString::fromLatin1(Directions.getValueAsString()) == QString::fromLatin1("Z")) {
+        else if (QString::fromLatin1(Direction.getValueAsString()) == QString::fromLatin1("Z")) {
            /* dLocCoord(loop, 0) = loop + 1;		
             dLocCoord(loop, 1) = FirstPoint.getValue().x;
             dLocCoord(loop, 2) = FirstPoint.getValue().y;
@@ -98,7 +98,7 @@ bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const Win
 bool WLUniformDistributionLocations::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 {
 	
-	WindLabGui::UniformLocationDistributionDialogEdit* dlg = new WindLabGui::UniformLocationDistributionDialogEdit(FirstPoint, Spacing,Data.spatialDistribution, Directions);
+	WindLabGui::UniformLocationDistributionDialogEdit* dlg = new WindLabGui::UniformLocationDistributionDialogEdit(FirstPoint, Spacing,Data.spatialDistribution, Direction);
     Gui::Control().showDialog(dlg);
 
 	return true;

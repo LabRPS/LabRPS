@@ -44,8 +44,10 @@ WLGridPoints::WLGridPoints()
 
     ADD_PROPERTY_TYPE(Spacing1, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points along one axis");
     ADD_PROPERTY_TYPE(Spacing2, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points along other axis");
-    ADD_PROPERTY_TYPE(Length1, (5000.0), locationgroup, App::Prop_None, "The length along one axis");
-    ADD_PROPERTY_TYPE(Length2, (15000.0), locationgroup, App::Prop_None, "The length along other axis");
+    ADD_PROPERTY_TYPE(Length1, (45000.0), locationgroup, App::Prop_None, "The length along one axis");
+    ADD_PROPERTY_TYPE(Length2, (45000.0), locationgroup, App::Prop_None, "The length along other axis");
+    ADD_PROPERTY_TYPE(NumberOfPoints, (100), locationgroup, App::Prop_ReadOnly, "The length along other axis");
+
 }
 
 
@@ -106,4 +108,19 @@ bool WLGridPoints::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
     Gui::Control().showDialog(dlg);
 
 	return true;
+}
+
+void WLGridPoints::onChanged(const App::Property* prop)
+{
+    if (prop == &Spacing1 || prop == &Spacing2 || prop == &Length1 || prop == &Length2) 
+    {
+        int num_points_x = Length1.getQuantityValue().getValueAs(Base::Quantity::Metre)/
+                          Spacing1.getQuantityValue().getValueAs(Base::Quantity::Metre) + 1;
+
+        int num_points_y = Length2.getQuantityValue().getValueAs(Base::Quantity::Metre)/
+                          Spacing2.getQuantityValue().getValueAs(Base::Quantity::Metre) + 1;
+
+        NumberOfPoints.setValue(num_points_x * num_points_y);
+    
+    }
 }

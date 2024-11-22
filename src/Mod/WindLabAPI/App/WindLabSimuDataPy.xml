@@ -13,7 +13,7 @@
 
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>With this objects you can handle winds</UserDocu>
+      <UserDocu>WindLab simulation data for the simulation of random wind velocity</UserDocu>
     </Documentation>
   </PythonExport>
 </GenerateModel>

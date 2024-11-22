@@ -29,7 +29,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all modulation feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureModulation : public WindLabAPI::WindLabFeature
 {

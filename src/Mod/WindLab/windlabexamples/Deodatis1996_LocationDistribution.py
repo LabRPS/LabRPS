@@ -107,9 +107,9 @@ def setup(doc=None, showGui=True):
     print(rpsTypes)
 
     # change if needed the values of the properties of the feature
-    v1 = vec(0, 0, 35)
-    v2 = vec(0, 0, 40)
-    v3 = vec(0, 0, 140)
+    v1 = vec(0, 0, 35000)
+    v2 = vec(0, 0, 40000)
+    v3 = vec(0, 0, 140000)
     loc.Locations = [v1, v2, v3]
 
     # run the method "computeLocationCoordinateMatrixP3" of the feature and store the result.
@@ -139,3 +139,4 @@ def setup(doc=None, showGui=True):
     
     doc.recompute()
     return doc
+

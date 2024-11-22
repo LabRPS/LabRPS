@@ -29,6 +29,8 @@
 
 namespace WindLabAPI {
 
+/** Description class for all WindLab features in LabRPS
+ */
 class RPS_CORE_API WindLabFeatureDescription
 {
 public:

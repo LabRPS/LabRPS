@@ -29,7 +29,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all cumulative probability distribution feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureCumulativeProbabilityDistribution : public WindLabAPI::WindLabFeature
 {

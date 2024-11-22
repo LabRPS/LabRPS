@@ -29,17 +29,52 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLFrequencyDistribution
+ * @brief An abstract class representing a frequency distribution.
+ *
+ * This is a pure virtual class (interface) that defines the interface for all correlation functions.
+ * A frequency discretization involves breaking down the continuous frequency domain, into discrete frequency bins. 
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLFrequencyDistribution : public WindLabAPI::WindLabFeatureFrequencyDistribution
 {
 public:
+
+    /**
+     * @brief Virtual destructor for IrpsWLFrequencyDistribution class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLFrequencyDistribution() {};
 
+    /** Compute the frequency increment value by frequency index for given location (simulation point).
+     * @param Data             the simulation data containing all the simulation parameters input by the user.
+     * @param location         a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param frequencyIndex   an integer representing the frequency index where the value will be computed.
+     * @param dValue           a value to be updated. This is the computed frequency value.
+     * @return                 return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeFrequencyValue(const WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue) = 0;
 
+    /** Compute the frequency increments for all frequency indexes.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency index.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeFrequenciesVectorF(const WindLabSimuData &Data, const Base::Vector3d &location, vec &dValVector) = 0;
   
+    /** Compute the frequency matrix for all frequency indexes and locations.
+     * @param Data       the simulation data containing all the simulation parameters input by the user..
+     * @param dMatrix    a matrix to be updated. It should contain the computed frequency matrix.
+     * @return           return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeFrequenciesMatrixFP(const WindLabSimuData &Data, mat &dMatrix) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
 	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 
 	};

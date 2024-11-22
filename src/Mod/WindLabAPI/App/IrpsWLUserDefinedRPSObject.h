@@ -28,14 +28,35 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLUserDefinedRPSObject
+ * @brief An abstract class representing a user defined object.
+ *
+ * This is a pure virtual class (interface) that defines the interface for all user defined objects.
+ * This class allow to develop any kind of tool for the simulation of random wind velocity.   
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLUserDefinedRPSObject : public WindLabAPI::WindLabFeatureUserDefinedRPSObject
 {
 public:
 
+    /**
+     * @brief Virtual destructor for IrpsWLUserDefinedRPSObject class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLUserDefinedRPSObject() {};
 
+    /** Run the user defined computation tool.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param dresult      a matrix to be updated. This is the computation result.
+     * @return             return true if the computation is successful and false in case of failure.
+     */	
     virtual bool UserDefinedRPSObjectCompute(const WindLabSimuData &Data, mat &dresult) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
 	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 };
 

@@ -50,7 +50,7 @@ public:
     App::PropertyLength Spacing;
 
 	// the height at which the points are distributed
-    App::PropertyEnumeration Directions;
+    App::PropertyEnumeration Direction;
 };
 
 } // namespace App

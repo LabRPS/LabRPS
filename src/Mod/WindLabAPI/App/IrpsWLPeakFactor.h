@@ -29,18 +29,59 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLPeakFactor
+ * @brief An abstract class representing a peak factor.
+ *
+ * This is a pure virtual class (interface) that defines the interface for peak factors.
+ * The peak factor is defined as the ratio of the maximum wind velocity (or gust) observed over 
+ * a specific time interval to the root mean square (RMS) value, or sometimes the mean value, 
+ * of the wind speed over the same period. It provides a measure of how much more intense the 
+ * peaks in the wind velocity are compared to the typical values. In other words, 
+ * it quantifies the “spikiness” or extremity of wind gusts in relation to the background wind speed. 
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLPeakFactor : public WindLabAPI::WindLabFeaturePeakFactor
 {
 public:
 
+    /**
+     * @brief Virtual destructor for IrpsWLPeakFactor class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLPeakFactor() {};
 
+    /** Compute the peak factor value for given time and location.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dTime        the time instant at which the peak factor value will be computed.
+     * @param dValue       a value to be updated. This is the computed peak factor value.
+     * @return             return true if the computation is successful and false in case of failure.
+     */	
     virtual bool ComputePeakFactorValue(const WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue) = 0;
 
+    /** Compute the peak factor at a given time instant and for all locations (simulation points).
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param dTime        the time instant at which the peak factor value will be computed.
+     * @param dVarVector   a vector to be updated. It should contains all the location numbers used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each location stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputePeakFactorVectorP(const WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Compute the peak factor at a given location (simulation point) and for all time increments.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dVarVector   a vector to be updated. It should contains all the time increments used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputePeakFactorVectorT(const WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 
 };

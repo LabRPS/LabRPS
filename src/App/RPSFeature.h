@@ -37,24 +37,60 @@ class AppExport RPSFeature : public App::DocumentObject
     PROPERTY_HEADER(App::RPSFeature);
 
 public:
+
+ /** @name Properties */
+    //@{
+    /// A text
     std::string Text;
+
+    /// Tell if the feature is active or not
     App::PropertyBool IsActive;
+
+    /// The type of the feature
     App::PropertyString FeatureType;
+
+    /// The feature group
     App::PropertyString FeatureGroup;
+
+    /// The names of the feature authors. Those who implement the feature.
     App::PropertyString Author;
+
+    /// The topic of the document where the feature was published
     App::PropertyString PublicationTopic;
+
+    /// The date of the document where the feature was published
     App::PropertyString PublicationDate;
+
+    /// The web link to the publication of the document where the feature was published
     App::PropertyString LinkToPublication;
+
+    /// The authors of the document where the feature was published
     App::PropertyString PublicationAuthor;
+
+    /// The current version of the feature
     App::PropertyString Version;
+
+    /// The name of the feature parent plugin
     App::PropertyString PluginName;
+
+    /// The version of the feature parent plugin
     App::PropertyString PluginVersion;
+
+    /// The version of the API that was used to implement the feature
     App::PropertyString APIVersion;
+
+    /// The date the feature was released for the first time
     App::PropertyString ReleaseDate;
+
+    /// The name of the feature parent simulation
     App::PropertyString Simulation;
 
+    /// This flag should be set to true if the feature varies with time. f = f(time,x,y,z,...)
     App::PropertyBool IsStationary;
+
+    /// This flag should be set to true if the feature allows non-stationarity (time dependency) by simply applying a modulation function. f(time,x,y,z...) = M(time) * G(x,y,z...)
     App::PropertyBool IsUniformlyModulated;
+    //@}
 
     /// Constructor
     RPSFeature(void);

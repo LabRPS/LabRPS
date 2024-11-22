@@ -153,7 +153,7 @@ RPS_PLUGIN_FUNC void DestroyVerticalDistr(IrpsWLLocationDistribution* r)
 }
 
 std::string objNameGri_P = "Grid Points";
-std::string objDescriptionGri_P = "This feature allows the user to add simulation points that are uniformly distributed on vertical line in space";
+std::string objDescriptionGri_P = "This feature allows the user to add simulation points that are uniformly distributed on a grid  in sace";
 std::string objTileGri_P = "LabRPS";
 std::string objLinkGri_P = "https://wiki.labrps.com";
 std::string objAuthorsGri_P = "LabRPS";
@@ -218,7 +218,7 @@ RPS_PLUGIN_FUNC void DestroyRPSLogarithmicLowProfile(IrpsWLMean* r)
     delete r;
 }
 
-std::string objNameDea_H = "Deaves and Harris Model";
+std::string objNameDea_H = "Deaves and Harris Profile";
 std::string objDescriptionDea_H = "This feature allows the computation of mean wind speed according to the Deaves and Harris model";
 std::string objTileDea_H = "Advanced Structural Wind Engineering";
 std::string objLinkDea_H = "https://link.springer.com/book/10.1007/978-4-431-54337-4";

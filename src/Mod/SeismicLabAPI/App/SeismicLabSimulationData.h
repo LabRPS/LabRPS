@@ -120,7 +120,9 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
     App::PropertyAngle minDirection;
     App::PropertyAngle maxDirection;
     App::PropertyAngle directionIncrement;
-
+    App::PropertyAcceleration peakGroundAcceleration;
+    App::PropertySpeed peakGroundVelocity;
+    App::PropertyLength peackGroundDisplacement;
 	App::PropertyFloat incrementOfVariableX;
 
     App::PropertyFloat minVariableX;
@@ -186,6 +188,8 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
    App::PropertyString variance;
    App::PropertyString wavePassageEffect;
    App::PropertyString soilType;
+   App::PropertyString motionType;
+
 
 
    /** @name methods override feature */

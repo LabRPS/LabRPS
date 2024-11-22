@@ -72,6 +72,9 @@ SeismicLabSimulationData::SeismicLabSimulationData()
 	ADD_PROPERTY_TYPE(minVariableX, (-5.00), 0, Prop_None, "This is the minimum x variable value");
 	ADD_PROPERTY_TYPE(directionIncrement, (0.001), 0, Prop_None, "This is the direction increment value");
 	ADD_PROPERTY_TYPE(spatialDistribution, (""), 0, Prop_None, "current location distribution name");
+	ADD_PROPERTY_TYPE(peakGroundAcceleration, (1.0), "Peaks", App::Prop_None, "The peak ground acceleration");
+    ADD_PROPERTY_TYPE(peakGroundVelocity, (1.0), "Peaks", App::Prop_None, "The peak ground velocity");
+    ADD_PROPERTY_TYPE(peackGroundDisplacement, (1.0), "Peaks", App::Prop_None, "The peak ground displacement");
 	ADD_PROPERTY_TYPE(shearVelocity, (""), 0, Prop_None, "current shear velocity name");
 	ADD_PROPERTY_TYPE(meanFunction, (""), 0, Prop_None, "current mean wind profile name");
 	ADD_PROPERTY_TYPE(spectrumModel, (""), 0, Prop_None, "current along wind spectrum model name");
@@ -98,8 +101,9 @@ SeismicLabSimulationData::SeismicLabSimulationData()
 	ADD_PROPERTY_TYPE(variance, (""), 0, Prop_None, "current variance name");
 	ADD_PROPERTY_TYPE(wavePassageEffect, (""), 0, Prop_None, "current wave passage name");
     ADD_PROPERTY_TYPE(soilType, (""), 0, Prop_None, "the soil type");
+    ADD_PROPERTY_TYPE(motionType, (""), 0, Prop_None, "the motion type");
 
-	static const char* directions[] = {"X", "Y", "Z", nullptr};
+	static const char* directions[] = {"East-West", "North-South", "Vertical", nullptr};
     ADD_PROPERTY_TYPE(direction, ((long int)0), 0, Prop_None, "The wind direction");
     direction.setEnums(directions);
 }
