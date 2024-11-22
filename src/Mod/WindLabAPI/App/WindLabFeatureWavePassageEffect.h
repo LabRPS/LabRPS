@@ -29,7 +29,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all wave passage effect feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureWavePassageEffect : public WindLabAPI::WindLabFeature
 {

@@ -28,18 +28,58 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLStandardDeviation
+ * @brief An abstract class representing a standard deviation.
+ *
+ * This is a pure virtual class (interface) that defines the interface for standard deviations.
+ * In the context of random phenomenon simulation, standard deviation is a statistical measure 
+ * that quantifies the amount of variation or spread in a set of random values. It is an important 
+ * concept because it provides insight into how much individual values of a random variable deviate 
+ * from the mean (or expected value) of the distribution. 
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLStandardDeviation : public WindLabAPI::WindLabFeatureStandardDeviation
 {
 public:
 
+    /**
+     * @brief Virtual destructor for IrpsWLStandardDeviation class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLStandardDeviation() {};
 
+    /** Compute the standard deviation value for given time and location.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dTime        the time instant at which the standard deviation value will be computed.
+     * @param dValue       a value to be updated. This is the computed standard deviation value.
+     * @return             return true if the computation is successful and false in case of failure.
+     */	
     virtual bool ComputeStandardDeviationValue(const WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue) = 0;
 
+    /** Compute the standard deviation values at a given time instant and for all locations (simulation points).
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param dTime        the time instant at which the standard deviation value will be computed.
+     * @param dVarVector   a vector to be updated. It should contains all the location numbers used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each location stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeStandardDeviationVectorP(const WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Compute the standard deviation values at a given location (simulation point) and for all time increments.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dVarVector   a vector to be updated. It should contains all the time increments used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeStandardDeviationVectorT(const WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 
 };

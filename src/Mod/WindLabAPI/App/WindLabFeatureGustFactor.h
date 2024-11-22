@@ -29,7 +29,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all gust factor feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureGustFactor : public WindLabAPI::WindLabFeature
 {

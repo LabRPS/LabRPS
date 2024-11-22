@@ -29,17 +29,58 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLModulation
+ * @brief An abstract class representing a modulation function.
+ *
+ * This is a pure virtual class (interface) that defines the interface for all modulation function.
+ * Unlike stationary processes, where statistical properties (such as mean and variance) remain 
+ * constant over time, non-stationary random phenomenon varies in its statistical behavior. A modulation 
+ * function is a mathematical tool or algorithm used to adjust the statistical properties of a random process 
+ * in a time-dependent manner. 
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLModulation : public WindLabAPI::WindLabFeatureModulation
 {
 public:
+
+    /**
+     * @brief Virtual destructor for IrpsWLModulation class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLModulation() {};
 
+    /** Compute the modulation value for given time and location.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dTime        the time instant at which the modulation value will be computed.
+     * @param dValue       a value to be updated. This is the computed modulation value.
+     * @return             return true if the computation is successful and false in case of failure.
+     */	
     virtual bool ComputeModulationValue(const WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue) = 0;
 
+    /** Compute the modulation at a given time instant and for all locations (simulation points).
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param dTime        the time instant at which the modulation value will be computed.
+     * @param dVarVector   a vector to be updated. It should contains all the location numbers used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each location stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeModulationVectorP(const WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Compute the modulation at a given location (simulation point) and for all time increments.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param location     a location (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dVarVector   a vector to be updated. It should contains all the time increments used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeModulationVectorT(const WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
 	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 
 };

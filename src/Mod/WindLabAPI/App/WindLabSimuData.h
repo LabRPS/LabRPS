@@ -37,175 +37,242 @@
 
 namespace WindLabAPI
 {
+
+/// The WindLab simulation data for random wind velocity
 class RPS_CORE_API WindLabSimuData : public WindLabAPI::WindLabFeature
 {
 	PROPERTY_HEADER_WITH_OVERRIDE(WindLabAPI::WindLabFeature);
 
  public:
 
-	// Constructor
+    /// Construction
 	WindLabSimuData();
 
-	// Destructor
+    /// Destruction
 	~WindLabSimuData();
 
-	// The Number of process
+ /** @name Properties */
+    //@{
+    /// The number of process (number of simulation)
 	App::PropertyInteger numberOfSpatialPosition;
 
-	// The number of frequency increments
+	/// The number of frequency increments
 	App::PropertyInteger numberOfFrequency;
 
-	// The Number of sample
+	/// The Number of sample
 	App::PropertyInteger numberOfSample;
 
-	// Wind Direction
+	/// Wind Direction
     App::PropertyEnumeration WindDirection;
 
-	// Nunber of time instant
+	/// Nunber of time instant
 	App::PropertyInteger numberOfTimeIncrements;
 
+	/// A given location J among all the locations (simulation points)
 	App::PropertyInteger locationJ;
 
+	/// A given location K among all the locations (simulation points)
 	App::PropertyInteger locationK;
 
+	/// A given frequency increment index among all the frequency increments
 	App::PropertyInteger frequencyIndex;
 
+	/// A given direction increment index among all the direction increments
 	App::PropertyInteger directionIndex;
 
+	/// A given time increment index among all the time increments
 	App::PropertyInteger timeIndex;
 
-	// Nunber of time lags
+	/// Nunber of time lags for the computation of correlation
 	App::PropertyInteger numberOfTimeLags;
 
-	//comparison type: 1 for accuracy, 2 for time and 3 for memory
+	/// The comparison type: 1 for accuracy, 2 for compuation time and 3 for memory usage
 	App::PropertyInteger comparisonType;
 
+    /// Number of wave lengh increments
 	App::PropertyInteger numberOfWaveLengthIncrements;
 
+    /// Number of direction increments
 	App::PropertyInteger numberOfDirectionIncrements;
 
+	/// A given wave length increment index among all the wave length increments
 	App::PropertyInteger waveLengthIndex;
 
+    /// Number of increment for variable x 
     App::PropertyInteger numberOfIncrementOfVariableX;
 
+	/// A given variable x increment index among all the variable x increments
     App::PropertyInteger indexOfVariableX;
 
-	// Stationarity
+	/// Specifies whether the stationary or non-stationary wind velocity is desired
 	App::PropertyBool stationarity;
 
-	// Stationarity
+	/// Specifies whether the gaussian or non-gaussian wind velocity is desired
 	App::PropertyBool gaussianity;
 
-	// whether we are doing comparison or not
+	/// Specifies whether we are in comparison  mode or not
 	App::PropertyBool  comparisonMode;
 
-	// whether we are doing large scale simulation or not
+	/// Specifies whether we are doing large scale simulation or not
 	App::PropertyBool  largeScaleSimulationMode;
 
-	// simulation successfull or not flag
+	/// The flag specfies simulation successfull or not
 	App::PropertyBool isSimulationSuccessful;
 
+	/// This flag tells whether simulation or computation should be interrupted.
 	App::PropertyBool isInterruptionRequested;
 	
+	/// It tells whether non-stationarity should be acheived by time modulation.
 	App::PropertyBool uniformModulation;
 
+	/// Minimum time from which incrementation should start
 	App::PropertyTime minTime;
+
+    /// Maximum time allowed after all incrementation
     App::PropertyTime maxTime;
+
+    /// the time increment value
     App::PropertyTime timeIncrement;
+	
+	/// Minimum frequency from which incrementation should start
     App::PropertyFrequency minFrequency;
+
+    /// The frequency increment value
     App::PropertyFrequency frequencyIncrement;
+
+    /// Maximum freqency allowed after all incrementation. The cutoff frequency.
     App::PropertyFrequency maxFrequency;
+
+	/// Minimum wave length from which incrementation should start
     App::PropertyLength minWaveLength;
+
+	/// Maximum wave length allowed after all incrementation.
     App::PropertyLength maxWaveLength;
+
+	/// The wave length increment value
     App::PropertyLength waveLengthIncrement;
+
+	/// Initial direction from which incrementation should start
     App::PropertyAngle minDirection;
+
+	/// Maximum direction allowed after all incrementation.
     App::PropertyAngle maxDirection;
+
+    /// The direction increment value
     App::PropertyAngle directionIncrement;
 
+    /// The variable x increment value
 	App::PropertyFloat incrementOfVariableX;
 
+	/// Minimum value from which incrementation should start
     App::PropertyFloat minVariableX;
 
-	// The selected spatial distribution
+	/// The active spatial distribution name
 	App::PropertyString spatialDistribution;
 
-	// The selected shear velocity
+	/// The active shear velocity name
 	App::PropertyString shearVelocity;
 
-	// The selected mean wind profile
+	/// The active mean wind profile name
 	App::PropertyString meanFunction;
 
-	// The selected along wind spectrum model
+	/// The active along wind spectrum model name
 	App::PropertyString alongWindSpectrumModel;
 
-	// The selected vertical wind spectrum model
+	/// The active vertical wind spectrum model name
 	App::PropertyString verticalWindSpectrumModel;
 
-	// The selected across wind spectrum model
+	/// The active across wind spectrum model name
 	App::PropertyString acrossWindSpectrumModel;
 
-	// The selected coherence function
+	// The active coherence function name
 	App::PropertyString coherenceFunction;
 
-	// Selected simulation method
+	/// The active simulation method name
 	App::PropertyString simulationMethod;
 
-	// Selected Simulation
+	/// The active frequency distribution name
 	App::PropertyString frequencyDistribution;
 
-	// Selected CPSD Decomposition Method
+	/// The active CPSD Decomposition Method name
 	App::PropertyString cpsdDecompositionMethod;
 
-	// Selected randomness
+	/// The active randomness provider name
 	App::PropertyString randomnessProvider;
 
-	// Selected Modulation function model
+	/// The active Modulation function name
 	App::PropertyString modulationFunction;
 
-	// Selected correlation function model
+	/// The active correlation function name
 	App::PropertyString correlationFunction;
 
-	// Selected variance model
+	/// The active variance model name
 	App::PropertyString varianceFunction;
 
-	// The working directory path
+	/// The working directory path
 	App::PropertyString workingDirPath;
 
-	// table tool name
+	/// The active table tool name
 	App::PropertyString tableTool;
 
-	// matrix tool name
+	/// The active matrix tool name
 	App::PropertyString matrixTool;
 
-	// user defined feature name
+	/// The active user defined feature name
 	App::PropertyString userDefinedRPSObject;
 
-	// Selected comparison category
+	/// The current comparison category
 	App::PropertyString comparisonCategory;
 
+	/// The active cumulative probability distribution
    App::PropertyString cumulativeProbabilityDistribution;
-   App::PropertyString gustFactor;
-   App::PropertyString kurtosis;
-   App::PropertyString peakFactor;
-   App::PropertyString probabilityDensityFunction;
-   App::PropertyString roughness;
-   App::PropertyString shearVelocityOfFlow;
-   App::PropertyString skewness;
-   App::PropertyString standardDeviation;
-   App::PropertyString turbulenceIntensity;
-   App::PropertyString turbulenceScale;
-   App::PropertyString variance;
-   App::PropertyString wavePassageEffect;
 
+   	/// The active gust factor 
+   App::PropertyString gustFactor;
+
+   	/// The active kurtosis
+   App::PropertyString kurtosis;
+
+   	/// The active peak factor
+   App::PropertyString peakFactor;
+
+   	/// The active probability density function
+   App::PropertyString probabilityDensityFunction;
+
+   	/// The active terrain roughness
+   App::PropertyString roughness;
+
+   	/// The active flow shear velocity
+   App::PropertyString shearVelocityOfFlow;
+
+   	/// The active skewness
+   App::PropertyString skewness;
+
+   	/// The active standard deviation
+   App::PropertyString standardDeviation;
+
+   	/// The active turbulence intensity
+   App::PropertyString turbulenceIntensity;
+
+   	/// The active turbulence scale
+   App::PropertyString turbulenceScale;
+
+   	/// The active variance
+   App::PropertyString variance;
+
+   	/// The active wave passage effect
+   App::PropertyString wavePassageEffect;
+    //@}
 
    /** @name methods override feature */
-//@{
+   //@{
    virtual short mustExecute() const override;
+   virtual PyObject* getPyObject() override;
    //@}
-    virtual PyObject* getPyObject() override;
+
+   protected:// attributes
 
    /// python object of this class
-   protected:// attributes
    Py::SmartPtr PythonObject;
 
    protected:

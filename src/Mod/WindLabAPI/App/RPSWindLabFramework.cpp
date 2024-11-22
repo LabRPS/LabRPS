@@ -1993,5 +1993,5 @@ int CRPSWindLabFramework::getLocationIndex(const WindLabAPI::WindLabSimuData &Da
         }
     }
 
-    return 0;
+    return -1;
 }

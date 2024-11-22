@@ -29,8 +29,8 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
- */
+/** Base class of all vertical wind spectrum feature classes in LabRPS
+*/
 class WindLabAPIExport WindLabFeatureZSpectrum : public WindLabAPI::WindLabFeature
 {
     PROPERTY_HEADER_WITH_OVERRIDE(WindLabAPI::WindLabFeatureZSpectrum);

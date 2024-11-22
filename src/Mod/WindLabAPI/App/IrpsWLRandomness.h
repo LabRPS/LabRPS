@@ -28,15 +28,44 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLRandomness
+ * @brief An abstract class representing a randomness provider.
+ *
+ * This is a pure virtual class (interface) that defines the interface for randomness providers.
+ * Random phenomenon exhibits random and fluctuating behavior that needs to be accurately represented 
+ * in simulations to capture both long-term trends and short-term fluctuations. One of the key elements 
+ * in the simulation process is the incorporation of random phases in the construction of the phenomenon. 
+ * Derived classes must implement all its methods. 
+ */
 class IrpsWLRandomness : public WindLabAPI::WindLabFeatureRandomness
 {
 public:
+
+    /**
+     * @brief Virtual destructor for IrpsWLRandomness class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLRandomness() {};
 
+    /** Generate a random value.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param dValue       a value to be updated. This is the generated random value.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeRandomValue(const WindLabSimuData &Data, double &dValue) = 0;
 
+    /** Generate the random value matrix for all frequency increments and locations.
+     * @param Data       the simulation data containing all the simulation parameters input by the user..
+     * @param dMatrix    a matrix to be updated. It should contain the generated random values matrix.
+     * @return           return true if the computation is successful and false in case of failure.
+     */
     virtual bool GenerateRandomMatrixFP(const WindLabSimuData &Data, mat &dRandomValueArray) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
 	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 
 };

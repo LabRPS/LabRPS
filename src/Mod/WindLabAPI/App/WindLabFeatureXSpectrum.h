@@ -29,7 +29,7 @@
 namespace WindLabAPI
 {
 
-/** Base class of all shape feature classes in LabRPS
+/** Base class of all along wind spectrum feature classes in LabRPS
  */
 class WindLabAPIExport WindLabFeatureXSpectrum : public WindLabAPI::WindLabFeature
 {

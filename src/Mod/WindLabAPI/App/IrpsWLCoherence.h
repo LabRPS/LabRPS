@@ -29,20 +29,83 @@
 
 namespace WindLabAPI {
 
+/**
+ * @class IrpsWLCoherence
+ * @brief An abstract class representing a coherence function.
+ *
+ * This is a pure virtual class (interface) that defines the interface for all coherence functions.
+ * A coherence function is a fundamental component in the simulation of random phenomenon, 
+ * particularly when modeling the spatial and temporal correlation of the fluctuations. 
+ * It provides insight into how the phenomenon variations at different locations or times are related to one another, 
+ * thus capturing the inherent dependence between the fluctuations at different points in space or over time.
+ * Derived classes must implement all its methods. During the implementation of this interface you have 
+ * to consider stationarity depending on how your feature varies in time to capture these three situation that
+ * may come from the user's inputs (requirements):
+ * 
+ * 1-The user is willing to simulate stationary wind velocity. f = f(w)
+ * 
+ * 2-The user is willing to simulate non-stationary wind velocity and has also created a modulation 
+ * function in the simulation. f = f(w,t) = G(w) * M(t)
+ * 
+ * 3-The user is willing to simulate non-stationary wind velocity without creating any
+ * modulation function in the simulation. f = f(w,t)
+ */
 class IrpsWLCoherence : public WindLabAPI::WindLabFeatureCoherence
 {
 public:
 
+    /**
+     * @brief Virtual destructor for IrpsWLCoherence class.
+     * Provides proper cleanup in case a derived class object is destroyed.
+     */
     virtual ~IrpsWLCoherence() {};
 
+    /** Compute the cross coherence between two simulation points for all frequency increments.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param locationJ    a location J (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param locationK    a location K (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dTime        the time instant at which the coherence vector will be computed.
+     * @param dVarVector   a vector to be updated. It should contains all the frequency increments used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeCrossCoherenceVectorF(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
 
+    /** Compute the cross coherence between two simulation points for all time increments.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param locationJ    a location J (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param locationK    a location K (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dFrequency   the frequency value for which the coherence vector will be computed.
+     * @param dVarVector   a vector to be updated. It should contains all the time increments used to compute each value stored in dValVector.
+     * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeCrossCoherenceVectorT(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
 
+    /** Compute the cross coherence matrix for given time and frequency.
+     * @param Data              the simulation data containing all the simulation parameters input by the user.
+     * @param dFrequency        the frequency value for which the coherence matrix will be computed.
+     * @param dTime             the time instant at which the coherence matrix will be computed.
+     * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed coherence matrix.
+     * @return                  return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeCrossCoherenceMatrixPP(const WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix) = 0;
 
+    /** Compute the cross coherence value for given time, frequency and locations.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @param locationJ    a location J (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param locationK    a location K (simulation point represented by 3D position vector) where wind velocity time series is desired.
+     * @param dFrequency   the frequency value for which the coherence value will be computed.
+     * @param dTime        the time instant at which the coherence value will be computed.
+     * @param dValue       a value to be updated. This is the computed coherence value.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
     virtual bool ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
+    /** Allows to do any initial taks before any of the above methods is called.
+     * @param Data         the simulation data containing all the simulation parameters input by the user.
+     * @return             return true if the computation is successful and false in case of failure.
+     */
 	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
 };
 

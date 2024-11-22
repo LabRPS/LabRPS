@@ -62,7 +62,7 @@
 
 #include <App/RPSFeature.h>
 
-namespace WindLabAPI {
+namespace WindLabAPI{
 
 class RPS_CORE_API RPSWindLabAPIInfo
 {
@@ -71,9 +71,11 @@ public:
 	static const char * getWindLabAPIVersion();
 };
 
- class RPS_CORE_API CrpsCoherenceFactory
- {
- 	public:
+/** Factory class for IrpsWLCoherence interface.
+*/
+class RPS_CORE_API CrpsCoherenceFactory
+{
+	public:
         CrpsCoherenceFactory();
         ~CrpsCoherenceFactory();
 
@@ -123,11 +125,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
-
- 	class RPS_CORE_API CrpsLocationDistributionFactory
- 	{
+/** Factory class for IrpsWLLocationDistribution interface.
+*/
+class RPS_CORE_API CrpsLocationDistributionFactory
+{
  	public:
 
         CrpsLocationDistributionFactory();
@@ -177,11 +180,12 @@ public:
         static std::map<const std::string, bool> mStationarityMap;
 
 
- 	};
+};
 
-
- 	class RPS_CORE_API CrpsMeanFactory
- 	{
+/** Factory class for IrpsWLMean interface.
+*/
+class RPS_CORE_API CrpsMeanFactory
+{
  	public:
 
         CrpsMeanFactory();
@@ -234,13 +238,12 @@ public:
         static std::map<const std::string, bool> mStationarityMap;
 
 
- 	};
+};
 
-
- 	//////////////////////// Along wind Sepctrum//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsXSpectrumFactory
- 	{
+/** Factory class for IrpsWLXSpectrum interface.
+*/
+class RPS_CORE_API CrpsXSpectrumFactory
+{
  	public:
         CrpsXSpectrumFactory();
         ~CrpsXSpectrumFactory();
@@ -271,7 +274,6 @@ public:
         static std::map<const std::string, PyObject*>& GetProducerMap();
         static std::map<const std::string, bool>& GetStationarityMap();
 
-
  	private:
  		typedef std::map<const std::string, CreateXSpectrumCallback> CallbackMap;
  		static CallbackMap mXSpectrums;
@@ -288,13 +290,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
- 	//////////////////////// Vertical wind Sepctrum//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsZSpectrumFactory
- 	{
+/** Factory class for IrpsWLZSpectrum interface.
+*/
+class RPS_CORE_API CrpsZSpectrumFactory
+{
  	public:
         CrpsZSpectrumFactory();
         ~CrpsZSpectrumFactory();
@@ -325,8 +326,6 @@ public:
         static std::map<const std::string, PyObject*>& GetProducerMap();
         static std::map<const std::string, bool>& GetStationarityMap();
 
-
-
  	private:
  		typedef std::map<const std::string, CreateZSpectrumCallback> CallbackMap;
  		static CallbackMap mZSpectrums;
@@ -343,13 +342,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
- 	//////////////////////// Across wind Sepctrum//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsYSpectrumFactory
- 	{
+/** Factory class for IrpsWLYSpectrum interface.
+*/
+class RPS_CORE_API CrpsYSpectrumFactory
+{
  	public:
         CrpsYSpectrumFactory();
         ~CrpsYSpectrumFactory();
@@ -396,15 +394,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
-
-
- 	////////////////////////Simulation Method//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsSimuMethodFactory
- 	{
+/** Factory class for IrpsWLSimuMethod interface.
+*/
+class RPS_CORE_API CrpsSimuMethodFactory
+{
  	public:
         CrpsSimuMethodFactory();
         ~CrpsSimuMethodFactory();
@@ -451,13 +446,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
- 	////////////////////////Frequency distribution//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsFrequencyDistributionFactory
- 	{
+/** Factory class for IrpsWLFrequencyDistribution interface.
+*/
+class RPS_CORE_API CrpsFrequencyDistributionFactory
+{
  	public:
         CrpsFrequencyDistributionFactory();
         ~CrpsFrequencyDistributionFactory();
@@ -504,13 +498,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
- 	////////////////////////Randomness//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsRandomnessFactory
- 	{
+/** Factory class for IrpsWLRandomness interface.
+*/
+class RPS_CORE_API CrpsRandomnessFactory
+{
  	public:
         CrpsRandomnessFactory();
         ~CrpsRandomnessFactory();
@@ -557,13 +550,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
-
- 	////////////////////////psd decomposition//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsPSDdecomMethodFactory
- 	{
+/** Factory class for IrpsWLPSDdecompositionMethod interface.
+*/
+class RPS_CORE_API CrpsPSDdecomMethodFactory
+{
  	public:
         CrpsPSDdecomMethodFactory();
         ~CrpsPSDdecomMethodFactory();
@@ -611,12 +603,12 @@ public:
         static std::map<const std::string, bool> mStationarityMap;
 
 
- 	};
+};
 
- 	////////////////////////Correlation//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsCorrelationFactory
- 	{
+/** Factory class for IrpsWLCorrelation interface.
+*/
+class RPS_CORE_API CrpsCorrelationFactory
+{
  	public:
         CrpsCorrelationFactory();
         ~CrpsCorrelationFactory();
@@ -663,12 +655,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
- 	////////////////////////Modulation//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsModulationFactory
- 	{
+/** Factory class for IrpsWLModulation interface.
+*/
+class RPS_CORE_API CrpsModulationFactory
+{
  	public:
         CrpsModulationFactory();
         ~CrpsModulationFactory();
@@ -715,12 +707,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- 	};
+};
 
- 	///////////Table tool///////////////
-
- class RPS_CORE_API CrpsTableToolFactory
- {
+/** Factory class for IrpsWLTableTool interface.
+*/
+class RPS_CORE_API CrpsTableToolFactory
+{
  	public:
         CrpsTableToolFactory();
         ~CrpsTableToolFactory();
@@ -769,12 +761,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- ///////////Matrix tool///////////////
-
- class RPS_CORE_API CrpsMatrixToolFactory
- {
+/** Factory class for IrpsWLMatrixTool interface.
+*/
+class RPS_CORE_API CrpsMatrixToolFactory
+{
  	public:
         CrpsMatrixToolFactory();
         ~CrpsMatrixToolFactory();
@@ -823,12 +815,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- ///////////user defined rps object///////////////
-
- class RPS_CORE_API CrpsUserDefinedRPSObjectFactory
- {
+/** Factory class for IrpsWLMatrixTool interface.
+*/
+class RPS_CORE_API CrpsUserDefinedRPSObjectFactory
+{
  	public:
         CrpsUserDefinedRPSObjectFactory();
         ~CrpsUserDefinedRPSObjectFactory();
@@ -877,12 +869,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- ///////////cumulative probability distribution///////////////
-
- class RPS_CORE_API CrpsCumulativeProbabilityDistributionFactory
- {
+/** Factory class for IrpsWLCumulativeProbabilityDistribution interface.
+*/
+class RPS_CORE_API CrpsCumulativeProbabilityDistributionFactory
+{
  	public:
         CrpsCumulativeProbabilityDistributionFactory();
         ~CrpsCumulativeProbabilityDistributionFactory();
@@ -931,12 +923,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Gust factor////////////////////////////////////////////
-
- class RPS_CORE_API CrpsGustFactorFactory
- {
+/** Factory class for IrpsWLGustFactor interface.
+*/
+class RPS_CORE_API CrpsGustFactorFactory
+{
  	public:
         CrpsGustFactorFactory();
         ~CrpsGustFactorFactory();
@@ -985,12 +977,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Kurtosis////////////////////////////////////////////
-
- class RPS_CORE_API CrpsKurtosisFactory
- {
+/** Factory class for IrpsWLKurtosis interface.
+*/
+class RPS_CORE_API CrpsKurtosisFactory
+{
  	public:
         CrpsKurtosisFactory();
         ~CrpsKurtosisFactory();
@@ -1039,12 +1031,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Peak Factor////////////////////////////////////////////
-
- class RPS_CORE_API CrpsPeakFactorFactory
- {
+/** Factory class for IrpsWLPeakFactor interface.
+*/
+class RPS_CORE_API CrpsPeakFactorFactory
+{
  	public:
         CrpsPeakFactorFactory();
         ~CrpsPeakFactorFactory();
@@ -1093,12 +1085,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Probability density function////////////////////////////////////////////
-
- class RPS_CORE_API CrpsProbabilityDensityFunctionFactory
- {
+/** Factory class for IrpsWLProbabilityDensityFunction interface.
+*/
+class RPS_CORE_API CrpsProbabilityDensityFunctionFactory
+{
  	public:
         CrpsProbabilityDensityFunctionFactory();
         ~CrpsProbabilityDensityFunctionFactory();
@@ -1147,12 +1139,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Roughness////////////////////////////////////////////
-
- class RPS_CORE_API CrpsRoughnessFactory
- {
+/** Factory class for IrpsWLRoughness interface.
+*/
+class RPS_CORE_API CrpsRoughnessFactory
+{
  	public:
         CrpsRoughnessFactory();
         ~CrpsRoughnessFactory();
@@ -1202,12 +1194,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Shear velocity of flow////////////////////////////////////////////
-
- class RPS_CORE_API CrpsShearVelocityOfFlowFactory
- {
+/** Factory class for IrpsWLShearVelocityOfFlow interface.
+*/
+class RPS_CORE_API CrpsShearVelocityOfFlowFactory
+{
  	public:
         CrpsShearVelocityOfFlowFactory();
         ~CrpsShearVelocityOfFlowFactory();
@@ -1256,12 +1248,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Skewness////////////////////////////////////////////
-
- class RPS_CORE_API CrpsSkewnessFactory
- {
+/** Factory class for IrpsWLSkewness interface.
+*/
+class RPS_CORE_API CrpsSkewnessFactory
+{
  	public:
         CrpsSkewnessFactory();
         ~CrpsSkewnessFactory();
@@ -1310,12 +1302,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Standard deviation////////////////////////////////////////////
-
- class RPS_CORE_API CrpsStandardDeviationFactory
- {
+/** Factory class for IrpsWLStandardDeviation interface.
+*/
+class RPS_CORE_API CrpsStandardDeviationFactory
+{
  	public:
         CrpsStandardDeviationFactory();
         ~CrpsStandardDeviationFactory();
@@ -1365,12 +1357,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Turbulence Intensity////////////////////////////////////////////
-
- class RPS_CORE_API CrpsTurbulenceIntensityFactory
- {
+/** Factory class for IrpsWLTurbulenceIntensity interface.
+*/
+class RPS_CORE_API CrpsTurbulenceIntensityFactory
+{
  	public:
         CrpsTurbulenceIntensityFactory();
         ~CrpsTurbulenceIntensityFactory();
@@ -1420,12 +1412,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Turbulence scale////////////////////////////////////////////
-
- class RPS_CORE_API CrpsTurbulenceScaleFactory
- {
+/** Factory class for IrpsWLTurbulenceScale interface.
+*/
+class RPS_CORE_API CrpsTurbulenceScaleFactory
+{
  	public:
         CrpsTurbulenceScaleFactory();
         ~CrpsTurbulenceScaleFactory();
@@ -1474,12 +1466,12 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
- /////////////////////Variance////////////////////////////////////////////
-
- class RPS_CORE_API CrpsVarianceFactory
- {
+/** Factory class for IrpsWLVariance interface.
+*/
+class RPS_CORE_API CrpsVarianceFactory
+{
  	public:
         CrpsVarianceFactory();
         ~CrpsVarianceFactory();
@@ -1528,10 +1520,10 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
- };
+};
 
-/////////////////////Wave passage effect////////////////////////////////////////////
-
+/** Factory class for IrpsWLWavePassageEffect interface.
+*/
 class RPS_CORE_API CrpsWavePassageEffectFactory
 {
 	public:
@@ -1582,102 +1574,6 @@ class RPS_CORE_API CrpsWavePassageEffectFactory
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 };
-
-
-//#define WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(_ObjectClass_, _ObjectInterface_, _CreateCallback_) \
-//class RPS_CORE_API _ObjectClass_\
-//{\
-//	public:\
-//        typedef _ObjectInterface_ *(*_CreateCallback_)();\
-//        static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);\
-//        static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, _CreateCallback_ cb);\
-//        static void UnregisterObject(const std::string& name, const std::string& pluginName);\
-//        static _ObjectInterface_ *BuildObject(const std::string& name);\
-//		static std::vector<std::string> GetNameVector();\
-//        static std::map<const std::string, _CreateCallback_>& GetObjectNamesMap();\
-//		static QString GetOwnerPlugin();\
-//		static void SetOwnerPlugin(QString ownerPlugin);\
-//		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();\
-//		static std::map<const std::string, std::string> & GetOjectDescriptionMap();\
-//		static std::map<const std::string, std::string> & GetOjectAndPluginMap();\
-//		static std::map<const std::string, std::string> & GetTitleMap();\
-//		static std::map<const std::string, std::string> & GetLinkMap();\
-//		static std::map<const std::string, std::string> & GetAuthorMap();\
-//		static std::map<const std::string, std::string> & GetDateMap();\
-//	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();\
-//		static std::map<const std::string, std::string> & GetVersionMap();\
-//	private:\
-//        typedef std::map<const std::string, _CreateCallback_> CallbackMap;\
-//        static CallbackMap mObjects;\
-//        static std::vector<std::string> mObjectNames;\
-//        static QString mOwnerPlugin;\
-//		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;\
-//		static std::map<const std::string, std::string> mOjectDescriptionMap;\
-//		static std::map<const std::string, std::string> mOjectAndPluginMap;\
-//		static std::map<const std::string, std::string> mTitleMap;\
-//		static std::map<const std::string, std::string> mLinkMap;\
-//		static std::map<const std::string, std::string> mAuthorMap;\
-//		static std::map<const std::string, std::string> mDateMap;\
-//		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;\
-//		static std::map<const std::string, std::string> mVersionMap;\
-//};
-//
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCoherenceFactory, IrpsWLCoherence, IrpsWLCoherenceCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsLocationDistributionFactory, IrpsWLLocationDistribution, IrpsWLLocationDistributionCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsMeanFactory, IrpsWLMean, IrpsWLMeanCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsXSpectrumFactory, IrpsWLXSpectrum, IrpsWLXSpectrumCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsZSpectrumFactory, IrpsWLZSpectrum, IrpsWLZSpectrumCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsYSpectrumFactory, IrpsWLYSpectrum, IrpsWLYSpectrumCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsSimuMethodFactory, IrpsWLSimuMethod, IrpsWLSimuMethodCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsFrequencyDistributionFactory, IrpsWLFrequencyDistribution, IrpsWLFrequencyDistributionCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsRandomnessFactory, IrpsWLRandomness, IrpsWLRandomnessCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsPSDdecomMethodFactory, IrpsWLPSDdecompositionMethod, IrpsWLPSDdecompositionMethodCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCorrelationFactory, IrpsWLCorrelation, IrpsWLCorrelationCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsModulationFactory, IrpsWLModulation, IrpsWLModulationCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTableToolFactory, IrpsWLTableTool, IrpsWLTableToolCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsMatrixToolFactory, IrpsWLMatrixTool, IrpsWLMatrixToolCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsUserDefinedRPSObjectFactory, IrpsWLUserDefinedRPSObject, IrpsWLUserDefinedRPSObjectCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCumulativeProbabilityDistributionFactory, IrpsWLCumulativeProbabilityDistribution, IrpsWLCumulativeProbabilityDistributionCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsGustFactorFactory, IrpsWLGustFactor, IrpsWLGustFactorCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsKurtosisFactory, IrpsWLKurtosis, IrpsWLKurtosisCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsPeakFactorFactory, IrpsWLPeakFactor, IrpsWLPeakFactorCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsProbabilityDensityFunctionFactory, IrpsWLProbabilityDensityFunction, IrpsWLProbabilityDensityFunctionCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsRoughnessFactory, IrpsWLRoughness, IrpsWLRoughnessCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsShearVelocityOfFlowFactory, IrpsWLShearVelocityOfFlow, IrpsWLShearVelocityOfFlowCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsSkewnessFactory, IrpsWLSkewness, IrpsWLSkewnessCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsStandardDeviationFactory, IrpsWLStandardDeviation, IrpsWLStandardDeviationCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTurbulenceIntensityFactory, IrpsWLTurbulenceIntensity, IrpsWLTurbulenceIntensityCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTurbulenceScaleFactory, IrpsWLTurbulenceScale, IrpsWLTurbulenceScaleCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsVarianceFactory, IrpsWLVariance, IrpsWLVarianceCallback)
-//
-//WINDLAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsWavePassageEffectFactory, IrpsWLWavePassageEffect, IrpsWLWavePassageEffectCallback)
 
 } //namespace WindLabAPI
 

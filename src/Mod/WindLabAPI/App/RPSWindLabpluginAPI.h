@@ -125,7 +125,7 @@
 	RPS_PLUGIN_FUNC const char *  Apiversion = apiversion
 
 namespace WindLabAPI {
-////////////////////////////////////////////////////////////////
+
 class RPS_CORE_API RPSWindLabPluginAPIInfo
 {
 public:
@@ -135,9 +135,7 @@ public:
 
 } //namespace WindLabAPI
 
-////////////////////////////////////coherence//////////////////////////////////////////
-
-
+/// coherence function
 typedef WindLabAPI::IrpsWLCoherence *(*CoherenceInitFunc)();
 typedef void(*CoherenceFreeFunc)(WindLabAPI::IrpsWLCoherence *);
 RPS_CORE_FUNC void RegisterCoherence(const std::string name, const std::string& description, const std::string& pluginName,
@@ -147,7 +145,7 @@ RPS_CORE_FUNC void RegisterCoherence(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeCoherence(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterCoherence(const std::string name, const std::string& pluginName);
 
-/////////////////////////////////Location distribution///////////////////
+/// location distribution
 typedef  WindLabAPI::IrpsWLLocationDistribution *(*LocationDistributionInitFunc)();
 typedef void(*LocationDistributionFreeFunc)(WindLabAPI::IrpsWLLocationDistribution *);
 RPS_CORE_FUNC void RegisterLocationDistribution(const std::string name, const std::string& pluginName, const std::string& description,
@@ -156,8 +154,7 @@ RPS_CORE_FUNC void RegisterLocationDistribution(const std::string name, const st
 RPS_CORE_FUNC void InitializeLocationDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterLocationDistribution(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////mean d///////////////////
+///mean wind speed profile
 typedef WindLabAPI::IrpsWLMean *(*MeanInitFunc)();
 typedef void(*MeanFreeFunc)(WindLabAPI::IrpsWLMean *);
 RPS_CORE_FUNC void RegisterMean(const std::string name, const std::string& pluginName, const std::string& description,
@@ -166,8 +163,7 @@ RPS_CORE_FUNC void RegisterMean(const std::string name, const std::string& plugi
 RPS_CORE_FUNC void InitializeMean(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterMean(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Along wind spectrum target///////////////////
+///Along wind spectrum
 typedef WindLabAPI::IrpsWLXSpectrum *(*XSpectrumInitFunc)();
 typedef void(*XSpectrumFreeFunc)(WindLabAPI::IrpsWLXSpectrum *);
 RPS_CORE_FUNC void RegisterXSpectrum(const std::string name, const std::string& pluginName, const std::string& description,
@@ -176,8 +172,7 @@ RPS_CORE_FUNC void RegisterXSpectrum(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeXSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterXSpectrum(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Vertical wind spectrum target///////////////////
+///Vertical wind spectrum 
 typedef WindLabAPI::IrpsWLZSpectrum *(*ZSpectrumInitFunc)();
 typedef void(*ZSpectrumFreeFunc)(WindLabAPI::IrpsWLZSpectrum *);
 RPS_CORE_FUNC void RegisterZSpectrum(const std::string name, const std::string& pluginName, const std::string& description,
@@ -186,8 +181,7 @@ RPS_CORE_FUNC void RegisterZSpectrum(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeZSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterZSpectrum(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Across wind spectrum target///////////////////
+///Across wind spectrum
 typedef WindLabAPI::IrpsWLYSpectrum *(*YSpectrumInitFunc)();
 typedef void(*YSpectrumFreeFunc)(WindLabAPI::IrpsWLYSpectrum *);
 RPS_CORE_FUNC void RegisterYSpectrum(const std::string name, const std::string& pluginName, const std::string& description,
@@ -196,7 +190,7 @@ RPS_CORE_FUNC void RegisterYSpectrum(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeYSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterYSpectrum(const std::string name, const std::string& pluginName);
 
-/////////////////////////////////Simulation Method///////////////////
+///Simulation Method
 typedef WindLabAPI::IrpsWLSimuMethod *(*SimuMethodInitFunc)();
 typedef void(*SimuMethodFreeFunc)(WindLabAPI::IrpsWLSimuMethod *);
 RPS_CORE_FUNC void RegisterSimuMethod(const std::string name, const std::string& pluginName, const std::string& description,
@@ -205,8 +199,7 @@ RPS_CORE_FUNC void RegisterSimuMethod(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializeSimuMethod(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterSimuMethod(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Frequency distribution///////////////////
+///Frequency distribution
 typedef WindLabAPI::IrpsWLFrequencyDistribution *(*FrequencyDistributionInitFunc)();
 typedef void(*FrequencyDistributionFreeFunc)(WindLabAPI::IrpsWLFrequencyDistribution *);
 RPS_CORE_FUNC void RegisterFrequencyDistribution(const std::string name, const std::string& pluginName, const std::string& description,
@@ -215,9 +208,7 @@ RPS_CORE_FUNC void RegisterFrequencyDistribution(const std::string name, const s
 RPS_CORE_FUNC void InitializeFrequencyDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterFrequencyDistribution(const std::string name, const std::string& pluginName);
 
-
-
-/////////////////////////////////Randomness///////////////////
+///Randomness provider
 typedef WindLabAPI::IrpsWLRandomness *(*RandomnessInitFunc)();
 typedef void(*RandomnessFreeFunc)(WindLabAPI::IrpsWLRandomness *);
 RPS_CORE_FUNC void RegisterRandomness(const std::string name, const std::string& pluginName, const std::string& description,
@@ -226,8 +217,7 @@ RPS_CORE_FUNC void RegisterRandomness(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializeRandomness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterRandomness(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////psd decomposition///////////////////
+///psd decomposition method
 typedef WindLabAPI::IrpsWLPSDdecompositionMethod *(*PSDdecomMethodInitFunc)();
 typedef void(*PSDdecomMethodFreeFunc)(WindLabAPI::IrpsWLPSDdecompositionMethod *);
 RPS_CORE_FUNC void RegisterPSDdecomMethod(const std::string name, const std::string& pluginName, const std::string& description,
@@ -236,8 +226,7 @@ RPS_CORE_FUNC void RegisterPSDdecomMethod(const std::string name, const std::str
 RPS_CORE_FUNC void InitializePSDdecomMethod(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterPSDdecomMethod(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Correlation///////////////////
+///Correlation function
 typedef WindLabAPI::IrpsWLCorrelation *(*CorrelationInitFunc)();
 typedef void(*CorrelationFreeFunc)(WindLabAPI::IrpsWLCorrelation *);
 RPS_CORE_FUNC void RegisterCorrelation(const std::string name, const std::string& pluginName, const std::string& description,
@@ -246,8 +235,7 @@ RPS_CORE_FUNC void RegisterCorrelation(const std::string name, const std::string
 RPS_CORE_FUNC void InitializeCorrelation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterCorrelation(const std::string name, const std::string& pluginName);
 
-
-/////////////////////////////////Modulation///////////////////
+///Modulation function
 typedef WindLabAPI::IrpsWLModulation *(*ModulationInitFunc)();
 typedef void(*ModulationFreeFunc)(WindLabAPI::IrpsWLModulation *);
 RPS_CORE_FUNC void RegisterModulation(const std::string name, const std::string& pluginName, const std::string& description,
@@ -256,7 +244,7 @@ RPS_CORE_FUNC void RegisterModulation(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializeModulation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterModulation(const std::string name, const std::string& pluginName);
 
-////////////////////////////////////user defined rps object//////////////////////////////////////////
+///table tool
 typedef WindLabAPI::IrpsWLTableTool *(*TableToolInitFunc)();
 typedef void(*TableToolFreeFunc)(WindLabAPI::IrpsWLTableTool *);
 RPS_CORE_FUNC void RegisterTableTool(const std::string name, const std::string& description, const std::string& pluginName,
@@ -265,7 +253,7 @@ RPS_CORE_FUNC void RegisterTableTool(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeTableTool(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterTableTool(const std::string name, const std::string& pluginName);
 
-////////////////////////////////////user defined rps object//////////////////////////////////////////
+/// matrix tool
 typedef WindLabAPI::IrpsWLMatrixTool *(*MatrixToolInitFunc)();
 typedef void(*MatrixToolFreeFunc)(WindLabAPI::IrpsWLMatrixTool *);
 RPS_CORE_FUNC void RegisterMatrixTool(const std::string name, const std::string& description, const std::string& pluginName,
@@ -274,7 +262,7 @@ RPS_CORE_FUNC void RegisterMatrixTool(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializeMatrixTool(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterMatrixTool(const std::string name, const std::string& pluginName);
 
-////////////////////////////////////user defined rps object//////////////////////////////////////////
+/// user defined rps object
 typedef WindLabAPI::IrpsWLUserDefinedRPSObject *(*UserDefinedRPSObjectInitFunc)();
 typedef void(*UserDefinedRPSObjectFreeFunc)(WindLabAPI::IrpsWLUserDefinedRPSObject *);
 RPS_CORE_FUNC void RegisterUserDefinedRPSObject(const std::string name, const std::string& description, const std::string& pluginName,
@@ -283,7 +271,7 @@ RPS_CORE_FUNC void RegisterUserDefinedRPSObject(const std::string name, const st
 RPS_CORE_FUNC void InitializeUserDefinedRPSObject(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterUserDefinedRPSObject(const std::string name, const std::string& pluginName);
 
-/////////////////////cumulative probability distribution///////////////
+///cumulative probability distribution
 typedef WindLabAPI::IrpsWLCumulativeProbabilityDistribution *(*CumulativeProbabilityDistributionInitFunc)();
 typedef void(*CumulativeProbabilityDistributionFreeFunc)(WindLabAPI::IrpsWLCumulativeProbabilityDistribution *);
 RPS_CORE_FUNC void RegisterCumulativeProbabilityDistribution(const std::string name, const std::string& description, const std::string& pluginName,
@@ -292,8 +280,7 @@ RPS_CORE_FUNC void RegisterCumulativeProbabilityDistribution(const std::string n
 RPS_CORE_FUNC void InitializeCumulativeProbabilityDistribution(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterCumulativeProbabilityDistribution(const std::string name, const std::string& pluginName);
 
-
-/////////////////////Gust factor///////////////
+///Gust factor
 typedef WindLabAPI::IrpsWLGustFactor *(*GustFactorInitFunc)();
 typedef void(*GustFactorFreeFunc)(WindLabAPI::IrpsWLGustFactor *);
 RPS_CORE_FUNC void RegisterGustFactor(const std::string name, const std::string& description, const std::string& pluginName,
@@ -302,7 +289,7 @@ RPS_CORE_FUNC void RegisterGustFactor(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializeGustFactor(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterGustFactor(const std::string name, const std::string& pluginName);
 
-/////////////////////Kurtosis/////////////////////////
+///Kurtosis
 typedef WindLabAPI::IrpsWLKurtosis *(*KurtosisInitFunc)();
 typedef void(*KurtosisFreeFunc)(WindLabAPI::IrpsWLKurtosis *);
 RPS_CORE_FUNC void RegisterKurtosis(const std::string name, const std::string& description, const std::string& pluginName,
@@ -311,7 +298,7 @@ RPS_CORE_FUNC void RegisterKurtosis(const std::string name, const std::string& d
 RPS_CORE_FUNC void InitializeKurtosis(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterKurtosis(const std::string name, const std::string& pluginName);
 
-/////////////////////Peak factor//////////////////
+///Peak factor
 typedef WindLabAPI::IrpsWLPeakFactor *(*PeakFactorInitFunc)();
 typedef void(*PeakFactorFreeFunc)(WindLabAPI::IrpsWLPeakFactor *);
 RPS_CORE_FUNC void RegisterPeakFactor(const std::string name, const std::string& description, const std::string& pluginName,
@@ -320,8 +307,7 @@ RPS_CORE_FUNC void RegisterPeakFactor(const std::string name, const std::string&
 RPS_CORE_FUNC void InitializePeakFactor(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterPeakFactor(const std::string name, const std::string& pluginName);
 
-
-/////////////////////Probability density function///////////////
+///Probability density function
 typedef WindLabAPI::IrpsWLProbabilityDensityFunction *(*ProbabilityDensityFunctionInitFunc)();
 typedef void(*ProbabilityDensityFunctionFreeFunc)(WindLabAPI::IrpsWLProbabilityDensityFunction *);
 RPS_CORE_FUNC void RegisterProbabilityDensityFunction(const std::string name, const std::string& description, const std::string& pluginName,
@@ -330,8 +316,7 @@ RPS_CORE_FUNC void RegisterProbabilityDensityFunction(const std::string name, co
 RPS_CORE_FUNC void InitializeProbabilityDensityFunction(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterProbabilityDensityFunction(const std::string name, const std::string& pluginName);
 
-
-/////////////////////Roughness///////////////
+///Roughness
 typedef WindLabAPI::IrpsWLRoughness *(*RoughnessInitFunc)();
 typedef void(*RoughnessFreeFunc)(WindLabAPI::IrpsWLRoughness *);
 RPS_CORE_FUNC void RegisterRoughness(const std::string name, const std::string& description, const std::string& pluginName,
@@ -340,8 +325,7 @@ RPS_CORE_FUNC void RegisterRoughness(const std::string name, const std::string& 
 RPS_CORE_FUNC void InitializeRoughness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterRoughness(const std::string name, const std::string& pluginName);
 
-
-/////////////////////Shear velocity of flow///////////////
+///Shear velocity of flow
 typedef WindLabAPI::IrpsWLShearVelocityOfFlow *(*ShearVelocityOfFlowInitFunc)();
 typedef void(*ShearVelocityOfFlowFreeFunc)(WindLabAPI::IrpsWLShearVelocityOfFlow *);
 RPS_CORE_FUNC void RegisterShearVelocityOfFlow(const std::string name, const std::string& description, const std::string& pluginName,
@@ -350,7 +334,7 @@ RPS_CORE_FUNC void RegisterShearVelocityOfFlow(const std::string name, const std
 RPS_CORE_FUNC void InitializeShearVelocityOfFlow(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterShearVelocityOfFlow(const std::string name, const std::string& pluginName);
 
-/////////////////////skewness///////////////
+///skewness
 typedef WindLabAPI::IrpsWLSkewness *(*SkewnessInitFunc)();
 typedef void(*SkewnessFreeFunc)(WindLabAPI::IrpsWLSkewness *);
 RPS_CORE_FUNC void RegisterSkewness(const std::string name, const std::string& description, const std::string& pluginName,
@@ -359,7 +343,7 @@ RPS_CORE_FUNC void RegisterSkewness(const std::string name, const std::string& d
 RPS_CORE_FUNC void InitializeSkewness(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterSkewness(const std::string name, const std::string& pluginName);
 
-/////////////////////Standard deviation///////////////
+///Standard deviation
 typedef WindLabAPI::IrpsWLStandardDeviation *(*StandardDeviationInitFunc)();
 typedef void(*StandardDeviationFreeFunc)(WindLabAPI::IrpsWLStandardDeviation *);
 RPS_CORE_FUNC void RegisterStandardDeviation(const std::string name, const std::string& description, const std::string& pluginName,
@@ -368,7 +352,7 @@ RPS_CORE_FUNC void RegisterStandardDeviation(const std::string name, const std::
 RPS_CORE_FUNC void InitializeStandardDeviation(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterStandardDeviation(const std::string name, const std::string& pluginName);
 
-/////////////////////Turbulence intensity///////////////
+///Turbulence intensity
 typedef WindLabAPI::IrpsWLTurbulenceIntensity *(*TurbulenceIntensityInitFunc)();
 typedef void(*TurbulenceIntensityFreeFunc)(WindLabAPI::IrpsWLTurbulenceIntensity *);
 RPS_CORE_FUNC void RegisterTurbulenceIntensity(const std::string name, const std::string& description, const std::string& pluginName,
@@ -377,7 +361,7 @@ RPS_CORE_FUNC void RegisterTurbulenceIntensity(const std::string name, const std
 RPS_CORE_FUNC void InitializeTurbulenceIntensity(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterTurbulenceIntensity(const std::string name, const std::string& pluginName);
 
-/////////////////////Turbulence scale///////////////
+///Turbulence scale
 typedef WindLabAPI::IrpsWLTurbulenceScale *(*TurbulenceScaleInitFunc)();
 typedef void(*TurbulenceScaleFreeFunc)(WindLabAPI::IrpsWLTurbulenceScale *);
 RPS_CORE_FUNC void RegisterTurbulenceScale(const std::string name, const std::string& description, const std::string& pluginName,
@@ -386,7 +370,7 @@ RPS_CORE_FUNC void RegisterTurbulenceScale(const std::string name, const std::st
 RPS_CORE_FUNC void InitializeTurbulenceScale(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterTurbulenceScale(const std::string name, const std::string& pluginName);
 
-/////////////////////Variance///////////////
+////Variance
 typedef WindLabAPI::IrpsWLVariance *(*VarianceInitFunc)();
 typedef void(*VarianceFreeFunc)(WindLabAPI::IrpsWLVariance *);
 RPS_CORE_FUNC void RegisterVariance(const std::string name, const std::string& description, const std::string& pluginName,
@@ -395,8 +379,7 @@ RPS_CORE_FUNC void RegisterVariance(const std::string name, const std::string& d
 RPS_CORE_FUNC void InitializeVariance(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterVariance(const std::string name, const std::string& pluginName);
 
-/////////////////////Wave passage effect///////////////
-
+///Wave passage effect
 typedef WindLabAPI::IrpsWLWavePassageEffect *(*WavePassageEffectInitFunc)();
 typedef void(*WavePassageEffectFreeFunc)(WindLabAPI::IrpsWLWavePassageEffect *);
 RPS_CORE_FUNC void RegisterWavePassageEffect(const std::string name, const std::string& description, const std::string& pluginName,
