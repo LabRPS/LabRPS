@@ -112,6 +112,9 @@ SeismicLabSimulation::SeismicLabSimulation()
     ADD_PROPERTY_TYPE(MinWaveLength, (0.00), waveLengthgroup, Prop_None,"This is the minimum wave length");
     ADD_PROPERTY_TYPE(MaxWaveLength, (4.00), waveLengthgroup, Prop_None,"This is the maximum wave length");
     ADD_PROPERTY_TYPE(WaveLengthIndex, (1), waveLengthgroup, Prop_None,"Index correponding to Kth wave length increment");
+    ADD_PROPERTY_TYPE(PeakGroundAcceleration, (1.0), "Peaks", App::Prop_None, "The peak ground acceleration");
+    ADD_PROPERTY_TYPE(PeakGroundVelocity, (1.0), "Peaks", App::Prop_None, "The peak ground velocity");
+    ADD_PROPERTY_TYPE(PeackGroundDisplacement, (1.0), "Peaks", App::Prop_None, "The peak ground displacement");
 
     static const char* featuregroup = "Seismiclab Features";
     static const char* someEnums[] = {"<None>", nullptr};
@@ -173,13 +176,18 @@ SeismicLabSimulation::SeismicLabSimulation()
     Variance.setEnums(someEnums);
     WavePassageEffect.setEnums(someEnums);
 
-    static const char* directions[] = {"X", "Y", "Z", nullptr};
+	static const char* directions[] = {"East-West", "North-South", "Vertical", nullptr};
     ADD_PROPERTY_TYPE(Direction, ((long int)0), datagroup, Prop_None, "The ground motion direction");
     Direction.setEnums(directions);
 
     static const char* soilTYpes[] = {"Clay", "Deep Cohesionless", "Sand", "Soft", "Stiff", "Firm", "Medium", "Rock", "Soft Rock", "Hard Rock", nullptr};
     ADD_PROPERTY_TYPE(SoilType, ((long int)0), datagroup, Prop_None, "The soil type");
     SoilType.setEnums(soilTYpes);
+
+    static const char* motionTypes[] = {"Acceleration", "Velocity", "Displacement", nullptr};
+    ADD_PROPERTY_TYPE(MotionType, ((long int)0), datagroup, Prop_None, "The types of the motion");
+    MotionType.setEnums(motionTypes);
+
 }
 
 SeismicLabSimulation::~SeismicLabSimulation() { delete _simuData; }
@@ -224,6 +232,9 @@ void SeismicLabSimulation::updateSimulationData()
     _simuData->waveLengthIncrement.setValue(this->WaveLengthIncrement.getValue());
     _simuData->minDirection.setValue(this->MinDirection.getValue());
     _simuData->maxDirection.setValue(this->MaxDirection.getValue());
+    _simuData->peakGroundAcceleration.setValue(this->PeakGroundAcceleration.getValue());
+    _simuData->peakGroundVelocity.setValue(this->PeakGroundVelocity.getValue());
+    _simuData->peackGroundDisplacement.setValue(this->PeackGroundDisplacement.getValue());
     _simuData->directionIncrement.setValue(this->DirectionIncrement.getValue());
     _simuData->spatialDistribution.setValue(this->SpatialDistribution.getValueAsString());
     _simuData->shearVelocity.setValue(this->ShearVelocity.getValueAsString());
@@ -250,6 +261,7 @@ void SeismicLabSimulation::updateSimulationData()
     _simuData->variance.setValue(this->Variance.getValueAsString());
     _simuData->wavePassageEffect.setValue(this->WavePassageEffect.getValueAsString());
     _simuData->soilType.setValue(this->SoilType.getValueAsString());
+    _simuData->motionType.setValue(this->MotionType.getValueAsString());
     _simuData->direction.setValue(this->Direction.getValue());
     _simuData->numberOfIncrementOfVariableX.setValue(this->NumberOfIncrementOfVariableX.getValue());
     _simuData->indexOfVariableX.setValue(this->IndexOfVariableX.getValue());
