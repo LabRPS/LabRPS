@@ -927,6 +927,13 @@ public:
      */
     static int getLocationIndex(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d locationTobeFound);
 
+     /** Get the description of a feature by its name
+     * @param name     the feature's name.
+     * @return         return the feature description.
+     */
+    static WindLabAPI::WindLabFeatureDescription* getWindLabFeatureDescription(const std::string& name);
+
+
 };
 
 } //namespace WindLabAPI
