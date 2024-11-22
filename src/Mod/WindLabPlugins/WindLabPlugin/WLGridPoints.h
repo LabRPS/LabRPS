@@ -43,6 +43,8 @@ public:
 	//Initial setting
 	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
 
+	void onChanged(const App::Property* prop) override;
+
 	// the center point of the grid
     App::PropertyPosition CenterPoint;
 
@@ -60,6 +62,9 @@ public:
 
 	// the plan in which the points a distributed ( parallel to xy, yz, xz)
     App::PropertyEnumeration LocationPlan;
+
+	// the total number of points in the grid
+    App::PropertyInteger NumberOfPoints;
 };
 
 } // namespace App
