@@ -59,7 +59,7 @@ def setup(doc=None, showGui=True):
     # get the existing simulation
     sim = WindLab.getSimulation("Simulation")
     
-    # check if the simulation is really exist
+    # check if the simulation does really exist
     if not sim:
         LabRPS.Console.PrintError("The simulation does not exist.\n")
         return None
