@@ -105,6 +105,7 @@ if(DOXYGEN_FOUND)
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
+    set_target_properties(WebDoc PROPERTIES FOLDER "Doc")
 
 else( DOXYGEN_FOUND )
     ADD_CUSTOM_TARGET(DevDoc
