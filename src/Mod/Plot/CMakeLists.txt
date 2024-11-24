@@ -60,6 +60,8 @@ ADD_CUSTOM_TARGET(Plot ALL
     SOURCES ${all_files} ${Plot_QRC_SRCS} ${PlotGuiIcon_SVG}
 )
 
+set_target_properties(Plot PROPERTIES FOLDER "Workbenches/Plot")
+
 rps_copy_sources(Plot "${CMAKE_BINARY_DIR}/Mod/Plot" ${all_files})
 
 rps_copy_sources(Plot "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DATADIR}/Mod/Plot" ${PlotGuiIcon_SVG})
