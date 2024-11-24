@@ -1,13 +1,12 @@
-
-configure_file(ThirdPartyLibraries.html
-    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DOCDIR}/ThirdPartyLibraries.html COPYONLY)
+configure_file(ThirdPartyLibraries.html.cmake
+    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DOCDIR}/ThirdPartyLibraries.html)
 configure_file(LICENSE.html
     ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DOCDIR}/LICENSE.html COPYONLY)
 
 # The CONTRIBUTORS file is now compiled into the LabRPS GUI Qt resource file
 
 INSTALL(FILES
-    ThirdPartyLibraries.html
+    ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_DOCDIR}/ThirdPartyLibraries.html
     LICENSE.html
     DESTINATION ${CMAKE_INSTALL_DOCDIR}
 )
@@ -32,18 +31,22 @@ if(DOXYGEN_FOUND)
 
     # directory order seems important for correct macro expansion
     # (files containing macros definitions must be parsed before the files using them)
-    SET(DOXYGEN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src/CXX 
-                           ${CMAKE_SOURCE_DIR}/src/zipios++ 
-                           ${CMAKE_SOURCE_DIR}/src/3rdParty
-                           ${CMAKE_SOURCE_DIR}/src/Build 
-                           ${CMAKE_SOURCE_DIR}/src/Base 
-                           ${CMAKE_BINARY_DIR}/src/Base 
-                           ${CMAKE_SOURCE_DIR}/src/App 
-                           ${CMAKE_BINARY_DIR}/src/App 
-                           ${CMAKE_SOURCE_DIR}/src/Gui 
-                           ${CMAKE_BINARY_DIR}/src/Gui 
-                           ${CMAKE_SOURCE_DIR}/src/Mod
-                           ${CMAKE_BINARY_DIR}/src/Mod
+    SET(DOXYGEN_SOURCE_DIR #${CMAKE_SOURCE_DIR}/src/CXX 
+                           #${CMAKE_SOURCE_DIR}/src/zipios++ 
+                           #${CMAKE_SOURCE_DIR}/src/3rdParty
+                           #${CMAKE_SOURCE_DIR}/src/Build 
+                           #${CMAKE_SOURCE_DIR}/src/Base 
+                           #${CMAKE_BINARY_DIR}/src/Base 
+                           #${CMAKE_SOURCE_DIR}/src/App 
+                           #${CMAKE_BINARY_DIR}/src/App 
+                           #${CMAKE_SOURCE_DIR}/src/Gui 
+                           #${CMAKE_BINARY_DIR}/src/Gui 
+                           #${CMAKE_SOURCE_DIR}/src/Mod
+                           #${CMAKE_BINARY_DIR}/src/Mod
+                           ${CMAKE_SOURCE_DIR}/src/Mod/WindLabAPI
+                           ${CMAKE_BINARY_DIR}/src/Mod/WindLabAPI
+                           ${CMAKE_SOURCE_DIR}/src/Mod/WindLabPlugin
+                           ${CMAKE_BINARY_DIR}/src/Mod/WindLabPlugin
                            #${CMAKE_SOURCE_DIR}/src/Main #nothing to document there ATM...
                            ${CMAKE_SOURCE_DIR}/src/Doc
                            ${CMAKE_BINARY_DIR}/src/Doc 
@@ -95,6 +98,7 @@ if(DOXYGEN_FOUND)
         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_BINARY_DIR}/CMakeCache.txt
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
+
     set_target_properties(DevDoc PROPERTIES FOLDER "Doc")
 
     # lightweight version for the web
@@ -106,8 +110,9 @@ if(DOXYGEN_FOUND)
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     )
 
+    set_target_properties(WebDoc PROPERTIES FOLDER "Doc")
+
 else( DOXYGEN_FOUND )
     ADD_CUSTOM_TARGET(DevDoc
                       echo "Doxygen not found.  Install it and rerun CMake")
-    set_target_properties(DevDoc PROPERTIES FOLDER "Doc")
 endif( DOXYGEN_FOUND )
