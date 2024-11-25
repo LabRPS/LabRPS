@@ -23,7 +23,7 @@
 #ifndef IRPSWLCORRELATION_H
 #define IRPSWLCORRELATION_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureCorrelation.h>
 #include <Base/Vector3D.h>
 
@@ -56,7 +56,7 @@ public:
      * @param dValue       a value to be updated. This is the computed correlation value.
      * @return             return true if the computation is successful and false in case of failure.
      */	
-    virtual bool ComputeCrossCorrelationValue(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeCrossCorrelationValue(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue) = 0;
 	
     /** Compute the cross correlation between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -66,7 +66,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCorrelationVectorT(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeCrossCorrelationVectorT(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, vec &dVarVector, vec &dValVector) = 0;
 
     /** Compute the cross correlation matrix for given time and frequency.
      * @param Data              the simulation data containing all the simulation parameters input by the user.
@@ -74,13 +74,13 @@ public:
      * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed correlation matrix.
      * @return                  return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCorrelationMatrixPP(const WindLabSimuData &Data, const double &dTime, mat &dCorrelationMatrix) = 0;
+    virtual bool ComputeCrossCorrelationMatrixPP(const WindLabSimulationData &Data, const double &dTime, mat &dCorrelationMatrix) = 0;
 	
-     /** Allows to do any initial taks before any of the above methods is called.
+     /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */   
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

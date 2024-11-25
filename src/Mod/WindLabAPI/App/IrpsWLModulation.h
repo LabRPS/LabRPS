@@ -23,7 +23,7 @@
 #ifndef IRPSWLMODULATION_H
 #define IRPSWLMODULATION_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureModulation.h>
 #include <Base/Vector3D.h>
 
@@ -57,7 +57,7 @@ public:
      * @param dValue       a value to be updated. This is the computed modulation value.
      * @return             return true if the computation is successful and false in case of failure.
      */	
-    virtual bool ComputeModulationValue(const WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeModulationValue(const WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue) = 0;
 
     /** Compute the modulation at a given time instant and for all locations (simulation points).
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -66,7 +66,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each location stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeModulationVectorP(const WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeModulationVectorP(const WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
     /** Compute the modulation at a given location (simulation point) and for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -75,13 +75,13 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeModulationVectorT(const WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeModulationVectorT(const WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector) = 0;
 
-    /** Allows to do any initial taks before any of the above methods is called.
+    /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

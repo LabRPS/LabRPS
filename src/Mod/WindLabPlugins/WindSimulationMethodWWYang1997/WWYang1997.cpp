@@ -33,14 +33,14 @@ using namespace WindLab;
 using namespace WindLabAPI;
 
 //Initial setting
-bool CWWYang1997::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWWYang1997::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     QMessageBox::warning(0,"W. W. Yang et al, 1997", "An efficient wind field simulation technique for bridges by W. W. Yang et al, 1997. This inplementation does not require any addintional input.");
     return true;
 }
 
 // The simulation function 
-bool CWWYang1997::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVelocityArray)
+bool CWWYang1997::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
     auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
@@ -181,7 +181,7 @@ return false;
 }
 
 // The simulation function in large scale mode
-bool CWWYang1997::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName)
+bool CWWYang1997::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
 //    WindLabFeatureDescription frequencyDistrDescription = CRPSWindLabFramework::getFrequencyDistributionObjDescription(Data.frequencyDistribution.getValue());
 //

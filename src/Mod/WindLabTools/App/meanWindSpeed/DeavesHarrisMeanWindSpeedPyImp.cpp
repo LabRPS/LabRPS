@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/meanWindSpeed/DeavesHarrisMeanWindSpeedPy.h"
 #include "Mod/WindLabTools/App/meanWindSpeed/DeavesHarrisMeanWindSpeedPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

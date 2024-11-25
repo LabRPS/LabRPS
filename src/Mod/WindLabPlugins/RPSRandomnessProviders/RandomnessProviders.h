@@ -25,7 +25,7 @@
 #include <Mod/WindLabAPI/App/IrpsWLRandomness.h>
 #include <App/PropertyUnits.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace RandomnessProviders
 {
@@ -40,11 +40,11 @@ public:
 
     ~CWeibullRandomnessProvider() {};
 
-   bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+   bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-   bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+   bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-   bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+   bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -62,11 +62,11 @@ public:
 
     ~CGaussianRandomnessProvider() {};
 
-    bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+    bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -84,11 +84,11 @@ public:
 
     ~CExponentialRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -105,11 +105,11 @@ public:
 
     ~CLaplaceRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -127,11 +127,11 @@ public:
 
     ~CExponentialPowerRandomnessProvider() {};
 
-    bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+    bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -150,11 +150,11 @@ public:
 
     ~CCauchyRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -172,11 +172,11 @@ public:
 
     ~CRayleighRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -193,11 +193,11 @@ public:
 
     ~CRayleighTailRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -215,11 +215,11 @@ public:
 
     ~CLandauRandomnessProvider() {};
 
-      bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+      bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 };
 
 //Cauchy PDF
@@ -232,11 +232,11 @@ public:
 
     ~CLevyAlphaStableRandomnessProvider() {};
 
-    bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+    bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
     App::PropertyFloat ScaleParameter;
@@ -253,11 +253,11 @@ public:
 
     ~CLevySkewAlphaStableRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
     App::PropertyFloat ScaleParameter;
@@ -275,11 +275,11 @@ public:
 
     ~CFlatRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -297,11 +297,11 @@ public:
 
     ~CGammaRandomnessProvider() {};
 
-      bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+      bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -319,11 +319,11 @@ public:
 
     ~CLognormalRandomnessProvider() {};
 
-      bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+      bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -341,11 +341,11 @@ public:
 
     ~CChiSquaredRandomnessProvider() {};
 
-     bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double& dValue);
+     bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double& dValue);
 
-    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dRandomValueArray);
+    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dRandomValueArray);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -362,11 +362,11 @@ public:
 
     ~CWeibullPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -384,11 +384,11 @@ public:
 
     ~CGaussianPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -406,11 +406,11 @@ public:
 
     ~CExponentialPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -427,11 +427,11 @@ public:
 
     ~CLaplacePDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -449,11 +449,11 @@ public:
 
     ~CExponentialPowerPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -472,11 +472,11 @@ public:
 
     ~CCauchyPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -494,11 +494,11 @@ public:
 
     ~CRayleighPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -515,11 +515,11 @@ public:
 
     ~CRayleighTailPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -537,11 +537,11 @@ public:
 
     ~CLandauPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 };
 
 //Cauchy PDF
@@ -554,11 +554,11 @@ public:
 
     ~CFlatPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -576,11 +576,11 @@ public:
 
     ~CGammaPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -598,11 +598,11 @@ public:
 
     ~CLognormalPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -620,11 +620,11 @@ public:
 
     ~CChiSquaredPDF() {};
 
-    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -644,11 +644,11 @@ public:
 
     ~CWeibullCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -667,11 +667,11 @@ public:
 
     ~CGaussianCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -690,11 +690,11 @@ public:
 
     ~CExponentialCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -712,11 +712,11 @@ public:
 
     ~CLaplaceCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -735,11 +735,11 @@ public:
 
     ~CExponentialPowerCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -759,11 +759,11 @@ public:
 
     ~CCauchyCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -782,11 +782,11 @@ public:
 
     ~CRayleighCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -804,11 +804,11 @@ public:
 
     ~CFlatCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -827,11 +827,11 @@ public:
 
     ~CGammaCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -850,11 +850,11 @@ public:
 
     ~CLognormalCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -873,11 +873,11 @@ public:
 
     ~CChiSquaredCPD() {};
 
-    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double& x, double& dValue);
+    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double& x, double& dValue);
 
-    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector);
+    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 
@@ -897,9 +897,9 @@ public:
 //class _Class_ : public WindLabAPI::IrpsWLRandomness\
 //{\
 //public:\
-//    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray);\
-//    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);\
-//    bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue);\
+//    bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray);\
+//    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);\
+//    bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue);\
 //};
 //RPS_RANDOMNESS_PROVIDERS_CLASS_HEADER(CWeibullRandomnessProvider)
 //RPS_RANDOMNESS_PROVIDERS_CLASS_HEADER(CGaussianRandomnessProvider)
@@ -922,9 +922,9 @@ public:
 //class _Class_ : public WindLabAPI::IrpsWLProbabilityDensityFunction\
 //{\
 //public:\
-//    bool ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue);\
-//    bool ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector);\
-//    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);\
+//    bool ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue);\
+//    bool ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector);\
+//    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);\
 //};
 
 
@@ -946,9 +946,9 @@ public:
 //class _Class_ : public WindLabAPI::IrpsWLCumulativeProbabilityDistribution\
 //{\
 //public:\
-//    bool ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, double &dValue, const double &x);\
-//    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector);\
-//    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);\
+//    bool ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue, const double &x);\
+//    bool ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector);\
+//    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);\
 //};
 
 //RPS_CPD_CLASS_HEADER(CWeibullCPD)

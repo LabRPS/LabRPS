@@ -37,14 +37,14 @@ PROPERTY_SOURCE(WindLab::CThreeParaModulation, WindLabAPI::WindLabFeatureModulat
     ADD_PROPERTY_TYPE(Lambda, (0.003), "The three Parameters", App::Prop_None, "The lambda coefficient");
  }
 
-bool CThreeParaModulation::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CThreeParaModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgThreeParaModulationEdit* dlg = new WindLabGui::DlgThreeParaModulationEdit(Alpha, Betta, Lambda, Data.modulationFunction);
 	Gui::Control().showDialog(dlg);
     return true;
 }
 
-bool CThreeParaModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CThreeParaModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     WindLabTools::ThreeParametersModulation threeParametersModulation;
 
@@ -54,7 +54,7 @@ bool CThreeParaModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuD
 }
 
 
-bool CThreeParaModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CThreeParaModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     WindLabTools::ThreeParametersModulation threeParametersModulation;
 
@@ -88,7 +88,7 @@ bool CThreeParaModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSim
 
 }
 
-bool CThreeParaModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CThreeParaModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     WindLabTools::ThreeParametersModulation threeParametersModulation;
 

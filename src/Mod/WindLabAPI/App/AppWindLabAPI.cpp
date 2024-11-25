@@ -27,7 +27,7 @@
 #include <Base/PyObjectBase.h>
 #include <Base/Factory.h>
 #include "IrpsWLLocationDistribution.h"
-#include "WindLabSimuDataPy.h"
+#include "WindLabSimulationDataPy.h"
 #include "WindLabFeature.h"
 #include "WindLabFeatureLocationDistribution.h"
 #include "WindLabFeatureMeanWind.h"
@@ -72,7 +72,7 @@ PyMOD_INIT_FUNC(WindLabAPI)
     PyObject* WindLabAPIModule = WindLabAPI::initModule();
 
     // Add Types to module
-    Base::Interpreter().addType(&WindLabAPI::WindLabSimuDataPy ::Type, WindLabAPIModule, "WindLabSimuData");
+    Base::Interpreter().addType(&WindLabAPI::WindLabSimulationDataPy ::Type, WindLabAPIModule, "WindLabSimulationData");
     Base::Interpreter().addType(&WindLabAPI::WindLabFeaturePy::Type, WindLabAPIModule, "WindLabFeature");
 
     WindLabAPI::WindLabFeature::init();
@@ -104,7 +104,7 @@ PyMOD_INIT_FUNC(WindLabAPI)
     WindLabAPI::WindLabFeatureVariance::init();
     WindLabAPI::WindLabFeatureWavePassageEffect::init();
     WindLabAPI::WindLabFeatureUserDefinedRPSObject::init();
-    WindLabAPI::WindLabSimuData::init();
+    WindLabAPI::WindLabSimulationData::init();
 
     Base::Console().Log("Loading WindLabAPI module... done\n");
 

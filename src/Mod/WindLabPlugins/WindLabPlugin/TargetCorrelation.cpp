@@ -44,7 +44,7 @@ TargetCorrelation::TargetCorrelation()
 }
 
 
-bool TargetCorrelation::TableToolCompute(const WindLabAPI::WindLabSimuData& Data, const mat& inputTable, mat& outputTable)
+bool TargetCorrelation::TableToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat& inputTable, mat& outputTable)
 {
 	int N = Data.numberOfFrequency.getValue();
 	double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
@@ -79,12 +79,12 @@ bool TargetCorrelation::TableToolCompute(const WindLabAPI::WindLabSimuData& Data
 	return true;
 }
 
-bool TargetCorrelation::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool TargetCorrelation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	return true;
 }
 
-bool TargetCorrelation::ComputeTargetCorrelation(const WindLabAPI::WindLabSimuData& Data, std::vector<double>& tau, std::vector<double>& corr)
+bool TargetCorrelation::ComputeTargetCorrelation(const WindLabAPI::WindLabSimulationData& Data, std::vector<double>& tau, std::vector<double>& corr)
 {
 	int n = Data.numberOfSpatialPosition.getValue();
 	int N = Data.numberOfFrequency.getValue();

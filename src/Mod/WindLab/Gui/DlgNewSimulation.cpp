@@ -80,7 +80,7 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	int min = 1;
 
-	WindLabAPI::WindLabSimuData* simData = nullptr;
+	WindLabAPI::WindLabSimulationData* simData = nullptr;
 
 	if (sim)
 	{
@@ -90,7 +90,7 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 	}
 	else
 	{
-		simData = new WindLabAPI::WindLabSimuData();
+		simData = new WindLabAPI::WindLabSimulationData();
 		ui->NameLineEdit->setText(QString::fromLatin1("Wind"));
 	}
 

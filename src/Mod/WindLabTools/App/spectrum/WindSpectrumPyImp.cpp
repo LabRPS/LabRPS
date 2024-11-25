@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/spectrum/WindSpectrumPy.h"
 #include "Mod/WindLabTools/App/spectrum/WindSpectrumPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

@@ -35,7 +35,7 @@ enum ProfileType{PL,LOG,H2L,JET,IEC};
 
 public:
 
-	WindField(const WindLabAPI::WindLabSimuData& Data, const App::PropertyInteger& RandomPhaseSeed,
+	WindField(const WindLabAPI::WindLabSimulationData& Data, const App::PropertyInteger& RandomPhaseSeed,
               const App::PropertyTime& SimulationTime, const App::PropertyTime& TimeStepSize,
               const App::PropertyLength& GridWidth,
               const App::PropertyInteger& GridPoints,

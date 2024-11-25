@@ -21,7 +21,7 @@
  ***************************************************************************/
 
 #include "GeneralSpatialDistribution.h"
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 
 using namespace std;
 using namespace WindLab;
@@ -37,7 +37,7 @@ GeneralSpatialDistribution::GeneralSpatialDistribution()
     ADD_PROPERTY_TYPE(Locations, (Base::Vector3d()), Points, App::Prop_None,"The list of locations");
 }
 
-bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData &Data, mat &dLocCoord)
+bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData &Data, mat &dLocCoord)
 {
     const std::vector<Base::Vector3d> nodes = Locations.getValues();
     int j = 0;
@@ -53,7 +53,7 @@ bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const WindLab
 }
 
 
-bool GeneralSpatialDistribution::OnInitialSetting(const WindLabAPI::WindLabSimuData &Data)
+bool GeneralSpatialDistribution::OnInitialSetting(const WindLabAPI::WindLabSimulationData &Data)
 {
 	return true;
 }

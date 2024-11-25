@@ -31,14 +31,14 @@ CholeskyDecomposition::CholeskyDecomposition()
 
 }
 
-bool CholeskyDecomposition::MatrixToolCompute(const WindLabAPI::WindLabSimuData& Data, const mat &inputMatrix, mat &outputMatrix)
+bool CholeskyDecomposition::MatrixToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat &inputMatrix, mat &outputMatrix)
 {
     rps::General::CholeskyDecomposition decomposition;
     decomposition.computeCholeskyDecomposition(inputMatrix, outputMatrix);
     return true;
 }
 
-bool CholeskyDecomposition::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CholeskyDecomposition::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     return true;
 }

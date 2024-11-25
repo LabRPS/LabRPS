@@ -40,7 +40,7 @@ CRPSDavenportSpectrum::CRPSDavenportSpectrum()
    ADD_PROPERTY_TYPE(MeanWindSpeed10, (30000.0), "Parameters", App::Prop_None, "The mean wind speed at 10 meters height above sea.");
 }
 
-bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -59,7 +59,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindL
      return returnResult;
 }
 
-bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
    bool returnResult = true;
 
@@ -72,7 +72,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindL
      return returnResult;
 }
 
-bool CRPSDavenportSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSDavenportSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -101,7 +101,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::Wind
 }
 
 //Initial setting
-bool CRPSDavenportSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSDavenportSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
     WindLabGui::DlgDavenportSpectrumEdit* dlg = new WindLabGui::DlgDavenportSpectrumEdit(MeanWindSpeed10, Data.alongWindSpectrumModel);
@@ -111,7 +111,7 @@ bool CRPSDavenportSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& 
 }
 
 
-bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -184,7 +184,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLab
 	return true;
 }
 
-bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
    bool returnResult = true;
 
@@ -228,7 +228,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabS
 
 	return true;
 }    
-bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     
@@ -248,7 +248,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLa
 
      return returnResult;
 } 
-bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSDavenportSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

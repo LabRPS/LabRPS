@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/modulation/ExponentialModulationPy.h"
 #include "Mod/WindLabTools/App/modulation/ExponentialModulationPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

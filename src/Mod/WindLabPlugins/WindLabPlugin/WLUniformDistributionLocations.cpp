@@ -47,7 +47,7 @@ WLUniformDistributionLocations::WLUniformDistributionLocations()
 }
 
 
-bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord)
+bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {
 	// Computing the location coordinates
 	for (int loop = 0; loop < Data.numberOfSpatialPosition.getValue(); loop++)
@@ -95,7 +95,7 @@ bool WLUniformDistributionLocations::ComputeLocationCoordinateMatrixP3(const Win
 }
 
 
-bool WLUniformDistributionLocations::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool WLUniformDistributionLocations::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	
 	WindLabGui::UniformLocationDistributionDialogEdit* dlg = new WindLabGui::UniformLocationDistributionDialogEdit(FirstPoint, Spacing,Data.spatialDistribution, Direction);

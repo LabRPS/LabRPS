@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/modulation/SineModulationPy.h"
 #include "Mod/WindLabTools/App/modulation/SineModulationPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

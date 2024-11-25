@@ -39,21 +39,21 @@ CRPSUniformRandomPhases::CRPSUniformRandomPhases()
     ADD_PROPERTY_TYPE(MaximumValue, (6.28), "Parameters", App::Prop_None, "The maximum value that can be generated");
 }
 
-bool CRPSUniformRandomPhases::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSUniformRandomPhases::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	WindLabGui::DlgUniformRandomPhasesEdit* dlg = new WindLabGui::DlgUniformRandomPhasesEdit(MinimumValue, MaximumValue, Data.randomnessProvider);
 	Gui::Control().showDialog(dlg);
     return true;
 }
 
-bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(dRandomValueArray, MinimumValue.getValue(), MaximumValue.getValue());
     return true;
 } 
 
-bool CRPSUniformRandomPhases::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CRPSUniformRandomPhases::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseValue(dValue, MinimumValue.getValue(), MaximumValue.getValue());

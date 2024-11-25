@@ -38,10 +38,10 @@ public:
 	
 	~WLGridPoints() {};
 
-	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord);
+	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord);
 
 	//Initial setting
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 	void onChanged(const App::Property* prop) override;
 

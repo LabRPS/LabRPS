@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/spectrum/KaimalSpectrumPy.h"
 #include "Mod/WindLabTools/App/spectrum/KaimalSpectrumPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

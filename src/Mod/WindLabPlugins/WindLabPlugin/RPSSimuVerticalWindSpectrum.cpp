@@ -43,7 +43,7 @@ CRPSSimuVerticalWindSpectrum::CRPSSimuVerticalWindSpectrum()
 
 }
 
-bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -61,7 +61,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorF(const WindLabAPI
      return returnResult;
 }
 
-bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
 
@@ -73,7 +73,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumVectorT(const WindLabAPI
 
      return returnResult;
 }
-bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -102,7 +102,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumMatrixPP(const WindLabAP
 }
 
 //Initial setting
-bool CRPSSimuVerticalWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSSimuVerticalWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	WindLabGui::DlgSimuVerticalWindSpectrumEdit* dlg = new WindLabGui::DlgSimuVerticalWindSpectrumEdit(ShearVelocity, Constant1, Constant2, Data.verticalWindSpectrumModel);
 	Gui::Control().showDialog(dlg);
@@ -110,7 +110,7 @@ bool CRPSSimuVerticalWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSim
 }
 
 
-bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -158,7 +158,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::
 
 }
 
-bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
     bool returnResult = true;
 
@@ -187,7 +187,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::W
 
 	return true;
 }    
-bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     
@@ -207,7 +207,7 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI:
 
      return returnResult;
 } 
-bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

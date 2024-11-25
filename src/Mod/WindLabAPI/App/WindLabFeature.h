@@ -39,6 +39,7 @@ class WindLabAPIExport WindLabFeature : public App::RPSFeature
 public:
     /// Constructor
     WindLabFeature(void);
+    /// destructor
     virtual ~WindLabFeature();
 
     /** @name methods override feature */

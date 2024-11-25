@@ -65,12 +65,12 @@ void WittigSinhaEqualFloors::onChanged(const App::Property* prop)
     }
 }
 
-bool WittigSinhaEqualFloors::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool WittigSinhaEqualFloors::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     return true;
 }
 
-bool WittigSinhaEqualFloors::Simulate(const WindLabAPI::WindLabSimuData& Data, mat& dVelocityArray) {
+bool WittigSinhaEqualFloors::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat& dVelocityArray) {
  
   // Initialize the factories
   config::initialize();
@@ -113,7 +113,7 @@ bool WittigSinhaEqualFloors::Simulate(const WindLabAPI::WindLabSimuData& Data, m
 }
 
 // The simulation function in large scale mode
-bool WittigSinhaEqualFloors::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName)
+bool WittigSinhaEqualFloors::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
     return true;
 }

@@ -23,7 +23,7 @@
 #ifndef IRPSWLFREQUENCYDISTRIBUTION_H
 #define IRPSWLFREQUENCYDISTRIBUTION_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureFrequencyDistribution.h>
 #include <Base/Vector3D.h>
 
@@ -54,7 +54,7 @@ public:
      * @param dValue           a value to be updated. This is the computed frequency value.
      * @return                 return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeFrequencyValue(const WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue) = 0;
+    virtual bool ComputeFrequencyValue(const WindLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue) = 0;
 
     /** Compute the frequency increments for all frequency indexes.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -62,20 +62,20 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency index.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeFrequenciesVectorF(const WindLabSimuData &Data, const Base::Vector3d &location, vec &dValVector) = 0;
+    virtual bool ComputeFrequenciesVectorF(const WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector) = 0;
   
     /** Compute the frequency matrix for all frequency indexes and locations.
      * @param Data       the simulation data containing all the simulation parameters input by the user..
      * @param dMatrix    a matrix to be updated. It should contain the computed frequency matrix.
      * @return           return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeFrequenciesMatrixFP(const WindLabSimuData &Data, mat &dMatrix) = 0;
+    virtual bool ComputeFrequenciesMatrixFP(const WindLabSimulationData &Data, mat &dMatrix) = 0;
 
-    /** Allows to do any initial taks before any of the above methods is called.
+    /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 	};
 

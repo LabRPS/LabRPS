@@ -30,7 +30,7 @@
 // inclusion of the generated files (generated out of WindLabSimulationPy.xml)
 #include "WindLabSimulationPy.h"
 #include "WindLabSimulationPy.cpp"
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/python/copy_const_reference.hpp>
 #include <App/RPSFeaturePy.h>
@@ -174,7 +174,7 @@ PyObject* WindLabSimulationPy::getPhenomenonName(PyObject *args)
 
 PyObject* WindLabSimulationPy::getSimulationData(PyObject *args)
 {
-    WindLabSimuData* simData = getWindLabSimulationPtr()->getSimulationData();
+    WindLabSimulationData* simData = getWindLabSimulationPtr()->getSimulationData();
     if (simData)
     return Py::new_reference_to(simData->getPyObject());
 

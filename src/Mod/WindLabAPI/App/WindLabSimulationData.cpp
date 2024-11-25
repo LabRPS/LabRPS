@@ -22,16 +22,16 @@
 
 #include "PreCompiled.h"
 
-#include "WindLabSimuData.h"
-#include <App/WindLabSimuDataPy.h>
+#include "WindLabSimulationData.h"
+#include <App/WindLabSimulationDataPy.h>
 
 
 using namespace WindLabAPI;
 using namespace App;
 
-PROPERTY_SOURCE(WindLabAPI::WindLabSimuData, WindLabAPI::WindLabFeature)
+PROPERTY_SOURCE(WindLabAPI::WindLabSimulationData, WindLabAPI::WindLabFeature)
 
-WindLabSimuData::WindLabSimuData()
+WindLabSimulationData::WindLabSimulationData()
 {
 
 	ADD_PROPERTY_TYPE(numberOfSpatialPosition, (3), "WindLabData", App::Prop_None, "The number of simulation point which is the number of wind processes in a sample");
@@ -109,16 +109,16 @@ WindLabSimuData::WindLabSimuData()
     WindDirection.setEnums(directions);
 }
 
-WindLabSimuData::~WindLabSimuData()
+WindLabSimulationData::~WindLabSimulationData()
 {
 }
 
-short WindLabSimuData::mustExecute(void) const
+short WindLabSimulationData::mustExecute(void) const
 {
     return WindLabFeature::mustExecute();
 }
 
-App::DocumentObjectExecReturn* WindLabSimuData::recompute(void)
+App::DocumentObjectExecReturn* WindLabSimulationData::recompute(void)
 {
     try {
         return WindLabAPI::WindLabFeature::recompute();
@@ -131,21 +131,21 @@ App::DocumentObjectExecReturn* WindLabSimuData::recompute(void)
     }
 }
 
-App::DocumentObjectExecReturn* WindLabSimuData::execute(void)
+App::DocumentObjectExecReturn* WindLabSimulationData::execute(void)
 {
     return WindLabFeature::execute();
 }
 
-void WindLabSimuData::onChanged(const App::Property* prop)
+void WindLabSimulationData::onChanged(const App::Property* prop)
 {
     WindLabFeature::onChanged(prop);
 }
 
-PyObject* WindLabSimuData::getPyObject(void)
+PyObject* WindLabSimulationData::getPyObject(void)
 {
     if (PythonObject.is(Py::_None())) {
         // ref counter is set to 1
-        PythonObject = Py::Object(new WindLabSimuDataPy(this), true);
+        PythonObject = Py::Object(new WindLabSimulationDataPy(this), true);
     }
     return Py::new_reference_to(PythonObject);
 }

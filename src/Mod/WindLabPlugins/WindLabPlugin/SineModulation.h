@@ -27,7 +27,7 @@
 #include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 #include <App/PropertyUnits.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -41,13 +41,13 @@ public:
 
     ~CSineModulation() {};
 
-  bool ComputeModulationValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue);
+  bool ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue);
 
-  bool ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector);
+  bool ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector);
 
-  bool ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector);
+  bool ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector);
 
-  bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+  bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
    App::PropertyTime PulseDuration;

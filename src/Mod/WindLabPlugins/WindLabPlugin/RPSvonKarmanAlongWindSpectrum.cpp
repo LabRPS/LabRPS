@@ -43,7 +43,7 @@ CRPSvonKarmanAlongWindSpectrum::CRPSvonKarmanAlongWindSpectrum()
   ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The standard deviation");
 
 }
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -60,7 +60,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorF(const WindLabA
 
      return returnResult;
 }
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
 
@@ -72,7 +72,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorT(const WindLabA
 
      return returnResult;
 }
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -100,7 +100,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLab
     return returnResult;
 }
 
-bool CRPSvonKarmanAlongWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSvonKarmanAlongWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgvonKarmanAlongWindSpectrumEdit* dlg = new WindLabGui::DlgvonKarmanAlongWindSpectrumEdit(Constant1, Constant2, IntegralLengthScale, StandardDeviation, Data.alongWindSpectrumModel);
 	Gui::Control().showDialog(dlg);
@@ -109,7 +109,7 @@ bool CRPSvonKarmanAlongWindSpectrum::OnInitialSetting(const WindLabAPI::WindLabS
 
 
 
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
    bool returnResult = true;
 
@@ -156,7 +156,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI
 	return true; 
 }
 
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
     bool returnResult = true;
 
@@ -185,7 +185,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI:
 	return true;
 }
 
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
     
@@ -205,7 +205,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAP
 
      return returnResult;
 } 
-bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

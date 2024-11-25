@@ -45,7 +45,7 @@ else()
     )
 endif()
 
-generate_from_xml(WindLabSimuDataPy)
+generate_from_xml(WindLabSimulationDataPy)
 generate_from_xml(WindLabFeaturePy)
 
 SET(Properties_SRCS
@@ -65,8 +65,8 @@ SET(Datatypes_SRCS
 SOURCE_GROUP("Datatypes" FILES ${Datatypes_SRCS})
 
 SET(Python_SRCS
-WindLabSimuDataPy.xml
-WindLabSimuDataPyImp.cpp
+WindLabSimulationDataPy.xml
+WindLabSimulationDataPyImp.cpp
 WindLabFeaturePy.xml
 WindLabFeaturePyImp.cpp
 )
@@ -113,14 +113,14 @@ SET(WindModule_SRCS
     RPSWindLabAPI.cpp
     RPSWindLabFramework.cpp
     RPSWindLabpluginAPI.cpp
-    WindLabSimuData.cpp
+    WindLabSimulationData.cpp
     WindLabFeatureDescription.cpp
     WindLabFeatureDescription.h
     RPSWindLabAPI.h
     RPSWindLabAPIdefines.h
     RPSWindLabFramework.h
     RPSWindLabpluginAPI.h
-    WindLabSimuData.h
+    WindLabSimulationData.h
     RPS.h
     RPS.cpp
 

@@ -41,7 +41,7 @@ CRPSHarrisSpectrum::CRPSHarrisSpectrum()
 	ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The shear velocity of the flow");
 }
 
-bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -58,7 +58,7 @@ bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabS
 
      return returnResult;
 }
-bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
 
@@ -70,7 +70,7 @@ bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabS
 
      return returnResult;
 }
-bool CRPSHarrisSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSHarrisSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -101,7 +101,7 @@ bool CRPSHarrisSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLab
 }
 
 //Initial setting
-bool CRPSHarrisSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSHarrisSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
     WindLabGui::DlgHarrisSpectrumEdit* dlg = new WindLabGui::DlgHarrisSpectrumEdit(MeanWindSpeed10, ShearVelocity, Data.alongWindSpectrumModel);
@@ -111,7 +111,7 @@ bool CRPSHarrisSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Dat
 }
 
 
-bool CRPSHarrisSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSHarrisSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -184,7 +184,7 @@ bool CRPSHarrisSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSim
 	return true;
 }
 
-bool CRPSHarrisSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSHarrisSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
     bool returnResult = true;
 
@@ -228,7 +228,7 @@ bool CRPSHarrisSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimu
 
 	return true;
 }    
-bool CRPSHarrisSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSHarrisSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
     
@@ -248,7 +248,7 @@ bool CRPSHarrisSpectrum::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSi
 
      return returnResult;
 } 
-bool CRPSHarrisSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSHarrisSpectrum::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

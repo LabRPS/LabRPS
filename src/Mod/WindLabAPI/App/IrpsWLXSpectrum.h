@@ -23,7 +23,7 @@
 #ifndef IRPSWLXSPECTRUM_H
 #define IRPSWLXSPECTRUM_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureXSpectrum.h>
 #include <Base/Vector3D.h>
 
@@ -69,7 +69,7 @@ public:
      * @param dValue       a value to be updated. This is the computed spectrum value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
+    virtual bool ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
     /** Compute the cross spectrum between two simulation points for all frequency increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -80,7 +80,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the cross spectrum between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -91,7 +91,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the cross spectrum matrix for given time and frequency.
      * @param Data              the simulation data containing all the simulation parameters input by the user.
@@ -100,7 +100,7 @@ public:
      * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed spectrum matrix.
      * @return                  return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix) = 0;
+    virtual bool ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix) = 0;
 
     /** Compute the auto spectrum value for given time, frequency and locations.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -110,7 +110,7 @@ public:
      * @param dValue       a value to be updated. This is the computed spectrum value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue) = 0;
     
         /** Compute the auto spectrum between two simulation points for all frequency increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -120,7 +120,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
     /** Compute the cross spectrum between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -130,13 +130,13 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector) = 0;
 
-    /** Allows to do any initial taks before any of the above methods is called.
+    /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

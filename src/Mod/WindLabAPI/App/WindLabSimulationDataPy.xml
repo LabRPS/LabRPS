@@ -2,10 +2,10 @@
 <GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
   <PythonExport
     Father="WindLabFeaturePy"
-    Name="WindLabSimuDataPy"
-    Twin="WindLabSimuData"
-    TwinPointer="WindLabSimuData"
-    Include="Mod/WindLabAPI/App/WindLabSimuData.h"
+    Name="WindLabSimulationDataPy"
+    Twin="WindLabSimulationData"
+    TwinPointer="WindLabSimulationData"
+    Include="Mod/WindLabAPI/App/WindLabSimulationData.h"
     Namespace="WindLabAPI"
     FatherInclude="Mod/WindLabAPI/App/WindLabFeaturePy.h"
     FatherNamespace="WindLabAPI"

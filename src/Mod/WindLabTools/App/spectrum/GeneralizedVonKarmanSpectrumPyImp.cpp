@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/spectrum/GeneralizedVonKarmanSpectrumPy.h"
 #include "Mod/WindLabTools/App/spectrum/GeneralizedVonKarmanSpectrumPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

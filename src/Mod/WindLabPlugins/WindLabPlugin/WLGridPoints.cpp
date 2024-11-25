@@ -51,7 +51,7 @@ WLGridPoints::WLGridPoints()
 }
 
 
-bool WLGridPoints::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord)
+bool WLGridPoints::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {
     int pointNumber1 = Length1.getValue() / Spacing1.getValue();
     int pointNumber2 = Length2.getValue() / Spacing2.getValue();
@@ -101,7 +101,7 @@ bool WLGridPoints::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSi
 }
 
 
-bool WLGridPoints::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool WLGridPoints::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	
 	WindLabGui::GridPointsDialogEdit* dlg = new WindLabGui::GridPointsDialogEdit(CenterPoint, Spacing1, Spacing2, Length1, Length2, LocationPlan,Data.spatialDistribution);

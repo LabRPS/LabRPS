@@ -22,7 +22,7 @@
 
 #include "PreCompiled.h"
 #include "RPSWLPowerLowProfile.h"
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/meanWindSpeed/PowerLawMeanWindSpeed.h>
 #include "Widgets/DlgPowerLowProfile.h"
 #include <App/Document.h>
@@ -47,7 +47,7 @@ RPSWLPowerLowProfile::RPSWLPowerLowProfile()
 
 }
 
-bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -82,7 +82,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLab
 
 	return true;
 }
-bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
 	// local array for the location coordinates
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -112,7 +112,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLab
 
 	return true;
 }
-bool RPSWLPowerLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool RPSWLPowerLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
     WindLabGui::DlgPowerLowProfileEdit* dlg = new WindLabGui::DlgPowerLowProfileEdit(ReferenceHeight, ReferenceSpeed, DimensionlessPower, ZeroPlanDisplacement, Data.meanFunction);
@@ -121,7 +121,7 @@ bool RPSWLPowerLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimuData& D
 	return true;
 }
 
-bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     WindLabTools::PowerLawMeanWindSpeed powerLawMeanWindSpeed;
 

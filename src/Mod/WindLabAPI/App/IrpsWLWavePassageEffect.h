@@ -23,7 +23,7 @@
 #ifndef IRPSWLWAVEPASSAGEEFFECT_H
 #define IRPSWLWAVEPASSAGEEFFECT_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureWavePassageEffect.h>
 #include <Base/Vector3D.h>
 
@@ -68,7 +68,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeWavePassageEffectVectorF(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeWavePassageEffectVectorF(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the wave passage effect between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -79,7 +79,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeWavePassageEffectVectorT(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeWavePassageEffectVectorT(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the wave passage effect matrix for given time and frequency.
      * @param Data              the simulation data containing all the simulation parameters input by the user.
@@ -88,7 +88,7 @@ public:
      * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed wave passage effect matrix.
      * @return                  return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeWavePassageEffectMatrixPP(const WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix) = 0;
+    virtual bool ComputeWavePassageEffectMatrixPP(const WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix) = 0;
 
     /** Compute the wave passage effect value for given time, frequency and locations.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -99,13 +99,13 @@ public:
      * @param dValue       a value to be updated. This is the computed wave passage effect value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeWavePassageEffectValue(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
+    virtual bool ComputeWavePassageEffectValue(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
-    /** Allows to do any initial taks before any of the above methods is called.
+    /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

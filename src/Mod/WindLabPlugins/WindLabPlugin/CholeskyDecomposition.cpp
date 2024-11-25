@@ -35,7 +35,7 @@ CCholeskyDecomposition::CCholeskyDecomposition() {
 
 }
 
-bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	int n = Data.numberOfSpatialPosition.getValue();
 	int N = Data.numberOfFrequency.getValue();
@@ -76,7 +76,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLab
 
 	return returnResult;
 }
-bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	int n = Data.numberOfSpatialPosition.getValue();
 	int T = Data.numberOfTimeIncrements.getValue();
@@ -94,7 +94,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const WindLab
 
 	return returnResult;
 }
-bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCPSDDecomMatrix)
+bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCPSDDecomMatrix)
 {
     cx_mat psdMatrix(Data.numberOfSpatialPosition.getValue(), Data.numberOfSpatialPosition.getValue());
     
@@ -113,7 +113,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const WindLa
 	
 	return true;
 }
-bool CCholeskyDecomposition::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CCholeskyDecomposition::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	return true;
 }

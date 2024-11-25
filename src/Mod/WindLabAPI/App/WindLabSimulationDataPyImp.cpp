@@ -25,32 +25,32 @@
 #include <Base/VectorPy.h>
 #include <CXX/Objects.hxx>
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 
 
-// inclusion of the generated files (generated out of WindLabSimuDataPy.xml)
-#include "WindLabSimuDataPy.h"
-#include "WindLabSimuDataPy.cpp"
+// inclusion of the generated files (generated out of WindLabSimulationDataPy.xml)
+#include "WindLabSimulationDataPy.h"
+#include "WindLabSimulationDataPy.cpp"
 
 using namespace WindLabAPI;
 
 // returns a string which represents the object e.g. when printed in python
-std::string WindLabSimuDataPy::representation(void) const
+std::string WindLabSimulationDataPy::representation(void) const
 {
-    return std::string("<WindLabSimuData object>");
+    return std::string("<WindLabSimulationData object>");
     std::stringstream str;
     str << "<WindLab Simulation Data>";
     return str.str();
 }
 
-PyObject *WindLabSimuDataPy::PyMake(struct _typeobject *, PyObject *, PyObject *)  // Python wrapper
+PyObject *WindLabSimulationDataPy::PyMake(struct _typeobject *, PyObject *, PyObject *)  // Python wrapper
 {
-    // create a new instance of WindLabSimuDataPy and the Twin object
-    return new WindLabSimuDataPy(new WindLabSimuData());
+    // create a new instance of WindLabSimulationDataPy and the Twin object
+    return new WindLabSimulationDataPy(new WindLabSimulationData());
 }
 
 // constructor method
-int WindLabSimuDataPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
+int WindLabSimulationDataPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
 {
     return 0;
 }
@@ -58,12 +58,12 @@ int WindLabSimuDataPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
 
 // +++ custom attributes implementer ++++++++++++++++++++++++++++++++++++++++
 
-PyObject *WindLabSimuDataPy::getCustomAttributes(const char* /*attr*/) const
+PyObject *WindLabSimulationDataPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;
 }
 
-int WindLabSimuDataPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+int WindLabSimulationDataPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
 {
     return 0;
 }

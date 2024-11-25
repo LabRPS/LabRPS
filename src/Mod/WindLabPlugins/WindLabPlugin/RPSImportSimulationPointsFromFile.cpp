@@ -43,13 +43,13 @@ CRPSImportSimulationPointsFromFile::CRPSImportSimulationPointsFromFile()
 }
 
 
-bool CRPSImportSimulationPointsFromFile::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord)
+bool CRPSImportSimulationPointsFromFile::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {
     ReadSimulationPointsFromFile(Data, WorkingDirectory.getValue(), dLocCoord);
     return true;
 }
 
-bool CRPSImportSimulationPointsFromFile::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSImportSimulationPointsFromFile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgImportSimulationPointsFromFileEdit* dlg = new WindLabGui::DlgImportSimulationPointsFromFileEdit(WorkingDirectory, Data.spatialDistribution);
 	Gui::Control().showDialog(dlg);
@@ -70,7 +70,7 @@ bool CRPSImportSimulationPointsFromFile::GetFilePathButton()
   return true;
 }
 
-int CRPSImportSimulationPointsFromFile::ReadSimulationPointsFromFile(const WindLabAPI::WindLabSimuData& Data, QString file_path, mat &dPointArray)
+int CRPSImportSimulationPointsFromFile::ReadSimulationPointsFromFile(const WindLabAPI::WindLabSimulationData& Data, QString file_path, mat &dPointArray)
 {
     QFile inputFile(file_path);
 
