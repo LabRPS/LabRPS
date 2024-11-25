@@ -101,7 +101,7 @@ public:
      */
     virtual bool ComputeWavePassageEffectValue(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
-    /** Allows to do any initial taks before any of the above methods is called.
+    /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
