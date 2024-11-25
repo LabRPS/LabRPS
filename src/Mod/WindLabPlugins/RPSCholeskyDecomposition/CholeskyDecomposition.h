@@ -25,7 +25,7 @@
 
 #include <Mod/WindLabAPI/App/IrpsWLMatrixTool.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -36,9 +36,9 @@ public:
 
 	~CholeskyDecomposition() {};
 
-    bool MatrixToolCompute(const WindLabAPI::WindLabSimuData& Data, const mat &inputMatrix, mat &outputMatrix);
+    bool MatrixToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat &inputMatrix, mat &outputMatrix);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 };
 

@@ -44,7 +44,7 @@ CWeibullRandomnessProvider::CWeibullRandomnessProvider()
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The Weibull distribution exponential factor");
 
 }
-bool CWeibullRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWeibullRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -56,7 +56,7 @@ bool CWeibullRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuD
     return true;
 }
 
-bool CWeibullRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CWeibullRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -75,7 +75,7 @@ bool CWeibullRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLa
     return returnResult;
 }
 
-bool CWeibullRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CWeibullRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -96,7 +96,7 @@ CGaussianRandomnessProvider::CGaussianRandomnessProvider()
 
 
 }
-bool CGaussianRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGaussianRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -108,7 +108,7 @@ bool CGaussianRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimu
     return true;
 }
 
-bool CGaussianRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CGaussianRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -129,7 +129,7 @@ bool CGaussianRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindL
 
 }
 
-bool CGaussianRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CGaussianRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -149,7 +149,7 @@ CExponentialRandomnessProvider::CExponentialRandomnessProvider()
 
 }
 
-bool CExponentialRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -160,7 +160,7 @@ bool CExponentialRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabS
     return true;
 }
 
-bool CExponentialRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CExponentialRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -181,7 +181,7 @@ bool CExponentialRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::Wi
 
 }
 
-bool CExponentialRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CExponentialRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -200,7 +200,7 @@ CLaplaceRandomnessProvider::CLaplaceRandomnessProvider()
    ADD_PROPERTY_TYPE(Width, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
 }
-bool CLaplaceRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLaplaceRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -212,7 +212,7 @@ bool CLaplaceRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuD
     return true;
 }
 
-bool CLaplaceRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CLaplaceRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -233,7 +233,7 @@ bool CLaplaceRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLa
 
 }
 
-bool CLaplaceRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CLaplaceRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -253,7 +253,7 @@ CExponentialPowerRandomnessProvider::CExponentialPowerRandomnessProvider()
    ADD_PROPERTY_TYPE(ExponentFactor, (2.5), "Parameters", App::Prop_None, "The exponent factor");
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
 }
-bool CExponentialPowerRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialPowerRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -267,7 +267,7 @@ bool CExponentialPowerRandomnessProvider::OnInitialSetting(const WindLabAPI::Win
     return true;
 }
 
-bool CExponentialPowerRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CExponentialPowerRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -288,7 +288,7 @@ bool CExponentialPowerRandomnessProvider::GenerateRandomMatrixFP(const WindLabAP
 
 }
 
-bool CExponentialPowerRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CExponentialPowerRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -308,7 +308,7 @@ CCauchyRandomnessProvider::CCauchyRandomnessProvider()
 
 }
 
-bool CCauchyRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CCauchyRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -319,7 +319,7 @@ bool CCauchyRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuDa
     return true;
 }
 
-bool CCauchyRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CCauchyRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -340,7 +340,7 @@ bool CCauchyRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLab
 
 }
 
-bool CCauchyRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CCauchyRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -360,7 +360,7 @@ CRayleighRandomnessProvider::CRayleighRandomnessProvider()
 
 }
 
-bool CRayleighRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRayleighRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -371,7 +371,7 @@ bool CRayleighRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimu
     return true;
 }
 
-bool CRayleighRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CRayleighRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -392,7 +392,7 @@ bool CRayleighRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindL
 
 }
 
-bool CRayleighRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CRayleighRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -412,7 +412,7 @@ CRayleighTailRandomnessProvider::CRayleighTailRandomnessProvider()
    ADD_PROPERTY_TYPE(LowerLimit, (1.0), "Parameters", App::Prop_None, "The scale parameter");
 }
 
-bool CRayleighTailRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRayleighTailRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -424,7 +424,7 @@ bool CRayleighTailRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLab
     return true;
 }
 
-bool CRayleighTailRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CRayleighTailRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -444,7 +444,7 @@ bool CRayleighTailRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::W
     return returnResult;
 }
 
-bool CRayleighTailRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CRayleighTailRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -462,7 +462,7 @@ CLandauRandomnessProvider::CLandauRandomnessProvider() {
 
 }
 
-bool CLandauRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLandauRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -473,7 +473,7 @@ bool CLandauRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuDa
     return true;
 }
 
-bool CLandauRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CLandauRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -494,7 +494,7 @@ bool CLandauRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLab
 
 }
 
-bool CLandauRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CLandauRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -513,7 +513,7 @@ CLevyAlphaStableRandomnessProvider::CLevyAlphaStableRandomnessProvider()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The exponent factor");
 }
-bool CLevyAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLevyAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -525,7 +525,7 @@ bool CLevyAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::Wind
     return true;
 }
 
-bool CLevyAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CLevyAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -546,7 +546,7 @@ bool CLevyAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI
 
 }
 
-bool CLevyAlphaStableRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CLevyAlphaStableRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -567,7 +567,7 @@ CLevySkewAlphaStableRandomnessProvider::CLevySkewAlphaStableRandomnessProvider()
    ADD_PROPERTY_TYPE(SkewnessParameter, (1.0), "Parameters", App::Prop_None, "The skewness parameter");
 }
 
-bool CLevySkewAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLevySkewAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -580,7 +580,7 @@ bool CLevySkewAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::
     return true;
 }
 
-bool CLevySkewAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CLevySkewAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -601,7 +601,7 @@ bool CLevySkewAlphaStableRandomnessProvider::GenerateRandomMatrixFP(const WindLa
 
 }
 
-bool CLevySkewAlphaStableRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CLevySkewAlphaStableRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -620,7 +620,7 @@ CFlatRandomnessProvider::CFlatRandomnessProvider()
     ADD_PROPERTY_TYPE(LowerBound, (0.5), "Parameters", App::Prop_None, "The lower bound limit value");
     ADD_PROPERTY_TYPE(UpperBound, (2.5), "Parameters", App::Prop_None, "The upper bound limit value");
 }
-bool CFlatRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CFlatRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -632,7 +632,7 @@ bool CFlatRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData
     return true;
 }
 
-bool CFlatRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CFlatRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -652,7 +652,7 @@ bool CFlatRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSi
     return returnResult;
 }
 
-bool CFlatRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CFlatRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -671,7 +671,7 @@ CGammaRandomnessProvider::CGammaRandomnessProvider()
     ADD_PROPERTY_TYPE(ParameterA, (0.5), "Parameters", App::Prop_None, "The A parameter");
     ADD_PROPERTY_TYPE(ParameterB, (2.5), "Parameters", App::Prop_None, "The B parameter");
 }
-bool CGammaRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGammaRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -683,7 +683,7 @@ bool CGammaRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuDat
     return true;
 }
 
-bool CGammaRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CGammaRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -704,7 +704,7 @@ bool CGammaRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabS
 
 }
 
-bool CGammaRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CGammaRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -723,7 +723,7 @@ CLognormalRandomnessProvider::CLognormalRandomnessProvider()
     ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
     ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The stantard devialtion");
 }
-bool CLognormalRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLognormalRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -735,7 +735,7 @@ bool CLognormalRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSim
     return true;
 }
 
-bool CLognormalRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CLognormalRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -756,7 +756,7 @@ bool CLognormalRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::Wind
 
 }
 
-bool CLognormalRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CLognormalRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -775,7 +775,7 @@ CChiSquaredRandomnessProvider::CChiSquaredRandomnessProvider()
     ADD_PROPERTY_TYPE(DegreeOfFreedom, (1.0), "Parameters", App::Prop_None, "The degree of freedom");
 }
 
-bool CChiSquaredRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CChiSquaredRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -786,7 +786,7 @@ bool CChiSquaredRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSi
     return true;
 }
 
-bool CChiSquaredRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CChiSquaredRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -807,7 +807,7 @@ bool CChiSquaredRandomnessProvider::GenerateRandomMatrixFP(const WindLabAPI::Win
 
 }
 
-bool CChiSquaredRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CChiSquaredRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
     // create a generator chosen by the environment variable GSL_RNG_TYPE
     gsl_rng_env_setup();
@@ -831,13 +831,13 @@ CWeibullPDF::CWeibullPDF()
 
 }
 
-bool CWeibullPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CWeibullPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_weibull_pdf(x, ScaleParameter.getValue() /*a*/, ExponentFactor.getValue() /*b*/);
     return true;
 
 }
-bool CWeibullPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CWeibullPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -850,7 +850,7 @@ bool CWeibullPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec
     return returnResult;
 
 }
-bool CWeibullPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWeibullPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -871,13 +871,13 @@ CGaussianPDF::CGaussianPDF()
 
 
 }
-bool CGaussianPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CGaussianPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_gaussian_pdf(x, StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond) /*a*/) + Mean.getValue() /*mu*/;
    return true;
 
 }
-bool CGaussianPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CGaussianPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -890,7 +890,7 @@ bool CGaussianPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, ve
     return returnResult;
 
 }
-bool CGaussianPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGaussianPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -909,13 +909,13 @@ CExponentialPDF::CExponentialPDF()
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
 
 }
-bool CExponentialPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CExponentialPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_exponential_pdf(x, Mean.getValue());
    return true;
 
 }
-bool CExponentialPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CExponentialPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -927,7 +927,7 @@ bool CExponentialPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data,
 
     return returnResult;
 }
-bool CExponentialPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -945,13 +945,13 @@ CLaplacePDF::CLaplacePDF()
    ADD_PROPERTY_TYPE(Width, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
 }
-bool CLaplacePDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CLaplacePDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_laplace_pdf(x, Width.getValue() /*a*/) + Mean.getValue() /*mu*/;
    return true;
 
 }
-bool CLaplacePDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CLaplacePDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -964,7 +964,7 @@ bool CLaplacePDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec
     return returnResult;
 
 }
-bool CLaplacePDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLaplacePDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -987,12 +987,12 @@ CExponentialPowerPDF::CExponentialPowerPDF()
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
 }
 
-bool CExponentialPowerPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CExponentialPowerPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_exppow_pdf(x, ScaleParameter.getValue() /*a*/, ExponentFactor.getValue() /*b*/) + Mean.getValue() /*mu*/;
    return true;
 }
-bool CExponentialPowerPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CExponentialPowerPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1005,7 +1005,7 @@ bool CExponentialPowerPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& 
     return returnResult;
 
 }
-bool CExponentialPowerPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialPowerPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1028,13 +1028,13 @@ CCauchyPDF::CCauchyPDF()
 
 }
 
-bool CCauchyPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CCauchyPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_cauchy_pdf(x, ScaleParameter.getValue() /*a*/);
     return true;
 }
 
-bool CCauchyPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CCauchyPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
 
     bool returnResult = true;
@@ -1047,7 +1047,7 @@ bool CCauchyPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec 
 
     return returnResult;
 }
-bool CCauchyPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CCauchyPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1067,14 +1067,14 @@ CRayleighPDF::CRayleighPDF()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
 
 }
-bool CRayleighPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CRayleighPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_rayleigh_pdf(x, ScaleParameter.getValue() /*sigma*/);
    return true;
 
 }
 
-bool CRayleighPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CRayleighPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1087,7 +1087,7 @@ bool CRayleighPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, ve
     return returnResult;
 
 }
-bool CRayleighPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRayleighPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1107,13 +1107,13 @@ CRayleighTailPDF::CRayleighTailPDF()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(LowerLimit, (1.0), "Parameters", App::Prop_None, "The scale parameter");
 }
-bool CRayleighTailPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CRayleighTailPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    dValue = gsl_ran_rayleigh_tail_pdf(x, LowerLimit.getValue() /*a*/, ScaleParameter.getValue() /*sigma*/);
    return true;
 }
 
-bool CRayleighTailPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CRayleighTailPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1126,7 +1126,7 @@ bool CRayleighTailPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data
     return returnResult;
 
 }
-bool CRayleighTailPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRayleighTailPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1147,13 +1147,13 @@ CLandauPDF::CLandauPDF()
 
 }
 
-bool CLandauPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CLandauPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     dValue = gsl_ran_landau_pdf(x);
     return true;
 
 }
-bool CLandauPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CLandauPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1166,7 +1166,7 @@ bool CLandauPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec 
     return returnResult;
 }
 
-bool CLandauPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLandauPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1187,13 +1187,13 @@ CFlatPDF::CFlatPDF()
     ADD_PROPERTY_TYPE(UpperBound, (2.5), "Parameters", App::Prop_None, "The upper bound limit value");
 }
 
-bool CFlatPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CFlatPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     dValue = gsl_ran_flat_pdf(x, LowerBound.getValue() /*a*/, UpperBound.getValue() /*b*/);
     return true;
 
 }
-bool CFlatPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CFlatPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     if (Data.minVariableX.getValue() < LowerBound.getValue()
         || (Data.minVariableX.getValue()
@@ -1212,7 +1212,7 @@ bool CFlatPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &d
     return returnResult;
 
 }
-bool CFlatPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CFlatPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1234,13 +1234,13 @@ CGammaPDF::CGammaPDF()
     ADD_PROPERTY_TYPE(ParameterB, (2.5), "Parameters", App::Prop_None, "The B parameter");
 }
 
-bool CGammaPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CGammaPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     dValue = gsl_ran_gamma_pdf(x, ParameterA.getValue() /*a*/, ParameterB.getValue() /*b*/);
             return true;
 
 }
-bool CGammaPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CGammaPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1253,7 +1253,7 @@ bool CGammaPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &
     return returnResult;
 
 }
-bool CGammaPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGammaPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1275,13 +1275,13 @@ CLognormalPDF::CLognormalPDF()
     ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The stantard devialtion");
 }
 
-bool CLognormalPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CLognormalPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     dValue = gsl_ran_lognormal_pdf(x, Mean.getValue() /*zeta*/, StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond) /*sigma*/);
     return true;
 
 }
-bool CLognormalPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CLognormalPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1294,7 +1294,7 @@ bool CLognormalPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, v
     return returnResult;
 
 }
-bool CLognormalPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLognormalPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1315,13 +1315,13 @@ CChiSquaredPDF::CChiSquaredPDF()
     ADD_PROPERTY_TYPE(DegreeOfFreedom, (1.0), "Parameters", App::Prop_None, "The degree of freedom");
 }
 
-bool CChiSquaredPDF::ComputePDFValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CChiSquaredPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     dValue = gsl_ran_chisq_pdf(x, DegreeOfFreedom.getValue() /*nu*/);
     return true;
 
 }
-bool CChiSquaredPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CChiSquaredPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
 
@@ -1334,7 +1334,7 @@ bool CChiSquaredPDF::ComputePDFVectorX(const WindLabAPI::WindLabSimuData& Data, 
     return returnResult;
 
 }
-bool CChiSquaredPDF::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CChiSquaredPDF::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1363,7 +1363,7 @@ CWeibullCPD::CWeibullCPD()
 }
 
 
-bool CWeibullCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CWeibullCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1379,7 +1379,7 @@ bool CWeibullCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const
             return true;
 
 }
-bool CWeibullCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CWeibullCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1390,7 +1390,7 @@ bool CWeibullCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec
 
     return returnResult;
 }
-bool CWeibullCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWeibullCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1417,7 +1417,7 @@ CGaussianCPD::CGaussianCPD()
    Types.setEnums(types);
 
 }
-bool CGaussianCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CGaussianCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    switch (Types.getValue()) {
     case 0:
@@ -1433,7 +1433,7 @@ bool CGaussianCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, cons
             return true;
 
 }
-bool CGaussianCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CGaussianCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1445,7 +1445,7 @@ bool CGaussianCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, ve
     return returnResult;
 
 }
-bool CGaussianCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGaussianCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1471,7 +1471,7 @@ CExponentialCPD::CExponentialCPD()
     Types.setEnums(types);
 }
 
-bool CExponentialCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CExponentialCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1487,7 +1487,7 @@ bool CExponentialCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, c
             return true;
 
 }
-bool CExponentialCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CExponentialCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1499,7 +1499,7 @@ bool CExponentialCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data,
     return returnResult;
 
 }
-bool CExponentialCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1523,7 +1523,7 @@ CLaplaceCPD::CLaplaceCPD()
    Types.setEnums(types);
 }
 
-bool CLaplaceCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CLaplaceCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    switch (Types.getValue()) {
     case 0:
@@ -1539,7 +1539,7 @@ bool CLaplaceCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const
             return true;
 
 }
-bool CLaplaceCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CLaplaceCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1551,7 +1551,7 @@ bool CLaplaceCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec
     return returnResult;
 
 }
-bool CLaplaceCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLaplaceCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1577,7 +1577,7 @@ CExponentialPowerCPD::CExponentialPowerCPD()
    Types.setEnums(types);
 }
 
-bool CExponentialPowerCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CExponentialPowerCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    switch (Types.getValue()) {
     case 0:
@@ -1593,7 +1593,7 @@ bool CExponentialPowerCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Da
             return true;
 
 }
-bool CExponentialPowerCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CExponentialPowerCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1605,7 +1605,7 @@ bool CExponentialPowerCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& 
     return returnResult;
 }
 
-bool CExponentialPowerCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExponentialPowerCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1631,7 +1631,7 @@ CCauchyCPD::CCauchyCPD()
    Types.setEnums(types);
 }
 
-bool CCauchyCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CCauchyCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    switch (Types.getValue()) {
     case 0:
@@ -1647,7 +1647,7 @@ bool CCauchyCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const 
     return true;
 
 }
-bool CCauchyCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CCauchyCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1659,7 +1659,7 @@ bool CCauchyCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec 
     return returnResult;
 
 }
-bool CCauchyCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CCauchyCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1683,7 +1683,7 @@ CRayleighCPD::CRayleighCPD()
    Types.setEnums(types);
 }
 
-bool CRayleighCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CRayleighCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
    switch (Types.getValue()) {
     case 0:
@@ -1699,7 +1699,7 @@ bool CRayleighCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, cons
             return true;
 
 }
-bool CRayleighCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CRayleighCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1710,7 +1710,7 @@ bool CRayleighCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, ve
 
     return returnResult;
 }
-bool CRayleighCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRayleighCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1734,7 +1734,7 @@ CFlatCPD::CFlatCPD()
     Types.setEnums(types);
 }
 
-bool CFlatCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CFlatCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1750,7 +1750,7 @@ bool CFlatCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const do
     return true;
 
 }
-bool CFlatCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CFlatCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1762,7 +1762,7 @@ bool CFlatCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &d
     return returnResult;
 
 }
-bool CFlatCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CFlatCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1789,7 +1789,7 @@ CGammaCPD::CGammaCPD()
     Types.setEnums(types);
 }
 
-bool CGammaCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CGammaCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1804,7 +1804,7 @@ bool CGammaCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const d
             return true;
 
 }
-bool CGammaCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CGammaCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1815,7 +1815,7 @@ bool CGammaCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &
 
     return returnResult;
 }
-bool CGammaCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CGammaCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1840,7 +1840,7 @@ CLognormalCPD::CLognormalCPD()
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
 }
-bool CLognormalCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CLognormalCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1855,7 +1855,7 @@ bool CLognormalCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, con
             return true;
 
 }
-bool CLognormalCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CLognormalCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1866,7 +1866,7 @@ bool CLognormalCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, v
 
     return returnResult;
 }
-bool CLognormalCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CLognormalCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)
@@ -1891,7 +1891,7 @@ CChiSquaredCPD::CChiSquaredCPD()
     Types.setEnums(types);
 }
 
-bool CChiSquaredCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, const double &x, double &dValue)
+bool CChiSquaredCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
     switch (Types.getValue()) {
     case 0:
@@ -1906,7 +1906,7 @@ bool CChiSquaredCPD::ComputeCPDValue(const WindLabAPI::WindLabSimuData& Data, co
             return true;
 
 }
-bool CChiSquaredCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, vec &dVarVector, vec &dValVector)
+bool CChiSquaredCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData& Data, vec &dVarVector, vec &dValVector)
 {
     bool returnResult = true;
     for (int j = 0 ; j < Data.numberOfIncrementOfVariableX.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++)
@@ -1918,7 +1918,7 @@ bool CChiSquaredCPD::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData& Data, 
     return returnResult;
 
 }
-bool CChiSquaredCPD::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CChiSquaredCPD::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     std::unique_ptr<RandomDistributionDialog> dlg(new RandomDistributionDialog());
     if (dlg->exec() == QDialog::Accepted)

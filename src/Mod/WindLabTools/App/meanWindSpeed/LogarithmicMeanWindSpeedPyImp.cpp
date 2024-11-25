@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/meanWindSpeed/LogarithmicMeanWindSpeedPy.h"
 #include "Mod/WindLabTools/App/meanWindSpeed/LogarithmicMeanWindSpeedPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

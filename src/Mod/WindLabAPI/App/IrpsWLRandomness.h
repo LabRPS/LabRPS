@@ -23,7 +23,7 @@
 #ifndef IRPSWLRANDOMNESS_H
 #define IRPSWLRANDOMNESS_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureRandomness.h>
 
 namespace WindLabAPI {
@@ -53,20 +53,20 @@ public:
      * @param dValue       a value to be updated. This is the generated random value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeRandomValue(const WindLabSimuData &Data, double &dValue) = 0;
+    virtual bool ComputeRandomValue(const WindLabSimulationData &Data, double &dValue) = 0;
 
     /** Generate the random value matrix for all frequency increments and locations.
      * @param Data       the simulation data containing all the simulation parameters input by the user..
      * @param dMatrix    a matrix to be updated. It should contain the generated random values matrix.
      * @return           return true if the computation is successful and false in case of failure.
      */
-    virtual bool GenerateRandomMatrixFP(const WindLabSimuData &Data, mat &dRandomValueArray) = 0;
+    virtual bool GenerateRandomMatrixFP(const WindLabSimulationData &Data, mat &dRandomValueArray) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

@@ -25,7 +25,7 @@
 
 #include <Mod/WindLabAPI/App/IrpsWLSimuMethod.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -33,13 +33,13 @@ class CWWYang1997 : public WindLabAPI::IrpsWLSimuMethod
 {
 public:
 	//Initial setting
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 	// The simulation function 
-    bool Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVelocityArray);
+    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray);
 
 	// The simulation function in large scale mode 
-    bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName);
+    bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
 
 };
 

@@ -27,7 +27,7 @@
 #include <Mod/WindLabAPI/App/IrpsWLLocationDistribution.h>
 #include <App/PropertyUnits.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -40,10 +40,10 @@ public:
 	
 	~CWLHorizontalUniformDistribution() {};
 
-	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord);
+	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord);
 
 	//Initial setting
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 	// the first point the distribution will start from

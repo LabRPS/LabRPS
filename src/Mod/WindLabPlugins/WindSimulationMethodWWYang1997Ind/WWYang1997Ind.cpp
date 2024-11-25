@@ -45,7 +45,7 @@ upperCutoffFrequency = 4*3.14;
 numberOfTimeIncrements = 2*numberOfLocation*numberOfFrequencies;
 }
 //Initial setting
-bool CWWYang1997Ind::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWWYang1997Ind::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     // the input diolag
     std::unique_ptr<WWYang1997IndInputDlg> dlg(new WWYang1997IndInputDlg(numberOfLocation, numberOfFrequencies, locationHeight, locationSpacing, meanSpeed, shearVelocity, upperCutoffFrequency, numberOfTimeIncrements));
@@ -67,7 +67,7 @@ bool CWWYang1997Ind::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 }
 
 // The simulation function 
-bool CWWYang1997Ind::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVelocityArray)
+bool CWWYang1997Ind::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
     auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
@@ -181,7 +181,7 @@ bool CWWYang1997Ind::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVel
 }
 
 // The simulation function in large scale mode
-bool CWWYang1997Ind::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName)
+bool CWWYang1997Ind::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
     auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 

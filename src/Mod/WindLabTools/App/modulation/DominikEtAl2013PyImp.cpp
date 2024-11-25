@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/modulation/DominikEtAl2013Py.h"
 #include "Mod/WindLabTools/App/modulation/DominikEtAl2013Py.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

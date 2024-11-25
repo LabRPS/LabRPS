@@ -25,7 +25,7 @@
 
 #include <Mod/WindLabAPI/App/IrpsWLLocationDistribution.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 class QStringList;
 
@@ -41,11 +41,11 @@ public:
 
 	~CRPSImportSimulationPointsFromFile() {};
 	
-	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord);
+	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord);
 	
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
-	int ReadSimulationPointsFromFile(const WindLabAPI::WindLabSimuData& Data, QString strFilePath, mat &dRandomValueArray);
+	int ReadSimulationPointsFromFile(const WindLabAPI::WindLabSimulationData& Data, QString strFilePath, mat &dRandomValueArray);
 	
 	bool GetFilePathButton();
 

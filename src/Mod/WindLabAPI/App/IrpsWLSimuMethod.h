@@ -23,7 +23,7 @@
 #ifndef IRPSWLSIMUMETHOD_H
 #define IRPSWLSIMUMETHOD_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureSimulationMethod.h>
 
 namespace WindLabAPI {
@@ -65,7 +65,7 @@ public:
      * Its first column contains the time increments.
      * @return                 return true if the computation is successful and false in case of failure.
      */		
-    virtual bool Simulate(const WindLabSimuData &Data, mat &dVelocityArray) = 0;
+    virtual bool Simulate(const WindLabSimulationData &Data, mat &dVelocityArray) = 0;
 
     /** Generate random wind velocity in large scale simulation mode.
      * @param Data           the simulation data containing all the simulation parameters input by the user.
@@ -75,13 +75,13 @@ public:
      * Data in order to create the full path of the file.
      * @return                 return true if the computation is successful and false in case of failure.
      */	
-    virtual bool SimulateInLargeScaleMode(const WindLabSimuData &Data, QString &strFileName) = 0;
+    virtual bool SimulateInLargeScaleMode(const WindLabSimulationData &Data, QString &strFileName) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

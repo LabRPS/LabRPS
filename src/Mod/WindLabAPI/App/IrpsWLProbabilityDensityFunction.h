@@ -23,7 +23,7 @@
 #ifndef IRPSWLPDF_H
 #define IRPSWLPDF_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureProbabilityDensityFunction.h>
 
 namespace WindLabAPI {
@@ -55,7 +55,7 @@ public:
      * @param dValue       a value to be updated. This is the computed value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputePDFValue(const WindLabSimuData &Data, const double &x, double &dValue) = 0;
+    virtual bool ComputePDFValue(const WindLabSimulationData &Data, const double &x, double &dValue) = 0;
 
     /** Compute the probability dendity for all increments of variable x.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -63,13 +63,13 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each variable x increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputePDFVectorX(const WindLabSimuData &Data, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputePDFVectorX(const WindLabSimulationData &Data, vec &dVarVector, vec &dValVector) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+    virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

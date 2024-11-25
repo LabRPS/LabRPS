@@ -39,17 +39,17 @@ namespace WindLabAPI
 {
 
 /// The WindLab simulation data for random wind velocity
-class RPS_CORE_API WindLabSimuData : public WindLabAPI::WindLabFeature
+class RPS_CORE_API WindLabSimulationData : public WindLabAPI::WindLabFeature
 {
 	PROPERTY_HEADER_WITH_OVERRIDE(WindLabAPI::WindLabFeature);
 
  public:
 
     /// Construction
-	WindLabSimuData();
+	WindLabSimulationData();
 
     /// Destruction
-	~WindLabSimuData();
+	~WindLabSimulationData();
 
  /** @name Properties */
     //@{

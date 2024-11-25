@@ -35,7 +35,7 @@ CSineModulation::CSineModulation()
 
 }
 
-bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgSineModulationEdit* dlg = new WindLabGui::DlgSineModulationEdit(PulseDuration, Data.modulationFunction);
 	Gui::Control().showDialog(dlg);
@@ -43,13 +43,13 @@ bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
 }
 
 
-bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
 	dValue = sin(3.14*dTime / PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
 	return true;
 }
 
-bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     double dTime = 0.0;
 
@@ -64,7 +64,7 @@ bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData
 	return true;
 }
 
-bool CSineModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CSineModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     WindLabTools::SineModulation sineModulation;
 

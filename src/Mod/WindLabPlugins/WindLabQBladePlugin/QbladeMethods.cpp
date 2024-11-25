@@ -95,12 +95,12 @@ void QbladeMethods::onChanged(const App::Property* prop)
     return WindLabAPI::WindLabFeatureSimulationMethod::onChanged(prop);
 }
 
-bool QbladeMethods::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool QbladeMethods::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     return true;
 }
 
-bool QbladeMethods::Simulate(const WindLabAPI::WindLabSimuData& Data, mat& dVelocityArray) {
+bool QbladeMethods::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat& dVelocityArray) {
 
      WindField* windField = new WindField(Data, 
         RandomPhaseSeed, SimulationTime,
@@ -176,7 +176,7 @@ bool QbladeMethods::Simulate(const WindLabAPI::WindLabSimuData& Data, mat& dVelo
 }
 
 // The simulation function in large scale mode
-bool QbladeMethods::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName)
+bool QbladeMethods::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
     return true;
 }

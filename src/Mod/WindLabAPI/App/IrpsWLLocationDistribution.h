@@ -23,7 +23,7 @@
 #ifndef IRPSWLLOCATIONDISTRIBUTION_H
 #define IRPSWLLOCATIONDISTRIBUTION_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureLocationDistribution.h>
 
 namespace WindLabAPI {
@@ -56,13 +56,13 @@ public:
      * @param dLocCoord  a matrix to be updated. It should contain the computed location coordinates.
      * @return           return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeLocationCoordinateMatrixP3(const WindLabSimuData& Data, mat& dLocCoord) = 0;
+    virtual bool ComputeLocationCoordinateMatrixP3(const WindLabSimulationData& Data, mat& dLocCoord) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData& Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData& Data) = 0;
 };
 
 } // namespace WindLabAPI

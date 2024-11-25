@@ -40,7 +40,7 @@ CRPSWindLabFramework::~CRPSWindLabFramework()
 {
 }
 
-bool CRPSWindLabFramework::ComputeCrossCorrelationVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeCrossCorrelationVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -62,7 +62,7 @@ bool CRPSWindLabFramework::ComputeCrossCorrelationVectorT(const WindLabAPI::Wind
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCrossCorrelationMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, mat &dCorrelationMatrix)
+bool CRPSWindLabFramework::ComputeCrossCorrelationMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, mat &dCorrelationMatrix)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -84,7 +84,7 @@ bool CRPSWindLabFramework::ComputeCrossCorrelationMatrixPP(const WindLabAPI::Win
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dValVector)
+bool CRPSWindLabFramework::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -106,7 +106,7 @@ bool CRPSWindLabFramework::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSi
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat& dMatrix)
+bool CRPSWindLabFramework::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat& dMatrix)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -129,7 +129,7 @@ bool CRPSWindLabFramework::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabS
 }
 
 
-bool CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData &Data, mat &dLocCoord)
+bool CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData &Data, mat &dLocCoord)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -152,7 +152,7 @@ bool CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(const WindLabAPI::W
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -173,7 +173,7 @@ bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLab
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -195,7 +195,7 @@ bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLab
 }
 
 
-bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -216,7 +216,7 @@ bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSim
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -239,7 +239,7 @@ bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSim
 
 
 
-bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -260,7 +260,7 @@ bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const WindLabAP
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -281,7 +281,7 @@ bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorT(const WindLabAP
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix)
+bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -302,7 +302,7 @@ bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(const WindLabA
     return returnValue;
 }
 
-bool CRPSWindLabFramework::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData &Data, mat &dRandomValueArray)
+bool CRPSWindLabFramework::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData &Data, mat &dRandomValueArray)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -323,7 +323,7 @@ bool CRPSWindLabFramework::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuD
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -344,7 +344,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLa
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -365,7 +365,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLa
     return returnValue;
 }
 
- bool CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+ bool CRPSWindLabFramework::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
  {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -386,7 +386,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLa
      return returnValue;
  }
 
-  bool CRPSWindLabFramework::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+  bool CRPSWindLabFramework::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
   {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -406,7 +406,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLa
 
      return returnValue;
  }  
-  bool CRPSWindLabFramework::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+  bool CRPSWindLabFramework::ComputeXAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
   {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -427,7 +427,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLa
      return returnValue;
  }
 
-  bool CRPSWindLabFramework::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+  bool CRPSWindLabFramework::ComputeXAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
   {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -449,7 +449,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorT(const WindLabAPI::WindLa
  }
 
 
-bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 
 {
     auto doc = App::GetApplication().getActiveDocument();
@@ -471,7 +471,7 @@ bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLa
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -492,7 +492,7 @@ bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLa
     return returnValue;
 }
 
- bool CRPSWindLabFramework::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+ bool CRPSWindLabFramework::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
  {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -513,7 +513,7 @@ bool CRPSWindLabFramework::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLa
      return returnValue;
  }
 
-bool CRPSWindLabFramework::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -533,7 +533,7 @@ bool CRPSWindLabFramework::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSi
 
      return returnValue;
  }    
-bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -553,7 +553,7 @@ bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLab
 
      return returnValue;
  }
-bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -575,7 +575,7 @@ bool CRPSWindLabFramework::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindLab
  }
 
 
-bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 
 {
     auto doc = App::GetApplication().getActiveDocument();
@@ -597,7 +597,7 @@ bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLa
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -618,7 +618,7 @@ bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLa
     return returnValue;
 }
 
- bool CRPSWindLabFramework::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+ bool CRPSWindLabFramework::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
  {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -639,7 +639,7 @@ bool CRPSWindLabFramework::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLa
      return returnValue;
  }
 
-bool CRPSWindLabFramework::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -659,7 +659,7 @@ bool CRPSWindLabFramework::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSi
 
      return returnValue;
  }    
-bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -679,7 +679,7 @@ bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLab
 
      return returnValue;
  }
-bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -700,7 +700,7 @@ bool CRPSWindLabFramework::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLab
      return returnValue;
  }
 
-bool CRPSWindLabFramework::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -721,7 +721,7 @@ bool CRPSWindLabFramework::ComputeCrossCoherenceValue(const WindLabAPI::WindLabS
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -742,7 +742,7 @@ bool CRPSWindLabFramework::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLa
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -763,7 +763,7 @@ bool CRPSWindLabFramework::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLa
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
+bool CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -784,7 +784,7 @@ bool CRPSWindLabFramework::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindL
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCrossCorrelationValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeCrossCorrelationValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -806,7 +806,7 @@ bool CRPSWindLabFramework::ComputeCrossCorrelationValue(const WindLabAPI::WindLa
 }
 
 
-bool CRPSWindLabFramework::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -827,7 +827,7 @@ bool CRPSWindLabFramework::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeModulationValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -849,7 +849,7 @@ bool CRPSWindLabFramework::ComputeModulationValue(const WindLabAPI::WindLabSimuD
 }
 
 
-bool CRPSWindLabFramework::ComputeRandomValue(const WindLabAPI::WindLabSimuData &Data, double &dValue)
+bool CRPSWindLabFramework::ComputeRandomValue(const WindLabAPI::WindLabSimulationData &Data, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -876,7 +876,7 @@ bool CRPSWindLabFramework::ComputeRandomValue(const WindLabAPI::WindLabSimuData 
 }
 
 
-bool CRPSWindLabFramework::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -897,7 +897,7 @@ bool CRPSWindLabFramework::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabS
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -918,7 +918,7 @@ bool CRPSWindLabFramework::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabS
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -942,7 +942,7 @@ bool CRPSWindLabFramework::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabS
 
 // X, Y, Z
 
-bool CRPSWindLabFramework::ComputeCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -962,7 +962,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumVectorF(const WindLabAPI::WindLab
 
 }
 
-bool CRPSWindLabFramework::ComputeCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -981,7 +981,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumVectorT(const WindLabAPI::WindLab
     return false;
 }
 
-bool CRPSWindLabFramework::ComputeCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -999,7 +999,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumValue(const WindLabAPI::WindLabSi
     return false;
 }
 
-bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix)
+bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix)
 {
 	if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -1017,7 +1017,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLa
     return false;
 }
 
- bool CRPSWindLabFramework::ComputeAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+ bool CRPSWindLabFramework::ComputeAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
  {
 	if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -1034,7 +1034,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLa
 
     return false;
 }   
- bool CRPSWindLabFramework::ComputeAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+ bool CRPSWindLabFramework::ComputeAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
  {
 	if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -1051,7 +1051,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLa
 
     return false;
 }
- bool CRPSWindLabFramework::ComputeAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+ bool CRPSWindLabFramework::ComputeAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
  {
 	if (strcmp(Data.WindDirection.getValueAsString(), "Along wind") == 0)
 	{
@@ -1069,7 +1069,7 @@ bool CRPSWindLabFramework::ComputeCrossSpectrumMatrixPP(const WindLabAPI::WindLa
     return false;
 }
 
- bool CRPSWindLabFramework::ComputeFrequencyValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
+ bool CRPSWindLabFramework::ComputeFrequencyValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
  {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -1125,7 +1125,7 @@ WindLabAPI::WindLabFeatureDescription* CRPSWindLabFramework::getWindLabFeatureDe
 	return information;
 }
 
-bool CRPSWindLabFramework::TableToolCompute(const WindLabAPI::WindLabSimuData &Data, const mat &inputTable, mat &outputTable)
+bool CRPSWindLabFramework::TableToolCompute(const WindLabAPI::WindLabSimulationData &Data, const mat &inputTable, mat &outputTable)
 {
      auto doc = App::GetApplication().getActiveDocument();
 
@@ -1146,7 +1146,7 @@ bool CRPSWindLabFramework::TableToolCompute(const WindLabAPI::WindLabSimuData &D
      return returnValue;
  }
 
-bool CRPSWindLabFramework::MatrixToolCompute(const WindLabAPI::WindLabSimuData &Data, const mat &inputMatrix, mat &outputMatrix)
+bool CRPSWindLabFramework::MatrixToolCompute(const WindLabAPI::WindLabSimulationData &Data, const mat &inputMatrix, mat &outputMatrix)
 {
       auto doc = App::GetApplication().getActiveDocument();
 
@@ -1167,7 +1167,7 @@ bool CRPSWindLabFramework::MatrixToolCompute(const WindLabAPI::WindLabSimuData &
      return returnValue;
 }
 
-bool CRPSWindLabFramework::UserDefinedRPSObjectCompute(const WindLabAPI::WindLabSimuData &Data, mat &dresult)
+bool CRPSWindLabFramework::UserDefinedRPSObjectCompute(const WindLabAPI::WindLabSimulationData &Data, mat &dresult)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1188,7 +1188,7 @@ bool CRPSWindLabFramework::UserDefinedRPSObjectCompute(const WindLabAPI::WindLab
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeCPDValue(const WindLabAPI::WindLabSimuData &Data, const double &x, double &dValue)
+bool CRPSWindLabFramework::ComputeCPDValue(const WindLabAPI::WindLabSimulationData &Data, const double &x, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1208,7 +1208,7 @@ bool CRPSWindLabFramework::ComputeCPDValue(const WindLabAPI::WindLabSimuData &Da
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeCPDVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1228,7 +1228,7 @@ bool CRPSWindLabFramework::ComputeCPDVectorX(const WindLabAPI::WindLabSimuData &
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeGustFactorValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeGustFactorValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1248,7 +1248,7 @@ bool CRPSWindLabFramework::ComputeGustFactorValue(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeGustFactorVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeGustFactorVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1268,7 +1268,7 @@ bool CRPSWindLabFramework::ComputeGustFactorVectorP(const WindLabAPI::WindLabSim
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeGustFactorVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeGustFactorVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1288,7 +1288,7 @@ bool CRPSWindLabFramework::ComputeGustFactorVectorT(const WindLabAPI::WindLabSim
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeKurtosisValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeKurtosisValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1308,7 +1308,7 @@ bool CRPSWindLabFramework::ComputeKurtosisValue(const WindLabAPI::WindLabSimuDat
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeKurtosisVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeKurtosisVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1328,7 +1328,7 @@ bool CRPSWindLabFramework::ComputeKurtosisVectorP(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeKurtosisVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeKurtosisVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1348,7 +1348,7 @@ bool CRPSWindLabFramework::ComputeKurtosisVectorT(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputePeakFactorValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputePeakFactorValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1368,7 +1368,7 @@ bool CRPSWindLabFramework::ComputePeakFactorValue(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputePeakFactorVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputePeakFactorVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1388,7 +1388,7 @@ bool CRPSWindLabFramework::ComputePeakFactorVectorP(const WindLabAPI::WindLabSim
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputePeakFactorVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputePeakFactorVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1408,7 +1408,7 @@ bool CRPSWindLabFramework::ComputePeakFactorVectorT(const WindLabAPI::WindLabSim
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputePDFValue(const WindLabAPI::WindLabSimuData &Data, const double &x, double &dValue)
+bool CRPSWindLabFramework::ComputePDFValue(const WindLabAPI::WindLabSimulationData &Data, const double &x, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1428,7 +1428,7 @@ bool CRPSWindLabFramework::ComputePDFValue(const WindLabAPI::WindLabSimuData &Da
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputePDFVectorX(const WindLabAPI::WindLabSimuData &Data, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputePDFVectorX(const WindLabAPI::WindLabSimulationData &Data, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1449,7 +1449,7 @@ bool CRPSWindLabFramework::ComputePDFVectorX(const WindLabAPI::WindLabSimuData &
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeRoughnessValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeRoughnessValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1471,7 +1471,7 @@ bool CRPSWindLabFramework::ComputeRoughnessValue(const WindLabAPI::WindLabSimuDa
 }
 
 
-bool CRPSWindLabFramework::ComputeRoughnessVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeRoughnessVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1492,7 +1492,7 @@ bool CRPSWindLabFramework::ComputeRoughnessVectorP(const WindLabAPI::WindLabSimu
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeRoughnessVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeRoughnessVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1513,7 +1513,7 @@ bool CRPSWindLabFramework::ComputeRoughnessVectorT(const WindLabAPI::WindLabSimu
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeShearVelocityOfFlowValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeShearVelocityOfFlowValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1533,7 +1533,7 @@ bool CRPSWindLabFramework::ComputeShearVelocityOfFlowValue(const WindLabAPI::Win
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1555,7 +1555,7 @@ bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorP(const WindLabAPI::W
 }
 
 
-bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1576,7 +1576,7 @@ bool CRPSWindLabFramework::ComputeShearVelocityOfFlowVectorT(const WindLabAPI::W
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeSkewnessValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeSkewnessValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1598,7 +1598,7 @@ bool CRPSWindLabFramework::ComputeSkewnessValue(const WindLabAPI::WindLabSimuDat
 }
 
 
-bool CRPSWindLabFramework::ComputeSkewnessVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeSkewnessVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1620,7 +1620,7 @@ bool CRPSWindLabFramework::ComputeSkewnessVectorP(const WindLabAPI::WindLabSimuD
 }
 
 
-bool CRPSWindLabFramework::ComputeSkewnessVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeSkewnessVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1642,7 +1642,7 @@ bool CRPSWindLabFramework::ComputeSkewnessVectorT(const WindLabAPI::WindLabSimuD
 }
 
 
-bool CRPSWindLabFramework::ComputeStandardDeviationValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeStandardDeviationValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1664,7 +1664,7 @@ bool CRPSWindLabFramework::ComputeStandardDeviationValue(const WindLabAPI::WindL
 }
 
 
-bool CRPSWindLabFramework::ComputeStandardDeviationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeStandardDeviationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1686,7 +1686,7 @@ bool CRPSWindLabFramework::ComputeStandardDeviationVectorP(const WindLabAPI::Win
 }
 
 
-bool CRPSWindLabFramework::ComputeStandardDeviationVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeStandardDeviationVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1706,7 +1706,7 @@ bool CRPSWindLabFramework::ComputeStandardDeviationVectorT(const WindLabAPI::Win
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1726,7 +1726,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceIntensityValue(const WindLabAPI::Win
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1746,7 +1746,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorP(const WindLabAPI::W
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1766,7 +1766,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceIntensityVectorT(const WindLabAPI::W
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceScaleValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeTurbulenceScaleValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1786,7 +1786,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceScaleValue(const WindLabAPI::WindLab
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1806,7 +1806,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorP(const WindLabAPI::WindL
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1826,7 +1826,7 @@ bool CRPSWindLabFramework::ComputeTurbulenceScaleVectorT(const WindLabAPI::WindL
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeVarianceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
+bool CRPSWindLabFramework::ComputeVarianceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1846,7 +1846,7 @@ bool CRPSWindLabFramework::ComputeVarianceValue(const WindLabAPI::WindLabSimuDat
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeVarianceVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeVarianceVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1866,7 +1866,7 @@ bool CRPSWindLabFramework::ComputeVarianceVectorP(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeVarianceVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeVarianceVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1886,7 +1886,7 @@ bool CRPSWindLabFramework::ComputeVarianceVectorT(const WindLabAPI::WindLabSimuD
 
     return returnValue;
 }
-bool CRPSWindLabFramework::ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSWindLabFramework::ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1907,7 +1907,7 @@ bool CRPSWindLabFramework::ComputeWavePassageEffectValue(const WindLabAPI::WindL
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1928,7 +1928,7 @@ bool CRPSWindLabFramework::ComputeWavePassageEffectVectorF(const WindLabAPI::Win
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1949,7 +1949,7 @@ bool CRPSWindLabFramework::ComputeWavePassageEffectVectorT(const WindLabAPI::Win
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
+bool CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -1970,7 +1970,7 @@ bool CRPSWindLabFramework::ComputeWavePassageEffectMatrixPP(const WindLabAPI::Wi
     return returnValue;
 }
 
-int CRPSWindLabFramework::getLocationIndex(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d locationTobeFound)
+int CRPSWindLabFramework::getLocationIndex(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d locationTobeFound)
 {
     mat locationMatrix(Data.numberOfSpatialPosition.getValue(), 4);
 

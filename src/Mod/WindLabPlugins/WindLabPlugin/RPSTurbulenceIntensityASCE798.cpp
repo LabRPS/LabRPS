@@ -22,7 +22,7 @@
 
 #include "RPSTurbulenceIntensityASCE798.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/turbulenceIntensity/TurbulenceIntensity.h>
 #include "Widgets/DlgTurbulenceIntensityASCE798.h"
 #include <Base/Console.h>
@@ -42,7 +42,7 @@ RPSTurbulenceIntensityASCE798::RPSTurbulenceIntensityASCE798()
 
 }
 
-bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& location, const double& dTime, double& dValue)
+bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& location, const double& dTime, double& dValue)
 {
     WindLabTools::TurbulenceIntensity turbulenceIntensity;
 
@@ -75,7 +75,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLa
 	return true;
 }
 
-bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimuData& Data, const double& dTime, vec& dVarVector, vec& dValVector)
+bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimulationData& Data, const double& dTime, vec& dVarVector, vec& dValVector)
 {
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 	
@@ -102,7 +102,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorP(const Wind
 	return true;
 }
 
-bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& location, vec& dVarVector, vec& dValVector)
+bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& location, vec& dVarVector, vec& dValVector)
 {
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 	bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
@@ -127,7 +127,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorT(const Wind
 	return true;
 }
 
-bool RPSTurbulenceIntensityASCE798::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool RPSTurbulenceIntensityASCE798::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     // the input diolag
     WindLabGui::DlgTurbulenceIntensityASCE798Edit* dlg = new WindLabGui::DlgTurbulenceIntensityASCE798Edit(TenMetersHighTurbulenceIntensity, Data.turbulenceIntensity);

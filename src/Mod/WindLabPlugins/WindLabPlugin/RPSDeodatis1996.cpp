@@ -40,13 +40,13 @@ CRPSDeodatis1996::CRPSDeodatis1996()
 }
 
 
-bool CRPSDeodatis1996::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSDeodatis1996::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     QMessageBox::warning(0,QString::fromLatin1("Deodatis method"), QString::fromLatin1("No additional data required."));
     return true;
 }
 
-bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dVelocityArray)
+bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
    const bool simResult = stationaryWind(Data, dVelocityArray);
    bool returnResult = true;
@@ -94,7 +94,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimuData& Data, mat &dV
 }
 
 // The simulation function
-bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimuData& Data, mat &dVelocityArray)
+bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
     auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
@@ -218,7 +218,7 @@ bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimuData& Data, m
 }
 
 // The simulation function in large scale mode
-bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimuData& Data, QString &strFileName)
+bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
     auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 

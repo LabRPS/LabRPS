@@ -26,7 +26,7 @@
 #include <Mod/WindLabAPI/App/IrpsWLTurbulenceIntensity.h>
 #include <App/PropertyUnits.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -39,13 +39,13 @@ public:
 
     ~RPSTurbulenceIntensityASCE798() {};
 
-    bool ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue);
+    bool ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue);
 
-    bool ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector);
+    bool ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector);
 
-    bool ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector);
+    bool ComputeTurbulenceIntensityVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector);
 
-   bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+   bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
    App::PropertyFloat TenMetersHighTurbulenceIntensity;

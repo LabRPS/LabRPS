@@ -32,7 +32,7 @@ ZervaModelFrequencyDistribution::ZervaModelFrequencyDistribution()
 
 }
 
-bool ZervaModelFrequencyDistribution::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dValVector)
+bool ZervaModelFrequencyDistribution::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)
 {
 	for (int l = 0; l < Data.numberOfFrequency.getValue(); l++)
 	{
@@ -42,7 +42,7 @@ bool ZervaModelFrequencyDistribution::ComputeFrequenciesVectorF(const WindLabAPI
 	return true;
 }
 
-bool ZervaModelFrequencyDistribution::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimuData &Data, mat &dMatrix)
+bool ZervaModelFrequencyDistribution::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimulationData &Data, mat &dMatrix)
 {
     Base::Vector3d location(0, 0, 0);//unused
 
@@ -56,12 +56,12 @@ bool ZervaModelFrequencyDistribution::ComputeFrequenciesMatrixFP(const WindLabAP
     return true;
 }
 
-bool ZervaModelFrequencyDistribution::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool ZervaModelFrequencyDistribution::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     return true;
 }
 
-bool ZervaModelFrequencyDistribution::ComputeFrequencyValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
+bool ZervaModelFrequencyDistribution::ComputeFrequencyValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
     dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + (1 + 0.5 * frequencyIndex) * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 	return true;

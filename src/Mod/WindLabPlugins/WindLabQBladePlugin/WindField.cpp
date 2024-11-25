@@ -28,7 +28,7 @@
 #define PI_ 3.14159265358979323846
 
 WindField::WindField(
-    const WindLabAPI::WindLabSimuData& Data, const App::PropertyInteger& RandomPhaseSeed,
+    const WindLabAPI::WindLabSimulationData& Data, const App::PropertyInteger& RandomPhaseSeed,
     const App::PropertyTime& SimulationTime, const App::PropertyTime& TimeStepSize,
     const App::PropertyLength& GridWidth,
     const App::PropertyInteger& GridPoints, 

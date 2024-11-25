@@ -34,7 +34,7 @@ CRPSDoubleIndexFrequency::CRPSDoubleIndexFrequency() {
 
 }
 
-bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, vec &dValVector)
+bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)
 {
 	for (int l = 0; l < Data.numberOfFrequency.getValue(); l++)
 	{
@@ -44,7 +44,7 @@ bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindL
 	return true;
 }
 
-bool CRPSDoubleIndexFrequency::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimuData &Data, mat &dMatrix)
+bool CRPSDoubleIndexFrequency::ComputeFrequenciesMatrixFP(const WindLabAPI::WindLabSimulationData &Data, mat &dMatrix)
 {
     mat locationCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
@@ -71,7 +71,7 @@ bool CRPSDoubleIndexFrequency::ComputeFrequenciesMatrixFP(const WindLabAPI::Wind
 }
 
 
-bool CRPSDoubleIndexFrequency::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSDoubleIndexFrequency::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     // the input diolag
     std::unique_ptr<RPSFrequencyDistributionDialog> dlg(new RPSFrequencyDistributionDialog(2));
@@ -84,7 +84,7 @@ bool CRPSDoubleIndexFrequency::OnInitialSetting(const WindLabAPI::WindLabSimuDat
     return true;
 }
 
-bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
+bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
     mat locationCoord(Data.numberOfSpatialPosition.getValue(), 4);
 

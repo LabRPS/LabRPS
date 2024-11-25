@@ -26,7 +26,7 @@
 #include <App/PropertyGeo.h>
 #include <Mod/WindLabAPI/App/IrpsWLLocationDistribution.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -39,10 +39,10 @@ public:
 	
 	~GeneralSpatialDistribution() {};
 
-	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData &Data, mat &dLocCoord);
+	bool ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData &Data, mat &dLocCoord);
 
 	//Initial setting
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData &Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData &Data);
 
 public:
     App::PropertyVectorList Locations;

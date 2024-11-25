@@ -42,7 +42,7 @@ CRPSWavePassageEffect::CRPSWavePassageEffect()
 }
 
 
-bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dTime, vec& dVarVector, cx_vec& dValVector)
+bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dTime, vec& dVarVector, cx_vec& dValVector)
 {
     bool returnResult = true;
     
@@ -60,7 +60,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorF(const WindLabAPI::Wi
      return returnResult;
 }
 
-bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dFrequency, vec& dVarVector, cx_vec& dValVector)
+bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dFrequency, vec& dVarVector, cx_vec& dValVector)
 {
      bool returnResult = true;
 
@@ -73,7 +73,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectVectorT(const WindLabAPI::Wi
      return returnResult;
 }
 
-bool CRPSWavePassageEffect::ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimuData& Data, const double& dFrequency, const double& dTime, cx_mat& dCoherenceMatrix)
+bool CRPSWavePassageEffect::ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimulationData& Data, const double& dFrequency, const double& dTime, cx_mat& dCoherenceMatrix)
 {
      // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -101,7 +101,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectMatrixPP(const WindLabAPI::W
     return returnResult;
 }
 
-bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dFrequency, const double& dTime, std::complex<double>& dValue)
+bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& locationJ, const Base::Vector3d& locationK, const double& dFrequency, const double& dTime, std::complex<double>& dValue)
 {
    bool returnResult = true;
 
@@ -139,7 +139,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::Wind
 
 
 //Initial setting
-bool CRPSWavePassageEffect::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSWavePassageEffect::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
     WindLabGui::DlgWavePassageEffectEdit* dlg = new WindLabGui::DlgWavePassageEffectEdit(ApparentWaveVelocity, Coefficient, Data.alongWindSpectrumModel);

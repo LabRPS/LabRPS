@@ -23,7 +23,7 @@
 #ifndef IRPSWLTABLETOOL_H
 #define IRPSWLTABLETOOL_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureTableTool.h>
 
 namespace WindLabAPI {
@@ -55,13 +55,13 @@ public:
      * @param outputMatrix   a matrix to be updated. This is the result table.
      * @return               return true if the computation is successful and false in case of failure.
      */
-    virtual bool TableToolCompute(const WindLabSimuData &Data, const mat &inputTable, mat &outputTable) = 0;
+    virtual bool TableToolCompute(const WindLabSimulationData &Data, const mat &inputTable, mat &outputTable) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 };
 
 } //namespace WindLabAPI

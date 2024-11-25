@@ -26,7 +26,7 @@
 
 #include <Mod/WindLabAPI/App/IrpsWLRandomness.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 class QStringList;
 
@@ -42,11 +42,11 @@ public:
 
 	~CRPSUniformRandomPhases() {};
 
-	bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray);
+	bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray);
 
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
-	bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue);
+	bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue);
 
 public:
     App::PropertyFloat MinimumValue;

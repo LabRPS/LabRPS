@@ -30,7 +30,7 @@
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
 #include <Base/Vector3D.h>
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 
 namespace WindLabAPI
 {
@@ -162,8 +162,8 @@ public:
     // get the name of the workbench that implement this simulation
     virtual std::string workbenchName() const;
 
-    void setSimulationData(WindLabAPI::WindLabSimuData* simuData);
-    WindLabAPI::WindLabSimuData* getSimulationData() const;
+    void setSimulationData(WindLabAPI::WindLabSimulationData* simuData);
+    WindLabAPI::WindLabSimulationData* getSimulationData() const;
 
     WindLabAPI::WindLabFeature* createFeature(Base::Type type, std::string pluggedObjectTypeName,
                                        std::string name);
@@ -372,7 +372,7 @@ public:
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 
 private:
-    WindLabAPI::WindLabSimuData* _simuData;
+    WindLabAPI::WindLabSimulationData* _simuData;
 
 protected: 
     Py::SmartPtr PythonObject;

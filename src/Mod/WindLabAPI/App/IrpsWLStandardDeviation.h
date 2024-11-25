@@ -23,7 +23,7 @@
 #ifndef IRPSWLSTANDARDDEVIATION_H
 #define IRPSWLSTANDARDDEVIATION_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureStandardDeviation.h>
 
 namespace WindLabAPI {
@@ -56,7 +56,7 @@ public:
      * @param dValue       a value to be updated. This is the computed standard deviation value.
      * @return             return true if the computation is successful and false in case of failure.
      */	
-    virtual bool ComputeStandardDeviationValue(const WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeStandardDeviationValue(const WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, double &dValue) = 0;
 
     /** Compute the standard deviation values at a given time instant and for all locations (simulation points).
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -65,7 +65,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each location stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeStandardDeviationVectorP(const WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeStandardDeviationVectorP(const WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
     /** Compute the standard deviation values at a given location (simulation point) and for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -74,13 +74,13 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeStandardDeviationVectorT(const WindLabSimuData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeStandardDeviationVectorT(const WindLabSimulationData &Data, const Base::Vector3d &location, vec &dVarVector, vec &dValVector) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+    virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

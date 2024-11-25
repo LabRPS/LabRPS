@@ -23,7 +23,7 @@
 #ifndef IRPSWLCPD_H
 #define IRPSWLCPD_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureCumulativeProbabilityDistribution.h>
 
 namespace WindLabAPI {
@@ -56,7 +56,7 @@ public:
      * @param dValue       a value to be updated. This is the computed value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCPDValue(const WindLabSimuData& Data, const double& x, double& dValue) = 0;
+    virtual bool ComputeCPDValue(const WindLabSimulationData& Data, const double& x, double& dValue) = 0;
 
     /** Compute the cumulative probability distribution for all increments of variable x.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -64,13 +64,13 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each variable x increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCPDVectorX(const WindLabSimuData &Data,  vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeCPDVectorX(const WindLabSimulationData &Data,  vec &dVarVector, vec &dValVector) = 0;
 
      /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+    virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

@@ -22,7 +22,7 @@
 
 #include "RPSKrenkCoherence.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/coherence/KrenkCoherence.h>
 #include "Widgets/DlgKrenkCoherence.h"
 #include <Base/Console.h>
@@ -43,7 +43,7 @@ RPSKrenkCoherence::RPSKrenkCoherence()
 
 }
 
-bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
   bool returnResult = true;
 
@@ -80,7 +80,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimu
 	return true;
 }
 
-bool RPSKrenkCoherence::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool RPSKrenkCoherence::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     // the input diolag
     WindLabGui::DlgKrenkCoherenceEdit* dlg = new WindLabGui::DlgKrenkCoherenceEdit(IntegralLengthScale, Data.coherenceFunction);
@@ -89,7 +89,7 @@ bool RPSKrenkCoherence::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data
     return true;
 }
 
-bool RPSKrenkCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool RPSKrenkCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	// The coherence value
 	std::complex<double> dCoherenceValue = 0.0;
@@ -107,7 +107,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSi
 	return true;
 }
 
-bool RPSKrenkCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool RPSKrenkCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     // The coherence value
     std::complex<double> dCoherenceValue = 0.0;
@@ -125,7 +125,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSi
 	return true;
 }
 
-bool RPSKrenkCoherence::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
+bool RPSKrenkCoherence::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 

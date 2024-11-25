@@ -30,7 +30,7 @@
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <Base/SmartPtrPy.h>
 
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 
 
 namespace WindLab {

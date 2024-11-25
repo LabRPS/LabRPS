@@ -25,7 +25,7 @@
 
 #include <Mod/WindLabAPI/App/IrpsWLRandomness.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 class QStringList;
 
@@ -41,14 +41,14 @@ public:
 
 	~CRPSRandomPhasesFromFile() {};
 
-	bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray);
+	bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray);
 
-	bool ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue);
+	bool ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue);
 
-	bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 	// Read random phase angle from file
-	int ReadPhaseAngleFromFile(const WindLabAPI::WindLabSimuData& Data, QString strFilePath, mat &dRandomValueArray);
+	int ReadPhaseAngleFromFile(const WindLabAPI::WindLabSimulationData& Data, QString strFilePath, mat &dRandomValueArray);
 
 	bool GetFilePathButton();
 

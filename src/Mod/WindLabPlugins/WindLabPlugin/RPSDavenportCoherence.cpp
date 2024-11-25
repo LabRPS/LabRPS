@@ -22,7 +22,7 @@
 
 #include "RPSDavenportCoherence.h"
 #include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/coherence/DavenportCoherence.h>
 #include "Widgets/DlgDavenportCoherence.h"
 #include <Base/Console.h>
@@ -45,7 +45,7 @@ CRPSDavenportCoherence::CRPSDavenportCoherence()
 
 }
 
-bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -82,7 +82,7 @@ bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLa
 	return true;
 }
 
-bool CRPSDavenportCoherence::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSDavenportCoherence::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     // the input diolag
     WindLabGui::DlgDavenportCoherenceEdit* dlg = new WindLabGui::DlgDavenportCoherenceEdit(ExponentialDecayCx, ExponentialDecayCy, ExponentialDecayCz, Data.coherenceFunction);
@@ -91,7 +91,7 @@ bool CRPSDavenportCoherence::OnInitialSetting(const WindLabAPI::WindLabSimuData&
     return true;
 }
 
-bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	// The coherence value
 	std::complex<double> dCoherenceValue = 0.0;
@@ -109,7 +109,7 @@ bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorF(const WindLabAPI::Wind
 	return true;
 }
 
-bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
     // The coherence value
     std::complex<double> dCoherenceValue = 0.0;
@@ -127,7 +127,7 @@ bool CRPSDavenportCoherence::ComputeCrossCoherenceVectorT(const WindLabAPI::Wind
 	return true;
 }
 
-bool CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
+bool CRPSDavenportCoherence::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 

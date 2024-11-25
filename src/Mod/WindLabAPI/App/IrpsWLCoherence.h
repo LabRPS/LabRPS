@@ -23,7 +23,7 @@
 #ifndef IRPSWLCOHERENCE_H
 #define IRPSWLCOHERENCE_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureCoherence.h>
 #include <Base/Vector3D.h>
 
@@ -69,7 +69,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCoherenceVectorF(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeCrossCoherenceVectorF(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the cross coherence between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -80,7 +80,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCoherenceVectorT(const WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeCrossCoherenceVectorT(const WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the cross coherence matrix for given time and frequency.
      * @param Data              the simulation data containing all the simulation parameters input by the user.
@@ -89,7 +89,7 @@ public:
      * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed coherence matrix.
      * @return                  return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCoherenceMatrixPP(const WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix) = 0;
+    virtual bool ComputeCrossCoherenceMatrixPP(const WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix) = 0;
 
     /** Compute the cross coherence value for given time, frequency and locations.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -100,13 +100,13 @@ public:
      * @param dValue       a value to be updated. This is the computed coherence value.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
+    virtual bool ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 };
 
 } //namespace WindLabAPI

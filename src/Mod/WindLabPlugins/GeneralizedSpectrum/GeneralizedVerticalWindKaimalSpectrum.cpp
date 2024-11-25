@@ -49,7 +49,7 @@ ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The sh
   ADD_PROPERTY_TYPE(ParameterJ, (5.0 / 3.0), "Parameters", App::Prop_None, "The J parameter");
 }
 
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -67,7 +67,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorF(con
 
      return returnResult;
 }
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
 
@@ -79,7 +79,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumVectorT(con
 
      return returnResult;
 }
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
     
@@ -106,7 +106,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumMatrixPP(co
     return returnResult;
 }
 
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgGeneralizedKaimalSpectrumEdit* dlg = new WindLabGui::DlgGeneralizedKaimalSpectrumEdit(
             ParameterA, ParameterB, ParameterC, ParameterD, ParameterE, ParameterF, ParameterG,
@@ -115,7 +115,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::OnInitialSetting(const WindLabAP
     return true;
 }
 
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -162,7 +162,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZCrossSpectrumValue(const
     return returnResult;
 }
 
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
     bool returnResult = true;
 
@@ -190,7 +190,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumValue(const 
 
    return returnResult;
 }    
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     
@@ -210,7 +210,7 @@ bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorF(cons
 
      return returnResult;
 } 
-bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSGeneralizedVerticalWindKaimalSpectrum::ComputeZAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

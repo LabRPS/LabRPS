@@ -22,7 +22,7 @@
 
 #include "PreCompiled.h"
 #include "RPSDHLowProfile.h"
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/meanWindSpeed/DeavesHarrisMeanWindSpeed.h>
 #include "Widgets/DlgDHLowProfile.h"
 #include <App/Document.h>
@@ -47,7 +47,7 @@ CRPSDHLowProfile::CRPSDHLowProfile()
     ADD_PROPERTY_TYPE(Betta, (6.0), "Parameters", App::Prop_None, "The coefficient beta");
 }
 
-bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
@@ -76,7 +76,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimu
 	return true;
 }
 
-bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
@@ -101,7 +101,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimu
 
 	return true;
 }
-bool CRPSDHLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSDHLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
     WindLabGui::DlgDHLowProfileEdit* dlg = new WindLabGui::DlgDHLowProfileEdit(TerrainRoughness, ShearVelocity, ZeroPlanDisplacement, Latitude, EarthAngularVelocity, Betta, Data.meanFunction);
@@ -110,7 +110,7 @@ bool CRPSDHLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
     return true;
 }
 
-bool CRPSDHLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CRPSDHLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     WindLabTools::DeavesHarrisMeanWindSpeed deavesHarrisMeanWindSpeed;
 

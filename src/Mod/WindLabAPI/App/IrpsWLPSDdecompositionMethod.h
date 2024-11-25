@@ -23,7 +23,7 @@
 #ifndef IRPSWLPSDDECOMPOSITIONMETHOD_H
 #define IRPSWLPSDDECOMPOSITIONMETHOD_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeaturePSDDecompositionMethod.h>
 #include <Base/Vector3D.h>
 
@@ -69,7 +69,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each frequency increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the decomposed spectrum between two simulation points for all time increments.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -80,7 +80,7 @@ public:
      * @param dValVector   a vector to be updated. It should contain all the values computed for each time increment stored in dVarVector.
      * @return             return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
+    virtual bool ComputeDecomposedCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
 
     /** Compute the decomposed spectrum matrix for given time and frequency.
      * @param Data              the simulation data containing all the simulation parameters input by the user.
@@ -89,13 +89,13 @@ public:
      * @param dCoherenceMatrix  a matrix to be updated. It should contain the computed decomposed spectrum matrix.
      * @return                  return true if the computation is successful and false in case of failure.
      */
-    virtual bool ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix) = 0;
+    virtual bool ComputeDecomposedCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dPSDMatrix) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 
 };
 

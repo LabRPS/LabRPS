@@ -43,7 +43,7 @@ CWLVerticalUniformDistribution::CWLVerticalUniformDistribution()
 
     Spacing.setConstraints(&SpacingContraint);
 }
-bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimuData& Data, mat &dLocCoord)
+bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {
     // Computing the location coordinates
     for (int loop = 0; loop < Data.numberOfSpatialPosition.getValue(); loop++) {
@@ -63,7 +63,7 @@ bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const Win
 }
 
 
-bool CWLVerticalUniformDistribution::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CWLVerticalUniformDistribution::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::VerticalLocationDistributionDialogEdit* dlg = new WindLabGui::VerticalLocationDistributionDialogEdit(LowestPoint, Spacing,Data.spatialDistribution);
     Gui::Control().showDialog(dlg);

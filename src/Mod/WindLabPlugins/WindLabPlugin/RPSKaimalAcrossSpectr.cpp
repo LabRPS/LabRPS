@@ -43,7 +43,7 @@ CRPSKaimalAcrossSpectr::CRPSKaimalAcrossSpectr()
   ADD_PROPERTY_TYPE(Constant2, (9.5), "Parameters", App::Prop_None, "Constant 2");
 
 }
-bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -60,7 +60,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorF(const WindLabAPI::Wind
 
      return returnResult;
 }
-bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
 
@@ -72,7 +72,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumVectorT(const WindLabAPI::Wind
 
      return returnResult;
 }
-bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -101,7 +101,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumMatrixPP(const WindLabAPI::Win
 }
 
 //Initial setting
-bool CRPSKaimalAcrossSpectr::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSKaimalAcrossSpectr::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	WindLabGui::DlgKaimalAcrossWindSpectrumEdit* dlg = new WindLabGui::DlgKaimalAcrossWindSpectrumEdit(ShearVelocity, Constant1, Constant2, Data.acrossWindSpectrumModel);
 	Gui::Control().showDialog(dlg);
@@ -109,7 +109,7 @@ bool CRPSKaimalAcrossSpectr::OnInitialSetting(const WindLabAPI::WindLabSimuData&
 }
 
 
-bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     bool returnResult = true;
 
@@ -155,7 +155,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYCrossSpectrumValue(const WindLabAPI::WindLa
 	return true;
 }
 
-bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
      bool returnResult = true;
 
@@ -183,7 +183,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumValue(const WindLabAPI::WindLab
 
 	return true;
 }    
-bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     
@@ -203,7 +203,7 @@ bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorF(const WindLabAPI::WindL
 
      return returnResult;
 } 
-bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindLabSimuData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSKaimalAcrossSpectr::ComputeYAutoSpectrumVectorT(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 

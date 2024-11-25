@@ -72,7 +72,7 @@ PROPERTY_SOURCE(WindLab::WindLabSimulation, App::Simulation)
 
 WindLabSimulation::WindLabSimulation()
 {
-    _simuData = new WindLabAPI::WindLabSimuData();
+    _simuData = new WindLabAPI::WindLabSimulationData();
    
     Base::Uuid id;
     ADD_PROPERTY_TYPE(Uid, (id), 0, App::Prop_None, "UUID of the simulation"); //not is use yet
@@ -289,12 +289,12 @@ std::string WindLabSimulation::getPhenomenonName() const
 
 std::string WindLabSimulation::workbenchName() const { return "WindLab"; }
 
-void WindLabSimulation::setSimulationData(WindLabAPI::WindLabSimuData* simuData)
+void WindLabSimulation::setSimulationData(WindLabAPI::WindLabSimulationData* simuData)
 {
     _simuData = simuData;
 }
 
-WindLabAPI::WindLabSimuData* WindLabSimulation::getSimulationData() const { return _simuData; }
+WindLabAPI::WindLabSimulationData* WindLabSimulation::getSimulationData() const { return _simuData; }
 
 void WindLabSimulation::windLabFeatureInitalSetting(QString group, QString currentSelected)
 {

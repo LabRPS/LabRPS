@@ -36,14 +36,14 @@ CExpoModulation::CExpoModulation()
     ADD_PROPERTY_TYPE(TimeOfMax, (300), "Parameters", App::Prop_None, "The time when the modulation function reaches its maximum");
     ADD_PROPERTY_TYPE(StormLength, (60), "Parameters", App::Prop_None, "The storm length");
 }
-bool CExpoModulation::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CExpoModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgExpoModulationEdit* dlg = new WindLabGui::DlgExpoModulationEdit(TimeOfMax, StormLength, Data.modulationFunction);
 	Gui::Control().showDialog(dlg);
     return true;
 }
 
-bool CExpoModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CExpoModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     WindLabTools::ExponentialModulation exponentialModulation;
 
@@ -52,7 +52,7 @@ bool CExpoModulation::ComputeModulationValue(const WindLabAPI::WindLabSimuData &
 	return true;
 }
 
-bool CExpoModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CExpoModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     WindLabTools::ExponentialModulation exponentialModulation;
 
@@ -66,7 +66,7 @@ bool CExpoModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimuData
 	return true;
 }
 
-bool CExpoModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CExpoModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     WindLabTools::ExponentialModulation exponentialModulation;
 

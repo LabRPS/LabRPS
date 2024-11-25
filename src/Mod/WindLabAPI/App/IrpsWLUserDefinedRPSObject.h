@@ -23,7 +23,7 @@
 #ifndef IRPSWLUSERDEFINEDRPSOBJECT_H
 #define IRPSWLUSERDEFINEDRPSOBJECT_H
 
-#include "WindLabSimuData.h"
+#include "WindLabSimulationData.h"
 #include <Mod/WindLabAPI/App/WindLabFeatureUserDefinedRPSObject.h>
 
 namespace WindLabAPI {
@@ -51,13 +51,13 @@ public:
      * @param dresult      a matrix to be updated. This is the computation result.
      * @return             return true if the computation is successful and false in case of failure.
      */	
-    virtual bool UserDefinedRPSObjectCompute(const WindLabSimuData &Data, mat &dresult) = 0;
+    virtual bool UserDefinedRPSObjectCompute(const WindLabSimulationData &Data, mat &dresult) = 0;
 
     /** Allows to do any initial taks before any of the above methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.
      */
-	virtual bool OnInitialSetting(const WindLabSimuData &Data) = 0;
+	virtual bool OnInitialSetting(const WindLabSimulationData &Data) = 0;
 };
 
 } //namespace WindLabAPI

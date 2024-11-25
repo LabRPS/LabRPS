@@ -31,7 +31,7 @@
 #include "Mod/WindLabTools/App/meanWindSpeed/PowerLawMeanWindSpeedPy.h"
 #include "Mod/WindLabTools/App/meanWindSpeed/PowerLawMeanWindSpeedPy.cpp"
 
-//#include <API/WindLabAPI/RPSWindLabsimuDataPy.h>
+//#include <API/WindLabAPI/RPSWindLabSimulationDataPy.h>
 
 using namespace WindLabTools;
 

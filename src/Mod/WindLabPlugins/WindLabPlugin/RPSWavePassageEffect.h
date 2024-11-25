@@ -27,7 +27,7 @@
 #include <Mod/WindLabAPI/App/IrpsWLWavePassageEffect.h>
 #include <App/PropertyUnits.h>
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -39,15 +39,15 @@ public:
 	
 	~CRPSWavePassageEffect() {};
 
-    bool ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector);
+    bool ComputeWavePassageEffectVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector);
 
-    bool ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector);
+    bool ComputeWavePassageEffectVectorT(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector);
 
-    bool ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimuData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix);
+    bool ComputeWavePassageEffectMatrixPP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix);
 
-    bool ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimuData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
+    bool ComputeWavePassageEffectValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
 
-    bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
 

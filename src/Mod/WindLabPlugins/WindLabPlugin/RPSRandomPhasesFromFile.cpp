@@ -41,18 +41,18 @@ CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
   ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
 }
 
-bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimuData& Data, mat &dRandomValueArray)
+bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
   ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
     return true;
 
 }
-bool CRPSRandomPhasesFromFile::ComputeRandomValue(const WindLabAPI::WindLabSimuData& Data, double &dValue)
+bool CRPSRandomPhasesFromFile::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)
 {
 return false;
 }
 
-bool CRPSRandomPhasesFromFile::OnInitialSetting(const WindLabAPI::WindLabSimuData& Data)
+bool CRPSRandomPhasesFromFile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
     WindLabGui::DlgRandomPhasesFromFileEdit* dlg = new WindLabGui::DlgRandomPhasesFromFileEdit(WorkingDirectory, Data.randomnessProvider);
 	Gui::Control().showDialog(dlg);
@@ -73,7 +73,7 @@ bool CRPSRandomPhasesFromFile::GetFilePathButton()
   return true;
 }
 
-int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const WindLabAPI::WindLabSimuData& Data, QString file_path, mat &dRandomValueArray)
+int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const WindLabAPI::WindLabSimulationData& Data, QString file_path, mat &dRandomValueArray)
 {
     QFile file(file_path);
     if(!file.exists()){

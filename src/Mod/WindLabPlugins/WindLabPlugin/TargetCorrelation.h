@@ -30,7 +30,7 @@
 /// pi
 static constexpr double pi = 3.14159265358979323846264338327950288;
 
-namespace WindLabAPI { class WindLabSimuData; }
+namespace WindLabAPI { class WindLabSimulationData; }
 
 namespace WindLab {
 
@@ -43,11 +43,11 @@ namespace WindLab {
 
 		~TargetCorrelation() {};
 
-		bool TableToolCompute(const WindLabAPI::WindLabSimuData& Data, const mat& inputTable, mat& outputTable);
+		bool TableToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat& inputTable, mat& outputTable);
 
-		bool OnInitialSetting(const WindLabAPI::WindLabSimuData& Data);
+		bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
-		bool ComputeTargetCorrelation(const WindLabAPI::WindLabSimuData& Data, std::vector<double>& tau, std::vector<double>& corr);
+		bool ComputeTargetCorrelation(const WindLabAPI::WindLabSimulationData& Data, std::vector<double>& tau, std::vector<double>& corr);
 
 public:
         App::PropertyInteger fftPointsNumber;

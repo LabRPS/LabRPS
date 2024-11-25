@@ -24,7 +24,7 @@
 #include "RPSLogarithmicLowProfile.h"
 #include <Mod/WindLabAPI/App/IrpsWLLocationDistribution.h>
 #include "Widgets/DlgLogarithmicLowProfile.h"
-#include <Mod/WindLabAPI/App/WindLabSimuData.h>
+#include <Mod/WindLabAPI/App/WindLabSimulationData.h>
 #include <Mod/WindLabTools/App/WindLabTools.h>
 #include <Mod/WindLabTools/App/meanWindSpeed/LogarithmicMeanWindSpeed.h>
 #include <App/Document.h>
@@ -48,7 +48,7 @@ RPSLogarithmicLowProfile::RPSLogarithmicLowProfile()
     ADD_PROPERTY_TYPE(ZeroPlanDisplacement, (0), "Parameters", Prop_None, "This is the zero plan displacement value");
     
 }
-bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimuData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {
 	mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
@@ -76,7 +76,7 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::Win
     return true;
 }
 
-bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
 {
     // local array for the location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -102,14 +102,14 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::Win
     return true;
 }
 
-bool RPSLogarithmicLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimuData &Data)
+bool RPSLogarithmicLowProfile::OnInitialSetting(const WindLabAPI::WindLabSimulationData &Data)
 {
     WindLabGui::DlgLogarithmicLowProfileEdit* dlg = new WindLabGui::DlgLogarithmicLowProfileEdit(TerrainRoughness, ShearVelocity, ZeroPlanDisplacement, Data.meanFunction);
     Gui::Control().showDialog(dlg);
 	return true;
 }
 
-bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimuData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
 {
     WindLabTools::LogarithmicMeanWindSpeed logarithmicMeanWindSpeed;
 
