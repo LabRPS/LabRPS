@@ -35,33 +35,9 @@ macro(PrintFinalReport)
     message(STATUS "Boost:               ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} (${Boost_VERSION})")
     simple(Boost ${Boost_VERSION})
 
-    message(STATUS "XercesC:             ${XercesC_VERSION} [${XercesC_LIBRARIES}] [${XercesC_INCLUDE_DIRS}]")
-
     message(STATUS "ZLIB:                ${ZLIB_VERSION_STRING}")
 
     message(STATUS "PyCXX:               ${PYCXX_VERSION} [${PYCXX_INCLUDE_DIR}]")
-
-
-    if(BUILD_SMESH)
-        if(LABRPS_USE_EXTERNAL_SMESH)
-            message(STATUS "SMESH:               ${SMESH_VERSION_MAJOR}.${SMESH_VERSION_MINOR}.${SMESH_VERSION_PATCH}.${SMESH_VERSION_TWEAK}")
-        else(LABRPS_USE_EXTERNAL_SMESH)
-            message(STATUS "SMESH:               build internal")
-            message(STATUS " MEDFile:            ${MEDFILE_VERSION} [${MEDFILE_LIBRARIES}] [${MEDFILE_INCLUDE_DIRS}]")
-            message(STATUS " HDF5:               ${HDF5_VERSION}")
-            message(STATUS " VTK:                ${VTK_VERSION}")
-        endif(LABRPS_USE_EXTERNAL_SMESH)
-    else(BUILD_SMESH)
-        message(STATUS "SMESH:               do not build")
-    endif(BUILD_SMESH)
-
-    if(DEFINED NETGEN_FOUND)
-        message(STATUS "NETGEN:              ${NETGEN_VERSION_MAJOR}.${NETGEN_VERSION_MINOR}.${NETGEN_VERSION_PATCH} (${NETGEN_VERSION}) [${NETGEN_DEFINITIONS}] [${NETGEN_CXX_FLAGS}] [${NGLIB_INCLUDE_DIR}] [${NGLIB_LIBRARIES}] [${NETGEN_INCLUDE_DIRS}]")
-    else(DEFINED NETGEN_FOUND)
-        message(STATUS "NETGEN:              not enabled")
-    endif(DEFINED NETGEN_FOUND)
-
-    #message(STATUS "OpenCV:              ${OpenCV_VERSION}")
 
     if(DEFINED SWIG_FOUND)
         message(STATUS "SWIG:                ${SWIG_VERSION}")

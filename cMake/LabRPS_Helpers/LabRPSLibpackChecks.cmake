@@ -30,12 +30,6 @@ macro(LabRPSLibpackChecks)
                 "==================================================\n")
     endif(NOT SWIG_FOUND)
 
-# -------------------------------- Salome SMESH --------------------------
-
-    if(NOT LABRPS_USE_EXTERNAL_SMESH)
-        set(SMESH_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/src/3rdParty/salomesmesh/inc)
-    endif()
-
 endif(LABRPS_LIBPACK_USE)
 
 endmacro(LabRPSLibpackChecks)
