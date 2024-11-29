@@ -8,7 +8,6 @@ set(SeismicLab_Scripts
     Init.py
     SeismicLabObjects.py
     TestSeismicLabApp.py
-    SeismicLabUtils.py
 )
 
 SET(SeismicLabCommands_SRCS

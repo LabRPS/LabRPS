@@ -322,9 +322,7 @@ public:
      *
      * @param pyObj: if non zero, returns the python object corresponding to
      * this sub object. The actual type of this python object is implementation
-     * dependent. For example, The current implementation of Part::Feature will
-     * return the TopoShapePy, event if there is no sub-element reference, in
-     * which case it returns the whole shape.
+     * dependent. 
      *
      * @param depth: depth limitation as hint for cyclic link detection
      *

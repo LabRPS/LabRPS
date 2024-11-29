@@ -8,7 +8,6 @@ set(UserLab_Scripts
     Init.py
     UserLabObjects.py
     TestUserLabApp.py
-    UserLabUtils.py
 )
 
 SET(UserLabCommands_SRCS

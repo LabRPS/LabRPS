@@ -96,8 +96,6 @@ referencing subobject.
 
     PyObject: return a python binding object for the (sub)object referenced in
     each 'subname' The actual type of 'PyObject' is implementation dependent.
-    For Part::Feature compatible objects, this will be of type TopoShapePy and
-    pre-transformed by accumulated transformation matrix along the object path.  
 
     DocObject:  return the document object referenced in subname, if 'matrix' is
     None. Or, return a tuple (object, matrix) for each 'subname' and 'matrix' is

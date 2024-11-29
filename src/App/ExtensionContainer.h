@@ -77,11 +77,11 @@ class Extension;
  *
  * Here is a working example:
  * @code
- * class AppExport Part : public App::DocumentObject, public App::FirstExtension, public App::SecondExtension {
- *   PROPERTY_HEADER_WITH_EXTENSIONS(App::Part);
+ * class AppExport MyPhenemenon : public App::DocumentObject, public App::FirstExtension, public App::SecondExtension {
+ *   PROPERTY_HEADER_WITH_EXTENSIONS(App::MyPhenemenon);
  * };
- * PROPERTY_SOURCE_WITH_EXTENSIONS(App::Part, App::DocumentObject)
- * Part::Part(void) {
+ * PROPERTY_SOURCE_WITH_EXTENSIONS(App::MyPhenemenon, App::DocumentObject)
+ * MyPhenemenon::MyPhenemenon(void) {
  *   FirstExtension::initExtension(this);
  *   SecondExtension::initExtension(this);
  * }

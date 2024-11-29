@@ -236,39 +236,7 @@ void ViewProviderSeaLabFeatureLocationDistribution::setupContextMenu(QMenu* menu
 bool ViewProviderSeaLabFeatureLocationDistribution::ComputeLocationCoordinateMatrixP3()
 {
 
-    Base::Interpreter().runString("import SeaLabUtils");
-    Base::Interpreter().runString("SeaLabUtils.showSimulationPoints()");
     return runFeatureMethod(SeaLab::SeaLabUtils::ComputeLocationCoordinateMatrixP3);
-
-    //if (ShowSimulationPoints.getValue() == true)
-    //{
-    //    //SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
-    //    //if (sim)
-    //    //{
-    //    //    SeaLabAPI::SeaLabSimulationData* simData = sim->getSimulationData();
-    //    //    if (simData != nullptr) {
-    //    //        int nberOfSimPoint = sim->getSimulationData()->numberOfSpatialPosition.getValue();
-    //    //        mat dLocCoord(nberOfSimPoint, 4);
-    //    //        SeaLabAPI::CRPSSeaLabFramework::ComputeLocationCoordinateMatrixP3(*simData, dLocCoord);
-    //    //        auto doc = App::GetApplication().getActiveDocument();
-
-    //    //        std::vector<App::DocumentObject*> points;
-    //    //        App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(doc->addObject("App::DocumentObjectGroup", "SimulationPoints"));
-
-    //    //        if (doc)
-    //    //        {
-    //    //            for (int i = 0; i < nberOfSimPoint; i++) {
-    //    //           /* Part::Vertex* point = static_cast<Part::Vertex*>(doc->addObject("Part::Vertex", "Vertex"));
-    //    //            point->X.setValue(dLocCoord(i, 1));
-    //    //            point->Y.setValue(dLocCoord(i, 2));
-    //    //            point->Z.setValue(dLocCoord(i, 3));
-    //    //            group->addObject(point);*/
-    //    //            }
-    //    //            sim->addObject(group);
-    //    //        }
-    //    //    }
-    //    //}
-    //}
 }
 
 bool ViewProviderSeaLabFeatureLocationDistribution::OnInitialSetting()

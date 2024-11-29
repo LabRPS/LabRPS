@@ -2329,6 +2329,8 @@ bool Application::InitializePlugin(const QString& name, int instUninstMOd, QStri
         result = App::PluginManager::GetInstance().InitializePluginType(name, instUninstMOd);
         return result;
     }
+
+   return false;
 }
 
 bool Application::InstallPlugin(const QString& name)
@@ -2352,6 +2354,8 @@ bool Application::InstallPlugin(const QString& name)
         bool result = App::PluginManager::GetInstance().InstallPlugin(name);
         return result;
     }
+
+    return false;
 }
 
 bool Application::UnInstallPlugin(const QString& name, bool remove)
@@ -2374,6 +2378,8 @@ bool Application::UnInstallPlugin(const QString& name, bool remove)
         bool result = App::PluginManager::GetInstance().UnInstallPlugin(name, remove);
         return result;
     }
+
+    return false;
 }
 
 

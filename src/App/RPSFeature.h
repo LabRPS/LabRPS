@@ -26,6 +26,7 @@
 
 #include "DocumentObject.h"
 #include <Base/SmartPtrPy.h>
+#include "PropertyUnits.h"
 
 namespace App
 {
