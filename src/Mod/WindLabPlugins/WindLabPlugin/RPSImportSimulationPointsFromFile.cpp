@@ -39,19 +39,19 @@ PROPERTY_SOURCE(WindLab::CRPSImportSimulationPointsFromFile, WindLabAPI::WindLab
 
 CRPSImportSimulationPointsFromFile::CRPSImportSimulationPointsFromFile()
 {
-  ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the simulation points from");
+  ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the simulation points from");
 }
 
 
 bool CRPSImportSimulationPointsFromFile::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {
-    ReadSimulationPointsFromFile(Data, WorkingDirectory.getValue(), dLocCoord);
+    ReadSimulationPointsFromFile(Data, FilePath.getValue(), dLocCoord);
     return true;
 }
 
 bool CRPSImportSimulationPointsFromFile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
-    WindLabGui::DlgImportSimulationPointsFromFileEdit* dlg = new WindLabGui::DlgImportSimulationPointsFromFileEdit(WorkingDirectory, Data.spatialDistribution);
+    WindLabGui::DlgImportSimulationPointsFromFileEdit* dlg = new WindLabGui::DlgImportSimulationPointsFromFileEdit(FilePath, Data.spatialDistribution);
 	Gui::Control().showDialog(dlg);
     return true;
 }
@@ -61,10 +61,10 @@ bool CRPSImportSimulationPointsFromFile::GetFilePathButton()
 {
   QString filter = "Text files (*.txt)";
 
-  QString fn = QFileDialog::getOpenFileName(0,"Import simulation point from file", WorkingDirectory.getValue(), filter);
+  QString fn = QFileDialog::getOpenFileName(0,"Import simulation point from file", FilePath.getValue(), filter);
   if (!fn.isEmpty()) {
     QFileInfo fi(fn);
-     WorkingDirectory.setValue(fi.absoluteFilePath().toUtf8().constData());
+     FilePath.setValue(fi.absoluteFilePath().toUtf8().constData());
   }
 
   return true;

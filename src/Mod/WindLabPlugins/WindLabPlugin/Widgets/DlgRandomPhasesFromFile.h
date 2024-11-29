@@ -40,13 +40,13 @@ class DlgRandomPhasesFromFile : public QWidget
     Q_OBJECT
 
 public:
-    DlgRandomPhasesFromFile(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgRandomPhasesFromFile(const App::PropertyString& FilePath, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgRandomPhasesFromFile();
     void accept();
     void reject();
 
  public Q_SLOTS:
-    void slotSetWorkingDirectory();   
+    void slotSetFilePath();   
 
 private:
     std::unique_ptr<Ui_DlgRandomPhasesFromFile> ui;
@@ -59,7 +59,7 @@ class DlgRandomPhasesFromFileEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    DlgRandomPhasesFromFileEdit(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName);
+    DlgRandomPhasesFromFileEdit(const App::PropertyString& FilePath, const App::PropertyString& featureName);
     ~DlgRandomPhasesFromFileEdit();
     
 public:

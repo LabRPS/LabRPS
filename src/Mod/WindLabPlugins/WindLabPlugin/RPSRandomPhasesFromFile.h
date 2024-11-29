@@ -53,7 +53,7 @@ public:
 	bool GetFilePathButton();
 
 public:
-    App::PropertyString WorkingDirectory;
+    App::PropertyString FilePath;
 
 };
 

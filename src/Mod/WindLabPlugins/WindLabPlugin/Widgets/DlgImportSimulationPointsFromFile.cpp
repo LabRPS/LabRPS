@@ -36,15 +36,15 @@ using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgImportSimulationPointsFromFile */
 
-DlgImportSimulationPointsFromFile::DlgImportSimulationPointsFromFile(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName, QWidget* parent)
+DlgImportSimulationPointsFromFile::DlgImportSimulationPointsFromFile(const App::PropertyString& FilePath, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent), ui(new Ui_DlgImportSimulationPointsFromFile), _featureName(featureName.getStrValue())
 {
 	ui->setupUi(this);
 
-    ui->le_working_dir->setText(WorkingDirectory.getValue());
+    ui->le_working_dir->setText(FilePath.getValue());
     workingDirectory = "";
 
-    connect(ui->tb_choose_working_dir, &QPushButton::clicked, this, &DlgImportSimulationPointsFromFile::slotSetWorkingDirectory);
+    connect(ui->tb_choose_working_dir, &QPushButton::clicked, this, &DlgImportSimulationPointsFromFile::slotSetFilePath);
 }
 
 /*
@@ -62,7 +62,7 @@ void DlgImportSimulationPointsFromFile::accept()
     WindLab::CRPSImportSimulationPointsFromFile* activefeature = static_cast<WindLab::CRPSImportSimulationPointsFromFile*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;
-    activefeature->WorkingDirectory.setValue(ui->le_working_dir->text().toStdString());
+    activefeature->FilePath.setValue(ui->le_working_dir->text().toStdString());
 
   }
 
@@ -71,7 +71,7 @@ void DlgImportSimulationPointsFromFile::reject()
 
 }
 
-void DlgImportSimulationPointsFromFile::slotSetWorkingDirectory() 
+void DlgImportSimulationPointsFromFile::slotSetFilePath() 
 {
   QString filter = "Text files (*.txt)";
 
@@ -86,10 +86,10 @@ void DlgImportSimulationPointsFromFile::slotSetWorkingDirectory()
 
 /* TRANSLATOR PartGui::DlgImportSimulationPointsFromFileEdit */
 
-DlgImportSimulationPointsFromFileEdit::DlgImportSimulationPointsFromFileEdit(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName)
+DlgImportSimulationPointsFromFileEdit::DlgImportSimulationPointsFromFileEdit(const App::PropertyString& FilePath, const App::PropertyString& featureName)
 {
 	// create and show dialog for the WindLabFeatures
-    widget = new DlgImportSimulationPointsFromFile(WorkingDirectory, featureName, nullptr);
+    widget = new DlgImportSimulationPointsFromFile(FilePath, featureName, nullptr);
 	taskbox = new Gui::TaskView::TaskBox(QPixmap(), widget->windowTitle(), true, nullptr);
 	taskbox->groupLayout()->addWidget(widget);
 	Content.push_back(taskbox);

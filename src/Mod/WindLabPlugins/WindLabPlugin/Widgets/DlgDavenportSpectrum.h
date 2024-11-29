@@ -45,7 +45,7 @@ class DlgDavenportSpectrum : public QWidget
     Q_OBJECT
 
 public:
-    DlgDavenportSpectrum(const App::PropertySpeed& MeanWindSpeed10, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgDavenportSpectrum(const App::PropertySpeed& MeanWindSpeed10, const App::PropertySpeed& ShearVelocity, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgDavenportSpectrum();
     void accept();
     void reject();
@@ -62,7 +62,7 @@ class DlgDavenportSpectrumEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    DlgDavenportSpectrumEdit(const App::PropertySpeed& MeanWindSpeed10, const App::PropertyString& featureName);
+    DlgDavenportSpectrumEdit(const App::PropertySpeed& MeanWindSpeed10, const App::PropertySpeed& ShearVelocity, const App::PropertyString& featureName);
     ~DlgDavenportSpectrumEdit();
     
 public:

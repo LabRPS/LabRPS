@@ -22,7 +22,7 @@
 
 #include "DlgDavenportSpectrum.h"
 #include <Mod/WindLabPlugins/WindLabPlugin/ui_DlgDavenportSpectrum.h>
-#include <Mod/WindLabPlugins/WindLabPlugin/RPSWLPowerLowProfile.h>
+#include <Mod/WindLabPlugins/WindLabPlugin/RPSDavenportSpectrum.h>
 #include <QSignalMapper>
 #include <App/Application.h>
 #include <App/Document.h>
@@ -33,16 +33,19 @@ using namespace WindLabGui;
 
 /* TRANSLATOR WindLabGui::DlgDavenportSpectrum */
 
-DlgDavenportSpectrum::DlgDavenportSpectrum(const App::PropertySpeed& MeanWindSpeed10, const App::PropertyString& featureName, QWidget* parent)
+DlgDavenportSpectrum::DlgDavenportSpectrum(const App::PropertySpeed& MeanWindSpeed10, const App::PropertySpeed& ShearVelocity, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent), ui(new Ui_DlgDavenportSpectrum), _featureName(featureName.getStrValue())
 {
 	ui->setupUi(this);
 
     ui->doubleSpinBox_MeanWindSpeed10->setRange(0.00, DBL_MAX);
+    ui->doubleSpinBox_ShearVelocity->setRange(0.00, DBL_MAX);
 
     ui->doubleSpinBox_MeanWindSpeed10->setValue(MeanWindSpeed10.getValue());
+    ui->doubleSpinBox_ShearVelocity->setValue(ShearVelocity.getValue());
 
     ui->doubleSpinBox_MeanWindSpeed10->setUnit(Base::Unit::Velocity);
+    ui->doubleSpinBox_ShearVelocity->setUnit(Base::Unit::Velocity);
 
     ui->label_Image->setPixmap(QPixmap(":icons/RPSPowerLowProfile.png"));
 
@@ -62,10 +65,12 @@ void DlgDavenportSpectrum::accept()
     if(!doc)
 	    return;
     //auto feature = doc->getObject(_featureName.c_str());
-    WindLab::RPSWLPowerLowProfile* activefeature = static_cast<WindLab::RPSWLPowerLowProfile*>(doc->getObject(_featureName.c_str()));
+    WindLab::CRPSDavenportSpectrum* activefeature = static_cast<WindLab::CRPSDavenportSpectrum*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;
-    activefeature->ReferenceHeight.setValue(ui->doubleSpinBox_MeanWindSpeed10->value().getValue());
+    activefeature->MeanWindSpeed10.setValue(ui->doubleSpinBox_MeanWindSpeed10->value().getValue());
+    activefeature->ShearVelocity.setValue(ui->doubleSpinBox_ShearVelocity->value().getValue());
+
   }
 
 void DlgDavenportSpectrum::reject()
@@ -78,10 +83,10 @@ void DlgDavenportSpectrum::reject()
 
 /* TRANSLATOR PartGui::DlgDavenportSpectrumEdit */
 
-DlgDavenportSpectrumEdit::DlgDavenportSpectrumEdit(const App::PropertySpeed& MeanWindSpeed10, const App::PropertyString& featureName)
+DlgDavenportSpectrumEdit::DlgDavenportSpectrumEdit(const App::PropertySpeed& MeanWindSpeed10, const App::PropertySpeed& ShearVelocity, const App::PropertyString& featureName)
 {
 	// create and show dialog for the WindLabFeatures
-    widget = new DlgDavenportSpectrum(MeanWindSpeed10, featureName, nullptr);
+    widget = new DlgDavenportSpectrum(MeanWindSpeed10, ShearVelocity, featureName, nullptr);
 	taskbox = new Gui::TaskView::TaskBox(QPixmap(), widget->windowTitle(), true, nullptr);
 	taskbox->groupLayout()->addWidget(widget);
 	Content.push_back(taskbox);

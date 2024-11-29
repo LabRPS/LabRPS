@@ -38,6 +38,8 @@ PROPERTY_SOURCE(WindLab::CRPSDavenportSpectrum, WindLabAPI::WindLabFeatureXSpect
 CRPSDavenportSpectrum::CRPSDavenportSpectrum()
 {
    ADD_PROPERTY_TYPE(MeanWindSpeed10, (30000.0), "Parameters", App::Prop_None, "The mean wind speed at 10 meters height above sea.");
+   ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The shear velocity of the flow");
+
 }
 
 bool CRPSDavenportSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
@@ -104,7 +106,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumMatrixPP(const WindLabAPI::Wind
 bool CRPSDavenportSpectrum::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
 	// the input diolag
-    WindLabGui::DlgDavenportSpectrumEdit* dlg = new WindLabGui::DlgDavenportSpectrumEdit(MeanWindSpeed10, Data.alongWindSpectrumModel);
+    WindLabGui::DlgDavenportSpectrumEdit* dlg = new WindLabGui::DlgDavenportSpectrumEdit(MeanWindSpeed10, ShearVelocity, Data.alongWindSpectrumModel);
 	Gui::Control().showDialog(dlg);
 
     return true;
@@ -144,8 +146,8 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLab
     //stationary
 	if (Data.stationarity.getValue())
 	{
-        PSDj = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-        PSDk = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        PSDj = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        PSDk = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
         dValue = std::sqrt(PSDj * PSDk) * COHjk;
 
     }//non-stationary but uniformly modulated.
@@ -171,8 +173,8 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLab
 		}
 
         //we compute the time dependent mean wind speed first before introducing it in the psd formula
-        PSDj = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValueJ * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-        PSDk = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValueK * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        PSDj = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValueJ * ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), dModValueJ * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        PSDk = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValueJ * ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), dModValueK * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
         dValue = std::sqrt(PSDj * PSDk) * COHjk;
 	}
 	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
@@ -202,7 +204,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabS
     //stationary
 	if (Data.stationarity.getValue())
 	{
-        dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
     }//non-stationary but uniformly modulated.
 	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue())
@@ -218,7 +220,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabS
 		}
 
         //we compute the time dependent mean wind speed first before introducing it in the psd formula
-        dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValue * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+        dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, dModValue * ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), dModValue * MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 	}
 	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
 	{

@@ -49,6 +49,24 @@
         </item>
        </layout>
       </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Shear Velocity</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_ShearVelocity" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
