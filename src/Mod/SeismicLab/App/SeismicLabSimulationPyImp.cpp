@@ -511,7 +511,7 @@ PyObject *SeismicLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -798,7 +798,7 @@ PyObject *SeismicLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObjec
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -901,7 +901,7 @@ PyObject *SeismicLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -1844,7 +1844,7 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* arg
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
