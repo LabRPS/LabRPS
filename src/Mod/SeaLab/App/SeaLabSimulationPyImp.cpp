@@ -511,7 +511,7 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -798,7 +798,7 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* a
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -901,7 +901,7 @@ PyObject *SeaLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -1844,7 +1844,7 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;

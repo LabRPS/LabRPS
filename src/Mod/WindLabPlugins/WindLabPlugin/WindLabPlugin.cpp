@@ -551,7 +551,7 @@ std::string objNameSin_M = "Sine Wave Modulation Function";
 std::string objDescriptionSin_M = "This feature allows the user to compute modulation function as described in Dae-Kun Kwon1 and Ahsan Kareem (2009)";
 std::string objTileSin_M = "LabRPS";
 std::string objLinkSin_M = "https://wiki.labrps.com";
-std::string objAuthorsSin_M = "Dae-Kun Kwon1 and Ahsan Kareem";
+std::string objAuthorsSin_M = "Dae-Kun Kwon and Ahsan Kareem";
 std::string objDateSin_M = "15/06/2024";
 std::string objVersionSin_M = "1.0";
 RPS_PLUGIN_FUNC IrpsWLModulation* BuildSineModulation()

@@ -14,7 +14,7 @@ public:
     ~DavenportSpectrum();
 
     //this computes the along wind spectrum
-    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed10 = 30.0);
+    double computeAlongWindAutoSpectrum(const double &frequency, const double &shearVelocity, const double &meanSpeed10 = 30.0);
     
     virtual PyObject* getPyObject(void);
 

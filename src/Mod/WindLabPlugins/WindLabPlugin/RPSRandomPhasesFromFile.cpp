@@ -38,12 +38,13 @@ PROPERTY_SOURCE(WindLab::CRPSRandomPhasesFromFile, WindLabAPI::WindLabFeatureRan
 
 CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
 {
-  ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
+  ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
+    this->OutputUnit.setValue("radian");
 }
 
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
-  ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
+  ReadPhaseAngleFromFile(Data, FilePath.getValue(), dRandomValueArray);
     return true;
 
 }
@@ -54,7 +55,7 @@ return false;
 
 bool CRPSRandomPhasesFromFile::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
-    WindLabGui::DlgRandomPhasesFromFileEdit* dlg = new WindLabGui::DlgRandomPhasesFromFileEdit(WorkingDirectory, Data.randomnessProvider);
+    WindLabGui::DlgRandomPhasesFromFileEdit* dlg = new WindLabGui::DlgRandomPhasesFromFileEdit(FilePath, Data.randomnessProvider);
 	Gui::Control().showDialog(dlg);
     return true;
 }
@@ -64,10 +65,10 @@ bool CRPSRandomPhasesFromFile::GetFilePathButton()
 {
   QString filter = "Text files (*.txt)";
 
-  QString fn = QFileDialog::getOpenFileName(0,"Import random phases from file", WorkingDirectory.getValue(), filter);
+  QString fn = QFileDialog::getOpenFileName(0,"Import random phases from file", FilePath.getValue(), filter);
   if (!fn.isEmpty()) {
     QFileInfo fi(fn);
-      WorkingDirectory.setValue(fi.absoluteFilePath().toUtf8().constData());
+      FilePath.setValue(fi.absoluteFilePath().toUtf8().constData());
   }
 
   return true;

@@ -26,6 +26,7 @@
 
 #include "DocumentObject.h"
 #include <Base/SmartPtrPy.h>
+#include "PropertyUnits.h"
 
 namespace App
 {
@@ -90,6 +91,12 @@ public:
 
     /// This flag should be set to true if the feature allows non-stationarity (time dependency) by simply applying a modulation function. f(time,x,y,z...) = M(time) * G(x,y,z...)
     App::PropertyBool IsUniformlyModulated;
+
+    /// This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,...
+    App::PropertyStringList ApplicationFields;
+
+    /// The unit of the computed values 
+    App::PropertyString OutputUnit;
     //@}
 
     /// Constructor

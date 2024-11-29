@@ -41,7 +41,7 @@ CRPSvonKarmanAlongWindSpectrum::CRPSvonKarmanAlongWindSpectrum()
   ADD_PROPERTY_TYPE(Constant2, (70.8), "Parameters", App::Prop_None, "Constant 2");
   ADD_PROPERTY_TYPE(IntegralLengthScale, (80.0), "Parameters", App::Prop_None, "The integral length scale");
   ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The standard deviation");
-
+  this->OutputUnit.setValue("m^2/s");
 }
 bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {

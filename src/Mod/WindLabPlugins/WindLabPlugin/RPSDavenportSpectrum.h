@@ -57,6 +57,7 @@ public:
 public:
 
     App::PropertySpeed MeanWindSpeed10;
+    App::PropertySpeed ShearVelocity;
 
 
 };

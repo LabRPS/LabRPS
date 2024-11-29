@@ -39,6 +39,7 @@ CRPSWavePassageEffect::CRPSWavePassageEffect()
 {
    ADD_PROPERTY_TYPE(ApparentWaveVelocity, (10000.0), "Parameters", App::Prop_None, "The apparent wave velocity.");
    ADD_PROPERTY_TYPE(Coefficient, (5.0), "Parameters", App::Prop_None, "The appropriate coefficient that can obtained from experiments.");
+   this->OutputUnit.setValue("Dimensionless");
 }
 
 

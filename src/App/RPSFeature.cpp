@@ -63,6 +63,15 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(IsStationary, (true), featuregroup, App::Prop_ReadOnly, "Whether this feature is stationary or not");
     ADD_PROPERTY_TYPE(IsUniformlyModulated, (false), featuregroup, App::Prop_None, "Whether this feature should be uniformly modulated or not. This is useful in case of non-stationarity");
 
+    ADD_PROPERTY_TYPE(ApplicationFields, (""), featuregroup, App::Prop_ReadOnly, "This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,..");
+    ADD_PROPERTY_TYPE(OutputUnit, (""), featuregroup, App::Prop_ReadOnly, "The unit of the computed values");
+
+    this->OutputUnit.setValue("Dimensionless");
+    std::vector<std::string> fields;
+    fields.push_back("Structural Design");
+    fields.push_back("Load Calculation for Wind Turbines");
+    fields.push_back("Others");
+    this->ApplicationFields.setValues(fields);
 }
 
 RPSFeature::~RPSFeature(void)

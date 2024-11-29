@@ -8,7 +8,6 @@ set(SeaLab_Scripts
     Init.py
     SeaLabObjects.py
     TestSeaLabApp.py
-    SeaLabUtils.py
 )
 
 SET(SeaLabCommands_SRCS

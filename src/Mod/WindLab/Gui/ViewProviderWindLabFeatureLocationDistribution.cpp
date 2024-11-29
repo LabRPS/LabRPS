@@ -158,19 +158,7 @@ void ViewProviderWindLabFeatureLocationDistribution::setupContextMenu(QMenu* men
 
 bool ViewProviderWindLabFeatureLocationDistribution::ComputeLocationCoordinateMatrixP3()
 {
-    if (ShowSimulationPoints.getValue())
-    {
-        //compute and show the active simulation points in the 3D view and Alphaplot table
-        Base::Interpreter().runString("import WindLabUtils");
-        Base::Interpreter().runString("WindLabUtils.showSimulationPoints()");
-        return true;
-    }
-    else
-    {
-        //compute and show the active simulation points in the Alphaplot table only
-        return runFeatureMethod(WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3);
-    }
-
+    return runFeatureMethod(WindLab::WindLabUtils::ComputeLocationCoordinateMatrixP3);
 }
 
 bool ViewProviderWindLabFeatureLocationDistribution::OnInitialSetting()

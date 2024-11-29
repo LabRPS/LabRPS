@@ -22,7 +22,7 @@
      <item>
       <widget class="QGroupBox" name="gb_working_dir">
        <property name="title">
-        <string>Working directory</string>
+        <string>File Path</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <property name="leftMargin">

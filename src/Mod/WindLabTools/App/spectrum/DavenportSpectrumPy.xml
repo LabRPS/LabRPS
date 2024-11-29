@@ -18,8 +18,9 @@
     <Methode Name="computeAlongWindAutoSpectrum">
       <Documentation>
         <UserDocu>
-          computeAlongWindAutoSpectrum(frequency, meanSpeed10 = 30)
+          computeAlongWindAutoSpectrum(frequency, shearVelocity, meanSpeed10 = 30)
 					frequency = the frequency value for which the spectrum will be calculated
+          shearVelocity = the shear velocity of the flow
           meanSpeed10 = a mean wind speed taken at a height equal to 10 meter above sea level.
         </UserDocu>
       </Documentation>

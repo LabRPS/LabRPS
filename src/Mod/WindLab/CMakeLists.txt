@@ -8,7 +8,6 @@ set(WindLab_Scripts
     Init.py
     WindLabObjects.py
     TestWindLabApp.py
-    WindLabUtils.py
 )
 
 SET(WindLabCommands_SRCS

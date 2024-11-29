@@ -549,7 +549,7 @@ PyObject *WindLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -836,7 +836,7 @@ PyObject *WindLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* 
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -939,7 +939,7 @@ PyObject *WindLabSimulationPy::computeXCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -1100,7 +1100,7 @@ PyObject *WindLabSimulationPy::computeYCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -1261,7 +1261,7 @@ PyObject *WindLabSimulationPy::computeZCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -1422,7 +1422,7 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;
@@ -2718,7 +2718,7 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* args)
     double frequency;
     double time;
 
-    if (!PyArg_ParseTuple(args, "dds", &frequency, &time, &displayOption))
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
     return nullptr;
     
     cx_mat resArray;

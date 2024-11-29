@@ -40,13 +40,13 @@ class DlgImportSimulationPointsFromFile : public QWidget
     Q_OBJECT
 
 public:
-    DlgImportSimulationPointsFromFile(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgImportSimulationPointsFromFile(const App::PropertyString& FilePath, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgImportSimulationPointsFromFile();
     void accept();
     void reject();
 
  public Q_SLOTS:
-    void slotSetWorkingDirectory();   
+    void slotSetFilePath();   
 
 private:
     std::unique_ptr<Ui_DlgImportSimulationPointsFromFile> ui;
@@ -59,7 +59,7 @@ class DlgImportSimulationPointsFromFileEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    DlgImportSimulationPointsFromFileEdit(const App::PropertyString& WorkingDirectory, const App::PropertyString& featureName);
+    DlgImportSimulationPointsFromFileEdit(const App::PropertyString& FilePath, const App::PropertyString& featureName);
     ~DlgImportSimulationPointsFromFileEdit();
     
 public:
