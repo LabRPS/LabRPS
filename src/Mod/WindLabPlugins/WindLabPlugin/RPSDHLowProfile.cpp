@@ -45,6 +45,7 @@ CRPSDHLowProfile::CRPSDHLowProfile()
     ADD_PROPERTY_TYPE(Latitude, (0.00), "Parameters", App::Prop_None, "The latitude");
 	ADD_PROPERTY_TYPE(EarthAngularVelocity, (0.0000729), "Parameters", App::Prop_None, "The earth angular velocity");
     ADD_PROPERTY_TYPE(Betta, (6.0), "Parameters", App::Prop_None, "The coefficient beta");
+    this->OutputUnit.setValue("m/s");
 }
 
 bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLab::CRPSImportSimulationPointsFromFile, WindLabAPI::WindLab
 CRPSImportSimulationPointsFromFile::CRPSImportSimulationPointsFromFile()
 {
   ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the simulation points from");
+  this->OutputUnit.setValue("m");
 }
 
 

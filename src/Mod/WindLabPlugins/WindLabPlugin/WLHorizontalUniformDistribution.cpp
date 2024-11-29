@@ -42,7 +42,7 @@ CWLHorizontalUniformDistribution::CWLHorizontalUniformDistribution()
 
     ADD_PROPERTY_TYPE(Spacing, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points");
 
-	this->OutputUnit.setValue("m^2/s^2/Hz");
+	this->OutputUnit.setValue("m");
 
 }
 

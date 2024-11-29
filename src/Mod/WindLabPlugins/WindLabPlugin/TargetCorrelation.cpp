@@ -41,6 +41,7 @@ PROPERTY_SOURCE(WindLab::TargetCorrelation, WindLabAPI::WindLabFeatureTableTool)
 TargetCorrelation::TargetCorrelation()
 {
 	ADD_PROPERTY_TYPE(fftPointsNumber, (512), "Parameters", App::Prop_None, "The number of FFT points");
+    this->OutputUnit.setValue("Dimensionless");
 }
 
 

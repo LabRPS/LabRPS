@@ -35,8 +35,8 @@ using namespace WindLabAPI;
 PROPERTY_SOURCE(WindLab::CRPSDeodatis1996, WindLabAPI::WindLabFeatureSimulationMethod)
 
 CRPSDeodatis1996::CRPSDeodatis1996()
-{
-
+{ 
+    this->OutputUnit.setValue("m/s");
 }
 
 

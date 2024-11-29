@@ -31,7 +31,7 @@ PROPERTY_SOURCE(WindLab::CRPSSingleIndexFrequency, WindLabAPI::WindLabFeatureFre
 
 CRPSSingleIndexFrequency::CRPSSingleIndexFrequency()
 {
-
+      this->OutputUnit.setValue("Input");
 }
 
 bool CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)

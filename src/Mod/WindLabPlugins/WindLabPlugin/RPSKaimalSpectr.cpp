@@ -40,7 +40,7 @@ CRPSKaimalSpectr::CRPSKaimalSpectr()
   ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The shear velocity of the flow");
   ADD_PROPERTY_TYPE(Constant1, (100), "Parameters", App::Prop_None, "Constant 1");
   ADD_PROPERTY_TYPE(Constant2, (50), "Parameters", App::Prop_None, "Constant 2");
-
+  this->OutputUnit.setValue("m^2/s");
 }
 
 bool CRPSKaimalSpectr::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
