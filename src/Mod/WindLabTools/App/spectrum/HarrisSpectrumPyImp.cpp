@@ -57,9 +57,9 @@ int HarrisSpectrumPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
 
 PyObject* HarrisSpectrumPy::computeAlongWindAutoSpectrum(PyObject *args)
 {
-        double frequency;
-        double shearVelocity;
-        double meanSpeed10 = 30.0;
+    double frequency;
+    double shearVelocity;
+    double meanSpeed10 = 30.0;
 
     if (!PyArg_ParseTuple(args, "dd|d", &frequency, &shearVelocity, &meanSpeed10))
     return nullptr;

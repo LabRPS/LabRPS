@@ -57,12 +57,13 @@ int DavenportSpectrumPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
 
 PyObject* DavenportSpectrumPy::computeAlongWindAutoSpectrum(PyObject *args)
 {
-        double frequency;
-        double meanSpeed10 = 30;
+    double frequency;
+    double shearVelocity;
+    double meanSpeed10 = 30.0;
 
-    if (!PyArg_ParseTuple(args, "d|d", &frequency, &meanSpeed10))
+    if (!PyArg_ParseTuple(args, "dd|d", &frequency, &shearVelocity, &meanSpeed10))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getDavenportSpectrumPtr()->computeAlongWindAutoSpectrum(frequency, meanSpeed10)));
+    return Py::new_reference_to(Py::Float(getDavenportSpectrumPtr()->computeAlongWindAutoSpectrum(frequency, shearVelocity, meanSpeed10)));
 
 }
 

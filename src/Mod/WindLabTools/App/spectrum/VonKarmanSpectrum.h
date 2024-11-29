@@ -14,13 +14,13 @@ public:
     ~VonKarmanSpectrum();
 
     //this computes the along wind spectrum
-    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2);
+    double computeAlongWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1 = 4.0, double Par2 =70.8);
 
     //this computes the across wind spectrum
-    double computeAcrossWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2, double Par3);
+    double computeAcrossWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1 = 4.0, double Par2 = 775.2, double Par3 = 283.2);
 
     //this computes the vertical wind spectrum
-    double computeVerticalWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1, double Par2, double Par3);
+    double computeVerticalWindAutoSpectrum(const double &frequency, const double &meanSpeed, const double &integralLengthScale, const double &standardDeviation, double Par1 = 4.0, double Par2 = 775.2, double Par3 = 283.2);
 
     virtual PyObject* getPyObject(void);
 
