@@ -63,6 +63,9 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(IsStationary, (true), featuregroup, App::Prop_ReadOnly, "Whether this feature is stationary or not");
     ADD_PROPERTY_TYPE(IsUniformlyModulated, (false), featuregroup, App::Prop_None, "Whether this feature should be uniformly modulated or not. This is useful in case of non-stationarity");
 
+    ADD_PROPERTY_TYPE(ApplicationFields, (""), featuregroup, App::Prop_ReadOnly, "This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,..");
+    ADD_PROPERTY_TYPE(OutputUnit, (""), featuregroup, App::Prop_ReadOnly, "The unit of the computed values");
+
 }
 
 RPSFeature::~RPSFeature(void)
