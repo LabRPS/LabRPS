@@ -437,9 +437,9 @@ set(QT5SCRIPT_INCLUDE_PATH ${LABRPS_LIBPACK_DIR}/include)
 
 set_target_properties(Alphaplot PROPERTIES FOLDER "Libraries")
 
-# save the paths to lib and include in GSL_LIB_PATH and GSL_INCLUDE_PATH repectively
-set(GSL_LIB_PATH "C:/DEV/vcpkg/packages/gsl_x64-windows/lib")
-set(GSL_INCLUDE_PATH "C:/DEV/vcpkg/packages/gsl_x64-windows/include")
+# GSL configuration here is very ugly. But we are working a proper GSL CMake configuration
+set(GSL_LIB_PATH "C:/DEV/vcpkg/packages/gsl_x64-windows/lib") # change this link according to your gsl location or you can configure GLS CMakeList.txt
+set(GSL_INCLUDE_PATH "C:/DEV/vcpkg/packages/gsl_x64-windows/include") # change this link according to your gsl location or you can configure GLS CMakeList.txt
 
 set(QT5VIUSALIZATION_INCLUDE_PATH ${LABRPS_LIBPACK_DIR}/include)
 set(QT5SCRIPT_INCLUDE_PATH ${LABRPS_LIBPACK_DIR}/include)

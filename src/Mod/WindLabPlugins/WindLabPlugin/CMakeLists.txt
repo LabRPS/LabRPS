@@ -199,8 +199,6 @@ WLUniformDistributionLocations.h
 WLUniformDistributionLocations.cpp
 RPSWavePassageEffect.h
 RPSWavePassageEffect.cpp
-TargetCorrelation.h
-TargetCorrelation.cpp
 AppWindLabPlugin.cpp
 ZervaModelFrequencyDistribution.cpp
 ZervaModelFrequencyDistribution.h

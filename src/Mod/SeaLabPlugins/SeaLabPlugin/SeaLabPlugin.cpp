@@ -10,7 +10,6 @@
 #include "CholeskyDecomposition.h"
 #include "RPSUniformRandomPhases.h"
 #include "RPSRandomPhasesFromFile.h"
-#include "TargetCorrelation.h"
 #include "ZervaModelFrequencyDistribution.h"
 #include "RPSJonswapSpectrum.h"
 #include "RPSPiersonMoskowitzSpectrum.h"
@@ -183,23 +182,6 @@ RPS_PLUGIN_FUNC void DestroyRPSRandomPhasesFromFile(IrpsSeLRandomness* r)
     delete r;
 }
 
-//////////////////////////target correlation//////////////////////////////////////////
-std::string objNameTar_C = "Target Colerration Tool";
-std::string objDescriptionTar_C = "This feature allows the user to compute correlation function from the target power spectral density function";
-std::string objTileTar_C = "LabRPS";
-std::string objLinkTar_C = "https://wiki.labrps.com";
-std::string objAuthorsTar_C = "LabRPS";
-std::string objDateTar_C = "15/06/2024";
-std::string objVersionTar_C = "1.0";
-RPS_PLUGIN_FUNC IrpsSeLTableTool* BuildRPSTargetCorrelation()
-{
-    return new TargetCorrelation;
-}
-
-RPS_PLUGIN_FUNC void DestroyRPSTargetCorrelation(IrpsSeLTableTool* r) {
-    delete r;
-}
-
 //////////////////////////Jonswap Spectrum//////////////////////////////////////////
 std::string objNameJon_S = "Jonswap Spectrum (1974)";
 std::string objDescriptionJon_S = "This feature allows the user to compute sea surface spectrum from Jonswap Spectrum";
@@ -278,10 +260,6 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSRandomPhasesFromFile::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSRandomPhasesFromFile::init();
     }
-    
-    if (SeaLab::TargetCorrelation::getClassTypeId() == Base::Type::badType()) {
-        SeaLab::TargetCorrelation::init();
-    }
     if (SeaLab::ZervaModelFrequencyDistribution::getClassTypeId() == Base::Type::badType()) {
         SeaLab::ZervaModelFrequencyDistribution::init();
     }
@@ -310,8 +288,6 @@ PLUGIN_INIT()
 
     InitializeRandomness(objNameUni_R, strPluginName, objTileUni_R, objLinkUni_R, objAuthorsUni_R, objDateUni_R, objVersionUni_R, stationarity);
     InitializeRandomness(objNameUni_I, strPluginName, objTileUni_I, objLinkUni_I, objAuthorsUni_I, objDateUni_I, objVersionUni_I, stationarity);
-
-    InitializeTableTool(objNameTar_C, strPluginName, objTileTar_C, objLinkTar_C, objAuthorsTar_C, objDateTar_C, objVersionTar_C, stationarity);
     
     InitializeSpectrum(objNameJon_S, strPluginName, objTileJon_S, objLinkJon_S, objAuthorsJon_S, objDateJon_S, objVersionJon_S, stationarity);
     InitializeSpectrum(objNameMos_S, strPluginName, objTileMos_S, objLinkMos_S, objAuthorsMos_S, objDateMos_S, objVersionMos_S, stationarity);
@@ -335,8 +311,6 @@ INSTALL_PLUGIN()
     RegisterRandomness(objNameUni_R, strPluginName, objDescriptionUni_R, BuildRPSUniformRandomPhases, DestroyRPSUniformRandomPhases);
     RegisterRandomness(objNameUni_I, strPluginName, objDescriptionUni_I, BuildRPSRandomPhasesFromFile, DestroyRPSRandomPhasesFromFile);
 
-    RegisterTableTool(objNameTar_C, strPluginName, objDescriptionTar_C, BuildRPSTargetCorrelation, DestroyRPSTargetCorrelation);
-
     RegisterSpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
     RegisterSpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
     RegisterSpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
@@ -357,8 +331,6 @@ UNINSTALL_PLUGIN()
 
     UnregisterRandomness(objNameUni_R, strPluginName);
     UnregisterRandomness(objNameUni_I, strPluginName);
-
-    UnregisterTableTool(objNameTar_C, strPluginName);
 
     UnregisterSpectrum(objNameJon_S, strPluginName);
     UnregisterSpectrum(objNameMos_S, strPluginName);

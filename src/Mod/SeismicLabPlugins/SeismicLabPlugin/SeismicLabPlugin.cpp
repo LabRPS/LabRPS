@@ -14,7 +14,6 @@
 #include "GeneralSpatialDistribution.h"
 #include "WLUniformDistributionLocations.h"
 #include "RPSWavePassageEffect.h"
-#include "TargetCorrelation.h"
 #include "ZervaModelFrequencyDistribution.h"
 #include "RPSCloughPenzienSpectrum.h"
 #include "RPSKanaiTajimiSpectrum.h"
@@ -270,23 +269,6 @@ RPS_PLUGIN_FUNC IrpsSLWavePassageEffect* BuildRPSWavePassageEffect()
 }
 
 RPS_PLUGIN_FUNC void DestroyRPSWavePassageEffect(IrpsSLWavePassageEffect* r) {
-    delete r;
-}
-
-//////////////////////////target correlation//////////////////////////////////////////
-std::string objNameTar_C = "Target Colerration Tool";
-std::string objDescriptionTar_C = "This feature allows the user to compute correlation function from the target power spectral density function";
-std::string objTileTar_C = "LabRPS";
-std::string objLinkTar_C = "https://wiki.labrps.com";
-std::string objAuthorsTar_C = "LabRPS";
-std::string objDateTar_C = "15/06/2024";
-std::string objVersionTar_C = "1.0";
-RPS_PLUGIN_FUNC IrpsSLTableTool* BuildRPSTargetCorrelation()
-{
-    return new TargetCorrelation;
-}
-
-RPS_PLUGIN_FUNC void DestroyRPSTargetCorrelation(IrpsSLTableTool* r) {
     delete r;
 }
 
@@ -556,9 +538,6 @@ PLUGIN_INIT_TYPE()
     if (SeismicLab::CRPSWavePassageEffect::getClassTypeId() == Base::Type::badType()) {
         SeismicLab::CRPSWavePassageEffect::init();
     }
-    if (SeismicLab::TargetCorrelation::getClassTypeId() == Base::Type::badType()) {
-        SeismicLab::TargetCorrelation::init();
-    }
     if (SeismicLab::ZervaModelFrequencyDistribution::getClassTypeId() == Base::Type::badType()) {
         SeismicLab::ZervaModelFrequencyDistribution::init();
     }
@@ -621,8 +600,6 @@ PLUGIN_INIT()
 
     InitializeWavePassageEffect(objNameWav_P, strPluginName, objTileWav_P, objLinkWav_P, objAuthorsWav_P, objDateWav_P, objVersionWav_P, stationarity);
 
-    InitializeTableTool(objNameTar_C, strPluginName, objTileTar_C, objLinkTar_C, objAuthorsTar_C, objDateTar_C, objVersionTar_C, stationarity);
-
     InitializeSpectrum(objNameClo_S, strPluginName, objTileClo_S, objLinkClo_S, objAuthorsClo_S, objDateClo_S, objVersionClo_S, stationarity);
     InitializeSpectrum(objNameTaj_S, strPluginName, objTileTaj_S, objLinkTaj_S, objAuthorsTaj_S, objDateTaj_S, objVersionTaj_S, stationarity);
     InitializeSpectrum(objNameHuz_S, strPluginName, objTileHuz_S, objLinkHuz_S, objAuthorsHuz_S, objDateHuz_S, objVersionHuz_S, stationarity);
@@ -662,8 +639,6 @@ INSTALL_PLUGIN()
 
     RegisterWavePassageEffect(objNameWav_P, strPluginName, objDescriptionWav_P, BuildRPSWavePassageEffect, DestroyRPSWavePassageEffect);
 
-    RegisterTableTool(objNameTar_C, strPluginName, objDescriptionTar_C, BuildRPSTargetCorrelation, DestroyRPSTargetCorrelation);
-
     RegisterSpectrum(objNameClo_S, strPluginName, objDescriptionClo_S, BuildCRPSCloughPenzienSpectrum, DestroyCRPSCloughPenzienSpectrum);
     RegisterSpectrum(objNameTaj_S, strPluginName, objDescriptionTaj_S, BuildCRPSKanaiTajimiSpectrum, DestroyCRPSKanaiTajimiSpectrum);
     RegisterSpectrum(objNameHuz_S, strPluginName, objDescriptionHuz_S, BuildCRPSHuZhouSpectrum, DestroyCRPSHuZhouSpectrum);
@@ -701,8 +676,6 @@ UNINSTALL_PLUGIN()
     UnregisterRandomness(objNameUni_I, strPluginName);
 
     UnregisterWavePassageEffect(objNameWav_P, strPluginName);
-
-    UnregisterTableTool(objNameTar_C, strPluginName);
 
     UnregisterSpectrum(objNameClo_S, strPluginName);
     UnregisterSpectrum(objNameTaj_S, strPluginName);

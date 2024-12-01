@@ -53,7 +53,6 @@
 #include "RPSvonKarmanVerticalWindSpectrum.h"
 #include "WLUniformDistributionLocations.h"
 #include "RPSWavePassageEffect.h"
-#include "TargetCorrelation.h"
 #include "RPSKrenkCoherence.h"
 #include "RPSTurbulenceIntensityASCE798.h"
 #include "WLGridPoints.h"
@@ -630,23 +629,6 @@ RPS_PLUGIN_FUNC void DestroyRPSWavePassageEffect(IrpsWLWavePassageEffect* r) {
     delete r;
 }
 
-
-std::string objNameTar_C = "Target Colerration Tool";
-std::string objDescriptionTar_C = "This feature allows the user to compute correlation function from the target power spectral density function";
-std::string objTileTar_C = "LabRPS";
-std::string objLinkTar_C = "https://wiki.labrps.com";
-std::string objAuthorsTar_C = "LabRPS";
-std::string objDateTar_C = "15/06/2024";
-std::string objVersionTar_C = "1.0";
-RPS_PLUGIN_FUNC IrpsWLTableTool* BuildRPSTargetCorrelation()
-{
-    return new TargetCorrelation;
-}
-
-RPS_PLUGIN_FUNC void DestroyRPSTargetCorrelation(IrpsWLTableTool* r) {
-    delete r;
-}
-
 std::string objNameKre_C = "Krenk Coherence Function";
 std::string objDescriptionKre_C = "This feature allows the user to compute spatial coherence according to Krenk coherence function as described in Gonglian et al.";
 std::string objTileKre_C = "Analysis of the wind field characteristics induced by the 2019 Typhoon Bailu for the high-speed railway bridge crossing China’s southeast bay";
@@ -772,9 +754,6 @@ PLUGIN_INIT_TYPE()
     if (WindLab::CRPSWavePassageEffect::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSWavePassageEffect::init();
     }
-    if (WindLab::TargetCorrelation::getClassTypeId() == Base::Type::badType()) {
-        WindLab::TargetCorrelation::init();
-    }
     if (WindLab::RPSKrenkCoherence::getClassTypeId() == Base::Type::badType()) {
         WindLab::RPSKrenkCoherence::init();
     }
@@ -833,7 +812,6 @@ PLUGIN_INIT()
 
     InitializeSimuMethod(objNameDeo_S, strPluginName, objTileDeo_S, objLinkDeo_S, objAuthorsDeo_S, objDateDeo_S, objVersionDeo_S, stationarity);
     InitializeWavePassageEffect(objNameWav_P, strPluginName, objTileWav_P, objLinkWav_P, objAuthorsWav_P, objDateWav_P, objVersionWav_P, stationarity);
-    InitializeTableTool(objNameTar_C, strPluginName, objTileTar_C, objLinkTar_C, objAuthorsTar_C, objDateTar_C, objVersionTar_C, stationarity);
     InitializeTurbulenceIntensity(objNameAsc_T, strPluginName, objTileAsc_T, objLinkAsc_T, objAuthorsAsc_T, objDateAsc_T, objVersionAsc_T, stationarity);
     
     return 1;
@@ -885,7 +863,6 @@ INSTALL_PLUGIN()
     
     RegisterSimuMethod(objNameDeo_S, strPluginName, objDescriptionDeo_S, BuildRPSDeodatis1996, DestroyRPSDeodatis1996);
     RegisterWavePassageEffect(objNameWav_P, strPluginName, objDescriptionWav_P, BuildRPSWavePassageEffect, DestroyRPSWavePassageEffect);
-    RegisterTableTool(objNameTar_C, strPluginName, objDescriptionTar_C, BuildRPSTargetCorrelation, DestroyRPSTargetCorrelation);
     RegisterTurbulenceIntensity(objNameAsc_T, strPluginName, objDescriptionAsc_T, BuildRPSTurbulenceIntensityASCE798, DestroyRPSTurbulenceIntensityASCE798);
 
     return 1;
@@ -936,7 +913,6 @@ UNINSTALL_PLUGIN()
     
     UnregisterSimuMethod(objNameDeo_S, strPluginName);
     UnregisterWavePassageEffect(objNameWav_P, strPluginName);
-    UnregisterTableTool(objNameTar_C, strPluginName);
     UnregisterTurbulenceIntensity(objNameAsc_T, strPluginName);
 
     return 1;

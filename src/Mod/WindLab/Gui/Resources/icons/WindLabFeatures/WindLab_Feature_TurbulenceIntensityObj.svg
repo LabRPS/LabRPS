@@ -5,7 +5,7 @@
    height="64px"
    width="64px"
    sodipodi:docname="WindLab_Feature_TurbulenceIntensityObj.svg"
-   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -31,7 +31,7 @@
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6248" />
+     inkscape:current-layer="text1" />
   <title
      id="title856">WindLab_Features</title>
   <defs
@@ -156,17 +156,16 @@
        id="text877"
        aria-label="D" />
   </g>
-  <text
-     xml:space="preserve"
+  <g
+     id="text1"
      style="font-style:italic;font-size:40px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';fill:#00ffff;stroke:#000000;stroke-width:2"
-     x="14.931789"
-     y="45.05534"
-     id="text1"><tspan
-       sodipodi:role="line"
-       id="tspan1"
-       x="14.931789"
-       y="45.05534"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '">I<tspan
-   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic'"
-   id="tspan2">u</tspan></tspan></text>
+     aria-label="Iu">
+    <path
+       style="font-style:normal;-inkscape-font-specification:'Times New Roman, '"
+       d="M 27.275539,44.332684 V 45.05534 H 15.927883 v -0.722656 h 0.9375 q 1.640625,0 2.382813,-0.957032 0.46875,-0.625 0.46875,-3.007812 V 23.258465 q 0,-2.011719 -0.253907,-2.65625 -0.195312,-0.488281 -0.800781,-0.839844 -0.859375,-0.46875 -1.796875,-0.46875 h -0.9375 v -0.722656 h 11.347656 v 0.722656 h -0.957031 q -1.621094,0 -2.363281,0.957031 -0.488281,0.625 -0.488281,3.007813 V 40.36784 q 0,2.011719 0.253906,2.65625 0.195312,0.488281 0.820312,0.839844 0.839844,0.46875 1.777344,0.46875 z"
+       id="path1" />
+    <path
+       d="m 47.080227,27.848309 -3.398438,11.640625 q -0.761718,2.597656 -0.761718,3.28125 0,0.351562 0.117187,0.527343 0.136719,0.15625 0.351563,0.15625 0.332031,0 0.722656,-0.292968 0.410156,-0.3125 2.03125,-2.421875 l 0.585937,0.449218 q -1.542968,2.441407 -3.164062,3.59375 -1.074219,0.742188 -2.070313,0.742188 -0.761718,0 -1.191406,-0.429688 -0.429687,-0.429687 -0.429687,-1.113281 0,-0.664062 0.253906,-1.757812 0.3125,-1.445313 1.777344,-6.289063 -3.320313,5.449219 -5.566407,7.519531 -2.226562,2.070313 -4.140625,2.070313 -0.898437,0 -1.523437,-0.625 -0.625,-0.625 -0.625,-1.582031 0,-1.464844 0.859375,-4.492188 l 1.699219,-6.035156 q 0.625,-2.167969 0.625,-2.695313 0,-0.234375 -0.175782,-0.390625 -0.15625,-0.175781 -0.351562,-0.175781 -0.410156,0 -0.820313,0.292969 -0.410156,0.292969 -1.855468,2.167969 l -0.605469,-0.429688 q 1.464844,-2.265625 3.105469,-3.339844 1.25,-0.839843 2.304687,-0.839843 0.722656,0 1.171875,0.46875 0.46875,0.449218 0.46875,1.171875 0,1.054687 -0.78125,3.769531 l -1.835937,6.308594 q -0.761719,2.578125 -0.761719,3.261718 0,0.371094 0.234375,0.605469 0.253906,0.214844 0.664062,0.214844 0.644532,0 1.679688,-0.644531 1.035156,-0.644532 2.753906,-2.851563 1.738281,-2.226562 2.851563,-4.160156 1.132812,-1.953125 2.402343,-6.191406 l 0.429688,-1.484375 z"
+       id="path2" />
+  </g>
 </svg>
