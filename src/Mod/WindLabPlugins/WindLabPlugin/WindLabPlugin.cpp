@@ -597,7 +597,7 @@ RPS_PLUGIN_FUNC void DestroyThreeParaModulation(IrpsWLModulation* r)
     delete r;
 }
 
-std::string objNameDeo_S = "Deodatis Simulation Method";
+std::string objNameDeo_S = "Deodatis 1996";
 std::string objDescriptionDeo_S = "This feature allows the user to simulation ergodic random wind velocity as described in Dedatis (1996).";
 std::string objTileDeo_S = "Simulation of Ergodic Multivariate Stochastic Processes";
 std::string objLinkDeo_S = "https://doi.org/10.1061/(ASCE)0733-9399(1996)122:8(778)";
