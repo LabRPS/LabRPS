@@ -84,14 +84,13 @@ from PySide2 import QtCore
 
 TsFile = namedtuple('TsFile', ['filename', 'src_path'])
 
-LEGACY_NAMING_MAP = {'Draft.ts': 'draft.ts'}
+LEGACY_NAMING_MAP = {'Spreadsheet.ts': 'spreadsheet.ts'}
 
 # locations list contains Module name, relative path to translation folder and relative path to qrc file
 
 locations = [["AddonManager","../Mod/AddonManager/Resources/translations","../Mod/AddonManager/Resources/AddonManager.qrc"],
              ["LabRPS","../Gui/Language","../Gui/Language/translation.qrc"],
              ["Image","../Mod/Image/Gui/Resources/translations","../Mod/Image/Gui/Resources/Image.qrc"],
-             ["Part","../Mod/Part/Gui/Resources/translations","../Mod/Part/Gui/Resources/Part.qrc"],
              ["StartPage","../Mod/Start/Gui/Resources/translations","../Mod/Start/Gui/Resources/Start.qrc"],
              ["Test","../Mod/Test/Gui/Resources/translations","../Mod/Test/Gui/Resources/Test.qrc"],
              ["Web","../Mod/Web/Gui/Resources/translations","../Mod/Web/Gui/Resources/Web.qrc"],
