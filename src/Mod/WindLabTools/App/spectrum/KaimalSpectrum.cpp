@@ -20,6 +20,7 @@ double  KaimalSpectrum::computeAlongWindAutoSpectrum(const double &frequency, co
     double dBuf1, dBuf2, f;
 
     double dPSD = 0.0;
+    //double thepds = 200*height*shearVelocity * shearVelocity/meanSpeed/std::pow(1+50*frequency*height/meanSpeed,5.0/3.0);
 
     f = frequency * height / (meanSpeed);
 
