@@ -65,7 +65,7 @@ def setup(doc=None, showGui=True, location = 1):
         return None
     
     # create new simulation method in the simulation called "Simulation"
-    simMethod = WindLabObjects.makeFeature("SimulationMethod", "Simulation",  "Deodatis Simulation Method", "Simulation Method")
+    simMethod = WindLabObjects.makeFeature("SimulationMethod", "Simulation",  "Deodatis 1996", "Simulation Method")
     
     # check if the created simulation method feature is null
     if not simMethod:

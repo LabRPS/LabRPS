@@ -113,8 +113,8 @@ macro(InitializeLabRPSBuildOptions)
     option(BUILD_WINDLAB_PLUGIN "Build the WindLab plugin module" ON)
     option(BUILD_SEISMICLAB_PLUGIN "Build the Seismic plugin module" ON)
     option(BUILD_SEALAB_PLUGIN "Build the SeaLab plugin module" ON)
-    option(BUILD_USERDEFINIED_PHENOMENONLAB "Build the User module" ON)
-    option(BUILD_USERDEFINIED_PHENOMENONLABPlugin "Build the User plugin module" ON)
+    option(BUILD_USERLAB "Build the UserLab module" ON)
+    option(BUILD_USERLAB_PLUGIN "Build the UserLab plugin module" ON)
     
     # if this is set override some options
     if (LABRPS_BUILD_DEBIAN)

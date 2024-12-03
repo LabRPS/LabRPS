@@ -81,8 +81,6 @@ RPSUniformRandomPhases.h
 RPSUniformRandomPhases.cpp
 CholeskyDecomposition.cpp
 CholeskyDecomposition.h
-TargetCorrelation.h
-TargetCorrelation.cpp
 AppSeaLabPlugin.cpp
 ZervaModelFrequencyDistribution.cpp
 ZervaModelFrequencyDistribution.h

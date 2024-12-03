@@ -48,7 +48,9 @@ bool CRPSDeodatis1996::OnInitialSetting(const WindLabAPI::WindLabSimulationData&
 
 bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
+    // generate a random wind velocity
    const bool simResult = stationaryWind(Data, dVelocityArray);
+   
    bool returnResult = true;
 
    if(!simResult)
@@ -57,13 +59,14 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, m
        return simResult;
    }
 
+   // is non-stationary wind is wanted and there is active modulation function in the simulation
    if(!Data.stationarity.getValue() && Data.uniformModulation.getValue())
    {
        vec modulationVar(Data.numberOfTimeIncrements.getValue());
        vec modulationVal(Data.numberOfTimeIncrements.getValue());
        mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
 
-       bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
+       returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
 
        Base::Vector3d location(0, 0, 0);
 
@@ -79,17 +82,14 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, m
            }
        }
 
-       if(!returnResult)
+    if(!returnResult)
     {
        Base::Console().Error("The computation of the modulation function has failed.\n") ;
        return false;
     }
 
    }
-    //while (!Data.isInterruptionRequested.getValue()) {
-    //    int a = 0.0;
-    //    int b = a * 2*3;
-    //}
+
    return true;
 }
 
@@ -204,7 +204,6 @@ bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimulationData& D
        double time = 0;
        int q = 0;
        // Generate the wind velocity
-
        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
            q = fmod(p - 1, M);
            time = (p - 1) * dt + timeMin;
@@ -214,6 +213,7 @@ bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimulationData& D
            }
        }
     }
+    
     return returnResult;
 }
 

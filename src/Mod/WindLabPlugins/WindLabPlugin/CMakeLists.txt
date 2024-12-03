@@ -195,12 +195,12 @@ Widgets/RPSVonKarmanDialog.cpp
 Widgets/RPSVonKarmanDialog.h
 RPSDeodatis1996.h
 RPSDeodatis1996.cpp
+RPSYangEtAl1997.cpp
+RPSYangEtAl1997.h
 WLUniformDistributionLocations.h
 WLUniformDistributionLocations.cpp
 RPSWavePassageEffect.h
 RPSWavePassageEffect.cpp
-TargetCorrelation.h
-TargetCorrelation.cpp
 AppWindLabPlugin.cpp
 ZervaModelFrequencyDistribution.cpp
 ZervaModelFrequencyDistribution.h

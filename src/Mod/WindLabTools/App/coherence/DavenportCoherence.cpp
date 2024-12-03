@@ -33,8 +33,6 @@ double  DavenportCoherence::computeCoherenceValue(const double &locationJxCoord,
 
         dValue = sqrt(dValue);
 
-        dValue = dValue / 2.0 / 3.14;
-
         dValue = -2 * dValue / (locationJMeanSpeed + locationKMeanSpeed);
 
         dValue = exp(dValue * frequency);
@@ -55,8 +53,6 @@ double  DavenportCoherence::computeCoherenceValue(const double &locationJxCoord,
            + exponentialDecayCz * exponentialDecayCz * (locationJ.z - locationK.z) * (locationJ.z - locationK.z));
 
         dValue = sqrt(dValue);
-
-        dValue = dValue / 2.0 / 3.14;
 
         dValue = -2 * dValue / (locationJMeanSpeed + locationKMeanSpeed);
 

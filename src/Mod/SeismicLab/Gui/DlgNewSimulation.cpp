@@ -362,7 +362,7 @@ DlgSeismicLabFeatures::DlgSeismicLabFeatures(QWidget * parent,  SeismicLab::Seis
 	connect(ui->kurtosisPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingKurtosis()));
 	connect(ui->peakFactorPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingPeakFactor()));
 	connect(ui->PDFPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingProbabilityDensityFunction()));
-	connect(ui->shearVelocityomboBox, SIGNAL(clicked()), this, SLOT(onInitialSettingShearVelocityOfFlow()));
+	connect(ui->shearVelocityPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingShearVelocityOfFlow()));
 	connect(ui->skewnessPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSkewness()));
 	connect(ui->standardDeviationPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingStandardDeviation()));
 	connect(ui->variancePushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingVariance()));

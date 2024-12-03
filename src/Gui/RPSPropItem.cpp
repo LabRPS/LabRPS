@@ -72,12 +72,15 @@ void Gui::RPSPropItem::init()
     PropertyStringListItem          ::init();
     PropertyFloatListItem           ::init();
     PropertyIntegerListItem         ::init();
-    //PropertyColorItem               ::init();
+    //PropertyColorItem             ::init();
     PropertyFileItem                ::init();
     PropertyPathItem                ::init();
     PropertyTransientFileItem       ::init();
 
     SelectionObject                 ::init();
+
+    PropertyLinkItem                ::init();
+    PropertyLinkListItem            ::init();
 
     qRegisterMetaType<Base::Vector3f>("Base::Vector3f");
     qRegisterMetaType<Base::Vector3d>("Base::Vector3d");

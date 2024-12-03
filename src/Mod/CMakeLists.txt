@@ -44,10 +44,10 @@ if(BUILD_SEALAB)
   add_subdirectory(SeaLabTools)
 endif(BUILD_SEALAB)
 
-if(BUILD_USERDEFINIED_PHENOMENONLAB)
+if(BUILD_USERLAB)
   add_subdirectory(UserLab)
   add_subdirectory(UserLabAPI)
-endif(BUILD_USERDEFINIED_PHENOMENONLAB)
+endif(BUILD_USERLAB)
 
 if(BUILD_WINDLAB_PLUGIN)
   add_subdirectory(WindLabPlugins)

@@ -53,11 +53,12 @@
 #include "RPSvonKarmanVerticalWindSpectrum.h"
 #include "WLUniformDistributionLocations.h"
 #include "RPSWavePassageEffect.h"
-#include "TargetCorrelation.h"
 #include "RPSKrenkCoherence.h"
 #include "RPSTurbulenceIntensityASCE798.h"
 #include "WLGridPoints.h"
 #include "RPSImportSimulationPointsFromFile.h"
+#include "WLGridPoints.h"
+#include "RPSYangEtAl1997.h"
 
 #include <Mod/WindLabAPI/App/RPSWindLabpluginAPI.h>
 #include <Base/Console.h>
@@ -598,8 +599,8 @@ RPS_PLUGIN_FUNC void DestroyThreeParaModulation(IrpsWLModulation* r)
     delete r;
 }
 
-std::string objNameDeo_S = "Deodatis Simulation Method";
-std::string objDescriptionDeo_S = "This feature allows the user to simulation ergodic random wind velocity as described in Dedatis (1996).";
+std::string objNameDeo_S = "Deodatis 1996";
+std::string objDescriptionDeo_S = "This feature allows the user to simulate ergodic random wind velocity as described in Dedatis (1996).";
 std::string objTileDeo_S = "Simulation of Ergodic Multivariate Stochastic Processes";
 std::string objLinkDeo_S = "https://doi.org/10.1061/(ASCE)0733-9399(1996)122:8(778)";
 std::string objAuthorsDeo_S = "George Deodatis";
@@ -614,6 +615,25 @@ RPS_PLUGIN_FUNC void DestroyRPSDeodatis1996(IrpsWLSimuMethod* r)
 {
     delete r;
 }
+
+std::string objNameYan_S = "W W Yang et al 1997";
+std::string objDescriptionYan_S = "This feature allows the user to simulate random wind velocity as described in W. W. Yang (1997).";
+std::string objTileYan_S = "An efficient wind field simulation technique for bridges";
+std::string objLinkYan_S = "https://doi.org/10.1016/S0167-6105(97)00111-6";
+std::string objAuthorsYan_S = "W.W. Yang, T.Y.P. Chang, C.C. Chang";
+std::string objDateYan_S = "02/12/2024";
+std::string objVersionYan_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsWLSimuMethod* BuildRPSYangEtAl1997()
+{
+    return new CRPSYangEtAl1997;
+}
+
+RPS_PLUGIN_FUNC void DestroyRPSYangEtAl1997(IrpsWLSimuMethod* r)
+{
+    delete r;
+}
+
 std::string objNameWav_P = "Exponential Wave Passage effect";
 std::string objDescriptionWav_P = "This feature allows the user to the wave passage effect as described in Guoqing Huang et al. (2013).";
 std::string objTileWav_P = "New formulation of Cholesky decomposition and applications in stochastic simulation";
@@ -627,23 +647,6 @@ RPS_PLUGIN_FUNC IrpsWLWavePassageEffect* BuildRPSWavePassageEffect()
 }
 
 RPS_PLUGIN_FUNC void DestroyRPSWavePassageEffect(IrpsWLWavePassageEffect* r) {
-    delete r;
-}
-
-
-std::string objNameTar_C = "Target Colerration Tool";
-std::string objDescriptionTar_C = "This feature allows the user to compute correlation function from the target power spectral density function";
-std::string objTileTar_C = "LabRPS";
-std::string objLinkTar_C = "https://wiki.labrps.com";
-std::string objAuthorsTar_C = "LabRPS";
-std::string objDateTar_C = "15/06/2024";
-std::string objVersionTar_C = "1.0";
-RPS_PLUGIN_FUNC IrpsWLTableTool* BuildRPSTargetCorrelation()
-{
-    return new TargetCorrelation;
-}
-
-RPS_PLUGIN_FUNC void DestroyRPSTargetCorrelation(IrpsWLTableTool* r) {
     delete r;
 }
 
@@ -769,11 +772,11 @@ PLUGIN_INIT_TYPE()
     if (WindLab::CRPSDeodatis1996::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSDeodatis1996::init();
     }
+    if (WindLab::CRPSYangEtAl1997::getClassTypeId() == Base::Type::badType()) {
+        WindLab::CRPSYangEtAl1997::init();
+    }
     if (WindLab::CRPSWavePassageEffect::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSWavePassageEffect::init();
-    }
-    if (WindLab::TargetCorrelation::getClassTypeId() == Base::Type::badType()) {
-        WindLab::TargetCorrelation::init();
     }
     if (WindLab::RPSKrenkCoherence::getClassTypeId() == Base::Type::badType()) {
         WindLab::RPSKrenkCoherence::init();
@@ -832,8 +835,9 @@ PLUGIN_INIT()
     InitializeModulation(objNameSin_M, strPluginName, objTileSin_M, objLinkSin_M, objAuthorsSin_M, objDateSin_M, objVersionSin_M, stationarity);
 
     InitializeSimuMethod(objNameDeo_S, strPluginName, objTileDeo_S, objLinkDeo_S, objAuthorsDeo_S, objDateDeo_S, objVersionDeo_S, stationarity);
+    InitializeSimuMethod(objNameYan_S, strPluginName, objTileYan_S, objLinkYan_S, objAuthorsYan_S, objDateYan_S, objVersionYan_S, stationarity);
+     
     InitializeWavePassageEffect(objNameWav_P, strPluginName, objTileWav_P, objLinkWav_P, objAuthorsWav_P, objDateWav_P, objVersionWav_P, stationarity);
-    InitializeTableTool(objNameTar_C, strPluginName, objTileTar_C, objLinkTar_C, objAuthorsTar_C, objDateTar_C, objVersionTar_C, stationarity);
     InitializeTurbulenceIntensity(objNameAsc_T, strPluginName, objTileAsc_T, objLinkAsc_T, objAuthorsAsc_T, objDateAsc_T, objVersionAsc_T, stationarity);
     
     return 1;
@@ -884,8 +888,9 @@ INSTALL_PLUGIN()
     RegisterModulation(objNameSin_M, strPluginName, objDescriptionSin_M, BuildSineModulation, DestroySineModulation);
     
     RegisterSimuMethod(objNameDeo_S, strPluginName, objDescriptionDeo_S, BuildRPSDeodatis1996, DestroyRPSDeodatis1996);
+    RegisterSimuMethod(objNameYan_S, strPluginName, objDescriptionYan_S, BuildRPSYangEtAl1997, DestroyRPSYangEtAl1997);
+    
     RegisterWavePassageEffect(objNameWav_P, strPluginName, objDescriptionWav_P, BuildRPSWavePassageEffect, DestroyRPSWavePassageEffect);
-    RegisterTableTool(objNameTar_C, strPluginName, objDescriptionTar_C, BuildRPSTargetCorrelation, DestroyRPSTargetCorrelation);
     RegisterTurbulenceIntensity(objNameAsc_T, strPluginName, objDescriptionAsc_T, BuildRPSTurbulenceIntensityASCE798, DestroyRPSTurbulenceIntensityASCE798);
 
     return 1;
@@ -920,11 +925,9 @@ UNINSTALL_PLUGIN()
     UnregisterYSpectrum(objNameK_Acc, strPluginName);
     UnregisterZSpectrum(objNameKar_V, strPluginName);
 
-  
     UnregisterCoherence(objNameDav_C, strPluginName);
     UnregisterCoherence(objNameKre_C, strPluginName);
 
-    
     UnregisterPSDdecomMethod(objNameCho_D, strPluginName);
     
     UnregisterRandomness(objNameUni_R, strPluginName);
@@ -935,8 +938,9 @@ UNINSTALL_PLUGIN()
     UnregisterModulation(objNameSin_M, strPluginName);
     
     UnregisterSimuMethod(objNameDeo_S, strPluginName);
+    UnregisterSimuMethod(objNameYan_S, strPluginName);
+
     UnregisterWavePassageEffect(objNameWav_P, strPluginName);
-    UnregisterTableTool(objNameTar_C, strPluginName);
     UnregisterTurbulenceIntensity(objNameAsc_T, strPluginName);
 
     return 1;

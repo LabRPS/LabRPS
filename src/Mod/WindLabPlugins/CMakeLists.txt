@@ -1,14 +1,5 @@
 add_subdirectory(WindLabPlugin)
-add_subdirectory(GeneralizedSpectrum)
-add_subdirectory(RPSRandomnessProviders)
-add_subdirectory(WindSimulationMethodWWYang1997)
-add_subdirectory(WindSimulationMethodWWYang1997Ind)
-add_subdirectory(RPSCholeskyDecomposition)
-add_subdirectory(ErgodicityCheckToolPlugin)
-add_subdirectory(PDFCheckToolPlugin)
-add_subdirectory(CorrelationErgodicityPlugin)
-add_subdirectory(WindLabSmeltPlugin)
-add_subdirectory(WindLabQBladePlugin)
+
 
 
 

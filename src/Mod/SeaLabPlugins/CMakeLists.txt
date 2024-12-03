@@ -1,2 +1,1 @@
 add_subdirectory(SeaLabPlugin)
-add_subdirectory(QBladePlugin)

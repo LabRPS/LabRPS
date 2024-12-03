@@ -377,7 +377,7 @@ DlgWindLabFeatures::DlgWindLabFeatures(QWidget * parent,  WindLab::WindLabSimula
 	connect(ui->peakFactorPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingPeakFactor()));
 	connect(ui->PDFPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingProbabilityDensityFunction()));
 	connect(ui->roughnessPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingRoughness()));
-	connect(ui->shearVelocityomboBox, SIGNAL(clicked()), this, SLOT(onInitialSettingShearVelocityOfFlow()));
+	connect(ui->shearVelocityPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingShearVelocityOfFlow()));
 	connect(ui->skewnessPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSkewness()));
 	connect(ui->standardDeviationPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingStandardDeviation()));
 	connect(ui->turbulenceIntensityPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingTurbulenceIntensity()));
@@ -520,6 +520,7 @@ void DlgWindLabFeatures::onInitialSettingLocationDistribution()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->lacationDistributionComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupLocationDistribution;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingMeanWindProfile()
@@ -527,6 +528,7 @@ void DlgWindLabFeatures::onInitialSettingMeanWindProfile()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->meanWindProfileComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupMeanWindProfile;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingAlongWindSpectrum()
@@ -534,6 +536,7 @@ void DlgWindLabFeatures::onInitialSettingAlongWindSpectrum()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->alongWindSpectrumComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupAlongWindSpectrum;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingVerticalWindSpectrum()
@@ -541,6 +544,7 @@ void DlgWindLabFeatures::onInitialSettingVerticalWindSpectrum()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->verticalWindSpectrumComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupVerticalWindSpectrum;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingAcrossWindSpectrum()
@@ -548,6 +552,7 @@ void DlgWindLabFeatures::onInitialSettingAcrossWindSpectrum()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->acrossWindSpectrumComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupAcrossWindSpectrum;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingSpectrumDecompositionMethod()
@@ -555,6 +560,7 @@ void DlgWindLabFeatures::onInitialSettingSpectrumDecompositionMethod()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->spectrumDecompositionMethodComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupSpectrumDecompositionMethod;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingCoherenceFunction()
@@ -562,6 +568,7 @@ void DlgWindLabFeatures::onInitialSettingCoherenceFunction()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->coherenceFunctionComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupCoherenceFunction;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingSimulationMethod()
@@ -569,6 +576,7 @@ void DlgWindLabFeatures::onInitialSettingSimulationMethod()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->simulationMethodComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupSimulationMethod;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingFrequencyDistribution()
@@ -576,6 +584,7 @@ void DlgWindLabFeatures::onInitialSettingFrequencyDistribution()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->frequencyDistributionComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupFrequencyDistribution;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingRandomnessProvider()
@@ -583,6 +592,7 @@ void DlgWindLabFeatures::onInitialSettingRandomnessProvider()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->randomnessProviderComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupRandomnessProvider;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingModulationFunction()
@@ -590,6 +600,7 @@ void DlgWindLabFeatures::onInitialSettingModulationFunction()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->modulationFunctionComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupModulationFunction;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingCorrelationFunction()
@@ -597,6 +608,7 @@ void DlgWindLabFeatures::onInitialSettingCorrelationFunction()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->correlationFunctionComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupCorrelationFunction;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingUserDefinedRPSObject()
@@ -604,6 +616,7 @@ void DlgWindLabFeatures::onInitialSettingUserDefinedRPSObject()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->userDefinedFeatureCcomboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupUserDefinedRPSObject;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingCumulativeProbabilityDistribution()
@@ -611,6 +624,7 @@ void DlgWindLabFeatures::onInitialSettingCumulativeProbabilityDistribution()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->CPDComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupCumulativeProbabilityDistribution;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingGustFactor()
@@ -618,6 +632,7 @@ void DlgWindLabFeatures::onInitialSettingGustFactor()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->GustFactorComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupGustFactor;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingKurtosis()
@@ -625,6 +640,7 @@ void DlgWindLabFeatures::onInitialSettingKurtosis()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->KurtosisComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupKurtosis;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingPeakFactor()
@@ -632,6 +648,7 @@ void DlgWindLabFeatures::onInitialSettingPeakFactor()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->peakFactorComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupPeakFactor;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingProbabilityDensityFunction()
@@ -639,6 +656,7 @@ void DlgWindLabFeatures::onInitialSettingProbabilityDensityFunction()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->PDFComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupProbabilityDensityFunction;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingRoughness()
@@ -646,6 +664,7 @@ void DlgWindLabFeatures::onInitialSettingRoughness()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->roughnessComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupRoughness;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingShearVelocityOfFlow()
@@ -653,6 +672,7 @@ void DlgWindLabFeatures::onInitialSettingShearVelocityOfFlow()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->shearVelocityomboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupShearVelocityOfFlow;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingSkewness()
@@ -660,6 +680,7 @@ void DlgWindLabFeatures::onInitialSettingSkewness()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->skewnessComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupSkewness;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingStandardDeviation()
@@ -667,6 +688,7 @@ void DlgWindLabFeatures::onInitialSettingStandardDeviation()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->standardDeviationComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupStandardDeviation;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingTurbulenceIntensity()
@@ -674,6 +696,7 @@ void DlgWindLabFeatures::onInitialSettingTurbulenceIntensity()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->turbulenceIntensityComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupTurbulenceIntensity;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingTurbulenceScale()
@@ -681,6 +704,7 @@ void DlgWindLabFeatures::onInitialSettingTurbulenceScale()
 	WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->turbulenceScaleComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupTurbulenceScale;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingVariance()
@@ -688,6 +712,7 @@ void DlgWindLabFeatures::onInitialSettingVariance()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->varianceComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupVariance;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 void DlgWindLabFeatures::onInitialSettingWavePassageEffect()
@@ -695,6 +720,7 @@ void DlgWindLabFeatures::onInitialSettingWavePassageEffect()
 	 WindLab::WindLabSimulation* sim = static_cast< WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
 	QString selectedFeature = ui->wavePassageEffectComboBox->currentText();
 	QString group = WindLab::WindLabUtils::objGroupWavePassageEffect;
+	if(sim)
 	sim->windLabFeatureInitalSetting(group, selectedFeature);
 }
 // ----------------------------------------------

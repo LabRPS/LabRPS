@@ -2,7 +2,7 @@
 #include "AvailableWindows.h"
 #include <math.h>
 #include <unsupported/Eigen/FFT>
-#include <gsl/gsl_sf_bessel.h>
+// #include <gsl/gsl_sf_bessel.h>
 
 using namespace rps;
 using namespace General;
@@ -436,24 +436,24 @@ void AvailableWindows::HannWindow(vec &win, int L, int flag)
 }
 void AvailableWindows::KaiserWindow(vec &win, int L, double beta)
 {
-    // Kaiser window.
-    //
-    // In Matlab, the default value for parameter beta is 0.5.
+    // // Kaiser window.
+    // //
+    // // In Matlab, the default value for parameter beta is 0.5.
 
-    if (L == 1)
-    {
-        // Special case for n == 1.
-        win[0] = 1.0;
-    }
-    else
-    {
-        for (int i = 0; i < L; ++i)
-        {
-            const double x = (2.0 * i - (L - 1)) /(double)(L - 1);
+    // if (L == 1)
+    // {
+    //     // Special case for n == 1.
+    //     win[0] = 1.0;
+    // }
+    // else
+    // {
+    //     for (int i = 0; i < L; ++i)
+    //     {
+    //         const double x = (2.0 * i - (L - 1)) /(double)(L - 1);
 
-            win[i] = gsl_sf_bessel_I0(beta * sqrt(1.0 - x * x)) / gsl_sf_bessel_I0(beta);
-        }
-    }
+    //         win[i] = gsl_sf_bessel_I0(beta * sqrt(1.0 - x * x)) / gsl_sf_bessel_I0(beta);
+    //     }
+    // }
 }
 
 void AvailableWindows::NuttallBlackmanHarrisWindow0(vec &win, int L, int flag)
