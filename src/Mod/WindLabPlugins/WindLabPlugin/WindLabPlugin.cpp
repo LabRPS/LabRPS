@@ -59,6 +59,7 @@
 #include "RPSImportSimulationPointsFromFile.h"
 #include "WLGridPoints.h"
 #include "RPSYangEtAl1997.h"
+#include "RPSYangEtAl1997Ind.h"
 
 #include <Mod/WindLabAPI/App/RPSWindLabpluginAPI.h>
 #include <Base/Console.h>
@@ -634,6 +635,24 @@ RPS_PLUGIN_FUNC void DestroyRPSYangEtAl1997(IrpsWLSimuMethod* r)
     delete r;
 }
 
+std::string objNameYanInd_S = "W W Yang et al 1997 (2)";
+std::string objDescriptionYanInd_S = "This feature allows the user to simulate random wind velocity as described in W. W. Yang (1997). The only difference with the other feature is the fact that this feature has most of its parameters defined here instead of taking them from the parent simulation.";
+//std::string objTileYan_S = "An efficient wind field simulation technique for bridges";
+//std::string objLinkYan_S = "https://doi.org/10.1016/S0167-6105(97)00111-6";
+//std::string objAuthorsYan_S = "W.W. Yang, T.Y.P. Chang, C.C. Chang";
+//std::string objDateYan_S = "02/12/2024";
+//std::string objVersionYan_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsWLSimuMethod* BuildRPSYangEtAl1997Ind()
+{
+    return new CRPSYangEtAl1997Ind;
+}
+
+RPS_PLUGIN_FUNC void DestroyRPSYangEtAl1997Ind(IrpsWLSimuMethod* r)
+{
+    delete r;
+}
+
 std::string objNameWav_P = "Exponential Wave Passage effect";
 std::string objDescriptionWav_P = "This feature allows the user to the wave passage effect as described in Guoqing Huang et al. (2013).";
 std::string objTileWav_P = "New formulation of Cholesky decomposition and applications in stochastic simulation";
@@ -775,6 +794,9 @@ PLUGIN_INIT_TYPE()
     if (WindLab::CRPSYangEtAl1997::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSYangEtAl1997::init();
     }
+    if (WindLab::CRPSYangEtAl1997Ind::getClassTypeId() == Base::Type::badType()) {
+        WindLab::CRPSYangEtAl1997Ind::init();
+    }
     if (WindLab::CRPSWavePassageEffect::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSWavePassageEffect::init();
     }
@@ -836,7 +858,8 @@ PLUGIN_INIT()
 
     InitializeSimuMethod(objNameDeo_S, strPluginName, objTileDeo_S, objLinkDeo_S, objAuthorsDeo_S, objDateDeo_S, objVersionDeo_S, stationarity);
     InitializeSimuMethod(objNameYan_S, strPluginName, objTileYan_S, objLinkYan_S, objAuthorsYan_S, objDateYan_S, objVersionYan_S, stationarity);
-     
+    InitializeSimuMethod(objNameYanInd_S, strPluginName, objTileYan_S, objLinkYan_S, objAuthorsYan_S, objDateYan_S, objVersionYan_S, stationarity);
+
     InitializeWavePassageEffect(objNameWav_P, strPluginName, objTileWav_P, objLinkWav_P, objAuthorsWav_P, objDateWav_P, objVersionWav_P, stationarity);
     InitializeTurbulenceIntensity(objNameAsc_T, strPluginName, objTileAsc_T, objLinkAsc_T, objAuthorsAsc_T, objDateAsc_T, objVersionAsc_T, stationarity);
     
@@ -889,7 +912,8 @@ INSTALL_PLUGIN()
     
     RegisterSimuMethod(objNameDeo_S, strPluginName, objDescriptionDeo_S, BuildRPSDeodatis1996, DestroyRPSDeodatis1996);
     RegisterSimuMethod(objNameYan_S, strPluginName, objDescriptionYan_S, BuildRPSYangEtAl1997, DestroyRPSYangEtAl1997);
-    
+    RegisterSimuMethod(objNameYanInd_S, strPluginName, objDescriptionYanInd_S, BuildRPSYangEtAl1997Ind, DestroyRPSYangEtAl1997Ind);
+
     RegisterWavePassageEffect(objNameWav_P, strPluginName, objDescriptionWav_P, BuildRPSWavePassageEffect, DestroyRPSWavePassageEffect);
     RegisterTurbulenceIntensity(objNameAsc_T, strPluginName, objDescriptionAsc_T, BuildRPSTurbulenceIntensityASCE798, DestroyRPSTurbulenceIntensityASCE798);
 
@@ -939,6 +963,7 @@ UNINSTALL_PLUGIN()
     
     UnregisterSimuMethod(objNameDeo_S, strPluginName);
     UnregisterSimuMethod(objNameYan_S, strPluginName);
+    UnregisterSimuMethod(objNameYanInd_S, strPluginName);
 
     UnregisterWavePassageEffect(objNameWav_P, strPluginName);
     UnregisterTurbulenceIntensity(objNameAsc_T, strPluginName);
