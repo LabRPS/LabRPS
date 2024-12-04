@@ -933,7 +933,11 @@ public:
      */
     static WindLabAPI::WindLabFeatureDescription* getWindLabFeatureDescription(const std::string& name);
 
-
+     /** Get the current date time
+     * @return         return current date and time.
+     */
+    static std::string getCurrentDateTime();
+    
 };
 
 } //namespace WindLabAPI

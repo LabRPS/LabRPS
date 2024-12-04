@@ -100,7 +100,6 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
-    App::PropertyString WorkingDirectoryPath;
     App::PropertyAcceleration PeakGroundAcceleration;
     App::PropertySpeed PeakGroundVelocity;
     App::PropertyLength PeackGroundDisplacement;
@@ -137,6 +136,8 @@ public:
     App::PropertyFloat IncrementOfVariableX;
     App::PropertyFloat MinVariableX;
 	App::PropertyEnumeration MotionType;
+    App::PropertyPath WorkingDirectoryPath;
+    App::PropertyString FileName;
 
     App::PropertyUUID    Uid;
 

@@ -209,9 +209,6 @@ class RPS_CORE_API WindLabSimulationData : public WindLabAPI::WindLabFeature
 	/// The active variance model name
 	App::PropertyString varianceFunction;
 
-	/// The working directory path
-	App::PropertyString workingDirPath;
-
 	/// The active table tool name
 	App::PropertyString tableTool;
 
@@ -262,6 +259,12 @@ class RPS_CORE_API WindLabSimulationData : public WindLabAPI::WindLabFeature
 
    	/// The active wave passage effect
    App::PropertyString wavePassageEffect;
+
+   /// The working directory. Wind velocity file generated in large scale mode is expected to be saved here. 
+   App::PropertyPath workingDirectoryPath;
+
+   /// The file name for the wind velocity file generated in large scale mode.
+   App::PropertyString fileName;
     //@}
 
    /** @name methods override feature */

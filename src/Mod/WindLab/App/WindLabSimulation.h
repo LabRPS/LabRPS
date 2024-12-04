@@ -31,6 +31,7 @@
 #include <Base/SmartPtrPy.h>
 #include <Base/Vector3D.h>
 #include <Mod/WindLabAPI/App/WindLabSimulationData.h>
+#include <App/PropertyFile.h>
 
 namespace WindLabAPI
 {
@@ -100,7 +101,6 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
-    App::PropertyString WorkingDirectoryPath;
 	App::PropertyEnumeration SpatialDistribution;
 	App::PropertyEnumeration ShearVelocity;
 	App::PropertyEnumeration MeanFunction;
@@ -137,6 +137,8 @@ public:
     App::PropertyInteger IndexOfVariableX;
     App::PropertyFloat IncrementOfVariableX;
     App::PropertyFloat MinVariableX;
+    App::PropertyPath WorkingDirectoryPath;
+    App::PropertyString FileName;
 
     App::PropertyUUID    Uid;
 

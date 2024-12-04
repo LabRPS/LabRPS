@@ -100,12 +100,13 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
-    App::PropertyString WorkingDirectoryPath;
 	App::PropertyEnumeration WindDirection;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;
     App::PropertyFloat IncrementOfVariableX;
     App::PropertyFloat MinVariableX;
+    App::PropertyPath WorkingDirectoryPath;
+    App::PropertyString FileName;
 
     App::PropertyEnumeration SimulationMethod;
 

@@ -263,15 +263,21 @@ bool CRPSYangEtAl1997::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     mat dLocCoord(n, 4);
     mat frequencies(N,n);
 
+    // Get the current date and time
+    std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
+
+    // Create the new file name by appending the date and time
+    std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/" + Data.fileName.getValue() + "_" + dateTimeStr + ".txt";
+    
     // Define an output stream
     std::ofstream fout;
-    
+
     // open the file output mode to erase its content first
     fout.width(10);
     fout.setf(std::ios::left);
     fout.setf(std::ios::fixed);
     fout.fill('0');
-    fout.open(Data.workingDirPath.getValue() + strFileName.toStdString(), std::ios::out);
+    fout.open(newFileName, std::ios::out);
     
     double value;
 

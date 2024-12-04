@@ -24,6 +24,7 @@
 
 #include "SeismicLabSimulationData.h"
 #include <App/SeismicLabSimulationDataPy.h>
+#include <App/Application.h>
 
 
 using namespace SeismicLabAPI;
@@ -86,7 +87,6 @@ SeismicLabSimulationData::SeismicLabSimulationData()
 	ADD_PROPERTY_TYPE(modulationFunction, (""), 0, Prop_None, "current modulation function name");
 	ADD_PROPERTY_TYPE(correlationFunction, (""), 0, Prop_None, "current correlation function name");
 	ADD_PROPERTY_TYPE(varianceFunction, (""), 0, Prop_None, "current variance function name");
-	ADD_PROPERTY_TYPE(workingDirPath, (""), 0, Prop_None, "current working direction path");
 	ADD_PROPERTY_TYPE(tableTool, (""), 0, Prop_None, "table tool name");
 	ADD_PROPERTY_TYPE(matrixTool, (""), 0, Prop_None, "matrix name");
 	ADD_PROPERTY_TYPE(userDefinedRPSObject, (""), 0, Prop_None, "user defined rps object name");
@@ -106,6 +106,9 @@ SeismicLabSimulationData::SeismicLabSimulationData()
 	static const char* directions[] = {"East-West", "North-South", "Vertical", nullptr};
     ADD_PROPERTY_TYPE(direction, ((long int)0), 0, Prop_None, "The wind direction");
     direction.setEnums(directions);
+
+	ADD_PROPERTY_TYPE(workingDirectoryPath, (App::Application::getHomePath()), 0, Prop_None, "The working directory path.");
+    ADD_PROPERTY_TYPE(fileName, (""), 0, Prop_None, "The wind velocity file name.");
 }
 
 SeismicLabSimulationData::~SeismicLabSimulationData()

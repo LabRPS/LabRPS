@@ -123,8 +123,9 @@ class RPS_CORE_API UserLabSimulationData : public UserLabAPI::UserLabFeature
 	// Selected simulation method
 	App::PropertyString simulationMethod;
 
-	// The working directory path
-	App::PropertyString workingDirPath;
+   App::PropertyPath workingDirectoryPath;
+   
+   App::PropertyString fileName;
 	
    /** @name methods override feature */
 //@{

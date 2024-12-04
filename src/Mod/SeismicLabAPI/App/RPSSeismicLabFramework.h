@@ -144,6 +144,11 @@ public:
     static bool ComputeWavePassageEffectValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
 
     static int getLocationIndex(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d locationTobeFound);
+
+    /** Get the current date time
+    * @return         return current date and time.
+    */
+    static std::string getCurrentDateTime();
 };
 
 } //namespace SeismicLabAPI
