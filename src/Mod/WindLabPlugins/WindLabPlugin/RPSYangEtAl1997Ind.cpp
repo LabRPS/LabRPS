@@ -62,19 +62,6 @@ bool CRPSYangEtAl1997Ind::OnInitialSetting(const WindLabAPI::WindLabSimulationDa
     // The simulation function 
 bool CRPSYangEtAl1997Ind::Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray)
 {
-    auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
-    if (!PbuInfo)
-    {
-       Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n") ;
-       return false;
-    }
-
-    if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0 || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0)
-    {
-        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency discretization implemented by the WindLab plugin.\n");
-        return false;
-    }
-
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;
@@ -163,19 +150,6 @@ return true;
 // The simulation function in large scale mode
 bool CRPSYangEtAl1997Ind::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
-    auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
-    if (!PbuInfo)
-    {
-       Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n") ;
-       return false;
-    }
-
-    if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0 || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0)
-    {
-        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency discretization implemented by the WindLab plugin.\n");
-        return false;
-    }
-
     // Get the current date and time
     std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
 

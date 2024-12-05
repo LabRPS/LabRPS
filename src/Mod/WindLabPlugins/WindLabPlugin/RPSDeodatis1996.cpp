@@ -220,7 +220,23 @@ bool CRPSDeodatis1996::stationaryWind(const WindLabAPI::WindLabSimulationData& D
 // The simulation function in large scale mode
 bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
-    auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
+    // Get the current date and time
+    std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
+
+    // Create the new file name by appending the date and time
+    std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/" + Data.fileName.getValue() + "_" + dateTimeStr + ".txt";
+    
+    // Define an output stream
+    std::ofstream fout;
+
+    // open the file output mode to erase its content first
+    fout.width(10);
+    fout.setf(std::ios::left);
+    fout.setf(std::ios::fixed);
+    fout.fill('0');
+    fout.open(newFileName, std::ios::out);
+
+   auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
     if (!PbuInfo)
     {
@@ -241,6 +257,7 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int M = 2*N;
     int T = Data.numberOfTimeIncrements.getValue();
+    double value = 0.0;
 
     cx_mat decomposedPSD2D(n, n);
     cx_cube decomposedPSD3D(n, n, N);
@@ -258,24 +275,6 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     // local array for the location coordinates
     mat dLocCoord(n, 4);
     mat frequencies(N,n);
-
-    // Get the current date and time
-    std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
-
-    // Create the new file name by appending the date and time
-    std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/" + Data.fileName.getValue() + "_" + dateTimeStr + ".txt";
-    
-    // Define an output stream
-    std::ofstream fout;
-
-    // open the file output mode to erase its content first
-    fout.width(10);
-    fout.setf(std::ios::left);
-    fout.setf(std::ios::fixed);
-    fout.fill('0');
-    fout.open(newFileName, std::ios::out);
-    
-    double value;
 
     //compute the simulation point coordinates
     bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
@@ -312,18 +311,23 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     Eigen::FFT<double> fft;
 
     // this method is for stationry wind. Spectrum is not function of time
-    double time = 0.0;
+    double time = 0;
 
-    for (int m = 1;
-         m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
-       for (int l = 1;
-            l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-            l++) {
-           returnResult = WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(
-               Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
-           for (int j = 1;
-                j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-                j++) {
+    for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) 
+    {
+        fout << (p - 1) * dt + timeMin << "\t";
+    }
+
+    fout << std::endl;
+
+    for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue(); m++) {
+       for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) { 
+           returnResult = WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
+           if (!returnResult) {
+               Base::Console().Warning("The computation of the decomposed psd matrix has failed.\n");
+               return false;
+           }
+           for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++) {
                decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
            }
        }
@@ -348,22 +352,21 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
                G(m - 1, j - 1, l - 1) = yyy(l - 1);
            }
        }
-    }
 
-    int q = 0;
+       double time = 0;
+       int q = 0;
+       // Generate the wind velocity
        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-       time = (p - 1) * dt + timeMin;
-       q = fmod(p - 1, M);
-       fout << time << "\t";
-          for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
+           q = fmod(p - 1, M);
+           time = (p - 1) * dt + timeMin;
            value = 0.0;
            for (int k = 1; k <= m && false == Data.isInterruptionRequested.getValue(); k++) {
                value = value + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n)));
            }
            fout << value << "\t";
        }
-       fout << std::endl;// New line
+       fout << std::endl;
     }
-    fout.close();
+    fout.close(); 
     return returnResult;
 }
