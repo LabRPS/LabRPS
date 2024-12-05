@@ -775,6 +775,9 @@ MenuItem* StdWorkbench::setupMenuBar() const
     *Matrix << "Std_DuplicateWindow"
             << "Std_Matrix_Convert_to_table"
             << "Std_Matrix_Determinant"
+            << "Std_Matrix_Transpose"
+            << "Std_Matrix_MirrorHorizontally"
+            << "Std_Matrix_MirrorVertically"
             << "Std_Matrix_Invert";
 
     // Graph

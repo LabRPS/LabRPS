@@ -375,6 +375,9 @@ public Q_SLOTS:
     Matrix* convertTableToMatrix();
     void initMatrix(Matrix* matrix);
     void invertMatrix();
+    void transposeMatrix();
+    void mirrorHorizontally();
+    void mirrorVertically();
     void matrixDeterminant();
     Matrix* newMatrixShowArrayPy(int rws, int cls, const std::vector<std::vector<double>> array,QString caption);
 

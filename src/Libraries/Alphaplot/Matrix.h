@@ -149,6 +149,10 @@ class AlphaplotExport Matrix: public MatrixView, public scripted
   void setDimensions(int rows, int cols);
   //! Transpose the matrix
   void transpose();
+  //! Mirror the matrix horizontal
+  void mirrorHorizontally();
+  //! Mirror the matrix vertically
+  void mirrorVertically();
   //! Invert the matrix
   void invert();
   //! Calculate the determinant of the matrix

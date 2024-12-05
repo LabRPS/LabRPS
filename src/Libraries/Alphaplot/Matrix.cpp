@@ -287,6 +287,8 @@ void Matrix::invert() {
 }
 
 void Matrix::transpose() { d_future_matrix->transpose(); }
+void Matrix::mirrorHorizontally() { d_future_matrix->mirrorHorizontally(); }
+void Matrix::mirrorVertically() { d_future_matrix->mirrorVertically(); }
 
 void Matrix::saveCellsToMemory() {
   int rows = numRows();

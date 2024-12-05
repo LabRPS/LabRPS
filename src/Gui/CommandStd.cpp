@@ -3676,6 +3676,85 @@ void StdPlotMatrixDeterminant::activated(int iMsg)
 }
 
 bool StdPlotMatrixDeterminant::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_Matrix_Transpose
+//===========================================================================
+
+DEF_STD_CMD_A(StdMatrixTranspose)
+
+StdMatrixTranspose::StdMatrixTranspose() : Command("Std_Matrix_Transpose")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Transpose");
+    sToolTipText = QT_TR_NOOP("Transpose the active matrix");
+    sWhatsThis = "Std_Matrix_Transpose";
+    sStatusTip = QT_TR_NOOP("Transpose the active matrix");
+    // sPixmap = "matrix-transpose";
+    eType = 0;
+}
+
+void StdMatrixTranspose::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->transposeMatrix();
+}
+
+bool StdMatrixTranspose::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_Matrix_MirrorHorizontally
+//===========================================================================
+
+DEF_STD_CMD_A(StdMatrixMirrorHorizontally)
+
+StdMatrixMirrorHorizontally::StdMatrixMirrorHorizontally() : Command("Std_Matrix_MirrorHorizontally")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Mirror Horizontally");
+    sToolTipText = QT_TR_NOOP("Mirror horizontally the columns of the active matrix");
+    sWhatsThis = "Std_Matrix_MirrorHorizontally";
+    sStatusTip = QT_TR_NOOP("Mirror horizontally the columns of the active matrix");
+    // sPixmap = "matrix-mirror-horizontally";
+    eType = 0;
+}
+
+void StdMatrixMirrorHorizontally::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->mirrorHorizontally();
+}
+
+bool StdMatrixMirrorHorizontally::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_Matrix_MirrorVertically
+//===========================================================================
+
+DEF_STD_CMD_A(StdMatrixMirrorVertically)
+
+StdMatrixMirrorVertically::StdMatrixMirrorVertically()
+    : Command("Std_Matrix_MirrorVertically")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Mirror Vertically");
+    sToolTipText = QT_TR_NOOP("Mirror vertically the columns of the active matrix");
+    sWhatsThis = "Std_Matrix_MirrorVertically";
+    sStatusTip = QT_TR_NOOP("Mirror vertically the columns of the active matrix");
+    // sPixmap = "matrix-mirror-vertically";
+    eType = 0;
+}
+
+void StdMatrixMirrorVertically::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->mirrorVertically();
+}
+
+bool StdMatrixMirrorVertically::isActive() { return true; }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
 // Std_MatrixConvertToTable
@@ -4764,6 +4843,9 @@ void CreateStdCommands()
     rcCmdMgr.addCommand(new StdPlotPrintWindow());
     rcCmdMgr.addCommand(new StdPlotAdd3DData());
     rcCmdMgr.addCommand(new StdPlotMatrixDeterminant());
+    rcCmdMgr.addCommand(new StdMatrixTranspose());
+    rcCmdMgr.addCommand(new StdMatrixMirrorHorizontally());
+    rcCmdMgr.addCommand(new StdMatrixMirrorVertically());
     rcCmdMgr.addCommand(new StdPlotConvertMatrix());
     rcCmdMgr.addCommand(new StdPlotInvertMatrix());
     rcCmdMgr.addCommand(new StdPlotClearTable());
@@ -4804,7 +4886,8 @@ void CreateStdCommands()
     rcCmdMgr.addCommand(new StdSaveAlphaplotData());
     rcCmdMgr.addCommand(new StdLoadAlphaplotData());
 
-    
+   
+
     rcCmdMgr.addCommand(new StdCmdPlugins());
 }
 
