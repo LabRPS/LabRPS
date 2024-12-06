@@ -1507,6 +1507,12 @@ void SeismicLabSimulation::onChanged(const App::Property* prop)
     LargeScaleSimulationMode.setValue(false);
         }
     }
+    else if (prop == &SampleIndex) {
+        if (SampleIndex.getValue() < 0)
+            SampleIndex.setValue(0);
+        if (SampleIndex.getValue() > NumberOfSample.getValue() - 1)
+            SampleIndex.setValue(NumberOfSample.getValue() - 1);
+    }
     else if ((prop == &NumberOfProcess)
      || (prop == &NumberOfFrequency)
      || (prop == &NumberOfTimeIncrements) 
