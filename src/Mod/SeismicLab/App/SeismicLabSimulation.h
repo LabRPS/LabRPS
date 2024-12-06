@@ -71,6 +71,7 @@ public:
 	App::PropertyInteger NumberOfProcess;
 	App::PropertyInteger NumberOfFrequency;
 	App::PropertyInteger NumberOfSample;
+    App::PropertyInteger SampleIndex;
 	App::PropertyInteger NumberOfTimeIncrements;
 	App::PropertyInteger LocationIndexJ;
 	App::PropertyInteger LocationIndexK;
@@ -100,7 +101,6 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
-    App::PropertyString WorkingDirectoryPath;
     App::PropertyAcceleration PeakGroundAcceleration;
     App::PropertySpeed PeakGroundVelocity;
     App::PropertyLength PeackGroundDisplacement;
@@ -137,6 +137,8 @@ public:
     App::PropertyFloat IncrementOfVariableX;
     App::PropertyFloat MinVariableX;
 	App::PropertyEnumeration MotionType;
+    App::PropertyPath WorkingDirectoryPath;
+    App::PropertyString FileName;
 
     App::PropertyUUID    Uid;
 
@@ -249,6 +251,7 @@ public:
 
 	// randomness
     bool generateRandomMatrixFP(mat &dRandomValueArray, std::string& featureName);
+    bool generateRandomCubeFPS(cube &dRandomValueCube, std::string& featureName);
 
 	// spectrum
     bool computeCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
@@ -313,7 +316,7 @@ public:
     bool computeWavePassageEffectMatrixPP(const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix, std::string& featureName);
     bool computeWavePassageEffectValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
 
-    bool simulate(mat &dVelocityArray, std::string& featureName);
+    bool simulate(cube &dPhenomenon, std::string& featureName);
     bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 

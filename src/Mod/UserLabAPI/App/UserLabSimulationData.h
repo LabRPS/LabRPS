@@ -56,6 +56,7 @@ class RPS_CORE_API UserLabSimulationData : public UserLabAPI::UserLabFeature
 
 	// The Number of sample
 	App::PropertyInteger numberOfSample;
+    App::PropertyInteger sampleIndex;
 
 	// Nunber of time instant
 	App::PropertyInteger numberOfTimeIncrements;
@@ -123,8 +124,9 @@ class RPS_CORE_API UserLabSimulationData : public UserLabAPI::UserLabFeature
 	// Selected simulation method
 	App::PropertyString simulationMethod;
 
-	// The working directory path
-	App::PropertyString workingDirPath;
+   App::PropertyPath workingDirectoryPath;
+
+   App::PropertyString fileName;
 	
    /** @name methods override feature */
 //@{

@@ -28,7 +28,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -140,18 +139,9 @@ bool CRPSKaimalSpectr::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimul
 
     WindLabTools::KaimalSpectrum kaimalPSD;
   
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
-	{
-        PSDj = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-        PSDk = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-        dValue = std::sqrt(PSDj * PSDk) * COHjk;
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        return false;
-	}
+    PSDj = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    PSDk = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    dValue = std::sqrt(PSDj * PSDk) * COHjk;
 
 	return true;
 }
@@ -170,17 +160,7 @@ bool CRPSKaimalSpectr::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimula
 
     WindLabTools::KaimalSpectrum kaimalPSD;
   
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
-	{
-        dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        return false;
-	}
+    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
 	return true;
 }    

@@ -22,7 +22,8 @@
 
 #include "PreCompiled.h"
 #include "RPSWindLabFramework.h"
-#include <iostream> 
+#include <iostream>
+#include <fstream>
 #include <math.h>
 #include <fstream>				
 #include <Mod/WindLabAPI/App/RPSWindLabAPI.h>
@@ -322,6 +323,29 @@ bool CRPSWindLabFramework::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimul
 
     return returnValue;
 }
+
+bool CRPSWindLabFramework::GenerateRandomCubeFPS(const WindLabSimulationData& Data, cube& dRandomValueArray)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    WindLabAPI::IrpsWLRandomness* SelectedRandomnessObject = static_cast<WindLabAPI::IrpsWLRandomness*>(doc->getObject(Data.randomnessProvider.getValue()));
+
+	if (NULL == SelectedRandomnessObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedRandomnessObject->GenerateRandomCubeFPS(Data, dRandomValueArray);
+
+    return returnValue;
+}
+
+
 
 bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
@@ -1994,4 +2018,21 @@ int CRPSWindLabFramework::getLocationIndex(const WindLabAPI::WindLabSimulationDa
     }
 
     return -1;
+}
+
+std::string CRPSWindLabFramework::getCurrentDateTime()
+{
+    // Get the current time
+    auto now = std::chrono::system_clock::now();
+    std::time_t now_time = std::chrono::system_clock::to_time_t(now);
+
+    // Convert to tm structure
+    std::tm local_time;
+    localtime_s(&local_time, &now_time);// Use localtime_s for safety (Windows)
+
+    // Format the date and time into a string using strftime
+    char buffer[100];
+    std::strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", &local_time);
+
+    return std::string(buffer);
 }

@@ -354,6 +354,10 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomMatrixFP()));
     }
+    else if(function == WindLab::WindLabUtils::GenerateRandomCubeFPS) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomCubeFPS()));
+    }
     else if(function == WindLab::WindLabUtils::ComputeRoughnessValue)
         {
             simulationWorker->setComputingFunction(function);

@@ -8,7 +8,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/SeismicLabAPI/App/IrpsSLModulation.h>
 
 using namespace SeismicLab;
 using namespace SeismicLabAPI;
@@ -89,65 +88,8 @@ bool CRPSAbrahamsonCoherence::ComputeCrossCoherenceMatrixPP(const SeismicLabAPI:
 
 bool CRPSAbrahamsonCoherence::ComputeCrossCoherenceValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
-    bool returnResult = true;
-
     SeismicLabTools::AbrahamsonCoherence abrahamsonCoherence;
-
-	if (Data.stationarity.getValue())
-	{
-		dValue = abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency);
-    }
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
-	{
-		double dModValueJ = 0.0;
-        double dModValueK = 0.0;
-
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        SeismicLabAPI::IrpsSLModulation* activeFeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = 0.5 * (dModValueJ + dModValueJ) * abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency);
-
-		}
-		else
-		{
-			dValue = abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency);
-        }
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
-        return false;
-	}
-
+	dValue = abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency);
 	return true;
 }
 

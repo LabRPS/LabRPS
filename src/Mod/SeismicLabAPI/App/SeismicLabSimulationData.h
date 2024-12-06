@@ -56,6 +56,7 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
 
 	// The Number of sample
 	App::PropertyInteger numberOfSample;
+    App::PropertyInteger sampleIndex;
 
 	// motion Direction
     App::PropertyEnumeration direction;
@@ -163,9 +164,6 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
 	// Selected variance model
 	App::PropertyString varianceFunction;
 
-	// The working directory path
-	App::PropertyString workingDirPath;
-
 	// table tool name
 	App::PropertyString tableTool;
 
@@ -190,7 +188,8 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
    App::PropertyString soilType;
    App::PropertyString motionType;
 
-
+   App::PropertyPath workingDirectoryPath;
+   App::PropertyString fileName;
 
    /** @name methods override feature */
 //@{

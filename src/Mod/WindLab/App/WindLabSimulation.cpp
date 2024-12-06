@@ -160,6 +160,8 @@ WindLabSimulation::WindLabSimulation()
 
     ADD_PROPERTY_TYPE(Phenomenon, ("Wind Velocity"), 0, Prop_ReadOnly, "The random phenonenon name");
     ADD_PROPERTY_TYPE(WorkingDirectoryPath, (Application::getHomePath()), 0, Prop_None, "The working directory path.");
+    ADD_PROPERTY_TYPE(FileName, ("Velocities"), 0, Prop_None, "The wind velocity file name.");
+    ADD_PROPERTY_TYPE(SampleIndex, (0), datagroup, Prop_None,"The index of the a given sample");
 
 
     SpatialDistribution.setEnums(someEnums);
@@ -220,7 +222,7 @@ void WindLabSimulation::updateSimulationData()
     _simuData->numberOfTimeLags.setValue(this->NumberOfTimeLags.getValue());
     _simuData->numberOfWaveLengthIncrements.setValue(this->NumberOfWaveLengthIncrements.getValue());
     _simuData->numberOfDirectionIncrements.setValue(this->NumberOfDirectionIncrements.getValue());
-    _simuData->workingDirPath.setValue(this->WorkingDirectoryPath.getValue());
+    _simuData->workingDirectoryPath.setValue(this->WorkingDirectoryPath.getValue());
     _simuData->waveLengthIndex.setValue(this->WaveLengthIndex.getValue());
     _simuData->stationarity.setValue(this->Stationarity.getValue());
     _simuData->gaussianity.setValue(this->Gaussianity.getValue());
@@ -276,6 +278,9 @@ void WindLabSimulation::updateSimulationData()
     _simuData->indexOfVariableX.setValue(this->IndexOfVariableX.getValue());
     _simuData->incrementOfVariableX.setValue(this->IncrementOfVariableX.getValue());
     _simuData->minVariableX.setValue(this->MinVariableX.getValue());
+    _simuData->fileName.setValue(this->FileName.getValue());
+    _simuData->sampleIndex.setValue(this->SampleIndex.getValue());
+
 }
 
 bool WindLabSimulation::run() { return false; }
@@ -1808,6 +1813,12 @@ void WindLabSimulation::onChanged(const App::Property* prop)
     LargeScaleSimulationMode.setValue(false);
         }
     }
+    else if (prop == &SampleIndex) {
+        if (SampleIndex.getValue() < 0)
+            SampleIndex.setValue(0);
+        if (SampleIndex.getValue() > NumberOfSample.getValue() - 1)
+            SampleIndex.setValue(NumberOfSample.getValue() - 1);
+    }
     else if ((prop == &NumberOfProcess)
      || (prop == &NumberOfFrequency)
      || (prop == &NumberOfTimeIncrements) 
@@ -2500,6 +2511,30 @@ bool WindLabSimulation::generateRandomMatrixFP(mat& dRandomValueArray, std::stri
     if (!returnResult)
     {
      Base::Console().Error("The computation of random phase vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool WindLabSimulation::generateRandomCubeFPS(cube& dRandomValueCube, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    WindLabAPI::IrpsWLRandomness* activefeature = static_cast<WindLabAPI::IrpsWLRandomness*>(doc->getObject(_simuData->randomnessProvider.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active randomness provider feature found.\n");
+        return false;
+    }
+    dRandomValueCube.resize(this->getSimulationData()->numberOfFrequency.getValue(),
+                            this->getSimulationData()->numberOfSpatialPosition.getValue(),
+                            this->getSimulationData()->numberOfSample.getValue());
+
+    bool returnResult = activefeature->GenerateRandomCubeFPS(*this->getSimulationData(), dRandomValueCube);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of random phase cube has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();
@@ -4033,7 +4068,7 @@ bool WindLabSimulation::computeWavePassageEffectValue(const Base::Vector3d &loca
 }
 
 
-bool WindLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
+bool WindLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -4043,10 +4078,10 @@ bool WindLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
         Base::Console().Error("No valid active simulation method feature found.\n");
         return false;
     }
-    dVelocityArray.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1);
-    dVelocityArray.setZero();
+    dPhenomenon.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1, this->getSimulationData()->numberOfSample.getValue());
+    dPhenomenon.setZero();
 
-    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dVelocityArray);
+    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dPhenomenon);
 
     if (!returnResult) {
      Base::Console().Error("The computation of the wind velocity matrix has failed.\n");

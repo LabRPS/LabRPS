@@ -270,6 +270,12 @@
 		  </Documentation>
 	  </Methode>
 
+	<Methode Name="generateRandomCubeFPS">
+		  <Documentation>
+			  <UserDocu>run the active randomness provider feature for all frequency, all locations and samples and return the result as cube</UserDocu>
+		  </Documentation>
+	</Methode>
+
     <Methode Name="computeXCrossSpectrumVectorF">
 		  <Documentation>
 			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>

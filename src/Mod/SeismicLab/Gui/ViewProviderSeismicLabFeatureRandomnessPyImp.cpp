@@ -36,7 +36,7 @@ std::string ViewProviderSeismicLabFeatureRandomnessPy::representation(void) cons
     return std::string("<ViewProviderSeismicLabFeatureRandomness object>");
 }
 
-PyObject* ViewProviderSeismicLabFeatureRandomnessPy::GenerateRandomMatrixFP(PyObject* args)
+PyObject* ViewProviderSeismicLabFeatureRandomnessPy::generateRandomMatrixFP(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
@@ -51,7 +51,20 @@ PyObject* ViewProviderSeismicLabFeatureRandomnessPy::GenerateRandomMatrixFP(PyOb
     Py_RETURN_NONE;
 }
 
+PyObject* ViewProviderSeismicLabFeatureRandomnessPy::generateRandomCubeFPS(PyObject* args)
+{
+    if (!PyArg_ParseTuple(args, ""))
+        return nullptr;
 
+    ViewProviderSeismicLabFeatureRandomness* vp = this->getViewProviderSeismicLabFeatureRandomnessPtr();
+    if (vp)
+    {
+        bool ok = vp->generateRandomCubeFPS();
+        return Py::new_reference_to(Py::Boolean(ok));
+    }
+
+    Py_RETURN_NONE;
+}
 PyObject *ViewProviderSeismicLabFeatureRandomnessPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;

@@ -58,6 +58,7 @@ Widgets/DlgKrenkCoherence.ui
 Widgets/DlgTurbulenceIntensityASCE798.ui
 Widgets/DlgGridPoints.ui
 Widgets/DlgImportSimulationPointsFromFile.ui
+Widgets/DlgYangEtAl1997Ind.ui
 
 
 )
@@ -145,6 +146,8 @@ Widgets/DlgGridPoints.h
 Widgets/DlgGridPoints.cpp
 Widgets/DlgImportSimulationPointsFromFile.h
 Widgets/DlgImportSimulationPointsFromFile.cpp
+Widgets/DlgYangEtAl1997Ind.h
+Widgets/DlgYangEtAl1997Ind.cpp
 
 
 RPSDoubleIndexFrequency.cpp
@@ -197,6 +200,8 @@ RPSDeodatis1996.h
 RPSDeodatis1996.cpp
 RPSYangEtAl1997.cpp
 RPSYangEtAl1997.h
+RPSYangEtAl1997Ind.cpp
+RPSYangEtAl1997Ind.h
 WLUniformDistributionLocations.h
 WLUniformDistributionLocations.cpp
 RPSWavePassageEffect.h

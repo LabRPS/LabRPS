@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>         *
+ *   Copyright (c) 2024 Koffi Daniel <kfdani@labrps.com>                   *
  *                                                                         *
  *   This file is part of the LabRPS development system.                   *
  *                                                                         *
@@ -20,29 +20,44 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef IRPSSLSIMUMETHOD_H
-#define IRPSSLSIMUMETHOD_H
+#ifndef WINDLAB_PLUGIN_SIMUMETHOD_YANG_1997_IND_H
+#define WINDLAB_PLUGIN_SIMUMETHOD_YANG_1997_IND_H
 
-#include "SeismicLabSimulationData.h"
-#include <Mod/SeismicLabAPI/App/SeismicLabFeatureSimulationMethod.h>
+#include <Mod/WindLabAPI/App/IrpsWLSimuMethod.h>
+#include <App/PropertyUnits.h>
 
-namespace SeismicLabAPI {
+namespace WindLabAPI { class WindLabSimulationData; }
 
-class IrpsSLSimulationMethod : public SeismicLabAPI::SeismicLabFeatureSimulationMethod
+namespace WindLab {
+
+class CRPSYangEtAl1997Ind : public WindLabAPI::IrpsWLSimuMethod
 {
+    PROPERTY_HEADER_WITH_OVERRIDE(WindLab::CRPSYangEtAl1997Ind);
+
 public:
-    virtual ~IrpsSLSimulationMethod() {};
-	
-    virtual bool Simulate(const SeismicLabSimulationData &Data, cube &dPhenomenon) = 0;
+	CRPSYangEtAl1997Ind();
 
-    virtual bool SimulateInLargeScaleMode(const SeismicLabSimulationData &Data, QString &strFileName) = 0;
+	~CRPSYangEtAl1997Ind() {};
 
-	virtual bool OnInitialSetting(const SeismicLabSimulationData &Data) = 0;
+	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
+    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon);
+
+    bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
+
+public:
+
+	App::PropertyInteger NumberOfLocation;
+	App::PropertyInteger NumberOfFrequencies;
+	App::PropertyLength LocationHeight;
+    App::PropertyLength LocationSpacing;
+	App::PropertySpeed MeanSpeed;
+    App::PropertyFloat CoherenceDecayCoefficient;
+	App::PropertyFrequency UpperCutOffFrequency;
+	App::PropertyInteger NumberOfTimeIncrements;
+    App::PropertyLength RoughnessLength;
 };
 
+} // namespace WindLab
 
-} //namespace SeismicLabAPI
-
-
-#endif  // IRPSSLSIMUMETHOD_H
+#endif // #ifndef WINDLAB_PLUGIN_SIMUMETHOD_YANG_1997_IND_H

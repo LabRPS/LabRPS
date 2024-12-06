@@ -131,30 +131,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
 		return false;
 	}
 
-	if (Data.stationarity.getValue())
-	{
-		dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
-	}
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue())
-	{
-		double dModValue = 0.0;
-
-		bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeModulationValue(Data, location, dTime, dModValue);
-
-        if(!returnResult)
-        {
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-            return false;
-        }
-        
-        dValue = dModValue * powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
-
-	}
-	else
-	{
-        Base::Console().Error("The computation of the mean wind speed value has failed. The active feature is not non-stationary.\n");
-        return false;
-	}
+	dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
 	return true;
 }

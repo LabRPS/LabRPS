@@ -115,6 +115,7 @@ QString WindLabUtils::ComputeDecomposedCrossSpectrumMatrixPP = QString::fromLati
 
 QString WindLabUtils::ComputeRandomValue = QString::fromLatin1("ComputeRandomValue");
 QString WindLabUtils::GenerateRandomMatrixFP = QString::fromLatin1("GenerateRandomMatrixFP");
+QString WindLabUtils::GenerateRandomCubeFPS = QString::fromLatin1("GenerateRandomCubeFPS");
 
 QString WindLabUtils::ComputeRoughnessValue = QString::fromLatin1("ComputeRoughnessValue");
 QString WindLabUtils::ComputeRoughnessVectorP = QString::fromLatin1("ComputeRoughnessVectorP");

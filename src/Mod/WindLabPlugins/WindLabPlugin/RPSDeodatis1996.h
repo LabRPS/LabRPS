@@ -39,16 +39,12 @@ public:
 
     ~CRPSDeodatis1996() {};
 
-	//Initial setting
 	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
-	// The simulation function 
-    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray);
+    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon);
 
-	// The simulation function in large scale mode 
     bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
 
-    bool stationaryWind(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray);
 
 };
 

@@ -25,6 +25,13 @@ bool CRPSUniformRandomPhases::OnInitialSetting(const SeaLabAPI::SeaLabSimulation
     return true;
 }
 
+bool CRPSUniformRandomPhases::GenerateRandomCubeFPS(const SeaLabAPI::SeaLabSimulationData& Data, cube& dRandomValueCube)
+{
+    rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+    uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseCube(dRandomValueCube, MinimumValue.getValue(), MaximumValue.getValue());
+    return true;
+}
+
 bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const SeaLabAPI::SeaLabSimulationData& Data, mat &dRandomValueArray)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;

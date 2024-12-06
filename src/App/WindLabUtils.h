@@ -128,6 +128,7 @@ class AppExport WindLabUtils {
 
   static QString ComputeRandomValue;
   static QString GenerateRandomMatrixFP;
+  static QString GenerateRandomCubeFPS;
 
   static QString ComputeRoughnessValue;
   static QString ComputeRoughnessVectorP;

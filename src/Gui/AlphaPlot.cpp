@@ -2760,6 +2760,38 @@ void MainAlphaPlot::invertMatrix()
     matrix->invert();
 }
 
+void MainAlphaPlot::transposeMatrix()
+{
+    if (!getMainWindow()->isActiveWindow())
+        return;
+    Matrix* matrix = qobject_cast<Matrix*>(getactiveMyWidget());
+    if (!matrix)
+        return;
+
+    matrix->transpose();
+}
+
+void MainAlphaPlot::mirrorHorizontally()
+{
+    if (!getMainWindow()->isActiveWindow())
+        return;
+    Matrix* matrix = qobject_cast<Matrix*>(getactiveMyWidget());
+    if (!matrix)
+        return;
+
+    matrix->mirrorHorizontally();
+}
+void MainAlphaPlot::mirrorVertically()
+{
+    if (!getMainWindow()->isActiveWindow())
+        return;
+    Matrix* matrix = qobject_cast<Matrix*>(getactiveMyWidget());
+    if (!matrix)
+        return;
+
+    matrix->mirrorVertically();
+}
+
 Table* MainAlphaPlot::convertMatrixToTable()
 {
     if (!getMainWindow()->isActiveWindow())

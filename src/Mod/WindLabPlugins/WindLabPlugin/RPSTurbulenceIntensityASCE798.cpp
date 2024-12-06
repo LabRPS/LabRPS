@@ -29,7 +29,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 
 using namespace WindLab;
@@ -46,33 +45,11 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLa
 {
     WindLabTools::TurbulenceIntensity turbulenceIntensity;
 
-   bool returnResult = true;
+    bool returnResult = true;
 
-	if (Data.stationarity.getValue())//stationary
-	{
-		dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
-	}//non-stationary with uniform modulation
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue())
-	{
-        double dModValue = 0.0;
+    dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
 
-		returnResult = WindLabAPI::CRPSWindLabFramework::ComputeModulationValue(Data, location, dTime, dModValue);
-
-		if (!returnResult)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		dValue = dModValue * turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
-	}//non-stationary with non-uniform modulation
-	else
-	{
-        Base::Console().Error("The computation of the turbulence intensity value has failed. The active feature does not allow non-uniform modulation.\n");
-        return false;
-	}
-
-	return true;
+    return true;
 }
 
 bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityVectorP(const WindLabAPI::WindLabSimulationData& Data, const double& dTime, vec& dVarVector, vec& dValVector)

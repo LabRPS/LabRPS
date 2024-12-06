@@ -144,6 +144,11 @@ public:
     static bool ComputeWavePassageEffectValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
 
     static int getLocationIndex(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d locationTobeFound);
+
+    /** Get the current date time
+    * @return         return current date and time.
+    */
+    static std::string getCurrentDateTime();
 };
 
 } //namespace SeaLabAPI

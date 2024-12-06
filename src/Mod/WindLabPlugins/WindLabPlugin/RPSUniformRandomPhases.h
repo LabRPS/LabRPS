@@ -42,6 +42,8 @@ public:
 
 	~CRPSUniformRandomPhases() {};
 
+	bool GenerateRandomCubeFPS(const WindLabAPI::WindLabSimulationData &Data, cube &dRandomValueCube);
+
 	bool GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray);
 
 	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);

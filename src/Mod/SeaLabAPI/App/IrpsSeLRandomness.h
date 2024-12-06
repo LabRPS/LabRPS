@@ -37,6 +37,8 @@ public:
 
     virtual bool GenerateRandomMatrixFP(const SeaLabSimulationData &Data, mat &dRandomValueArray) = 0;
 
+    virtual bool GenerateRandomCubeFPS(const SeaLabSimulationData &Data, cube &dRandomValueCube) = 0;
+
 	virtual bool OnInitialSetting(const SeaLabSimulationData &Data) = 0;
 
 };

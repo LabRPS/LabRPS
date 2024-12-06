@@ -138,6 +138,9 @@ void ViewProviderWindLabFeatureRandomness::setupContextMenu(QMenu* menu, QObject
     QAction* cvalue = menu->addAction(QObject::tr("GenerateRandomMatrixFP"));
     func->trigger(cvalue, boost::bind(&ViewProviderWindLabFeatureRandomness::generateRandomMatrixFP, this));
 
+   QAction* csvalue = menu->addAction(QObject::tr("GenerateRandomCubeFPS"));
+    func->trigger(csvalue, boost::bind(&ViewProviderWindLabFeatureRandomness::generateRandomCubeFPS, this)); 
+
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderWindLabFeatureRandomness::OnInitialSetting, this));
 
@@ -150,10 +153,13 @@ void ViewProviderWindLabFeatureRandomness::setupContextMenu(QMenu* menu, QObject
 
 
 bool ViewProviderWindLabFeatureRandomness::generateRandomMatrixFP()
-{
-    
-    return runFeatureMethod(WindLab::WindLabUtils::GenerateRandomMatrixFP);
-    
+{  
+    return runFeatureMethod(WindLab::WindLabUtils::GenerateRandomMatrixFP);   
+}
+
+bool ViewProviderWindLabFeatureRandomness::generateRandomCubeFPS()
+{  
+    return runFeatureMethod(WindLab::WindLabUtils::GenerateRandomCubeFPS);  
 }
 
 bool ViewProviderWindLabFeatureRandomness::OnInitialSetting()

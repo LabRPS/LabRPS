@@ -326,6 +326,10 @@ void SeaLabAllFeaturesComputation::startSimulationWorker(QString function, const
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomMatrixFP()));
     }
+    else if(function == SeaLab::SeaLabUtils::GenerateRandomCubeFPS) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomCubeFPS()));
+    }
     else if(function == SeaLab::SeaLabUtils::ComputeShearVelocityOfFlowValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeShearVelocityOfFlowValue()));

@@ -92,6 +92,7 @@ public Q_SLOTS:
 
     bool workerComputeRandomValue();
     bool workerGenerateRandomMatrixFP();
+    bool workerGenerateRandomCubeFPS();
 
     bool workerComputeShearVelocityOfFlowValue();
     bool workerComputeShearVelocityOfFlowVectorT();
@@ -159,6 +160,9 @@ private:
 
     cx_vec m_ResultVectorVal_cx;
     cx_mat m_ResultMatrix_cx;
+
+    cube m_ResultCube;
+
 
 public:
     double getSimulationTime();

@@ -71,6 +71,7 @@ public:
 	App::PropertyInteger NumberOfProcess;
 	App::PropertyInteger NumberOfFrequency;
 	App::PropertyInteger NumberOfSample;
+    App::PropertyInteger SampleIndex;
 	App::PropertyInteger NumberOfTimeIncrements;
 	App::PropertyInteger LocationIndexJ;
 	App::PropertyInteger LocationIndexK;
@@ -100,12 +101,13 @@ public:
 	App::PropertyAngle MinDirection;
 	App::PropertyAngle MaxDirection;
 	App::PropertyAngle DirectionIncrement;
-    App::PropertyString WorkingDirectoryPath;
 	App::PropertyEnumeration WindDirection;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;
     App::PropertyFloat IncrementOfVariableX;
     App::PropertyFloat MinVariableX;
+    App::PropertyPath WorkingDirectoryPath;
+    App::PropertyString FileName;
 
     App::PropertyEnumeration SimulationMethod;
 
@@ -171,7 +173,7 @@ public:
     App::RPSFeature* getActiveFeature(const QString group);
     std::vector <App::RPSFeature*> getAllFeatures(const QString group);
 
-    bool simulate(mat &dVelocityArray, std::string& featureName);
+    bool simulate(cube &dPhenomenon, std::string& featureName);
     bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 

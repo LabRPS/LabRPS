@@ -326,6 +326,10 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomMatrixFP()));
     }
+    else if(function == SeismicLab::SeismicLabUtils::GenerateRandomCubeFPS) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomCubeFPS()));
+    }
     else if(function == SeismicLab::SeismicLabUtils::ComputeShearVelocityOfFlowValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeShearVelocityOfFlowValue()));

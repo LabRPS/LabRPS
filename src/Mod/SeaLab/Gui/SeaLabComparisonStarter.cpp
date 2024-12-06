@@ -455,7 +455,12 @@ void SeaLabComparisonStarter::startSimulationWorker(QString function, const char
         connect(simulationThread1, SIGNAL(started()), simulationWorker1, SLOT(workerGenerateRandomMatrixFP()));
         connect(simulationThread2, SIGNAL(started()), simulationWorker2, SLOT(workerGenerateRandomMatrixFP()));
     }
-
+    else if(function == SeaLab::SeaLabUtils::GenerateRandomCubeFPS) {
+        simulationWorker1->setComputingFunction(function);
+        simulationWorker2->setComputingFunction(function);
+        connect(simulationThread1, SIGNAL(started()), simulationWorker1, SLOT(workerGenerateRandomCubeFPS()));
+        connect(simulationThread2, SIGNAL(started()), simulationWorker2, SLOT(workerGenerateRandomCubeFPS()));
+    }
     else if(function == SeaLab::SeaLabUtils::ComputeShearVelocityOfFlowValue) {
         simulationWorker1->setComputingFunction(function);
         simulationWorker2->setComputingFunction(function);

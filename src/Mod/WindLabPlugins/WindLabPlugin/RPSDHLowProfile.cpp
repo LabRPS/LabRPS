@@ -121,30 +121,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSimula
 		return false;
 	}
 
-	if (Data.stationarity.getValue())//stationary
-	{
-		dValue = deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
-	
-	}//non stationary with uniforme modulation
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue())
-	{
-		double dModValue = 0.0;
-
-		bool returnResult = WindLabAPI::CRPSWindLabFramework::ComputeModulationValue(Data, location, dTime, dModValue);
-
-        if(!returnResult)
-        {
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-            return false;
-        }
-        
-        dValue = dModValue * deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
-	}//non-stationary with non-uniform modulation. Not possible with this feature.
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
-        return false;
-	}
+	dValue = deavesHarrisMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre), Latitude.getQuantityValue().getValueAs(Base::Quantity::Degree), EarthAngularVelocity.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Betta.getValue());
 
 	return true;
 }

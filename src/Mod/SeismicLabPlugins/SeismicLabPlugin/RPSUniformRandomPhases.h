@@ -20,6 +20,8 @@ public:
 
 	~CRPSUniformRandomPhases() {};
 
+	bool GenerateRandomCubeFPS(const SeismicLabAPI::SeismicLabSimulationData &Data, cube &dRandomValueCube);
+
 	bool GenerateRandomMatrixFP(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dRandomValueArray);
 
 	bool OnInitialSetting(const SeismicLabAPI::SeismicLabSimulationData& Data);

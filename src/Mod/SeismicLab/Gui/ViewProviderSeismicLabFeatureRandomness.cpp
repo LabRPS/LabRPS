@@ -138,6 +138,9 @@ void ViewProviderSeismicLabFeatureRandomness::setupContextMenu(QMenu* menu, QObj
     QAction* cvalue = menu->addAction(QObject::tr("GenerateRandomMatrixFP"));
     func->trigger(cvalue, boost::bind(&ViewProviderSeismicLabFeatureRandomness::generateRandomMatrixFP, this));
 
+    QAction* csvalue = menu->addAction(QObject::tr("GenerateRandomCubeFPS"));
+    func->trigger(csvalue, boost::bind(&ViewProviderSeismicLabFeatureRandomness::generateRandomCubeFPS, this)); 
+
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderSeismicLabFeatureRandomness::OnInitialSetting, this));
 
@@ -153,6 +156,13 @@ bool ViewProviderSeismicLabFeatureRandomness::generateRandomMatrixFP()
 {
     
     return runFeatureMethod(SeismicLab::SeismicLabUtils::GenerateRandomMatrixFP);
+    
+}
+
+bool ViewProviderSeismicLabFeatureRandomness::generateRandomCubeFPS()
+{
+    
+    return runFeatureMethod(SeismicLab::SeismicLabUtils::GenerateRandomCubeFPS);
     
 }
 

@@ -131,6 +131,23 @@ PyObject* returnResult6(double resValue, std::string featureName)
     return boost::python::incref(activeValue.ptr());
 }
 
+PyObject* returnResult7(cube& resArray, std::string featureName)
+{
+    Py::List activeArray;
+    for (int i = 0; i < resArray.dimension(0); ++i) {  // Iterate over the first dimension (depth)
+        Py::List array;
+        for (int j = 0; j < resArray.dimension(1); ++j) {  // Iterate over the second dimension (rows)
+            Py::List row;
+            for (int k = 0; k < resArray.dimension(2); ++k) {  // Iterate over the third dimension (columns)
+                row.append(Py::Float((resArray(i, j, k))));
+            }
+            array.append(row);
+        }
+       activeArray.append(array);
+    }
+
+    return boost::python::incref(activeArray.ptr());
+}
 
 std::string UserLabSimulationPy::representation(void) const
 {
@@ -296,7 +313,7 @@ PyObject* UserLabSimulationPy::simulate(PyObject* args)
     if (!PyArg_ParseTuple(args, ""))
     return nullptr;
     
-    mat resArray;
+    cube resArray;
     std::string featureName;
 
     bool result = getUserLabSimulationPtr()->simulate(resArray, featureName);
@@ -306,7 +323,7 @@ PyObject* UserLabSimulationPy::simulate(PyObject* args)
     return Py_None;
     }
 
-     return returnResult4(resArray, featureName);
+     return returnResult7(resArray, featureName);
 }
 PyObject* UserLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
 {

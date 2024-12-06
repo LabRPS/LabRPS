@@ -104,12 +104,15 @@ UserLabSimulation::UserLabSimulation()
 
     ADD_PROPERTY_TYPE(Phenomenon, ("Name"), 0, Prop_None, "The random phenonenon name");
     ADD_PROPERTY_TYPE(WorkingDirectoryPath, (Application::getHomePath()), 0, Prop_None, "The working directory path.");
+    ADD_PROPERTY_TYPE(FileName, ("Velocities"), 0, Prop_None, "The wind velocity file name.");
 
     SimulationMethod.setEnums(someEnums);
 
     static const char* directions[] = {"Along wind", "Across wind", "Vertical wind", nullptr};
     ADD_PROPERTY_TYPE(WindDirection, ((long int)0), datagroup, Prop_None, "The wind direction");
     WindDirection.setEnums(directions);
+
+    ADD_PROPERTY_TYPE(SampleIndex, (0), datagroup, Prop_None,"The index of the a given sample");
 }
 
 UserLabSimulation::~UserLabSimulation() { delete _simuData; }
@@ -134,7 +137,7 @@ void UserLabSimulation::updateSimulationData()
     _simuData->numberOfTimeLags.setValue(this->NumberOfTimeLags.getValue());
     _simuData->numberOfWaveLengthIncrements.setValue(this->NumberOfWaveLengthIncrements.getValue());
     _simuData->numberOfDirectionIncrements.setValue(this->NumberOfDirectionIncrements.getValue());
-    _simuData->workingDirPath.setValue(this->WorkingDirectoryPath.getValue());
+    _simuData->workingDirectoryPath.setValue(this->WorkingDirectoryPath.getValue());
     _simuData->waveLengthIndex.setValue(this->WaveLengthIndex.getValue());
     _simuData->stationarity.setValue(this->Stationarity.getValue());
     _simuData->gaussianity.setValue(this->Gaussianity.getValue());
@@ -160,6 +163,9 @@ void UserLabSimulation::updateSimulationData()
     _simuData->indexOfVariableX.setValue(this->IndexOfVariableX.getValue());
     _simuData->incrementOfVariableX.setValue(this->IncrementOfVariableX.getValue());
     _simuData->minVariableX.setValue(this->MinVariableX.getValue());
+    _simuData->fileName.setValue(this->FileName.getValue());
+    _simuData->sampleIndex.setValue(this->SampleIndex.getValue());
+
 }
 
 bool UserLabSimulation::run() { return false; }
@@ -390,6 +396,12 @@ void UserLabSimulation::onChanged(const App::Property* prop)
     LargeScaleSimulationMode.setValue(false);
         }
     }
+    else if (prop == &SampleIndex) {
+        if (SampleIndex.getValue() < 0)
+            SampleIndex.setValue(0);
+        if (SampleIndex.getValue() > NumberOfSample.getValue() - 1)
+            SampleIndex.setValue(NumberOfSample.getValue() - 1);
+    }
     else if ((prop == &NumberOfProcess)
      || (prop == &NumberOfFrequency)
      || (prop == &NumberOfTimeIncrements) 
@@ -483,7 +495,7 @@ PyObject* UserLabSimulation::getPyObject(void)
     return Py::new_reference_to(PythonObject);
 }
 
-bool UserLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
+bool UserLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -493,10 +505,10 @@ bool UserLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
         Base::Console().Error("No valid active simulation method feature found.\n");
         return false;
     }
-    dVelocityArray.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1);
-    dVelocityArray.setZero();
+    dPhenomenon.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1, this->getSimulationData()->numberOfSample.getValue());
+    dPhenomenon.setZero();
 
-    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dVelocityArray);
+    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dPhenomenon);
 
     if (!returnResult) {
      Base::Console().Error("The computation of the wind velocity matrix has failed.\n");

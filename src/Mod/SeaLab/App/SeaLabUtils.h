@@ -119,6 +119,7 @@ class SeaLabExport SeaLabUtils {
 
   static QString ComputeRandomValue;
   static QString GenerateRandomMatrixFP;
+  static QString GenerateRandomCubeFPS;
 
   static QString ComputeShearVelocityOfFlowValue;
   static QString ComputeShearVelocityOfFlowVectorT;

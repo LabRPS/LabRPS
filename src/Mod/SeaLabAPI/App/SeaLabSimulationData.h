@@ -57,6 +57,7 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 
 	// The Number of sample
 	App::PropertyInteger numberOfSample;
+    App::PropertyInteger sampleIndex;
 
 	// motion Direction
     App::PropertyEnumeration direction;
@@ -162,9 +163,6 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 	// Selected variance model
 	App::PropertyString varianceFunction;
 
-	// The working directory path
-	App::PropertyString workingDirPath;
-
 	// table tool name
 	App::PropertyString tableTool;
 
@@ -186,7 +184,8 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
    App::PropertyString standardDeviation;
    App::PropertyString variance;
    App::PropertyString wavePassageEffect;
-
+   App::PropertyPath workingDirectoryPath;
+   App::PropertyString fileName;
 
    /** @name methods override feature */
 //@{
