@@ -8,7 +8,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/SeismicLabAPI/App/IrpsSLModulation.h>
 
 using namespace SeismicLab;
 using namespace SeismicLabAPI;
@@ -111,105 +110,15 @@ bool CRPSHuZhouSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::SeismicL
     SeismicLabTools::HuZhouSpectrum cloughPenzienSpectrum;
     PSDj = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
     PSDk = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-
-    if (Data.stationarity.getValue()) {
-        dValue = std::sqrt(PSDj * PSDk) * COHjk;
-    }
-    else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue()) {
-        double dModValueJ = 0.0;
-        double dModValueK = 0.0;
-
-        auto doc = App::GetApplication().getActiveDocument();
-        if (!doc) {
-           return false;
-        }
-
-        SeismicLabAPI::IrpsSLModulation* activeFeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-        if (!activeFeature) {
-           Base::Console().Error("The computation of the modulation value has failed.\n");
-           return false;
-        }
-
-        if (this->IsUniformlyModulated.getValue()) {
-           returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
-
-           if (!returnResult) {
-               Base::Console().Error("The computation of the modulation value has failed.\n");
-               return false;
-           }
-
-           returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
-
-           if (!returnResult) {
-               Base::Console().Error("The computation of the modulation value has failed.\n");
-               return false;
-           }
-
-           dValue = std::sqrt(dModValueJ * PSDj * dModValueK * PSDk) * COHjk;
-        }
-        else {
-           dValue = std::sqrt(PSDj * PSDk) * COHjk;
-        }
-    }
-    else {
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
-        return false;
-    }
+    dValue = std::sqrt(PSDj * PSDk) * COHjk;
 
     return true;
 }
 
 bool CRPSHuZhouSpectrum::ComputeAutoSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
-   SeismicLabTools::HuZhouSpectrum cloughPenzienSpectrum;
-
-   bool returnResult = true;
-
-	if (Data.stationarity.getValue())
-	{
-        dValue = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-	}
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
-	{
-		double dModValue = 0.0;
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        SeismicLabAPI::IrpsSLModulation* activeFeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			bool returnResult = activeFeature->ComputeModulationValue(Data, location, dTime, dModValue);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = dModValue * cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-		}
-		else
-		{
-            dValue = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-		}
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
-        return false;
-	}
-
+    SeismicLabTools::HuZhouSpectrum cloughPenzienSpectrum;
+    dValue = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
 	return true;
 }    
 bool CRPSHuZhouSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

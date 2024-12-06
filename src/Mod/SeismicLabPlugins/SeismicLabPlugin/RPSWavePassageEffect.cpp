@@ -8,7 +8,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/SeismicLabAPI/App/IrpsSLModulation.h>
 
 using namespace SeismicLab;
 using namespace SeismicLabAPI;
@@ -109,60 +108,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const SeismicLabAPI::S
       ApparentWaveVelocity.setValue(apparentWaveVelocity);
     }
 
-	if (Data.stationarity.getValue())
-	{
-        dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-    }
-	else if (!Data.stationarity.getValue() && Data.uniformModulation.getValue())
-	{
-		double dModValueJ = 0.0;
-        double dModValueK = 0.0;
-
-		auto doc = App::GetApplication().getActiveDocument();
-		if (!doc)
-		{
-			return false;
-		}
-
-        SeismicLabAPI::IrpsSLModulation* activeFeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-		if (!activeFeature)
-		{
-            Base::Console().Error("The computation of the modulation value has failed.\n");
-			return false;
-		}
-
-		if (this->IsUniformlyModulated.getValue())
-		{
-			returnResult = activeFeature->ComputeModulationValue(Data, locationJ, dTime, dModValueJ);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-             returnResult = activeFeature->ComputeModulationValue(Data, locationK, dTime, dModValueK);
-
-			if (!returnResult)
-			{
-				Base::Console().Error("The computation of the modulation value has failed.\n");
-				return false;
-			}
-
-            dValue = 0.5 * (dModValueJ + dModValueJ) * wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-
-		}
-		else
-		{
-            dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-        }
-	}
-	else
-	{
-        Base::Console().Error("The computation of the modulation value has failed. The active feature is not non-stationary.\n");
-        return false;
-	}
+    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
 	return true;
 }

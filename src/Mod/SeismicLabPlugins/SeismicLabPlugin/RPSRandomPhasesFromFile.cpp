@@ -42,7 +42,7 @@ bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const SeismicLabAPI::Seismi
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dRandomValueArray)
 {
   ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
-    return true;
+  return true;
 
 }
 bool CRPSRandomPhasesFromFile::ComputeRandomValue(const SeismicLabAPI::SeismicLabSimulationData& Data, double &dValue)

@@ -28,7 +28,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -140,19 +139,9 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZCrossSpectrumValue(const WindLabAPI::
 
   	WindLabTools::SimuSpectrum simuPSD;
   
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
-	{
-        PSDj = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-        PSDk = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-        dValue = std::sqrt(PSDj * PSDk) * COHjk;
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        
-        return false;
-	}
+    PSDj = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+    PSDk = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+    dValue = std::sqrt(PSDj * PSDk) * COHjk;
 
 	return true; 
 
@@ -172,24 +161,13 @@ bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumValue(const WindLabAPI::W
 
   	WindLabTools::SimuSpectrum simuPSD;
   
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
-	{
-        dValue = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        
-        return false;
-	}
+    dValue = simuPSD.computeVerticalWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
 
 	return true;
 }    
 bool CRPSSimuVerticalWindSpectrum::ComputeZAutoSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
-     bool returnResult = true;
+    bool returnResult = true;
     
     returnResult = CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, location, dVarVector);
     

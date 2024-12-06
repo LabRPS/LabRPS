@@ -28,7 +28,6 @@
 #include <Gui/Control.h>
 #include <App/Application.h>
 #include <App/Document.h>
-#include <Mod/WindLabAPI/App/IrpsWLModulation.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -89,9 +88,9 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectMatrixPP(const WindLabAPI::W
     Base::Vector3d locationJ(0, 0, 0);
     Base::Vector3d locationK(0, 0, 0);
 
-    for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); loop1++)
+    for (int loop1 = 0; loop1 < Data.numberOfSpatialPosition.getValue(); loop1++)
     {
-        for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); loop2++)
+        for (int loop2 = 0; loop2 < Data.numberOfSpatialPosition.getValue(); loop2++)
         {
            locationJ = Base::Vector3d(dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop1, 3));
            locationK = Base::Vector3d(dLocCoord(loop2, 1), dLocCoord(loop2, 2), dLocCoord(loop2, 3));
@@ -123,17 +122,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::Wind
 
     WindLabTools::WavePassageEffect wavePassageEf;
 
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
-	{
-     //stationarity here is taken into account in the mean wind speed. so we have only one formula here for both stationary and non-stationary
-        dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the wave passage effect value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        return false;
-	}
+    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
 	return true;
 }
