@@ -131,6 +131,24 @@ PyObject* returnResult6(double resValue, std::string featureName)
     return boost::python::incref(activeValue.ptr());
 }
 
+PyObject* returnResult7(cube& resArray, std::string featureName)
+{
+    Py::List activeArray;
+    for (int i = 0; i < resArray.dimension(0); ++i) {  // Iterate over the first dimension (depth)
+        Py::List array;
+        for (int j = 0; j < resArray.dimension(1); ++j) {  // Iterate over the second dimension (rows)
+            Py::List row;
+            for (int k = 0; k < resArray.dimension(2); ++k) {  // Iterate over the third dimension (columns)
+                row.append(Py::Float((resArray(i, j, k))));
+            }
+            array.append(row);
+        }
+       activeArray.append(array);
+    }
+
+    return boost::python::incref(activeArray.ptr());
+}
+
 
 std::string SeismicLabSimulationPy::representation(void) const
 {
@@ -830,7 +848,25 @@ PyObject *SeismicLabSimulationPy::generateRandomMatrixFP(PyObject* args)
     }
 
      return returnResult4(resArray, featureName);
-}	
+}
+
+PyObject *SeismicLabSimulationPy::generateRandomCubeFPS(PyObject* args)
+{
+    if (!PyArg_ParseTuple(args, ""))
+    return nullptr;
+    
+    cube resArray;
+    std::string featureName;
+
+    bool result = getSeismicLabSimulationPtr()->generateRandomCubeFPS(resArray, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult7(resArray, featureName);
+}
 //-----------------------------------------------------------------------------------------------------------//
 
 PyObject *SeismicLabSimulationPy::computeCrossSpectrumVectorF(PyObject* args)
@@ -1894,7 +1930,7 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
     if (!PyArg_ParseTuple(args, ""))
     return nullptr;
     
-    mat resArray;
+    cube resArray;
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->simulate(resArray, featureName);
@@ -1904,7 +1940,7 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
     return Py_None;
     }
 
-     return returnResult4(resArray, featureName);
+     return returnResult7(resArray, featureName);
 }
 PyObject* SeismicLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
 {

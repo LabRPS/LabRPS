@@ -135,8 +135,12 @@ void ViewProviderSeaLabFeatureRandomness::setupContextMenu(QMenu* menu, QObject*
 {
     // toggle command to display components
     Gui::ActionFunction* func = new Gui::ActionFunction(menu);
+
     QAction* cvalue = menu->addAction(QObject::tr("GenerateRandomMatrixFP"));
     func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeatureRandomness::generateRandomMatrixFP, this));
+
+    QAction* csvalue = menu->addAction(QObject::tr("GenerateRandomCubeFPS"));
+    func->trigger(csvalue, boost::bind(&ViewProviderSeaLabFeatureRandomness::generateRandomCubeFPS, this)); 
 
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderSeaLabFeatureRandomness::OnInitialSetting, this));
@@ -153,6 +157,13 @@ bool ViewProviderSeaLabFeatureRandomness::generateRandomMatrixFP()
 {
     
     return runFeatureMethod(SeaLab::SeaLabUtils::GenerateRandomMatrixFP);
+    
+}
+
+bool ViewProviderSeaLabFeatureRandomness::generateRandomCubeFPS()
+{
+    
+    return runFeatureMethod(SeaLab::SeaLabUtils::GenerateRandomCubeFPS);
     
 }
 

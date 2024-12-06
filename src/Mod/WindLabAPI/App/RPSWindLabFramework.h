@@ -362,11 +362,18 @@ public:
     static bool ComputeRandomValue(const WindLabSimulationData &Data, double &dValue);
 
     /** Generate the random value matrix for all frequency increments and locations.
-     * @param Data       the simulation data containing all the simulation parameters input by the user..
-     * @param dMatrix    a matrix to be updated. It should contain the generated random values matrix.
-     * @return           return true if the computation is successful and false in case of failure.
+     * @param Data                 the simulation data containing all the simulation parameters input by the user..
+     * @param dRandomValueArray    a matrix to be updated. It should contain the generated random values matrix.
+     * @return                     return true if the computation is successful and false in case of failure.
      */
     static bool GenerateRandomMatrixFP(const WindLabSimulationData &Data, mat &dRandomValueArray);
+
+     /** Generate the random value matrix for all frequency increments, locations and all sample.
+     * @param Data                the simulation data containing all the simulation parameters input by the user..
+     * @param dRandomValueCube    a cube to be updated. It should contain the generated random values cube.
+     * @return                    return true if the computation is successful and false in case of failure.
+     */
+    static bool GenerateRandomCubeFPS(const WindLabSimulationData &Data, cube &dRandomValueArray);
 
     /** Compute the roughness value for given time and location.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
@@ -424,11 +431,11 @@ public:
 
     /** Generate random wind velocity.
      * @param Data             the simulation data containing all the simulation parameters input by the user.
-     * @param dVelocityArray   a matrix to be updated. This is generated random wind velocity matrix. 
+     * @param dPhenomenon   a matrix to be updated. This is generated random wind velocity matrix. 
      * Its first column contains the time increments.
      * @return                 return true if the computation is successful and false in case of failure.
      */		
-    static bool Simulate(const WindLabSimulationData &Data, mat &dVelocityArray);
+    static bool Simulate(const WindLabSimulationData &Data, cube &dPhenomenon);
 
     /** Generate random wind velocity in large scale simulation mode.
      * @param Data           the simulation data containing all the simulation parameters input by the user.

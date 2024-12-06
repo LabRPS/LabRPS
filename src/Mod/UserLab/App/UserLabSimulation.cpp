@@ -111,6 +111,8 @@ UserLabSimulation::UserLabSimulation()
     static const char* directions[] = {"Along wind", "Across wind", "Vertical wind", nullptr};
     ADD_PROPERTY_TYPE(WindDirection, ((long int)0), datagroup, Prop_None, "The wind direction");
     WindDirection.setEnums(directions);
+
+    ADD_PROPERTY_TYPE(SampleIndex, (0), datagroup, Prop_None,"The index of the a given sample");
 }
 
 UserLabSimulation::~UserLabSimulation() { delete _simuData; }
@@ -162,6 +164,8 @@ void UserLabSimulation::updateSimulationData()
     _simuData->incrementOfVariableX.setValue(this->IncrementOfVariableX.getValue());
     _simuData->minVariableX.setValue(this->MinVariableX.getValue());
     _simuData->fileName.setValue(this->FileName.getValue());
+    _simuData->sampleIndex.setValue(this->SampleIndex.getValue());
+
 }
 
 bool UserLabSimulation::run() { return false; }
@@ -485,7 +489,7 @@ PyObject* UserLabSimulation::getPyObject(void)
     return Py::new_reference_to(PythonObject);
 }
 
-bool UserLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
+bool UserLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -495,10 +499,10 @@ bool UserLabSimulation::simulate(mat &dVelocityArray, std::string& featureName)
         Base::Console().Error("No valid active simulation method feature found.\n");
         return false;
     }
-    dVelocityArray.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1);
-    dVelocityArray.setZero();
+    dPhenomenon.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1, this->getSimulationData()->numberOfSample.getValue());
+    dPhenomenon.setZero();
 
-    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dVelocityArray);
+    bool returnResult = activefeature->Simulate(*this->getSimulationData(), dPhenomenon);
 
     if (!returnResult) {
      Base::Console().Error("The computation of the wind velocity matrix has failed.\n");

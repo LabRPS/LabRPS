@@ -47,6 +47,13 @@ bool CRPSUniformRandomPhases::OnInitialSetting(const WindLabAPI::WindLabSimulati
     return true;
 }
 
+bool CRPSUniformRandomPhases::GenerateRandomCubeFPS(const WindLabAPI::WindLabSimulationData &Data, cube &dRandomValueCube)
+{
+    rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+    uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseCube(dRandomValueCube, MinimumValue.getValue(), MaximumValue.getValue());
+    return true;
+}
+
 bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;

@@ -236,7 +236,13 @@
 
     <Methode Name="generateRandomMatrixFP">
 		  <Documentation>
-			  <UserDocu>run the active randomness provider feature for all frequency and time increments and return the result as an array</UserDocu>
+			  <UserDocu>run the active randomness provider feature for all frequency and locations and return the result as an array</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+	<Methode Name="generateRandomCubeFPS">
+		  <Documentation>
+			  <UserDocu>run the active randomness provider feature for all frequency, all locations and samples and return the result as cube</UserDocu>
 		  </Documentation>
 	  </Methode>
 

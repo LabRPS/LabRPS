@@ -105,6 +105,7 @@ QString SeismicLabUtils::ComputeDecomposedCrossSpectrumMatrixPP = QString::fromL
 
 QString SeismicLabUtils::ComputeRandomValue = QString::fromLatin1("ComputeRandomValue");
 QString SeismicLabUtils::GenerateRandomMatrixFP = QString::fromLatin1("GenerateRandomMatrixFP");
+QString SeismicLabUtils::GenerateRandomCubeFPS = QString::fromLatin1("GenerateRandomCubeFPS");
 
 QString SeismicLabUtils::ComputeShearVelocityOfFlowValue = QString::fromLatin1("ComputeShearVelocityOfFlowValue");
 QString SeismicLabUtils::ComputeShearVelocityOfFlowVectorT = QString::fromLatin1("ComputeShearVelocityOfFlowVectorT");

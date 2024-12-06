@@ -80,13 +80,17 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             if (!doc)
                 return false;
 
-            m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
-                                  m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
-                                      + 1);
-            m_ResultMatrix.setZero();
+            m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
+                      m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
+                          + 1, m_sim->getSimulationData()->numberOfSample.getValue());
+            m_ResultCube.setZero();
             Base::StopWatch watch;
             watch.start();
-            bool returnResult = m_sim->simulate(m_ResultMatrix, featureName);
+            bool returnResult = m_sim->simulate(m_ResultCube, featureName);
+
+            Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
+            Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+            m_ResultMatrix = matrix_k;
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);

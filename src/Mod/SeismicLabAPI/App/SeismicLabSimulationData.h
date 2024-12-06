@@ -56,6 +56,7 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
 
 	// The Number of sample
 	App::PropertyInteger numberOfSample;
+    App::PropertyInteger sampleIndex;
 
 	// motion Direction
     App::PropertyEnumeration direction;

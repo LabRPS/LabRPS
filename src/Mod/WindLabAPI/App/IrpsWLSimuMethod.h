@@ -61,11 +61,11 @@ public:
 
     /** Generate random wind velocity.
      * @param Data             the simulation data containing all the simulation parameters input by the user.
-     * @param dVelocityArray   a matrix to be updated. This is generated random wind velocity matrix. 
+     * @param dPhenomenon   a matrix to be updated. This is generated random wind velocity matrix. 
      * Its first column contains the time increments.
      * @return                 return true if the computation is successful and false in case of failure.
      */		
-    virtual bool Simulate(const WindLabSimulationData &Data, mat &dVelocityArray) = 0;
+    virtual bool Simulate(const WindLabSimulationData &Data, cube &dPhenomenon) = 0;
 
     /** Generate random wind velocity in large scale simulation mode.
      * @param Data           the simulation data containing all the simulation parameters input by the user.

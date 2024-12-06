@@ -81,6 +81,8 @@ private:
     cx_vec m_ResultVectorVal_cx;
     cx_mat m_ResultMatrix_cx;
 
+    cube m_ResultCube;
+
 public:
     double getSimulationTime();
     std::string getComparisonName() const;

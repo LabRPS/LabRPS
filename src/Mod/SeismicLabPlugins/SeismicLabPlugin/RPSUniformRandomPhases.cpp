@@ -25,6 +25,13 @@ bool CRPSUniformRandomPhases::OnInitialSetting(const SeismicLabAPI::SeismicLabSi
     return true;
 }
 
+bool CRPSUniformRandomPhases::GenerateRandomCubeFPS(const SeismicLabAPI::SeismicLabSimulationData &Data, cube &dRandomValueCube)
+{
+    rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+    uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseCube(dRandomValueCube, MinimumValue.getValue(), MaximumValue.getValue());
+    return true;
+}
+
 bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dRandomValueArray)
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;

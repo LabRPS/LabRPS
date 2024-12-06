@@ -34,7 +34,7 @@ public:
 
     virtual ~IrpsULSimulationMethod() {};
 	
-    virtual bool Simulate(const UserLabSimulationData &Data, mat &dVelocityArray) = 0;
+    virtual bool Simulate(const UserLabSimulationData &Data, cube &dPhenomenon) = 0;
 
     virtual bool SimulateInLargeScaleMode(const UserLabSimulationData &Data, QString &strFileName) = 0;
 

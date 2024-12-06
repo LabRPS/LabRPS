@@ -37,6 +37,8 @@ public:
 
     virtual bool GenerateRandomMatrixFP(const SeismicLabSimulationData &Data, mat &dRandomValueArray) = 0;
 
+    virtual bool GenerateRandomCubeFPS(const SeismicLabSimulationData &Data, cube &dRandomValueCube) = 0;
+
 	virtual bool OnInitialSetting(const SeismicLabSimulationData &Data) = 0;
 
 };

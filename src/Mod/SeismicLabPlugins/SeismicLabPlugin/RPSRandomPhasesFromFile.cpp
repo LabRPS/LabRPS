@@ -21,6 +21,24 @@ CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
   ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
 }
 
+bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const SeismicLabAPI::SeismicLabSimulationData& Data, cube &dRandomValueCube)
+{
+    mat randomPhaseMatrix(dRandomValueCube.dimension(0), dRandomValueCube.dimension(1));
+    GenerateRandomMatrixFP(Data, randomPhaseMatrix);
+    for (int k = 0; k < dRandomValueCube.dimension(2);
+         ++k) {// Iterate over the first dimension (depth)
+        for (int i = 0; i < dRandomValueCube.dimension(0);
+             ++i) {// Iterate over the second dimension (rows)
+            for (int j = 0; j < dRandomValueCube.dimension(1);
+                 ++j) {// Iterate over the third dimension (columns)
+                dRandomValueCube(i, j, k) = randomPhaseMatrix(i, j);
+            }
+        }
+    }
+
+    return true;
+}
+
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dRandomValueArray)
 {
   ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
@@ -35,7 +53,7 @@ return false;
 bool CRPSRandomPhasesFromFile::OnInitialSetting(const SeismicLabAPI::SeismicLabSimulationData& Data)
 {
     SeismicLabGui::DlgRandomPhasesFromFileEdit* dlg = new SeismicLabGui::DlgRandomPhasesFromFileEdit(WorkingDirectory, Data.randomnessProvider);
-	Gui::Control().showDialog(dlg);
+	  Gui::Control().showDialog(dlg);
     return true;
 }
 

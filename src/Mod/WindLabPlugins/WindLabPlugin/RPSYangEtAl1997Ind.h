@@ -41,7 +41,7 @@ public:
 
 	bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
-    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, mat &dVelocityArray);
+    bool Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon);
 
     bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
 

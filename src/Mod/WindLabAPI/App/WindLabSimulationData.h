@@ -62,6 +62,9 @@ class RPS_CORE_API WindLabSimulationData : public WindLabAPI::WindLabFeature
 	/// The Number of sample
 	App::PropertyInteger numberOfSample;
 
+    /// An integer used by the framework to pick a specific sample
+    App::PropertyInteger sampleIndex;
+
 	/// Wind Direction
     App::PropertyEnumeration WindDirection;
 

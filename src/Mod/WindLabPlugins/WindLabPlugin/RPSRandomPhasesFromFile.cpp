@@ -42,10 +42,28 @@ CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
     this->OutputUnit.setValue("radian");
 }
 
+bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const WindLabAPI::WindLabSimulationData &Data, cube &dRandomValueCube)
+{
+    mat randomPhaseMatrix(dRandomValueCube.dimension(0), dRandomValueCube.dimension(1));
+    GenerateRandomMatrixFP(Data, randomPhaseMatrix);
+    for (int k = 0; k < dRandomValueCube.dimension(2);
+         ++k) {// Iterate over the first dimension (depth)
+        for (int i = 0; i < dRandomValueCube.dimension(0);
+             ++i) {// Iterate over the second dimension (rows)
+            for (int j = 0; j < dRandomValueCube.dimension(1);
+                 ++j) {// Iterate over the third dimension (columns)
+                dRandomValueCube(i, j, k) = randomPhaseMatrix(i, j);
+            }
+        }
+    } 
+
+  return true;
+}
+
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
   ReadPhaseAngleFromFile(Data, FilePath.getValue(), dRandomValueArray);
-    return true;
+  return true;
 
 }
 bool CRPSRandomPhasesFromFile::ComputeRandomValue(const WindLabAPI::WindLabSimulationData& Data, double &dValue)

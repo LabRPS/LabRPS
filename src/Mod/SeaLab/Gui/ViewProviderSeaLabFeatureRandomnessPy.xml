@@ -15,15 +15,15 @@
             <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
             <UserDocu>ViewProviderSeaLabFeatureRandomness class</UserDocu>
         </Documentation>
-      <!-- <Methode Name="computeRandomValue">
-        <Documentation>
-          <UserDocu>Generate a random value</UserDocu>
-        </Documentation>
-      </Methode> -->
-      <Methode Name="GenerateRandomMatrixFP">
+      <Methode Name="generateRandomMatrixFP">
         <Documentation>
           <UserDocu>Generate random matrix</UserDocu>
         </Documentation>
       </Methode>
+	    <Methode Name="generateRandomCubeFPS">
+		   <Documentation>
+			  <UserDocu>run the active randomness provider feature for all frequency, all locations and samples and return the result as cube</UserDocu>
+		   </Documentation>
+	    </Methode>
     </PythonExport>
 </GenerateModel>

@@ -20,6 +20,8 @@ public:
 
 	~CRPSRandomPhasesFromFile() {};
 
+	bool GenerateRandomCubeFPS(const SeismicLabAPI::SeismicLabSimulationData &Data, cube &dRandomValueCube);
+
 	bool GenerateRandomMatrixFP(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dRandomValueArray);
 
 	bool ComputeRandomValue(const SeismicLabAPI::SeismicLabSimulationData& Data, double &dValue);

@@ -72,6 +72,7 @@ public:
 	App::PropertyInteger NumberOfProcess;
 	App::PropertyInteger NumberOfFrequency;
 	App::PropertyInteger NumberOfSample;
+    App::PropertyInteger SampleIndex;
 	App::PropertyInteger NumberOfTimeIncrements;
 	App::PropertyInteger LocationIndexJ;
 	App::PropertyInteger LocationIndexK;
@@ -257,9 +258,9 @@ public:
 
 	// randomness
     bool generateRandomMatrixFP(mat &dRandomValueArray, std::string& featureName);
+    bool generateRandomCubeFPS(cube &dRandomValueCube, std::string& featureName);
 
 	// X spectrum
-
     bool computeXCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
     bool computeXCrossSpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
     bool computeXCrossSpectrumMatrixPP(const double &dFrequency, const double &dTime, cx_mat &psdMatrix, std::string& featureName);
@@ -369,7 +370,7 @@ public:
     bool computeWavePassageEffectMatrixPP(const double &dFrequency, const double &dTime, cx_mat &dCoherenceMatrix, std::string& featureName);
     bool computeWavePassageEffectValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
 
-    bool simulate(mat &dVelocityArray, std::string& featureName);
+    bool simulate(cube &dPhenomenon, std::string& featureName);
     bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 

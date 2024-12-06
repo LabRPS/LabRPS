@@ -56,11 +56,18 @@ public:
     virtual bool ComputeRandomValue(const WindLabSimulationData &Data, double &dValue) = 0;
 
     /** Generate the random value matrix for all frequency increments and locations.
-     * @param Data       the simulation data containing all the simulation parameters input by the user..
-     * @param dMatrix    a matrix to be updated. It should contain the generated random values matrix.
-     * @return           return true if the computation is successful and false in case of failure.
+     * @param Data                 the simulation data containing all the simulation parameters input by the user..
+     * @param dRandomValueArray    a matrix to be updated. It should contain the generated random values matrix.
+     * @return                     return true if the computation is successful and false in case of failure.
      */
     virtual bool GenerateRandomMatrixFP(const WindLabSimulationData &Data, mat &dRandomValueArray) = 0;
+
+     /** Generate the random value matrix for all frequency increments, locations and all sample.
+     * @param Data                the simulation data containing all the simulation parameters input by the user..
+     * @param dRandomValueCube    a cube to be updated. It should contain the generated random values cube.
+     * @return                    return true if the computation is successful and false in case of failure.
+     */
+    virtual bool GenerateRandomCubeFPS(const WindLabSimulationData &Data, cube &dRandomValueCube) = 0;
 
     /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.

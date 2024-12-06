@@ -46,6 +46,7 @@ public:
     void setupContextMenu(QMenu*, QObject*, const char*);
 
     bool generateRandomMatrixFP();
+    bool generateRandomCubeFPS();
     bool ActivateFeature();
 
     bool OnInitialSetting();

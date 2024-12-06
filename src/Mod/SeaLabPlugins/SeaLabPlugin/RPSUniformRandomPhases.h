@@ -20,6 +20,8 @@ public:
 
 	~CRPSUniformRandomPhases() {};
 
+	bool GenerateRandomCubeFPS(const SeaLabAPI::SeaLabSimulationData &Data, cube &dRandomValueCube);
+
 	bool GenerateRandomMatrixFP(const SeaLabAPI::SeaLabSimulationData& Data, mat &dRandomValueArray);
 
 	bool OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& Data);

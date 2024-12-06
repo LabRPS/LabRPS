@@ -455,7 +455,12 @@ void SeismicLabComparisonStarter::startSimulationWorker(QString function, const 
         connect(simulationThread1, SIGNAL(started()), simulationWorker1, SLOT(workerGenerateRandomMatrixFP()));
         connect(simulationThread2, SIGNAL(started()), simulationWorker2, SLOT(workerGenerateRandomMatrixFP()));
     }
-
+    else if(function == SeismicLab::SeismicLabUtils::GenerateRandomCubeFPS) {
+        simulationWorker1->setComputingFunction(function);
+        simulationWorker2->setComputingFunction(function);
+        connect(simulationThread1, SIGNAL(started()), simulationWorker1, SLOT(workerGenerateRandomCubeFPS()));
+        connect(simulationThread2, SIGNAL(started()), simulationWorker2, SLOT(workerGenerateRandomCubeFPS()));
+    }
     else if(function == SeismicLab::SeismicLabUtils::ComputeShearVelocityOfFlowValue) {
         simulationWorker1->setComputingFunction(function);
         simulationWorker2->setComputingFunction(function);

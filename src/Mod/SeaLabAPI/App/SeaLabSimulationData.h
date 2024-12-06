@@ -57,6 +57,7 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 
 	// The Number of sample
 	App::PropertyInteger numberOfSample;
+    App::PropertyInteger sampleIndex;
 
 	// motion Direction
     App::PropertyEnumeration direction;

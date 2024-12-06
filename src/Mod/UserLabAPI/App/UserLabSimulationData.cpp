@@ -74,6 +74,8 @@ UserLabSimulationData::UserLabSimulationData()
 	ADD_PROPERTY_TYPE(simulationMethod, (""), 0, Prop_None, "current simulation method name");
 	ADD_PROPERTY_TYPE(workingDirectoryPath, (App::Application::getHomePath()), 0, Prop_None, "The working directory path.");
     ADD_PROPERTY_TYPE(fileName, (""), 0, Prop_None, "The wind velocity file name.");
+	ADD_PROPERTY_TYPE(sampleIndex, (0), 0, Prop_None,"The index of the a given sample");
+
 }
 
 UserLabSimulationData::~UserLabSimulationData()

@@ -33,7 +33,7 @@ class IrpsSeLSimulationMethod : public SeaLabAPI::SeaLabFeatureSimulationMethod
 public:
     virtual ~IrpsSeLSimulationMethod() {};
 	
-    virtual bool Simulate(const SeaLabSimulationData &Data, mat &dVelocityArray) = 0;
+    virtual bool Simulate(const SeaLabSimulationData &Data, cube &dPhenomenon) = 0;
 
     virtual bool SimulateInLargeScaleMode(const SeaLabSimulationData &Data, QString &strFileName) = 0;
 

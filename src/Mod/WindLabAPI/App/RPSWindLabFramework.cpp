@@ -324,6 +324,29 @@ bool CRPSWindLabFramework::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimul
     return returnValue;
 }
 
+bool CRPSWindLabFramework::GenerateRandomCubeFPS(const WindLabSimulationData& Data, cube& dRandomValueArray)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    WindLabAPI::IrpsWLRandomness* SelectedRandomnessObject = static_cast<WindLabAPI::IrpsWLRandomness*>(doc->getObject(Data.randomnessProvider.getValue()));
+
+	if (NULL == SelectedRandomnessObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedRandomnessObject->GenerateRandomCubeFPS(Data, dRandomValueArray);
+
+    return returnValue;
+}
+
+
+
 bool CRPSWindLabFramework::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();

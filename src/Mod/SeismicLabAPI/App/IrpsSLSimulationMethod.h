@@ -33,7 +33,7 @@ class IrpsSLSimulationMethod : public SeismicLabAPI::SeismicLabFeatureSimulation
 public:
     virtual ~IrpsSLSimulationMethod() {};
 	
-    virtual bool Simulate(const SeismicLabSimulationData &Data, mat &dVelocityArray) = 0;
+    virtual bool Simulate(const SeismicLabSimulationData &Data, cube &dPhenomenon) = 0;
 
     virtual bool SimulateInLargeScaleMode(const SeismicLabSimulationData &Data, QString &strFileName) = 0;
 

@@ -1855,6 +1855,46 @@ bool RPSSeaLabSimulationWorker::workerGenerateRandomMatrixFP()
     return true;
 }
 
+bool RPSSeaLabSimulationWorker::workerGenerateRandomCubeFPS()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::GenerateRandomCubeFPS) {
+
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+                return false;
+
+            m_ResultCube.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
+                                  m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
+                                  m_sim->getSimulationData()->numberOfSample.getValue());
+            Base::StopWatch watch;
+            watch.start();
+
+            bool returnResult = m_sim->generateRandomCubeFPS(m_ResultCube, featureName);
+
+            Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
+            Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+            m_ResultMatrix = matrix_k;
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The generation of the random phase angle has failed.\n");
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
+        }
+    }
+
+    stopped = true;
+    return true;
+}
+
 bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
 {
     if (isStopped()) {
@@ -2057,13 +2097,17 @@ bool RPSSeaLabSimulationWorker::workerSimulate()
             if (!doc)
                 return false;
 
-            m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
-                                  m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
-                                      + 1);
-            m_ResultMatrix.setZero();
+            m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
+                      m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
+                          + 1, m_sim->getSimulationData()->numberOfSample.getValue());
+            m_ResultCube.setZero();
             Base::StopWatch watch;
             watch.start();
-            bool returnResult = m_sim->simulate(m_ResultMatrix, featureName);
+            bool returnResult = m_sim->simulate(m_ResultCube, featureName);
+
+            Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
+            Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+            m_ResultMatrix = matrix_k;
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);

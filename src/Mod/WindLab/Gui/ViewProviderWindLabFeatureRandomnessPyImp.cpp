@@ -36,7 +36,7 @@ std::string ViewProviderWindLabFeatureRandomnessPy::representation(void) const
     return std::string("<ViewProviderWindLabFeatureRandomness object>");
 }
 
-PyObject* ViewProviderWindLabFeatureRandomnessPy::GenerateRandomMatrixFP(PyObject* args)
+PyObject* ViewProviderWindLabFeatureRandomnessPy::generateRandomMatrixFP(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
@@ -51,7 +51,20 @@ PyObject* ViewProviderWindLabFeatureRandomnessPy::GenerateRandomMatrixFP(PyObjec
     Py_RETURN_NONE;
 }
 
+PyObject* ViewProviderWindLabFeatureRandomnessPy::generateRandomCubeFPS(PyObject* args)
+{
+    if (!PyArg_ParseTuple(args, ""))
+        return nullptr;
 
+    ViewProviderWindLabFeatureRandomness* vp = this->getViewProviderWindLabFeatureRandomnessPtr();
+    if (vp)
+    {
+        bool ok = vp->generateRandomCubeFPS();
+        return Py::new_reference_to(Py::Boolean(ok));
+    }
+
+    Py_RETURN_NONE;
+}
 PyObject *ViewProviderWindLabFeatureRandomnessPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;

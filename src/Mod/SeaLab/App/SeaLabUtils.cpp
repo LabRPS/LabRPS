@@ -106,6 +106,7 @@ QString SeaLabUtils::ComputeDecomposedCrossSpectrumMatrixPP = QString::fromLatin
 
 QString SeaLabUtils::ComputeRandomValue = QString::fromLatin1("ComputeRandomValue");
 QString SeaLabUtils::GenerateRandomMatrixFP = QString::fromLatin1("GenerateRandomMatrixFP");
+QString SeaLabUtils::GenerateRandomCubeFPS = QString::fromLatin1("GenerateRandomCubeFPS");
 
 QString SeaLabUtils::ComputeShearVelocityOfFlowValue = QString::fromLatin1("ComputeShearVelocityOfFlowValue");
 QString SeaLabUtils::ComputeShearVelocityOfFlowVectorT = QString::fromLatin1("ComputeShearVelocityOfFlowVectorT");
