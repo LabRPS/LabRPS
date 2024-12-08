@@ -48,6 +48,7 @@ generate_from_xml(coherence/AbrahamsonCoherencePy)
 generate_from_xml(spectrum/CloughPenzienSpectrumPy)
 generate_from_xml(spectrum/KanaiTajimiSpectrumPy)
 generate_from_xml(spectrum/HuZhouSpectrumPy)
+generate_from_xml(spectrum/KougioumtzoglouAndSpanoSpectrumPy)
 generate_from_xml(spectrum/SeismicGroundMotionSpectrumPy)
 generate_from_xml(wavePassageEffect/WavePassageEffectPy)
 generate_from_xml(modulation/ExponentialModulationPy)
@@ -67,6 +68,7 @@ SET(SeismicLabTools_CPP_SRCS
     spectrum/CloughPenzienSpectrum.cpp
     spectrum/KanaiTajimiSpectrum.cpp
     spectrum/HuZhouSpectrum.cpp
+    spectrum/KougioumtzoglouAndSpanoSpectrum.cpp
     spectrum/SeismicGroundMotionSpectrum.cpp
     coherence/LohAndLinCoherence.cpp
     coherence/HarichandranVanmarckeCoherence.cpp
@@ -90,6 +92,7 @@ SET(SeismicLabTools_HPP_SRCS
     spectrum/CloughPenzienSpectrum.h
     spectrum/KanaiTajimiSpectrum.h
     spectrum/HuZhouSpectrum.h
+    spectrum/KougioumtzoglouAndSpanoSpectrum.h
     spectrum/SeismicGroundMotionSpectrum.h
     coherence/LohAndLinCoherence.h
     coherence/HarichandranVanmarckeCoherence.h
@@ -131,6 +134,8 @@ SET(Python_SRCS
     spectrum/KanaiTajimiSpectrumPy.xml
     spectrum/HuZhouSpectrumPyImp.cpp
     spectrum/HuZhouSpectrumPy.xml
+    spectrum/KougioumtzoglouAndSpanoSpectrumPyImp.cpp
+    spectrum/KougioumtzoglouAndSpanoSpectrumPy.xml
     modulation/ExponentialModulationPyImp.cpp
     modulation/ExponentialModulationPy.xml
     modulation/ConstantModulationPyImp.cpp

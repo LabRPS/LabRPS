@@ -50,6 +50,7 @@ Widgets/DlgAbrahamsonCoherence.ui
 Widgets/DlgHarichandranVanmarckeCoherence.ui
 Widgets/DlgLohAndLinCoherence.ui
 Widgets/DlgGridPoints.ui
+Widgets/DlgKougioumtzoglouAndSpanoSpectrum.ui
 
 
 )
@@ -107,6 +108,8 @@ Widgets/DlgLohAndLinCoherence.h
 Widgets/DlgLohAndLinCoherence.cpp
 Widgets/DlgGridPoints.h
 Widgets/DlgGridPoints.cpp
+Widgets/DlgKougioumtzoglouAndSpanoSpectrum.h
+Widgets/DlgKougioumtzoglouAndSpanoSpectrum.cpp
 
 SeismicLabPlugin.cpp
 GeneralSpatialDistribution.cpp
@@ -162,6 +165,9 @@ RPSLohAndLinCoherence.h
 RPSLohAndLinCoherence.cpp
 WLGridPoints.cpp
 WLGridPoints.h
+RPSKougioumtzoglouAndSpanoSpectrum.h
+RPSKougioumtzoglouAndSpanoSpectrum.cpp
+
 )
 
 SET(Metadata_Files
