@@ -55,7 +55,10 @@ CRPSTogbenouEtAl2016::CRPSTogbenouEtAl2016()
 //Initial setting
 bool CRPSTogbenouEtAl2016::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
-    WindLabGui::DlgTogbenouEtAl2016Edit* dlg = new WindLabGui::DlgTogbenouEtAl2016Edit(NumberOfLocation, NumberOfFrequencies, LocationHeight, LocationSpacing, MeanSpeed, CoherenceDecayCoefficient, UpperCutOffFrequency, NumberOfTimeIncrements, RoughnessLength, Data.simulationMethod);
+    WindLabGui::DlgTogbenouEtAl2016Edit* dlg = new WindLabGui::DlgTogbenouEtAl2016Edit(
+        NumberOfLocation, NumberOfFrequencies, LocationHeight, LocationSpacing, MeanSpeed,
+        CoherenceDecayCoefficient, UpperCutOffFrequency, NumberOfTimeIncrements, RoughnessLength,
+        StartingElevation, Data.simulationMethod);
     Gui::Control().showDialog(dlg);
 	return true;
 }
@@ -71,9 +74,9 @@ bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Dat
     double wu = UpperCutOffFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     double dt = 2 * 3.14 / (2 * wu);
     double deltaomega = wu/N;
-    double distance = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
-    double speed = MeanSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond);
-    double height = LocationHeight.getQuantityValue().getValueAs(Base::Quantity::Metre);
+    double spacing = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
+    double speed = 0.0;
+    double height = 0.0;
     double zo = RoughnessLength.getQuantityValue().getValueAs(Base::Quantity::Metre);
     double Uo = 0.4 * speed / log(height / zo);
     double Cy = CoherenceDecayCoefficient.getValue();
@@ -81,16 +84,14 @@ bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Dat
     double startingElevation =  StartingElevation.getQuantityValue().getValueAs(Base::Quantity::Metre);
     double alpha = 0.12;
     double beta = (alpha - 1) / 3.0;
-    double n0 = startingElevation / distance;
-
+    double n0 = startingElevation / spacing;
+    int N1 = (int)(1 / deltaomega);
     vec PSD1(N);
     vec Kz(N);
     cx_mat B = Eigen::MatrixXcd::Zero(n,M);
     cx_mat G = Eigen::MatrixXcd::Zero(n,M);
     mat thet(N, n);
     vec w(N);
-
-
 
     std::complex<double> i2(0, 1);
     Eigen::FFT<double> fft;
@@ -105,15 +106,22 @@ bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Dat
     }
 
       for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++) {
+        height = startingElevation + (j - 1) * spacing;
         for (int m = 1; m <= j && false == Data.isInterruptionRequested.getValue(); m++) {
-            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
+            for (int l = 1; l <= N1 && false == Data.isInterruptionRequested.getValue(); l++) {
+                w(l - 1) = (l - 1) * deltaomega + (double)m / n * deltaomega;
+                PSD1(l - 1) = 200 * height * Uo * Uo / speed
+                    / (pow(1 + 50 * w(l - 1) * height / speed, 5.0 / 3.0));
+            }
+
+            for (int l = N1 + 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
                 w(l - 1) = (l - 1) * deltaomega + (double)m / n * deltaomega;
                 PSD1(l - 1) = 200 * height * Uo * Uo / speed
                     / (pow(1 + 50 * w(l - 1) * height / speed, 5.0 / 3.0));
             }
 
             for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                Kz(l - 1) = exp(-2 * w(l - 1) * distance * Cy / (speed + speed));
+                Kz(l - 1) = exp(-2 * w(l - 1) * spacing * Cy / (speed + speed));
             }
 
             for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
