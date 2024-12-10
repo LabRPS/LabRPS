@@ -34,14 +34,13 @@ using namespace WindLabGui;
 
 DlgTogbenouEtAl2016::DlgTogbenouEtAl2016(const App::PropertyInteger& NumberOfLocation,
                        const App::PropertyInteger& NumberOfFrequencies,
-                       const App::PropertyLength& LocationHeight,
                        const App::PropertyLength& LocationSpacing,
-                       const App::PropertySpeed& MeanSpeed, 
                        const App::PropertyFloat& CoherenceDecayCoefficient,
                        const App::PropertyFrequency& UpperCutOffFrequency,
                        const App::PropertyInteger& NumberOfTimeIncrements, 
                        const App::PropertyLength& RoughnessLength,
                        const App::PropertyLength& StartingElevation,
+                       const App::PropertyInteger& ReferencePointIndex,
                        const App::PropertyString& featureName, 
                        QWidget* parent)
 	: QWidget(parent), ui(new Ui_DlgTogbenouEtAl2016), _featureName(featureName.getStrValue())
@@ -50,14 +49,13 @@ DlgTogbenouEtAl2016::DlgTogbenouEtAl2016(const App::PropertyInteger& NumberOfLoc
 
     ui->spinBox_NumberOfLocation->setValue(NumberOfLocation.getValue());
     ui->spinBox_NumberOfFrequencies->setValue(NumberOfFrequencies.getValue());
-    ui->doubleSpinBox_LocationHeight->setValue(LocationHeight.getValue());
     ui->doubleSpinBox_LocationSpacing->setValue(LocationSpacing.getValue());
-    ui->doubleSpinBox_MeanSpeed->setValue(MeanSpeed.getValue());
     ui->doubleSpinBox_CoherenceDecayCoefficient->setValue(CoherenceDecayCoefficient.getValue());
     ui->doubleSpinBox_UpperCutOffFrequency->setValue(UpperCutOffFrequency.getValue());
     ui->spinBox_NumberOfTimeIncrements->setValue(NumberOfTimeIncrements.getValue());
     ui->doubleSpinBox_RoughnessLength->setValue(RoughnessLength.getValue());
     ui->doubleSpinBox_StartingElevation->setValue(StartingElevation.getValue());
+    ui->spinBox_ReferencePointIndex->setValue(ReferencePointIndex.getValue());
 
     ui->label_Image->setPixmap(QPixmap(":icons/RPSPowerLowProfile.png"));
 }
@@ -80,14 +78,13 @@ void DlgTogbenouEtAl2016::accept()
 
     activefeature->NumberOfLocation.setValue(ui->spinBox_NumberOfLocation->value());
     activefeature->NumberOfFrequencies.setValue(ui->spinBox_NumberOfFrequencies->value());
-    activefeature->LocationHeight.setValue(ui->doubleSpinBox_LocationHeight->value().getValue());
     activefeature->LocationSpacing.setValue(ui->doubleSpinBox_LocationSpacing->value().getValue());
-    activefeature->MeanSpeed.setValue(ui->doubleSpinBox_MeanSpeed->value().getValue());
     activefeature->CoherenceDecayCoefficient.setValue(ui->doubleSpinBox_CoherenceDecayCoefficient->value().getValue());
     activefeature->UpperCutOffFrequency.setValue(ui->doubleSpinBox_UpperCutOffFrequency->value().getValue());
     activefeature->NumberOfTimeIncrements.setValue(ui->spinBox_NumberOfTimeIncrements->value());
     activefeature->RoughnessLength.setValue(ui->doubleSpinBox_RoughnessLength->value().getValue());
     activefeature->StartingElevation.setValue(ui->doubleSpinBox_StartingElevation->value().getValue());
+    activefeature->ReferencePointIndex.setValue(ui->spinBox_ReferencePointIndex->value());
 
 
   }
@@ -103,17 +100,19 @@ void DlgTogbenouEtAl2016::reject()
 /* TRANSLATOR PartGui::DlgTogbenouEtAl2016Edit */
 
 DlgTogbenouEtAl2016Edit::DlgTogbenouEtAl2016Edit(
-    const App::PropertyInteger& NumberOfLocation, const App::PropertyInteger& NumberOfFrequencies,
-    const App::PropertyLength& LocationHeight, const App::PropertyLength& LocationSpacing,
-    const App::PropertySpeed& MeanSpeed, const App::PropertyFloat& CoherenceDecayCoefficient,
+    const App::PropertyInteger& NumberOfLocation, 
+    const App::PropertyInteger& NumberOfFrequencies,
+    const App::PropertyLength& LocationSpacing,
+    const App::PropertyFloat& CoherenceDecayCoefficient,
     const App::PropertyFrequency& UpperCutOffFrequency,
     const App::PropertyInteger& NumberOfTimeIncrements, 
     const App::PropertyLength& RoughnessLength,
     const App::PropertyLength& StartingElevation,
+    const App::PropertyInteger& ReferencePointIndex,
     const App::PropertyString& featureName)
 {
 	// create and show dialog for the WindLabFeatures
-    widget = new DlgTogbenouEtAl2016(NumberOfLocation, NumberOfFrequencies, LocationHeight,LocationSpacing, MeanSpeed, CoherenceDecayCoefficient,UpperCutOffFrequency, NumberOfTimeIncrements, RoughnessLength, StartingElevation, featureName, nullptr);
+    widget = new DlgTogbenouEtAl2016(NumberOfLocation, NumberOfFrequencies, LocationSpacing, CoherenceDecayCoefficient,UpperCutOffFrequency, NumberOfTimeIncrements, RoughnessLength, StartingElevation, ReferencePointIndex, featureName, nullptr);
 	taskbox = new Gui::TaskView::TaskBox(QPixmap(), widget->windowTitle(), true, nullptr);
 	taskbox->groupLayout()->addWidget(widget);
 	Content.push_back(taskbox);

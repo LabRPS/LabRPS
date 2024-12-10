@@ -45,19 +45,19 @@ public:
 
     bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
 
+	void onChanged(const App::Property* prop);
+
 public:
 
 	App::PropertyInteger NumberOfLocation;
 	App::PropertyInteger NumberOfFrequencies;
-	App::PropertyLength LocationHeight;
     App::PropertyLength LocationSpacing;
-	App::PropertySpeed MeanSpeed;
     App::PropertyFloat CoherenceDecayCoefficient;
 	App::PropertyFrequency UpperCutOffFrequency;
 	App::PropertyInteger NumberOfTimeIncrements;
     App::PropertyLength RoughnessLength;
 	App::PropertyLength StartingElevation;
-
+    App::PropertyInteger ReferencePointIndex;
 };
 
 } // namespace WindLab

@@ -41,14 +41,13 @@ class DlgTogbenouEtAl2016 : public QWidget
 public:
     DlgTogbenouEtAl2016(const App::PropertyInteger& NumberOfLocation,
                        const App::PropertyInteger& NumberOfFrequencies,
-                       const App::PropertyLength& LocationHeight,
                        const App::PropertyLength& LocationSpacing,
-                       const App::PropertySpeed& MeanSpeed, 
                        const App::PropertyFloat& CoherenceDecayCoefficient,
                        const App::PropertyFrequency& UpperCutOffFrequency,
                        const App::PropertyInteger& NumberOfTimeIncrements,
                        const App::PropertyLength& RoughnessLength,
                        const App::PropertyLength& StartingElevation,
+                       const App::PropertyInteger& ReferencePointIndex,
                        const App::PropertyString& featureName,
                        QWidget* parent = nullptr);
     
@@ -68,14 +67,13 @@ class DlgTogbenouEtAl2016Edit : public Gui::TaskView::TaskDialog
 public:
     DlgTogbenouEtAl2016Edit(const App::PropertyInteger& NumberOfLocation,
                            const App::PropertyInteger& NumberOfFrequencies,
-                           const App::PropertyLength& LocationHeight,
                            const App::PropertyLength& LocationSpacing,
-                           const App::PropertySpeed& MeanSpeed,
                            const App::PropertyFloat& CoherenceDecayCoefficient,
                            const App::PropertyFrequency& UpperCutOffFrequency,
                            const App::PropertyInteger& NumberOfTimeIncrements,
                            const App::PropertyLength& RoughnessLength,
                            const App::PropertyLength& StartingElevation,
+                           const App::PropertyInteger& ReferencePointIndex,
                            const App::PropertyString& featureName);
 
     ~DlgTogbenouEtAl2016Edit();

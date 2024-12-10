@@ -103,16 +103,19 @@
        </layout>
       </item>
       <item row="4" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Location Height</string>
+           <string>Reference Point Index</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_LocationHeight" native="true">
+         <widget class="QSpinBox" name="spinBox_ReferencePointIndex" native="true">
+         <property name="maximum">
+            <number>99999</number>
+         </property>
           <property name="keyboardTracking" stdset="0">
            <bool>false</bool>
           </property>
@@ -145,25 +148,6 @@
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Mean Speed</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_MeanSpeed" native="true">
-          <property name="keyboardTracking" stdset="0">
-           <bool>false</bool>
-          </property>
-          
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="7" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
-        <item>
-         <widget class="QLabel" name="label_6">
-          <property name="text">
            <string>Coherence Decay Coefficient</string>
           </property>
          </widget>
@@ -178,7 +162,7 @@
         </item>
        </layout>
       </item>
-      <item row="8" column="0">
+      <item row="7" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
         <item>
          <widget class="QLabel" name="label_6">
@@ -197,7 +181,7 @@
         </item>
        </layout>
       </item>
-      <item row="9" column="0">
+      <item row="8" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
         <item>
          <widget class="QLabel" name="label_6">
@@ -216,7 +200,7 @@
         </item>
        </layout>
       </item>
-      <item row="10" column="0">
+      <item row="9" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
         <item>
          <widget class="QLabel" name="label_6">
