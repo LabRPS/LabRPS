@@ -190,38 +190,51 @@ bool CRPSTogbenouEtAl2016::SimulateInLargeScaleMode(const WindLabAPI::WindLabSim
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;
-    int M = 2*N;
+    int M = 2 * N;
     int T = NumberOfTimeIncrements.getValue();
     double wu = UpperCutOffFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     double dt = 2 * 3.14 / (2 * wu);
-    double deltaomega = wu/N;
-    double distance = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
+    double deltaomega = wu / N;
+    double spacing = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
+    double alpha = 0.12;
+    double Uoo = 30.0;
+    double Zoo = 10.0;
     double speed = 0.0;
     double height = 0.0;
     double zo = RoughnessLength.getQuantityValue().getValueAs(Base::Quantity::Metre);
-    double Uo = 0.4 * speed / log(height / zo);
-    double Cy = CoherenceDecayCoefficient.getValue();
-    double value = 0.0;
+    double Uo = 0.4 * Uoo / log(Zoo / zo);
+    double Cz = CoherenceDecayCoefficient.getValue();
     double sampleN = Data.numberOfSample.getValue();
+    double startingElevation = StartingElevation.getQuantityValue().getValueAs(Base::Quantity::Metre);
+    double beta = (alpha - 1) / 3.0;
+    double No = startingElevation / spacing;
+    int N1 = (int)(1 / deltaomega);
+    double Zref = startingElevation + ReferencePointIndex.getValue() * spacing;
+    double Uref = Uoo * std::pow(Zref / Zoo, alpha);
+    double Wref = Uref / (50 * Zref);
+    double value = 0.0;
 
     vec PSD1(N);
     vec Kz(N);
-    cx_mat B = Eigen::MatrixXcd::Zero(n,M);
-    cx_mat G = Eigen::MatrixXcd::Zero(n,M);
+    cx_mat B = Eigen::MatrixXcd::Zero(n, M);
+    cx_mat G = Eigen::MatrixXcd::Zero(n, M);
     mat thet(N, n);
     vec w(N);
-
-    bool returnResult = CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
-    if(!returnResult)
-    {
-       Base::Console().Warning("The computation of the random phase angle matrix has failed.\n");
-       return false;
-    }
 
     std::complex<double> i2(0, 1);
     Eigen::FFT<double> fft;
 
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
+
+        bool returnResult = CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
+        if (!returnResult) {
+            Base::Console().Warning(
+                "The computation of the random phase angle matrix has failed.\n");
+            return false;
+        }
+
+        // this method is for stationry wind. Spectrum is not function of time
+        double time = 0;
 
         // Get the current date and time
         std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
@@ -241,27 +254,35 @@ bool CRPSTogbenouEtAl2016::SimulateInLargeScaleMode(const WindLabAPI::WindLabSim
         fout.fill('0');
         fout.open(newFileName, std::ios::out);
 
-        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
 
+        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
             fout << (p - 1) * dt + timeMin << "\t";
         }
+
         fout << std::endl;
 
-
         for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++) {
+            height = startingElevation + (j - 1) * spacing;
+            speed = Uoo * std::pow(height / Zoo, alpha);
             for (int m = 1; m <= j && false == Data.isInterruptionRequested.getValue(); m++) {
-                for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
+                for (int l = 1; l <= N1 && false == Data.isInterruptionRequested.getValue(); l++) {
                     w(l - 1) = (l - 1) * deltaomega + (double)m / n * deltaomega;
-
                     PSD1(l - 1) = 200 * height * Uo * Uo / speed
                         / (pow(1 + 50 * w(l - 1) * height / speed, 5.0 / 3.0));
                 }
 
-                for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                    Kz(l - 1) = exp(-2 * w(l - 1) * distance * Cy / (speed + speed));
+                for (int l = N1 + 1; l <= N && false == Data.isInterruptionRequested.getValue();
+                     l++) {
+                    w(l - 1) = (l - 1) * deltaomega + (double)m / n * deltaomega;
+                    PSD1(l - 1) = 200 * Uo * Uo * std::pow(50, -5.0 / 3.0)
+                        * pow(height / speed, -2.0 / 3.0) * pow(w(l - 1) + Wref, -5.0 / 3.0);
                 }
 
                 for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
+                    Kz(l - 1) = exp(-2 * w(l - 1) * spacing * Cz / (Uref + Uref));
+                }
+
+                for (int l = 1; l <= N1 && false == Data.isInterruptionRequested.getValue(); l++) {
                     if (m == 1) {
                         B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
                             * pow(Kz(l - 1), abs(m - j)) * exp(i2 * thet(l - 1, m - 1));
@@ -272,39 +293,45 @@ bool CRPSTogbenouEtAl2016::SimulateInLargeScaleMode(const WindLabAPI::WindLabSim
                             * exp(i2 * thet(l - 1, m - 1));
                     }
                 }
+
+                for (int l = N1 + 1; l <= N && false == Data.isInterruptionRequested.getValue();
+                     l++) {
+                    if (m == 1) {
+                        B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
+                            * pow(Kz(l - 1), abs(m - j)) * exp(i2 * thet(l - 1, m - 1))
+                            * std::pow((No + j - 1) / No, beta);
+                    }
+                    else {
+                        B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
+                            * pow(Kz(l - 1), abs(m - j)) * pow((1 - pow(Kz(l - 1), 2)), 0.5)
+                            * exp(i2 * thet(l - 1, m - 1)) * std::pow((No + j - 1) / No, beta);
+                    }
+                }
             }
 
             for (int ii = 1; ii <= j && false == Data.isInterruptionRequested.getValue(); ii++) {
                 G.row(ii - 1) = (double)(M)*fft.inv(B.row(ii - 1));
             }
 
-            int q = 0;
             double time = 0;
+            int q = 0;
 
             for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-
                 q = fmod(p - 1, M);
-
                 time = (p - 1) * dt + timeMin;
-
                 value = 0.0;
-
                 for (int k = 1; k <= j && false == Data.isInterruptionRequested.getValue(); k++) {
 
                     value = value + real(G(k - 1, q) * exp(i2 * (k * deltaomega * time / n)));
                 }
-
                 fout << value << "\t";
             }
-
             fout << std::endl;
         }
-
         fout.close();
-    
     }
 
-return true;
+    return true;
 }
 
 
