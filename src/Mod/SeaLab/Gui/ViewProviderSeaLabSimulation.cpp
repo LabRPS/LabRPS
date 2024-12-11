@@ -150,12 +150,7 @@ bool ViewProviderSeaLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    //get the corresponding view provider
-    SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
-
-    vp->stop();
-
-    return true;
+    return sim->stop();
 }
 
 bool ViewProviderSeaLabSimulation::activateSimulation() { return doubleClicked(); }

@@ -126,12 +126,7 @@ bool ViewProviderUserLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    //get the corresponding view provider
-    UserLabGui::ViewProviderUserLabFeatureSimulationMethod* vp = dynamic_cast<UserLabGui::ViewProviderUserLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
-
-    vp->stop();
-
-    return true;
+    return sim->stop();
 }
 
 bool ViewProviderUserLabSimulation::activateSimulation() { return doubleClicked(); }

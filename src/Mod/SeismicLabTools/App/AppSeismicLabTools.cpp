@@ -33,6 +33,7 @@
 #include <Mod/SeismicLabTools/App/spectrum/SeismicGroundMotionSpectrumPy.h>
 #include <Mod/SeismicLabTools/App/spectrum/HuZhouSpectrumPy.h>
 #include <Mod/SeismicLabTools/App/spectrum/KanaiTajimiSpectrumPy.h>
+#include <Mod/SeismicLabTools/App/spectrum/KougioumtzoglouAndSpanoSpectrumPy.h>
 #include <Mod/SeismicLabTools/App/modulation/ConstantModulationPy.h>
 #include <Mod/SeismicLabTools/App/modulation/ExponentialModulationPy.h>
 #include <Mod/SeismicLabTools/App/modulation/JenningsEtAl1968ModulationPy.h>
@@ -54,7 +55,8 @@ PyMOD_INIT_FUNC(SeismicLabTools)
     Base::Interpreter().addType(&SeismicLabTools::LohAndLinCoherencePy ::Type, SeismicLabToolsModule, "LohAndLinCoherence");
     Base::Interpreter().addType(&SeismicLabTools::AbrahamsonCoherencePy ::Type, SeismicLabToolsModule, "AbrahamsonCoherence");
     Base::Interpreter().addType(&SeismicLabTools::HarichandranVanmarckeCoherencePy ::Type, SeismicLabToolsModule, "HarichandranVanmarckeCoherence");
-
+    
+    Base::Interpreter().addType(&SeismicLabTools::KougioumtzoglouAndSpanoSpectrumPy ::Type, SeismicLabToolsModule, "KougioumtzoglouAndSpanoSpectrum");
     Base::Interpreter().addType(&SeismicLabTools::SeismicGroundMotionSpectrumPy ::Type, SeismicLabToolsModule, "SeismicGroundMotionSpectrum");
     Base::Interpreter().addType(&SeismicLabTools::CloughPenzienSpectrumPy ::Type, SeismicLabToolsModule, "CloughPenzienSpectrum");
     Base::Interpreter().addType(&SeismicLabTools::KanaiTajimiSpectrumPy ::Type, SeismicLabToolsModule, "KanaiTajimiSpectrum");

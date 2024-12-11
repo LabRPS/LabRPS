@@ -28,6 +28,7 @@
 #include "RPSAbrahamsonCoherence.h"
 #include "RPSHarichandranVanmarckeCoherence.h"
 #include "RPSLohAndLinCoherence.h"
+#include "RPSKougioumtzoglouAndSpanoSpectrum.h"
 
 #include <Mod/SeismicLabAPI/App/RPSSeismicLabPluginAPI.h>
 #include <Base/Console.h>
@@ -306,6 +307,22 @@ RPS_PLUGIN_FUNC IrpsSLSpectrum* BuildCRPSKanaiTajimiSpectrum()
 
 RPS_PLUGIN_FUNC void DestroyCRPSKanaiTajimiSpectrum(IrpsSLSpectrum* r) { delete r; }
 
+//////////////////////////Kougioumtzoglou And Spano Spectrum//////////////////////////////////////////
+std::string objNameKou_S = "Kougioumtzoglou And Spano Spectrum 2009";
+std::string objDescriptionKou_S = "This feature allows the user to compute seismic ground motion spectrum according to Kougioumtzoglou And Spano spectral model.";
+std::string objTileKou_S = "An approximate approach for nonlinear system response determination under evolutionary stochastic excitation ";
+std::string objLinkKou_S = "https://www.jstor.org/stable/24111962";
+std::string objAuthorsKou_S = "Ioannis A. Kougioumtzoglou and Pol D. Spanos";
+std::string objDateKou_S = "07/12/2024";
+std::string objVersionKou_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSLSpectrum* BuildCRPSKougioumtzoglouAndSpanoSpectrum()
+{
+    return new CRPSKougioumtzoglouAndSpanoSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyCRPSKougioumtzoglouAndSpanoSpectrum(IrpsSLSpectrum* r) { delete r; }
+
 //////////////////////////Clough Penzien Spectrum//////////////////////////////////////////
 std::string objNameHuz_S = "Hu Zhou Spectrum";
 std::string objDescriptionHuz_S = "This feature allows the user to compute seismic ground motion spectrum according to the Hu Zhou spectral model.";
@@ -578,6 +595,9 @@ PLUGIN_INIT_TYPE()
     if (SeismicLab::CRPSLohAndLinCoherence::getClassTypeId() == Base::Type::badType()) {
         SeismicLab::CRPSLohAndLinCoherence::init();
     }
+    if (SeismicLab::CRPSKougioumtzoglouAndSpanoSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeismicLab::CRPSKougioumtzoglouAndSpanoSpectrum::init();
+    }
     return 1;
 }
 
@@ -603,6 +623,7 @@ PLUGIN_INIT()
     InitializeSpectrum(objNameClo_S, strPluginName, objTileClo_S, objLinkClo_S, objAuthorsClo_S, objDateClo_S, objVersionClo_S, stationarity);
     InitializeSpectrum(objNameTaj_S, strPluginName, objTileTaj_S, objLinkTaj_S, objAuthorsTaj_S, objDateTaj_S, objVersionTaj_S, stationarity);
     InitializeSpectrum(objNameHuz_S, strPluginName, objTileHuz_S, objLinkHuz_S, objAuthorsHuz_S, objDateHuz_S, objVersionHuz_S, stationarity);
+    InitializeSpectrum(objNameKou_S, strPluginName, objTileKou_S, objLinkKou_S, objAuthorsKou_S, objDateKou_S, objVersionKou_S, !stationarity);
 
     InitializeModulation(objNameCon_M, strPluginName, objTileCon_M, objLinkCon_M, objAuthorsCon_M, objDateCon_M, objVersionCon_M, stationarity);
     InitializeModulation(objNameExp_M, strPluginName, objTileExp_M, objLinkExp_M, objAuthorsExp_M, objDateExp_M, objVersionExp_M, stationarity);
@@ -642,7 +663,8 @@ INSTALL_PLUGIN()
     RegisterSpectrum(objNameClo_S, strPluginName, objDescriptionClo_S, BuildCRPSCloughPenzienSpectrum, DestroyCRPSCloughPenzienSpectrum);
     RegisterSpectrum(objNameTaj_S, strPluginName, objDescriptionTaj_S, BuildCRPSKanaiTajimiSpectrum, DestroyCRPSKanaiTajimiSpectrum);
     RegisterSpectrum(objNameHuz_S, strPluginName, objDescriptionHuz_S, BuildCRPSHuZhouSpectrum, DestroyCRPSHuZhouSpectrum);
-    
+    RegisterSpectrum(objNameKou_S, strPluginName, objDescriptionKou_S, BuildCRPSKougioumtzoglouAndSpanoSpectrum, DestroyCRPSKougioumtzoglouAndSpanoSpectrum);
+
     RegisterModulation(objNameCon_M, strPluginName, objDescriptionCon_M, BuildCRPSConstantModulation, DestroyCRPSConstantModulation);
     RegisterModulation(objNameExp_M, strPluginName, objDescriptionExp_M, BuildCRPSExponentialModulation, DestroyCRPSExponentialModulation);
     RegisterModulation(objNameJen_M, strPluginName, objDescriptionJen_M, BuildCRPSJenningsEtAl1968Modulation, DestroyCRPSJenningsEtAl1968Modulation);
@@ -680,7 +702,8 @@ UNINSTALL_PLUGIN()
     UnregisterSpectrum(objNameClo_S, strPluginName);
     UnregisterSpectrum(objNameTaj_S, strPluginName);
     UnregisterSpectrum(objNameHuz_S, strPluginName);
-    
+    UnregisterSpectrum(objNameKou_S, strPluginName);
+
     UnregisterModulation(objNameCon_M, strPluginName);
     UnregisterModulation(objNameExp_M, strPluginName);
     UnregisterModulation(objNameJen_M, strPluginName);

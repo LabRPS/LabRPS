@@ -59,6 +59,7 @@ Widgets/DlgTurbulenceIntensityASCE798.ui
 Widgets/DlgGridPoints.ui
 Widgets/DlgImportSimulationPointsFromFile.ui
 Widgets/DlgYangEtAl1997Ind.ui
+Widgets/DlgTogbenouEtAl2016.ui
 
 
 )
@@ -148,6 +149,8 @@ Widgets/DlgImportSimulationPointsFromFile.h
 Widgets/DlgImportSimulationPointsFromFile.cpp
 Widgets/DlgYangEtAl1997Ind.h
 Widgets/DlgYangEtAl1997Ind.cpp
+Widgets/DlgTogbenouEtAl2016.h
+Widgets/DlgTogbenouEtAl2016.cpp
 
 
 RPSDoubleIndexFrequency.cpp
@@ -202,6 +205,8 @@ RPSYangEtAl1997.cpp
 RPSYangEtAl1997.h
 RPSYangEtAl1997Ind.cpp
 RPSYangEtAl1997Ind.h
+RPSTogbenouEtAl2016.cpp
+RPSTogbenouEtAl2016.h
 WLUniformDistributionLocations.h
 WLUniformDistributionLocations.cpp
 RPSWavePassageEffect.h

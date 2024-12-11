@@ -61,7 +61,7 @@ ViewProviderSeismicLabFeatureSpectrum::ViewProviderSeismicLabFeatureSpectrum()
 
     ComplexNumberDisplay.setEnums(complexRealImagEnum);
 
-  sPixmap = ":/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumXObj.svg";
+  sPixmap = ":/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumObj.svg";
 }
 
 ViewProviderSeismicLabFeatureSpectrum::~ViewProviderSeismicLabFeatureSpectrum()
@@ -243,7 +243,7 @@ PyObject* ViewProviderSeismicLabFeatureSpectrum::getPyObject(void)
 
 bool ViewProviderSeismicLabFeatureSpectrum::runFeatureMethod(const QString function, const char* complexNumberDisplay)
 {  
-ActivateFeature();
+    ActivateFeature();
     SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 

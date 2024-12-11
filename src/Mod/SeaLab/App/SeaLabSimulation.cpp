@@ -259,7 +259,7 @@ void SeaLabSimulation::updateSimulationData()
 
 bool SeaLabSimulation::run() { return false; }
 
-bool SeaLabSimulation::stop() { return false; }
+bool SeaLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
 
 std::string SeaLabSimulation::getPhenomenonName() const
 {

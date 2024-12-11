@@ -73,7 +73,7 @@
          </property>
          <property name="icon">
           <iconset>
-           <normaloff>:/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumObj.svg</normaloff>:/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumXObj.svg</iconset>
+           <normaloff>:/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumObj.svg</normaloff>:/icons/SeismicLabFeatures/SeismicLab_Feature_SpectrumObj.svg</iconset>
          </property>
         </item>
         <item>
