@@ -129,13 +129,13 @@ bool ViewProviderWindLabSimulation::doubleClicked(void)
 
 bool ViewProviderWindLabSimulation::run()
 {
-     WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
+    WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
     if (!sim) {
         return false;
     }
+
     auto activeMethod = sim->getActiveSimulationMethod();
 
-    //WindLabAPI::IrpsWLSimuMethod* activeSimMethod = static_cast<WindLabAPI::IrpsWLSimuMethod*>(sim->getActiveSimulationMethod());
     if (!activeMethod) {
         return false;
     }
