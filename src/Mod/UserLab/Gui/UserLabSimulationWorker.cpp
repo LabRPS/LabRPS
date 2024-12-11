@@ -87,7 +87,10 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
-
+            if (!returnResult) {
+                Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
+                return false;
+            }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
             Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
             m_ResultMatrix = matrix_k;
@@ -98,11 +101,6 @@ bool RPSUserLabSimulationWorker::workerSimulate()
 
             if (m_sim->getSimulationData()->comparisonMode.getValue())
                 setComputationTime();
-
-            if (!returnResult) {
-                Base::Console().Error("The computation of the wind velocity matrix has failed.\n");
-                return false;
-            }
 
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
         }
