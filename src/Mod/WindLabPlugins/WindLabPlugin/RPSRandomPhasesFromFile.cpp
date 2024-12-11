@@ -102,6 +102,17 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const WindLabAPI::WindLabSi
        
     }
 
+    if (dRandomValueArray.rows() != Data.numberOfFrequency.getValue())
+    {
+        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files does not match the number of simulation points.\n");
+        return 0;
+    }
+    if (dRandomValueArray.cols() != Data.numberOfSpatialPosition.getValue())
+    {
+        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files does not match the number of simulation points.\n");
+        return 0;
+    }
+
  QFile inputFile(file_path);
 
     if (inputFile.open(QIODevice::ReadOnly)) {

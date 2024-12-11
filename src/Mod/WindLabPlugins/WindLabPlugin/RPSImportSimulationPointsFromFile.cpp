@@ -75,6 +75,17 @@ int CRPSImportSimulationPointsFromFile::ReadSimulationPointsFromFile(const WindL
 {
     QFile inputFile(file_path);
 
+    if (dPointArray.rows() == Data.numberOfFrequency.getValue())
+    {
+        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files does not match the number of simulation points.\n");
+        return 0;
+    }
+    if (dPointArray.cols() == 4)
+    {
+        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files is not 4.\n");
+        return 0;
+    }
+
     if (inputFile.open(QIODevice::ReadOnly)) {
      
      QString line;

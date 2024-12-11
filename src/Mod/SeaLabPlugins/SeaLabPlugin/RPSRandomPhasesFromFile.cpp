@@ -75,29 +75,49 @@ bool CRPSRandomPhasesFromFile::GetFilePathButton()
 int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const SeaLabAPI::SeaLabSimulationData& Data, QString file_path, mat &dRandomValueArray)
 {
     QFile file(file_path);
-    if(!file.exists()){
-		Base::Console().Warning("Couldn't find the random phase file\n");
-		return 0;
-    }else{
-       
+    if (!file.exists()) {
+        Base::Console().Warning("Couldn't find the random phase file\n");
+        return 0;
+    }
+    else {}
+
+    if (dRandomValueArray.rows() != Data.numberOfFrequency.getValue()) {
+        Base::Console().Warning(
+            "The random phase angles importing has failed because the number of rows in the files "
+            "does not match the number of simulation points.\n");
+        return 0;
+    }
+    if (dRandomValueArray.cols() != Data.numberOfSpatialPosition.getValue()) {
+        Base::Console().Warning(
+            "The random phase angles importing has failed because the number of rows in the files "
+            "does not match the number of simulation points.\n");
+        return 0;
     }
 
-    QString line;   
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QTextStream stream(&file);
-        // FOR EACH ROW
-	          for (int j = 0; j < Data.numberOfFrequency.getValue(); j++)
-	          {
-				     // FOR EACH COL
-		          for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++)
-		          {
-			          // FOR EACH ROW AND COL
-			          stream >> dRandomValueArray(j, k);
-		          }
-	          }
-    }
-    file.close();
+    QFile inputFile(file_path);
 
-return 1;
+    if (inputFile.open(QIODevice::ReadOnly)) {
+
+        QString line;
+
+        QTextStream in(&inputFile);
+        for (int j = 0; j < Data.numberOfFrequency.getValue(); j++) {
+            if (!in.atEnd()) {
+                line = in.readLine();
+                QStringList fields = line.split('\t');
+
+                // FOR EACH COL
+                for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {
+
+                    // FOR EACH ROW AND COL
+                    dRandomValueArray(j, k) = fields[k].toDouble();
+                }
+            }
+        }
+
+        inputFile.close();
+    }
+
+    return 1;
 }
 
