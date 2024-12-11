@@ -156,12 +156,8 @@ bool ViewProviderWindLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    //get the corresponding view provider
-    WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
 
-    vp->stop();
-
-    return true;
+    return sim->stop();
 }
 
 bool ViewProviderWindLabSimulation::activateSimulation() { return doubleClicked(); }

@@ -150,12 +150,7 @@ bool ViewProviderSeismicLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    //get the corresponding view provider
-    SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(sim));
-
-    vp->stop();
-
-    return true;
+    return sim->stop();
 }
 
 bool ViewProviderSeismicLabSimulation::activateSimulation() { return doubleClicked(); }

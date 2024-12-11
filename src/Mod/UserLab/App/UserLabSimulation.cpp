@@ -170,7 +170,7 @@ void UserLabSimulation::updateSimulationData()
 
 bool UserLabSimulation::run() { return false; }
 
-bool UserLabSimulation::stop() { return false; }
+bool UserLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
 
 std::string UserLabSimulation::getPhenomenonName() const
 {
