@@ -199,6 +199,16 @@ ActivateFeature();
     SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
+        SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp)
+    {
+        if (vp->getAllComputation())
+        {
+            Base::Console().Error("A simulation is running, please stop it first.\n");
+            return false;
+        }
+    }
+
     seismicLabAllFeaturesComputation = new SeismicLabAllFeaturesComputation(sim);
     seismicLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
     seismicLabAllFeaturesComputation->getSeismicLabSimulationThread()->start();

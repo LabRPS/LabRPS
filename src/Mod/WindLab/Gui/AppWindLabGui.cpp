@@ -54,7 +54,6 @@
 #include "ViewProviderWindLabFeatureYSpectrum.h"
 #include "ViewProviderWindLabFeatureZSpectrum.h"
 #include "ViewProviderWindLabSimulation.h"
-#include "ViewProviderWindLabSimulationComparison.h"
 
 
 #include "Workbench.h"
@@ -181,7 +180,6 @@ PyMOD_INIT_FUNC(WindLabGui)
 
     // init objects
     WindLabGui::ViewProviderWindLabSimulation ::init();
-    WindLabGui::ViewProviderWindLabSimulationComparison ::init();
     WindLabGui::ViewProviderWindLabFeatureLocationDistribution::init();
     WindLabGui::ViewProviderWindLabFeatureMeanWind::init();
     WindLabGui::ViewProviderWindLabFeatureXSpectrum::init();

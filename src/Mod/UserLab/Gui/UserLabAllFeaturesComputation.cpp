@@ -141,10 +141,10 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
 
     // add the functionality to stop the outputing process
-    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(RPSUserLabSimulationWorker::stop()), Qt::DirectConnection);
-    connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-    connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
-    connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
+    // connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+    // connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+    // connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
     // add the functionaly to delete the worker after work is done
     connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
@@ -153,17 +153,17 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
     
     if(function == UserLab::UserLabUtils::Simulate)
-        {
-            simulationWorker->setComputingFunction(function);
+    {
+        simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-        }
+    }
     else if(function == UserLab::UserLabUtils::SimulateInLargeScaleMode) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
     
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
-    bar->setRange(0, 100);
+    bar->setRange(0, 0);
     bar->show();
     Gui::getMainWindow()->showMessage(tr("Loading %1...").arg(QString::fromLatin1(simulationWorker->getComparisonName().c_str())));
 
@@ -200,7 +200,7 @@ void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("hahaha"));
+    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
 }

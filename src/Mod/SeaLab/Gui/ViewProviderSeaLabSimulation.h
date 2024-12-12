@@ -26,6 +26,7 @@
 #include <Gui/ViewProviderDocumentObjectGroup.h>
 #include <Mod/SeaLab/SeaLabGlobal.h>
 #include <QCoreApplication>
+#include "SeaLabAllFeaturesComputation.h"
 
 namespace SeaLabGui
 {
@@ -88,6 +89,9 @@ public:
     /// If the dropped object type is accepted the object will be added as child
     void dropObject(App::DocumentObject*);
     //@}
+
+    SeaLabAllFeaturesComputation* getAllComputation();
+    void setAllComputation(SeaLabAllFeaturesComputation* computation);
 public:
     bool run();
     bool stop();
@@ -97,6 +101,9 @@ public:
 protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
+
+private:
+    SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
 };
 
 } //namespace SeaLabGui

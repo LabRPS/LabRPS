@@ -107,3 +107,7 @@ PyObject* Simulation::getPyObject(void)
     }
     return Py::new_reference_to(PythonObject);
 }
+
+void Simulation::slotSimulationAbort(const App::Document& Doc) {
+
+}

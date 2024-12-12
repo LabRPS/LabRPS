@@ -42,10 +42,10 @@ class ConsoleWidget : public QDockWidget {
   void setSplitterPosition(QByteArray state);
   QByteArray getSplitterPosition();
 
- signals:
+ Q_SIGNALS:
   void printResult(QString);
 
- private slots:
+ private Q_SLOTS:
   void evaluate(QString line);
 
  private:

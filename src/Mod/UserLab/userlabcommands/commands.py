@@ -68,26 +68,6 @@ class _Simulation(CommandManager):
         LabRPSGui.doCommand("UserLabGui.setActiveSimulation(LabRPS.ActiveDocument.ActiveObject)")
         LabRPS.ActiveDocument.commitTransaction()
 
-class _Comparison(CommandManager):
-    "The UserLab_Comparison command definition"
-
-    def __init__(self):
-        super(_Comparison, self).__init__()
-        self.menutext = Qt.QT_TRANSLATE_NOOP("UserLab_Comparison", "Comparison")
-        self.accel = "S, C"
-        self.tooltip = Qt.QT_TRANSLATE_NOOP(
-            "UserLab_Comparison",
-            "Creates a simulation comparison"
-        )
-        self.is_active = "with_document"
-
-    def Activated(self):
-        LabRPS.ActiveDocument.openTransaction("Create Comparison")
-        LabRPSGui.addModule("UserLabGui")
-        LabRPSGui.addModule("UserLabObjects")
-        LabRPSGui.doCommand("UserLabObjects.makeUserLabSimulationComparison(LabRPS.ActiveDocument, 'Comparison')")
-        LabRPS.ActiveDocument.commitTransaction()
-
 class _Examples(CommandManager):
     "The UserLab_Examples command definition"
 
@@ -114,11 +94,6 @@ LabRPSGui.addCommand(
     "UserLab_Simulation",
     _Simulation()
 )
-
-# LabRPSGui.addCommand(
-#     "UserLab_Comparison",
-#     _Comparison()
-# )
 
 LabRPSGui.addCommand(
     "UserLab_Examples",

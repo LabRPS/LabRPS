@@ -59,6 +59,7 @@
 using namespace App;
 using namespace SeaLab;
 using namespace SeaLabAPI;
+namespace sp = std::placeholders;
 
 PROPERTY_SOURCE(SeaLab::SeaLabSimulation, App::Simulation)
 
@@ -178,6 +179,10 @@ SeaLabSimulation::SeaLabSimulation()
     static const char* directions[] = {"X", "Y", "Z", nullptr};
     ADD_PROPERTY_TYPE(Direction, ((long int)0), datagroup, Prop_None, "The ground motion direction");
     Direction.setEnums(directions);
+    App::Document* doc = App::GetApplication().getActiveDocument();
+
+    doc->signalSimulationAbort.connect(
+       std::bind(&SeaLab::SeaLabSimulation::slotSimulationAbort, this, sp::_1));
 }
 
 SeaLabSimulation::~SeaLabSimulation() { delete _simuData; }
@@ -3448,4 +3453,8 @@ App::DocumentObject*  SeaLabSimulation::addFeature(const std::string featureName
     App::GetApplication().getActiveDocument()->recompute();
 
     return newFeature;
-    }
+}
+
+void SeaLabSimulation::slotSimulationAbort(const App::Document& Doc) { 
+    this->stop(); 
+}

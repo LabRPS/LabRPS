@@ -22,7 +22,7 @@
 
 #ifndef SEISMICLABGUI_DlgKougioumtzoglouAndSpanoSpectrum_H
 #define SEISMICLABGUI_DlgKougioumtzoglouAndSpanoSpectrum_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>

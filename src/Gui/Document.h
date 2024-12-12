@@ -130,6 +130,7 @@ public:
     mutable boost::signals2::signal<void (const Gui::Document& doc)> signalRedoDocument;
     /// signal on deleting Document
     mutable boost::signals2::signal<void (const Gui::Document& doc)> signalDeleteDocument;
+
     //@}
 
     /** @name I/O of the document */
@@ -161,6 +162,8 @@ public:
     /// Observer message from the App doc
     void setModified(bool);
     bool isModified() const;
+    void setRunning(bool);
+    bool isRunning() const;
 
     /// Getter for the App Document
     App::Document*  getDocument() const;

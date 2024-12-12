@@ -44,11 +44,11 @@
 #include <App/Simulation.h>
 #include <Mod/WindLab/App/WindLabSimulation.h>
 #include <Mod/WindLabAPI/App/RPS.h>
-#include "Ui_DlgNewSimulation.h"
-#include "ui_DlgWindLabFeatures.h"
 #include <App/DocumentObjectGroup.h>
 #include <Mod/WindLab/App/WindLabUtils.h>
 #include <Gui/Macro.h>
+#include "Ui_DlgNewSimulation.h"
+#include "ui_DlgWindLabFeatures.h"
 
 using namespace Gui;
 using namespace WindLabGui;
@@ -282,6 +282,7 @@ void DlgNewSimulation::createNewSimulation()
 
 	doc->commitTransaction();
     saveSimulation(doc, newSim);
+
     App::GetApplication().getActiveDocument()->recompute();
 }
 

@@ -26,14 +26,11 @@ include_directories(
 
 generate_from_xml(ViewProviderUserLabFeatureSimulationMethodPy)
 generate_from_xml(ViewProviderUserLabSimulationPy)
-generate_from_xml(ViewProviderUserLabSimulationComparisonPy)
-
 
 # The XML files
 set(UserLabGui_XML_SRCS
     ViewProviderUserLabFeatureSimulationMethodPy.xml
     ViewProviderUserLabSimulationPy.xml
-    ViewProviderUserLabSimulationComparisonPy.xml
 )
 
 set(UserLabGui_LIBS
@@ -53,7 +50,6 @@ set(UserLabGui_UIC_SRCS
 DlgNewSimulation.ui
 DlgUserLabFeatures.ui
 DlgUserLabFeaturesCreation.ui
-DlgSimulationComparison.ui
 DlgSettingsUserLabLimit.ui
 DlgSettingsUserLabGeneral.ui
 
@@ -83,22 +79,17 @@ endif()
 SET(ViewProvider_CPP_SRCS
 ViewProviderUserLabSimulation.cpp
 DlgUserLabFeaturesCreation.cpp
-DlgSimulationComparison.cpp
 ViewProviderUserLabFeatureSimulationMethod.cpp
 ViewProviderUserLabSimulation.cpp
-ViewProviderUserLabSimulationComparison.cpp
 
 ViewProviderUserLabFeatureSimulationMethodPyImp.cpp
 ViewProviderUserLabSimulationPyImp.cpp
-ViewProviderUserLabSimulationComparisonPyImp.cpp
 
 )
 SET(ViewProvider_HPP_SRCS
 ViewProviderUserLabSimulation.h
 DlgUserLabFeaturesCreation.h
-DlgSimulationComparison.h
 ViewProviderUserLabFeatureSimulationMethod.h
-ViewProviderUserLabSimulationComparison.h
 )
 
 SET(ViewProvider_SRCS
@@ -131,9 +122,6 @@ SET(UserLabGui_SRCS
     UserLabSimulationWorker.cpp
     UserLabAllFeaturesComputation.h
     UserLabAllFeaturesComputation.cpp
-    UserLabComparisonStarter.h
-    UserLabComparisonStarter.cpp
-
 )
 
 if(LABRPS_USE_PCH)

@@ -1,7 +1,7 @@
 
 #ifndef SEALABGUI_DlgRandomPhasesFromFile_H
 #define SEALABGUI_DlgRandomPhasesFromFile_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>

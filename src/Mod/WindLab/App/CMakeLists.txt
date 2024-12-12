@@ -33,7 +33,6 @@ set(WindLab_LIBS
 )
 
 generate_from_xml(WindLabSimulationPy)
-generate_from_xml(WindLabSimulationComparisonPy)
 
 SET(Properties_SRCS
 
@@ -49,16 +48,12 @@ SOURCE_GROUP("Features" FILES ${Features_SRCS})
 SET(Datatypes_SRCS
     WindLabSimulation.cpp
     WindLabSimulation.h
-    WindLabSimulationComparison.h
-    WindLabSimulationComparison.cpp
 )
 SOURCE_GROUP("Datatypes" FILES ${Datatypes_SRCS})
 
 SET(Python_SRCS
     WindLabSimulationPy.xml
     WindLabSimulationPyImp.cpp
-    WindLabSimulationComparisonPyImp.cpp
-
 )
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
 

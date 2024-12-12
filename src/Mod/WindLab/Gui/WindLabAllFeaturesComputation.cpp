@@ -36,17 +36,36 @@
 #include <QFuture>
 #include <QMetaType>
 #include <Gui/ProgressBar.h>
+#include <Gui/Application.h>
+#include "ViewProviderWindLabSimulation.h"
+#include <App/Application.h>
+#include <App/Document.h>
 
 using namespace WindLabGui;
 
 WindLabAllFeaturesComputation::WindLabAllFeaturesComputation(WindLab::WindLabSimulation* sim, QObject* parent)
     : m_sim(sim), QObject(parent)
-{ 
+{
+    WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(m_sim));
+    if (vp)
+        vp->setAllComputation(this);
+
+    App::Document* doc = App::GetApplication().getActiveDocument();
+    Gui::Document* guiDoc = Gui::Application::Instance->getDocument(doc);
+    guiDoc->setRunning(true);
+
 }
 
 WindLabAllFeaturesComputation::~WindLabAllFeaturesComputation()
 {
-    
+    App::Document* doc = App::GetApplication().getActiveDocument();
+    Gui::Document* guiDoc = Gui::Application::Instance->getDocument(doc);
+    guiDoc->setRunning(false);
+
+    WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(m_sim));
+    if (vp)
+        vp->setAllComputation(nullptr);
+ 
 }
 
 RPSWindLabSimulationWorker *WindLabAllFeaturesComputation::GetWindLabSimulationWorker()
@@ -56,7 +75,6 @@ RPSWindLabSimulationWorker *WindLabAllFeaturesComputation::GetWindLabSimulationW
 
 QThread* WindLabAllFeaturesComputation::getWindLabSimulationThread()
 { return simulationThread; }
-
 
 QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QString &name) {
     QDateTime dt = QDateTime::currentDateTime();
@@ -169,8 +187,6 @@ QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
     return info;
 }
 
-
-
 void WindLabAllFeaturesComputation::startSimulationWorker(QString function, const char* complexNumberDisplay)
 {
     // create the worker
@@ -184,10 +200,10 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
 
     // add the functionality to stop the outputing process
-    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(RPSWindLabSimulationWorker::stop()), Qt::DirectConnection);
-    connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-    connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
-    connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
+    // connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+    // connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+    // connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
     // add the functionaly to delete the worker after work is done
     connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
@@ -216,7 +232,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossCoherenceMatrixPP()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeCrossCorrelationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossCorrelationValue()));
@@ -237,7 +252,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCPDVectorX()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeFrequencyValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeFrequencyValue()));
@@ -250,7 +264,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeFrequenciesMatrixFP()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeGustFactorValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeGustFactorValue()));
@@ -263,7 +276,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeGustFactorVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeKurtosisValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeKurtosisValue()));
@@ -276,12 +288,10 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeKurtosisVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::MatrixToolCompute) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerMatrixToolCompute()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeMeanWindSpeedValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeMeanWindSpeedValue()));
@@ -294,7 +304,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeMeanWindSpeedVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeModulationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeModulationValue()));
@@ -307,7 +316,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeModulationVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputePeakFactorValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePeakFactorValue()));
@@ -320,7 +328,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePeakFactorVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputePDFValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePDFValue()));
@@ -329,7 +336,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePDFVectorX()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeDecomposedPSDValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDecomposedPSDValue()));
@@ -359,10 +365,10 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerGenerateRandomCubeFPS()));
     }
     else if(function == WindLab::WindLabUtils::ComputeRoughnessValue)
-        {
-            simulationWorker->setComputingFunction(function);
-            connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeRoughnessValue()));
-        }
+    {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeRoughnessValue()));
+    }
     else if(function == WindLab::WindLabUtils::ComputeRoughnessVectorP) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeRoughnessVectorP()));
@@ -371,7 +377,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeRoughnessVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeShearVelocityOfFlowValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeShearVelocityOfFlowValue()));
@@ -393,7 +398,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeSkewnessValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeSkewnessValue()));
@@ -406,7 +410,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeSkewnessVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeStandardDeviationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeStandardDeviationValue()));
@@ -419,12 +422,10 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeStandardDeviationVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::TableToolCompute) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerTableToolCompute()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeTurbulenceIntensityValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeTurbulenceIntensityValue()));
@@ -437,7 +438,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeTurbulenceIntensityVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeTurbulenceScaleValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeTurbulenceScaleValue()));
@@ -455,7 +455,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerUserDefinedRPSObjectCompute()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeVarianceValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeVarianceValue()));
@@ -468,7 +467,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeVarianceVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeWavePassageEffectValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeWavePassageEffectValue()));
@@ -485,7 +483,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeWavePassageEffectMatrixPP()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeXCrossSpectrumValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeXCrossSpectrumValue()));
@@ -514,7 +511,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeXAutoSpectrumVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeYCrossSpectrumValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeYCrossSpectrumValue()));
@@ -543,7 +539,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeYAutoSpectrumVectorT()));
     }
-
     else if(function == WindLab::WindLabUtils::ComputeZCrossSpectrumValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeZCrossSpectrumValue()));
@@ -574,7 +569,7 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
     }
 
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
-    bar->setRange(0, 100);
+    bar->setRange(0, 0);
     bar->show();
     Gui::getMainWindow()->showMessage(tr("Loading %1...").arg(QString::fromLatin1(simulationWorker->getComparisonName().c_str())));
 
@@ -611,7 +606,7 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("hahaha"));
+    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
 }

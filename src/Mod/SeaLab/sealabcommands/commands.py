@@ -68,26 +68,6 @@ class _Simulation(CommandManager):
         LabRPSGui.doCommand("SeaLabGui.setActiveSimulation(LabRPS.ActiveDocument.ActiveObject)")
         LabRPS.ActiveDocument.commitTransaction()
 
-class _Comparison(CommandManager):
-    "The SeaLab_Comparison command definition"
-
-    def __init__(self):
-        super(_Comparison, self).__init__()
-        self.menutext = Qt.QT_TRANSLATE_NOOP("SeaLab_Comparison", "Comparison")
-        self.accel = "S, C"
-        self.tooltip = Qt.QT_TRANSLATE_NOOP(
-            "SeaLab_Comparison",
-            "Creates a simulation comparison"
-        )
-        self.is_active = "with_document"
-
-    def Activated(self):
-        LabRPS.ActiveDocument.openTransaction("Create Comparison")
-        LabRPSGui.addModule("SeaLabGui")
-        LabRPSGui.addModule("SeaLabObjects")
-        LabRPSGui.doCommand("SeaLabObjects.makeSeaLabSimulationComparison(LabRPS.ActiveDocument, 'Comparison')")
-        LabRPS.ActiveDocument.commitTransaction()
-
 class _Examples(CommandManager):
     "The SeaLab_Examples command definition"
 
@@ -114,11 +94,6 @@ LabRPSGui.addCommand(
     "SeaLab_Simulation",
     _Simulation()
 )
-
-# LabRPSGui.addCommand(
-#     "SeaLab_Comparison",
-#     _Comparison()
-# )
 
 LabRPSGui.addCommand(
     "SeaLab_Examples",

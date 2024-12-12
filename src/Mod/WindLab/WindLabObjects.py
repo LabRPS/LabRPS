@@ -55,10 +55,5 @@ def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     feat = WindLab.makeFeature(featureName, simulationName,  featureTypeName, featureGroup)
     return feat
 # ********* simulation objects *********************************************************************
-def makeWindLabSimulationComparison(doc, name="Comparison"):
-    """makeWindLabSimulationComparison(document, [name]):
-    makes a WindLab Simulation comparison object"""
-    obj = doc.addObject("WindLab::WindLabSimulationComparison", name)
-    return obj
 
 ##  @}

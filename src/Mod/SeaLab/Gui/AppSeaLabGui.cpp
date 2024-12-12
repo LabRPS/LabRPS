@@ -48,7 +48,6 @@
 #include "ViewProviderSeaLabFeatureWavePassageEffect.h"
 #include "ViewProviderSeaLabFeatureSpectrum.h"
 #include "ViewProviderSeaLabSimulation.h"
-#include "ViewProviderSeaLabSimulationComparison.h"
 
 
 #include "Workbench.h"
@@ -175,7 +174,6 @@ PyMOD_INIT_FUNC(SeaLabGui)
 
     // init objects
     SeaLabGui::ViewProviderSeaLabSimulation ::init();
-    SeaLabGui::ViewProviderSeaLabSimulationComparison ::init();
     SeaLabGui::ViewProviderSeaLabFeatureLocationDistribution::init();
     SeaLabGui::ViewProviderSeaLabFeatureMeanAcceleration::init();
     SeaLabGui::ViewProviderSeaLabFeatureSpectrum::init();

@@ -36,7 +36,6 @@
 
 #include "DlgNewSimulation.h"
 #include "DlgSeaLabFeaturesCreation.h"
-#include "DlgSimulationComparison.h"
 #include "Base/Interpreter.h"
 
 
@@ -165,51 +164,11 @@ bool CmdSeaLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
-//===========================================================================
-// SeaLab_Comparison
-//===========================================================================
-DEF_STD_CMD_A(CmdSeaLabComparison)
 
-CmdSeaLabComparison::CmdSeaLabComparison() : Command("SeaLab_Comparison")
-{
-    sAppModule = "SeaLab";
-    sGroup = QT_TR_NOOP("SeaLab");
-    sMenuText = QT_TR_NOOP("Compare");
-    sToolTipText = QT_TR_NOOP("Compare two SeaLab features in terms of accuracy, computation time and memory consumption");
-    sWhatsThis = "SeaLab_Comparison";
-    sStatusTip = sToolTipText;
-    sPixmap = "SeaLab_Comparison";
-}
-
-void CmdSeaLabComparison::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-
-     std::string PlugLang = "C++";
-    PlugLang = App::GetApplication()
-                   .GetParameterGroupByPath("User parameter:BaseApp/Preferences/General")
-                   ->GetASCII("PluginProgrammingLanguage", PlugLang.c_str());
-
-    if (PlugLang == "Python") {
-        std::stringstream str;
-        str << "Gui.runCommand('SeaLab_PythonComparison')" << std::endl;
-        Base::Interpreter().runString(str.str().c_str());
-    }
-    else if (PlugLang == "C++") {
-        SeaLabGui::DlgSimulationComparisonEdit* dlg = new SeaLabGui::DlgSimulationComparisonEdit(nullptr);
-        Gui::Control().showDialog(dlg);
-    }
-}
-
-bool CmdSeaLabComparison::isActive(void)
-{
-    return (hasActiveDocument() && !Gui::Control().activeDialog());
-}
 void CreateSeaLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdSeaLabNewSimulation());
     rcCmdMgr.addCommand(new CmdSeaLabFeatures());
-    rcCmdMgr.addCommand(new CmdSeaLabComparison());
 
 }

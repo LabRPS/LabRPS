@@ -149,7 +149,7 @@ class ColorPickerButton : public QFrame
 public:
     ColorPickerButton(QWidget *parent);
 
-signals:
+Q_SIGNALS:
     void clicked();
 
 protected:
@@ -180,7 +180,7 @@ public:
 
     void setSelected(bool);
     bool isSelected() const;
-signals:
+Q_SIGNALS:
     void clicked();
     void selected();
 
@@ -223,7 +223,7 @@ public:
 
     void setLastSel(const QColor & col);
 
-signals:
+Q_SIGNALS:
     void selected(const QColor &);
     void hid();
 

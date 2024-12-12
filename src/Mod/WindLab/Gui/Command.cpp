@@ -36,7 +36,6 @@
 
 #include "DlgNewSimulation.h"
 #include "DlgWindLabFeaturesCreation.h"
-#include "DlgSimulationComparison.h"
 #include "Base/Interpreter.h"
 
 
@@ -165,51 +164,10 @@ bool CmdWindLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
-//===========================================================================
-// WindLab_Comparison
-//===========================================================================
-DEF_STD_CMD_A(CmdWindLabComparison)
-
-CmdWindLabComparison::CmdWindLabComparison() : Command("WindLab_Comparison")
-{
-    sAppModule = "WindLab";
-    sGroup = QT_TR_NOOP("WindLab");
-    sMenuText = QT_TR_NOOP("Compare");
-    sToolTipText = QT_TR_NOOP("Compare two WindLab features in terms of accuracy, computation time and memory consumption");
-    sWhatsThis = "WindLab_Comparison";
-    sStatusTip = sToolTipText;
-    sPixmap = "WindLab_Comparison";
-}
-
-void CmdWindLabComparison::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-
-     std::string PlugLang = "C++";
-    PlugLang = App::GetApplication()
-                   .GetParameterGroupByPath("User parameter:BaseApp/Preferences/General")
-                   ->GetASCII("PluginProgrammingLanguage", PlugLang.c_str());
-
-    if (PlugLang == "Python") {
-        std::stringstream str;
-        str << "Gui.runCommand('WindLab_PythonComparison')" << std::endl;
-        Base::Interpreter().runString(str.str().c_str());
-    }
-    else if (PlugLang == "C++") {
-        WindLabGui::DlgSimulationComparisonEdit* dlg = new WindLabGui::DlgSimulationComparisonEdit(nullptr);
-        Gui::Control().showDialog(dlg);
-    }
-}
-
-bool CmdWindLabComparison::isActive(void)
-{
-    return (hasActiveDocument() && !Gui::Control().activeDialog());
-}
 void CreateWindLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdWindLabNewSimulation());
     rcCmdMgr.addCommand(new CmdWindLabFeatures());
-    rcCmdMgr.addCommand(new CmdWindLabComparison());
 
 }

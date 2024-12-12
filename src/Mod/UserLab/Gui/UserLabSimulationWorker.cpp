@@ -34,7 +34,6 @@
 
 #include <Gui/AlphaPlot.h>
 #include <Gui/MainWindow.h>
-#include <Mod/UserLab/App/UserLabSimulationComparison.h>
 #include <Mod/UserLab/App/UserLabSimulation.h>
 #include <QThread>
 #include <QTime>
@@ -51,23 +50,7 @@ RPSUserLabSimulationWorker::RPSUserLabSimulationWorker(UserLab::UserLabSimulatio
 RPSUserLabSimulationWorker::~RPSUserLabSimulationWorker() {}
 void RPSUserLabSimulationWorker::setComputationTime()
 {
-    auto doc = App::GetApplication().getActiveDocument();
-    if (!doc)
-        return;
-    auto obj = doc->getObject(m_comparisonName.c_str());
-    UserLab::UserLabSimulationComparison* comp = static_cast<UserLab::UserLabSimulationComparison*>(obj);
-    if (!comp)
-        return;
-    std::string simName = static_cast<App::DocumentObject*>(m_sim)->getNameInDocument();
 
-    if (strcmp(simName.c_str(), comp->SimulationCandidate1.getValue()) == 0) {
-        comp->ComputationTime1.setValue(m_simulationTime);
-    }
-    else if (strcmp(simName.c_str(), comp->SimulationCandidate2.getValue()) == 0) {
-        comp->ComputationTime2.setValue(m_simulationTime);
-    }
-
-    m_sim->getSimulationData()->comparisonMode.setValue(false);
 }
 
 bool RPSUserLabSimulationWorker::workerSimulate()

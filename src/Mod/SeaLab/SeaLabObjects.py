@@ -54,11 +54,5 @@ def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     makes a SeaLab feature and add to the specified SeaLab simulation"""
     feat = SeaLab.makeFeature(featureName, simulationName,  featureTypeName, featureGroup)
     return feat
-# ********* simulation objects *********************************************************************
-def makeSeaLabSimulationComparison(doc, name="Comparison"):
-    """makeSeaLabSimulationComparison(document, [name]):
-    makes a SeaLab Simulation comparison object"""
-    obj = doc.addObject("SeaLab::SeaLabSimulationComparison", name)
-    return obj
 
 ##  @}

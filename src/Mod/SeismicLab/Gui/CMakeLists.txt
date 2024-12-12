@@ -47,7 +47,6 @@ generate_from_xml(ViewProviderSeismicLabFeatureSpectrumPy)
 generate_from_xml(ViewProviderSeismicLabFeatureMatrixToolPy)
 generate_from_xml(ViewProviderSeismicLabFeatureTableToolPy)
 generate_from_xml(ViewProviderSeismicLabSimulationPy)
-generate_from_xml(ViewProviderSeismicLabSimulationComparisonPy)
 
 
 # The XML files
@@ -75,7 +74,6 @@ set(SeismicLabGui_XML_SRCS
     ViewProviderSeismicLabFeatureMatrixToolPy.xml
     ViewProviderSeismicLabFeatureTableToolPy.xml
     ViewProviderSeismicLabSimulationPy.xml
-    ViewProviderSeismicLabSimulationComparisonPy.xml
 )
 
 set(SeismicLabGui_LIBS
@@ -95,7 +93,6 @@ set(SeismicLabGui_UIC_SRCS
 DlgNewSimulation.ui
 DlgSeismicLabFeatures.ui
 DlgSeismicLabFeaturesCreation.ui
-DlgSimulationComparison.ui
 DlgSettingsSeismicLabLimit.ui
 DlgSettingsSeismicLabGeneral.ui
 
@@ -125,7 +122,6 @@ endif()
 SET(ViewProvider_CPP_SRCS
 ViewProviderSeismicLabSimulation.cpp
 DlgSeismicLabFeaturesCreation.cpp
-DlgSimulationComparison.cpp
 ViewProviderSeismicLabFeatureCoherence.cpp
 ViewProviderSeismicLabFeatureCorrelation.cpp
 ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution.cpp
@@ -149,7 +145,6 @@ ViewProviderSeismicLabFeatureSpectrum.cpp
 ViewProviderSeismicLabFeatureMatrixTool.cpp
 ViewProviderSeismicLabFeatureTableTool.cpp
 ViewProviderSeismicLabSimulation.cpp
-ViewProviderSeismicLabSimulationComparison.cpp
 
 ViewProviderSeismicLabFeatureCoherencePyImp.cpp
 ViewProviderSeismicLabFeatureCorrelationPyImp.cpp
@@ -174,13 +169,11 @@ ViewProviderSeismicLabFeatureSpectrumPyImp.cpp
 ViewProviderSeismicLabFeatureMatrixToolPyImp.cpp
 ViewProviderSeismicLabFeatureTableToolPyImp.cpp
 ViewProviderSeismicLabSimulationPyImp.cpp
-ViewProviderSeismicLabSimulationComparisonPyImp.cpp
 
 )
 SET(ViewProvider_HPP_SRCS
 ViewProviderSeismicLabSimulation.h
 DlgSeismicLabFeaturesCreation.h
-DlgSimulationComparison.h
 ViewProviderSeismicLabFeatureCoherence.h
 ViewProviderSeismicLabFeatureCorrelation.h
 ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution.h
@@ -203,7 +196,6 @@ ViewProviderSeismicLabFeatureWavePassageEffect.h
 ViewProviderSeismicLabFeatureSpectrum.h
 ViewProviderSeismicLabFeatureMatrixTool.h
 ViewProviderSeismicLabFeatureTableTool.h
-ViewProviderSeismicLabSimulationComparison.h
 )
 
 SET(ViewProvider_SRCS
@@ -236,9 +228,6 @@ SET(SeismicLabGui_SRCS
     SeismicLabSimulationWorker.cpp
     SeismicLabAllFeaturesComputation.h
     SeismicLabAllFeaturesComputation.cpp
-    SeismicLabComparisonStarter.h
-    SeismicLabComparisonStarter.cpp
-
 )
 
 if(LABRPS_USE_PCH)

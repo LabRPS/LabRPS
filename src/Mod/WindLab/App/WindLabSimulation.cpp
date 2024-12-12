@@ -67,6 +67,7 @@
 using namespace App;
 using namespace WindLab;
 using namespace WindLabAPI;
+namespace sp = std::placeholders;
 
 PROPERTY_SOURCE(WindLab::WindLabSimulation, App::Simulation)
 
@@ -198,6 +199,11 @@ WindLabSimulation::WindLabSimulation()
     static const char* directions[] = {"Along wind", "Across wind", "Vertical wind", nullptr};
     ADD_PROPERTY_TYPE(WindDirection, ((long int)0), datagroup, Prop_None, "The wind direction");
     WindDirection.setEnums(directions);
+
+    App::Document* doc = App::GetApplication().getActiveDocument();
+
+    doc->signalSimulationAbort.connect(
+       std::bind(&WindLab::WindLabSimulation::slotSimulationAbort, this, sp::_1));
 }
 
 WindLabSimulation::~WindLabSimulation() { delete _simuData; }
@@ -4567,7 +4573,11 @@ App::DocumentObject*  WindLabSimulation::addFeature(const std::string featureNam
     App::GetApplication().getActiveDocument()->recompute();
 
     return newFeature;
-    }
+}
+
+void WindLabSimulation::slotSimulationAbort(const App::Document& Doc) { 
+    this->stop(); 
+}
 
 // Dummy class 'DocumentObject' in WindLab namespace
 PROPERTY_SOURCE_ABSTRACT(WindLab::DocumentObject, App::DocumentObject)
@@ -4611,3 +4621,5 @@ PyObject* WindLab::FeaturePython::getPyObject()
 template class WindLabExport FeaturePythonT<WindLab::DocumentObject>;
 /// @endcond
 }  // namespace App
+
+

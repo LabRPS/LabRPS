@@ -68,26 +68,6 @@ class _Simulation(CommandManager):
         LabRPSGui.doCommand("SeismicLabGui.setActiveSimulation(LabRPS.ActiveDocument.ActiveObject)")
         LabRPS.ActiveDocument.commitTransaction()
 
-class _Comparison(CommandManager):
-    "The SeismicLab_Comparison command definition"
-
-    def __init__(self):
-        super(_Comparison, self).__init__()
-        self.menutext = Qt.QT_TRANSLATE_NOOP("SeismicLab_Comparison", "Comparison")
-        self.accel = "S, C"
-        self.tooltip = Qt.QT_TRANSLATE_NOOP(
-            "SeismicLab_Comparison",
-            "Creates a simulation comparison"
-        )
-        self.is_active = "with_document"
-
-    def Activated(self):
-        LabRPS.ActiveDocument.openTransaction("Create Comparison")
-        LabRPSGui.addModule("SeismicLabGui")
-        LabRPSGui.addModule("SeismicLabObjects")
-        LabRPSGui.doCommand("SeismicLabObjects.makeSeismicLabSimulationComparison(LabRPS.ActiveDocument, 'Comparison')")
-        LabRPS.ActiveDocument.commitTransaction()
-
 class _Examples(CommandManager):
     "The SeismicLab_Examples command definition"
 
@@ -114,11 +94,6 @@ LabRPSGui.addCommand(
     "SeismicLab_Simulation",
     _Simulation()
 )
-
-# LabRPSGui.addCommand(
-#     "SeismicLab_Comparison",
-#     _Comparison()
-# )
 
 LabRPSGui.addCommand(
     "SeismicLab_Examples",

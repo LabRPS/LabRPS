@@ -318,3 +318,12 @@ bool ViewProviderUserLabSimulation::checkSelectedChildren(const std::vector<App:
         return true;
     }
 }
+
+UserLabAllFeaturesComputation* ViewProviderUserLabSimulation::getAllComputation()
+{
+    return userLabAllFeaturesComputation;
+}
+void ViewProviderUserLabSimulation::setAllComputation(UserLabAllFeaturesComputation* computation)
+{
+    userLabAllFeaturesComputation = computation;
+}

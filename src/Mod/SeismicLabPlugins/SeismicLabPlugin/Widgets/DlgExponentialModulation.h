@@ -22,7 +22,7 @@
 
 #ifndef SEISMICLABGUI_DlgExponentialModulation_H
 #define SEISMICLABGUI_DlgExponentialModulation_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>

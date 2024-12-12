@@ -36,7 +36,6 @@
 
 #include "DlgNewSimulation.h"
 #include "DlgSeismicLabFeaturesCreation.h"
-#include "DlgSimulationComparison.h"
 #include "Base/Interpreter.h"
 
 
@@ -165,51 +164,10 @@ bool CmdSeismicLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
-//===========================================================================
-// SeismicLab_Comparison
-//===========================================================================
-DEF_STD_CMD_A(CmdSeismicLabComparison)
 
-CmdSeismicLabComparison::CmdSeismicLabComparison() : Command("SeismicLab_Comparison")
-{
-    sAppModule = "SeismicLab";
-    sGroup = QT_TR_NOOP("SeismicLab");
-    sMenuText = QT_TR_NOOP("Compare");
-    sToolTipText = QT_TR_NOOP("Compare two SeismicLab features in terms of accuracy, computation time and memory consumption");
-    sWhatsThis = "SeismicLab_Comparison";
-    sStatusTip = sToolTipText;
-    sPixmap = "SeismicLab_Comparison";
-}
-
-void CmdSeismicLabComparison::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-
-     std::string PlugLang = "C++";
-    PlugLang = App::GetApplication()
-                   .GetParameterGroupByPath("User parameter:BaseApp/Preferences/General")
-                   ->GetASCII("PluginProgrammingLanguage", PlugLang.c_str());
-
-    if (PlugLang == "Python") {
-        std::stringstream str;
-        str << "Gui.runCommand('SeismicLab_PythonComparison')" << std::endl;
-        Base::Interpreter().runString(str.str().c_str());
-    }
-    else if (PlugLang == "C++") {
-        SeismicLabGui::DlgSimulationComparisonEdit* dlg = new SeismicLabGui::DlgSimulationComparisonEdit(nullptr);
-        Gui::Control().showDialog(dlg);
-    }
-}
-
-bool CmdSeismicLabComparison::isActive(void)
-{
-    return (hasActiveDocument() && !Gui::Control().activeDialog());
-}
 void CreateSeismicLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdSeismicLabNewSimulation());
     rcCmdMgr.addCommand(new CmdSeismicLabFeatures());
-    rcCmdMgr.addCommand(new CmdSeismicLabComparison());
-
 }

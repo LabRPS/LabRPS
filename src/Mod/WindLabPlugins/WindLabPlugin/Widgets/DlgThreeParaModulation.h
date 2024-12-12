@@ -22,7 +22,7 @@
 
 #ifndef WINDLABGUI_DlgThreeParaModulation_H
 #define WINDLABGUI_DlgThreeParaModulation_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
