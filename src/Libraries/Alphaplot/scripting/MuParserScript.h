@@ -44,7 +44,7 @@ class MuParserScript : public Script {
   MuParserScript(ScriptingEnv *environment, const QString &code,
                  QObject *context = 0, const QString &name = "<input>");
 
- public slots:
+ public Q_SLOTS:
   bool compile(bool asFunction = true);
   QVariant eval();
   bool exec() { return eval().isValid(); }

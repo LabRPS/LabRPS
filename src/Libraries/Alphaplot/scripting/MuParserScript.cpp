@@ -544,7 +544,7 @@ Column *MuParserScript::resolveColumnPath(const QString &path) {
             qPrintable(tr("Couldn't find a table named %1.")
                            .arg(pathComponents.join("/") + "/" + tableName)));
       pathComponents.removeFirst();
-      foreach (QString f, pathComponents) {
+      Q_FOREACH (QString f, pathComponents) {
         if (f == "..")
           folder = qobject_cast<Folder *>(folder->parent());
         else

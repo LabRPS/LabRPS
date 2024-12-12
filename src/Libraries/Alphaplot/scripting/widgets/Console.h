@@ -70,11 +70,11 @@ class Console : public QTextEdit {
   bool historySkip;
 
   // The command signal is fired when a user input is entered
- signals:
+ Q_SIGNALS:
   void command(QString command);
 
   // The result slot displays the result of a command in the terminal
- public slots:
+ public Q_SLOTS:
   void result(QString result, ResultType type);
   void partialResult();
   void promptWithoutResult();

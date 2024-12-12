@@ -48,7 +48,7 @@ class PythonScript : public Script
 
 		void write(const QString &text) { emit print(text); }
 
-		public slots:
+		public Q_SLOTS:
 		bool compile(bool for_eval=true);
 		QVariant eval();
 		bool exec();
