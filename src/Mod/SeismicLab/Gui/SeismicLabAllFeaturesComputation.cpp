@@ -170,10 +170,10 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
 
 
     // add the functionality to stop the outputing process
-    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(RPSSeismicLabSimulationWorker::stop()), Qt::DirectConnection);
-    connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
-    connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
-    connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
+    connect(this, SIGNAL(stopped()), simulationWorker, SLOT(stop()), Qt::DirectConnection);
+    // connect(simulationWorker, SIGNAL(sendInformation(QStringList)), this, SLOT(receiveInformation(QStringList)));
+    // connect(simulationWorker, SIGNAL(progressBarShow()), this, SLOT(progressBarShowSL()));
+    // connect(simulationWorker, SIGNAL(progressBarHide()), this, SLOT(progressBarHideSL()));
 
     // add the functionaly to delete the worker after work is done
     connect(simulationWorker, SIGNAL(finished()), simulationWorker, SLOT(deleteLater()));
@@ -202,7 +202,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossCoherenceMatrixPP()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeCrossCorrelationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossCorrelationValue()));
@@ -223,7 +222,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCPDVectorX()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeFrequencyValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeFrequencyValue()));
@@ -248,12 +246,10 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeKurtosisVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::MatrixToolCompute) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerMatrixToolCompute()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeMeanAccelerationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeMeanAccelerationValue()));
@@ -266,7 +262,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeMeanAccelerationVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeModulationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeModulationValue()));
@@ -279,7 +274,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeModulationVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputePeakFactorValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePeakFactorValue()));
@@ -292,7 +286,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePeakFactorVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputePDFValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePDFValue()));
@@ -301,7 +294,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputePDFVectorX()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeDecomposedPSDValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDecomposedPSDValue()));
@@ -343,15 +335,14 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeShearVelocityOfFlowVectorP()));
     }
     else if(function == SeismicLab::SeismicLabUtils::Simulate)
-        {
-            simulationWorker->setComputingFunction(function);
+    {
+        simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-        }
+    }
     else if(function == SeismicLab::SeismicLabUtils::SimulateInLargeScaleMode) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeSkewnessValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeSkewnessValue()));
@@ -364,7 +355,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeSkewnessVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeStandardDeviationValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeStandardDeviationValue()));
@@ -377,7 +367,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeStandardDeviationVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::TableToolCompute) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerTableToolCompute()));
@@ -386,7 +375,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerUserDefinedRPSObjectCompute()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeVarianceValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeVarianceValue()));
@@ -399,7 +387,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeVarianceVectorT()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeWavePassageEffectValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeWavePassageEffectValue()));
@@ -416,7 +403,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeWavePassageEffectMatrixPP()));
     }
-
     else if(function == SeismicLab::SeismicLabUtils::ComputeCrossSpectrumValue) {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossSpectrumValue()));
@@ -447,7 +433,7 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
     }
 
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
-    bar->setRange(0, 100);
+    bar->setRange(0, 0);
     bar->show();
     Gui::getMainWindow()->showMessage(tr("Loading %1...").arg(QString::fromLatin1(simulationWorker->getComparisonName().c_str())));
 
@@ -484,7 +470,7 @@ void SeismicLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("hahaha"));
+    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
 }
