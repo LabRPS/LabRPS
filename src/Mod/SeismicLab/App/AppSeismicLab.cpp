@@ -27,8 +27,6 @@
 
 #include "SeismicLabSimulation.h"
 #include "SeismicLabSimulationPy.h"
-#include "SeismicLabSimulationComparison.h"
-#include "SeismicLabSimulationComparisonPy.h"
 
 
 namespace SeismicLab {
@@ -54,10 +52,8 @@ PyMOD_INIT_FUNC(SeismicLab)
 
     // Add Types to module
     Base::Interpreter().addType(&SeismicLab::SeismicLabSimulationPy                   ::Type, seismiclabModule, "SeismicLabSimulation");
-    Base::Interpreter().addType(&SeismicLab::SeismicLabSimulationComparisonPy         ::Type, seismiclabModule, "SeismicLabSimulationComparison");
 
     SeismicLab::SeismicLabSimulation           ::init();
-    SeismicLab::SeismicLabSimulationComparison ::init();
 
     Base::Console().Log("Loading SeismicLab module... done\n");
 

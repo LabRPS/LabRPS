@@ -53,7 +53,6 @@ generate_from_xml(ViewProviderWindLabFeatureZSpectrumPy)
 generate_from_xml(ViewProviderWindLabFeatureMatrixToolPy)
 generate_from_xml(ViewProviderWindLabFeatureTableToolPy)
 generate_from_xml(ViewProviderWindLabSimulationPy)
-generate_from_xml(ViewProviderWindLabSimulationComparisonPy)
 
 
 # The XML files
@@ -87,7 +86,6 @@ set(WindLabGui_XML_SRCS
     ViewProviderWindLabFeatureMatrixToolPy.xml
     ViewProviderWindLabFeatureTableToolPy.xml
     ViewProviderWindLabSimulationPy.xml
-    ViewProviderWindLabSimulationComparisonPy.xml
 )
 
 set(WindLabGui_LIBS
@@ -107,7 +105,6 @@ set(WindLabGui_UIC_SRCS
 DlgNewSimulation.ui
 DlgWindLabFeatures.ui
 DlgWindLabFeaturesCreation.ui
-DlgSimulationComparison.ui
 DlgSettingsWindLabLimit.ui
 DlgSettingsWindLabGeneral.ui
 
@@ -137,7 +134,6 @@ endif()
 SET(ViewProvider_CPP_SRCS
 ViewProviderWindLabSimulation.cpp
 DlgWindLabFeaturesCreation.cpp
-DlgSimulationComparison.cpp
 ViewProviderWindLabFeatureCoherence.cpp
 ViewProviderWindLabFeatureCorrelation.cpp
 ViewProviderWindLabFeatureCumulativeProbabilityDistribution.cpp
@@ -167,7 +163,6 @@ ViewProviderWindLabFeatureZSpectrum.cpp
 ViewProviderWindLabFeatureMatrixTool.cpp
 ViewProviderWindLabFeatureTableTool.cpp
 ViewProviderWindLabSimulation.cpp
-ViewProviderWindLabSimulationComparison.cpp
 
 ViewProviderWindLabFeatureCoherencePyImp.cpp
 ViewProviderWindLabFeatureCorrelationPyImp.cpp
@@ -198,13 +193,11 @@ ViewProviderWindLabFeatureZSpectrumPyImp.cpp
 ViewProviderWindLabFeatureMatrixToolPyImp.cpp
 ViewProviderWindLabFeatureTableToolPyImp.cpp
 ViewProviderWindLabSimulationPyImp.cpp
-ViewProviderWindLabSimulationComparisonPyImp.cpp
 
 )
 SET(ViewProvider_HPP_SRCS
 ViewProviderWindLabSimulation.h
 DlgWindLabFeaturesCreation.h
-DlgSimulationComparison.h
 ViewProviderWindLabFeatureCoherence.h
 ViewProviderWindLabFeatureCorrelation.h
 ViewProviderWindLabFeatureCumulativeProbabilityDistribution.h
@@ -233,7 +226,6 @@ ViewProviderWindLabFeatureYSpectrum.h
 ViewProviderWindLabFeatureZSpectrum.h
 ViewProviderWindLabFeatureMatrixTool.h
 ViewProviderWindLabFeatureTableTool.h
-ViewProviderWindLabSimulationComparison.h
 )
 
 SET(ViewProvider_SRCS
@@ -266,8 +258,6 @@ SET(WindLabGui_SRCS
     WindLabSimulationWorker.cpp
     WindLabAllFeaturesComputation.h
     WindLabAllFeaturesComputation.cpp
-    WindLabComparisonStarter.h
-    WindLabComparisonStarter.cpp
 
 )
 

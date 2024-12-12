@@ -33,7 +33,6 @@ set(SeismicLab_LIBS
 )
 
 generate_from_xml(SeismicLabSimulationPy)
-generate_from_xml(SeismicLabSimulationComparisonPy)
 
 SET(Properties_SRCS
 
@@ -49,16 +48,12 @@ SOURCE_GROUP("Features" FILES ${Features_SRCS})
 SET(Datatypes_SRCS
     SeismicLabSimulation.cpp
     SeismicLabSimulation.h
-    SeismicLabSimulationComparison.h
-    SeismicLabSimulationComparison.cpp
 )
 SOURCE_GROUP("Datatypes" FILES ${Datatypes_SRCS})
 
 SET(Python_SRCS
     SeismicLabSimulationPy.xml
     SeismicLabSimulationPyImp.cpp
-    SeismicLabSimulationComparisonPyImp.cpp
-
 )
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
 

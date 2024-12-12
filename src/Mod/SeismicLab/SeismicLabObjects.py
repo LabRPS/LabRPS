@@ -54,11 +54,5 @@ def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     makes a SeismicLab feature and add to the specified SeismicLab simulation"""
     feat = SeismicLab.makeFeature(featureName, simulationName,  featureTypeName, featureGroup)
     return feat
-# ********* simulation objects *********************************************************************
-def makeSeismicLabSimulationComparison(doc, name="Comparison"):
-    """makeSeismicLabSimulationComparison(document, [name]):
-    makes a SeismicLab Simulation comparison object"""
-    obj = doc.addObject("SeismicLab::SeismicLabSimulationComparison", name)
-    return obj
 
 ##  @}

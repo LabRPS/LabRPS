@@ -27,9 +27,6 @@
 
 #include "WindLabSimulation.h"
 #include "WindLabSimulationPy.h"
-#include "WindLabSimulationComparison.h"
-#include "WindLabSimulationComparisonPy.h"
-
 
 namespace WindLab {
 extern PyObject* initModule();
@@ -54,10 +51,8 @@ PyMOD_INIT_FUNC(WindLab)
 
     // Add Types to module
     Base::Interpreter().addType(&WindLab::WindLabSimulationPy                   ::Type, windlabModule, "WindLabSimulation");
-    Base::Interpreter().addType(&WindLab::WindLabSimulationComparisonPy         ::Type, windlabModule, "WindLabSimulationComparison");
 
     WindLab::WindLabSimulation           ::init();
-    WindLab::WindLabSimulationComparison ::init();
     WindLab::DocumentObject              ::init();
     WindLab::FeaturePython               ::init();
     WindLab::WindLabSimulationPython     ::init();

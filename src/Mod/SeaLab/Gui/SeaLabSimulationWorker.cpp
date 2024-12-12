@@ -34,7 +34,6 @@
 
 #include <Gui/AlphaPlot.h>
 #include <Gui/MainWindow.h>
-#include <Mod/SeaLab/App/SeaLabSimulationComparison.h>
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
 #include <QThread>
 #include <QTime>
@@ -51,7 +50,7 @@ RPSSeaLabSimulationWorker::RPSSeaLabSimulationWorker(SeaLab::SeaLabSimulation* s
 RPSSeaLabSimulationWorker::~RPSSeaLabSimulationWorker() {}
 void RPSSeaLabSimulationWorker::setComputationTime()
 {
-    auto doc = App::GetApplication().getActiveDocument();
+ /*   auto doc = App::GetApplication().getActiveDocument();
     if (!doc)
         return;
     auto obj = doc->getObject(m_comparisonName.c_str());
@@ -67,7 +66,7 @@ void RPSSeaLabSimulationWorker::setComputationTime()
         comp->ComputationTime2.setValue(m_simulationTime);
     }
 
-    m_sim->getSimulationData()->comparisonMode.setValue(false);
+    m_sim->getSimulationData()->comparisonMode.setValue(false);*/
 }
 
 bool RPSSeaLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()

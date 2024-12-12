@@ -27,9 +27,6 @@
 
 #include "UserLabSimulation.h"
 #include "UserLabSimulationPy.h"
-#include "UserLabSimulationComparison.h"
-#include "UserLabSimulationComparisonPy.h"
-
 
 namespace UserLab {
 extern PyObject* initModule();
@@ -53,10 +50,8 @@ PyMOD_INIT_FUNC(UserLab)
 
     // Add Types to module
     Base::Interpreter().addType(&UserLab::UserLabSimulationPy                   ::Type, userlabModule, "UserLabSimulation");
-    Base::Interpreter().addType(&UserLab::UserLabSimulationComparisonPy         ::Type, userlabModule, "UserLabSimulationComparison");
 
     UserLab::UserLabSimulation           ::init();
-    UserLab::UserLabSimulationComparison ::init();
 
     Base::Console().Log("Loading UserLab module... done\n");
 

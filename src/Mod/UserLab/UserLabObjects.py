@@ -54,11 +54,5 @@ def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     makes a UserLab feature and add to the specified UserLab simulation"""
     feat = UserLab.makeFeature(featureName, simulationName,  featureTypeName, featureGroup)
     return feat
-# ********* simulation objects *********************************************************************
-def makeUserLabSimulationComparison(doc, name="Comparison"):
-    """makeUserLabSimulationComparison(document, [name]):
-    makes a UserLab Simulation comparison object"""
-    obj = doc.addObject("UserLab::UserLabSimulationComparison", name)
-    return obj
 
 ##  @}

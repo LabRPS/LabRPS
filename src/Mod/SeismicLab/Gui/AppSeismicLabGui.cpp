@@ -48,7 +48,6 @@
 #include "ViewProviderSeismicLabFeatureWavePassageEffect.h"
 #include "ViewProviderSeismicLabFeatureSpectrum.h"
 #include "ViewProviderSeismicLabSimulation.h"
-#include "ViewProviderSeismicLabSimulationComparison.h"
 
 
 #include "Workbench.h"
@@ -175,7 +174,6 @@ PyMOD_INIT_FUNC(SeismicLabGui)
 
     // init objects
     SeismicLabGui::ViewProviderSeismicLabSimulation ::init();
-    SeismicLabGui::ViewProviderSeismicLabSimulationComparison ::init();
     SeismicLabGui::ViewProviderSeismicLabFeatureLocationDistribution::init();
     SeismicLabGui::ViewProviderSeismicLabFeatureMeanAcceleration::init();
     SeismicLabGui::ViewProviderSeismicLabFeatureSpectrum::init();

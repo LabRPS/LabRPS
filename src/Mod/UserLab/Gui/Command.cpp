@@ -36,7 +36,6 @@
 
 #include "DlgNewSimulation.h"
 #include "DlgUserLabFeaturesCreation.h"
-#include "DlgSimulationComparison.h"
 #include "Base/Interpreter.h"
 
 
@@ -165,51 +164,10 @@ bool CmdUserLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
-//===========================================================================
-// UserLab_Comparison
-//===========================================================================
-DEF_STD_CMD_A(CmdUserLabComparison)
 
-CmdUserLabComparison::CmdUserLabComparison() : Command("UserLab_Comparison")
-{
-    sAppModule = "UserLab";
-    sGroup = QT_TR_NOOP("UserLab");
-    sMenuText = QT_TR_NOOP("Compare");
-    sToolTipText = QT_TR_NOOP("Compare two UserLab features in terms of accuracy, computation time and memory consumption");
-    sWhatsThis = "UserLab_Comparison";
-    sStatusTip = sToolTipText;
-    sPixmap = "UserLab_Comparison";
-}
-
-void CmdUserLabComparison::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-
-     std::string PlugLang = "C++";
-    PlugLang = App::GetApplication()
-                   .GetParameterGroupByPath("User parameter:BaseApp/Preferences/General")
-                   ->GetASCII("PluginProgrammingLanguage", PlugLang.c_str());
-
-    if (PlugLang == "Python") {
-        std::stringstream str;
-        str << "Gui.runCommand('UserLab_PythonComparison')" << std::endl;
-        Base::Interpreter().runString(str.str().c_str());
-    }
-    else if (PlugLang == "C++") {
-        UserLabGui::DlgSimulationComparisonEdit* dlg = new UserLabGui::DlgSimulationComparisonEdit(nullptr);
-        Gui::Control().showDialog(dlg);
-    }
-}
-
-bool CmdUserLabComparison::isActive(void)
-{
-    return (hasActiveDocument() && !Gui::Control().activeDialog());
-}
 void CreateUserLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdUserLabNewSimulation());
     rcCmdMgr.addCommand(new CmdUserLabFeatures());
-    rcCmdMgr.addCommand(new CmdUserLabComparison());
-
 }

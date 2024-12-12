@@ -27,7 +27,6 @@
 
 #include "ViewProviderUserLabFeatureSimulationMethod.h"
 #include "ViewProviderUserLabSimulation.h"
-#include "ViewProviderUserLabSimulationComparison.h"
 
 
 #include "Workbench.h"
@@ -154,7 +153,6 @@ PyMOD_INIT_FUNC(UserLabGui)
 
     // init objects
     UserLabGui::ViewProviderUserLabSimulation ::init();
-    UserLabGui::ViewProviderUserLabSimulationComparison ::init();
     UserLabGui::ViewProviderUserLabFeatureSimulationMethod::init();
 
     new Gui::PrefPageProducer<UserLabGui::DlgSettingsUserLabGeneralImp>(QT_TRANSLATE_NOOP("QObject", "UserLab"));

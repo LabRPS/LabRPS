@@ -47,7 +47,6 @@ generate_from_xml(ViewProviderSeaLabFeatureSpectrumPy)
 generate_from_xml(ViewProviderSeaLabFeatureMatrixToolPy)
 generate_from_xml(ViewProviderSeaLabFeatureTableToolPy)
 generate_from_xml(ViewProviderSeaLabSimulationPy)
-generate_from_xml(ViewProviderSeaLabSimulationComparisonPy)
 
 
 # The XML files
@@ -75,7 +74,6 @@ set(SeaLabGui_XML_SRCS
     ViewProviderSeaLabFeatureMatrixToolPy.xml
     ViewProviderSeaLabFeatureTableToolPy.xml
     ViewProviderSeaLabSimulationPy.xml
-    ViewProviderSeaLabSimulationComparisonPy.xml
 )
 
 set(SeaLabGui_LIBS
@@ -95,7 +93,6 @@ set(SeaLabGui_UIC_SRCS
 DlgNewSimulation.ui
 DlgSeaLabFeatures.ui
 DlgSeaLabFeaturesCreation.ui
-DlgSimulationComparison.ui
 DlgSettingsSeaLabLimit.ui
 DlgSettingsSeaLabGeneral.ui
 
@@ -124,8 +121,6 @@ endif()
 
 SET(ViewProvider_CPP_SRCS
 ViewProviderSeaLabSimulation.cpp
-DlgSeaLabFeaturesCreation.cpp
-DlgSimulationComparison.cpp
 ViewProviderSeaLabFeatureCoherence.cpp
 ViewProviderSeaLabFeatureCorrelation.cpp
 ViewProviderSeaLabFeatureCumulativeProbabilityDistribution.cpp
@@ -149,7 +144,6 @@ ViewProviderSeaLabFeatureSpectrum.cpp
 ViewProviderSeaLabFeatureMatrixTool.cpp
 ViewProviderSeaLabFeatureTableTool.cpp
 ViewProviderSeaLabSimulation.cpp
-ViewProviderSeaLabSimulationComparison.cpp
 
 ViewProviderSeaLabFeatureCoherencePyImp.cpp
 ViewProviderSeaLabFeatureCorrelationPyImp.cpp
@@ -174,13 +168,10 @@ ViewProviderSeaLabFeatureSpectrumPyImp.cpp
 ViewProviderSeaLabFeatureMatrixToolPyImp.cpp
 ViewProviderSeaLabFeatureTableToolPyImp.cpp
 ViewProviderSeaLabSimulationPyImp.cpp
-ViewProviderSeaLabSimulationComparisonPyImp.cpp
 
 )
 SET(ViewProvider_HPP_SRCS
 ViewProviderSeaLabSimulation.h
-DlgSeaLabFeaturesCreation.h
-DlgSimulationComparison.h
 ViewProviderSeaLabFeatureCoherence.h
 ViewProviderSeaLabFeatureCorrelation.h
 ViewProviderSeaLabFeatureCumulativeProbabilityDistribution.h
@@ -203,7 +194,6 @@ ViewProviderSeaLabFeatureWavePassageEffect.h
 ViewProviderSeaLabFeatureSpectrum.h
 ViewProviderSeaLabFeatureMatrixTool.h
 ViewProviderSeaLabFeatureTableTool.h
-ViewProviderSeaLabSimulationComparison.h
 )
 
 SET(ViewProvider_SRCS
@@ -228,6 +218,8 @@ SET(SeaLabGui_SRCS
     Workbench.h
     DlgNewSimulation.cpp
     DlgNewSimulation.h
+    DlgSeaLabFeaturesCreation.h
+    DlgSeaLabFeaturesCreation.cpp
     RPSSeaLabPyTool.cpp
     RPSSeaLabPyTool.h
     SeaLabSimulationObserver.h
@@ -236,8 +228,6 @@ SET(SeaLabGui_SRCS
     SeaLabSimulationWorker.cpp
     SeaLabAllFeaturesComputation.h
     SeaLabAllFeaturesComputation.cpp
-    SeaLabComparisonStarter.h
-    SeaLabComparisonStarter.cpp
 
 )
 

@@ -34,7 +34,6 @@
 
 #include <Gui/AlphaPlot.h>
 #include <Gui/MainWindow.h>
-#include <Mod/SeismicLab/App/SeismicLabSimulationComparison.h>
 #include <Mod/SeismicLab/App/SeismicLabSimulation.h>
 #include <QThread>
 #include <QTime>
@@ -51,23 +50,23 @@ RPSSeismicLabSimulationWorker::RPSSeismicLabSimulationWorker(SeismicLab::Seismic
 RPSSeismicLabSimulationWorker::~RPSSeismicLabSimulationWorker() {}
 void RPSSeismicLabSimulationWorker::setComputationTime()
 {
-    auto doc = App::GetApplication().getActiveDocument();
-    if (!doc)
-        return;
-    auto obj = doc->getObject(m_comparisonName.c_str());
-    SeismicLab::SeismicLabSimulationComparison* comp = static_cast<SeismicLab::SeismicLabSimulationComparison*>(obj);
-    if (!comp)
-        return;
-    std::string simName = static_cast<App::DocumentObject*>(m_sim)->getNameInDocument();
+    // auto doc = App::GetApplication().getActiveDocument();
+    // if (!doc)
+    //     return;
+    // auto obj = doc->getObject(m_comparisonName.c_str());
+    // SeismicLab::SeismicLabSimulationComparison* comp = static_cast<SeismicLab::SeismicLabSimulationComparison*>(obj);
+    // if (!comp)
+    //     return;
+    // std::string simName = static_cast<App::DocumentObject*>(m_sim)->getNameInDocument();
 
-    if (strcmp(simName.c_str(), comp->SimulationCandidate1.getValue()) == 0) {
-        comp->ComputationTime1.setValue(m_simulationTime);
-    }
-    else if (strcmp(simName.c_str(), comp->SimulationCandidate2.getValue()) == 0) {
-        comp->ComputationTime2.setValue(m_simulationTime);
-    }
+    // if (strcmp(simName.c_str(), comp->SimulationCandidate1.getValue()) == 0) {
+    //     comp->ComputationTime1.setValue(m_simulationTime);
+    // }
+    // else if (strcmp(simName.c_str(), comp->SimulationCandidate2.getValue()) == 0) {
+    //     comp->ComputationTime2.setValue(m_simulationTime);
+    // }
 
-    m_sim->getSimulationData()->comparisonMode.setValue(false);
+    // m_sim->getSimulationData()->comparisonMode.setValue(false);
 }
 
 bool RPSSeismicLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()

@@ -33,7 +33,6 @@ set(SeaLab_LIBS
 )
 
 generate_from_xml(SeaLabSimulationPy)
-generate_from_xml(SeaLabSimulationComparisonPy)
 
 SET(Properties_SRCS
 
@@ -49,16 +48,12 @@ SOURCE_GROUP("Features" FILES ${Features_SRCS})
 SET(Datatypes_SRCS
     SeaLabSimulation.cpp
     SeaLabSimulation.h
-    SeaLabSimulationComparison.h
-    SeaLabSimulationComparison.cpp
 )
 SOURCE_GROUP("Datatypes" FILES ${Datatypes_SRCS})
 
 SET(Python_SRCS
     SeaLabSimulationPy.xml
     SeaLabSimulationPyImp.cpp
-    SeaLabSimulationComparisonPyImp.cpp
-
 )
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
 

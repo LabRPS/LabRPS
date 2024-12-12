@@ -33,7 +33,6 @@ set(UserLab_LIBS
 )
 
 generate_from_xml(UserLabSimulationPy)
-generate_from_xml(UserLabSimulationComparisonPy)
 
 SET(Properties_SRCS
 
@@ -49,15 +48,12 @@ SOURCE_GROUP("Features" FILES ${Features_SRCS})
 SET(Datatypes_SRCS
     UserLabSimulation.cpp
     UserLabSimulation.h
-    UserLabSimulationComparison.h
-    UserLabSimulationComparison.cpp
 )
 SOURCE_GROUP("Datatypes" FILES ${Datatypes_SRCS})
 
 SET(Python_SRCS
     UserLabSimulationPy.xml
     UserLabSimulationPyImp.cpp
-    UserLabSimulationComparisonPyImp.cpp
 
 )
 SOURCE_GROUP("Python" FILES ${Python_SRCS})

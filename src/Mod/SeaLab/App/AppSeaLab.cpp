@@ -27,8 +27,6 @@
 
 #include "SeaLabSimulation.h"
 #include "SeaLabSimulationPy.h"
-#include "SeaLabSimulationComparison.h"
-#include "SeaLabSimulationComparisonPy.h"
 
 
 namespace SeaLab {
@@ -54,10 +52,8 @@ PyMOD_INIT_FUNC(SeaLab)
 
     // Add Types to module
     Base::Interpreter().addType(&SeaLab::SeaLabSimulationPy                   ::Type, sealabModule, "SeaLabSimulation");
-    Base::Interpreter().addType(&SeaLab::SeaLabSimulationComparisonPy         ::Type, sealabModule, "SeaLabSimulationComparison");
 
     SeaLab::SeaLabSimulation           ::init();
-    SeaLab::SeaLabSimulationComparison ::init();
 
     Base::Console().Log("Loading SeaLab module... done\n");
 
