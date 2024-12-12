@@ -165,7 +165,6 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
     bar->setRange(0, 0);
     bar->show();
-    Gui::getMainWindow()->showMessage(tr("Loading %1...").arg(QString::fromLatin1(simulationWorker->getComparisonName().c_str())));
 
 }
 
