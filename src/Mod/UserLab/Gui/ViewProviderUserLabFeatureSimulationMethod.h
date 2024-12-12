@@ -67,7 +67,7 @@ protected:// attributes
     Py::SmartPtr PythonObject;
 
 public:
-    UserLabAllFeaturesComputation* userAllFeaturesComputation = nullptr;
+    UserLabAllFeaturesComputation* userLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

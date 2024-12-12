@@ -26,6 +26,7 @@
 #include <Gui/ViewProviderDocumentObjectGroup.h>
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <QCoreApplication>
+#include "WindLabAllFeaturesComputation.h"
 
 namespace WindLabGui
 {
@@ -88,6 +89,10 @@ public:
     /// If the dropped object type is accepted the object will be added as child
     void dropObject(App::DocumentObject*);
     //@}
+
+    WindLabAllFeaturesComputation* getAllComputation();
+    void setAllComputation(WindLabAllFeaturesComputation* computation);
+
 public:
     bool run();
     bool stop();
@@ -97,6 +102,10 @@ public:
 protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
+
+public:
+
+    WindLabAllFeaturesComputation* windLabAllFeaturesComputation = nullptr;
 };
 
 } //namespace WindLabGui

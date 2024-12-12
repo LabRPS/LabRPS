@@ -384,3 +384,12 @@ bool ViewProviderSeaLabSimulation::checkSelectedChildren(const std::vector<App::
         return true;
     }
 }
+
+    SeaLabAllFeaturesComputation* ViewProviderSeaLabSimulation::getAllComputation()
+    {
+        return seaLabAllFeaturesComputation;
+    }
+    void ViewProviderSeaLabSimulation::setAllComputation(SeaLabAllFeaturesComputation* computation)
+    {
+        seaLabAllFeaturesComputation = computation;
+    }

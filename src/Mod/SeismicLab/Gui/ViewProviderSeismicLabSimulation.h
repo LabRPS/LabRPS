@@ -26,6 +26,7 @@
 #include <Gui/ViewProviderDocumentObjectGroup.h>
 #include <Mod/SeismicLab/SeismicLabGlobal.h>
 #include <QCoreApplication>
+#include "SeismicLabAllFeaturesComputation.h"
 
 namespace SeismicLabGui
 {
@@ -88,6 +89,9 @@ public:
     /// If the dropped object type is accepted the object will be added as child
     void dropObject(App::DocumentObject*);
     //@}
+
+    SeismicLabAllFeaturesComputation* getAllComputation();
+    void setAllComputation(SeismicLabAllFeaturesComputation* computation);
 public:
     bool run();
     bool stop();
@@ -97,6 +101,9 @@ public:
 protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
+
+private:
+    SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
 };
 
 } //namespace SeismicLabGui

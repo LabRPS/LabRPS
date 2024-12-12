@@ -26,6 +26,7 @@
 #include <Gui/ViewProviderDocumentObjectGroup.h>
 #include <Mod/UserLab/UserLabGlobal.h>
 #include <QCoreApplication>
+#include "UserLabAllFeaturesComputation.h"
 
 namespace UserLabGui
 {
@@ -88,6 +89,9 @@ public:
     /// If the dropped object type is accepted the object will be added as child
     void dropObject(App::DocumentObject*);
     //@}
+
+    UserLabAllFeaturesComputation* getAllComputation();
+    void setAllComputation(UserLabAllFeaturesComputation* computation);
 public:
     bool run();
     bool stop();
@@ -97,6 +101,9 @@ public:
 protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
+
+private:
+    UserLabAllFeaturesComputation* userLabAllFeaturesComputation = nullptr;
 };
 
 } //namespace UserLabGui

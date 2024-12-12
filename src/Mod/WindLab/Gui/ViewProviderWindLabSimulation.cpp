@@ -145,19 +145,29 @@ bool ViewProviderWindLabSimulation::run()
         return false;
     }
 
-    vp->simulate();
-
+    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
+    {
+        vp->simulate();
+    }
+    else
+    {
+        vp->simulateInLargeScaleMode();
+    }
+    
     return true;
 }
 
 bool ViewProviderWindLabSimulation::stop()
 {
-     WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
-    if (!sim) {
-        return false;
-    }
+    // WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
+    //if (!sim) {
+    //    return false;
+    //}
 
-    return sim->stop();
+    //return sim->stop();
+    if (windLabAllFeaturesComputation)
+    Q_EMIT windLabAllFeaturesComputation->stopped();
+    return true;
 }
 
 bool ViewProviderWindLabSimulation::activateSimulation() { return doubleClicked(); }
@@ -401,4 +411,13 @@ bool ViewProviderWindLabSimulation::checkSelectedChildren(const std::vector<App:
     else {
         return true;
     }
+}
+
+WindLabAllFeaturesComputation* ViewProviderWindLabSimulation::getAllComputation()
+{
+    return windLabAllFeaturesComputation;
+}
+void ViewProviderWindLabSimulation::setAllComputation(WindLabAllFeaturesComputation* computation)
+{
+    windLabAllFeaturesComputation = computation;
 }

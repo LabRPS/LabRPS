@@ -204,6 +204,16 @@ ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
+        SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp)
+    {
+        if (vp->getAllComputation())
+        {
+            Base::Console().Error("A simulation is running, please stop it first.\n");
+            return false;
+        }
+    }
+
     seaLabAllFeaturesComputation = new SeaLabAllFeaturesComputation(sim);
     seaLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
     seaLabAllFeaturesComputation->getSeaLabSimulationThread()->start();

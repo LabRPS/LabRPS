@@ -384,3 +384,12 @@ bool ViewProviderSeismicLabSimulation::checkSelectedChildren(const std::vector<A
         return true;
     }
 }
+
+    SeismicLabAllFeaturesComputation* ViewProviderSeismicLabSimulation::getAllComputation()
+    {
+        return seismicLabAllFeaturesComputation;
+    }
+    void ViewProviderSeismicLabSimulation::setAllComputation(SeismicLabAllFeaturesComputation* computation)
+    {
+        seismicLabAllFeaturesComputation = computation;
+    }
