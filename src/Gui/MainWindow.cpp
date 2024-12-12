@@ -625,6 +625,53 @@ int MainWindow::confirmSave(const char *docName, QWidget *parent, bool addCheckb
     return res;
 }
 
+int MainWindow::confirmAbort(const char *docName, QWidget *parent, bool addCheckbox) {
+    QMessageBox box(parent?parent:this);
+    box.setIcon(QMessageBox::Question);
+    box.setWindowTitle(QObject::tr("Simulation Ongoing"));
+    if(docName)
+        box.setText(QObject::tr("You need to abort the ongoing simulation before you can close the document, Do you want to abort the ongoing simulation in the document '%1' before closing?")
+                    .arg(QString::fromUtf8(docName)));
+    else
+        box.setText(QObject::tr("Do you want to abort the ongoing simulation in the document before closing?"));
+
+    box.setInformativeText(QObject::tr("If you don't abort the simulation, you cannot close the document."));
+    box.setStandardButtons(QMessageBox::Abort | QMessageBox::Cancel);
+    box.setDefaultButton(QMessageBox::Cancel);
+    box.setEscapeButton(QMessageBox::Cancel);
+
+    QCheckBox checkBox(QObject::tr("Apply answer to all"));
+    ParameterGrp::handle hGrp;
+    if(addCheckbox) {
+         hGrp = App::GetApplication().GetUserParameter().
+            GetGroup("BaseApp")->GetGroup("Preferences")->GetGroup("General");
+        checkBox.setChecked(hGrp->GetBool("ConfirmAll",false));
+        checkBox.blockSignals(true);
+        box.addButton(&checkBox, QMessageBox::ResetRole);
+    }
+
+    // add shortcuts
+    QAbstractButton* abortBtn = box.button(QMessageBox::Abort);
+    if (abortBtn->shortcut().isEmpty()) {
+        QString text = abortBtn->text();
+        text.prepend(QLatin1Char('&'));
+        abortBtn->setShortcut(QKeySequence::mnemonic(text));
+    }
+
+    int res = ConfirmSaveResult::Cancel;
+    box.adjustSize(); // Silence warnings from Qt on Windows
+    switch (box.exec())
+    {
+    case QMessageBox::Abort:
+        res = checkBox.isChecked()?ConfirmSaveResult::AbortAll:ConfirmSaveResult::Abort;
+        break;
+    }
+    if(addCheckbox && res)
+        hGrp->SetBool("AbortAll",checkBox.isChecked());
+    return res;
+}
+
+
 bool MainWindow::closeAllDocuments (bool close)
 {
     auto docs = App::GetApplication().getDocuments();

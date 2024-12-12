@@ -81,7 +81,9 @@ public:
         Save,
         SaveAll,
         Discard,
-        DiscardAll
+        DiscardAll,
+        Abort,
+        AbortAll
     };
     /**
      * Constructs an empty main window. For default \a parent is 0, as there usually is
@@ -234,6 +236,9 @@ public Q_SLOTS:
     /** Pop up a message box asking for saving document
      */
     int confirmSave(const char *docName, QWidget *parent=nullptr, bool addCheckBox=false);
+    /** Pop up a message box asking for aborting the ongoing simulation
+     */
+    int confirmAbort(const char *docName, QWidget *parent=nullptr, bool addCheckBox=false);
     /**
      * Activates the next window in the child window chain.
      */

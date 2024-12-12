@@ -38,6 +38,7 @@
 using namespace App;
 using namespace UserLab;
 using namespace UserLabAPI;
+namespace sp = std::placeholders;
 
 PROPERTY_SOURCE(UserLab::UserLabSimulation, App::Simulation)
 
@@ -616,6 +617,14 @@ App::DocumentObject*  UserLabSimulation::addFeature(const std::string featureNam
 	group->addObject(newFeature);
     this->setEnums(type);
     App::GetApplication().getActiveDocument()->recompute();
+    App::Document* doc = App::GetApplication().getActiveDocument();
+
+    doc->signalSimulationAbort.connect(
+       std::bind(&UserLab::UserLabSimulation::slotSimulationAbort, this, sp::_1));
 
     return newFeature;
+}
+
+void UserLabSimulation::slotSimulationAbort(const App::Document& Doc) { 
+    this->stop(); 
 }

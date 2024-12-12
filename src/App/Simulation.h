@@ -103,6 +103,10 @@ public:
 
 	virtual PyObject *getPyObject(void) override;
 
+public:
+    /** Called when a simulation should be aborted */
+    virtual void slotSimulationAbort(const App::Document& Doc);
+
 protected:
  
     std::bitset<32> StatusBits;

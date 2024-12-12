@@ -59,6 +59,7 @@
 using namespace App;
 using namespace SeismicLab;
 using namespace SeismicLabAPI;
+namespace sp = std::placeholders;
 
 PROPERTY_SOURCE(SeismicLab::SeismicLabSimulation, App::Simulation)
 
@@ -189,6 +190,11 @@ SeismicLabSimulation::SeismicLabSimulation()
     static const char* motionTypes[] = {"Acceleration", "Velocity", "Displacement", nullptr};
     ADD_PROPERTY_TYPE(MotionType, ((long int)0), datagroup, Prop_None, "The types of the motion");
     MotionType.setEnums(motionTypes);
+
+    App::Document* doc = App::GetApplication().getActiveDocument();
+
+    doc->signalSimulationAbort.connect(
+       std::bind(&SeismicLab::SeismicLabSimulation::slotSimulationAbort, this, sp::_1));
 
 }
 
@@ -3465,4 +3471,8 @@ App::DocumentObject*  SeismicLabSimulation::addFeature(const std::string feature
     App::GetApplication().getActiveDocument()->recompute();
 
     return newFeature;
-    }
+}
+
+void SeismicLabSimulation::slotSimulationAbort(const App::Document& Doc) { 
+    this->stop(); 
+}

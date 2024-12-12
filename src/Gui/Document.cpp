@@ -73,6 +73,7 @@ struct DocumentP
     int        _iDocId;
     bool       _isClosing;
     bool       _isModified;
+    bool       _isRunning;
     bool       _isTransacting;
     bool       _changeViewTouchDocument;
     int                         _editMode;
@@ -139,6 +140,7 @@ Document::Document(App::Document* pcDocument,Application * app)
     d->_iDocId = (++_iDocCount);
     d->_isClosing = false;
     d->_isModified = false;
+    d->_isRunning = false;
     d->_isTransacting = false;
     d->_pcAppWnd = app;
     d->_pcDocument = pcDocument;
@@ -829,6 +831,18 @@ void Document::setModified(bool b)
 bool Document::isModified() const
 {
     return d->_isModified;
+}
+
+void Document::setRunning(bool b)
+{
+    if(d->_isRunning == b)
+        return;
+    d->_isRunning = b;
+}
+
+bool Document::isRunning() const
+{
+    return d->_isRunning;
 }
 
 App::Document* Document::getDocument() const
@@ -1719,6 +1733,30 @@ bool Document::canClose (bool checkModify, bool checkLink)
             break;
         }
     }
+
+    bool canAbort = false;
+    if (isRunning())
+    {
+        const char *docName = getDocument()->Label.getValue();
+        int res = getMainWindow()->confirmAbort(docName, getActiveView());
+        switch (res)
+        {
+        case MainWindow::ConfirmSaveResult::Cancel:
+            canAbort = false;
+            break;
+        case MainWindow::ConfirmSaveResult::AbortAll:
+        case MainWindow::ConfirmSaveResult::Abort:
+            canAbort = true;
+            break;
+        }
+    }
+
+    if (canAbort)
+    {
+        App::Document* doc = this->getDocument();
+        doc->signalSimulationAbort(*doc);
+    }
+
 
     if (ok) {
         // If a task dialog is open that doesn't allow other commands to modify

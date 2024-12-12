@@ -176,7 +176,9 @@ public:
     bool simulate(cube &dPhenomenon, std::string& featureName);
     bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
-
+public:
+    /** Called when a simulation should be aborted */
+    virtual void slotSimulationAbort(const App::Document& Doc);
 private:
     UserLabAPI::UserLabSimulationData* _simuData;
 
