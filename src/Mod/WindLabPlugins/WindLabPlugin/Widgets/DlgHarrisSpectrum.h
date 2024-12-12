@@ -22,7 +22,7 @@
 
 #ifndef WINDLABGUI_DlgHarrisSpectrum_H
 #define WINDLABGUI_DlgHarrisSpectrum_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>

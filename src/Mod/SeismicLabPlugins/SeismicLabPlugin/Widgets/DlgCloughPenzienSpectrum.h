@@ -22,7 +22,7 @@
 
 #ifndef SEISMICLABGUI_DlgCloughPenzienSpectrum_H
 #define SEISMICLABGUI_DlgCloughPenzienSpectrum_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>

@@ -22,7 +22,7 @@
 
 #ifndef SEALABGUI_DlgGridPoints_H
 #define SEALABGUI_DlgGridPoints_H
-#define QT_NO_KEYWORDS
+
 
 #include <Gui/TaskView/TaskDialog.h>
 #include <Gui/TaskView/TaskView.h>
