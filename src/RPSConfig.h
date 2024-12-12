@@ -157,12 +157,16 @@ typedef unsigned __int64    uint64_t;
 // Make sure to explicitly use the correct conversion
 #define QT_NO_CAST_FROM_ASCII
 #undef  QT3_SUPPORT
-#define QT_NO_KEYWORDS
+
 
 #if defined (RPS_OS_WIN32) || defined(RPS_OS_CYGWIN)
 # ifndef QT_DLL
 #  define QT_DLL
 # endif
+#endif
+
+#ifndef QT_NO_KEYWORDS
+# define QT_NO_KEYWORDS
 #endif
 
 #ifndef QT_THREAD_SUPPORT

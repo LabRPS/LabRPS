@@ -2,6 +2,7 @@
 
 find_package(Qt5Core REQUIRED)
 set(CMAKE_AUTOMOC TRUE)
+add_definitions(-DQT_NO_KEYWORDS)
 
 # For LabRPS 0.1, pegged to Ubuntu 18.04 LTS:
 if(${Qt5Core_VERSION} VERSION_LESS "5.9")
