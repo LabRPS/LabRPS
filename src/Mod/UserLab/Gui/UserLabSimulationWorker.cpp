@@ -61,7 +61,10 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
                       m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
@@ -72,6 +75,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
+                stopped = true;
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -116,6 +120,7 @@ bool RPSUserLabSimulationWorker::workerSimulateInLargeScaleMode()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the wind velocity matrix has failed.\n");
+                stopped = true;
                 return false;
             }
         }

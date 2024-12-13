@@ -247,16 +247,22 @@ bool ViewProviderWindLabFeatureCoherence::runFeatureMethod(const QString functio
     WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
     if (vp)
     {
-        if (vp->getAllComputation())
+        auto computation = vp->getAllComputation();
+        if (computation)
         {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetWindLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new WindLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getWindLabSimulationThread()->start();
 
-    windLabAllFeaturesComputation = new WindLabAllFeaturesComputation(sim);
-    windLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    windLabAllFeaturesComputation->getWindLabSimulationThread()->start();
     return true;
     
 }

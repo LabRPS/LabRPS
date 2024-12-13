@@ -221,19 +221,23 @@ bool ViewProviderSeismicLabFeatureCoherence::runFeatureMethod(const QString func
     SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-        SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
-    {
-        if (vp->getAllComputation())
-        {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+    SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetSeismicLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetSeismicLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new SeismicLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getSeismicLabSimulationThread()->start();
 
-    seismicLabAllFeaturesComputation = new SeismicLabAllFeaturesComputation(sim);
-    seismicLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    seismicLabAllFeaturesComputation->getSeismicLabSimulationThread()->start();
     return true;
     
 }

@@ -64,8 +64,8 @@ public:
 protected:// attributes
     Py::SmartPtr PythonObject;
 
-public:
-    WindLabAllFeaturesComputation* windLabAllFeaturesComputation = nullptr;
+//public:
+//    WindLabAllFeaturesComputation* windLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

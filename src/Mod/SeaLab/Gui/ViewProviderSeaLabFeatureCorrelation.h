@@ -67,8 +67,8 @@ public:
 protected:// attributes
     Py::SmartPtr PythonObject;
 
-public:
-    SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
+// public:
+//     SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

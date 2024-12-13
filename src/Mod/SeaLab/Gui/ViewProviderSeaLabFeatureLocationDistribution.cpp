@@ -338,37 +338,37 @@ PyObject* ViewProviderSeaLabFeatureLocationDistribution::getPyObject(void)
 
 bool ViewProviderSeaLabFeatureLocationDistribution::getComputationResultVariableVector(vec& resultVectorVar)
 {
-    if (!seaLabAllFeaturesComputation)
-        return false;
-    resultVectorVar = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVar;
+    //if (!seaLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVar = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVar;
     return true;
 }
 bool ViewProviderSeaLabFeatureLocationDistribution::getComputationResultValueVector(vec& resultVectorVal)
 {
-    if (!seaLabAllFeaturesComputation)
-        return false;
-    resultVectorVal = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVal;
+    //if (!seaLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVal = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVal;
     return true;
 }
 bool ViewProviderSeaLabFeatureLocationDistribution::getComputationResultComplexValueVector(cx_vec& resultVectorVal_cx)
 {
-    if (!seaLabAllFeaturesComputation)
-        return false;
-    resultVectorVal_cx = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVal_cx;
+    //if (!seaLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVal_cx = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultVectorVal_cx;
     return true;
 }
 bool ViewProviderSeaLabFeatureLocationDistribution::getComputationResultMatrix(mat& resultMatrix)
 {
-     if (!seaLabAllFeaturesComputation)
-        return false;
-     resultMatrix = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultMatrix;
+     //if (!seaLabAllFeaturesComputation)
+     //   return false;
+     //resultMatrix = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultMatrix;
     return true;
 }
 bool ViewProviderSeaLabFeatureLocationDistribution::getComputationResultComplexMatrix(cx_mat& resultMatrix_cx)
 {
-     if (!seaLabAllFeaturesComputation)
-        return false;
-     resultMatrix_cx = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultMatrix_cx;
+     //if (!seaLabAllFeaturesComputation)
+     //   return false;
+     //resultMatrix_cx = seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->m_ResultMatrix_cx;
     return true;
 }
 
@@ -378,18 +378,22 @@ bool ViewProviderSeaLabFeatureLocationDistribution::runFeatureMethod(const QStri
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
         SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
-    {
-        if (vp->getAllComputation())
-        {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetSeaLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetSeaLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new SeaLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getSeaLabSimulationThread()->start();
 
-    seaLabAllFeaturesComputation = new SeaLabAllFeaturesComputation(sim);
-    seaLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    seaLabAllFeaturesComputation->getSeaLabSimulationThread()->start();
     return true;
 }
 

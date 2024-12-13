@@ -608,6 +608,7 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
+
 }
 
 void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)

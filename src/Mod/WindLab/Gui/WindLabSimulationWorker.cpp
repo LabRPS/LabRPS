@@ -90,6 +90,7 @@ bool RPSWindLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -109,7 +110,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceValue()
         if (m_computingFunction == WindLab::WindLabUtils::ComputeCrossCoherenceValue) {
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -118,6 +122,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -128,6 +133,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -161,6 +167,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceValue()
 
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -184,7 +191,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -193,6 +203,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -202,6 +213,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -235,6 +247,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -253,7 +266,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -262,6 +278,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -271,6 +288,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -305,6 +323,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -330,6 +349,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -355,6 +375,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -374,7 +395,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -383,6 +407,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -393,6 +418,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -422,6 +448,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -443,7 +470,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -452,6 +482,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -461,6 +492,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -494,6 +526,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -513,7 +546,10 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -522,6 +558,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -543,6 +580,7 @@ bool RPSWindLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -562,7 +600,10 @@ bool RPSWindLabSimulationWorker::workerComputeCPDValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active simulation
             m_ResultMatrix.resize(1, 2);
@@ -582,6 +623,7 @@ bool RPSWindLabSimulationWorker::workerComputeCPDValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -604,7 +646,10 @@ bool RPSWindLabSimulationWorker::workerComputeCPDVectorX()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfIncrementOfVariableX.getValue());
@@ -621,6 +666,7 @@ bool RPSWindLabSimulationWorker::workerComputeCPDVectorX()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the cpd has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -639,7 +685,10 @@ bool RPSWindLabSimulationWorker::workerComputeFrequencyValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -648,6 +697,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequencyValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -657,6 +707,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequencyValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -683,6 +734,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequencyValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 1);
@@ -702,7 +754,10 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -711,6 +766,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -719,6 +775,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesVectorF()
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
                 Base::Console().Warning("The computation of the location coordinates fails.\n");
+                stopped = true;
                 return false;
             }
 
@@ -742,6 +799,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -760,7 +818,10 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesMatrixFP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
@@ -776,6 +837,7 @@ bool RPSWindLabSimulationWorker::workerComputeFrequenciesMatrixFP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -795,7 +857,10 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -804,6 +869,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -813,6 +879,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -841,6 +908,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the gust factor value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -863,7 +931,10 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -872,6 +943,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -881,6 +953,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -904,6 +977,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the gust factor value has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -921,7 +995,10 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -930,6 +1007,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -939,6 +1017,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -969,6 +1048,7 @@ bool RPSWindLabSimulationWorker::workerComputeGustFactorVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the gust factor vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -988,7 +1068,10 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -997,6 +1080,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1006,6 +1090,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1033,6 +1118,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -1055,7 +1141,10 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1064,6 +1153,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1073,6 +1163,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1096,6 +1187,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1113,7 +1205,10 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1122,6 +1217,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1131,6 +1227,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1161,6 +1258,7 @@ bool RPSWindLabSimulationWorker::workerComputeKurtosisVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1180,7 +1278,10 @@ bool RPSWindLabSimulationWorker::workerMatrixToolCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active feature
             WindLabAPI::IrpsWLMatrixTool* activefeature =
@@ -1189,6 +1290,7 @@ bool RPSWindLabSimulationWorker::workerMatrixToolCompute()
 
             if (!activefeature) {
                 Base::Console().Warning("No valid active matrix tool feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1198,6 +1300,7 @@ bool RPSWindLabSimulationWorker::workerMatrixToolCompute()
 
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1212,6 +1315,7 @@ bool RPSWindLabSimulationWorker::workerMatrixToolCompute()
 
             if (!returnResult) {
                 Base::Console().Warning("The running of the matrix tool has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1232,7 +1336,10 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1241,6 +1348,7 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1269,6 +1377,7 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean wind speed has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix(0, 0) = location.z;
@@ -1291,7 +1400,10 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -1312,6 +1424,7 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean wind speed has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1330,7 +1443,10 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1339,6 +1455,7 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1366,6 +1483,7 @@ bool RPSWindLabSimulationWorker::workerComputeMeanWindSpeedVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean wind speed has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1385,7 +1503,10 @@ bool RPSWindLabSimulationWorker::workerComputeModulationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1394,6 +1515,7 @@ bool RPSWindLabSimulationWorker::workerComputeModulationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1422,6 +1544,7 @@ bool RPSWindLabSimulationWorker::workerComputeModulationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix(0, 0) = time;
@@ -1442,7 +1565,10 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -1463,6 +1589,7 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1481,7 +1608,10 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1490,6 +1620,7 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1521,6 +1652,7 @@ bool RPSWindLabSimulationWorker::workerComputeModulationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1539,7 +1671,10 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1548,6 +1683,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1557,6 +1693,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1585,6 +1722,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -1607,7 +1745,10 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1616,6 +1757,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1625,6 +1767,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1648,6 +1791,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peak factor vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1665,7 +1809,10 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1674,6 +1821,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1683,6 +1831,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1713,6 +1862,7 @@ bool RPSWindLabSimulationWorker::workerComputePeakFactorVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peack factor vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1732,7 +1882,10 @@ bool RPSWindLabSimulationWorker::workerComputePDFValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(1, 2);
 
@@ -1752,6 +1905,7 @@ bool RPSWindLabSimulationWorker::workerComputePDFValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1774,7 +1928,10 @@ bool RPSWindLabSimulationWorker::workerComputePDFVectorX()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfIncrementOfVariableX.getValue());
@@ -1792,6 +1949,7 @@ bool RPSWindLabSimulationWorker::workerComputePDFVectorX()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1819,7 +1977,10 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1828,6 +1989,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1837,6 +1999,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1871,6 +2034,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1889,7 +2053,10 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1898,6 +2065,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1911,6 +2079,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1947,6 +2116,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1965,7 +2135,10 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -1974,6 +2147,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2000,6 +2174,7 @@ bool RPSWindLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2029,7 +2204,10 @@ bool RPSWindLabSimulationWorker::workerGenerateRandomMatrixFP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -2045,6 +2223,7 @@ bool RPSWindLabSimulationWorker::workerGenerateRandomMatrixFP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2065,7 +2244,10 @@ bool RPSWindLabSimulationWorker::workerGenerateRandomCubeFPS()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultCube.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
@@ -2076,6 +2258,7 @@ bool RPSWindLabSimulationWorker::workerGenerateRandomCubeFPS()
             bool returnResult = m_sim->generateRandomCubeFPS(m_ResultCube, featureName);
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
+                stopped = true;
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -2105,7 +2288,10 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2114,6 +2300,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2123,6 +2310,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2151,6 +2339,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the roughness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2173,7 +2362,10 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2182,6 +2374,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2191,6 +2384,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2214,6 +2408,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the roughness vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2231,7 +2426,10 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2240,6 +2438,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2249,6 +2448,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2279,6 +2479,7 @@ bool RPSWindLabSimulationWorker::workerComputeRoughnessVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the roughness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2298,7 +2499,10 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2307,6 +2511,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2316,6 +2521,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2344,6 +2550,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the roughness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2366,7 +2573,10 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2375,6 +2585,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2384,6 +2595,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2408,6 +2620,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the shear velocity vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2425,7 +2638,10 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2434,6 +2650,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2443,6 +2660,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2473,6 +2691,7 @@ bool RPSWindLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the shear vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2492,7 +2711,10 @@ bool RPSWindLabSimulationWorker::workerSimulate()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
                       m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
@@ -2503,6 +2725,7 @@ bool RPSWindLabSimulationWorker::workerSimulate()
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
+                stopped = true;
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -2532,7 +2755,10 @@ bool RPSWindLabSimulationWorker::workerSimulateInLargeScaleMode()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             QString fineName = QString::fromLatin1("WindVelocity\n");
             Base::StopWatch watch;
@@ -2547,6 +2773,7 @@ bool RPSWindLabSimulationWorker::workerSimulateInLargeScaleMode()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the wind velocity matrix has failed.\n");
+                stopped = true;
                 return false;
             }
         }
@@ -2564,7 +2791,10 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2573,6 +2803,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2582,6 +2813,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2609,6 +2841,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2631,7 +2864,10 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2640,6 +2876,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2649,6 +2886,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2672,6 +2910,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2689,7 +2928,10 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2698,6 +2940,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2707,6 +2950,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2737,6 +2981,7 @@ bool RPSWindLabSimulationWorker::workerComputeSkewnessVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2755,7 +3000,10 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2764,6 +3012,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2773,6 +3022,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2801,6 +3051,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2823,7 +3074,10 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2832,6 +3086,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2841,6 +3096,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2865,6 +3121,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the standard deviation vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2882,7 +3139,10 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -2891,6 +3151,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2900,6 +3161,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2930,6 +3192,7 @@ bool RPSWindLabSimulationWorker::workerComputeStandardDeviationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2949,7 +3212,10 @@ bool RPSWindLabSimulationWorker::workerTableToolCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active feature
             WindLabAPI::IrpsWLTableTool* activefeature = static_cast<WindLabAPI::IrpsWLTableTool*>(
@@ -2957,6 +3223,7 @@ bool RPSWindLabSimulationWorker::workerTableToolCompute()
 
             if (!activefeature) {
                 Base::Console().Warning("No valid active table tool feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2966,6 +3233,7 @@ bool RPSWindLabSimulationWorker::workerTableToolCompute()
 
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2980,6 +3248,7 @@ bool RPSWindLabSimulationWorker::workerTableToolCompute()
 
             if (!returnResult) {
                 Base::Console().Warning("The running of the table tool has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2999,7 +3268,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3008,6 +3280,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3017,6 +3290,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3045,6 +3319,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -3067,7 +3342,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3076,6 +3354,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3085,6 +3364,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3109,6 +3389,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the turbulence intensity vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -3126,7 +3407,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3135,6 +3419,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3144,6 +3429,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3174,6 +3460,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceIntensityVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3193,7 +3480,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3202,6 +3492,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3211,6 +3502,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3240,6 +3532,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the turbulence scale value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -3262,7 +3555,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3271,6 +3567,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3280,6 +3577,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3304,6 +3602,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the turbulence scale vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -3321,7 +3620,10 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3330,6 +3632,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3339,6 +3642,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3369,6 +3673,7 @@ bool RPSWindLabSimulationWorker::workerComputeTurbulenceScaleVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3387,7 +3692,10 @@ bool RPSWindLabSimulationWorker::workerUserDefinedRPSObjectCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -3403,6 +3711,7 @@ bool RPSWindLabSimulationWorker::workerUserDefinedRPSObjectCompute()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the user defined feature has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3421,7 +3730,10 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3430,6 +3742,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3439,6 +3752,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3466,6 +3780,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -3488,7 +3803,10 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3497,6 +3815,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3506,6 +3825,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3529,6 +3849,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -3546,7 +3867,10 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3555,6 +3879,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3564,6 +3889,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3594,6 +3920,7 @@ bool RPSWindLabSimulationWorker::workerComputeVarianceVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3614,7 +3941,10 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3623,6 +3953,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3634,6 +3965,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3667,6 +3999,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3690,7 +4023,10 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3699,6 +4035,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3709,6 +4046,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3744,6 +4082,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of wave passage effect vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3762,7 +4101,10 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3771,6 +4113,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3780,6 +4123,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3815,6 +4159,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3833,7 +4178,10 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3842,6 +4190,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3867,6 +4216,7 @@ bool RPSWindLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3887,7 +4237,10 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3896,6 +4249,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3906,6 +4260,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3939,6 +4294,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3962,7 +4318,10 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -3971,6 +4330,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3978,6 +4338,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(*m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
                 Base::Console().Error("The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4011,6 +4372,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4029,7 +4391,10 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4038,6 +4403,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4047,6 +4413,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4082,6 +4449,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4100,7 +4468,10 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4109,6 +4480,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4134,6 +4506,7 @@ bool RPSWindLabSimulationWorker::workerComputeXCrossSpectrumMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4153,7 +4526,10 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4162,6 +4538,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4172,6 +4549,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4202,6 +4580,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4224,7 +4603,10 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4233,6 +4615,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4242,6 +4625,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4271,6 +4655,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4289,7 +4674,10 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4298,6 +4686,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4307,6 +4696,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4336,6 +4726,7 @@ bool RPSWindLabSimulationWorker::workerComputeXAutoSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4355,7 +4746,10 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4364,6 +4758,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4374,6 +4769,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4407,6 +4803,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4430,7 +4827,10 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4439,6 +4839,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4448,6 +4849,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4481,6 +4883,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4499,7 +4902,10 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4508,6 +4914,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4517,6 +4924,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4552,6 +4960,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4570,7 +4979,10 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4579,6 +4991,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4604,6 +5017,7 @@ bool RPSWindLabSimulationWorker::workerComputeYCrossSpectrumMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4623,7 +5037,10 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4632,6 +5049,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4642,6 +5060,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4672,6 +5091,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4694,7 +5114,10 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4703,6 +5126,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4712,6 +5136,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4741,6 +5166,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4759,7 +5185,10 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4768,6 +5197,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4777,6 +5207,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4806,6 +5237,7 @@ bool RPSWindLabSimulationWorker::workerComputeYAutoSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4825,7 +5257,10 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4834,6 +5269,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4844,6 +5280,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4873,6 +5310,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4895,7 +5333,10 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4904,6 +5345,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4913,6 +5355,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4946,6 +5389,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4964,7 +5408,10 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -4973,6 +5420,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -4982,6 +5430,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5017,6 +5466,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5035,7 +5485,10 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -5044,6 +5497,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5069,6 +5523,7 @@ bool RPSWindLabSimulationWorker::workerComputeZCrossSpectrumMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5088,7 +5543,10 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -5097,6 +5555,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5107,6 +5566,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5138,6 +5598,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5160,7 +5621,10 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -5169,6 +5633,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5178,6 +5643,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5207,6 +5673,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5225,7 +5692,10 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             WindLabAPI::IrpsWLLocationDistribution* activeSpatialDistr =
@@ -5234,6 +5704,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5243,6 +5714,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -5272,6 +5744,7 @@ bool RPSWindLabSimulationWorker::workerComputeZAutoSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 

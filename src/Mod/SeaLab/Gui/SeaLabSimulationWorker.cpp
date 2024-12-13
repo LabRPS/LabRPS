@@ -90,6 +90,7 @@ bool RPSSeaLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -109,7 +110,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceValue()
         if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossCoherenceValue) {
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -118,6 +122,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -128,6 +133,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -161,6 +167,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceValue()
 
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -184,7 +191,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -193,6 +203,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -202,6 +213,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -234,6 +246,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -252,7 +265,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -261,6 +277,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -270,6 +287,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -304,6 +322,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -329,6 +348,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -354,6 +374,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -373,7 +394,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -382,6 +406,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -392,6 +417,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -421,6 +447,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -442,7 +469,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -451,6 +481,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -460,6 +491,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -492,6 +524,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -511,7 +544,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -520,6 +556,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -541,6 +578,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -560,7 +598,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCPDValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active simulation
             m_ResultMatrix.resize(1, 2);
@@ -580,6 +621,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCPDValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -602,7 +644,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCPDVectorX()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfIncrementOfVariableX.getValue());
@@ -619,6 +664,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCPDVectorX()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the cpd has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -637,7 +683,10 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequencyValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -646,6 +695,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequencyValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -655,6 +705,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequencyValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -681,6 +732,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequencyValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 1);
@@ -700,7 +752,10 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -709,6 +764,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -717,6 +773,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesVectorF()
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
                 Base::Console().Warning("The computation of the location coordinates fails.\n");
+                stopped = true;
                 return false;
             }
 
@@ -740,6 +797,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -758,7 +816,10 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesMatrixFP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
@@ -774,6 +835,7 @@ bool RPSSeaLabSimulationWorker::workerComputeFrequenciesMatrixFP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -793,7 +855,10 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -802,6 +867,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -811,6 +877,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -837,6 +904,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -859,7 +927,10 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -868,6 +939,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -877,6 +949,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -900,6 +973,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -917,7 +991,10 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -926,6 +1003,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -935,6 +1013,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -964,6 +1043,7 @@ bool RPSSeaLabSimulationWorker::workerComputeKurtosisVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -983,7 +1063,10 @@ bool RPSSeaLabSimulationWorker::workerMatrixToolCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active feature
             SeaLabAPI::IrpsSeLMatrixTool* activefeature =
@@ -992,6 +1075,7 @@ bool RPSSeaLabSimulationWorker::workerMatrixToolCompute()
 
             if (!activefeature) {
                 Base::Console().Warning("No valid active matrix tool feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1001,6 +1085,7 @@ bool RPSSeaLabSimulationWorker::workerMatrixToolCompute()
 
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1015,6 +1100,7 @@ bool RPSSeaLabSimulationWorker::workerMatrixToolCompute()
 
             if (!returnResult) {
                 Base::Console().Warning("The running of the matrix tool has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1035,7 +1121,10 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1044,6 +1133,7 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1072,6 +1162,7 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix(0, 0) = location.z;
@@ -1094,7 +1185,10 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -1115,6 +1209,7 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1133,7 +1228,10 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1142,6 +1240,7 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1169,6 +1268,7 @@ bool RPSSeaLabSimulationWorker::workerComputeMeanAccelerationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1188,7 +1288,10 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1197,6 +1300,7 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1225,6 +1329,7 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix(0, 0) = time;
@@ -1245,7 +1350,10 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -1266,6 +1374,7 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1284,7 +1393,10 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1293,6 +1405,7 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1324,6 +1437,7 @@ bool RPSSeaLabSimulationWorker::workerComputeModulationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1342,7 +1456,10 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1351,6 +1468,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1360,6 +1478,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1387,6 +1506,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -1409,7 +1529,10 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1418,6 +1541,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1427,6 +1551,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1450,6 +1575,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peak factor vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1467,7 +1593,10 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1476,6 +1605,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1485,6 +1615,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1514,6 +1645,7 @@ bool RPSSeaLabSimulationWorker::workerComputePeakFactorVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peack factor vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1533,7 +1665,10 @@ bool RPSSeaLabSimulationWorker::workerComputePDFValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(1, 2);
 
@@ -1553,6 +1688,7 @@ bool RPSSeaLabSimulationWorker::workerComputePDFValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1575,7 +1711,10 @@ bool RPSSeaLabSimulationWorker::workerComputePDFVectorX()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultVectorVar.resize(
                 m_sim->getSimulationData()->numberOfIncrementOfVariableX.getValue());
@@ -1593,6 +1732,7 @@ bool RPSSeaLabSimulationWorker::workerComputePDFVectorX()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -1620,7 +1760,10 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1629,6 +1772,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1638,6 +1782,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1671,6 +1816,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1689,7 +1835,10 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1698,6 +1847,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1711,6 +1861,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1746,6 +1897,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1764,7 +1916,10 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1773,6 +1928,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1799,6 +1955,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1828,7 +1985,10 @@ bool RPSSeaLabSimulationWorker::workerGenerateRandomMatrixFP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -1843,6 +2003,7 @@ bool RPSSeaLabSimulationWorker::workerGenerateRandomMatrixFP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1862,7 +2023,10 @@ bool RPSSeaLabSimulationWorker::workerGenerateRandomCubeFPS()
 
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultCube.resize(m_sim->getSimulationData()->numberOfFrequency.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
@@ -1873,6 +2037,7 @@ bool RPSSeaLabSimulationWorker::workerGenerateRandomCubeFPS()
             bool returnResult = m_sim->generateRandomCubeFPS(m_ResultCube, featureName);
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
+                stopped = true;
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -1902,7 +2067,10 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1911,6 +2079,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1920,6 +2089,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1947,6 +2117,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the shear velocity value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -1969,7 +2140,10 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -1978,6 +2152,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -1987,6 +2162,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2011,6 +2187,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the shear velocity vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2028,7 +2205,10 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2037,6 +2217,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2046,6 +2227,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2075,6 +2257,7 @@ bool RPSSeaLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the shear vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2094,7 +2277,10 @@ bool RPSSeaLabSimulationWorker::workerSimulate()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
                       m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
@@ -2105,6 +2291,7 @@ bool RPSSeaLabSimulationWorker::workerSimulate()
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
+                stopped = true;
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -2134,7 +2321,10 @@ bool RPSSeaLabSimulationWorker::workerSimulateInLargeScaleMode()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             QString fineName = QString::fromLatin1("WindVelocity\n");
             Base::StopWatch watch;
@@ -2149,6 +2339,7 @@ bool RPSSeaLabSimulationWorker::workerSimulateInLargeScaleMode()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the ground motion matrix has failed.\n");
+                stopped = true;
                 return false;
             }
         }
@@ -2166,7 +2357,10 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2175,6 +2369,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2184,6 +2379,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2210,6 +2406,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2232,7 +2429,10 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2241,6 +2441,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2250,6 +2451,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2273,6 +2475,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2290,7 +2493,10 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2299,6 +2505,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2308,6 +2515,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2337,6 +2545,7 @@ bool RPSSeaLabSimulationWorker::workerComputeSkewnessVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2355,7 +2564,10 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2364,6 +2576,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2373,6 +2586,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2400,6 +2614,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2422,7 +2637,10 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2431,6 +2649,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2440,6 +2659,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2464,6 +2684,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the standard deviation vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2481,7 +2702,10 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2490,6 +2714,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2499,6 +2724,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2528,6 +2754,7 @@ bool RPSSeaLabSimulationWorker::workerComputeStandardDeviationVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2547,7 +2774,10 @@ bool RPSSeaLabSimulationWorker::workerTableToolCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active feature
             SeaLabAPI::IrpsSeLTableTool* activefeature = static_cast<SeaLabAPI::IrpsSeLTableTool*>(
@@ -2555,6 +2785,7 @@ bool RPSSeaLabSimulationWorker::workerTableToolCompute()
 
             if (!activefeature) {
                 Base::Console().Warning("No valid active table tool feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2564,6 +2795,7 @@ bool RPSSeaLabSimulationWorker::workerTableToolCompute()
 
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2578,6 +2810,7 @@ bool RPSSeaLabSimulationWorker::workerTableToolCompute()
 
             if (!returnResult) {
                 Base::Console().Warning("The running of the table tool has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2597,7 +2830,10 @@ bool RPSSeaLabSimulationWorker::workerUserDefinedRPSObjectCompute()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             m_ResultMatrix.resize(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                                   m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
@@ -2613,6 +2849,7 @@ bool RPSSeaLabSimulationWorker::workerUserDefinedRPSObjectCompute()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the user defined feature has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2631,7 +2868,10 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2640,6 +2880,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2649,6 +2890,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2675,6 +2917,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance value has failed.\n");
+                stopped = true;
                 return false;
             }
             m_ResultMatrix.resize(1, 2);
@@ -2697,7 +2940,10 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2706,6 +2952,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2715,6 +2962,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorP()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2738,6 +2986,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance vector has failed.\n");
+                stopped = true;
                 return false;
             }
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
@@ -2755,7 +3004,10 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2764,6 +3016,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2773,6 +3026,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2802,6 +3056,7 @@ bool RPSSeaLabSimulationWorker::workerComputeVarianceVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2822,7 +3077,10 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2831,6 +3089,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2842,6 +3101,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2874,6 +3134,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2897,7 +3158,10 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2906,6 +3170,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2916,6 +3181,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2950,6 +3216,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of wave passage effect vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2968,7 +3235,10 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -2977,6 +3247,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -2986,6 +3257,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3020,6 +3292,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3038,7 +3311,10 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3047,6 +3323,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3072,6 +3349,7 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3092,7 +3370,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3101,6 +3382,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3111,6 +3393,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3143,6 +3426,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3166,7 +3450,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3175,6 +3462,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3184,6 +3472,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3215,6 +3504,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3233,7 +3523,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3242,6 +3535,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3251,6 +3545,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3285,6 +3580,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3303,7 +3599,10 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3312,6 +3611,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3337,6 +3637,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3356,7 +3657,10 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3365,6 +3669,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3375,6 +3680,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3403,6 +3709,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3425,7 +3732,10 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3434,6 +3744,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3443,6 +3754,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3471,6 +3783,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3489,7 +3802,10 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
+            {
+                stopped = true;
                 return false;
+            }
 
             //get the active location distribution feature
             SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
@@ -3498,6 +3814,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
 
             if (!activeSpatialDistr) {
                 Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3507,6 +3824,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning(
                     "The computation of the location coordinates has failed.\n");
+                stopped = true;
                 return false;
             }
 
@@ -3535,6 +3853,7 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
                 setComputationTime();
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
                 return false;
             }
 
