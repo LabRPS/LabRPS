@@ -31,9 +31,11 @@
 # include <QTextStream>
 #endif
 
+#include "ViewProviderUserLabSimulation.h"
+#include "ViewProviderUserLabSimulationPy.h"
+
 #include <App/TextDocument.h>
 #include <Gui/ActionFunction.h>
-#include "ViewProviderUserLabSimulation.h"
 #include <Gui/Command.h>
 #include <Gui/Control.h>
 #include <Gui/Document.h>
@@ -326,4 +328,13 @@ UserLabAllFeaturesComputation* ViewProviderUserLabSimulation::getAllComputation(
 void ViewProviderUserLabSimulation::setAllComputation(UserLabAllFeaturesComputation* computation)
 {
     userLabAllFeaturesComputation = computation;
+}
+
+PyObject* ViewProviderUserLabSimulation::getPyObject(void)
+{
+    if (PythonObject.is(Py::_None())) {
+        // ref counter is set to 1
+        PythonObject = Py::Object(new ViewProviderUserLabSimulationPy(this), true);
+    }
+    return Py::new_reference_to(PythonObject);
 }

@@ -31,9 +31,11 @@
 # include <QTextStream>
 #endif
 
+#include "ViewProviderSeaLabSimulation.h"
+#include "ViewProviderSeaLabSimulationPy.h"
+
 #include <App/TextDocument.h>
 #include <Gui/ActionFunction.h>
-#include "ViewProviderSeaLabSimulation.h"
 #include <Gui/Command.h>
 #include <Gui/Control.h>
 #include <Gui/Document.h>
@@ -385,11 +387,20 @@ bool ViewProviderSeaLabSimulation::checkSelectedChildren(const std::vector<App::
     }
 }
 
-    SeaLabAllFeaturesComputation* ViewProviderSeaLabSimulation::getAllComputation()
-    {
-        return seaLabAllFeaturesComputation;
+SeaLabAllFeaturesComputation* ViewProviderSeaLabSimulation::getAllComputation()
+{
+    return seaLabAllFeaturesComputation;
+}
+void ViewProviderSeaLabSimulation::setAllComputation(SeaLabAllFeaturesComputation* computation)
+{
+    seaLabAllFeaturesComputation = computation;
+}
+
+PyObject* ViewProviderSeaLabSimulation::getPyObject(void)
+{
+    if (PythonObject.is(Py::_None())) {
+        // ref counter is set to 1
+        PythonObject = Py::Object(new ViewProviderSeaLabSimulationPy(this), true);
     }
-    void ViewProviderSeaLabSimulation::setAllComputation(SeaLabAllFeaturesComputation* computation)
-    {
-        seaLabAllFeaturesComputation = computation;
-    }
+    return Py::new_reference_to(PythonObject);
+}

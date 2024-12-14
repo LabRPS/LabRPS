@@ -90,10 +90,10 @@ public:
     Module() : Py::ExtensionModule<Module>("WindLabGui")
     {
          add_varargs_method("setActiveSimulation", &Module::setActiveSimulation,
-            "setActiveSimulation(SimulationObject) -- Set the Simulation object in work."
+            "setActiveSimulation(SimulationObject) -- Set the simulation as active."
         );
         add_varargs_method("getActiveSimulation", &Module::getActiveSimulation,
-            "getActiveSimulation() -- Returns the Simulation object in work."
+            "getActiveSimulation() -- Returns the active simulation."
         );
         initialize("This module is the WindLabGui module.");// register with Python
     }
@@ -225,7 +225,6 @@ PyMOD_INIT_FUNC(WindLabGui)
 
     Py_INCREF(pWindLabPyToolPyModule);
     PyModule_AddObject(mod, "WindLabPyTool", pWindLabPyToolPyModule);
-
 
     PyMOD_Return(mod);
 }

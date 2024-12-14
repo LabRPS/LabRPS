@@ -31,9 +31,11 @@
 # include <QTextStream>
 #endif
 
+#include "ViewProviderWindLabSimulation.h"
+#include "ViewProviderWindLabSimulationPy.h"
+
 #include <App/TextDocument.h>
 #include <Gui/ActionFunction.h>
-#include "ViewProviderWindLabSimulation.h"
 #include <Gui/Command.h>
 #include <Gui/Control.h>
 #include <Gui/Document.h>
@@ -420,4 +422,13 @@ WindLabAllFeaturesComputation* ViewProviderWindLabSimulation::getAllComputation(
 void ViewProviderWindLabSimulation::setAllComputation(WindLabAllFeaturesComputation* computation)
 {
     windLabAllFeaturesComputation = computation;
+}
+
+PyObject* ViewProviderWindLabSimulation::getPyObject(void)
+{
+    if (PythonObject.is(Py::_None())) {
+        // ref counter is set to 1
+        PythonObject = Py::Object(new ViewProviderWindLabSimulationPy(this), true);
+    }
+    return Py::new_reference_to(PythonObject);
 }

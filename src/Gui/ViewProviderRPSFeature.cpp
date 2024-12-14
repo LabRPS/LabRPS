@@ -33,7 +33,6 @@
 #include <Gui/Control.h>
 #include <App/Document.h>
 #include <Gui/ActionFunction.h>
-#include "ViewProviderWindLabSimulation.h"
 #include <Gui/Application.h>
 #include <Gui/Document.h>
 #include <Gui/AlphaPlot.h>

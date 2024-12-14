@@ -27,6 +27,7 @@
 #include <Mod/SeismicLab/SeismicLabGlobal.h>
 #include <QCoreApplication>
 #include "SeismicLabAllFeaturesComputation.h"
+#include <Base/SmartPtrPy.h>
 
 namespace SeismicLabGui
 {
@@ -104,6 +105,13 @@ protected:
 
 private:
     SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
+
+public:
+    virtual PyObject* getPyObject() override;
+
+ /// python object of this class
+protected:// attributes
+    Py::SmartPtr PythonObject;
 };
 
 } //namespace SeismicLabGui
