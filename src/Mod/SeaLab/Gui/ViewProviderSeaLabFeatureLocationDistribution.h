@@ -104,8 +104,8 @@ protected:// attributes
     Py::SmartPtr PythonObject;
     static App::PropertyFloatConstraint::Constraints sizeRange;
 
-public:
-    SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
+// public:
+//     SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

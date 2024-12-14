@@ -27,6 +27,7 @@
 #include <Mod/SeaLab/SeaLabGlobal.h>
 #include <QCoreApplication>
 #include "SeaLabAllFeaturesComputation.h"
+#include <Base/SmartPtrPy.h>
 
 namespace SeaLabGui
 {
@@ -104,6 +105,13 @@ protected:
 
 private:
     SeaLabAllFeaturesComputation* seaLabAllFeaturesComputation = nullptr;
+
+public:
+    virtual PyObject* getPyObject() override;
+
+ /// python object of this class
+protected:// attributes
+    Py::SmartPtr PythonObject;
 };
 
 } //namespace SeaLabGui

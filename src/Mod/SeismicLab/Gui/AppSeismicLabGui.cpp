@@ -84,10 +84,10 @@ public:
     Module() : Py::ExtensionModule<Module>("SeismicLabGui")
     {
          add_varargs_method("setActiveSimulation", &Module::setActiveSimulation,
-            "setActiveSimulation(SimulationObject) -- Set the Simulation object in work."
+            "setActiveSimulation(SimulationObject) -- Set the simulation as active."
         );
         add_varargs_method("getActiveSimulation", &Module::getActiveSimulation,
-            "getActiveSimulation() -- Returns the Simulation object in work."
+            "getActiveSimulation() -- Returns the active simulation."
         );
         initialize("This module is the SeismicLabGui module.");// register with Python
     }

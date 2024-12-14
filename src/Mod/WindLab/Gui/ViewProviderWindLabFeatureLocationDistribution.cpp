@@ -187,37 +187,37 @@ PyObject* ViewProviderWindLabFeatureLocationDistribution::getPyObject(void)
 
 bool ViewProviderWindLabFeatureLocationDistribution::getComputationResultVariableVector(vec& resultVectorVar)
 {
-    if (!windLabAllFeaturesComputation)
+  /*  if (!windLabAllFeaturesComputation)
         return false;
-    resultVectorVar = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVar;
+    resultVectorVar = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVar;*/
     return true;
 }
 bool ViewProviderWindLabFeatureLocationDistribution::getComputationResultValueVector(vec& resultVectorVal)
 {
-    if (!windLabAllFeaturesComputation)
+ /*   if (!windLabAllFeaturesComputation)
         return false;
-    resultVectorVal = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVal;
+    resultVectorVal = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVal;*/
     return true;
 }
 bool ViewProviderWindLabFeatureLocationDistribution::getComputationResultComplexValueVector(cx_vec& resultVectorVal_cx)
 {
-    if (!windLabAllFeaturesComputation)
+  /*  if (!windLabAllFeaturesComputation)
         return false;
-    resultVectorVal_cx = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVal_cx;
+    resultVectorVal_cx = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultVectorVal_cx;*/
     return true;
 }
 bool ViewProviderWindLabFeatureLocationDistribution::getComputationResultMatrix(mat& resultMatrix)
 {
-     if (!windLabAllFeaturesComputation)
+   /*  if (!windLabAllFeaturesComputation)
         return false;
-     resultMatrix = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultMatrix;
+     resultMatrix = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultMatrix;*/
     return true;
 }
 bool ViewProviderWindLabFeatureLocationDistribution::getComputationResultComplexMatrix(cx_mat& resultMatrix_cx)
 {
-     if (!windLabAllFeaturesComputation)
+   /*  if (!windLabAllFeaturesComputation)
         return false;
-     resultMatrix_cx = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultMatrix_cx;
+     resultMatrix_cx = windLabAllFeaturesComputation->GetWindLabSimulationWorker()->m_ResultMatrix_cx;*/
     return true;
 }
 
@@ -229,16 +229,21 @@ bool ViewProviderWindLabFeatureLocationDistribution::runFeatureMethod(const QStr
         WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
     if (vp)
     {
-        if (vp->getAllComputation())
+        auto computation = vp->getAllComputation();
+        if (computation)
         {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetWindLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
-
-    windLabAllFeaturesComputation = new WindLabAllFeaturesComputation(sim);
-    windLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    windLabAllFeaturesComputation->getWindLabSimulationThread()->start();
+    vp->setAllComputation(new WindLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getWindLabSimulationThread()->start();
     return true;
 }
 

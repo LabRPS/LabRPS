@@ -571,7 +571,6 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
     bar->setRange(0, 0);
     bar->show();
-    Gui::getMainWindow()->showMessage(tr("Loading %1...").arg(QString::fromLatin1(simulationWorker->getComparisonName().c_str())));
 
 }
 
@@ -609,6 +608,7 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
+
 }
 
 void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)

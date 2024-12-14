@@ -157,9 +157,19 @@ bool ViewProviderSeaLabFeatureSimulationMethod::simulate()
 
 bool ViewProviderSeaLabFeatureSimulationMethod::stop()
 { 
-    if (seaLabAllFeaturesComputation) {
-        seaLabAllFeaturesComputation->GetSeaLabSimulationWorker()->stop();
-        return true;
+    SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
+    if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
+
+    SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetSeaLabSimulationWorker();
+            if (worker) {
+                vp->getAllComputation()->GetSeaLabSimulationWorker()->stop();
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -198,17 +208,21 @@ ActivateFeature();
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
         SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
-    {
-        if (vp->getAllComputation())
-        {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetSeaLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetSeaLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new SeaLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getSeaLabSimulationThread()->start();
 
-    seaLabAllFeaturesComputation = new SeaLabAllFeaturesComputation(sim);
-    seaLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    seaLabAllFeaturesComputation->getSeaLabSimulationThread()->start();
     return true;
 }

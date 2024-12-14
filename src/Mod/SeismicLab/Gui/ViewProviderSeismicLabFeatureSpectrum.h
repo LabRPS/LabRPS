@@ -75,8 +75,8 @@ public:
 protected:// attributes
     Py::SmartPtr PythonObject;
 
-public:
-    SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
+// public:
+//     SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

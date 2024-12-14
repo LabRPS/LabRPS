@@ -104,8 +104,8 @@ protected:// attributes
     Py::SmartPtr PythonObject;
     static App::PropertyFloatConstraint::Constraints sizeRange;
 
-public:
-    SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
+// public:
+//     SeismicLabAllFeaturesComputation* seismicLabAllFeaturesComputation = nullptr;
 
 public:
     bool runFeatureMethod(const QString function, const char* complexNumberDisplay = "Real");

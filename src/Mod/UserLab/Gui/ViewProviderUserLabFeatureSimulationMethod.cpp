@@ -158,9 +158,19 @@ bool ViewProviderUserLabFeatureSimulationMethod::simulate()
 
 bool ViewProviderUserLabFeatureSimulationMethod::stop()
 { 
-    if (userLabAllFeaturesComputation) {
-        userLabAllFeaturesComputation->GetUserLabSimulationWorker()->stop();
-        return true;
+    UserLab::UserLabSimulation* sim = static_cast<UserLab::UserLabSimulation*>(UserLabGui::UserLabSimulationObserver::instance()->active());
+    if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
+
+    UserLabGui::ViewProviderUserLabSimulation* vp = dynamic_cast<UserLabGui::ViewProviderUserLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetUserLabSimulationWorker();
+            if (worker) {
+                vp->getAllComputation()->GetUserLabSimulationWorker()->stop();
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -198,18 +208,22 @@ ActivateFeature();
     UserLab::UserLabSimulation* sim = static_cast<UserLab::UserLabSimulation*>(UserLabGui::UserLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-       UserLabGui::ViewProviderUserLabSimulation* vp = dynamic_cast<UserLabGui::ViewProviderUserLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
-    {
-        if (vp->getAllComputation())
-        {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+    UserLabGui::ViewProviderUserLabSimulation* vp = dynamic_cast<UserLabGui::ViewProviderUserLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetUserLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetUserLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new UserLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getUserLabSimulationThread()->start();
 
-    userLabAllFeaturesComputation = new UserLabAllFeaturesComputation(sim);
-    userLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    userLabAllFeaturesComputation->getUserLabSimulationThread()->start();
     return true;
 }

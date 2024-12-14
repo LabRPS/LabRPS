@@ -297,12 +297,12 @@ MainWindow::MainWindow(QWidget * parent, Qt::WindowFlags f)
     d->status = new StatusBarObserver();
     d->actionLabel = new QLabel(statusBar());
     // d->actionLabel->setMinimumWidth(120);
-    d->sizeLabel = new QLabel(tr("Dimension"), statusBar());
-    d->sizeLabel->setMinimumWidth(120);
+    // d->sizeLabel = new QLabel(tr("Dimension"), statusBar());
+    // d->sizeLabel->setMinimumWidth(120);
     statusBar()->addWidget(d->actionLabel, 1);
     QProgressBar* progressBar = Gui::SequencerBar::instance()->getProgressBar(statusBar());
     statusBar()->addPermanentWidget(progressBar, 0);
-    statusBar()->addPermanentWidget(d->sizeLabel, 0);
+    //statusBar()->addPermanentWidget(d->sizeLabel, 0);
 
     // clears the action label
     d->actionTimer = new QTimer( this );

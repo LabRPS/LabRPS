@@ -157,9 +157,22 @@ bool ViewProviderWindLabFeatureSimulationMethod::simulate()
 
 bool ViewProviderWindLabFeatureSimulationMethod::stop()
 { 
-    if (windLabAllFeaturesComputation) {
-        windLabAllFeaturesComputation->GetWindLabSimulationWorker()->stop();
-        return true;
+    WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
+    if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
+
+    WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    
+    if (vp)
+    {
+        auto computation = vp->getAllComputation();
+        if (computation)
+        {
+            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
+            if (worker) {
+                vp->getAllComputation()->GetWindLabSimulationWorker()->stop();
+                return true;
+            }
+        }
     }
     return false;
 }
@@ -201,15 +214,20 @@ ActivateFeature();
     
     if (vp)
     {
-        if (vp->getAllComputation())
+        auto computation = vp->getAllComputation();
+        if (computation)
         {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetWindLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
-
-    windLabAllFeaturesComputation = new WindLabAllFeaturesComputation(sim);
-    windLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    windLabAllFeaturesComputation->getWindLabSimulationThread()->start();
+    vp->setAllComputation(new WindLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getWindLabSimulationThread()->start();
     return true;
 }

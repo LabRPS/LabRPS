@@ -27,6 +27,7 @@
 #include <Mod/WindLab/WindLabGlobal.h>
 #include <QCoreApplication>
 #include "WindLabAllFeaturesComputation.h"
+#include <Base/SmartPtrPy.h>
 
 namespace WindLabGui
 {
@@ -103,9 +104,16 @@ protected:
     virtual bool setEdit(int ModNum);
     virtual void unsetEdit(int ModNum);
 
-public:
+private:
 
     WindLabAllFeaturesComputation* windLabAllFeaturesComputation = nullptr;
+
+public:
+    virtual PyObject* getPyObject() override;
+
+ /// python object of this class
+protected:// attributes
+    Py::SmartPtr PythonObject;
 };
 
 } //namespace WindLabGui

@@ -31,9 +31,11 @@
 # include <QTextStream>
 #endif
 
+#include "ViewProviderSeismicLabSimulation.h"
+#include "ViewProviderSeismicLabSimulationPy.h"
+
 #include <App/TextDocument.h>
 #include <Gui/ActionFunction.h>
-#include "ViewProviderSeismicLabSimulation.h"
 #include <Gui/Command.h>
 #include <Gui/Control.h>
 #include <Gui/Document.h>
@@ -385,11 +387,20 @@ bool ViewProviderSeismicLabSimulation::checkSelectedChildren(const std::vector<A
     }
 }
 
-    SeismicLabAllFeaturesComputation* ViewProviderSeismicLabSimulation::getAllComputation()
-    {
-        return seismicLabAllFeaturesComputation;
+SeismicLabAllFeaturesComputation* ViewProviderSeismicLabSimulation::getAllComputation()
+{
+    return seismicLabAllFeaturesComputation;
+}
+void ViewProviderSeismicLabSimulation::setAllComputation(SeismicLabAllFeaturesComputation* computation)
+{
+    seismicLabAllFeaturesComputation = computation;
+}
+
+PyObject* ViewProviderSeismicLabSimulation::getPyObject(void)
+{
+    if (PythonObject.is(Py::_None())) {
+        // ref counter is set to 1
+        PythonObject = Py::Object(new ViewProviderSeismicLabSimulationPy(this), true);
     }
-    void ViewProviderSeismicLabSimulation::setAllComputation(SeismicLabAllFeaturesComputation* computation)
-    {
-        seismicLabAllFeaturesComputation = computation;
-    }
+    return Py::new_reference_to(PythonObject);
+}

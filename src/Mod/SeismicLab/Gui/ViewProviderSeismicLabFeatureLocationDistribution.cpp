@@ -337,37 +337,37 @@ PyObject* ViewProviderSeismicLabFeatureLocationDistribution::getPyObject(void)
 
 bool ViewProviderSeismicLabFeatureLocationDistribution::getComputationResultVariableVector(vec& resultVectorVar)
 {
-    if (!seismicLabAllFeaturesComputation)
-        return false;
-    resultVectorVar = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVar;
+    //if (!seismicLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVar = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVar;
     return true;
 }
 bool ViewProviderSeismicLabFeatureLocationDistribution::getComputationResultValueVector(vec& resultVectorVal)
 {
-    if (!seismicLabAllFeaturesComputation)
-        return false;
-    resultVectorVal = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVal;
+    //if (!seismicLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVal = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVal;
     return true;
 }
 bool ViewProviderSeismicLabFeatureLocationDistribution::getComputationResultComplexValueVector(cx_vec& resultVectorVal_cx)
 {
-    if (!seismicLabAllFeaturesComputation)
-        return false;
-    resultVectorVal_cx = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVal_cx;
+    //if (!seismicLabAllFeaturesComputation)
+    //    return false;
+    //resultVectorVal_cx = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultVectorVal_cx;
     return true;
 }
 bool ViewProviderSeismicLabFeatureLocationDistribution::getComputationResultMatrix(mat& resultMatrix)
 {
-     if (!seismicLabAllFeaturesComputation)
-        return false;
-     resultMatrix = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultMatrix;
+     //if (!seismicLabAllFeaturesComputation)
+     //   return false;
+     //resultMatrix = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultMatrix;
     return true;
 }
 bool ViewProviderSeismicLabFeatureLocationDistribution::getComputationResultComplexMatrix(cx_mat& resultMatrix_cx)
 {
-     if (!seismicLabAllFeaturesComputation)
-        return false;
-     resultMatrix_cx = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultMatrix_cx;
+     //if (!seismicLabAllFeaturesComputation)
+     //   return false;
+     //resultMatrix_cx = seismicLabAllFeaturesComputation->GetSeismicLabSimulationWorker()->m_ResultMatrix_cx;
     return true;
 }
 
@@ -377,18 +377,22 @@ bool ViewProviderSeismicLabFeatureLocationDistribution::runFeatureMethod(const Q
     SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
         SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
-    {
-        if (vp->getAllComputation())
-        {
-            Base::Console().Error("A simulation is running, please stop it first.\n");
-            return false;
+    if (vp) {
+        auto computation = vp->getAllComputation();
+        if (computation) {
+            auto worker = vp->getAllComputation()->GetSeismicLabSimulationWorker();
+            if (worker) {
+                if (!vp->getAllComputation()->GetSeismicLabSimulationWorker()->isStopped()) {
+                    Base::Console().Error("A simulation is running, please stop it first.\n");
+                    return false;
+                }
+            }
         }
     }
+    vp->setAllComputation(new SeismicLabAllFeaturesComputation(sim));
+    vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
+    vp->getAllComputation()->getSeismicLabSimulationThread()->start();
 
-    seismicLabAllFeaturesComputation = new SeismicLabAllFeaturesComputation(sim);
-    seismicLabAllFeaturesComputation->startSimulationWorker(function, complexNumberDisplay);
-    seismicLabAllFeaturesComputation->getSeismicLabSimulationThread()->start();
     return true;
 }
 
