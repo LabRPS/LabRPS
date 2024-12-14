@@ -32,7 +32,7 @@ PROPERTY_SOURCE(WindLab::CSineModulation, WindLabAPI::WindLabFeatureModulation)
 CSineModulation::CSineModulation()
 {
     ADD_PROPERTY_TYPE(PulseDuration, (150), "Parameters", App::Prop_None, "The pulse duration");
-    this->OutputUnit.setValue("Dimensionless");
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)

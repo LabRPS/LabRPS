@@ -38,7 +38,7 @@ PROPERTY_SOURCE(WindLab::RPSTurbulenceIntensityASCE798, WindLabAPI::WindLabFeatu
 RPSTurbulenceIntensityASCE798::RPSTurbulenceIntensityASCE798()
 {
    ADD_PROPERTY_TYPE(TenMetersHighTurbulenceIntensity, (0.088), "Parameters", App::Prop_None, "The turbulence intensity at height of 10 meters");
-   this->OutputUnit.setValue("Dimensionless");
+   this->OutputUnitString.setValue("Dimensionless");
 }
 
 bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLabAPI::WindLabSimulationData& Data, const Base::Vector3d& location, const double& dTime, double& dValue)

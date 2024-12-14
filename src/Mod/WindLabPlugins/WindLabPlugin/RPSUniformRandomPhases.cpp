@@ -37,7 +37,7 @@ CRPSUniformRandomPhases::CRPSUniformRandomPhases()
 {
     ADD_PROPERTY_TYPE(MinimumValue, (0.0), "Parameters", App::Prop_None, "The minimum value that can be generated");
     ADD_PROPERTY_TYPE(MaximumValue, (6.28), "Parameters", App::Prop_None, "The maximum value that can be generated");
-    this->OutputUnit.setValue("rad");
+    this->OutputUnitString.setValue("rad");
 }
 
 bool CRPSUniformRandomPhases::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)

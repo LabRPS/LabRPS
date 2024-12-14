@@ -35,7 +35,7 @@ GeneralSpatialDistribution::GeneralSpatialDistribution()
     static const char* Points = "Locations";
 
     ADD_PROPERTY_TYPE(Locations, (Base::Vector3d()), Points, App::Prop_None,"The list of locations");
-    this->OutputUnit.setValue("m");
+    this->OutputUnitString.setValue("m");
 }
 
 bool GeneralSpatialDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData &Data, mat &dLocCoord)

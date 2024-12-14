@@ -95,8 +95,8 @@ public:
     /// This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,...
     App::PropertyStringList ApplicationFields;
 
-    /// The unit of the computed values 
-    App::PropertyString OutputUnit;
+    /// The unit string of the computed values 
+    App::PropertyString OutputUnitString;
     //@}
 
     /// Constructor

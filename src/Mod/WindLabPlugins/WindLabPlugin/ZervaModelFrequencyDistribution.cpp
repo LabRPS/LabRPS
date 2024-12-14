@@ -29,7 +29,7 @@ PROPERTY_SOURCE(WindLab::ZervaModelFrequencyDistribution, WindLabAPI::WindLabFea
 
 ZervaModelFrequencyDistribution::ZervaModelFrequencyDistribution()
 {
-    this->OutputUnit.setValue("Input");
+    this->OutputUnitString.setValue("Input");
 }
 
 bool ZervaModelFrequencyDistribution::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)

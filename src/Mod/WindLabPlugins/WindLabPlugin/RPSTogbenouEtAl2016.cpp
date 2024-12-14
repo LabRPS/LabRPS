@@ -48,7 +48,7 @@ CRPSTogbenouEtAl2016::CRPSTogbenouEtAl2016()
     ADD_PROPERTY_TYPE(RoughnessLength, (10.0), "Parameters", App::Prop_None, "The terrain roughness length.");
     ADD_PROPERTY_TYPE(StartingElevation, (10000.0), "Parameters", App::Prop_None, "The lowest elevation points are uniformly distributed from.");
 
-    this->OutputUnit.setValue("m/s");
+    this->OutputUnitString.setValue("m/s");
 
 }
 //Initial setting

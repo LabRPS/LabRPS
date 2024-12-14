@@ -36,7 +36,7 @@ PROPERTY_SOURCE(WindLab::CRPSYangEtAl1997, WindLabAPI::WindLabFeatureSimulationM
 
 CRPSYangEtAl1997::CRPSYangEtAl1997()
 { 
-    this->OutputUnit.setValue("m/s");
+    this->OutputUnitString.setValue("m/s");
 }
 
 
