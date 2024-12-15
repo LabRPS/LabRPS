@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureKurtosis, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureKurtosis::SeaLabFeatureKurtosis(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureKurtosis::~SeaLabFeatureKurtosis()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureMeanWind, WindLabAPI::WindLabFeature)
 
 WindLabFeatureMeanWind::WindLabFeatureMeanWind(void)
 {
+    this->OutputUnitString.setValue("m/s");
 }
 
 WindLabFeatureMeanWind::~WindLabFeatureMeanWind()

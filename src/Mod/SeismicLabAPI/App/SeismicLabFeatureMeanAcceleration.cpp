@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureMeanAcceleration, SeismicLabAPI:
 
 SeismicLabFeatureMeanAcceleration::SeismicLabFeatureMeanAcceleration(void)
 {
+    this->OutputUnitString.setValue("m/s^2");
 }
 
 SeismicLabFeatureMeanAcceleration::~SeismicLabFeatureMeanAcceleration()

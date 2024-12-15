@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureShearVelocityOfFlow, SeaLabAPI::SeaLabFe
 
 SeaLabFeatureShearVelocityOfFlow::SeaLabFeatureShearVelocityOfFlow(void)
 {
+    this->OutputUnitString.setValue("m/s");
 }
 
 SeaLabFeatureShearVelocityOfFlow::~SeaLabFeatureShearVelocityOfFlow()

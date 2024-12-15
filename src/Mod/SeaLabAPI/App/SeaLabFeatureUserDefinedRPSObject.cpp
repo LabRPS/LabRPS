@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureUserDefinedRPSObject, SeaLabAPI::SeaLabF
 
 SeaLabFeatureUserDefinedRPSObject::SeaLabFeatureUserDefinedRPSObject(void)
 {
+    this->OutputUnitString.setValue("");
 }
 
 SeaLabFeatureUserDefinedRPSObject::~SeaLabFeatureUserDefinedRPSObject()

@@ -40,10 +40,12 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureGustFactor, WindLabAPI::WindLabFeature
 
 WindLabFeatureGustFactor::WindLabFeatureGustFactor(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureGustFactor::~WindLabFeatureGustFactor()
 {
+
 }
 
 short WindLabFeatureGustFactor::mustExecute(void) const

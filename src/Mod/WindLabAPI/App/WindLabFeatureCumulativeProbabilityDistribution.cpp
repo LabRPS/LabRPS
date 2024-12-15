@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureCumulativeProbabilityDistribution, Win
 
 WindLabFeatureCumulativeProbabilityDistribution::WindLabFeatureCumulativeProbabilityDistribution(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureCumulativeProbabilityDistribution::~WindLabFeatureCumulativeProbabilityDistribution()

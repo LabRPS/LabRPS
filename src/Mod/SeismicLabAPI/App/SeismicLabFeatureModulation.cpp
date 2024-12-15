@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureModulation, SeismicLabAPI::Seism
 
 SeismicLabFeatureModulation::SeismicLabFeatureModulation(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureModulation::~SeismicLabFeatureModulation()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureKurtosis, SeismicLabAPI::Seismic
 
 SeismicLabFeatureKurtosis::SeismicLabFeatureKurtosis(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureKurtosis::~SeismicLabFeatureKurtosis()

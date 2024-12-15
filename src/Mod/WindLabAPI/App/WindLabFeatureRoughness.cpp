@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureRoughness, WindLabAPI::WindLabFeature)
 
 WindLabFeatureRoughness::WindLabFeatureRoughness(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 WindLabFeatureRoughness::~WindLabFeatureRoughness()

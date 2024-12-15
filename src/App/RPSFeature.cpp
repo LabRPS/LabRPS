@@ -66,7 +66,7 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(ApplicationFields, (""), featuregroup, App::Prop_ReadOnly, "This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,..");
     ADD_PROPERTY_TYPE(OutputUnitString, (""), featuregroup, App::Prop_ReadOnly, "The unit of the computed values");
 
-    this->OutputUnitString.setValue("Dimensionless");
+    this->OutputUnitString.setValue("");
     std::vector<std::string> fields;
     fields.push_back("Structural Design");
     fields.push_back("Load Calculation for Wind Turbines");

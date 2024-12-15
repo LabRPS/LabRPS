@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureTurbulenceIntensity, WindLabAPI::WindL
 
 WindLabFeatureTurbulenceIntensity::WindLabFeatureTurbulenceIntensity(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureTurbulenceIntensity::~WindLabFeatureTurbulenceIntensity()

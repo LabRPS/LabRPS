@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureVariance, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureVariance::SeaLabFeatureVariance(void)
 {
+    this->OutputUnitString.setValue("m^2/(rad/s)");
 }
 
 SeaLabFeatureVariance::~SeaLabFeatureVariance()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureFrequencyDistribution, SeismicLa
 
 SeismicLabFeatureFrequencyDistribution::SeismicLabFeatureFrequencyDistribution(void)
 {
+    this->OutputUnitString.setValue("Hz");
 }
 
 SeismicLabFeatureFrequencyDistribution::~SeismicLabFeatureFrequencyDistribution()

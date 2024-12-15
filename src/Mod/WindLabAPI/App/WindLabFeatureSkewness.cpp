@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureSkewness, WindLabAPI::WindLabFeature)
 
 WindLabFeatureSkewness::WindLabFeatureSkewness(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureSkewness::~WindLabFeatureSkewness()

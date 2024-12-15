@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureCorrelation, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureCorrelation::SeaLabFeatureCorrelation(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureCorrelation::~SeaLabFeatureCorrelation()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureFrequencyDistribution, SeaLabAPI::SeaLab
 
 SeaLabFeatureFrequencyDistribution::SeaLabFeatureFrequencyDistribution(void)
 {
+    this->OutputUnitString.setValue("Hz");
 }
 
 SeaLabFeatureFrequencyDistribution::~SeaLabFeatureFrequencyDistribution()

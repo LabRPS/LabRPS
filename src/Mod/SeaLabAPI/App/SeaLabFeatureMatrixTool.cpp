@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureMatrixTool, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureMatrixTool::SeaLabFeatureMatrixTool(void)
 {
+
 }
 
 SeaLabFeatureMatrixTool::~SeaLabFeatureMatrixTool()

@@ -47,7 +47,7 @@ WLGridPoints::WLGridPoints()
     ADD_PROPERTY_TYPE(Length1, (45000.0), locationgroup, App::Prop_None, "The length along one axis");
     ADD_PROPERTY_TYPE(Length2, (45000.0), locationgroup, App::Prop_None, "The length along other axis");
     ADD_PROPERTY_TYPE(NumberOfPoints, (100), locationgroup, App::Prop_ReadOnly, "The length along other axis");
-    this->OutputUnitString.setValue("m");
+    
 }
 
 

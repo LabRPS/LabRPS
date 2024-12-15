@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureSpectrum, SeismicLabAPI::Seismic
 
 SeismicLabFeatureSpectrum::SeismicLabFeatureSpectrum(void)
 {
+    this->OutputUnitString.setValue("(m/s^2)^2/(rad/s)");
 }
 
 SeismicLabFeatureSpectrum::~SeismicLabFeatureSpectrum()

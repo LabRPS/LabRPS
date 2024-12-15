@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureModulation, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureModulation::SeaLabFeatureModulation(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureModulation::~SeaLabFeatureModulation()

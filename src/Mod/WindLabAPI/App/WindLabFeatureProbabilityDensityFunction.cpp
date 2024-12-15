@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureProbabilityDensityFunction, WindLabAPI
 
 WindLabFeatureProbabilityDensityFunction::WindLabFeatureProbabilityDensityFunction(void)
 {
+    this->OutputUnitString.setValue("m/s");
 }
 
 WindLabFeatureProbabilityDensityFunction::~WindLabFeatureProbabilityDensityFunction()

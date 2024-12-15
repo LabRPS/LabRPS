@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureRandomness, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureRandomness::SeaLabFeatureRandomness(void)
 {
+    this->OutputUnitString.setValue("rad");
 }
 
 SeaLabFeatureRandomness::~SeaLabFeatureRandomness()

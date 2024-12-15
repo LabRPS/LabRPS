@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureModulation, WindLabAPI::WindLabFeature
 
 WindLabFeatureModulation::WindLabFeatureModulation(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureModulation::~WindLabFeatureModulation()

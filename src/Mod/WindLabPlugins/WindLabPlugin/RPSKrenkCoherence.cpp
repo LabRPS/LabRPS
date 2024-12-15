@@ -39,7 +39,6 @@ PROPERTY_SOURCE(WindLab::RPSKrenkCoherence, WindLabAPI::WindLabFeatureCoherence)
 RPSKrenkCoherence::RPSKrenkCoherence()
 {
    ADD_PROPERTY_TYPE(IntegralLengthScale, (150.0), "Parameters", App::Prop_None, "The integral length scale");
-    this->OutputUnitString.setValue("Dimensionless");
 }
 
 bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)

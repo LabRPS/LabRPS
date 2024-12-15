@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureProbabilityDensityFunction, SeaLabAPI::S
 
 SeaLabFeatureProbabilityDensityFunction::SeaLabFeatureProbabilityDensityFunction(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 SeaLabFeatureProbabilityDensityFunction::~SeaLabFeatureProbabilityDensityFunction()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureSpectrum, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureSpectrum::SeaLabFeatureSpectrum(void)
 {
+    this->OutputUnitString.setValue("m^2/s");
 }
 
 SeaLabFeatureSpectrum::~SeaLabFeatureSpectrum()

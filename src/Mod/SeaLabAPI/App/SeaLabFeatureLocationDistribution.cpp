@@ -41,6 +41,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureLocationDistribution, SeaLabAPI::SeaLabF
 
 SeaLabFeatureLocationDistribution::SeaLabFeatureLocationDistribution(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 SeaLabFeatureLocationDistribution::~SeaLabFeatureLocationDistribution()

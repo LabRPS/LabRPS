@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureSimulationMethod, SeismicLabAPI:
 
 SeismicLabFeatureSimulationMethod::SeismicLabFeatureSimulationMethod(void)
 {
+    this->OutputUnitString.setValue("m/s^2");
 }
 
 SeismicLabFeatureSimulationMethod::~SeismicLabFeatureSimulationMethod()
