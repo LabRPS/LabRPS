@@ -101,7 +101,7 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     windLab->setCommand("&WindLab");
     *windLab << "WindLab_NewSimulation"
              << "WindLab_Features"
-            //  << "WindLab_Comparison"
+             << "WindLab_Simulation_Start" << "WindLab_Simulation_Stop"
              << "WindLab_Examples";
     
 
@@ -116,7 +116,7 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     WindLabToolBar->setCommand("WindLab Features");
      *WindLabToolBar << "WindLab_NewSimulation"
                      << "WindLab_Features"
-                    //  << "WindLab_Comparison"
+                     << "WindLab_Simulation_Start" << "WindLab_Simulation_Stop"
                      << "WindLab_Examples";
 
      return root;

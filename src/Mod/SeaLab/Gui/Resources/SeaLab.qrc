@@ -4,6 +4,8 @@
         <file>icons/SeaLab_NewSimulation.svg</file>
         <file>icons/SeaLab_Features.svg</file>
         <file>icons/SeaLab_Examples.svg</file>
+        <file>icons/SeaLab_Simulation_Start.svg</file>
+        <file>icons/SeaLab_Simulation_Stop.svg</file>
         <file>icons/general/folder.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_CoherenceObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_CorrelationObj.svg</file>

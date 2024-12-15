@@ -280,9 +280,18 @@ void SeismicLabSimulation::updateSimulationData()
 
 }
 
-bool SeismicLabSimulation::run() { return false; }
+bool SeismicLabSimulation::run(){ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
-bool SeismicLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool SeismicLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string SeismicLabSimulation::getPhenomenonName() const
 {

@@ -116,7 +116,7 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     SeismicLabToolBar->setCommand("SeismicLab Features");
      *SeismicLabToolBar << "SeismicLab_NewSimulation"
                      << "SeismicLab_Features"
-                    //  << "SeismicLab_Comparison"
+                     << "SeismicLab_Simulation_Start" << "SeismicLab_Simulation_Stop"
                      << "SeismicLab_Examples";
 
      return root;

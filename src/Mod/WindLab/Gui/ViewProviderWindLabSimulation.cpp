@@ -135,15 +135,23 @@ bool ViewProviderWindLabSimulation::run()
     if (!sim) {
         return false;
     }
+    
+    if (sim->isRuning())
+    {
+        Base::Console().Error("This simulation is already running.\n");
+        return false;
+    }
 
     auto activeMethod = sim->getActiveSimulationMethod();
 
     if (!activeMethod) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
     WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
 
@@ -156,19 +164,30 @@ bool ViewProviderWindLabSimulation::run()
         vp->simulateInLargeScaleMode();
     }
     
+    sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }
 
 bool ViewProviderWindLabSimulation::stop()
 {
-    // WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
-    //if (!sim) {
-    //    return false;
-    //}
-
-    //return sim->stop();
+    WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
+    if (!sim) {
+        return false;
+    }
+    
+    if (!sim->isRuning())
+    {
+        Base::Console().Warning("This simulation is not running.\n");
+        return false;
+    }
+    auto worker = getAllComputation()->GetWindLabSimulationWorker();
+    if (worker) {
+        getAllComputation()->GetWindLabSimulationWorker()->stop();
+    }
+ 
     if (windLabAllFeaturesComputation)
     Q_EMIT windLabAllFeaturesComputation->stopped();
+
     return true;
 }
 

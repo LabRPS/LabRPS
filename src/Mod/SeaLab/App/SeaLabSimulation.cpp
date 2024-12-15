@@ -262,9 +262,17 @@ void SeaLabSimulation::updateSimulationData()
 
 }
 
-bool SeaLabSimulation::run() { return false; }
+bool SeaLabSimulation::run(){
+    this->setStatus(App::SimulationStatus::Running, true);
+    return true;
+}
 
-bool SeaLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool SeaLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string SeaLabSimulation::getPhenomenonName() const
 {

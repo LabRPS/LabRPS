@@ -131,18 +131,27 @@ bool ViewProviderSeaLabSimulation::run()
     }
     auto activeMethod = sim->getActiveSimulationMethod();
 
-    //SeaLabAPI::IrpsSeLSimulationMethod* activeSimMethod = static_cast<SeaLabAPI::IrpsSeLSimulationMethod*>(sim->getActiveSimulationMethod());
     if (!activeMethod) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
     SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
 
-    vp->simulate();
-
+    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
+    {
+        vp->simulate();
+    }
+    else
+    {
+        vp->simulateInLargeScaleMode();
+    }
+    
+    sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }
 
@@ -152,7 +161,21 @@ bool ViewProviderSeaLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    return sim->stop();
+    
+    if (!sim->isRuning())
+    {
+        Base::Console().Warning("This simulation is not running.\n");
+        return false;
+    }
+    auto worker = getAllComputation()->GetSeaLabSimulationWorker();
+    if (worker) {
+        getAllComputation()->GetSeaLabSimulationWorker()->stop();
+    }
+ 
+    if (seaLabAllFeaturesComputation)
+        Q_EMIT seaLabAllFeaturesComputation->stopped();
+
+    return true;
 }
 
 bool ViewProviderSeaLabSimulation::activateSimulation() { return doubleClicked(); }

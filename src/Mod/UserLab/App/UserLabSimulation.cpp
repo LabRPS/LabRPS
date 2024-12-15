@@ -169,9 +169,18 @@ void UserLabSimulation::updateSimulationData()
 
 }
 
-bool UserLabSimulation::run() { return false; }
+bool UserLabSimulation::run(){ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
-bool UserLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool UserLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string UserLabSimulation::getPhenomenonName() const
 {

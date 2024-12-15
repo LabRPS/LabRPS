@@ -862,16 +862,11 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     wb->setCommand("Workbench");
     *wb << "Std_Workbench";
 
-    // Macro
-    ToolBarItem* macro = new ToolBarItem( root );
-    macro->setCommand("Macro");
-    *macro << "Std_DlgMacroRecord" << "Std_MacroStopRecord" << "Std_DlgMacroExecute"
-           << "Std_DlgMacroExecuteDirect";
-
-      // View
-    ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    view->setCommand("View");
-    *view << "Std_SelBack" << "Std_SelForward" << "Std_TreeViewActions";
+    // // Macro
+    // ToolBarItem* macro = new ToolBarItem( root );
+    // macro->setCommand("Macro");
+    // *macro << "Std_DlgMacroRecord" << "Std_MacroStopRecord" << "Std_DlgMacroExecute"
+    //        << "Std_DlgMacroExecuteDirect";
 
       Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
     GraphTools->setCommand("Graph Tools");
@@ -928,7 +923,10 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     *TableStatistics << "Std_AppendNewColumnToTable"
                      << "Std_ShowColumnStatistics"
                      << "Std_ShowRowStatistics";
-
+    // View
+    ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    view->setCommand("View");
+    *view << "Std_SelBack" << "Std_SelForward" << "Std_TreeViewActions";
     return root;
 }
 

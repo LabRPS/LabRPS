@@ -131,28 +131,51 @@ bool ViewProviderSeismicLabSimulation::run()
     }
     auto activeMethod = sim->getActiveSimulationMethod();
 
-    //SeismicLabAPI::IrpsSLSimulationMethod* activeSimMethod = static_cast<SeismicLabAPI::IrpsSLSimulationMethod*>(sim->getActiveSimulationMethod());
     if (!activeMethod) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
     SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
 
-    vp->simulate();
-
+    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
+    {
+        vp->simulate();
+    }
+    else
+    {
+        vp->simulateInLargeScaleMode();
+    }
+    
+    sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }
 
 bool ViewProviderSeismicLabSimulation::stop()
 {
-     SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
+    SeismicLab::SeismicLabSimulation* sim = static_cast<SeismicLab::SeismicLabSimulation*>(SeismicLabGui::SeismicLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
     if (!sim) {
         return false;
     }
-    return sim->stop();
+    
+    if (!sim->isRuning())
+    {
+        Base::Console().Warning("This simulation is not running.\n");
+        return false;
+    }
+    auto worker = getAllComputation()->GetSeismicLabSimulationWorker();
+    if (worker) {
+        getAllComputation()->GetSeismicLabSimulationWorker()->stop();
+    }
+ 
+    if (seismicLabAllFeaturesComputation)
+        Q_EMIT seismicLabAllFeaturesComputation->stopped();
+
+    return true;
 }
 
 bool ViewProviderSeismicLabSimulation::activateSimulation() { return doubleClicked(); }

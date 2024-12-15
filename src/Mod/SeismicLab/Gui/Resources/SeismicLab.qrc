@@ -4,6 +4,8 @@
         <file>icons/SeismicLab_NewSimulation.svg</file>
         <file>icons/SeismicLab_Features.svg</file>
         <file>icons/SeismicLab_Examples.svg</file>
+        <file>icons/SeismicLab_Simulation_Start.svg</file>
+        <file>icons/SeismicLab_Simulation_Stop.svg</file>
         <file>icons/general/folder.svg</file>
         <file>icons/SeismicLabFeatures/SeismicLab_Feature_CoherenceObj.svg</file>
         <file>icons/SeismicLabFeatures/SeismicLab_Feature_CorrelationObj.svg</file>

@@ -289,9 +289,17 @@ void WindLabSimulation::updateSimulationData()
 
 }
 
-bool WindLabSimulation::run() { return false; }
+bool WindLabSimulation::run(){
+    this->setStatus(App::SimulationStatus::Running, true);
+    return true;
+}
 
-bool WindLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool WindLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string WindLabSimulation::getPhenomenonName() const
 {

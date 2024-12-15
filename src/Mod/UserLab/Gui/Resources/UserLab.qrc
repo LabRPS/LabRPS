@@ -4,6 +4,8 @@
         <file>icons/UserLab_NewSimulation.svg</file>
         <file>icons/UserLab_Features.svg</file>
         <file>icons/UserLab_Examples.svg</file>
+        <file>icons/UserLab_Simulation_Start.svg</file>
+        <file>icons/UserLab_Simulation_Stop.svg</file>
         <file>icons/general/folder.svg</file>
         <file>icons/UserLabFeatures/UserLab_Feature_SimulationMethodObj.svg</file>    
         <file alias="icons/preferences-userlab.svg">icons/UserLabWorkbench.svg</file>
