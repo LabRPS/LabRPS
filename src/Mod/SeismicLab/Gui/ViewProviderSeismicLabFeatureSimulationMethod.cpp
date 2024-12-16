@@ -162,16 +162,12 @@ bool ViewProviderSeismicLabFeatureSimulationMethod::stop()
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
     SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp) {
-        auto computation = vp->getAllComputation();
-        if (computation) {
-            auto worker = vp->getAllComputation()->GetSeismicLabSimulationWorker();
-            if (worker) {
-                vp->getAllComputation()->GetSeismicLabSimulationWorker()->stop();
-                return true;
-            }
-        }
+    if (sim->isRuning())
+    {
+        Base::Console().Error("A simulation is running, please stop it first.\n");
+        return false;
     }
+
 
     return false;
 }
@@ -210,18 +206,12 @@ ActivateFeature();
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
     SeismicLabGui::ViewProviderSeismicLabSimulation* vp = dynamic_cast<SeismicLabGui::ViewProviderSeismicLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp) {
-        auto computation = vp->getAllComputation();
-        if (computation) {
-            auto worker = vp->getAllComputation()->GetSeismicLabSimulationWorker();
-            if (worker) {
-                if (!vp->getAllComputation()->GetSeismicLabSimulationWorker()->isStopped()) {
-                    Base::Console().Error("A simulation is running, please stop it first.\n");
-                    return false;
-                }
-            }
-        }
+    if (sim->isRuning())
+    {
+        Base::Console().Error("A simulation is running, please stop it first.\n");
+        return false;
     }
+
     vp->setAllComputation(new SeismicLabAllFeaturesComputation(sim));
     vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
     vp->getAllComputation()->getSeismicLabSimulationThread()->start();

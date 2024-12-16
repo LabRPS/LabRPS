@@ -38,7 +38,11 @@ Simulation::Simulation()
   : _name("")
 {
     ADD_PROPERTY_TYPE(isRunning, (false), 0, App::Prop_None, "Whether the simulation is running or not.");
-
+    this->setStatus(App::SimulationStatus::Completed, false);
+    this->setStatus(App::SimulationStatus::Failed, false);
+    this->setStatus(App::SimulationStatus::Running, false);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    this->setStatus(App::SimulationStatus::Successfull, false);
 }
 
 Simulation::~Simulation()

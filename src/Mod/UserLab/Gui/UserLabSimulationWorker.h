@@ -51,7 +51,8 @@ public Q_SLOTS:
     bool workerSimulateInLargeScaleMode();
 
     void stop();
-
+    void complete();
+    
     Q_SIGNALS:
     void finished();
     void signalDisplayResultInTable(QString str, int what);

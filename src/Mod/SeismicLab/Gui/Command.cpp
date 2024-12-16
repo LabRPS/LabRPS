@@ -221,7 +221,8 @@ void CmdSeismicLabSimulationStop::activated(int iMsg)
 
 bool CmdSeismicLabSimulationStop::isActive(void)
 {
-    return (hasActiveDocument() && SeismicLabGui::SeismicLabSimulationObserver::instance()->active());
+    App::Simulation* sim = SeismicLabGui::SeismicLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
 }
 
 void CreateSeismicLabCommands(void)

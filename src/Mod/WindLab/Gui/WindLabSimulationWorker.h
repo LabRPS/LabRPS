@@ -163,6 +163,7 @@ public Q_SLOTS:
     bool workerComputeZAutoSpectrumVectorT();
 
     void stop();
+    void complete();
 
     Q_SIGNALS:
     void finished();

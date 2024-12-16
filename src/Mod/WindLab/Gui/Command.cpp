@@ -221,8 +221,7 @@ void CmdWindLabSimulationStop::activated(int iMsg)
 
 bool CmdWindLabSimulationStop::isActive(void)
 {
-    App::Simulation* sim = WindLabGui::WindLabSimulationObserver::instance()->active();
-    
+    App::Simulation* sim = WindLabGui::WindLabSimulationObserver::instance()->active();  
     return (hasActiveDocument() && sim && sim->isRuning());
 }
 

@@ -350,7 +350,7 @@ DlgSeaLabFeatures::DlgSeaLabFeatures(QWidget * parent,  SeaLab::SeaLabSimulation
 
 	connect(ui->locationDistributionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingLocationDistribution()));
 	connect(ui->meanAccelerationProfilePushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingMeanAccelerationProfile()));
-	connect(ui->spectrumPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingAlongWindSpectrum()));
+	connect(ui->spectrumPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSpectrum()));
 	connect(ui->spectrumDecompositionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSpectrumDecompositionMethod()));
 	connect(ui->coherenceFunctionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingCoherenceFunction()));
 	connect(ui->simulationMethodPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSimulationMethod()));

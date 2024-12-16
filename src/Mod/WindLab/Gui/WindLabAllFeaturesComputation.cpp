@@ -609,6 +609,9 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
 
     Gui::getMainWindow()->showResults(info);
 
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
@@ -641,6 +644,10 @@ void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
     if (win) {
         win->showMessage(QString());
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void WindLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
@@ -653,4 +660,8 @@ void WindLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayT
 	{
        complexRrealImag = 1;
     }
+
+   Q_EMIT simulationWorker->finished();
+
+   Gui::getMainWindow()->updateActions();
 }

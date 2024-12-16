@@ -129,6 +129,12 @@ bool ViewProviderSeaLabSimulation::run()
     if (!sim) {
         return false;
     }
+    if (sim->isRuning())
+    {
+        Base::Console().Error("This simulation is already running.\n");
+        return false;
+    }
+
     auto activeMethod = sim->getActiveSimulationMethod();
 
     if (!activeMethod) {

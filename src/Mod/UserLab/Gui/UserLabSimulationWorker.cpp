@@ -63,6 +63,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             if (!doc)
             {
                 stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
                 return false;
             }
 
@@ -76,6 +77,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
                 stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
                 return false;
             }
             Eigen::Tensor<double, 2> matrix_at_k = m_ResultCube.chip(m_sim->getSimulationData()->sampleIndex.getValue(), 2);
@@ -94,6 +96,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
     }
 
     stopped = true;
+    complete();
     return true;
 }
 bool RPSUserLabSimulationWorker::workerSimulateInLargeScaleMode()
@@ -121,12 +124,14 @@ bool RPSUserLabSimulationWorker::workerSimulateInLargeScaleMode()
                 Base::Console().Warning(
                     "The computation of the wind velocity matrix has failed.\n");
                 stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
                 return false;
             }
         }
     }
 
     stopped = true;
+    complete();
     return true;
 }
 
@@ -136,6 +141,14 @@ void RPSUserLabSimulationWorker::stop()
     stopped = true;
     m_sim->getSimulationData()->isInterruptionRequested.setValue(true);
     m_sim->getSimulationData()->isSimulationSuccessful.setValue(false);
+    mutex.unlock();
+}
+
+void RPSUserLabSimulationWorker::complete()
+{
+    mutex.lock();
+    m_sim->setStatus(App::SimulationStatus::Completed, true);
+    m_sim->getSimulationData()->isSimulationSuccessful.setValue(true);
     mutex.unlock();
 }
 

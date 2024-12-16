@@ -187,26 +187,6 @@ bool ViewProviderWindLabFeatureCoherence::ComputeCrossCoherenceMatrixPP()
     return runFeatureMethod(WindLab::WindLabUtils::ComputeCrossCoherenceMatrixPP, this->ComplexNumberDisplay.getValueAsString());
 }
 
-//bool ViewProviderWindLabFeatureCoherence::goToPublication()
-//{
-//    ActivateFeature();
-//
-//    auto doc = App::GetApplication().getActiveDocument();
-//    if (!doc)
-//        return false;
-//    auto obj = doc->getObject(this->getObject()->getNameInDocument());
-//    if (!obj)
-//        return false;
-//    auto active = static_cast<WindLabAPI::WindLabFeature*>(obj);
-//    if (!active)
-//        return false;
-//
-//    Gui::Command::doCommand(Gui::Command::Doc, "import WebGui");
-//    Gui::Command::doCommand(Gui::Command::Doc, "WebGui.openBrowser(\"%s\")", active->LinkToPublication.getStrValue().c_str());
-//
-//    return true;
-//}
-
 
 bool ViewProviderWindLabFeatureCoherence::OnInitialSetting()
 {
@@ -245,20 +225,12 @@ bool ViewProviderWindLabFeatureCoherence::runFeatureMethod(const QString functio
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
     WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
+    if (sim->isRuning())
     {
-        auto computation = vp->getAllComputation();
-        if (computation)
-        {
-            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
-            if (worker) {
-                if (!vp->getAllComputation()->GetWindLabSimulationWorker()->isStopped()) {
-                    Base::Console().Error("A simulation is running, please stop it first.\n");
-                    return false;
-                }
-            }
-        }
+        Base::Console().Error("A simulation is running, please stop it first.\n");
+        return false;
     }
+
     vp->setAllComputation(new WindLabAllFeaturesComputation(sim));
     vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
     vp->getAllComputation()->getWindLabSimulationThread()->start();

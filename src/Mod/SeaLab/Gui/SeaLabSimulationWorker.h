@@ -131,7 +131,8 @@ public Q_SLOTS:
     bool workerComputeAutoSpectrumVectorT();
 
     void stop();
-
+    void complete();
+    
     Q_SIGNALS:
     void finished();
     void signalDisplayResultInTable(QString str, int what);
