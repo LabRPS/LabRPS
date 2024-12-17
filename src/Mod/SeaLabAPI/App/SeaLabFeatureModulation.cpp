@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureModulation, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureModulation::SeaLabFeatureModulation(void)
 {
+    ADD_PROPERTY_TYPE(isUniform, (true), "Parameters", App::Prop_None, "Tell if the modulation funtion varies with frequency");
     this->OutputUnitString.setValue("Dimensionless");
 }
 
