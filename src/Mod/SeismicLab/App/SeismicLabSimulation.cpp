@@ -2037,7 +2037,27 @@ bool SeismicLabSimulation::computeMeanAccelerationVectorT(Base::Vector3d locatio
     return true;
 }
 
-bool SeismicLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeismicLabSimulation::computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeismicLabAPI::IrpsSLModulation* activefeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the modulation value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeismicLabSimulation::computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2049,7 +2069,7 @@ bool SeismicLabSimulation::computeModulationVectorT(Base::Vector3d location, vec
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2058,7 +2078,7 @@ bool SeismicLabSimulation::computeModulationVectorT(Base::Vector3d location, vec
     return true;
 }
 
-bool SeismicLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeismicLabSimulation::computeModulationVectorP(const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2070,7 +2090,7 @@ bool SeismicLabSimulation::computeModulationVectorP(const double &dTime, vec &dV
     }
     dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
     dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dFrequency, dTime, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2078,6 +2098,30 @@ bool SeismicLabSimulation::computeModulationVectorP(const double &dTime, vec &dV
     featureName = activefeature->Label.getStrValue();
     return true;
 }
+
+bool SeismicLabSimulation::computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeismicLabAPI::IrpsSLModulation* activefeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeModulationVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    if (!returnResult) {
+        Base::Console().Error("The computation of the modulation vector has failed.\n");
+        return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+
+
 
 bool SeismicLabSimulation::computeDecomposedCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
 {
@@ -2380,25 +2424,6 @@ bool SeismicLabSimulation::computeMeanAccelerationValue(Base::Vector3d location,
     return true;
 }
 
-bool SeismicLabSimulation::computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    SeismicLabAPI::IrpsSLModulation* activefeature = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
-    if (!activefeature) {
-    Base::Console().Error("No valid active modulation function feature found.\n");
-    return false;
-    }
-    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dTime, dValue);
-    if (!returnResult)
-    {
-     Base::Console().Error("The computation of the modulation value has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
-}
 bool SeismicLabSimulation::computeRandomValue(double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
@@ -2408,6 +2433,7 @@ bool SeismicLabSimulation::computeRandomValue(double &dValue, std::string& featu
     return true;
 
 }
+
 bool SeismicLabSimulation::computeCrossSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();

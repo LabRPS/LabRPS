@@ -2018,7 +2018,28 @@ bool SeaLabSimulation::computeMeanAccelerationVectorT(Base::Vector3d location, v
     return true;
 }
 
-bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName)
+
+bool SeaLabSimulation::computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the modulation value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2030,7 +2051,7 @@ bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dV
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2039,7 +2060,7 @@ bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dV
     return true;
 }
 
-bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeModulationVectorP(const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2051,7 +2072,7 @@ bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVe
     }
     dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
     dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dFrequency, dTime, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2059,6 +2080,28 @@ bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVe
     featureName = activefeature->Label.getStrValue();
     return true;
 }
+
+bool SeaLabSimulation::computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeModulationVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    if (!returnResult) {
+        Base::Console().Error("The computation of the modulation vector has failed.\n");
+        return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
 
 bool SeaLabSimulation::computeDecomposedCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
 {
@@ -2361,25 +2404,6 @@ bool SeaLabSimulation::computeMeanAccelerationValue(Base::Vector3d location, con
     return true;
 }
 
-bool SeaLabSimulation::computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
-    if (!activefeature) {
-    Base::Console().Error("No valid active modulation function feature found.\n");
-    return false;
-    }
-    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dTime, dValue);
-    if (!returnResult)
-    {
-     Base::Console().Error("The computation of the modulation value has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
-}
 bool SeaLabSimulation::computeRandomValue(double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();

@@ -77,6 +77,7 @@ public Q_SLOTS:
     bool workerComputeModulationValue();
     bool workerComputeModulationVectorP();
     bool workerComputeModulationVectorT();
+    bool workerComputeModulationVectorF();
 
     bool workerComputePeakFactorValue();
     bool workerComputePeakFactorVectorP();

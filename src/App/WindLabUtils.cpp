@@ -102,6 +102,7 @@ QString WindLabUtils::ComputeMeanWindSpeedVectorT =  QString::fromLatin1("Comput
 QString WindLabUtils::ComputeModulationValue = QString::fromLatin1("ComputeModulationValue");
 QString WindLabUtils::ComputeModulationVectorP = QString::fromLatin1("ComputeModulationVectorP");
 QString WindLabUtils::ComputeModulationVectorT = QString::fromLatin1("ComputeModulationVectorT");
+QString WindLabUtils::ComputeModulationVectorF = QString::fromLatin1("ComputeModulationVectorF");
 
 QString WindLabUtils::ComputePeakFactorValue = QString::fromLatin1("ComputePeakFactorValue");
 QString WindLabUtils::ComputePeakFactorVectorP = QString::fromLatin1("ComputePeakFactorVectorP");

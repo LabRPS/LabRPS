@@ -195,7 +195,7 @@ bool CRPSSeaLabFramework::ComputeMeanAccelerationSpeedVectorT(const SeaLabAPI::S
 }
 
 
-bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSSeaLabFramework::ComputeModulationValue(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -211,12 +211,12 @@ bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimula
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dFrequency, dTime, dValue);
 
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -232,7 +232,49 @@ bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimula
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dTime, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dFrequency, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dFrequency, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeModulationVectorF(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorF(Data, location, dTime, dVarVector, dValVector);
 
     return returnValue;
 }
@@ -574,28 +616,6 @@ bool CRPSSeaLabFramework::ComputeMeanAccelerationSpeedValue(const SeaLabAPI::Sea
 
     return returnValue;
 }
-
-bool CRPSSeaLabFramework::ComputeModulationValue(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-
-    if (!doc)
-    {
-        return false;
-    }
-
-    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-	if (NULL == SelectedModulationObject)
-	{
-        return false;
-	}
-
-    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dTime, dValue);
-
-    return returnValue;
-}
-
 
 bool CRPSSeaLabFramework::ComputeRandomValue(const SeaLabAPI::SeaLabSimulationData &Data, double &dValue)
 {

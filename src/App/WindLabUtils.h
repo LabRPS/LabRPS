@@ -113,6 +113,7 @@ class AppExport WindLabUtils {
   static QString ComputeModulationValue;
   static QString ComputeModulationVectorP;
   static QString ComputeModulationVectorT;
+  static QString ComputeModulationVectorF;
 
   static QString ComputePeakFactorValue;
   static QString ComputePeakFactorVectorP;

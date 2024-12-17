@@ -195,8 +195,7 @@ bool CRPSWindLabFramework::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLab
     return returnValue;
 }
 
-
-bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -212,12 +211,12 @@ bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSim
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dFrequency, dTime, dValue);
 
     return returnValue;
 }
 
-bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSWindLabFramework::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -233,12 +232,52 @@ bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSim
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dTime, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dFrequency, dVarVector, dValVector);
 
     return returnValue;
 }
 
+bool CRPSWindLabFramework::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
 
+    if (!doc)
+    {
+        return false;
+    }
+
+    WindLabAPI::IrpsWLModulation* SelectedModulationObject = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dFrequency, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSWindLabFramework::ComputeModulationVectorF(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dtime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    WindLabAPI::IrpsWLModulation* SelectedModulationObject = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorF(Data, location, dtime, dVarVector, dValVector);
+
+    return returnValue;
+}
 
 bool CRPSWindLabFramework::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
@@ -847,27 +886,6 @@ bool CRPSWindLabFramework::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
 	}
 
     bool returnValue = SelectedMeanObject->ComputeMeanWindSpeedValue(Data, location, dTime, dValue);
-
-    return returnValue;
-}
-
-bool CRPSWindLabFramework::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-
-    if (!doc)
-    {
-        return false;
-    }
-
-    WindLabAPI::IrpsWLModulation* SelectedModulationObject = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-	if (NULL == SelectedModulationObject)
-	{
-        return false;
-	}
-
-    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dTime, dValue);
 
     return returnValue;
 }

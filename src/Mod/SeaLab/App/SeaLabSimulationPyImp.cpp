@@ -707,8 +707,10 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
 
 PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
 {
- PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -720,7 +722,7 @@ PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -731,15 +733,16 @@ PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
 
 PyObject *SeaLabSimulationPy::computeModulationVectorP(PyObject* args)
 {
-    double time;
-    if (!PyArg_ParseTuple(args, "d", &time))
+    double time = 0.0;
+    double frequency = 0.0;
+    if (!PyArg_ParseTuple(args, "dd", &frequency, &time))
     return nullptr;
 
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeModulationVectorP(time, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -1114,8 +1117,10 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    double time = 0.0;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -1126,7 +1131,7 @@ PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
      double resValue;
      std::string featureName;
 
-     bool result = getSeaLabSimulationPtr()->computeModulationValue(*location, time, resValue, featureName);
+     bool result = getSeaLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
      if (!result) {
     Py_INCREF(Py_None);
     return Py_None;

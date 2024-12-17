@@ -1404,10 +1404,13 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
-                m_sim->computeModulationValue(location, time, modulationValue, featureName);
+                m_sim->computeModulationValue(location,frequency, time, modulationValue, featureName);
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
             Base::Console().Message("The computation %s\n", str.c_str());
@@ -1452,9 +1455,12 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorP()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);            
             Base::StopWatch watch;
             watch.start();
-            bool returnResult = m_sim->computeModulationVectorP(time, m_ResultVectorVar,
+            bool returnResult = m_sim->computeModulationVectorP(frequency, time, m_ResultVectorVar,
                                                                 m_ResultVectorVal, featureName);
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -1475,6 +1481,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorP()
     complete();
     return true;
 }
+
 bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
 {
     if (isStopped()) {
@@ -1518,10 +1525,85 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
 
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
-
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             Base::StopWatch watch;
             watch.start();
-            bool returnResult = m_sim->computeModulationVectorT(location, m_ResultVectorVar,
+            bool returnResult = m_sim->computeModulationVectorT(location, frequency, m_ResultVectorVar,
+                                                                m_ResultVectorVal, featureName);
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the modulation function has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+
+
+
+bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorF()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeismicLab::SeismicLabUtils::ComputeModulationVectorF) {
+
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeismicLabAPI::IrpsSLLocationDistribution* activeSpatialDistr =
+                static_cast<SeismicLabAPI::IrpsSLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active simulation
+
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            activeSpatialDistr->ComputeLocationCoordinateMatrixP3(*m_sim->getSimulationData(),
+                                                                  locationCoord);
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d location(locationCoord(locationIndexJ, 1),
+                                    locationCoord(locationIndexJ, 2),
+                                    locationCoord(locationIndexJ, 3));
+
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            Base::StopWatch watch;
+            watch.start();
+            bool returnResult = m_sim->computeModulationVectorF(location, time, m_ResultVectorVar,
                                                                 m_ResultVectorVal, featureName);
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);

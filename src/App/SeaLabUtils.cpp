@@ -90,6 +90,7 @@ QString SeaLabUtils::ComputeMeanAccelerationVectorT =  QString::fromLatin1("Comp
 QString SeaLabUtils::ComputeModulationValue = QString::fromLatin1("ComputeModulationValue");
 QString SeaLabUtils::ComputeModulationVectorP = QString::fromLatin1("ComputeModulationVectorP");
 QString SeaLabUtils::ComputeModulationVectorT = QString::fromLatin1("ComputeModulationVectorT");
+QString SeaLabUtils::ComputeModulationVectorF = QString::fromLatin1("ComputeModulationVectorF");
 
 QString SeaLabUtils::ComputePeakFactorValue = QString::fromLatin1("ComputePeakFactorValue");
 QString SeaLabUtils::ComputePeakFactorVectorP = QString::fromLatin1("ComputePeakFactorVectorP");

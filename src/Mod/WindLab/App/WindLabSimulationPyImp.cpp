@@ -744,8 +744,10 @@ PyObject *WindLabSimulationPy::computeMeanWindSpeedVectorT(PyObject* args)
 
 PyObject *WindLabSimulationPy::computeModulationVectorT(PyObject* args)
 {
- PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -757,7 +759,7 @@ PyObject *WindLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dVarVector;
     vec dValVector;
 
-    bool result = getWindLabSimulationPtr()->computeModulationVectorT(*locationJ, dVarVector, dValVector, featureName);
+    bool result = getWindLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -768,15 +770,17 @@ PyObject *WindLabSimulationPy::computeModulationVectorT(PyObject* args)
 
 PyObject *WindLabSimulationPy::computeModulationVectorP(PyObject* args)
 {
-    double time;
-    if (!PyArg_ParseTuple(args, "d", &time))
+    double time = 0.0;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "dd", &frequency, &time))
     return nullptr;
 
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getWindLabSimulationPtr()->computeModulationVectorP(time, dVarVector, dValVector, featureName);
+    bool result = getWindLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -1633,8 +1637,10 @@ PyObject *WindLabSimulationPy::computeMeanWindSpeedValue(PyObject* args)
 PyObject *WindLabSimulationPy::computeModulationValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    double time = 0.0;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -1645,7 +1651,7 @@ PyObject *WindLabSimulationPy::computeModulationValue(PyObject* args)
      double resValue;
      std::string featureName;
 
-     bool result = getWindLabSimulationPtr()->computeModulationValue(*location, time, resValue, featureName);
+     bool result = getWindLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
      if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
