@@ -170,7 +170,12 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
 void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
         Gui::getMainWindow()->getAlphaPlot()->newTableShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -199,7 +204,7 @@ void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
 
     Gui::getMainWindow()->showResults(info);
 
@@ -238,6 +243,9 @@ void UserLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
     if (win) {
         win->showMessage(QString());
     }
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
+
+    Gui::getMainWindow()->showResults(info);
 
     Q_EMIT simulationWorker->finished();
 

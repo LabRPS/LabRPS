@@ -73,7 +73,7 @@ QString SeismicLabAllFeaturesComputation::logSimulationInfo(bool status, const Q
         profile = SeismicLab::SeismicLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = SeismicLab::SeismicLabUtils::makeHtmlTable(33, 2, false, profile);
+    table = SeismicLab::SeismicLabUtils::makeHtmlTable(32, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetSeismicLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -440,7 +440,12 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
 
 void SeismicLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
         Gui::getMainWindow()->getAlphaPlot()->newTableShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -469,14 +474,23 @@ void SeismicLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
 
     Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void SeismicLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
          Gui::getMainWindow()->getAlphaPlot()->newMatrixShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -504,6 +518,13 @@ void SeismicLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, in
     if (win) {
         win->showMessage(QString());
     }
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
+
+    Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void SeismicLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)

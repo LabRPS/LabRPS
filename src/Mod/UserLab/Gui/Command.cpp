@@ -221,7 +221,8 @@ void CmdUserLabSimulationStop::activated(int iMsg)
 
 bool CmdUserLabSimulationStop::isActive(void)
 {
-    return (hasActiveDocument() && UserLabGui::UserLabSimulationObserver::instance()->active());
+    App::Simulation* sim = UserLabGui::UserLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
 }
 
 void CreateUserLabCommands(void)

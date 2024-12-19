@@ -73,7 +73,7 @@ QString SeaLabAllFeaturesComputation::logSimulationInfo(bool status, const QStri
         profile = SeaLab::SeaLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = SeaLab::SeaLabUtils::makeHtmlTable(35, 2, false, profile);
+    table = SeaLab::SeaLabUtils::makeHtmlTable(34, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetSeaLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -487,16 +487,19 @@ void SeaLabAllFeaturesComputation::startSimulationWorker(QString function, const
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorD()));
     }
 
-
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
     bar->setRange(0, 0);
     bar->show();
-
 }
 
 void SeaLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
         Gui::getMainWindow()->getAlphaPlot()->newTableShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -525,7 +528,7 @@ void SeaLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wha
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
 
     Gui::getMainWindow()->showResults(info);
 
@@ -536,7 +539,12 @@ void SeaLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wha
 
 void SeaLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
          Gui::getMainWindow()->getAlphaPlot()->newMatrixShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -564,6 +572,9 @@ void SeaLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
+
+    Gui::getMainWindow()->showResults(info);
 
     Q_EMIT simulationWorker->finished();
 
