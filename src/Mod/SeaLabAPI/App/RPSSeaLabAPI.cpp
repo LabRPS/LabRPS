@@ -32,7 +32,6 @@ using namespace SeaLabAPI;
 
  typedef IrpsSeLLocationDistribution *(*CreateLocDistrCallback)();
  typedef IrpsSeLMeanAcceleration *(*CreateMeanCallback)();
- typedef IrpsSeLSpectrum *(*CreateXSpectrumCallback)();
  typedef IrpsSeLCoherence *(*CreateCoherenceCallback)();
  typedef IrpsSeLSimulationMethod *(*CreateSimuMethodCallback)();
  typedef IrpsSeLFrequencyDistribution *(*CreateFrequencyDistributionCallback)();
@@ -52,6 +51,9 @@ using namespace SeaLabAPI;
  typedef IrpsSeLStandardDeviation *(*CreateStandardDeviationCallback)();
  typedef IrpsSeLVariance *(*CreateVarianceCallback)();
  typedef IrpsSeLWavePassageEffect *(*CreateWavePassageEffectCallback)();
+ typedef IrpsSeLFrequencySpectrum *(*CreateFrequencySpectrumCallback)();
+ typedef IrpsSeLDirectionalSpectrum *(*CreateDirectionalSpectrumCallback)();
+ typedef IrpsSeLDirectionalSpreadingFunction *(*CreateDirectionalSpreadingFunctionCallback)();
 
 
 const char * RPSSeaLabAPIInfo::getSeaLabAPIVersion()
@@ -537,167 +539,6 @@ CrpsLocationDistributionFactory::~CrpsLocationDistributionFactory()
      {
         return mStationarityMap;
      }
-
-
- 	CrpsSpectrumFactory::CallbackMap CrpsSpectrumFactory::mXSpectrums;
- 	QString CrpsSpectrumFactory::mOwnerPlugin;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mTobeInstalledObjectsMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mOjectDescriptionMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mOjectAndPluginMap;
-    std::map<const std::string, std::string> CrpsSpectrumFactory::mOjectsSkipDuringUnintallationMap;
-
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mTitleMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mLinkMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mAuthorMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mDateMap;
- 	std::map<const std::string, std::string> CrpsSpectrumFactory::mVersionMap;
-    std::map<const std::string, PyObject*> CrpsSpectrumFactory::mProducerMap;
-    std::map<const std::string, bool> CrpsSpectrumFactory::mStationarityMap;
-
-    CrpsSpectrumFactory::CrpsSpectrumFactory() {}
-    CrpsSpectrumFactory::~CrpsSpectrumFactory()
-    {
-        Base::PyGILStateLocker lock;
-        for (std::map<const std::string, PyObject*>::const_iterator it = mProducerMap.begin();
-             it != mProducerMap.end(); ++it) {
-
-            Py_DECREF(it->second);
-        }
-    }
-
-
- 	QString CrpsSpectrumFactory::GetOwnerPlugin()
- 	{
- 		return mOwnerPlugin;
- 	}
-
- 	void CrpsSpectrumFactory::SetOwnerPlugin(QString ownerPlugin)
- 	{
- 		mOwnerPlugin = ownerPlugin;
- 	}
-
- 	void CrpsSpectrumFactory::InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
- 	{
- 		mTobeInstalledObjectsMap[name] = pluginName;
- 		mTitleMap[name] = publicationTitle;
- 		mLinkMap[name] = publicationLink;
- 		mAuthorMap[name] = publicationAuthor;
- 		mDateMap[name] = publicationDate;
- 		mVersionMap[name] = version;
-        mStationarityMap[name] = stationarity;
-
- 	}
-
- 	void CrpsSpectrumFactory::RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateXSpectrumCallback cb)
- 	{
- 		if (mTobeInstalledObjectsMap[name] != pluginName)
- 		{
- 			return;
- 		}
-
- 		mXSpectrums[name] = cb;
- 		mOjectDescriptionMap[name] = description;
- 		mOjectAndPluginMap[name] = pluginName;
-
- 	}
-
- 	void CrpsSpectrumFactory::UnregisterObject(const std::string& name, const std::string& pluginName)
- 	{
- 		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
- 		{
- 			mXSpectrums.erase(name);
- 			mOjectDescriptionMap.erase(name);
- 			mOjectAndPluginMap.erase(name);
-
- 		}
-		
- 	}
-
- 	IrpsSeLSpectrum *CrpsSpectrumFactory::BuildObject(const std::string& name)
- 	{
- 		CallbackMap::iterator it = mXSpectrums.find(name);
- 		if (it != mXSpectrums.end())
- 		{
- 			return (it->second)();
- 		}
-
- 		return NULL;
- 	}
-
-     PyObject* CrpsSpectrumFactory::produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName)
-    {
-        PyObject* producer = mProducerMap[pluggedFeatureName];
-
-        Py::Callable method(producer);
-        Py::Tuple args(2);
-        args.setItem(0, Py::String(newFeatureName));
-        args.setItem(1, Py::String(simulationName));
-
-        Py::Object res = method.apply(args);
-        return Py::new_reference_to(res);
-    }
-
- 	std::map<const std::string, CreateXSpectrumCallback>& CrpsSpectrumFactory::GetObjectNamesMap()
- 	{
- 		return mXSpectrums;
- 	}
-
- 	std::map<const std::string, std::string> & CrpsSpectrumFactory::GetTobeInstalledObjectsMap()
- 	{
- 		return mTobeInstalledObjectsMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetOjectDescriptionMap()
- 	{
- 		return mOjectDescriptionMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetOjectAndPluginMap()
- 	{
- 		return mOjectAndPluginMap;
- 	}
-
- 	///
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetTitleMap()
- 	{
- 		return mTitleMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetLinkMap()
- 	{
- 		return mLinkMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetAuthorMap()
- 	{
- 		return mAuthorMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetDateMap()
- 	{
- 		return mDateMap;
- 	}
-
- 	std::map<const std::string, std::string>& CrpsSpectrumFactory::GetVersionMap()
- 	{
- 		return mVersionMap;
- 	}
-
- 	std::map<const std::string, std::string> &  CrpsSpectrumFactory::GetOjectsSkipDuringUnintallationMap()
-     {
- 	    return mOjectsSkipDuringUnintallationMap;
-     }
-
-    std::map<const std::string, PyObject*>& CrpsSpectrumFactory::GetProducerMap()
-     {
-        return mProducerMap;
-     }
-
-              std::map<const std::string, bool>& CrpsSpectrumFactory::GetStationarityMap()
-     {
-        return mStationarityMap;
-     }
-
 
  	CrpsSimuMethodFactory::CallbackMap CrpsSimuMethodFactory::mSimuMethods;
  	QString CrpsSimuMethodFactory::mOwnerPlugin;
@@ -3523,3 +3364,482 @@ CrpsLocationDistributionFactory::~CrpsLocationDistributionFactory()
         return mStationarityMap;
      }
 
+// frequency spectrum
+ 	CrpsFrequencySpectrumFactory::CallbackMap CrpsFrequencySpectrumFactory::mFrequencySpectrums;
+ 	QString CrpsFrequencySpectrumFactory::mOwnerPlugin;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mTobeInstalledObjectsMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mOjectDescriptionMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mOjectAndPluginMap;
+    std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mOjectsSkipDuringUnintallationMap;
+
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mTitleMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mLinkMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mAuthorMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mDateMap;
+ 	std::map<const std::string, std::string> CrpsFrequencySpectrumFactory::mVersionMap;
+    std::map<const std::string, PyObject*> CrpsFrequencySpectrumFactory::mProducerMap;
+    std::map<const std::string, bool> CrpsFrequencySpectrumFactory::mStationarityMap;
+
+    CrpsFrequencySpectrumFactory::CrpsFrequencySpectrumFactory() {}
+    CrpsFrequencySpectrumFactory::~CrpsFrequencySpectrumFactory()
+    {
+        Base::PyGILStateLocker lock;
+        for (std::map<const std::string, PyObject*>::const_iterator it = mProducerMap.begin();
+             it != mProducerMap.end(); ++it) {
+
+            Py_DECREF(it->second);
+        }
+    }
+
+
+ 	QString CrpsFrequencySpectrumFactory::GetOwnerPlugin()
+ 	{
+ 		return mOwnerPlugin;
+ 	}
+
+ 	void CrpsFrequencySpectrumFactory::SetOwnerPlugin(QString ownerPlugin)
+ 	{
+ 		mOwnerPlugin = ownerPlugin;
+ 	}
+
+ 	void CrpsFrequencySpectrumFactory::InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ 	{
+ 		mTobeInstalledObjectsMap[name] = pluginName;
+ 		mTitleMap[name] = publicationTitle;
+ 		mLinkMap[name] = publicationLink;
+ 		mAuthorMap[name] = publicationAuthor;
+ 		mDateMap[name] = publicationDate;
+ 		mVersionMap[name] = version;
+        mStationarityMap[name] = stationarity;
+
+ 	}
+
+ 	void CrpsFrequencySpectrumFactory::RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateFrequencySpectrumCallback cb)
+ 	{
+ 		if (mTobeInstalledObjectsMap[name] != pluginName)
+ 		{
+ 			return;
+ 		}
+
+ 		mFrequencySpectrums[name] = cb;
+ 		mOjectDescriptionMap[name] = description;
+ 		mOjectAndPluginMap[name] = pluginName;
+
+ 	}
+
+ 	void CrpsFrequencySpectrumFactory::UnregisterObject(const std::string& name, const std::string& pluginName)
+ 	{
+ 		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+ 		{
+ 			mFrequencySpectrums.erase(name);
+ 			mOjectDescriptionMap.erase(name);
+ 			mOjectAndPluginMap.erase(name);
+
+ 		}
+		
+ 	}
+
+ 	IrpsSeLFrequencySpectrum *CrpsFrequencySpectrumFactory::BuildObject(const std::string& name)
+ 	{
+ 		CallbackMap::iterator it = mFrequencySpectrums.find(name);
+ 		if (it != mFrequencySpectrums.end())
+ 		{
+ 			return (it->second)();
+ 		}
+
+ 		return NULL;
+ 	}
+
+     PyObject* CrpsFrequencySpectrumFactory::produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName)
+    {
+        PyObject* producer = mProducerMap[pluggedFeatureName];
+
+        Py::Callable method(producer);
+        Py::Tuple args(2);
+        args.setItem(0, Py::String(newFeatureName));
+        args.setItem(1, Py::String(simulationName));
+
+        Py::Object res = method.apply(args);
+        return Py::new_reference_to(res);
+    }
+
+ 	std::map<const std::string, CreateFrequencySpectrumCallback>& CrpsFrequencySpectrumFactory::GetObjectNamesMap()
+ 	{
+ 		return mFrequencySpectrums;
+ 	}
+
+ 	std::map<const std::string, std::string> & CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap()
+ 	{
+ 		return mTobeInstalledObjectsMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetOjectDescriptionMap()
+ 	{
+ 		return mOjectDescriptionMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetOjectAndPluginMap()
+ 	{
+ 		return mOjectAndPluginMap;
+ 	}
+
+ 	///
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetTitleMap()
+ 	{
+ 		return mTitleMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetLinkMap()
+ 	{
+ 		return mLinkMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetAuthorMap()
+ 	{
+ 		return mAuthorMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetDateMap()
+ 	{
+ 		return mDateMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsFrequencySpectrumFactory::GetVersionMap()
+ 	{
+ 		return mVersionMap;
+ 	}
+
+ 	std::map<const std::string, std::string> &  CrpsFrequencySpectrumFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+ 	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+    std::map<const std::string, PyObject*>& CrpsFrequencySpectrumFactory::GetProducerMap()
+    {
+        return mProducerMap;
+    }
+
+    std::map<const std::string, bool>& CrpsFrequencySpectrumFactory::GetStationarityMap()
+    {
+        return mStationarityMap;
+    }
+
+// directional spectrum
+ 	CrpsDirectionalSpectrumFactory::CallbackMap CrpsDirectionalSpectrumFactory::mDirectionalSpectrums;
+ 	QString CrpsDirectionalSpectrumFactory::mOwnerPlugin;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mTobeInstalledObjectsMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mOjectDescriptionMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mOjectAndPluginMap;
+    std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mOjectsSkipDuringUnintallationMap;
+
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mTitleMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mLinkMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mAuthorMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mDateMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpectrumFactory::mVersionMap;
+    std::map<const std::string, PyObject*> CrpsDirectionalSpectrumFactory::mProducerMap;
+    std::map<const std::string, bool> CrpsDirectionalSpectrumFactory::mStationarityMap;
+
+    CrpsDirectionalSpectrumFactory::CrpsDirectionalSpectrumFactory() {}
+    CrpsDirectionalSpectrumFactory::~CrpsDirectionalSpectrumFactory()
+    {
+        Base::PyGILStateLocker lock;
+        for (std::map<const std::string, PyObject*>::const_iterator it = mProducerMap.begin();
+             it != mProducerMap.end(); ++it) {
+
+            Py_DECREF(it->second);
+        }
+    }
+
+
+ 	QString CrpsDirectionalSpectrumFactory::GetOwnerPlugin()
+ 	{
+ 		return mOwnerPlugin;
+ 	}
+
+ 	void CrpsDirectionalSpectrumFactory::SetOwnerPlugin(QString ownerPlugin)
+ 	{
+ 		mOwnerPlugin = ownerPlugin;
+ 	}
+
+ 	void CrpsDirectionalSpectrumFactory::InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ 	{
+ 		mTobeInstalledObjectsMap[name] = pluginName;
+ 		mTitleMap[name] = publicationTitle;
+ 		mLinkMap[name] = publicationLink;
+ 		mAuthorMap[name] = publicationAuthor;
+ 		mDateMap[name] = publicationDate;
+ 		mVersionMap[name] = version;
+        mStationarityMap[name] = stationarity;
+
+ 	}
+
+ 	void CrpsDirectionalSpectrumFactory::RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateDirectionalSpectrumCallback cb)
+ 	{
+ 		if (mTobeInstalledObjectsMap[name] != pluginName)
+ 		{
+ 			return;
+ 		}
+
+ 		mDirectionalSpectrums[name] = cb;
+ 		mOjectDescriptionMap[name] = description;
+ 		mOjectAndPluginMap[name] = pluginName;
+
+ 	}
+
+ 	void CrpsDirectionalSpectrumFactory::UnregisterObject(const std::string& name, const std::string& pluginName)
+ 	{
+ 		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+ 		{
+ 			mDirectionalSpectrums.erase(name);
+ 			mOjectDescriptionMap.erase(name);
+ 			mOjectAndPluginMap.erase(name);
+
+ 		}
+		
+ 	}
+
+ 	IrpsSeLDirectionalSpectrum *CrpsDirectionalSpectrumFactory::BuildObject(const std::string& name)
+ 	{
+ 		CallbackMap::iterator it = mDirectionalSpectrums.find(name);
+ 		if (it != mDirectionalSpectrums.end())
+ 		{
+ 			return (it->second)();
+ 		}
+
+ 		return NULL;
+ 	}
+
+     PyObject* CrpsDirectionalSpectrumFactory::produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName)
+    {
+        PyObject* producer = mProducerMap[pluggedFeatureName];
+
+        Py::Callable method(producer);
+        Py::Tuple args(2);
+        args.setItem(0, Py::String(newFeatureName));
+        args.setItem(1, Py::String(simulationName));
+
+        Py::Object res = method.apply(args);
+        return Py::new_reference_to(res);
+    }
+
+ 	std::map<const std::string, CreateDirectionalSpectrumCallback>& CrpsDirectionalSpectrumFactory::GetObjectNamesMap()
+ 	{
+ 		return mDirectionalSpectrums;
+ 	}
+
+ 	std::map<const std::string, std::string> & CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap()
+ 	{
+ 		return mTobeInstalledObjectsMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetOjectDescriptionMap()
+ 	{
+ 		return mOjectDescriptionMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetOjectAndPluginMap()
+ 	{
+ 		return mOjectAndPluginMap;
+ 	}
+
+ 	///
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetTitleMap()
+ 	{
+ 		return mTitleMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetLinkMap()
+ 	{
+ 		return mLinkMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetAuthorMap()
+ 	{
+ 		return mAuthorMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetDateMap()
+ 	{
+ 		return mDateMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpectrumFactory::GetVersionMap()
+ 	{
+ 		return mVersionMap;
+ 	}
+
+ 	std::map<const std::string, std::string> &  CrpsDirectionalSpectrumFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+ 	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+    std::map<const std::string, PyObject*>& CrpsDirectionalSpectrumFactory::GetProducerMap()
+    {
+        return mProducerMap;
+    }
+
+    std::map<const std::string, bool>& CrpsDirectionalSpectrumFactory::GetStationarityMap()
+    {
+        return mStationarityMap;
+    }
+
+// directional spreading function
+ 	CrpsDirectionalSpreadingFunctionFactory::CallbackMap CrpsDirectionalSpreadingFunctionFactory::mDirectionalSpreadingFunctions;
+ 	QString CrpsDirectionalSpreadingFunctionFactory::mOwnerPlugin;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mTobeInstalledObjectsMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mOjectDescriptionMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mOjectAndPluginMap;
+    std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mOjectsSkipDuringUnintallationMap;
+
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mTitleMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mLinkMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mAuthorMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mDateMap;
+ 	std::map<const std::string, std::string> CrpsDirectionalSpreadingFunctionFactory::mVersionMap;
+    std::map<const std::string, PyObject*> CrpsDirectionalSpreadingFunctionFactory::mProducerMap;
+    std::map<const std::string, bool> CrpsDirectionalSpreadingFunctionFactory::mStationarityMap;
+
+    CrpsDirectionalSpreadingFunctionFactory::CrpsDirectionalSpreadingFunctionFactory() {}
+    CrpsDirectionalSpreadingFunctionFactory::~CrpsDirectionalSpreadingFunctionFactory()
+    {
+        Base::PyGILStateLocker lock;
+        for (std::map<const std::string, PyObject*>::const_iterator it = mProducerMap.begin();
+             it != mProducerMap.end(); ++it) {
+
+            Py_DECREF(it->second);
+        }
+    }
+
+
+ 	QString CrpsDirectionalSpreadingFunctionFactory::GetOwnerPlugin()
+ 	{
+ 		return mOwnerPlugin;
+ 	}
+
+ 	void CrpsDirectionalSpreadingFunctionFactory::SetOwnerPlugin(QString ownerPlugin)
+ 	{
+ 		mOwnerPlugin = ownerPlugin;
+ 	}
+
+ 	void CrpsDirectionalSpreadingFunctionFactory::InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ 	{
+ 		mTobeInstalledObjectsMap[name] = pluginName;
+ 		mTitleMap[name] = publicationTitle;
+ 		mLinkMap[name] = publicationLink;
+ 		mAuthorMap[name] = publicationAuthor;
+ 		mDateMap[name] = publicationDate;
+ 		mVersionMap[name] = version;
+        mStationarityMap[name] = stationarity;
+
+ 	}
+
+ 	void CrpsDirectionalSpreadingFunctionFactory::RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateDirectionalSpreadingFunctionCallback cb)
+ 	{
+ 		if (mTobeInstalledObjectsMap[name] != pluginName)
+ 		{
+ 			return;
+ 		}
+
+ 		mDirectionalSpreadingFunctions[name] = cb;
+ 		mOjectDescriptionMap[name] = description;
+ 		mOjectAndPluginMap[name] = pluginName;
+
+ 	}
+
+ 	void CrpsDirectionalSpreadingFunctionFactory::UnregisterObject(const std::string& name, const std::string& pluginName)
+ 	{
+ 		if (pluginName == mOjectAndPluginMap[name] && mOjectsSkipDuringUnintallationMap.find(name) == mOjectsSkipDuringUnintallationMap.end())
+ 		{
+ 			mDirectionalSpreadingFunctions.erase(name);
+ 			mOjectDescriptionMap.erase(name);
+ 			mOjectAndPluginMap.erase(name);
+
+ 		}
+		
+ 	}
+
+ 	IrpsSeLDirectionalSpreadingFunction *CrpsDirectionalSpreadingFunctionFactory::BuildObject(const std::string& name)
+ 	{
+ 		CallbackMap::iterator it = mDirectionalSpreadingFunctions.find(name);
+ 		if (it != mDirectionalSpreadingFunctions.end())
+ 		{
+ 			return (it->second)();
+ 		}
+
+ 		return NULL;
+ 	}
+
+     PyObject* CrpsDirectionalSpreadingFunctionFactory::produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName)
+    {
+        PyObject* producer = mProducerMap[pluggedFeatureName];
+
+        Py::Callable method(producer);
+        Py::Tuple args(2);
+        args.setItem(0, Py::String(newFeatureName));
+        args.setItem(1, Py::String(simulationName));
+
+        Py::Object res = method.apply(args);
+        return Py::new_reference_to(res);
+    }
+
+ 	std::map<const std::string, CreateDirectionalSpreadingFunctionCallback>& CrpsDirectionalSpreadingFunctionFactory::GetObjectNamesMap()
+ 	{
+ 		return mDirectionalSpreadingFunctions;
+ 	}
+
+ 	std::map<const std::string, std::string> & CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap()
+ 	{
+ 		return mTobeInstalledObjectsMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetOjectDescriptionMap()
+ 	{
+ 		return mOjectDescriptionMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetOjectAndPluginMap()
+ 	{
+ 		return mOjectAndPluginMap;
+ 	}
+
+ 	///
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetTitleMap()
+ 	{
+ 		return mTitleMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetLinkMap()
+ 	{
+ 		return mLinkMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetAuthorMap()
+ 	{
+ 		return mAuthorMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetDateMap()
+ 	{
+ 		return mDateMap;
+ 	}
+
+ 	std::map<const std::string, std::string>& CrpsDirectionalSpreadingFunctionFactory::GetVersionMap()
+ 	{
+ 		return mVersionMap;
+ 	}
+
+ 	std::map<const std::string, std::string> &  CrpsDirectionalSpreadingFunctionFactory::GetOjectsSkipDuringUnintallationMap()
+    {
+ 	    return mOjectsSkipDuringUnintallationMap;
+    }
+
+    std::map<const std::string, PyObject*>& CrpsDirectionalSpreadingFunctionFactory::GetProducerMap()
+    {
+        return mProducerMap;
+    }
+
+    std::map<const std::string, bool>& CrpsDirectionalSpreadingFunctionFactory::GetStationarityMap()
+    {
+        return mStationarityMap;
+    }

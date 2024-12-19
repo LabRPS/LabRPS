@@ -2,10 +2,10 @@
 <GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
     <PythonExport
             Father="ViewProviderDocumentObjectPy"
-            Name="ViewProviderSeaLabFeatureSpectrumPy"
-            Twin="ViewProviderSeaLabFeatureSpectrum"
-            TwinPointer="ViewProviderSeaLabFeatureSpectrum"
-            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureSpectrum.h"
+            Name="ViewProviderSeaLabFeatureFrequencySpectrumPy"
+            Twin="ViewProviderSeaLabFeatureFrequencySpectrum"
+            TwinPointer="ViewProviderSeaLabFeatureFrequencySpectrum"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureFrequencySpectrum.h"
             Namespace="SeaLabGui"
             FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
             FatherNamespace="Gui"
@@ -13,39 +13,39 @@
             Delete="false">
         <Documentation>
             <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-            <UserDocu>ViewProviderSeaLabFeatureSpectrum class</UserDocu>
+            <UserDocu>ViewProviderSeaLabFeatureFrequencySpectrum class</UserDocu>
         </Documentation>
-      <Methode Name="computeCrossSpectrumValue">
+      <Methode Name="ComputeCrossFrequencySpectrumValue">
         <Documentation>
           <UserDocu>Compute cross spectrum value between two locations</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeCrossSpectrumVectorF">
+      <Methode Name="ComputeCrossFrequencySpectrumVectorF">
         <Documentation>
           <UserDocu>Compute cross spectrum  between two locations for all frequencies</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeCrossSpectrumVectorT">
+      <Methode Name="ComputeCrossFrequencySpectrumVectorT">
         <Documentation>
           <UserDocu>Compute cross spectrum between two locations for all time instants</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeCrossSpectrumMatrixPP">
+      <Methode Name="ComputeCrossFrequencySpectrumMatrixPP">
         <Documentation>
           <UserDocu>Compute cross spectrum matrix for given frequency and time</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeAutoSpectrumValue">
+      <Methode Name="ComputeAutoFrequencySpectrumValue">
         <Documentation>
           <UserDocu>Compute auto spectrum value between two locations</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeAutoSpectrumVectorF">
+      <Methode Name="ComputeAutoFrequencySpectrumVectorF">
         <Documentation>
           <UserDocu>Compute auto spectrum  between two locations for all frequencies</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="computeAutoSpectrumVectorT">
+      <Methode Name="ComputeAutoFrequencySpectrumVectorT">
         <Documentation>
           <UserDocu>Compute auto spectrum between two locations for all time instants</UserDocu>
         </Documentation>

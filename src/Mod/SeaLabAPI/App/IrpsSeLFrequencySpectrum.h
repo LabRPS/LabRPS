@@ -20,33 +20,33 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef IRPSSELSPECTRUM_H
-#define IRPSSELSPECTRUM_H
+#ifndef IRPSSELFREQUENCYSPECTRUM_H
+#define IRPSSELFREQUENCYSPECTRUM_H
 
 #include "SeaLabSimulationData.h"
-#include <Mod/SeaLabAPI/App/SeaLabFeatureSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureFrequencySpectrum.h>
 #include <Base/Vector3D.h>
 
 namespace SeaLabAPI {
 
-class IrpsSeLSpectrum : public SeaLabAPI::SeaLabFeatureSpectrum
+class IrpsSeLFrequencySpectrum : public SeaLabAPI::SeaLabFeatureFrequencySpectrum
 {
 public:
-    virtual ~IrpsSeLSpectrum() {};
+    virtual ~IrpsSeLFrequencySpectrum() {};
 
-    virtual bool ComputeCrossSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
-
-    virtual bool ComputeCrossSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
-
-    virtual bool ComputeCrossSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
-
-    virtual bool ComputeCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix) = 0;
-
-    virtual bool ComputeAutoSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue) = 0;
     
-    virtual bool ComputeAutoSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeAutoFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
-    virtual bool ComputeAutoSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeAutoFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector) = 0;
+
+    virtual bool ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector) = 0;
+
+    virtual bool ComputeCrossFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector) = 0;
+
+    virtual bool ComputeCrossFrequencySpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData& Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix) = 0;
+
+    virtual bool ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue) = 0;
 
 	virtual bool OnInitialSetting(const SeaLabSimulationData &Data) = 0;
 
@@ -54,4 +54,4 @@ public:
 
 } //namespace SeaLabAPI
 
-#endif  // IRPSSELSPECTRUM_H
+#endif  // IRPSSELFREQUENCYSPECTRUM_H

@@ -73,14 +73,16 @@ QString SeaLabAllFeaturesComputation::logSimulationInfo(bool status, const QStri
         profile = SeaLab::SeaLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = SeaLab::SeaLabUtils::makeHtmlTable(33, 2, false, profile);
+    table = SeaLab::SeaLabUtils::makeHtmlTable(35, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetSeaLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
     table = table.arg(tr("Coherence Function"), QString::fromLatin1(m_sim->getSimulationData()->coherenceFunction.getValue()));
     table = table.arg(tr("Location Distribution"), QString::fromLatin1(m_sim->getSimulationData()->spatialDistribution.getValue()));
     table = table.arg(tr("Mean Acceleration"), QString::fromLatin1(m_sim->getSimulationData()->meanFunction.getValue()));
-    table = table.arg(tr("Spectrum"), QString::fromLatin1(m_sim->getSimulationData()->spectrumModel.getValue()));
+    table = table.arg(tr("Frequency Spectrum"), QString::fromLatin1(m_sim->getSimulationData()->frequencySpectrum.getValue()));
+    table = table.arg(tr("Directional Spectrum"), QString::fromLatin1(m_sim->getSimulationData()->directionalSpectrum.getValue()));
+    table = table.arg(tr("Directional Spreading Function"), QString::fromLatin1(m_sim->getSimulationData()->directionalSpreadingFunction.getValue()));  
     table = table.arg(tr("PSD Decomposition Method"), QString::fromLatin1(m_sim->getSimulationData()->cpsdDecompositionMethod.getValue()));
     table = table.arg(tr("Frequency Distribution"), QString::fromLatin1(m_sim->getSimulationData()->frequencyDistribution.getValue()));
     table = table.arg(tr("Randomness Provider"), QString::fromLatin1(m_sim->getSimulationData()->randomnessProvider.getValue()));
@@ -404,34 +406,87 @@ void SeaLabAllFeaturesComputation::startSimulationWorker(QString function, const
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeWavePassageEffectMatrixPP()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeCrossSpectrumValue) {
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumValue) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossSpectrumValue()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoFrequencySpectrumValue()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorF) {
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorF) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossSpectrumVectorF()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoFrequencySpectrumVectorF()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorT) {
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorT) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossSpectrumVectorT()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoFrequencySpectrumVectorT()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeCrossSpectrumMatrixPP) {
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorF) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossSpectrumMatrixPP()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossFrequencySpectrumVectorF()));
     }
-        else if(function == SeaLab::SeaLabUtils::ComputeAutoSpectrumValue) {
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorT) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoSpectrumValue()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossFrequencySpectrumVectorT()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorF) {
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumMatrixPP) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoSpectrumVectorF()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossFrequencySpectrumMatrixPP()));
     }
-    else if (function == SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorT) {
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumValue) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoSpectrumVectorT()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossDirectionalSpectrumValue()));
     }
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumValue) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossFrequencySpectrumValue()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorF) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossDirectionalSpectrumVectorF()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorT) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossDirectionalSpectrumVectorT()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorD) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossDirectionalSpectrumVectorD()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumMatrixPP) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeCrossDirectionalSpectrumMatrixPP()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumValue) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoDirectionalSpectrumValue()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorF) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoDirectionalSpectrumVectorF()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorT) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoDirectionalSpectrumVectorT()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorD) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeAutoDirectionalSpectrumVectorD()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionValue()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorT()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorP()));
+    }
+    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD) {
+        simulationWorker->setComputingFunction(function);
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorD()));
+    }
+
 
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();
     bar->setRange(0, 0);
@@ -473,6 +528,10 @@ void SeaLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wha
     QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void SeaLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
@@ -505,6 +564,10 @@ void SeaLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void SeaLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
@@ -517,4 +580,8 @@ void SeaLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayTy
 	{
        complexRrealImag = 1;
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }

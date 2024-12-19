@@ -129,7 +129,17 @@
 			  <UserDocu>get the active wave passage effect feature</UserDocu>
 		  </Documentation>
 	</Methode>
-  	<Methode Name="getActiveSpectrum">
+  	<Methode Name="getActiveFrequencySpectrum">
+		  <Documentation>
+			  <UserDocu>get the active frequency spectrum feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveDirectionalSpectrum">
+		  <Documentation>
+			  <UserDocu>get the active directional spectrum feature</UserDocu>
+		  </Documentation>
+	</Methode>
+  	<Methode Name="getActiveDirectionalSpreadingFunction">
 		  <Documentation>
 			  <UserDocu>get the active spectrum model feature</UserDocu>
 		  </Documentation>
@@ -215,25 +225,6 @@
 			  <UserDocu>run the active modulation function feature for all locations and return the result as a vector</UserDocu>
 		  </Documentation>
 	  </Methode>
-
-    <Methode Name="computeDecomposedCrossSpectrumVectorF">
-		  <Documentation>
-			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeDecomposedCrossSpectrumVectorT">
-		  <Documentation>
-			  <UserDocu>run the active psd decomposition feature for all time increments and return the result as a vector</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
-		  <Documentation>
-			  <UserDocu>run the active psd decomposition feature for all locations and return the result as an array</UserDocu>
-		  </Documentation>
-	  </Methode>
-
     <Methode Name="generateRandomMatrixFP">
 		  <Documentation>
 			  <UserDocu>run the active randomness provider feature for all frequency and locations and return the result as an array</UserDocu>
@@ -245,49 +236,6 @@
 			  <UserDocu>run the active randomness provider feature for all frequency, all locations and samples and return the result as cube</UserDocu>
 		  </Documentation>
 	  </Methode>
-
-    <Methode Name="computeCrossSpectrumVectorF">
-		  <Documentation>
-			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeCrossSpectrumVectorT">
-		  <Documentation>
-			  <UserDocu>run the computeCrossSpectrumVectorT function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeCrossSpectrumMatrixPP">
-		  <Documentation>
-			  <UserDocu>run the computeCrossSpectrumMatrixPP function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeAutoSpectrumValue">
-		  <Documentation>
-			  <UserDocu>run the computeAutoSpectrumValue function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-    
-    <Methode Name="computeAutoSpectrumVectorF">
-		  <Documentation>
-			  <UserDocu>run the computeAutoSpectrumVectorF function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-    <Methode Name="computeAutoSpectrumVectorT">
-		  <Documentation>
-			  <UserDocu>run the computeAutoSpectrumVectorT function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
-	  <Methode Name="computeCrossSpectrumValue">
-		  <Documentation>
-			  <UserDocu>run the computeCrossSpectrumValue function from the active spectrum model feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
     <Methode Name="computeCrossCoherenceValue">
 		  <Documentation>
 			  <UserDocu>run the active spectrum model feature for given location, frequency, time and return the value. SeaLab framework will automatically call the right function depending on the direction.</UserDocu>
@@ -484,6 +432,106 @@
 		  </Documentation>
 	  </Methode>
 
+	<Methode Name="ComputeCrossFrequencySpectrumValue">
+		  <Documentation>
+			  <UserDocu>Compute the cross frequency spectrum between two locations for given time instant, frequency and direction</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossFrequencySpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>Compute the cross frequency spectrum between two locations for all frequencies</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossFrequencySpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>Compute the cross frequency spectrum between two locations for all time instants</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossFrequencySpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>Compute the cross frequency spectrum between two locations for locations</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoFrequencySpectrumValue">
+		  <Documentation>
+			  <UserDocu>Compute the auto frequency spectrum at a location for given time instant, frequency and direction</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoFrequencySpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>Compute the auto frequency spectrum at a location for all frequencies</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoFrequencySpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>Compute the auto frequency spectrum at a location for all times</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossDirectionalSpectrumValue">
+		  <Documentation>
+			  <UserDocu>Compute the cross directional spectrum between two locations for given time instant, frequency and direction</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossDirectionalSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>Compute the cross directional spectrum between two locations for all frequencies</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossDirectionalSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>Compute the cross directional spectrum between two locations for all times</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossDirectionalSpectrumVectorD">
+		  <Documentation>
+			  <UserDocu>Compute the cross directional spectrum between two locations for all directions</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeCrossDirectionalSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>Compute the cross directional spectrum for all locations</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoDirectionalSpectrumValue">
+		  <Documentation>
+			  <UserDocu>Compute the auto between two locations spectrum for given time instant, frequency and direction</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoDirectionalSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>Compute the auto between two locations spectrum for all frequencies</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoDirectionalSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>Compute the auto between two locations spectrum for all times</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeAutoDirectionalSpectrumVectorD">
+		  <Documentation>
+			  <UserDocu>Compute the auto between two locations spectrum for all directions</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeDirectionalSpreadingFunctionValue">
+		  <Documentation>
+			  <UserDocu>Compute the directional spreading function for given time, frequency and direction</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorT">
+		  <Documentation>
+			  <UserDocu>Compute the directional spreading function for all times</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorP">
+		  <Documentation>
+			  <UserDocu>Compute the directional spreading function for all locations</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorD">
+		  <Documentation>
+			  <UserDocu>Compute the directional spreading function for all direction</UserDocu>
+		  </Documentation>
+	  </Methode>
 	  <Methode Name="findAllPluggedSeaLabFeatures">
 		  <Documentation>
 			  <UserDocu>Find all installed feature type</UserDocu>
@@ -517,6 +565,23 @@
 	  <Methode Name="getAllFeatures">
 		  <Documentation>
 			  <UserDocu>Get all features of the a given group</UserDocu>
+		  </Documentation>
+	  </Methode>
+	  <Methode Name="computeDecomposedCrossSpectrumVectorF">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all frequency increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumVectorT">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all time increments and return the result as a vector</UserDocu>
+		  </Documentation>
+	  </Methode>
+
+    <Methode Name="computeDecomposedCrossSpectrumMatrixPP">
+		  <Documentation>
+			  <UserDocu>run the active psd decomposition feature for all locations and return the result as an array</UserDocu>
 		  </Documentation>
 	  </Methode>
   </PythonExport>

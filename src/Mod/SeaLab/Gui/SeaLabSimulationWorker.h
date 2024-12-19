@@ -123,13 +123,29 @@ public Q_SLOTS:
     bool workerComputeWavePassageEffectVectorT();
     bool workerComputeWavePassageEffectMatrixPP();
 
-    bool workerComputeCrossSpectrumValue();
-    bool workerComputeCrossSpectrumVectorF();
-    bool workerComputeCrossSpectrumVectorT();
-    bool workerComputeCrossSpectrumMatrixPP();
-    bool workerComputeAutoSpectrumValue();
-    bool workerComputeAutoSpectrumVectorF();
-    bool workerComputeAutoSpectrumVectorT();
+    bool workerComputeAutoFrequencySpectrumValue();
+    bool workerComputeAutoFrequencySpectrumVectorF();
+    bool workerComputeAutoFrequencySpectrumVectorT();
+    bool workerComputeCrossFrequencySpectrumVectorF();
+    bool workerComputeCrossFrequencySpectrumVectorT();
+    bool workerComputeCrossFrequencySpectrumMatrixPP();
+    bool workerComputeCrossFrequencySpectrumValue();
+
+    bool workerComputeCrossDirectionalSpectrumValue();
+    bool workerComputeCrossDirectionalSpectrumVectorF();
+    bool workerComputeCrossDirectionalSpectrumVectorT();
+    bool workerComputeCrossDirectionalSpectrumVectorD();
+    bool workerComputeCrossDirectionalSpectrumMatrixPP();
+    bool workerComputeAutoDirectionalSpectrumValue();
+    bool workerComputeAutoDirectionalSpectrumVectorF();
+    bool workerComputeAutoDirectionalSpectrumVectorT();
+    bool workerComputeAutoDirectionalSpectrumVectorD();
+    
+    bool workerComputeDirectionalSpreadingFunctionValue();
+    bool workerComputeDirectionalSpreadingFunctionVectorT();
+    bool workerComputeDirectionalSpreadingFunctionVectorP();
+    bool workerComputeDirectionalSpreadingFunctionVectorD();
+
 
     void stop();
     void complete();

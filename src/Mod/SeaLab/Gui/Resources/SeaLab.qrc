@@ -21,7 +21,9 @@
         <file>icons/SeaLabFeatures/SeaLab_Feature_RandomnessProviderObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_ShearVelocityObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_SkewnessObj.svg</file>
-        <file>icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_FrequencySpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpreadingFunctionObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_StandardDeviationObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_WavePassageObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_VarianceObj.svg</file>

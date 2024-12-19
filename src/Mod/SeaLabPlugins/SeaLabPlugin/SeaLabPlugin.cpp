@@ -191,12 +191,12 @@ std::string objAuthorsJon_S = "Hasselmann et al";
 std::string objDateJon_S = "15/06/2024";
 std::string objVersionJon_S = "1.0";
 
-RPS_PLUGIN_FUNC IrpsSeLSpectrum* BuildJonswapSpectrum()
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildJonswapSpectrum()
 {
     return new CRPSJonswapSpectrum;
 }
 
-RPS_PLUGIN_FUNC void DestroyJonswapSpectrum(IrpsSeLSpectrum* r) {
+RPS_PLUGIN_FUNC void DestroyJonswapSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
@@ -209,12 +209,12 @@ std::string objAuthorsMos_S = "Pierson, W. and Moskowitz, L";
 std::string objDateMos_S = "15/06/2024";
 std::string objVersionMos_S = "1.0";
 
-RPS_PLUGIN_FUNC IrpsSeLSpectrum* BuildPiersonMoskowitzSpectrum()
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildPiersonMoskowitzSpectrum()
 {
     return new CRPSPiersonMoskowitzSpectrum;
 }
 
-RPS_PLUGIN_FUNC void DestroyPiersonMoskowitzSpectrum(IrpsSeLSpectrum* r) {
+RPS_PLUGIN_FUNC void DestroyPiersonMoskowitzSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
@@ -228,12 +228,12 @@ std::string objAuthorsTor_S = "LabRPS";
 std::string objDateTor_S = "15/06/2024";
 std::string objVersionTor_S = "1.0";
 
-RPS_PLUGIN_FUNC IrpsSeLSpectrum* BuildTorsethaugenSpectrum()
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildTorsethaugenSpectrum()
 {
     return new CRPSTorsethaugenSpectrum;
 }
 
-RPS_PLUGIN_FUNC void DestroyTorsethaugenSpectrum(IrpsSeLSpectrum* r) {
+RPS_PLUGIN_FUNC void DestroyTorsethaugenSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
@@ -289,9 +289,9 @@ PLUGIN_INIT()
     InitializeRandomness(objNameUni_R, strPluginName, objTileUni_R, objLinkUni_R, objAuthorsUni_R, objDateUni_R, objVersionUni_R, stationarity);
     InitializeRandomness(objNameUni_I, strPluginName, objTileUni_I, objLinkUni_I, objAuthorsUni_I, objDateUni_I, objVersionUni_I, stationarity);
     
-    InitializeSpectrum(objNameJon_S, strPluginName, objTileJon_S, objLinkJon_S, objAuthorsJon_S, objDateJon_S, objVersionJon_S, stationarity);
-    InitializeSpectrum(objNameMos_S, strPluginName, objTileMos_S, objLinkMos_S, objAuthorsMos_S, objDateMos_S, objVersionMos_S, stationarity);
-    InitializeSpectrum(objNameTor_S, strPluginName, objTileTor_S, objLinkTor_S, objAuthorsTor_S, objDateTor_S, objVersionTor_S, stationarity);
+    InitializeFrequencySpectrum(objNameJon_S, strPluginName, objTileJon_S, objLinkJon_S, objAuthorsJon_S, objDateJon_S, objVersionJon_S, stationarity);
+    InitializeFrequencySpectrum(objNameMos_S, strPluginName, objTileMos_S, objLinkMos_S, objAuthorsMos_S, objDateMos_S, objVersionMos_S, stationarity);
+    InitializeFrequencySpectrum(objNameTor_S, strPluginName, objTileTor_S, objLinkTor_S, objAuthorsTor_S, objDateTor_S, objVersionTor_S, stationarity);
 
     return 1;
 }
@@ -311,9 +311,9 @@ INSTALL_PLUGIN()
     RegisterRandomness(objNameUni_R, strPluginName, objDescriptionUni_R, BuildRPSUniformRandomPhases, DestroyRPSUniformRandomPhases);
     RegisterRandomness(objNameUni_I, strPluginName, objDescriptionUni_I, BuildRPSRandomPhasesFromFile, DestroyRPSRandomPhasesFromFile);
 
-    RegisterSpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
-    RegisterSpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
-    RegisterSpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
+    RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
+    RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
+    RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
 
     return 1;
 }
@@ -332,9 +332,9 @@ UNINSTALL_PLUGIN()
     UnregisterRandomness(objNameUni_R, strPluginName);
     UnregisterRandomness(objNameUni_I, strPluginName);
 
-    UnregisterSpectrum(objNameJon_S, strPluginName);
-    UnregisterSpectrum(objNameMos_S, strPluginName);
-    UnregisterSpectrum(objNameTor_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameJon_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameMos_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameTor_S, strPluginName);
 
     return 1;
 }

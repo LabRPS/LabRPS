@@ -202,6 +202,10 @@ void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
 
     Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void UserLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
@@ -234,6 +238,10 @@ void UserLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
     if (win) {
         win->showMessage(QString());
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void UserLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
@@ -246,4 +254,8 @@ void UserLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayT
 	{
        complexRrealImag = 1;
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }

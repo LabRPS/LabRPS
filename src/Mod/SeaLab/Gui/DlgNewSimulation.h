@@ -95,7 +95,9 @@ public:
 private Q_SLOTS:
     void onInitialSettingLocationDistribution();
     void onInitialSettingMeanAccelerationProfile();
-    void onInitialSettingSpectrum();
+    void onInitialSettingFrequencySpectrum();
+    void onInitialSettingDirectionalSpectrum();
+    void onInitialSettingDirectionalSpreadingFunction();
     void onInitialSettingSpectrumDecompositionMethod();
     void onInitialSettingCoherenceFunction();
     void onInitialSettingSimulationMethod();

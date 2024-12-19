@@ -350,7 +350,9 @@ DlgSeaLabFeatures::DlgSeaLabFeatures(QWidget * parent,  SeaLab::SeaLabSimulation
 
 	connect(ui->locationDistributionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingLocationDistribution()));
 	connect(ui->meanAccelerationProfilePushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingMeanAccelerationProfile()));
-	connect(ui->spectrumPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSpectrum()));
+	connect(ui->frequencySpectrumPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingFrequencySpectrum()));
+	connect(ui->directionalSpectrumPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingDirectionalSpectrum()));
+	connect(ui->directionalSpreadingFunctionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingDirectionalSpreadingFunction()));
 	connect(ui->spectrumDecompositionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSpectrumDecompositionMethod()));
 	connect(ui->coherenceFunctionPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingCoherenceFunction()));
 	connect(ui->simulationMethodPushButton, SIGNAL(clicked()), this, SLOT(onInitialSettingSimulationMethod()));
@@ -404,7 +406,9 @@ std::vector<QComboBox*> DlgSeaLabFeatures::getAllComboBoxes()
 	std::vector<QComboBox*> comboBoxes;
 	comboBoxes.emplace_back(ui->lacationDistributionComboBox);
 	comboBoxes.emplace_back(ui->meanAccelerationProfileComboBox);
-	comboBoxes.emplace_back(ui->spectrumComboBox);
+	comboBoxes.emplace_back(ui->frequencySpectrumComboBox);
+	comboBoxes.emplace_back(ui->directionalSpectrumComboBox);
+	comboBoxes.emplace_back(ui->directionalSpreadingFunctionComboBox);
 	comboBoxes.emplace_back(ui->spectrumDecompositionMethodComboBox);
 	comboBoxes.emplace_back(ui->coherenceFunctionComboBox);
 	comboBoxes.emplace_back(ui->simulationMethodComboBox);
@@ -432,7 +436,9 @@ void DlgSeaLabFeatures::setAllComboBoxesCurrentText( SeaLab::SeaLabSimulation* s
 {
 	ui->lacationDistributionComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->spatialDistribution.getValue()));
 	ui->meanAccelerationProfileComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->meanFunction.getValue()));
-	ui->spectrumComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->spectrumModel.getValue()));
+	ui->frequencySpectrumComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->frequencySpectrum.getValue()));
+	ui->directionalSpectrumComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->directionalSpectrum.getValue()));
+	ui->directionalSpreadingFunctionComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->directionalSpreadingFunction.getValue()));
 	ui->spectrumDecompositionMethodComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->cpsdDecompositionMethod.getValue()));
 	ui->coherenceFunctionComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->coherenceFunction.getValue()));
 	ui->simulationMethodComboBox->setCurrentText(QString::fromUtf8(sim->getSimulationData()->simulationMethod.getValue()));
@@ -457,7 +463,9 @@ void  DlgSeaLabFeatures::saveLabFeatures( SeaLab::SeaLabSimulation* sim)
 {
 	sim->getSimulationData()->spatialDistribution.setValue(ui->lacationDistributionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->meanFunction.setValue(ui->meanAccelerationProfileComboBox->currentText().toUtf8().constData());
-	sim->getSimulationData()->spectrumModel.setValue(ui->spectrumComboBox->currentText().toUtf8().constData());
+	sim->getSimulationData()->frequencySpectrum.setValue(ui->frequencySpectrumComboBox->currentText().toUtf8().constData());
+	sim->getSimulationData()->directionalSpectrum.setValue(ui->directionalSpectrumComboBox->currentText().toUtf8().constData());
+	sim->getSimulationData()->directionalSpreadingFunction.setValue(ui->directionalSpreadingFunctionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->cpsdDecompositionMethod.setValue(ui->spectrumDecompositionMethodComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->coherenceFunction.setValue(ui->coherenceFunctionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->simulationMethod.setValue(ui->simulationMethodComboBox->currentText().toUtf8().constData());
@@ -494,14 +502,27 @@ void DlgSeaLabFeatures::onInitialSettingMeanAccelerationProfile()
 	QString group = SeaLab::SeaLabUtils::objGroupMeanAccelerationProfile;
 	sim->seaLabFeatureInitalSetting(group, selectedFeature);
 }
-void DlgSeaLabFeatures::onInitialSettingSpectrum()
+void DlgSeaLabFeatures::onInitialSettingFrequencySpectrum()
 {
 	 SeaLab::SeaLabSimulation* sim = static_cast< SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
-	QString selectedFeature = ui->spectrumComboBox->currentText();
-	QString group = SeaLab::SeaLabUtils::objGroupSpectrum;
+	QString selectedFeature = ui->frequencySpectrumComboBox->currentText();
+	QString group = SeaLab::SeaLabUtils::objGroupFrequencySpectrum;
 	sim->seaLabFeatureInitalSetting(group, selectedFeature);
 }
-
+void DlgSeaLabFeatures::onInitialSettingDirectionalSpectrum()
+{
+	 SeaLab::SeaLabSimulation* sim = static_cast< SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
+	QString selectedFeature = ui->directionalSpectrumComboBox->currentText();
+	QString group = SeaLab::SeaLabUtils::objGroupDirectionalSpectrum;
+	sim->seaLabFeatureInitalSetting(group, selectedFeature);
+}
+void DlgSeaLabFeatures::onInitialSettingDirectionalSpreadingFunction()
+{
+	 SeaLab::SeaLabSimulation* sim = static_cast< SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
+	QString selectedFeature = ui->directionalSpreadingFunctionComboBox->currentText();
+	QString group = SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction;
+	sim->seaLabFeatureInitalSetting(group, selectedFeature);
+}
 void DlgSeaLabFeatures::onInitialSettingSpectrumDecompositionMethod()
 {
 	 SeaLab::SeaLabSimulation* sim = static_cast< SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());

@@ -26,8 +26,9 @@
 #ifndef _PreComp_
 #endif
 
-#include "ViewProviderSeaLabFeaturePSDDecompositionMethod.h"
-#include "ViewProviderSeaLabFeaturePSDDecompositionMethodPy.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpreadingFunction.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy.h"
+
 #include <App/Application.h>
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
 #include <Mod/SeaLab/Gui/DlgSeaLabFeaturesCreation.h>
@@ -41,27 +42,34 @@
 #include <Mod/SeaLab/App/SeaLabUtils.h>
 #include <Gui/AlphaPlot.h>
 #include <Gui/MainWindow.h>
-#include <Mod/SeaLab/Gui/SeaLabAllFeaturesComputation.h>
+#include <Mod/SeaLabAPI/App/IrpsSeLDirectionalSpreadingFunction.h>
 
 using namespace SeaLabGui;
 
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeaturePSDDecompositionMethod, Gui::ViewProviderRPSFeature)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureDirectionalSpreadingFunction, Gui::ViewProviderRPSFeature)
 
 
-ViewProviderSeaLabFeaturePSDDecompositionMethod::ViewProviderSeaLabFeaturePSDDecompositionMethod()
+ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ViewProviderSeaLabFeatureDirectionalSpreadingFunction()
 {
-  sPixmap = ":/icons/SeaLabFeatures/SeaLab_Feature_DecomposedSpectrumObj.svg";
+    static const char* complexDisplayGroup = "Complex Number Display";
+    static const char* complexRealImagEnum[] = {"Real", "Imaginary", nullptr};
+    
+    ADD_PROPERTY_TYPE(ComplexNumberDisplay, ((long int)0), complexDisplayGroup, App::Prop_None, "This specifies how to display the complex numbers.");
+
+    ComplexNumberDisplay.setEnums(complexRealImagEnum);
+
+  sPixmap = ":/icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpreadingFunctionObj.svg";
 }
 
-ViewProviderSeaLabFeaturePSDDecompositionMethod::~ViewProviderSeaLabFeaturePSDDecompositionMethod()
+ViewProviderSeaLabFeatureDirectionalSpreadingFunction::~ViewProviderSeaLabFeatureDirectionalSpreadingFunction()
 {
 
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::doubleClicked(void)
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::doubleClicked(void)
 {
     ActivateFeature();
     Gui::Application::Instance->activeDocument()->setEdit(this);
@@ -69,7 +77,7 @@ bool ViewProviderSeaLabFeaturePSDDecompositionMethod::doubleClicked(void)
     return true;
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::ActivateFeature()
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ActivateFeature()
 {
 auto doc = App::GetApplication().getActiveDocument();
     if (!doc)
@@ -101,11 +109,11 @@ auto doc = App::GetApplication().getActiveDocument();
 
     SeaLabGui::SeaLabSimulationObserver::instance()->setActiveSimulation(parentSim);
 
-    parentSim->SpectrumDecompositionMethod.setValue(obj->getNameInDocument());
+    parentSim->DirectionalSpreadingFunction.setValue(obj->getNameInDocument());
     return true;
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::setEdit(int ModNum)
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::setEdit(int ModNum)
 {
     Q_UNUSED(ModNum);
 
@@ -118,7 +126,7 @@ bool ViewProviderSeaLabFeaturePSDDecompositionMethod::setEdit(int ModNum)
     }
 }
 
-void ViewProviderSeaLabFeaturePSDDecompositionMethod::unsetEdit(int ModNum)
+void ViewProviderSeaLabFeatureDirectionalSpreadingFunction::unsetEdit(int ModNum)
 {
     if (ModNum == ViewProvider::Default) {
         // when pressing ESC make sure to close the dialog
@@ -129,72 +137,71 @@ void ViewProviderSeaLabFeaturePSDDecompositionMethod::unsetEdit(int ModNum)
     }
 }
 
-void ViewProviderSeaLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu* menu, QObject*, const char*)
+void ViewProviderSeaLabFeatureDirectionalSpreadingFunction::setupContextMenu(QMenu* menu, QObject*, const char*)
 {
     // toggle command to display components
     Gui::ActionFunction* func = new Gui::ActionFunction(menu);
-  
-    QAction* cvector = menu->addAction(QObject::tr("ComputeDecomposedCrossSpectrumVectorF"));
-    func->trigger(cvector, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumVectorF, this));
+    QAction* cvalue = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionValue"));
+    func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue, this));
 
-    QAction* carray = menu->addAction(QObject::tr("ComputeDecomposedCrossSpectrumVectorT"));
-    func->trigger(carray, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumVectorT, this));
+    QAction* carray = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorT"));
+    func->trigger(carray, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorT, this));
 
-      QAction* cvalue = menu->addAction(QObject::tr("ComputeDecomposedCrossSpectrumMatrixPP"));
-    func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP, this));
+    QAction* cmatrix = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorP"));
+    func->trigger(cmatrix, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorP, this));
+
+    QAction* autoValue = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorD"));
+    func->trigger(autoValue, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorD, this));
 
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
-    func->trigger(init, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::OnInitialSetting, this));
+    func->trigger(init, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::OnInitialSetting, this));
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
-    func->trigger(act, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::ActivateFeature, this));
+    func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ActivateFeature, this));
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
-    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::goToPublication, this));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::goToPublication, this));
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDecomposedCrossSpectrumMatrixPP);
-    
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue);
+}
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorT()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT);
+}
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorP()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP);
+}
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorD()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD);
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumVectorF()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDecomposedCrossSpectrumVectorF);
-    
-}
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumVectorT()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDecomposedCrossSpectrumVectorT);
-    
-}
-
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::OnInitialSetting()
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::OnInitialSetting()
 {
 ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-    sim->seaLabFeatureInitalSetting(SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod, QString::fromUtf8(sim->getSimulationData()->cpsdDecompositionMethod.getValue()));
+    sim->seaLabFeatureInitalSetting(SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction, QString::fromUtf8(sim->getSimulationData()->directionalSpreadingFunction.getValue()));
      
     return true;
 }
 
-PyObject* ViewProviderSeaLabFeaturePSDDecompositionMethod::getPyObject(void)
+PyObject* ViewProviderSeaLabFeatureDirectionalSpreadingFunction::getPyObject(void)
 {
     if (PythonObject.is(Py::_None())) {
         // ref counter is set to 1
-        PythonObject = Py::Object(new ViewProviderSeaLabFeaturePSDDecompositionMethodPy(this), true);
+        PythonObject = Py::Object(new ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy(this), true);
     }
     return Py::new_reference_to(PythonObject);
 }
 
-bool ViewProviderSeaLabFeaturePSDDecompositionMethod::runFeatureMethod(const QString function, const char* complexNumberDisplay)
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::runFeatureMethod(const QString function, const char* complexNumberDisplay)
 {  
 ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());

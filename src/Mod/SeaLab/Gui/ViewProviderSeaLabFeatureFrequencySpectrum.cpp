@@ -26,8 +26,8 @@
 #ifndef _PreComp_
 #endif
 
-#include "ViewProviderSeaLabFeatureSpectrum.h"
-#include "ViewProviderSeaLabFeatureSpectrumPy.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrum.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrumPy.h"
 
 #include <App/Application.h>
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
@@ -42,17 +42,17 @@
 #include <Mod/SeaLab/App/SeaLabUtils.h>
 #include <Gui/AlphaPlot.h>
 #include <Gui/MainWindow.h>
-#include <Mod/SeaLabAPI/App/IrpsSeLSpectrum.h>
+#include <Mod/SeaLabAPI/App/IrpsSeLFrequencySpectrum.h>
 
 using namespace SeaLabGui;
 
 //**************************************************************************
 // Construction/Destruction
 
-PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureSpectrum, Gui::ViewProviderRPSFeature)
+PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabFeatureFrequencySpectrum, Gui::ViewProviderRPSFeature)
 
 
-ViewProviderSeaLabFeatureSpectrum::ViewProviderSeaLabFeatureSpectrum()
+ViewProviderSeaLabFeatureFrequencySpectrum::ViewProviderSeaLabFeatureFrequencySpectrum()
 {
     static const char* complexDisplayGroup = "Complex Number Display";
     static const char* complexRealImagEnum[] = {"Real", "Imaginary", nullptr};
@@ -61,15 +61,15 @@ ViewProviderSeaLabFeatureSpectrum::ViewProviderSeaLabFeatureSpectrum()
 
     ComplexNumberDisplay.setEnums(complexRealImagEnum);
 
-  sPixmap = ":/icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg";
+  sPixmap = ":/icons/SeaLabFeatures/SeaLab_Feature_FrequencySpectrumObj.svg";
 }
 
-ViewProviderSeaLabFeatureSpectrum::~ViewProviderSeaLabFeatureSpectrum()
+ViewProviderSeaLabFeatureFrequencySpectrum::~ViewProviderSeaLabFeatureFrequencySpectrum()
 {
 
 }
 
-bool ViewProviderSeaLabFeatureSpectrum::doubleClicked(void)
+bool ViewProviderSeaLabFeatureFrequencySpectrum::doubleClicked(void)
 {
     ActivateFeature();
     Gui::Application::Instance->activeDocument()->setEdit(this);
@@ -77,7 +77,7 @@ bool ViewProviderSeaLabFeatureSpectrum::doubleClicked(void)
     return true;
 }
 
-bool ViewProviderSeaLabFeatureSpectrum::ActivateFeature()
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ActivateFeature()
 {
 auto doc = App::GetApplication().getActiveDocument();
     if (!doc)
@@ -109,11 +109,11 @@ auto doc = App::GetApplication().getActiveDocument();
 
     SeaLabGui::SeaLabSimulationObserver::instance()->setActiveSimulation(parentSim);
 
-    parentSim->SpectrumModel.setValue(obj->getNameInDocument());
+    parentSim->FrequencySpectrum.setValue(obj->getNameInDocument());
     return true;
 }
 
-bool ViewProviderSeaLabFeatureSpectrum::setEdit(int ModNum)
+bool ViewProviderSeaLabFeatureFrequencySpectrum::setEdit(int ModNum)
 {
     Q_UNUSED(ModNum);
 
@@ -126,7 +126,7 @@ bool ViewProviderSeaLabFeatureSpectrum::setEdit(int ModNum)
     }
 }
 
-void ViewProviderSeaLabFeatureSpectrum::unsetEdit(int ModNum)
+void ViewProviderSeaLabFeatureFrequencySpectrum::unsetEdit(int ModNum)
 {
     if (ModNum == ViewProvider::Default) {
         // when pressing ESC make sure to close the dialog
@@ -137,111 +137,93 @@ void ViewProviderSeaLabFeatureSpectrum::unsetEdit(int ModNum)
     }
 }
 
-void ViewProviderSeaLabFeatureSpectrum::setupContextMenu(QMenu* menu, QObject*, const char*)
+void ViewProviderSeaLabFeatureFrequencySpectrum::setupContextMenu(QMenu* menu, QObject*, const char*)
 {
     // toggle command to display components
     Gui::ActionFunction* func = new Gui::ActionFunction(menu);
-    QAction* cvalue = menu->addAction(QObject::tr("ComputeCrossSpectrumValue"));
-    func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumValue, this));
+    QAction* cvalue = menu->addAction(QObject::tr("ComputeCrossFrequencySpectrumValue"));
+    func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumValue, this));
 
-    QAction* cvector = menu->addAction(QObject::tr("ComputeCrossSpectrumVectorF"));
-    func->trigger(cvector, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumVectorF, this));
+    QAction* crossF = menu->addAction(QObject::tr("ComputeCrossFrequencySpectrumVectorF"));
+    func->trigger(crossF, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumVectorF, this));
 
-    QAction* carray = menu->addAction(QObject::tr("ComputeCrossSpectrumVectorT"));
-    func->trigger(carray, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumVectorT, this));
+    QAction* crossT = menu->addAction(QObject::tr("ComputeCrossFrequencySpectrumVectorT"));
+    func->trigger(crossT, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumVectorT, this));
 
-    QAction* cmatrix = menu->addAction(QObject::tr("ComputeCrossSpectrumMatrixPP"));
-    func->trigger(cmatrix, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumMatrixPP, this));
-
+    QAction* cmatrix = menu->addAction(QObject::tr("ComputeCrossFrequencySpectrumMatrixPP"));
+    func->trigger(cmatrix, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumMatrixPP, this));
     
-    QAction* autoValue = menu->addAction(QObject::tr("ComputeAutoSpectrumValue"));
-    func->trigger(autoValue, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumValue, this));
+    QAction* autoValue = menu->addAction(QObject::tr("ComputeAutoFrequencySpectrumValue"));
+    func->trigger(autoValue, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumValue, this));
 
-    QAction* autoF = menu->addAction(QObject::tr("ComputeAutoSpectrumVectorF"));
-    func->trigger(autoF, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumVectorF, this));
+    QAction* autoF = menu->addAction(QObject::tr("ComputeAutoFrequencySpectrumVectorF"));
+    func->trigger(autoF, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumVectorF, this));
 
-    QAction* autoT = menu->addAction(QObject::tr("ComputeAutoSpectrumVectorT"));
-    func->trigger(autoT, boost::bind(&ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumVectorT, this));
+    QAction* autoT = menu->addAction(QObject::tr("ComputeAutoFrequencySpectrumVectorT"));
+    func->trigger(autoT, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumVectorT, this));
 
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
-    func->trigger(init, boost::bind(&ViewProviderSeaLabFeatureSpectrum::OnInitialSetting, this));
+    func->trigger(init, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::OnInitialSetting, this));
 
     QAction* act = menu->addAction(QObject::tr("Activate Feature"));
-    func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureSpectrum::ActivateFeature, this));
+    func->trigger(act, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::ActivateFeature, this));
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
-    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureSpectrum::goToPublication, this));
+    func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::goToPublication, this));
 }
 
-bool ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumValue()
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumValue()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumValue, this->ComplexNumberDisplay.getValueAsString());   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumVectorF()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorF, this->ComplexNumberDisplay.getValueAsString());   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumVectorT()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorT, this->ComplexNumberDisplay.getValueAsString());   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumMatrixPP()
+{ 
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumMatrixPP, this->ComplexNumberDisplay.getValueAsString());   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumValue()
 {
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossSpectrumValue, this->ComplexNumberDisplay.getValueAsString());
-    
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumValue);   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumVectorF()
+{
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorF);   
+}
+bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeAutoFrequencySpectrumVectorT()
+{
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorT);   
 }
 
 
-bool ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumVectorT()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorT, this->ComplexNumberDisplay.getValueAsString());
-    
-}
 
-bool ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumValue()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoSpectrumValue);
-    
-}
-bool ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumVectorF()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorF);
-    
-}
-bool ViewProviderSeaLabFeatureSpectrum::computeAutoSpectrumVectorT()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorT);
-    
-}
-
-bool ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumVectorF()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorF, this->ComplexNumberDisplay.getValueAsString());
-    
-}
-
-bool ViewProviderSeaLabFeatureSpectrum::computeCrossSpectrumMatrixPP()
-{
-    
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeCrossSpectrumMatrixPP, this->ComplexNumberDisplay.getValueAsString());
-    
-}
-
-bool ViewProviderSeaLabFeatureSpectrum::OnInitialSetting()
+bool ViewProviderSeaLabFeatureFrequencySpectrum::OnInitialSetting()
 {
 ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-    sim->seaLabFeatureInitalSetting(SeaLab::SeaLabUtils::objGroupSpectrum, QString::fromUtf8(sim->getSimulationData()->spectrumModel.getValue()));
+    sim->seaLabFeatureInitalSetting(SeaLab::SeaLabUtils::objGroupFrequencySpectrum, QString::fromUtf8(sim->getSimulationData()->frequencySpectrum.getValue()));
      
     return true;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrum::getPyObject(void)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrum::getPyObject(void)
 {
     if (PythonObject.is(Py::_None())) {
         // ref counter is set to 1
-        PythonObject = Py::Object(new ViewProviderSeaLabFeatureSpectrumPy(this), true);
+        PythonObject = Py::Object(new ViewProviderSeaLabFeatureFrequencySpectrumPy(this), true);
     }
     return Py::new_reference_to(PythonObject);
 }
 
-bool ViewProviderSeaLabFeatureSpectrum::runFeatureMethod(const QString function, const char* complexNumberDisplay)
+bool ViewProviderSeaLabFeatureFrequencySpectrum::runFeatureMethod(const QString function, const char* complexNumberDisplay)
 {  
 ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());

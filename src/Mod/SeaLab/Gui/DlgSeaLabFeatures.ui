@@ -35,35 +35,8 @@ the sketch plane's normal vector will be used</string>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
        <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0">
-        <item row="17" column="1">
-         <widget class="QComboBox" name="standardDeviationComboBox"/>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Randomness Provider</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Correlation Function</string>
-          </property>
-         </widget>
-        </item>
-        <item row="15" column="1">
-         <widget class="QComboBox" name="shearVelocityomboBox"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="labelXSkew">
-          <property name="text">
-           <string>Location Distribution</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QPushButton" name="coherenceFunctionPushButton">
+        <item row="9" column="2">
+         <widget class="QPushButton" name="randomnessProviderPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -75,22 +48,11 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Frequency Distribution</string>
-          </property>
-         </widget>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="lacationDistributionComboBox"/>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="labelYSkew">
-          <property name="text">
-           <string>Mean Acceleration</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="locationDistributionPushButton">
+        <item row="24" column="2">
+         <widget class="QPushButton" name="spectrumDecompositionPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -101,6 +63,39 @@ the sketch plane's normal vector will be used</string>
            <string>...</string>
           </property>
          </widget>
+        </item>
+        <item row="18" column="1">
+         <widget class="QComboBox" name="skewnessComboBox"/>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Directional Spectrum</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Modulation Function</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QPushButton" name="correlationFunctionPushButton_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="22" column="1">
+         <widget class="QComboBox" name="simulationMethodComboBox"/>
         </item>
         <item row="0" column="2">
          <widget class="QPushButton" name="CPDpushButton">
@@ -115,7 +110,65 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="20" column="2">
+        <item row="24" column="1">
+         <widget class="QComboBox" name="spectrumDecompositionMethodComboBox"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="meanAccelerationProfileComboBox"/>
+        </item>
+        <item row="23" column="1">
+         <widget class="QComboBox" name="userDefinedFeatureCcomboBox"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="CPDComboBox"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>CPD</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QPushButton" name="frequencyDistributionPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="1">
+         <widget class="QComboBox" name="correlationFunctionComboBox"/>
+        </item>
+        <item row="10" column="2">
+         <widget class="QPushButton" name="modulationFunctionPpushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="1">
+         <widget class="QComboBox" name="shearVelocityomboBox"/>
+        </item>
+        <item row="15" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Kurtosis</string>
+          </property>
+         </widget>
+        </item>
+        <item row="22" column="2">
          <widget class="QPushButton" name="simulationMethodPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -128,90 +181,35 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="19" column="0">
-         <widget class="QLabel" name="label_21">
-          <property name="text">
-           <string>Wave Passage Effect</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QComboBox" name="CPDComboBox"/>
-        </item>
-        <item row="21" column="1">
-         <widget class="QComboBox" name="userDefinedFeatureCcomboBox"/>
-        </item>
-        <item row="22" column="2">
-         <widget class="QPushButton" name="spectrumDecompositionPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1">
-         <widget class="QComboBox" name="modulationFunctionComboBox"/>
-        </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Modulation Function</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="0">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>Variance</string>
-          </property>
-         </widget>
-        </item>
-        <item row="20" column="1">
-         <widget class="QComboBox" name="simulationMethodComboBox"/>
-        </item>
-        <item row="7" column="1">
-         <widget class="QComboBox" name="randomnessProviderComboBox"/>
-        </item>
-        <item row="14" column="0">
+        <item row="16" column="0">
          <widget class="QLabel" name="label_13">
           <property name="text">
            <string>Peack Factor</string>
           </property>
          </widget>
         </item>
-        <item row="14" column="1">
-         <widget class="QComboBox" name="peakFactorComboBox"/>
+        <item row="3" column="1">
+         <widget class="QComboBox" name="frequencySpectrumComboBox"/>
         </item>
-        <item row="17" column="0">
-         <widget class="QLabel" name="label_17">
+        <item row="18" column="0">
+         <widget class="QLabel" name="label_16">
           <property name="text">
-           <string>Standard Deviation</string>
+           <string>Skewness</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QComboBox" name="lacationDistributionComboBox"/>
+        <item row="20" column="1">
+         <widget class="QComboBox" name="varianceComboBox"/>
         </item>
-        <item row="13" column="1">
-         <widget class="QComboBox" name="KurtosisComboBox"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_9">
+        <item row="24" column="0">
+         <widget class="QLabel" name="label">
           <property name="text">
-           <string>CPD</string>
+           <string>Spectrum Decomposition M.</string>
           </property>
          </widget>
-        </item>
-        <item row="12" column="1">
-         <widget class="QComboBox" name="PDFComboBox"/>
         </item>
         <item row="14" column="2">
-         <widget class="QPushButton" name="peakFactorPushButton">
+         <widget class="QPushButton" name="PDFPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -223,10 +221,81 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="1">
-         <widget class="QComboBox" name="correlationFunctionComboBox"/>
+        <item row="13" column="0">
+         <widget class="QLabel" name="label_25">
+          <property name="text">
+           <string>Matrix Tool</string>
+          </property>
+         </widget>
         </item>
-        <item row="15" column="2">
+        <item row="2" column="0">
+         <widget class="QLabel" name="labelYSkew">
+          <property name="text">
+           <string>Mean Acceleration</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QLabel" name="label_24">
+          <property name="text">
+           <string>Table Tool</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QPushButton" name="coherenceFunctionPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="19" column="1">
+         <widget class="QComboBox" name="standardDeviationComboBox"/>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Coherence Function</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Frequency Distribution</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QComboBox" name="frequencyDistributionComboBox"/>
+        </item>
+        <item row="11" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Correlation Function</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="QComboBox" name="randomnessProviderComboBox"/>
+        </item>
+        <item row="20" column="0">
+         <widget class="QLabel" name="label_20">
+          <property name="text">
+           <string>Variance</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QComboBox" name="modulationFunctionComboBox"/>
+        </item>
+        <item row="17" column="2">
          <widget class="QPushButton" name="shearVelocityPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -239,8 +308,15 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="10" column="2">
-         <widget class="QPushButton" name="tableToolPushButton">
+        <item row="19" column="0">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>Standard Deviation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="2">
+         <widget class="QPushButton" name="peakFactorPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -252,71 +328,8 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="15" column="0">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Shear Velocity</string>
-          </property>
-         </widget>
-        </item>
-        <item row="22" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Spectrum Decomposition M.</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="1">
-         <widget class="QComboBox" name="matrixToolComboBox"/>
-        </item>
-        <item row="13" column="2">
-         <widget class="QPushButton" name="kurtosisPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="21" column="0">
-         <widget class="QLabel" name="label_23">
-          <property name="text">
-           <string>User Defined Feature</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="2">
-         <widget class="QPushButton" name="correlationFunctionPushButton_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="9" column="2">
-         <widget class="QPushButton" name="correlationFunctionPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="2">
-         <widget class="QPushButton" name="variancePushButton">
+        <item row="21" column="2">
+         <widget class="QPushButton" name="wavePassageEffectPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -331,12 +344,12 @@ the sketch plane's normal vector will be used</string>
         <item row="3" column="0">
          <widget class="QLabel" name="labelZSkew">
           <property name="text">
-           <string>Spectrum</string>
+           <string>Frequency Spectrum</string>
           </property>
          </widget>
         </item>
-        <item row="17" column="2">
-         <widget class="QPushButton" name="standardDeviationPushButton">
+        <item row="15" column="2">
+         <widget class="QPushButton" name="kurtosisPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -348,11 +361,11 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QComboBox" name="coherenceFunctionComboBox"/>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="directionalSpectrumComboBox"/>
         </item>
-        <item row="6" column="2">
-         <widget class="QPushButton" name="frequencyDistributionPushButton">
+        <item row="20" column="2">
+         <widget class="QPushButton" name="variancePushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -364,50 +377,21 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="22" column="1">
-         <widget class="QComboBox" name="spectrumDecompositionMethodComboBox"/>
-        </item>
-        <item row="16" column="1">
-         <widget class="QComboBox" name="skewnessComboBox"/>
-        </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_4">
+        <item row="23" column="0">
+         <widget class="QLabel" name="label_23">
           <property name="text">
-           <string>Coherence Function</string>
+           <string>User Defined Feature</string>
           </property>
          </widget>
         </item>
-        <item row="10" column="0">
-         <widget class="QLabel" name="label_24">
+        <item row="21" column="0">
+         <widget class="QLabel" name="label_21">
           <property name="text">
-           <string>Table Tool</string>
+           <string>Wave Passage Effect</string>
           </property>
          </widget>
         </item>
-        <item row="20" column="0">
-         <widget class="QLabel" name="label_22">
-          <property name="text">
-           <string>Simulation Method</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="2">
-         <widget class="QPushButton" name="PDFPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="1">
-         <widget class="QComboBox" name="tableToolComboBox"/>
-        </item>
-        <item row="16" column="2">
+        <item row="18" column="2">
          <widget class="QPushButton" name="skewnessPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -420,57 +404,15 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="19" column="2">
-         <widget class="QPushButton" name="wavePassageEffectPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="4" column="2">
+         <widget class="QPushButton" name="directionalSpectrumPushButton">
           <property name="text">
            <string>...</string>
           </property>
          </widget>
-        </item>
-        <item row="21" column="2">
-         <widget class="QPushButton" name="userDefinedFeaturePushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="11" column="0">
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string>Matrix Tool</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QPushButton" name="randomnessProviderPushButton">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="19" column="1">
-         <widget class="QComboBox" name="wavePassageEffectComboBox"/>
         </item>
         <item row="3" column="2">
-         <widget class="QPushButton" name="spectrumPushButton">
+         <widget class="QPushButton" name="frequencySpectrumPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -482,36 +424,42 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QComboBox" name="spectrumComboBox"/>
-        </item>
-        <item row="12" column="0">
-         <widget class="QLabel" name="label_10">
+        <item row="22" column="0">
+         <widget class="QLabel" name="label_22">
           <property name="text">
-           <string>PDF</string>
+           <string>Simulation Method</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QComboBox" name="frequencyDistributionComboBox"/>
+        <item row="21" column="1">
+         <widget class="QComboBox" name="wavePassageEffectComboBox"/>
         </item>
-        <item row="2" column="1">
-         <widget class="QComboBox" name="meanAccelerationProfileComboBox"/>
+        <item row="7" column="1">
+         <widget class="QComboBox" name="coherenceFunctionComboBox"/>
         </item>
-        <item row="18" column="1">
-         <widget class="QComboBox" name="varianceComboBox"/>
-        </item>
-        <item row="13" column="0">
-         <widget class="QLabel" name="label_12">
+        <item row="12" column="2">
+         <widget class="QPushButton" name="tableToolPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>Kurtosis</string>
+           <string>...</string>
           </property>
          </widget>
         </item>
-        <item row="16" column="0">
-         <widget class="QLabel" name="label_16">
+        <item row="11" column="2">
+         <widget class="QPushButton" name="correlationFunctionPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
-           <string>Skewness</string>
+           <string>...</string>
           </property>
          </widget>
         </item>
@@ -528,14 +476,100 @@ the sketch plane's normal vector will be used</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="2">
-         <widget class="QPushButton" name="modulationFunctionPpushButton">
+        <item row="16" column="1">
+         <widget class="QComboBox" name="peakFactorComboBox"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="locationDistributionPushButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Randomness Provider</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="1">
+         <widget class="QComboBox" name="KurtosisComboBox"/>
+        </item>
+        <item row="14" column="1">
+         <widget class="QComboBox" name="PDFComboBox"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelXSkew">
+          <property name="text">
+           <string>Location Distribution</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>PDF</string>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="0">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Shear Velocity</string>
+          </property>
+         </widget>
+        </item>
+        <item row="23" column="2">
+         <widget class="QPushButton" name="userDefinedFeaturePushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QComboBox" name="matrixToolComboBox"/>
+        </item>
+        <item row="19" column="2">
+         <widget class="QPushButton" name="standardDeviationPushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="1">
+         <widget class="QComboBox" name="tableToolComboBox"/>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Directional Spreading Function</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="directionalSpreadingFunctionComboBox"/>
+        </item>
+        <item row="5" column="2">
+         <widget class="QPushButton" name="directionalSpreadingFunctionPushButton">
           <property name="text">
            <string>...</string>
           </property>

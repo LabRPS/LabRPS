@@ -27,7 +27,6 @@
 #include "RPSSeaLabAPIdefines.h"
 #include "IrpsSeLLocationDistribution.h"
 #include "IrpsSeLMeanAcceleration.h"
-#include "IrpsSeLSpectrum.h"
 #include "IrpsSeLCoherence.h"
 #include "IrpsSeLSimulationMethod.h"
 #include "IrpsSeLFrequencyDistribution.h"
@@ -47,6 +46,9 @@
 #include "IrpsSeLStandardDeviation.h"
 #include "IrpsSeLVariance.h"
 #include "IrpsSeLWavePassageEffect.h"
+#include "IrpsSeLFrequencySpectrum.h"
+#include "IrpsSeLDirectionalSpectrum.h"
+#include "IrpsSeLDirectionalSpreadingFunction.h"
 
 
 #define PLUGIN_API_VERSION  0.1
@@ -159,16 +161,6 @@ RPS_CORE_FUNC void RegisterMean(const std::string name, const std::string& plugi
 	MeanFreeFunc free_cb);
 RPS_CORE_FUNC void InitializeMean(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterMean(const std::string name, const std::string& pluginName);
-
-
-/////////////////////////////////Along wind spectrum target///////////////////
-typedef SeaLabAPI::IrpsSeLSpectrum *(*SpectrumInitFunc)();
-typedef void(*SpectrumFreeFunc)(SeaLabAPI::IrpsSeLSpectrum *);
-RPS_CORE_FUNC void RegisterSpectrum(const std::string name, const std::string& pluginName, const std::string& description,
-	SpectrumInitFunc init_cb,
-	SpectrumFreeFunc free_cb);
-RPS_CORE_FUNC void InitializeSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
-RPS_CORE_FUNC void UnregisterSpectrum(const std::string name, const std::string& pluginName);
 
 /////////////////////////////////Simulation Method///////////////////
 typedef SeaLabAPI::IrpsSeLSimulationMethod *(*SimuMethodInitFunc)();
@@ -340,4 +332,30 @@ RPS_CORE_FUNC void RegisterWavePassageEffect(const std::string name, const std::
 RPS_CORE_FUNC void InitializeWavePassageEffect(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
 RPS_CORE_FUNC void UnregisterWavePassageEffect(const std::string name, const std::string& pluginName);
 
+/////////////////////////////////frequency spectrum///////////////////
+typedef SeaLabAPI::IrpsSeLFrequencySpectrum *(*FrequencySpectrumInitFunc)();
+typedef void(*FrequencySpectrumFreeFunc)(SeaLabAPI::IrpsSeLFrequencySpectrum *);
+RPS_CORE_FUNC void RegisterFrequencySpectrum(const std::string name, const std::string& pluginName, const std::string& description,
+	FrequencySpectrumInitFunc init_cb,
+	FrequencySpectrumFreeFunc free_cb);
+RPS_CORE_FUNC void InitializeFrequencySpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+RPS_CORE_FUNC void UnregisterFrequencySpectrum(const std::string name, const std::string& pluginName);
+
+/////////////////////////////////directional spectrum///////////////////
+typedef SeaLabAPI::IrpsSeLDirectionalSpectrum *(*DirectionalSpectrumInitFunc)();
+typedef void(*DirectionalSpectrumFreeFunc)(SeaLabAPI::IrpsSeLDirectionalSpectrum *);
+RPS_CORE_FUNC void RegisterDirectionalSpectrum(const std::string name, const std::string& pluginName, const std::string& description,
+	DirectionalSpectrumInitFunc init_cb,
+	DirectionalSpectrumFreeFunc free_cb);
+RPS_CORE_FUNC void InitializeDirectionalSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+RPS_CORE_FUNC void UnregisterDirectionalSpectrum(const std::string name, const std::string& pluginName);
+
+/////////////////////////////////directional spectrum///////////////////
+typedef SeaLabAPI::IrpsSeLDirectionalSpreadingFunction *(*DirectionalSpreadingFunctionInitFunc)();
+typedef void(*DirectionalSpreadingFunctionFreeFunc)(SeaLabAPI::IrpsSeLDirectionalSpreadingFunction *);
+RPS_CORE_FUNC void RegisterDirectionalSpreadingFunction(const std::string name, const std::string& pluginName, const std::string& description,
+	DirectionalSpreadingFunctionInitFunc init_cb,
+	DirectionalSpreadingFunctionFreeFunc free_cb);
+RPS_CORE_FUNC void InitializeDirectionalSpreadingFunction(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+RPS_CORE_FUNC void UnregisterDirectionalSpreadingFunction(const std::string name, const std::string& pluginName);
 #endif

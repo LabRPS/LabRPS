@@ -46,7 +46,9 @@
 #include "ViewProviderSeaLabFeatureUserDefinedRPSObject.h"
 #include "ViewProviderSeaLabFeatureVariance.h"
 #include "ViewProviderSeaLabFeatureWavePassageEffect.h"
-#include "ViewProviderSeaLabFeatureSpectrum.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrum.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpectrum.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpreadingFunction.h"
 #include "ViewProviderSeaLabSimulation.h"
 
 
@@ -176,7 +178,9 @@ PyMOD_INIT_FUNC(SeaLabGui)
     SeaLabGui::ViewProviderSeaLabSimulation ::init();
     SeaLabGui::ViewProviderSeaLabFeatureLocationDistribution::init();
     SeaLabGui::ViewProviderSeaLabFeatureMeanAcceleration::init();
-    SeaLabGui::ViewProviderSeaLabFeatureSpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureFrequencySpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureDirectionalSpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureDirectionalSpreadingFunction::init();
     SeaLabGui::ViewProviderSeaLabFeaturePSDDecompositionMethod::init();
     SeaLabGui::ViewProviderSeaLabFeatureCoherence::init();
     SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod::init();

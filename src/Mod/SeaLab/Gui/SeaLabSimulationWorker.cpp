@@ -3672,12 +3672,497 @@ bool RPSSeaLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
     return true;
 }
 
+void RPSSeaLabSimulationWorker::stop()
+{
+    mutex.lock();
+    stopped = true;
+    m_sim->getSimulationData()->isInterruptionRequested.setValue(true);
+    m_sim->getSimulationData()->isSimulationSuccessful.setValue(false);
+    mutex.unlock();
+}
 
-bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
+void RPSSeaLabSimulationWorker::complete()
+{
+    mutex.lock();
+    m_sim->setStatus(App::SimulationStatus::Completed, true);
+    m_sim->getSimulationData()->isSimulationSuccessful.setValue(true);
+    mutex.unlock();
+}
+
+bool RPSSeaLabSimulationWorker::isStopped()
+{
+    bool stopped;
+    mutex.lock();
+    stopped = this->stopped;
+    mutex.unlock();
+    return stopped;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeAutoFrequencySpectrumValue()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossSpectrumValue) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumValue) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix.resize(1, 3);
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            double computedValue = 0.0;
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeAutoFrequencySpectrumValue(locationJ, frequency, time, computedValue, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix(0, 0) = frequency;
+            m_ResultMatrix(0, 1) = time;
+            m_ResultMatrix(0, 2) = computedValue;
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeAutoFrequencySpectrumVectorF()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorF) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
+
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeAutoFrequencySpectrumVectorF(locationJ, time, m_ResultVectorVar,
+                                                              m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeAutoFrequencySpectrumVectorT()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorT) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeAutoFrequencySpectrumVectorT(
+                locationJ, frequency, m_ResultVectorVar, m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossFrequencySpectrumVectorF()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorF) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+            int locationIndexK = m_sim->getSimulationData()->locationK.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            Base::Vector3d locationK(locationCoord(locationIndexK, 1),
+                                     locationCoord(locationIndexK, 2),
+                                     locationCoord(locationIndexK, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
+            m_ResultVectorVal_cx.resize(m_sim->getSimulationData()->numberOfFrequency.getValue());
+
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeCrossFrequencySpectrumVectorF(locationJ, locationK, time, m_ResultVectorVar, m_ResultVectorVal_cx, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 4);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossFrequencySpectrumVectorT()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorT) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+            int locationIndexK = m_sim->getSimulationData()->locationK.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            Base::Vector3d locationK(locationCoord(locationIndexK, 1),
+                                     locationCoord(locationIndexK, 2),
+                                     locationCoord(locationIndexK, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal_cx.resize(
+                m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeCrossFrequencySpectrumVectorT(locationJ, locationK, frequency,
+                                                               m_ResultVectorVar,
+                                                               m_ResultVectorVal_cx, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 4);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossFrequencySpectrumMatrixPP()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumMatrixPP) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix_cx.resize(
+                m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
+                m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            bool returnResult = m_sim->computeCrossFrequencySpectrumMatrixPP(
+                frequency, time, m_ResultMatrix_cx, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInMatrix(QString::fromLatin1(featureName.c_str()), 5);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossFrequencySpectrumValue()
+{
+     if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumValue) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -3731,7 +4216,7 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
 
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeCrossSpectrumValue(locationJ, locationK, frequency, time, computedValue, featureName);
+            returnResult = m_sim->computeCrossFrequencySpectrumValue(locationJ, locationK, frequency, time, computedValue, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -3756,13 +4241,104 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumValue()
 
     stopped = true;
     complete();
-    return true;
+    return true;   
 }
-bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossDirectionalSpectrumValue()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorF) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumValue) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix.resize(1, 4);
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+            int locationIndexK = m_sim->getSimulationData()->locationK.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            Base::Vector3d locationK(locationCoord(locationIndexK, 1),
+                                     locationCoord(locationIndexK, 2),
+                                     locationCoord(locationIndexK, 3));
+            std::complex<double> computedValue(0.0, 0.0);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeCrossDirectionalSpectrumValue(locationJ, locationK, frequency, time, direction, computedValue, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix(0, 0) = frequency;
+            m_ResultMatrix(0, 1) = time;
+            m_ResultMatrix(0, 2) = direction;
+            m_ResultMatrix(0, 3) = computedValue.real();
+            m_ResultMatrix(0, 4) = computedValue.imag();
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossDirectionalSpectrumVectorF()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorF) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -3811,10 +4387,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeCrossSpectrumVectorF(locationJ, locationK, time, m_ResultVectorVar, m_ResultVectorVal_cx, featureName);
+            returnResult = m_sim->computeCrossDirectionalSpectrumVectorF(locationJ, locationK, time, direction, m_ResultVectorVar, m_ResultVectorVal_cx, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -3836,11 +4414,96 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorF()
     complete();
     return true;
 }
-bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossDirectionalSpectrumVectorT()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorT) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorT) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+            int locationIndexK = m_sim->getSimulationData()->locationK.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            Base::Vector3d locationK(locationCoord(locationIndexK, 1),
+                                     locationCoord(locationIndexK, 2),
+                                     locationCoord(locationIndexK, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal_cx.resize(
+                m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeCrossDirectionalSpectrumVectorT(locationJ, locationK, frequency, direction,
+                                                               m_ResultVectorVar,
+                                                               m_ResultVectorVal_cx, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 4);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossDirectionalSpectrumVectorD()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorD) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -3891,9 +4554,13 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
                     * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeCrossSpectrumVectorT(locationJ, locationK, frequency,
+            returnResult = m_sim->computeCrossDirectionalSpectrumVectorD(locationJ, locationK, frequency, time,
                                                                m_ResultVectorVar,
                                                                m_ResultVectorVal_cx, featureName);
 
@@ -3917,11 +4584,12 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumVectorT()
     complete();
     return true;
 }
-bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
+
+bool RPSSeaLabSimulationWorker::workerComputeCrossDirectionalSpectrumMatrixPP()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossSpectrumMatrixPP) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumMatrixPP) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -3953,10 +4621,13 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
             Base::StopWatch watch;
             watch.start();
-            bool returnResult = m_sim->computeCrossSpectrumMatrixPP(
-                frequency, time, m_ResultMatrix_cx, featureName);
+            bool returnResult = m_sim->computeCrossDirectionalSpectrumMatrixPP(
+                frequency, time, direction, m_ResultMatrix_cx, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -3979,11 +4650,11 @@ bool RPSSeaLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
     return true;
 }
 
-bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
+bool RPSSeaLabSimulationWorker::workerComputeAutoDirectionalSpectrumValue()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoSpectrumValue) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumValue) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -4030,10 +4701,12 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
             double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
                     * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
-
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeAutoSpectrumValue(locationJ, frequency, time, computedValue, featureName);
+            returnResult = m_sim->computeAutoDirectionalSpectrumValue(locationJ, frequency, time, direction, computedValue, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -4049,7 +4722,8 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
 
             m_ResultMatrix(0, 0) = frequency;
             m_ResultMatrix(0, 1) = time;
-            m_ResultMatrix(0, 2) = computedValue;
+            m_ResultMatrix(0, 2) = direction;
+            m_ResultMatrix(0, 3) = computedValue;
 
             signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
         }
@@ -4059,11 +4733,12 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumValue()
     complete();
     return true;
 }
-bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
+
+bool RPSSeaLabSimulationWorker::workerComputeAutoDirectionalSpectrumVectorF()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorF) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorF) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -4108,10 +4783,13 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
 
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeAutoSpectrumVectorF(locationJ, time, m_ResultVectorVar,
+            returnResult = m_sim->computeAutoDirectionalSpectrumVectorF(locationJ, time, direction, m_ResultVectorVar,
                                                               m_ResultVectorVal, featureName);
 
             m_simulationTime = watch.elapsed();
@@ -4134,11 +4812,12 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorF()
     complete();
     return true;
 }
-bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
+
+bool RPSSeaLabSimulationWorker::workerComputeAutoDirectionalSpectrumVectorT()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorT) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorT) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -4183,11 +4862,14 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
                     * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
 
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeAutoSpectrumVectorT(
-                locationJ, frequency, m_ResultVectorVar, m_ResultVectorVal, featureName);
+            returnResult = m_sim->computeAutoDirectionalSpectrumVectorT(
+                locationJ, frequency, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -4210,32 +4892,402 @@ bool RPSSeaLabSimulationWorker::workerComputeAutoSpectrumVectorT()
     return true;
 }
 
-void RPSSeaLabSimulationWorker::stop()
+bool RPSSeaLabSimulationWorker::workerComputeAutoDirectionalSpectrumVectorD()
 {
-    mutex.lock();
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorD) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeAutoDirectionalSpectrumVectorD(
+                locationJ, frequency, time, m_ResultVectorVar, m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
     stopped = true;
-    m_sim->getSimulationData()->isInterruptionRequested.setValue(true);
-    m_sim->getSimulationData()->isSimulationSuccessful.setValue(false);
-    mutex.unlock();
+    complete();
+    return true;
 }
 
-void RPSSeaLabSimulationWorker::complete()
+bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionValue()
 {
-    mutex.lock();
-    m_sim->setStatus(App::SimulationStatus::Completed, true);
-    m_sim->getSimulationData()->isSimulationSuccessful.setValue(true);
-    mutex.unlock();
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix.resize(1, 3);
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+            double computedValue = 0.0;
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeDirectionalSpreadingFunctionValue(locationJ, time, direction, computedValue, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum value has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            m_ResultMatrix(0, 0) = time;
+            m_ResultMatrix(0, 1) = direction;
+            m_ResultMatrix(0, 2) = computedValue;
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 1);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
 }
 
-bool RPSSeaLabSimulationWorker::isStopped()
+bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorT()
 {
-    bool stopped;
-    mutex.lock();
-    stopped = this->stopped;
-    mutex.unlock();
-    return stopped;
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeDirectionalSpreadingFunctionVectorT(
+                locationJ, frequency, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
 }
 
+bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorP()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
+                + m_sim->getSimulationData()->directionIndex.getValue()
+                    * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeDirectionalSpreadingFunctionVectorP(
+                time, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
+
+bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorD()
+{
+    if (isStopped()) {
+        stopped = false;
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD) {
+            //get the active document
+            auto doc = App::GetApplication().getActiveDocument();
+            if (!doc)
+            {
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            //get the active location distribution feature
+            SeaLabAPI::IrpsSeLLocationDistribution* activeSpatialDistr =
+                static_cast<SeaLabAPI::IrpsSeLLocationDistribution*>(
+                    doc->getObject(m_sim->getSimulationData()->spatialDistribution.getValue()));
+
+            if (!activeSpatialDistr) {
+                Base::Console().Warning("No valid active location distribution feature found.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            mat locationCoord(m_sim->getSimulationData()->numberOfSpatialPosition.getValue(), 4);
+            bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
+                *m_sim->getSimulationData(), locationCoord);
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the location coordinates has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            int locationIndexJ = m_sim->getSimulationData()->locationJ.getValue();
+
+            Base::Vector3d locationJ(locationCoord(locationIndexJ, 1),
+                                     locationCoord(locationIndexJ, 2),
+                                     locationCoord(locationIndexJ, 3));
+
+            m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+            m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
+
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
+                + m_sim->getSimulationData()->timeIndex.getValue()
+                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+
+            Base::StopWatch watch;
+            watch.start();
+            returnResult = m_sim->computeDirectionalSpreadingFunctionVectorD(
+                locationJ, time, m_ResultVectorVar, m_ResultVectorVal, featureName);
+
+            m_simulationTime = watch.elapsed();
+            std::string str = watch.toString(m_simulationTime);
+            Base::Console().Message("The computation %s\n", str.c_str());
+            if (m_sim->getSimulationData()->comparisonMode.getValue())
+                setComputationTime();
+            if (!returnResult) {
+                Base::Console().Warning("The computation of the spectrum vector has failed.\n");
+                stopped = true;
+                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                return false;
+            }
+
+            signalDisplayResultInTable(QString::fromLatin1(featureName.c_str()), 2);
+        }
+    }
+
+    stopped = true;
+    complete();
+    return true;
+}
 
 double RPSSeaLabSimulationWorker::getSimulationTime() { return m_simulationTime; }
 

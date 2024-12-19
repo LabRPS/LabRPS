@@ -136,8 +136,14 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 	// The selected mean wind profile
 	App::PropertyString meanFunction;
 
-	// The selected along wind spectrum model
-	App::PropertyString spectrumModel;
+	// The selected frequency spectrum
+	App::PropertyString frequencySpectrum;
+
+	// The selected directional spectrum
+	App::PropertyString directionalSpectrum;
+
+	// The selected directional spreading function
+	App::PropertyString directionalSpreadingFunction;
 
 	// The selected coherence function
 	App::PropertyString coherenceFunction;

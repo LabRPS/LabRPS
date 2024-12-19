@@ -11,7 +11,7 @@
 using namespace SeaLab;
 using namespace SeaLabAPI;
 
-PROPERTY_SOURCE(SeaLab::CRPSJonswapSpectrum, SeaLabAPI::SeaLabFeatureSpectrum)
+PROPERTY_SOURCE(SeaLab::CRPSJonswapSpectrum, SeaLabAPI::SeaLabFeatureFrequencySpectrum)
 
 CRPSJonswapSpectrum::CRPSJonswapSpectrum()
 {
@@ -25,7 +25,7 @@ CRPSJonswapSpectrum::CRPSJonswapSpectrum()
 
 }
 
-bool CRPSJonswapSpectrum::ComputeCrossSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+bool CRPSJonswapSpectrum::ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
 	bool returnResult = true;
     
@@ -37,26 +37,26 @@ bool CRPSJonswapSpectrum::ComputeCrossSpectrumVectorF(const SeaLabAPI::SeaLabSim
 
     for (int loop = 0; loop < Data.numberOfFrequency.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        returnResult = ComputeCrossSpectrumValue(Data, locationJ, locationK, dVarVector(loop), dTime, dValVector(loop));
+        returnResult = ComputeCrossFrequencySpectrumValue(Data, locationJ, locationK, dVarVector(loop), dTime, dValVector(loop));
     }
 
      return returnResult;
 }
 
-bool CRPSJonswapSpectrum::ComputeCrossSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSJonswapSpectrum::ComputeCrossFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
    bool returnResult = true;
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
         dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-        returnResult = ComputeCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
+        returnResult = ComputeCrossFrequencySpectrumValue(Data, locationJ, locationK, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
      return returnResult;
 }
 
-bool CRPSJonswapSpectrum::ComputeCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+bool CRPSJonswapSpectrum::ComputeCrossFrequencySpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
 {
 	 // Local array for location coordinates
     mat dLocCoord(Data.numberOfSpatialPosition.getValue(), 4);
@@ -77,7 +77,7 @@ bool CRPSJonswapSpectrum::ComputeCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSi
         {
            locationJ = Base::Vector3d(dLocCoord(loop1, 1), dLocCoord(loop1, 2), dLocCoord(loop1, 3));
            locationK = Base::Vector3d(dLocCoord(loop2, 1), dLocCoord(loop2, 2), dLocCoord(loop2, 3));
-           returnResult = ComputeCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dTime, psdMatrix(loop1, loop2));
+           returnResult = ComputeCrossFrequencySpectrumValue(Data, locationJ, locationK, dFrequency, dTime, psdMatrix(loop1, loop2));
         }
     }
 
@@ -88,14 +88,14 @@ bool CRPSJonswapSpectrum::ComputeCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSi
 bool CRPSJonswapSpectrum::OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& Data)
 {
 	// the input diolag
-    SeaLabGui::DlgJonswapSpectrumEdit* dlg = new SeaLabGui::DlgJonswapSpectrumEdit(SignificantWaveHeight, PeakPeriod, AutoGamma, AutoSigma, Gamma, Sigma1, Sigma2, Data.spectrumModel);
+    SeaLabGui::DlgJonswapSpectrumEdit* dlg = new SeaLabGui::DlgJonswapSpectrumEdit(SignificantWaveHeight, PeakPeriod, AutoGamma, AutoSigma, Gamma, Sigma1, Sigma2, Data.frequencySpectrum);
 	Gui::Control().showDialog(dlg);
 
     return true;
 }
 
 
-bool CRPSJonswapSpectrum::ComputeCrossSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
+bool CRPSJonswapSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
    bool returnResult = true;
 
@@ -112,7 +112,7 @@ bool CRPSJonswapSpectrum::ComputeCrossSpectrumValue(const SeaLabAPI::SeaLabSimul
     return returnResult;
 }
 
-bool CRPSJonswapSpectrum::ComputeAutoSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+bool CRPSJonswapSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
    bool returnResult = true;
   
@@ -121,7 +121,7 @@ bool CRPSJonswapSpectrum::ComputeAutoSpectrumValue(const SeaLabAPI::SeaLabSimula
 
     return returnResult;
 }    
-bool CRPSJonswapSpectrum::ComputeAutoSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSJonswapSpectrum::ComputeAutoFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
     
@@ -136,19 +136,19 @@ bool CRPSJonswapSpectrum::ComputeAutoSpectrumVectorF(const SeaLabAPI::SeaLabSimu
 
     for (int loop = 0; loop < Data.numberOfFrequency.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
-        returnResult = ComputeAutoSpectrumValue(Data, location, dVarVector(loop), dTime, dValVector(loop));
+        returnResult = ComputeAutoFrequencySpectrumValue(Data, location, dVarVector(loop), dTime, dValVector(loop));
     }
 
      return returnResult;
 } 
-bool CRPSJonswapSpectrum::ComputeAutoSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+bool CRPSJonswapSpectrum::ComputeAutoFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
      bool returnResult = true;
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
     {
         dVarVector(loop) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + loop * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-        returnResult = ComputeAutoSpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
+        returnResult = ComputeAutoFrequencySpectrumValue(Data, location, dFrequency, dVarVector(loop), dValVector(loop));
     }
 
      return returnResult;

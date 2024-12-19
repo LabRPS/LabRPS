@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy"
+            Twin="ViewProviderSeaLabFeatureDirectionalSpreadingFunction"
+            TwinPointer="ViewProviderSeaLabFeatureDirectionalSpreadingFunction"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureDirectionalSpreadingFunction.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureDirectionalSpreadingFunction class</UserDocu>
+        </Documentation>
+      <Methode Name="ComputeDirectionalSpreadingFunctionValue">
+        <Documentation>
+          <UserDocu>Compute cross spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeDirectionalSpreadingFunctionVectorT">
+        <Documentation>
+          <UserDocu>Compute cross spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeDirectionalSpreadingFunctionVectorP">
+        <Documentation>
+          <UserDocu>Compute cross spectrum matrix for given frequency and time</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeDirectionalSpreadingFunctionVectorD">
+        <Documentation>
+          <UserDocu>Compute auto spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

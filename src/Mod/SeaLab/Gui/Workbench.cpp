@@ -141,7 +141,9 @@ bool SeaLabGui::Workbench::getToBeInstalledObjectsList(std::map<const std::strin
     {
        SeaLab::SeaLabUtils::getObjects(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSimulationMethod.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupLocationDistribution.toStdString());
-       SeaLab::SeaLabUtils::getObjects(CrpsSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupFrequencySpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupDirectionalSpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupCoherenceFunction.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupFrequencyDistribution.toStdString());
@@ -179,7 +181,9 @@ bool SeaLabGui::Workbench::getToBeUninstalledObjectsList(std::map<const std::str
     {
        SeaLab::SeaLabUtils::getObjects(CrpsSimuMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSimulationMethod.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupLocationDistribution.toStdString());
-       SeaLab::SeaLabUtils::getObjects(CrpsSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsFrequencySpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupFrequencySpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsDirectionalSpectrumFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupDirectionalSpectrum.toStdString());
+       SeaLab::SeaLabUtils::getObjects(CrpsDirectionalSpreadingFunctionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsCoherenceFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupCoherenceFunction.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsPSDdecomMethodFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod.toStdString());
        SeaLab::SeaLabUtils::getObjects(CrpsFrequencyDistributionFactory::GetOjectAndPluginMap(), lstObject, pluginName.toStdString(), SeaLab::SeaLabUtils::objGroupFrequencyDistribution.toStdString());
@@ -216,7 +220,9 @@ bool SeaLabGui::Workbench::updateToBeInstalledObjectsMap(const QString& lstObjec
     {
        SeaLab::SeaLabUtils::updateObjectsMap(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), lstObject);
        SeaLab::SeaLabUtils::updateObjectsMap(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), lstObject);
-       SeaLab::SeaLabUtils::updateObjectsMap(CrpsSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject);
+       SeaLab::SeaLabUtils::updateObjectsMap(CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap(), lstObject);
+       SeaLab::SeaLabUtils::updateObjectsMap(CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap(), lstObject);
+       SeaLab::SeaLabUtils::updateObjectsMap(CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap(), lstObject);
        SeaLab::SeaLabUtils::updateObjectsMap(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), lstObject);
        SeaLab::SeaLabUtils::updateObjectsMap(CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap(), lstObject);
        SeaLab::SeaLabUtils::updateObjectsMap(CrpsFrequencyDistributionFactory::GetTobeInstalledObjectsMap(), lstObject);
@@ -252,7 +258,9 @@ bool SeaLabGui::Workbench::updateToBeUninstalledObjectsMap(const QString name, c
     {
        SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsSimuMethodFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
        SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsLocationDistributionFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
-       SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsSpectrumFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
+       SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsFrequencySpectrumFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
+       SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsDirectionalSpectrumFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
+       SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsDirectionalSpreadingFunctionFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
        SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsCoherenceFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
        SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsPSDdecomMethodFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
        SeaLab::SeaLabUtils::updateObjectToSkipMap(CrpsFrequencyDistributionFactory::GetOjectsSkipDuringUnintallationMap(), name, pluginName);
@@ -292,7 +300,15 @@ bool SeaLabGui::Workbench::isObjectInstalled(QString& object) const
     {
         return true;
     }
-    if (SeaLab::SeaLabUtils::isThisObjectInstalled(CrpsSpectrumFactory::GetOjectDescriptionMap(), object))
+    if (SeaLab::SeaLabUtils::isThisObjectInstalled(CrpsFrequencySpectrumFactory::GetOjectDescriptionMap(), object))
+    {
+        return true;
+    }
+    if (SeaLab::SeaLabUtils::isThisObjectInstalled(CrpsDirectionalSpectrumFactory::GetOjectDescriptionMap(), object))
+    {
+        return true;
+    }
+    if (SeaLab::SeaLabUtils::isThisObjectInstalled(CrpsDirectionalSpreadingFunctionFactory::GetOjectDescriptionMap(), object))
     {
         return true;
     }
@@ -379,7 +395,9 @@ void SeaLabGui::Workbench::emptyAllToBeUninstalledObjectsMap() const
     {
         CrpsSimuMethodFactory::GetOjectsSkipDuringUnintallationMap().clear();
         CrpsLocationDistributionFactory::GetOjectsSkipDuringUnintallationMap().clear();
-        CrpsSpectrumFactory::GetOjectsSkipDuringUnintallationMap().clear();
+        CrpsFrequencySpectrumFactory::GetOjectsSkipDuringUnintallationMap().clear();
+        CrpsDirectionalSpectrumFactory::GetOjectsSkipDuringUnintallationMap().clear();
+        CrpsDirectionalSpreadingFunctionFactory::GetOjectsSkipDuringUnintallationMap().clear();
         CrpsCoherenceFactory::GetOjectsSkipDuringUnintallationMap().clear();
         CrpsPSDdecomMethodFactory::GetOjectsSkipDuringUnintallationMap().clear();
         CrpsFrequencyDistributionFactory::GetOjectsSkipDuringUnintallationMap().clear();
@@ -415,7 +433,11 @@ bool SeaLabGui::Workbench::isThisPluginInstalled(const QString& pluginName) cons
 
     if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
 
-    if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsSpectrumFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
+    if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsFrequencySpectrumFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
+
+    if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsDirectionalSpectrumFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
+
+    if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsDirectionalSpreadingFunctionFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
 
     if (SeaLab::SeaLabUtils::isThisObjectGroupPluggedInThisPlugin(CrpsCoherenceFactory::GetOjectAndPluginMap(), pluginName)) { return true; }
 
@@ -473,11 +495,16 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjectsFromRegistry()
     ReadMapFromRegistry2(CrpsSimuMethodFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLLoc"), count = 1;
-    ReadMapFromRegistry2(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(),
-                         settingsGroup, count);
+    ReadMapFromRegistry2(CrpsLocationDistributionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSD"), count = 1;
-    ReadMapFromRegistry2(CrpsSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSD"), count = 1;
+    ReadMapFromRegistry2(CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSD"), count = 1;
+    ReadMapFromRegistry2(CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLXDSF"), count = 1;
+    ReadMapFromRegistry2(CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCoh"), count = 1;
     ReadMapFromRegistry2(CrpsCoherenceFactory::GetTobeInstalledObjectsMap(), settingsGroup, count);
@@ -557,9 +584,15 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjPublicationTitleToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocTitle"), count = 1;
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetTitleMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDTitle"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetTitleMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDTitle"), count = 1;
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetTitleMap(), settingsGroup, count);
 
+    settingsGroup = QString::fromLatin1("SeLDPSDTitle"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFTitle"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetTitleMap(), settingsGroup, count);
+    
     settingsGroup = QString::fromLatin1("SeLCohTitle"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetTitleMap(), settingsGroup, count);
 
@@ -631,8 +664,14 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjPublicationTitleToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocTitle"), count = 1;
     ReadMapFromRegistry(CrpsLocationDistributionFactory::GetTitleMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDTitle"), count = 1;
-    ReadMapFromRegistry(CrpsSpectrumFactory::GetTitleMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDTitle"), count = 1;
+    ReadMapFromRegistry(CrpsFrequencySpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDTitle"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpectrumFactory::GetTitleMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFTitle"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpreadingFunctionFactory::GetTitleMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohTitle"), count = 1;
     ReadMapFromRegistry(CrpsCoherenceFactory::GetTitleMap(), settingsGroup, count);
@@ -704,8 +743,14 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjPublicationLinkToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocLink"), count = 1;
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetLinkMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDLink"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetLinkMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDLink"), count = 1;
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDLink"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFLink"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetLinkMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohLink"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetLinkMap(), settingsGroup, count);
@@ -778,8 +823,14 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjPublicationLinkToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocLink"), count = 1;
     ReadMapFromRegistry(CrpsLocationDistributionFactory::GetLinkMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDLink"), count = 1;
-    ReadMapFromRegistry(CrpsSpectrumFactory::GetLinkMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDLink"), count = 1;
+    ReadMapFromRegistry(CrpsFrequencySpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDLink"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpectrumFactory::GetLinkMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFLink"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpreadingFunctionFactory::GetLinkMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohLink"), count = 1;
     ReadMapFromRegistry(CrpsCoherenceFactory::GetLinkMap(), settingsGroup, count);
@@ -850,8 +901,14 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjPublicationAuthorToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocAuthor"), count = 1;
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetAuthorMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDAuthor"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDAuthor"), count = 1;
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDAuthor"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFDAuthor"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetAuthorMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohAuthor"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetAuthorMap(), settingsGroup, count);
@@ -923,8 +980,14 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjPublicationAuthorToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocAuthor"), count = 1;
     ReadMapFromRegistry(CrpsLocationDistributionFactory::GetAuthorMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDAuthor"), count = 1;
-    ReadMapFromRegistry(CrpsSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDAuthor"), count = 1;
+    ReadMapFromRegistry(CrpsFrequencySpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDAuthor"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpectrumFactory::GetAuthorMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFAuthor"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpreadingFunctionFactory::GetAuthorMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohAuthor"), count = 1;
     ReadMapFromRegistry(CrpsCoherenceFactory::GetAuthorMap(), settingsGroup, count);
@@ -996,8 +1059,14 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjPublicationDateToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocDate"), count = 1;
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetDateMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDDate"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetDateMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDDate"), count = 1;
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDDate"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFDate"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetDateMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohDate"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetDateMap(), settingsGroup, count);
@@ -1069,8 +1138,14 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjPublicationDateToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocDate"), count = 1;
     ReadMapFromRegistry(CrpsLocationDistributionFactory::GetDateMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDDate"), count = 1;
-    ReadMapFromRegistry(CrpsSpectrumFactory::GetDateMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDDate"), count = 1;
+    ReadMapFromRegistry(CrpsFrequencySpectrumFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDDate"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpectrumFactory::GetDateMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFDate"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpreadingFunctionFactory::GetDateMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohDate"), count = 1;
     ReadMapFromRegistry(CrpsCoherenceFactory::GetDateMap(), settingsGroup, count);
@@ -1245,8 +1320,14 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjectsToRegistry()
     settingsGroup = QString::fromLatin1("SeLLoc"), count = 1;
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetOjectAndPluginMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSD"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetOjectAndPluginMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSD"), count = 1;
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetOjectAndPluginMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSD"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetOjectAndPluginMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSF"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetOjectAndPluginMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCoh"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetOjectAndPluginMap(), settingsGroup, count);
@@ -1320,7 +1401,13 @@ void SeaLabGui::Workbench::WLWriteAllTobeInstallObjVersionToRegistry()
     WriteMapToRegistry(CrpsLocationDistributionFactory::GetVersionMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLXPSDVersion"), count = 1;
-    WriteMapToRegistry(CrpsSpectrumFactory::GetVersionMap(), settingsGroup, count);
+    WriteMapToRegistry(CrpsFrequencySpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLXPSDVersion"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLXPSDVersion"), count = 1;
+    WriteMapToRegistry(CrpsDirectionalSpreadingFunctionFactory::GetVersionMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohVersion"), count = 1;
     WriteMapToRegistry(CrpsCoherenceFactory::GetVersionMap(), settingsGroup, count);
@@ -1392,8 +1479,14 @@ void SeaLabGui::Workbench::WLReadAllTobeInstallObjVersionToRegistry()
     settingsGroup = QString::fromLatin1("SeLLocVersion"), count = 1;
     ReadMapFromRegistry(CrpsLocationDistributionFactory::GetVersionMap(), settingsGroup, count);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDVersion"), count = 1;
-    ReadMapFromRegistry(CrpsSpectrumFactory::GetVersionMap(), settingsGroup, count);
+    settingsGroup = QString::fromLatin1("SeLFPSDVersion"), count = 1;
+    ReadMapFromRegistry(CrpsFrequencySpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDVersion"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpectrumFactory::GetVersionMap(), settingsGroup, count);
+
+    settingsGroup = QString::fromLatin1("SeLDSFVersion"), count = 1;
+    ReadMapFromRegistry(CrpsDirectionalSpreadingFunctionFactory::GetVersionMap(), settingsGroup, count);
 
     settingsGroup = QString::fromLatin1("SeLCohVersion"), count = 1;
     ReadMapFromRegistry(CrpsCoherenceFactory::GetVersionMap(), settingsGroup, count);
@@ -1463,7 +1556,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLoc");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSD");
+    settingsGroup = QString::fromLatin1("SeLFPSD");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSD");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSF");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCoh");
@@ -1503,7 +1602,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLocTitle");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDTitle");
+    settingsGroup = QString::fromLatin1("SeLFPSDTitle");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDTitle");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSFTitle");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCohTitle");
@@ -1544,7 +1649,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLocLink");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDLink");
+    settingsGroup = QString::fromLatin1("SeLFPSDLink");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDLink");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSFLink");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCohLink");
@@ -1585,7 +1696,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLocAuthor");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDAuthor");
+    settingsGroup = QString::fromLatin1("SeLFPSDAuthor");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDAuthor");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSFAuthor");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCohAuthor");
@@ -1626,7 +1743,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLocDate");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDDate");
+    settingsGroup = QString::fromLatin1("SeLFPSDDate");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDDate");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSFDate");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCohDate");
@@ -1667,7 +1790,13 @@ void SeaLabGui::Workbench::WLClearAllTobeInstallObjectsFromRegistry()
     settingsGroup = QString::fromLatin1("SeLLocVersion");
     ClearMapFromRegistry(settingsGroup);
 
-    settingsGroup = QString::fromLatin1("SeLXPSDVersion");
+    settingsGroup = QString::fromLatin1("SeLFPSDVersion");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDPSDVersion");
+    ClearMapFromRegistry(settingsGroup);
+
+    settingsGroup = QString::fromLatin1("SeLDSFVersion");
     ClearMapFromRegistry(settingsGroup);
 
     settingsGroup = QString::fromLatin1("SeLCohVersion");

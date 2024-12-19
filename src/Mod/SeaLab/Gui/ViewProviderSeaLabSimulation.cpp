@@ -53,7 +53,9 @@
 
 #include <Mod/SeaLabAPI/App/SeaLabFeatureLocationDistribution.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureMeanAcceleration.h>
-#include <Mod/SeaLabAPI/App/SeaLabFeatureSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureFrequencySpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpreadingFunction.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeaturePSDDecompositionMethod.h> 
 #include <Mod/SeaLabAPI/App/SeaLabFeatureCoherence.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureSimulationMethod.h>
@@ -277,7 +279,11 @@ bool ViewProviderSeaLabSimulation::canDragObject(App::DocumentObject* obj) const
         return true;
     if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureMeanAcceleration ::getClassTypeId())) 
         return true;
-    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId())) 
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId())) 
+        return true;
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId())) 
+        return true;
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId())) 
         return true;
     if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeaturePSDDecompositionMethod::getClassTypeId())) 
         return true;

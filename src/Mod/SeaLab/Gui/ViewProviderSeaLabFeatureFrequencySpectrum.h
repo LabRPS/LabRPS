@@ -21,8 +21,8 @@
  ***************************************************************************/
 
 
-#ifndef SEALABGUI_VIEWPROVIDERSEALABFEATURESPECTRUM_H
-#define SEALABGUI_VIEWPROVIDERSEALABFEATURESPECTRUM_H
+#ifndef SEALABGUI_VIEWPROVIDERSEALAB_FEATURE_FREQUENCYSPECTRUM_H
+#define SEALABGUI_VIEWPROVIDERSEALAB_FEATURE_FREQUENCYSPECTRUM_H
 
 #include <Gui/ViewProviderRPSFeature.h>
 #include <Libraries/Alphaplot/Table.h>
@@ -32,28 +32,26 @@
 namespace SeaLabGui {
 
 
-class SeaLabGuiExport ViewProviderSeaLabFeatureSpectrum : public Gui::ViewProviderRPSFeature
+class SeaLabGuiExport ViewProviderSeaLabFeatureFrequencySpectrum : public Gui::ViewProviderRPSFeature
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(SeaLabGui::ViewProviderSeaLabFeatureSpectrum);
+    PROPERTY_HEADER_WITH_OVERRIDE(SeaLabGui::ViewProviderSeaLabFeatureFrequencySpectrum);
 
 public:
     /// constructor
-    ViewProviderSeaLabFeatureSpectrum();
+    ViewProviderSeaLabFeatureFrequencySpectrum();
     /// destructor
-    virtual ~ViewProviderSeaLabFeatureSpectrum();
+    virtual ~ViewProviderSeaLabFeatureFrequencySpectrum();
 
     virtual bool doubleClicked(void);
     void setupContextMenu(QMenu*, QObject*, const char*);
 
-
-    
-    bool computeCrossSpectrumValue();
-    bool computeCrossSpectrumVectorF();
-    bool computeCrossSpectrumVectorT();
-    bool computeCrossSpectrumMatrixPP();
-    bool computeAutoSpectrumValue();
-    bool computeAutoSpectrumVectorF();
-    bool computeAutoSpectrumVectorT();
+    bool ComputeCrossFrequencySpectrumValue();
+    bool ComputeCrossFrequencySpectrumVectorF();
+    bool ComputeCrossFrequencySpectrumVectorT();
+    bool ComputeCrossFrequencySpectrumMatrixPP();
+    bool ComputeAutoFrequencySpectrumValue();
+    bool ComputeAutoFrequencySpectrumVectorF();
+    bool ComputeAutoFrequencySpectrumVectorT();
 
     bool OnInitialSetting();
     bool ActivateFeature();
@@ -85,5 +83,4 @@ public:
 } // namespace PartGui
 
 
-#endif // SEALABGUI_VIEWPROVIDERSEALABFEATURESPECTRUM_H
-
+#endif // SEALABGUI_VIEWPROVIDERSEALAB_FEATURE_FREQUENCYSPECTRUM_H

@@ -21,57 +21,43 @@
  ***************************************************************************/
 
 
-#include "PreCompiled.h"
+#ifndef SEALABFEATURE_FREQUENCY_SPECTRUM_FEATURE_H
+#define SEALABFEATURE_FREQUENCY_SPECTRUM_FEATURE_H
 
-#ifndef _PreComp_
-# include <sstream>
-#endif
+#include "SeaLabFeature.h"
 
-#include <Base/Console.h>
-#include <Base/Exception.h>
-#include "SeaLabFeatureSpectrum.h"
-
-using namespace SeaLabAPI;
-
-RPS_LOG_LEVEL_INIT("SeaLabFeatureSpectrum",true,true)
-
-PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureSpectrum, SeaLabAPI::SeaLabFeature)
-
-
-SeaLabFeatureSpectrum::SeaLabFeatureSpectrum(void)
+namespace SeaLabAPI
 {
-    this->OutputUnitString.setValue("m^2/s");
-}
 
-SeaLabFeatureSpectrum::~SeaLabFeatureSpectrum()
+/** Base class of all shape feature classes in LabRPS
+ */
+class SeaLabAPIExport SeaLabFeatureFrequencySpectrum : public SeaLabAPI::SeaLabFeature
 {
-}
+    PROPERTY_HEADER_WITH_OVERRIDE(SeaLabAPI::SeaLabFeatureFrequencySpectrum);
 
-short SeaLabFeatureSpectrum::mustExecute(void) const
-{
-    return SeaLabFeature::mustExecute();
-}
+public:
+    /// Constructor
+    SeaLabFeatureFrequencySpectrum(void);
+    virtual ~SeaLabFeatureFrequencySpectrum();
 
-App::DocumentObjectExecReturn * SeaLabFeatureSpectrum::recompute(void)
-{
-    try {
-        return SeaLabAPI::SeaLabFeature::recompute();
+    virtual const char* getViewProviderName() const {
+        return "SeaLabGui::ViewProviderSeaLabFeatureFrequencySpectrum";
     }
-    catch (Base::Exception& e) {
+    /** @name methods override feature */
+    //@{
+    virtual short mustExecute() const override;
+    //@}
 
-        App::DocumentObjectExecReturn* ret = new App::DocumentObjectExecReturn(e.what());
-        if (ret->Why.empty()) ret->Why = "Unknown exception";
-        return ret;
-    }
-}
+protected:
+    /// recompute only this object
+    virtual App::DocumentObjectExecReturn *recompute() override;
+    /// recalculate the feature
+    virtual App::DocumentObjectExecReturn *execute() override;
+    virtual void onChanged(const App::Property* prop) override;
+};
 
-App::DocumentObjectExecReturn * SeaLabFeatureSpectrum::execute(void)
-{
-    return SeaLabFeature::execute();
-}
+} //namespace SeaLabAPI
 
-void SeaLabFeatureSpectrum::onChanged(const App::Property* prop)
-{
 
-    SeaLabFeature::onChanged(prop);
-}
+#endif // SEALABFEATURE_FREQUENCY_SPECTRUM_FEATURE_H
+

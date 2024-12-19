@@ -70,7 +70,8 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const SeaLabA
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &dCPSDDecomMatrix)
 {
     cx_mat psdMatrix(Data.numberOfSpatialPosition.getValue(), Data.numberOfSpatialPosition.getValue());
-    bool returnResult = SeaLabAPI::CRPSSeaLabFramework::ComputeCrossSpectrumMatrixPP(Data, dFrequency,dTime, psdMatrix);
+    bool returnResult = SeaLabAPI::CRPSSeaLabFramework::ComputeCrossFrequencySpectrumMatrixPP(
+        Data, dFrequency, dTime, psdMatrix);
     if (!returnResult)//the computation of the psd matrix has failed.
         return false;
 

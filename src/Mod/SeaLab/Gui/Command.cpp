@@ -221,7 +221,8 @@ void CmdSeaLabSimulationStop::activated(int iMsg)
 
 bool CmdSeaLabSimulationStop::isActive(void)
 {
-    return (hasActiveDocument() && SeaLabGui::SeaLabSimulationObserver::instance()->active());
+    App::Simulation* sim = SeaLabGui::SeaLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
 }
 
 void CreateSeaLabCommands(void)

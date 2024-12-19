@@ -20,44 +20,32 @@
  *                                                                         *
  ***************************************************************************/
 
+#ifndef IRPSSELDIRECTIONALSPREADINGFUNCTION_H
+#define IRPSSELDIRECTIONALSPREADINGFUNCTION_H
 
-#ifndef SEALABFEATURE_SPECTRUM_FEATURE_H
-#define SEALABFEATURE_SPECTRUM_FEATURE_H
+#include "SeaLabSimulationData.h"
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpreadingFunction.h>
+#include <Base/Vector3D.h>
 
-#include "SeaLabFeature.h"
+namespace SeaLabAPI {
 
-namespace SeaLabAPI
+class IrpsSeLDirectionalSpreadingFunction : public SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction
 {
-
-/** Base class of all shape feature classes in LabRPS
- */
-class SeaLabAPIExport SeaLabFeatureSpectrum : public SeaLabAPI::SeaLabFeature
-{
-    PROPERTY_HEADER_WITH_OVERRIDE(SeaLabAPI::SeaLabFeatureSpectrum);
-
 public:
-    /// Constructor
-    SeaLabFeatureSpectrum(void);
-    virtual ~SeaLabFeatureSpectrum();
+    virtual ~IrpsSeLDirectionalSpreadingFunction() {};
 
-    virtual const char* getViewProviderName() const {
-        return "SeaLabGui::ViewProviderSeaLabFeatureSpectrum";
-    }
-    /** @name methods override feature */
-    //@{
-    virtual short mustExecute() const override;
-    //@}
+    virtual bool ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue) = 0;
+    
+    virtual bool ComputeDirectionalSpreadingFunctionVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dDirection, vec &dVarVector, vec &dValVector) = 0;
 
-protected:
-    /// recompute only this object
-    virtual App::DocumentObjectExecReturn *recompute() override;
-    /// recalculate the feature
-    virtual App::DocumentObjectExecReturn *execute() override;
-    virtual void onChanged(const App::Property* prop) override;
+    virtual bool ComputeDirectionalSpreadingFunctionVectorP(const SeaLabAPI::SeaLabSimulationData& Data, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector) = 0;
+
+    virtual bool ComputeDirectionalSpreadingFunctionVectorD(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+
+	virtual bool OnInitialSetting(const SeaLabAPI::SeaLabSimulationData &Data) = 0;
+
 };
 
 } //namespace SeaLabAPI
 
-
-#endif // SEALABFEATURE_XSPECTRUM_FEATURE_H
-
+#endif  // IRPSSELDIRECTIONALSPREADINGFUNCTION_H

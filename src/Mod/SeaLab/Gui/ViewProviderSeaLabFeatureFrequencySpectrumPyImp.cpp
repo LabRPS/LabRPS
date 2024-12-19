@@ -22,126 +22,132 @@
 
 #include "PreCompiled.h"
 
-#include "ViewProviderSeaLabFeatureSpectrumPy.h"
-#include "ViewProviderSeaLabFeatureSpectrumPy.cpp"
+#include "ViewProviderSeaLabFeatureFrequencySpectrumPy.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrumPy.cpp"
 #include <CXX/Objects.hxx>
 
-#include "ViewProviderSeaLabFeatureSpectrum.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrum.h"
 
 using namespace SeaLabGui;
 
 // returns a string which represents the object e.g. when printed in python
-std::string ViewProviderSeaLabFeatureSpectrumPy::representation(void) const
+std::string ViewProviderSeaLabFeatureFrequencySpectrumPy::representation(void) const
 {
-    return std::string("<ViewProviderSeaLabFeatureSpectrum object>");
+    return std::string("<ViewProviderSeaLabFeatureFrequencySpectrum object>");
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeCrossSpectrumValue(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeCrossFrequencySpectrumValue(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
     if (vp)
     {
-        bool ok = vp->computeCrossSpectrumValue();
+        bool ok = vp->ComputeCrossFrequencySpectrumValue();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeCrossSpectrumVectorF(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeCrossFrequencySpectrumVectorF(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeCrossSpectrumVectorF();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeCrossFrequencySpectrumVectorF();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeCrossSpectrumVectorT(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeCrossFrequencySpectrumVectorT(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeCrossSpectrumVectorT();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeCrossFrequencySpectrumVectorT();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeCrossSpectrumMatrixPP(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeCrossFrequencySpectrumMatrixPP(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeCrossSpectrumMatrixPP();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeCrossFrequencySpectrumMatrixPP();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeAutoSpectrumValue(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeAutoFrequencySpectrumValue(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeAutoSpectrumValue();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeAutoFrequencySpectrumValue();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeAutoSpectrumVectorF(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeAutoFrequencySpectrumVectorF(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeAutoSpectrumVectorF();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeAutoFrequencySpectrumVectorF();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSpectrumPy::computeAutoSpectrumVectorT(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureFrequencySpectrumPy::ComputeAutoFrequencySpectrumVectorT(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
 
-    ViewProviderSeaLabFeatureSpectrum* vp = this->getViewProviderSeaLabFeatureSpectrumPtr();
-    if (vp) {
-        bool ok = vp->computeAutoSpectrumVectorT();
+    ViewProviderSeaLabFeatureFrequencySpectrum* vp = this->getViewProviderSeaLabFeatureFrequencySpectrumPtr();
+    if (vp)
+    {
+        bool ok = vp->ComputeAutoFrequencySpectrumVectorT();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 
     Py_RETURN_NONE;
 }
 
-PyObject *ViewProviderSeaLabFeatureSpectrumPy::getCustomAttributes(const char* /*attr*/) const
+PyObject *ViewProviderSeaLabFeatureFrequencySpectrumPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;
 }
 
 
-int ViewProviderSeaLabFeatureSpectrumPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+int ViewProviderSeaLabFeatureFrequencySpectrumPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
 {
     return 0;
 }

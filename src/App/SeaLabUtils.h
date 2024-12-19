@@ -46,7 +46,9 @@ class AppExport SeaLabUtils {
   // object groups
   static QString objGroupLocationDistribution;
   static QString objGroupMeanAcceleration;
-  static QString objGroupSpectrum;
+  static QString objGroupFrequencySpectrum;
+  static QString objGroupDirectionalSpectrum;
+  static QString objGroupDirectionalSpreadingFunction; 
   static QString objGroupSpectrumDecompositionMethod;
   static QString objGroupCoherenceFunction;
   static QString objGroupSimulationMethod;
@@ -149,13 +151,28 @@ class AppExport SeaLabUtils {
   static QString ComputeWavePassageEffectVectorT;
   static QString ComputeWavePassageEffectMatrixPP;
 
-  static QString ComputeCrossSpectrumValue;
-  static QString ComputeCrossSpectrumVectorF;
-  static QString ComputeCrossSpectrumVectorT;
-  static QString ComputeCrossSpectrumMatrixPP;
-  static QString ComputeAutoSpectrumValue;
-  static QString ComputeAutoSpectrumVectorF;
-  static QString ComputeAutoSpectrumVectorT;
+  static QString ComputeCrossFrequencySpectrumValue;
+  static QString ComputeCrossFrequencySpectrumVectorF;
+  static QString ComputeCrossFrequencySpectrumVectorT;
+  static QString ComputeCrossFrequencySpectrumMatrixPP;
+  static QString ComputeAutoFrequencySpectrumValue;
+  static QString ComputeAutoFrequencySpectrumVectorF;
+  static QString ComputeAutoFrequencySpectrumVectorT;
+
+  static QString ComputeCrossDirectionalSpectrumValue;
+  static QString ComputeCrossDirectionalSpectrumVectorF;
+  static QString ComputeCrossDirectionalSpectrumVectorT;
+  static QString ComputeCrossDirectionalSpectrumVectorD;
+  static QString ComputeCrossDirectionalSpectrumMatrixPP;
+  static QString ComputeAutoDirectionalSpectrumValue;
+  static QString ComputeAutoDirectionalSpectrumVectorF;
+  static QString ComputeAutoDirectionalSpectrumVectorT;
+  static QString ComputeAutoDirectionalSpectrumVectorD;
+
+  static QString ComputeDirectionalSpreadingFunctionValue;
+  static QString ComputeDirectionalSpreadingFunctionVectorT;
+  static QString ComputeDirectionalSpreadingFunctionVectorP;
+  static QString ComputeDirectionalSpreadingFunctionVectorD;
 };
 
 } // namespace Gui
