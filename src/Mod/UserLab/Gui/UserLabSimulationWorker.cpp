@@ -69,7 +69,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
                 return false;
             }
 
-            m_ResultCube.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue(),
+            m_ResultCube.resize(m_sim->getSimulationData()->numberOfSpatialCoordinateIncrement.getValue(),
                       m_sim->getSimulationData()->numberOfSpatialPosition.getValue()
                           + 1, m_sim->getSimulationData()->numberOfSample.getValue());
             m_ResultCube.setZero();

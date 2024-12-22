@@ -87,10 +87,10 @@ UserLabSimulation::UserLabSimulation()
     ADD_PROPERTY_TYPE(DirectionIndex, (1), directiongroup, Prop_None,"Index correponding to Kth direction increment");
 
     static const char* waveLengthgroup = "Wave Length Discretization";
-    ADD_PROPERTY_TYPE(NumberOfWaveLengthIncrements, (1000), waveLengthgroup, Prop_None,"The number of wave length increment");
-    ADD_PROPERTY_TYPE(WaveLengthIncrement, (0.001), waveLengthgroup, Prop_None,"This is the wave length value");
+    ADD_PROPERTY_TYPE(NumberOfWaveLengthIncrements, (1024), waveLengthgroup, Prop_None,"The number of wave length increment");
+    ADD_PROPERTY_TYPE(WaveLengthIncrement, (12000.00/1024.00), waveLengthgroup, Prop_None,"This is the wave length value");
     ADD_PROPERTY_TYPE(MinWaveLength, (0.00), waveLengthgroup, Prop_None,"This is the minimum wave length");
-    ADD_PROPERTY_TYPE(MaxWaveLength, (4.00), waveLengthgroup, Prop_None,"This is the maximum wave length");
+    ADD_PROPERTY_TYPE(MaxWaveLength, (12000.00), waveLengthgroup, Prop_None,"This is the maximum wave length");
     ADD_PROPERTY_TYPE(WaveLengthIndex, (1), waveLengthgroup, Prop_None,"Index correponding to Kth wave length increment");
 
     static const char* featuregroup = "Userlab Features";
@@ -102,6 +102,12 @@ UserLabSimulation::UserLabSimulation()
 	ADD_PROPERTY_TYPE(IndexOfVariableX, (1), "Variable X", Prop_None, "This current index of the variable x.");
 	ADD_PROPERTY_TYPE(IncrementOfVariableX, (0.1), "Variable X", Prop_None, "This is the variable x increment value");
 	ADD_PROPERTY_TYPE(MinVariableX, (-5.00), "Variable X", Prop_None, "This is the minimum x variable value");
+
+    ADD_PROPERTY_TYPE(NumberOfSpatialCoordinateIncrement, (10000), "Spatial Coordinate", Prop_None, "The number of increments for the spatial coordinate which can be x, y or z.");
+	ADD_PROPERTY_TYPE(SpatialCoordinateIndex, (1), "Spatial Coordinate", Prop_None, "This current index of the spatial coordinate.");
+	ADD_PROPERTY_TYPE(SpatialCoordinateIncrement, (100000.00/10000.00), "Spatial Coordinate", Prop_None, "This is the spatial coordinate increment value");
+	ADD_PROPERTY_TYPE(SpatialCoordinateMinimum, (0), "Spatial Coordinate", Prop_None, "This is the minimum spatial coordinate value");
+    ADD_PROPERTY_TYPE(SpatialCoordinatetMaximum, (100000), "Spatial Coordinate", Prop_None, "This is the maximum spatial coordinate value");
 
     ADD_PROPERTY_TYPE(Phenomenon, ("Name"), 0, Prop_None, "The random phenonenon name");
     ADD_PROPERTY_TYPE(WorkingDirectoryPath, (Application::getHomePath()), 0, Prop_None, "The working directory path.");
@@ -149,6 +155,11 @@ void UserLabSimulation::updateSimulationData()
     _simuData->uniformModulation.setValue(this->UniformModulation.getValue());
     _simuData->minTime.setValue(this->MinTime.getValue());
     _simuData->maxTime.setValue(this->MaxTime.getValue());
+    _simuData->numberOfSpatialCoordinateIncrement.setValue(this->NumberOfSpatialCoordinateIncrement.getValue());
+    _simuData->spatialCoordinateIndex.setValue(this->SpatialCoordinateIndex.getValue());
+    _simuData->spatialCoordinateIncrement.setValue(this->SpatialCoordinateIncrement.getValue());
+    _simuData->spatialCoordinateMinimum.setValue(this->SpatialCoordinateMinimum.getValue());
+    _simuData->spatialCoordinatetMaximum.setValue(this->SpatialCoordinatetMaximum.getValue());
     _simuData->timeIncrement.setValue(this->TimeIncrement.getValue());
     _simuData->minFrequency.setValue(this->MinFrequency.getValue());
     _simuData->frequencyIncrement.setValue(this->FrequencyIncrement.getValue());
@@ -184,7 +195,7 @@ bool UserLabSimulation::stop()
 
 std::string UserLabSimulation::getPhenomenonName() const
 {
-    return UserLab::UserLabUtils::rpsPhenomenonWindVelocity.toUtf8().constData();
+    return UserLab::UserLabUtils::rpsPhenomenon.toUtf8().constData();
 }
 
 std::string UserLabSimulation::workbenchName() const { return "UserLab"; }
@@ -515,7 +526,7 @@ bool UserLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
         Base::Console().Error("No valid active simulation method feature found.\n");
         return false;
     }
-    dPhenomenon.resize(this->getSimulationData()->numberOfTimeIncrements.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1, this->getSimulationData()->numberOfSample.getValue());
+    dPhenomenon.resize(this->getSimulationData()->numberOfSpatialCoordinateIncrement.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue() + 1, this->getSimulationData()->numberOfSample.getValue());
     dPhenomenon.setZero();
 
     bool returnResult = activefeature->Simulate(*this->getSimulationData(), dPhenomenon);

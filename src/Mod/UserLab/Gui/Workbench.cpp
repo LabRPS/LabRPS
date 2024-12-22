@@ -223,7 +223,7 @@ bool UserLabGui::Workbench::isThisPluginInstalled(const QString& pluginName) con
 
 QString UserLabGui::Workbench::getPhenomenonName() const
 {
-    return UserLab::UserLabUtils::rpsPhenomenonWindVelocity;
+    return UserLab::UserLabUtils::rpsPhenomenon;
 }
 
 void UserLabGui::Workbench::ULReadAllTobeInstallObjectsFromRegistry()

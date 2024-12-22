@@ -237,6 +237,7 @@ SET(LabRPSApp_CPP_SRCS
     WindLabUtils.cpp
     SeismicLabUtils.cpp
     SeaLabUtils.cpp
+    UserLabUtils.cpp
     Color.cpp
 
 )
@@ -253,6 +254,7 @@ SET(LabRPSApp_HPP_SRCS
     WindLabUtils.h
     SeismicLabUtils.h
     SeaLabUtils.h
+    UserLabUtils.h
     Color.h
 
 )

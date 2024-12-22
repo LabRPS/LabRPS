@@ -27,7 +27,7 @@
 using namespace UserLab;
 
 //phenomenon
-QString UserLabUtils::rpsPhenomenonWindVelocity = QString::fromLatin1("Wind Velocity");
+QString UserLabUtils::rpsPhenomenon = QString::fromLatin1("User Defined Phenomenon");
 
 QString UserLabUtils::objGroupSimulationMethod =  QString::fromLatin1("Simulation Method");
 QString UserLabUtils::docRPSFeatures =  QString::fromLatin1("RPS Features");

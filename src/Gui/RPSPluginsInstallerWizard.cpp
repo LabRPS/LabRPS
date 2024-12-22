@@ -11,6 +11,7 @@
 #include <App/WindLabUtils.h>
 #include <App/SeismicLabUtils.h>
 #include <App/SeaLabUtils.h>
+#include <App/UserLabUtils.h>
 
 #include <Workbench.h>
 
@@ -416,7 +417,6 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
 
     return QIcon(QString::fromUtf8(":/icons/SeismicLabFeatures/SeismicLab_Feature_UserDefinedObj.svg"));
     }
-    
     else if (name == App::SeaLabUtils::rpsPhenomenonSeaSurface) {
         
     if (group == App::SeaLabUtils::objGroupCoherenceFunction) {
@@ -506,7 +506,10 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
 
     return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_UserDefinedObj.svg"));
     }
- 
+    else if (name == App::UserLabUtils::rpsPhenomenon)
+    {
+        return QIcon(QString::fromUtf8(":/icons/UserLabFeatures/UserLab_Feature_SimulationMethodObj.svg"));
+    }
   
 }
 

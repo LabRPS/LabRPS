@@ -61,4 +61,8 @@ if(BUILD_SEALAB_PLUGIN)
   add_subdirectory(SeaLabPlugins)
 endif(BUILD_SEALAB_PLUGIN)
 
+if(BUILD_USERLAB_PLUGIN)
+  add_subdirectory(UserLabPlugins)
+endif(BUILD_USERLAB_PLUGIN)
+
 add_subdirectory(GeneralTools)

@@ -20,20 +20,20 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef RPS_GLOBALS_H
-#define RPS_GLOBALS_H
+#ifndef APP_USERLAB_UTILS_H
+#define APP_USERLAB_UTILS_H
 
 #include <Mod/UserLab/UserLabGlobal.h>
 #include <map>
 #include <QString>
 
-namespace UserLab {
+namespace App {
 
 //! Definition of global constants and enums
 /**
  * This class must not be instanced. All members are static.
  */
-class UserLabExport UserLabUtils {
+class AppExport UserLabUtils {
 
  private:
      UserLabUtils() {}  // don't allow instancing
@@ -41,40 +41,15 @@ class UserLabExport UserLabUtils {
  public:
   virtual ~UserLabUtils() {}  // avoid the warning message
 
-  // phenomena
   static QString rpsPhenomenon;
   static QString objGroupSimulationMethod;
   static QString docRPSFeatures;
   static QString docSimulations;
-
   static QString Simulate;
   static QString SimulateInLargeScaleMode;
 
-  static bool getObjects(std::map<const std::string, std::string>& map, std::map<const std::string, std::string>& lstObject, const std::string& pluginName, const std::string& objectGroup);
-  static bool updateObjectsMap(std::map<const std::string, std::string>& map, const QString& lstObject);
-  static bool updateObjectToSkipMap(std::map<const std::string, std::string>& map, const QString name, const QString pluginName);
-  static bool isThisObjectGroupPluggedInThisPlugin(const std::map<const std::string, std::string>& map,const QString& pluginName);
-  static bool isThisObjectInstalled(std::map<const std::string, std::string>& map, QString& object);
-
-public:
-  enum class ColorPal { Light, Dark };
-  enum class TableColorProfile { Success, Failure, Generic };
-  static int getWordSizeApp();
-  static QString getOperatingSystem();
-  static int getWordSizeOfOS();
-  static QString splitstring(const QString &string);
-  static QString joinstring(const QString &string);
-
-  // html Formatting
-  static QString makeHtmlTable(const int row, const int column,
-                               const bool hasheader,
-                               const TableColorProfile &profile);
-
- private:
-  static double rgbRandomSeed_;
-  static int rgbCounter_;
 };
 
 } // namespace Gui
 
-#endif  // RPS_GLOBALS_H
+#endif  // APP_USERLAB_UTILS_H
