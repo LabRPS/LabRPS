@@ -99,8 +99,8 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     Gui::MenuItem* user = new Gui::MenuItem;
     root->insertItem(item, user);
     user->setCommand("&UserLab");
-    *user << "UserLab_NewSimulation"
-             << "UserLab_Features"
+    *user << "UserLab_CreateSimulation"
+             << "UserLab_CreateFeature"
              << "UserLab_Simulation_Start" << "UserLab_Simulation_Stop"
              << "UserLab_Examples";
     
@@ -114,8 +114,8 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
 
      Gui::ToolBarItem* UserLabToolBar = new Gui::ToolBarItem(root);
     UserLabToolBar->setCommand("UserLab Features");
-     *UserLabToolBar << "UserLab_NewSimulation"
-                     << "UserLab_Features"
+     *UserLabToolBar << "UserLab_CreateSimulation"
+                     << "UserLab_CreateFeature"
                      << "UserLab_Simulation_Start" << "UserLab_Simulation_Stop"
                      << "UserLab_Examples";
 

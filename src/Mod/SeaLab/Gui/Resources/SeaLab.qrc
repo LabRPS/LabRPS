@@ -1,8 +1,8 @@
 <RCC>
     <qresource>
         <file>icons/SeaLabWorkbench.svg</file>
-        <file>icons/SeaLab_NewSimulation.svg</file>
-        <file>icons/SeaLab_Features.svg</file>
+        <file>icons/SeaLab_CreateSimulation.svg</file>
+        <file>icons/SeaLab_CreateFeature.svg</file>
         <file>icons/SeaLab_Examples.svg</file>
         <file>icons/SeaLab_Simulation_Start.svg</file>
         <file>icons/SeaLab_Simulation_Stop.svg</file>

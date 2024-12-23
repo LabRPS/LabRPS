@@ -44,19 +44,19 @@
 using namespace std;
 
 //===========================================================================
-// UserLab_NewSimulation
+// UserLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdUserLabNewSimulation)
 
-CmdUserLabNewSimulation::CmdUserLabNewSimulation() : Command("UserLab_NewSimulation")
+CmdUserLabNewSimulation::CmdUserLabNewSimulation() : Command("UserLab_CreateSimulation")
 {
     sAppModule = "UserLab";
     sGroup = QT_TR_NOOP("UserLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "UserLab_NewSimulation";
+    sWhatsThis = "UserLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "UserLab_NewSimulation";
+    sPixmap = "UserLab_CreateSimulation";
 }
 
 void CmdUserLabNewSimulation::activated(int iMsg)
@@ -85,19 +85,19 @@ bool CmdUserLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// UserLab_Features
+// UserLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdUserLabFeatures)
 
-CmdUserLabFeatures::CmdUserLabFeatures() : Command("UserLab_Features")
+CmdUserLabFeatures::CmdUserLabFeatures() : Command("UserLab_CreateFeature")
 {
     sAppModule = "UserLab";
     sGroup = QT_TR_NOOP("UserLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of UserLab Features");
-    sWhatsThis = "UserLab_Features";
+    sWhatsThis = "UserLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "UserLab_Features";
+    sPixmap = "UserLab_CreateFeature";
 }
 
 void CmdUserLabFeatures::activated(int iMsg)

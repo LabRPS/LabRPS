@@ -99,8 +99,8 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     Gui::MenuItem* windLab = new Gui::MenuItem;
     root->insertItem(item, windLab);
     windLab->setCommand("&WindLab");
-    *windLab << "WindLab_NewSimulation"
-             << "WindLab_Features"
+    *windLab << "WindLab_CreateSimulation"
+             << "WindLab_CreateFeature"
              << "WindLab_Simulation_Start" << "WindLab_Simulation_Stop"
              << "WindLab_Examples";
     
@@ -114,8 +114,8 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
 
      Gui::ToolBarItem* WindLabToolBar = new Gui::ToolBarItem(root);
     WindLabToolBar->setCommand("WindLab Features");
-     *WindLabToolBar << "WindLab_NewSimulation"
-                     << "WindLab_Features"
+     *WindLabToolBar << "WindLab_CreateSimulation"
+                     << "WindLab_CreateFeature"
                      << "WindLab_Simulation_Start" << "WindLab_Simulation_Stop"
                      << "WindLab_Examples";
 

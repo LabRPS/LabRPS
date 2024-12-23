@@ -93,7 +93,7 @@ PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabSimulation, Gui::ViewProviderDocume
 
 ViewProviderSeaLabSimulation::ViewProviderSeaLabSimulation()
 {
-    sPixmap = "SeaLab_NewSimulation";
+    sPixmap = "SeaLab_CreateSimulation";
 }
 
 ViewProviderSeaLabSimulation::~ViewProviderSeaLabSimulation()

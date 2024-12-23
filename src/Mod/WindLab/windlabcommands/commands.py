@@ -52,7 +52,7 @@ class _Simulation(CommandManager):
     def __init__(self):
         super(_Simulation, self).__init__()
         self.menutext = Qt.QT_TRANSLATE_NOOP("WindLab_Simulation", "Simulation")
-        self.pixmap = "WindLab_NewSimulation"
+        self.pixmap = "WindLab_CreateSimulation"
         self.accel = "W, S"
         self.tooltip = Qt.QT_TRANSLATE_NOOP(
             "WindLab_Simulation",

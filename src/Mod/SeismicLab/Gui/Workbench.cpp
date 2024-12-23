@@ -99,8 +99,8 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     Gui::MenuItem* seismicLab = new Gui::MenuItem;
     root->insertItem(item, seismicLab);
     seismicLab->setCommand("&SeismicLab");
-    *seismicLab << "SeismicLab_NewSimulation"
-             << "SeismicLab_Features"
+    *seismicLab << "SeismicLab_CreateSimulation"
+             << "SeismicLab_CreateFeature"
             //  << "SeismicLab_Comparison"
              << "SeismicLab_Examples";
     
@@ -114,8 +114,8 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
 
      Gui::ToolBarItem* SeismicLabToolBar = new Gui::ToolBarItem(root);
     SeismicLabToolBar->setCommand("SeismicLab Features");
-     *SeismicLabToolBar << "SeismicLab_NewSimulation"
-                     << "SeismicLab_Features"
+     *SeismicLabToolBar << "SeismicLab_CreateSimulation"
+                     << "SeismicLab_CreateFeature"
                      << "SeismicLab_Simulation_Start" << "SeismicLab_Simulation_Stop"
                      << "SeismicLab_Examples";
 

@@ -44,19 +44,19 @@
 using namespace std;
 
 //===========================================================================
-// SeaLab_NewSimulation
+// SeaLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdSeaLabNewSimulation)
 
-CmdSeaLabNewSimulation::CmdSeaLabNewSimulation() : Command("SeaLab_NewSimulation")
+CmdSeaLabNewSimulation::CmdSeaLabNewSimulation() : Command("SeaLab_CreateSimulation")
 {
     sAppModule = "SeaLab";
     sGroup = QT_TR_NOOP("SeaLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "SeaLab_NewSimulation";
+    sWhatsThis = "SeaLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "SeaLab_NewSimulation";
+    sPixmap = "SeaLab_CreateSimulation";
 }
 
 void CmdSeaLabNewSimulation::activated(int iMsg)
@@ -85,19 +85,19 @@ bool CmdSeaLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// SeaLab_Features
+// SeaLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdSeaLabFeatures)
 
-CmdSeaLabFeatures::CmdSeaLabFeatures() : Command("SeaLab_Features")
+CmdSeaLabFeatures::CmdSeaLabFeatures() : Command("SeaLab_CreateFeature")
 {
     sAppModule = "SeaLab";
     sGroup = QT_TR_NOOP("SeaLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of SeaLab Features");
-    sWhatsThis = "SeaLab_Features";
+    sWhatsThis = "SeaLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "SeaLab_Features";
+    sPixmap = "SeaLab_CreateFeature";
 }
 
 void CmdSeaLabFeatures::activated(int iMsg)

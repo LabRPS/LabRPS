@@ -44,19 +44,19 @@
 using namespace std;
 
 //===========================================================================
-// WindLab_NewSimulation
+// WindLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdWindLabNewSimulation)
 
-CmdWindLabNewSimulation::CmdWindLabNewSimulation() : Command("WindLab_NewSimulation")
+CmdWindLabNewSimulation::CmdWindLabNewSimulation() : Command("WindLab_CreateSimulation")
 {
     sAppModule = "WindLab";
     sGroup = QT_TR_NOOP("WindLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "WindLab_NewSimulation";
+    sWhatsThis = "WindLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "WindLab_NewSimulation";
+    sPixmap = "WindLab_CreateSimulation";
 }
 
 void CmdWindLabNewSimulation::activated(int iMsg)
@@ -85,19 +85,19 @@ bool CmdWindLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// WindLab_Features
+// WindLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdWindLabFeatures)
 
-CmdWindLabFeatures::CmdWindLabFeatures() : Command("WindLab_Features")
+CmdWindLabFeatures::CmdWindLabFeatures() : Command("WindLab_CreateFeature")
 {
     sAppModule = "WindLab";
     sGroup = QT_TR_NOOP("WindLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of WindLab Features");
-    sWhatsThis = "WindLab_Features";
+    sWhatsThis = "WindLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "WindLab_Features";
+    sPixmap = "WindLab_CreateFeature";
 }
 
 void CmdWindLabFeatures::activated(int iMsg)

@@ -97,7 +97,7 @@ PROPERTY_SOURCE(WindLabGui::ViewProviderWindLabSimulation, Gui::ViewProviderDocu
 
 ViewProviderWindLabSimulation::ViewProviderWindLabSimulation()
 {
-    sPixmap = "WindLab_NewSimulation";
+    sPixmap = "WindLab_CreateSimulation";
 }
 
 ViewProviderWindLabSimulation::~ViewProviderWindLabSimulation()

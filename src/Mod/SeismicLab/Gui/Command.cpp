@@ -44,19 +44,19 @@
 using namespace std;
 
 //===========================================================================
-// SeismicLab_NewSimulation
+// SeismicLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdSeismicLabNewSimulation)
 
-CmdSeismicLabNewSimulation::CmdSeismicLabNewSimulation() : Command("SeismicLab_NewSimulation")
+CmdSeismicLabNewSimulation::CmdSeismicLabNewSimulation() : Command("SeismicLab_CreateSimulation")
 {
     sAppModule = "SeismicLab";
     sGroup = QT_TR_NOOP("SeismicLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "SeismicLab_NewSimulation";
+    sWhatsThis = "SeismicLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "SeismicLab_NewSimulation";
+    sPixmap = "SeismicLab_CreateSimulation";
 }
 
 void CmdSeismicLabNewSimulation::activated(int iMsg)
@@ -85,19 +85,19 @@ bool CmdSeismicLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// SeismicLab_Features
+// SeismicLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdSeismicLabFeatures)
 
-CmdSeismicLabFeatures::CmdSeismicLabFeatures() : Command("SeismicLab_Features")
+CmdSeismicLabFeatures::CmdSeismicLabFeatures() : Command("SeismicLab_CreateFeature")
 {
     sAppModule = "SeismicLab";
     sGroup = QT_TR_NOOP("SeismicLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of SeismicLab Features");
-    sWhatsThis = "SeismicLab_Features";
+    sWhatsThis = "SeismicLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "SeismicLab_Features";
+    sPixmap = "SeismicLab_CreateFeature";
 }
 
 void CmdSeismicLabFeatures::activated(int iMsg)

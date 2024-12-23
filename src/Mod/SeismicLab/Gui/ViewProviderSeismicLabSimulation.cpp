@@ -91,7 +91,7 @@ PROPERTY_SOURCE(SeismicLabGui::ViewProviderSeismicLabSimulation, Gui::ViewProvid
 
 ViewProviderSeismicLabSimulation::ViewProviderSeismicLabSimulation()
 {
-    sPixmap = "SeismicLab_NewSimulation";
+    sPixmap = "SeismicLab_CreateSimulation";
 }
 
 ViewProviderSeismicLabSimulation::~ViewProviderSeismicLabSimulation()

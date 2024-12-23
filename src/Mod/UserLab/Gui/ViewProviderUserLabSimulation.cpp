@@ -67,7 +67,7 @@ PROPERTY_SOURCE(UserLabGui::ViewProviderUserLabSimulation, Gui::ViewProviderDocu
 
 ViewProviderUserLabSimulation::ViewProviderUserLabSimulation()
 {
-    sPixmap = "UserLab_NewSimulation";
+    sPixmap = "UserLab_CreateSimulation";
 }
 
 ViewProviderUserLabSimulation::~ViewProviderUserLabSimulation()
