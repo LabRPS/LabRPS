@@ -67,7 +67,7 @@ PROPERTY_SOURCE(UserLabGui::ViewProviderUserLabSimulation, Gui::ViewProviderDocu
 
 ViewProviderUserLabSimulation::ViewProviderUserLabSimulation()
 {
-    sPixmap = "UserLab_NewSimulation";
+    sPixmap = "UserLab_CreateSimulation";
 }
 
 ViewProviderUserLabSimulation::~ViewProviderUserLabSimulation()
@@ -105,30 +105,59 @@ bool ViewProviderUserLabSimulation::run()
     if (!sim) {
         return false;
     }
+    if (sim->isRuning())
+    {
+        Base::Console().Error("This simulation is already running.\n");
+        return false;
+    }
+
     auto activeMethod = sim->getActiveSimulationMethod();
 
-    //UserLabAPI::IrpsWLSimuMethod* activeSimMethod = static_cast<UserLabAPI::IrpsWLSimuMethod*>(sim->getActiveSimulationMethod());
     if (!activeMethod) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
     UserLabGui::ViewProviderUserLabFeatureSimulationMethod* vp = dynamic_cast<UserLabGui::ViewProviderUserLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
 
-    vp->simulate();
-
+    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
+    {
+        vp->simulate();
+    }
+    else
+    {
+        vp->simulateInLargeScaleMode();
+    }
+    
+    sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }
 
 bool ViewProviderUserLabSimulation::stop()
 {
-     UserLab::UserLabSimulation* sim = static_cast<UserLab::UserLabSimulation*>(UserLabGui::UserLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
+    UserLab::UserLabSimulation* sim = static_cast<UserLab::UserLabSimulation*>(UserLabGui::UserLabSimulationObserver::instance()->getSimulation(this->getObject()->getNameInDocument()));
     if (!sim) {
         return false;
     }
-    return sim->stop();
+    
+    if (!sim->isRuning())
+    {
+        Base::Console().Warning("This simulation is not running.\n");
+        return false;
+    }
+    auto worker = getAllComputation()->GetUserLabSimulationWorker();
+    if (worker) {
+        getAllComputation()->GetUserLabSimulationWorker()->stop();
+    }
+ 
+    if (userLabAllFeaturesComputation)
+        Q_EMIT userLabAllFeaturesComputation->stopped();
+
+    return true;
 }
 
 bool ViewProviderUserLabSimulation::activateSimulation() { return doubleClicked(); }

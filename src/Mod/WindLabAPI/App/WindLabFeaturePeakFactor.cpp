@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeaturePeakFactor, WindLabAPI::WindLabFeature
 
 WindLabFeaturePeakFactor::WindLabFeaturePeakFactor(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeaturePeakFactor::~WindLabFeaturePeakFactor()

@@ -41,6 +41,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureLocationDistribution, SeismicLab
 
 SeismicLabFeatureLocationDistribution::SeismicLabFeatureLocationDistribution(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 SeismicLabFeatureLocationDistribution::~SeismicLabFeatureLocationDistribution()

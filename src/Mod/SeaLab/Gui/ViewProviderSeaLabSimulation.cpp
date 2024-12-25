@@ -53,7 +53,9 @@
 
 #include <Mod/SeaLabAPI/App/SeaLabFeatureLocationDistribution.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureMeanAcceleration.h>
-#include <Mod/SeaLabAPI/App/SeaLabFeatureSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureFrequencySpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpreadingFunction.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeaturePSDDecompositionMethod.h> 
 #include <Mod/SeaLabAPI/App/SeaLabFeatureCoherence.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureSimulationMethod.h>
@@ -91,7 +93,7 @@ PROPERTY_SOURCE(SeaLabGui::ViewProviderSeaLabSimulation, Gui::ViewProviderDocume
 
 ViewProviderSeaLabSimulation::ViewProviderSeaLabSimulation()
 {
-    sPixmap = "SeaLab_NewSimulation";
+    sPixmap = "SeaLab_CreateSimulation";
 }
 
 ViewProviderSeaLabSimulation::~ViewProviderSeaLabSimulation()
@@ -129,20 +131,35 @@ bool ViewProviderSeaLabSimulation::run()
     if (!sim) {
         return false;
     }
+    if (sim->isRuning())
+    {
+        Base::Console().Error("This simulation is already running.\n");
+        return false;
+    }
+
     auto activeMethod = sim->getActiveSimulationMethod();
 
-    //SeaLabAPI::IrpsSeLSimulationMethod* activeSimMethod = static_cast<SeaLabAPI::IrpsSeLSimulationMethod*>(sim->getActiveSimulationMethod());
     if (!activeMethod) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
     SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
+        sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
 
-    vp->simulate();
-
+    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
+    {
+        vp->simulate();
+    }
+    else
+    {
+        vp->simulateInLargeScaleMode();
+    }
+    
+    sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }
 
@@ -152,7 +169,21 @@ bool ViewProviderSeaLabSimulation::stop()
     if (!sim) {
         return false;
     }
-    return sim->stop();
+    
+    if (!sim->isRuning())
+    {
+        Base::Console().Warning("This simulation is not running.\n");
+        return false;
+    }
+    auto worker = getAllComputation()->GetSeaLabSimulationWorker();
+    if (worker) {
+        getAllComputation()->GetSeaLabSimulationWorker()->stop();
+    }
+ 
+    if (seaLabAllFeaturesComputation)
+        Q_EMIT seaLabAllFeaturesComputation->stopped();
+
+    return true;
 }
 
 bool ViewProviderSeaLabSimulation::activateSimulation() { return doubleClicked(); }
@@ -248,7 +279,11 @@ bool ViewProviderSeaLabSimulation::canDragObject(App::DocumentObject* obj) const
         return true;
     if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureMeanAcceleration ::getClassTypeId())) 
         return true;
-    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId())) 
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId())) 
+        return true;
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId())) 
+        return true;
+    if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId())) 
         return true;
     if (obj->getTypeId().isDerivedFrom( SeaLabAPI::SeaLabFeaturePSDDecompositionMethod::getClassTypeId())) 
         return true;

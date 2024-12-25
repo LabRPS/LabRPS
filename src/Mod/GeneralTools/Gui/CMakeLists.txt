@@ -32,6 +32,8 @@ SET(GeneralToolsGui_SRCS
     ${GeneralToolsGui_UIC_SRCS}
     PreCompiled.cpp
     PreCompiled.h
+    RPSGeneralToolsPyTool.h
+    RPSGeneralToolsPyTool.cpp
 )
 
 add_library(GeneralToolsGui SHARED ${GeneralToolsGui_SRCS})

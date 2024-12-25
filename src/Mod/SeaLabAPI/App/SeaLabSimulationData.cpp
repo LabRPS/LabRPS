@@ -75,7 +75,9 @@ SeaLabSimulationData::SeaLabSimulationData()
 	ADD_PROPERTY_TYPE(spatialDistribution, (""), 0, Prop_None, "current location distribution name");
 	ADD_PROPERTY_TYPE(shearVelocity, (""), 0, Prop_None, "current shear velocity name");
 	ADD_PROPERTY_TYPE(meanFunction, (""), 0, Prop_None, "current mean wind profile name");
-	ADD_PROPERTY_TYPE(spectrumModel, (""), 0, Prop_None, "current along wind spectrum model name");
+	ADD_PROPERTY_TYPE(frequencySpectrum, (""), 0, Prop_None, "current frequency spectrum name");
+	ADD_PROPERTY_TYPE(directionalSpectrum, (""), 0, Prop_None, "current directional spectrum name");
+	ADD_PROPERTY_TYPE(directionalSpreadingFunction, (""), 0, Prop_None, "current directional spreading function name");
 	ADD_PROPERTY_TYPE(coherenceFunction, (""), 0, Prop_None, "current coherence function name");
 	ADD_PROPERTY_TYPE(simulationMethod, (""), 0, Prop_None, "current simulation method name");
 	ADD_PROPERTY_TYPE(frequencyDistribution, (""), 0, Prop_None, "current frequency distribution name");

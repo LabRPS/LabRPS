@@ -90,6 +90,7 @@ QString SeismicLabUtils::ComputeMeanAccelerationVectorT =  QString::fromLatin1("
 QString SeismicLabUtils::ComputeModulationValue = QString::fromLatin1("ComputeModulationValue");
 QString SeismicLabUtils::ComputeModulationVectorP = QString::fromLatin1("ComputeModulationVectorP");
 QString SeismicLabUtils::ComputeModulationVectorT = QString::fromLatin1("ComputeModulationVectorT");
+QString SeismicLabUtils::ComputeModulationVectorF = QString::fromLatin1("ComputeModulationVectorF");
 
 QString SeismicLabUtils::ComputePeakFactorValue = QString::fromLatin1("ComputePeakFactorValue");
 QString SeismicLabUtils::ComputePeakFactorVectorP = QString::fromLatin1("ComputePeakFactorVectorP");

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureRandomness, WindLabAPI::WindLabFeature
 
 WindLabFeatureRandomness::WindLabFeatureRandomness(void)
 {
+    this->OutputUnitString.setValue("rad");
 }
 
 WindLabFeatureRandomness::~WindLabFeatureRandomness()

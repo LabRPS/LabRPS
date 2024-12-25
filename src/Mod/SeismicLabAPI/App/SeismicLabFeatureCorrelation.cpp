@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureCorrelation, SeismicLabAPI::Seis
 
 SeismicLabFeatureCorrelation::SeismicLabFeatureCorrelation(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureCorrelation::~SeismicLabFeatureCorrelation()

@@ -40,10 +40,12 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureCoherence, WindLabAPI::WindLabFeature)
 
 WindLabFeatureCoherence::WindLabFeatureCoherence(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureCoherence::~WindLabFeatureCoherence()
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 short WindLabFeatureCoherence::mustExecute(void) const

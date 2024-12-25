@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureWavePassageEffect, SeismicLabAPI
 
 SeismicLabFeatureWavePassageEffect::SeismicLabFeatureWavePassageEffect(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureWavePassageEffect::~SeismicLabFeatureWavePassageEffect()

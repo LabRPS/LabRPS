@@ -195,7 +195,7 @@ bool CRPSSeaLabFramework::ComputeMeanAccelerationSpeedVectorT(const SeaLabAPI::S
 }
 
 
-bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSSeaLabFramework::ComputeModulationValue(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -211,12 +211,12 @@ bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimula
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dFrequency, dTime, dValue);
 
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -232,7 +232,49 @@ bool CRPSSeaLabFramework::ComputeModulationVectorP(const SeaLabAPI::SeaLabSimula
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dTime, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dFrequency, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeModulationVectorT(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dFrequency, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeModulationVectorF(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorF(Data, location, dTime, dVarVector, dValVector);
 
     return returnValue;
 }
@@ -323,7 +365,8 @@ bool CRPSSeaLabFramework::GenerateRandomMatrixFP(const SeaLabAPI::SeaLabSimulati
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeCrossSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
+// frequency spectrum
+bool CRPSSeaLabFramework::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -332,19 +375,19 @@ bool CRPSSeaLabFramework::ComputeCrossSpectrumVectorF(const SeaLabAPI::SeaLabSim
         return false;
     }
 
-    SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
 	if (NULL == SelectedSpectrumObject)
 	{
         return false;
 	}
 
-    bool returnValue = SelectedSpectrumObject->ComputeCrossSpectrumVectorF(Data, locationJ, locationK, dTime, dVarVector, dValVector);
+    bool returnValue = SelectedSpectrumObject->ComputeCrossFrequencySpectrumValue(Data, locationJ, locationK, dFrequency, dTime, dValue);
 
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeCrossSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+bool CRPSSeaLabFramework::ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -353,100 +396,376 @@ bool CRPSSeaLabFramework::ComputeCrossSpectrumVectorT(const SeaLabAPI::SeaLabSim
         return false;
     }
 
-    SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
 	if (NULL == SelectedSpectrumObject)
 	{
         return false;
 	}
 
-    bool returnValue = SelectedSpectrumObject->ComputeCrossSpectrumVectorT(Data, locationJ, locationK, dFrequency, dVarVector, dValVector);
+    bool returnValue = SelectedSpectrumObject->ComputeCrossFrequencySpectrumVectorF(Data, locationJ, locationK, dTime, dVarVector, dValVector);
 
     return returnValue;
 }
 
- bool CRPSSeaLabFramework::ComputeCrossSpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
- {
-     auto doc = App::GetApplication().getActiveDocument();
+bool CRPSSeaLabFramework::ComputeCrossFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
 
-     if (!doc)
-     {
-         return false;
-     }
+    if (!doc)
+    {
+        return false;
+    }
 
-     SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
-     if (NULL == SelectedSpectrumObject)
-     {
-         return false;
-     }
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
 
-     bool returnValue = SelectedSpectrumObject->ComputeCrossSpectrumMatrixPP(Data, dFrequency, dTime, psdMatrix);
+    bool returnValue = SelectedSpectrumObject->ComputeCrossFrequencySpectrumVectorT(Data, locationJ, locationK, dFrequency, dVarVector, dValVector);
 
-     return returnValue;
- }
+    return returnValue;
+}
 
-  bool CRPSSeaLabFramework::ComputeAutoSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
-  {
-     auto doc = App::GetApplication().getActiveDocument();
+bool CRPSSeaLabFramework::ComputeCrossFrequencySpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
+{
+    auto doc = App::GetApplication().getActiveDocument();
 
-     if (!doc)
-     {
-         return false;
-     }
+    if (!doc)
+    {
+        return false;
+    }
 
-     SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
-     if (NULL == SelectedSpectrumObject)
-     {
-         return false;
-     }
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
 
-     bool returnValue = SelectedSpectrumObject->ComputeAutoSpectrumValue(Data,location, dFrequency, dTime, dValue);
+    bool returnValue = SelectedSpectrumObject->ComputeCrossFrequencySpectrumMatrixPP(Data, dFrequency, dTime, psdMatrix);
 
-     return returnValue;
- }  
-  bool CRPSSeaLabFramework::ComputeAutoSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
-  {
-     auto doc = App::GetApplication().getActiveDocument();
+    return returnValue;
+}
 
-     if (!doc)
-     {
-         return false;
-     }
+bool CRPSSeaLabFramework::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
+{
+    auto doc = App::GetApplication().getActiveDocument();
 
-     SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    if (!doc)
+    {
+        return false;
+    }
 
-     if (NULL == SelectedSpectrumObject)
-     {
-         return false;
-     }
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
-     bool returnValue = SelectedSpectrumObject->ComputeAutoSpectrumVectorF(Data, location, dTime, dVarVector, dValVector);
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
 
-     return returnValue;
- }
+    bool returnValue = SelectedSpectrumObject->ComputeAutoFrequencySpectrumValue(Data, location, dFrequency, dTime, dValue);
 
-  bool CRPSSeaLabFramework::ComputeAutoSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
-  {
-     auto doc = App::GetApplication().getActiveDocument();
+    return returnValue;
+}
 
-     if (!doc)
-     {
-         return false;
-     }
+bool CRPSSeaLabFramework::ComputeAutoFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
 
-     SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
+    if (!doc)
+    {
+        return false;
+    }
 
-     if (NULL == SelectedSpectrumObject)
-     {
-         return false;
-     }
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
 
-     bool returnValue = SelectedSpectrumObject->ComputeAutoSpectrumVectorT(Data, location, dFrequency, dVarVector, dValVector);
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
 
-     return returnValue;
- }
+    bool returnValue = SelectedSpectrumObject->ComputeAutoFrequencySpectrumVectorF(Data, location, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeAutoFrequencySpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLFrequencySpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(Data.frequencySpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeAutoFrequencySpectrumVectorT(Data, location, dFrequency, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+// direction spectrum
+bool CRPSSeaLabFramework::ComputeCrossDirectionalSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, const double &dDirection, std::complex<double> &dValue)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeCrossDirectionalSpectrumValue(Data, locationJ, locationK, dFrequency, dTime, dDirection, dValue);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeCrossDirectionalSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, const double &dDirection, vec &dVarVector, cx_vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeCrossDirectionalSpectrumVectorF(Data, locationJ, locationK, dTime, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeCrossDirectionalSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dDirection, vec &dVarVector, cx_vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeCrossDirectionalSpectrumVectorT(Data, locationJ, locationK, dFrequency, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeCrossDirectionalSpectrumMatrixPP(const SeaLabAPI::SeaLabSimulationData &Data, const double &dFrequency, const double &dTime, const double &dDirection, cx_mat &psdMatrix)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeCrossDirectionalSpectrumMatrixPP(Data, dFrequency, dTime, dDirection,psdMatrix);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeAutoDirectionalSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, const double &dDirection, double &dValue)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeAutoDirectionalSpectrumValue(Data, location, dFrequency, dTime, dDirection, dValue);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeAutoDirectionalSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeAutoDirectionalSpectrumVectorF(Data, location, dTime, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeAutoDirectionalSpectrumVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, const double &dDirection, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeAutoDirectionalSpectrumVectorT(Data, location, dFrequency, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeAutoDirectionalSpectrumVectorD(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeAutoDirectionalSpectrumVectorD(Data, location, dFrequency, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+// directional spreading function
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionValue(Data,location, dTime, dDirection, dValue);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionVectorT(Data, location, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorP(const SeaLabAPI::SeaLabSimulationData& Data, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionVectorP(Data, dTime, dDirection, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorD(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(Data.directionalSpectrum.getValue()));
+
+	if (NULL == SelectedSpectrumObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionVectorD(Data, location, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
 
 bool CRPSSeaLabFramework::ComputeCrossCoherenceValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
@@ -575,28 +894,6 @@ bool CRPSSeaLabFramework::ComputeMeanAccelerationSpeedValue(const SeaLabAPI::Sea
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeModulationValue(const SeaLabAPI::SeaLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-
-    if (!doc)
-    {
-        return false;
-    }
-
-    SeaLabAPI::IrpsSeLModulation* SelectedModulationObject = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-	if (NULL == SelectedModulationObject)
-	{
-        return false;
-	}
-
-    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dTime, dValue);
-
-    return returnValue;
-}
-
-
 bool CRPSSeaLabFramework::ComputeRandomValue(const SeaLabAPI::SeaLabSimulationData &Data, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
@@ -622,29 +919,6 @@ bool CRPSSeaLabFramework::ComputeRandomValue(const SeaLabAPI::SeaLabSimulationDa
 
     return returnValue;
 }
-
-
-bool CRPSSeaLabFramework::ComputeCrossSpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-
-    if (!doc)
-    {
-        return false;
-    }
-
-    SeaLabAPI::IrpsSeLSpectrum* SelectedSpectrumObject = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(Data.spectrumModel.getValue()));
-
-	if (NULL == SelectedSpectrumObject)
-	{
-        return false;
-	}
-
-    bool returnValue = SelectedSpectrumObject->ComputeCrossSpectrumValue(Data, locationJ, locationK, dFrequency, dTime, dValue);
-
-    return returnValue;
-}
-
 
  bool CRPSSeaLabFramework::ComputeFrequencyValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
  {

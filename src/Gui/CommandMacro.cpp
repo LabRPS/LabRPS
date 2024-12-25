@@ -29,6 +29,7 @@
 #include "Macro.h"
 #include "MainWindow.h"
 #include "PythonDebugger.h"
+#include <Base/Interpreter.h>
 
 
 using namespace Gui;

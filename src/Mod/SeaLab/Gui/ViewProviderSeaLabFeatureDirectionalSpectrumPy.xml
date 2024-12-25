@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+    <PythonExport
+            Father="ViewProviderDocumentObjectPy"
+            Name="ViewProviderSeaLabFeatureDirectionalSpectrumPy"
+            Twin="ViewProviderSeaLabFeatureDirectionalSpectrum"
+            TwinPointer="ViewProviderSeaLabFeatureDirectionalSpectrum"
+            Include="Mod/SeaLab/Gui/ViewProviderSeaLabFeatureDirectionalSpectrum.h"
+            Namespace="SeaLabGui"
+            FatherInclude="Gui/ViewProviderDocumentObjectPy.h"
+            FatherNamespace="Gui"
+            Constructor="false"
+            Delete="false">
+        <Documentation>
+            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <UserDocu>ViewProviderSeaLabFeatureDirectionalSpectrum class</UserDocu>
+        </Documentation>
+      <Methode Name="ComputeCrossDirectionalSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute cross frequency spectrum value between two locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeCrossDirectionalSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute cross frequency spectrum  between two locations for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeCrossDirectionalSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute cross frequency spectrum between two locations for all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeCrossDirectionalSpectrumVectorD">
+        <Documentation>
+          <UserDocu>Compute cross frequency spectrum between two locations for all direction</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeCrossDirectionalSpectrumMatrixPP">
+        <Documentation>
+          <UserDocu>Compute cross frequency spectrum matrix for all locations</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeAutoDirectionalSpectrumValue">
+        <Documentation>
+          <UserDocu>Compute auto frequency spectrum value between at a location, at a given time instance, at a frequency and a given direction.</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeAutoDirectionalSpectrumVectorF">
+        <Documentation>
+          <UserDocu>Compute auto frequency spectrum for all frequencies</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeAutoDirectionalSpectrumVectorT">
+        <Documentation>
+          <UserDocu>Compute auto frequency spectrum all time instants</UserDocu>
+        </Documentation>
+      </Methode>
+      <Methode Name="ComputeAutoDirectionalSpectrumVectorD">
+        <Documentation>
+          <UserDocu>Compute auto spectrum for all direction</UserDocu>
+        </Documentation>
+      </Methode>
+    </PythonExport>
+</GenerateModel>

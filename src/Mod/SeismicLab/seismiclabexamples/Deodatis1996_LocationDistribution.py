@@ -91,11 +91,9 @@ def setup(doc=None, showGui=True):
         # explanation object
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
-        import SeismicLabGui
+        import GeneralToolsGui
         #show the location coordinate in Alphaplot
-        SeismicLabGui.SeismicLabPyTool.showArray(sim.getSimulationData().numberOfSpatialPosition, 4, locRes)
-        loc.ViewObject.Document.activeView().viewAxonometric()
-        loc.ViewObject.Document.activeView().fitAll()
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfSpatialPosition, 4, locRes, False)
 
         import numpy
         import matplotlib.pyplot as plt

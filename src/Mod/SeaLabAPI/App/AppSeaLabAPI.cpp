@@ -31,7 +31,6 @@
 #include "SeaLabFeature.h"
 #include "SeaLabFeatureLocationDistribution.h"
 #include "SeaLabFeatureMeanAcceleration.h"
-#include "SeaLabFeatureSpectrum.h"
 #include "SeaLabFeaturePSDDecompositionMethod.h"
 #include "SeaLabFeatureCoherence.h"
 #include "SeaLabFeatureSimulationMethod.h"
@@ -53,6 +52,10 @@
 #include "SeaLabFeatureUserDefinedRPSObject.h"
 #include "SeaLabFeatureMatrixTool.h"
 #include "SeaLabFeatureTableTool.h"
+#include "SeaLabFeatureFrequencySpectrum.h"
+#include "SeaLabFeatureDirectionalSpectrum.h"
+#include "SeaLabFeatureDirectionalSpreadingFunction.h"
+
 #include "SeaLabFeaturePy.h"
 
 
@@ -72,7 +75,6 @@ PyMOD_INIT_FUNC(SeaLabAPI)
     SeaLabAPI::SeaLabFeature::init();
     SeaLabAPI::SeaLabFeatureLocationDistribution::init();
     SeaLabAPI::SeaLabFeatureMeanAcceleration ::init();
-    SeaLabAPI::SeaLabFeatureSpectrum::init();
     SeaLabAPI::SeaLabFeaturePSDDecompositionMethod::init();
     SeaLabAPI::SeaLabFeatureCoherence::init();
     SeaLabAPI::SeaLabFeatureSimulationMethod::init();
@@ -92,6 +94,10 @@ PyMOD_INIT_FUNC(SeaLabAPI)
     SeaLabAPI::SeaLabFeatureVariance::init();
     SeaLabAPI::SeaLabFeatureWavePassageEffect::init();
     SeaLabAPI::SeaLabFeatureUserDefinedRPSObject::init();
+    SeaLabAPI::SeaLabFeatureFrequencySpectrum::init();
+    SeaLabAPI::SeaLabFeatureDirectionalSpectrum::init();
+    SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::init();
+
     SeaLabAPI::SeaLabSimulationData::init();
 
     Base::Console().Log("Loading SeaLabAPI module... done\n");

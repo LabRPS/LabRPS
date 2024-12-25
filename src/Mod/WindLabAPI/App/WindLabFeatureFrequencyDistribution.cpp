@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureFrequencyDistribution, WindLabAPI::Win
 
 WindLabFeatureFrequencyDistribution::WindLabFeatureFrequencyDistribution(void)
 {
+    this->OutputUnitString.setValue("Hz");
 }
 
 WindLabFeatureFrequencyDistribution::~WindLabFeatureFrequencyDistribution()

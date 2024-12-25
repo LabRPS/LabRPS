@@ -11,6 +11,7 @@
 #include <App/WindLabUtils.h>
 #include <App/SeismicLabUtils.h>
 #include <App/SeaLabUtils.h>
+#include <App/UserLabUtils.h>
 
 #include <Workbench.h>
 
@@ -416,7 +417,6 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
 
     return QIcon(QString::fromUtf8(":/icons/SeismicLabFeatures/SeismicLab_Feature_UserDefinedObj.svg"));
     }
-    
     else if (name == App::SeaLabUtils::rpsPhenomenonSeaSurface) {
         
     if (group == App::SeaLabUtils::objGroupCoherenceFunction) {
@@ -494,13 +494,22 @@ QIcon ObjectSelectionPage::getFeatureIcon(QString group)
         return QIcon(
             QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_WavePassageObj.svg"));
     }
-    else if (group == App::SeaLabUtils::objGroupSpectrum) {
-        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg"));
+    else if (group == App::SeaLabUtils::objGroupFrequencySpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_FrequencySpectrumObj.svg"));
+    }
+        else if (group == App::SeaLabUtils::objGroupDirectionalSpectrum) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpectrumObj.svg"));
+    }
+        else if (group == App::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpreadingFunctionObj.svg"));
     }
 
     return QIcon(QString::fromUtf8(":/icons/SeaLabFeatures/SeaLab_Feature_UserDefinedObj.svg"));
     }
- 
+    else if (name == App::UserLabUtils::rpsPhenomenon)
+    {
+        return QIcon(QString::fromUtf8(":/icons/UserLabFeatures/UserLab_Feature_SimulationMethodObj.svg"));
+    }
   
 }
 

@@ -34,7 +34,9 @@ QString SeaLabUtils::rpsPhenomenonSeaSurface = QString::fromLatin1("Sea Surface"
 // object groups
 QString SeaLabUtils::objGroupLocationDistribution =  QString::fromLatin1("Location Distribution");
 QString SeaLabUtils::objGroupMeanAcceleration =  QString::fromLatin1("Mean Acceleration");
-QString SeaLabUtils::objGroupSpectrum =  QString::fromLatin1("Spectrum");
+QString SeaLabUtils::objGroupFrequencySpectrum =  QString::fromLatin1("Frequency Spectrum");
+QString SeaLabUtils::objGroupDirectionalSpectrum =  QString::fromLatin1("Directional Spectrum");
+QString SeaLabUtils::objGroupDirectionalSpreadingFunction =  QString::fromLatin1("Directional Spreading Function");
 QString SeaLabUtils::objGroupSpectrumDecompositionMethod =  QString::fromLatin1("Spectrum Decomposition Method");
 QString SeaLabUtils::objGroupCoherenceFunction =  QString::fromLatin1("Coherence Function");
 QString SeaLabUtils::objGroupSimulationMethod =  QString::fromLatin1("Simulation Method");
@@ -90,6 +92,7 @@ QString SeaLabUtils::ComputeMeanAccelerationVectorT =  QString::fromLatin1("Comp
 QString SeaLabUtils::ComputeModulationValue = QString::fromLatin1("ComputeModulationValue");
 QString SeaLabUtils::ComputeModulationVectorP = QString::fromLatin1("ComputeModulationVectorP");
 QString SeaLabUtils::ComputeModulationVectorT = QString::fromLatin1("ComputeModulationVectorT");
+QString SeaLabUtils::ComputeModulationVectorF = QString::fromLatin1("ComputeModulationVectorF");
 
 QString SeaLabUtils::ComputePeakFactorValue = QString::fromLatin1("ComputePeakFactorValue");
 QString SeaLabUtils::ComputePeakFactorVectorP = QString::fromLatin1("ComputePeakFactorVectorP");
@@ -136,12 +139,28 @@ QString SeaLabUtils::ComputeWavePassageEffectVectorF = QString::fromLatin1("Comp
 QString SeaLabUtils::ComputeWavePassageEffectVectorT = QString::fromLatin1("ComputeWavePassageEffectVectorT");
 QString SeaLabUtils::ComputeWavePassageEffectMatrixPP = QString::fromLatin1("ComputeWavePassageEffectMatrixPP");
 
-QString SeaLabUtils::ComputeCrossSpectrumValue = QString::fromLatin1("ComputeCrossSpectrumValue");
-QString SeaLabUtils::ComputeCrossSpectrumVectorF = QString::fromLatin1("ComputeCrossSpectrumVectorF");
-QString SeaLabUtils::ComputeCrossSpectrumVectorT = QString::fromLatin1("ComputeCrossSpectrumVectorT");
-QString SeaLabUtils::ComputeCrossSpectrumMatrixPP = QString::fromLatin1("ComputeCrossSpectrumMatrixPP");
-QString SeaLabUtils::ComputeAutoSpectrumValue = QString::fromLatin1("ComputeAutoSpectrumValue");
-QString SeaLabUtils::ComputeAutoSpectrumVectorF = QString::fromLatin1("ComputeAutoSpectrumVectorF");
-QString SeaLabUtils::ComputeAutoSpectrumVectorT = QString::fromLatin1("ComputeAutoSpectrumVectorT");
+QString SeaLabUtils::ComputeCrossFrequencySpectrumValue = QString::fromLatin1("ComputeCrossFrequencySpectrumValue");
+QString SeaLabUtils::ComputeCrossFrequencySpectrumVectorF = QString::fromLatin1("ComputeCrossFrequencySpectrumVectorF");
+QString SeaLabUtils::ComputeCrossFrequencySpectrumVectorT = QString::fromLatin1("ComputeCrossFrequencySpectrumVectorT");
+QString SeaLabUtils::ComputeCrossFrequencySpectrumMatrixPP = QString::fromLatin1("ComputeCrossFrequencySpectrumMatrixPP");
+QString SeaLabUtils::ComputeAutoFrequencySpectrumValue = QString::fromLatin1("ComputeAutoFrequencySpectrumValue");
+QString SeaLabUtils::ComputeAutoFrequencySpectrumVectorF = QString::fromLatin1("ComputeAutoFrequencySpectrumVectorF");
+QString SeaLabUtils::ComputeAutoFrequencySpectrumVectorT = QString::fromLatin1("ComputeAutoFrequencySpectrumVectorT");
+
+
+QString SeaLabUtils::ComputeCrossDirectionalSpectrumValue = QString::fromLatin1("ComputeCrossDirectionalSpectrumValue");
+QString SeaLabUtils::ComputeCrossDirectionalSpectrumVectorF = QString::fromLatin1("ComputeCrossDirectionalSpectrumVectorF");
+QString SeaLabUtils::ComputeCrossDirectionalSpectrumVectorT = QString::fromLatin1("ComputeCrossDirectionalSpectrumVectorT");
+QString SeaLabUtils::ComputeCrossDirectionalSpectrumVectorD = QString::fromLatin1("ComputeCrossDirectionalSpectrumVectorD");
+QString SeaLabUtils::ComputeCrossDirectionalSpectrumMatrixPP = QString::fromLatin1("ComputeCrossDirectionalSpectrumMatrixPP");
+QString SeaLabUtils::ComputeAutoDirectionalSpectrumValue = QString::fromLatin1("ComputeAutoDirectionalSpectrumValue");
+QString SeaLabUtils::ComputeAutoDirectionalSpectrumVectorF = QString::fromLatin1("ComputeAutoDirectionalSpectrumVectorF");
+QString SeaLabUtils::ComputeAutoDirectionalSpectrumVectorT = QString::fromLatin1("ComputeAutoDirectionalSpectrumVectorT");
+QString SeaLabUtils::ComputeAutoDirectionalSpectrumVectorD = QString::fromLatin1("ComputeAutoDirectionalSpectrumVectorD");
+
+QString SeaLabUtils::ComputeDirectionalSpreadingFunctionValue = QString::fromLatin1("ComputeDirectionalSpreadingFunctionValue");
+QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorT");
+QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorP");
+QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorD");
 
 

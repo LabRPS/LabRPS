@@ -186,7 +186,7 @@ private:
 	QString localPluginPath = App::PluginManager::GetInstance().GetPluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
     QString onlinePluginPath = App::PluginManager::GetInstance().GetOnlinePluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
 
-    QString phenomenon = UserLabUtils::rpsPhenomenonWindVelocity;
+    QString phenomenon = UserLabUtils::rpsPhenomenon;
 
 	if (pluginSource == 1)
 	{
@@ -244,7 +244,7 @@ private:
 	QString localPluginPath = App::PluginManager::GetInstance().GetPluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
     QString onlinePluginPath = App::PluginManager::GetInstance().GetOnlinePluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
 
-    QString phenomenon = UserLabUtils::rpsPhenomenonWindVelocity;
+    QString phenomenon = UserLabUtils::rpsPhenomenon;
 
 	if (pluginSource == 1)
 	{
@@ -323,7 +323,7 @@ Py::Object Module::unInstallPlugin(const Py::Tuple& args)
 	QString localPluginPath = App::PluginManager::GetInstance().GetPluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
     QString onlinePluginPath = App::PluginManager::GetInstance().GetOnlinePluginLacotionPath(QString::fromLatin1("UserLabWorkbench"));
 
-    QString phenomenon = UserLabUtils::rpsPhenomenonWindVelocity;
+    QString phenomenon = UserLabUtils::rpsPhenomenon;
 
 	if (pluginSource == 1)
 	{

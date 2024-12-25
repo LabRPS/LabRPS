@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureZSpectrum, WindLabAPI::WindLabFeature)
 
 WindLabFeatureZSpectrum::WindLabFeatureZSpectrum(void)
 {
+   this->OutputUnitString.setValue("m^2/s");
 }
 
 WindLabFeatureZSpectrum::~WindLabFeatureZSpectrum()

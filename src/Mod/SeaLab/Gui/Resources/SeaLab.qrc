@@ -1,9 +1,11 @@
 <RCC>
     <qresource>
         <file>icons/SeaLabWorkbench.svg</file>
-        <file>icons/SeaLab_NewSimulation.svg</file>
-        <file>icons/SeaLab_Features.svg</file>
+        <file>icons/SeaLab_CreateSimulation.svg</file>
+        <file>icons/SeaLab_CreateFeature.svg</file>
         <file>icons/SeaLab_Examples.svg</file>
+        <file>icons/SeaLab_Simulation_Start.svg</file>
+        <file>icons/SeaLab_Simulation_Stop.svg</file>
         <file>icons/general/folder.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_CoherenceObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_CorrelationObj.svg</file>
@@ -19,7 +21,9 @@
         <file>icons/SeaLabFeatures/SeaLab_Feature_RandomnessProviderObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_ShearVelocityObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_SkewnessObj.svg</file>
-        <file>icons/SeaLabFeatures/SeaLab_Feature_SpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_FrequencySpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpectrumObj.svg</file>
+        <file>icons/SeaLabFeatures/SeaLab_Feature_DirectionalSpreadingFunctionObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_StandardDeviationObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_WavePassageObj.svg</file>
         <file>icons/SeaLabFeatures/SeaLab_Feature_VarianceObj.svg</file>

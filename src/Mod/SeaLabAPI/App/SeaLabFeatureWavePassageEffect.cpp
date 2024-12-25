@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureWavePassageEffect, SeaLabAPI::SeaLabFeat
 
 SeaLabFeatureWavePassageEffect::SeaLabFeatureWavePassageEffect(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureWavePassageEffect::~SeaLabFeatureWavePassageEffect()

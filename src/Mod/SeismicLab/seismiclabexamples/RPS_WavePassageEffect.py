@@ -124,11 +124,11 @@ def setup(doc=None, showGui=True):
 
     # if we are Gui mode, show the stored result in Alphaplot
     if LabRPS.GuiUp and showGui:
-        import SeismicLabGui
+        import GeneralToolsGui
         #show the mean ground motion accelerations in Alphaplot
-        SeismicLabGui.SeismicLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe12)
-        SeismicLabGui.SeismicLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe13)
-        SeismicLabGui.SeismicLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe23)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe12, False)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe13, False)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, wpe23, False)
 
         import numpy
         import matplotlib.pyplot as plt

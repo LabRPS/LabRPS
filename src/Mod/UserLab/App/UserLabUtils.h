@@ -42,7 +42,7 @@ class UserLabExport UserLabUtils {
   virtual ~UserLabUtils() {}  // avoid the warning message
 
   // phenomena
-  static QString rpsPhenomenonWindVelocity;
+  static QString rpsPhenomenon;
   static QString objGroupSimulationMethod;
   static QString docRPSFeatures;
   static QString docSimulations;

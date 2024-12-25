@@ -84,7 +84,7 @@
 #endif
 
 #else
-#   error "LabRPS is not ported to this OS yet. For help see www.freecadweb.org"
+#   error "LabRPS is not ported to this OS yet. For help see www.labrps.com"
 #endif
 
 #ifdef RPS_OS_WIN32

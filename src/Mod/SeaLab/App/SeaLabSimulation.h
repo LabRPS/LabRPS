@@ -104,7 +104,9 @@ public:
 	App::PropertyEnumeration SpatialDistribution;
 	App::PropertyEnumeration ShearVelocity;
 	App::PropertyEnumeration MeanFunction;
-	App::PropertyEnumeration SpectrumModel;
+	App::PropertyEnumeration FrequencySpectrum;
+    App::PropertyEnumeration DirectionalSpectrum;
+	App::PropertyEnumeration DirectionalSpreadingFunction;
 	App::PropertyEnumeration CoherenceFunction;
 	App::PropertyEnumeration SimulationMethod;
 	App::PropertyEnumeration FrequencyDistribution;
@@ -209,9 +211,12 @@ public:
     App::DocumentObject* getActiveUserDefinedRPSObject();
     App::DocumentObject* getActiveVariance();
     App::DocumentObject* getActiveWavePassageEffect();
-    App::DocumentObject* getActiveSpectrum();
     App::DocumentObject* getActiveMatrixTool();
     App::DocumentObject* getActiveTableTool();
+    App::DocumentObject* getActiveFrequencySpectrum();
+    App::DocumentObject* getActiveDirectionalSpectrum();
+    App::DocumentObject* getActiveDirectionalSpreadingFunction();
+
     void setActiveFeature(App::RPSFeature* feature);
     App::RPSFeature* getActiveFeature(const QString group);
     std::vector <App::RPSFeature*> getAllFeatures(const QString group);
@@ -235,8 +240,10 @@ public:
     bool computeMeanAccelerationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName);
 
 	// modulation function
-    bool computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName);
-    bool computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName);
+    bool computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationVectorP(const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
 
 	// psd decomposition
     bool computeDecomposedCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
@@ -247,20 +254,54 @@ public:
     bool generateRandomMatrixFP(mat &dRandomValueArray, std::string& featureName);
     bool generateRandomCubeFPS(cube &dRandomValueCube, std::string& featureName);
 
-	// spectrum
-    bool computeCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
-    bool computeCrossSpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
-    bool computeCrossSpectrumMatrixPP(const double &dFrequency, const double &dTime, cx_mat &psdMatrix, std::string& featureName);
-    bool computeAutoSpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName);
-    bool computeAutoSpectrumVectorF(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
-    bool computeAutoSpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName);
+    // frequency spectrum
+    bool computeAutoFrequencySpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName);
+    
+    bool computeAutoFrequencySpectrumVectorF(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeAutoFrequencySpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeCrossFrequencySpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
+
+    bool computeCrossFrequencySpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
+
+    bool computeCrossFrequencySpectrumMatrixPP(const double &dFrequency, const double &dTime, cx_mat &psdMatrix, std::string& featureName);
+
+    bool computeCrossFrequencySpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
+
+    // direction spectrum
+  
+    bool computeCrossDirectionalSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, const double &dDirection, std::complex<double> &dValue, std::string& featureName);
+
+    bool computeCrossDirectionalSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, const double &dDirection, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
+
+    bool computeCrossDirectionalSpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dDirection, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
+
+    bool computeCrossDirectionalSpectrumVectorD(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
+
+    bool computeCrossDirectionalSpectrumMatrixPP(const double &dFrequency, const double &dTime, const double &dDirection, cx_mat &psdMatrix, std::string& featureName);
+
+    bool computeAutoDirectionalSpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, const double &dDirection, double &dValue, std::string& featureName);
+    
+    bool computeAutoDirectionalSpectrumVectorF(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeAutoDirectionalSpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeAutoDirectionalSpectrumVectorD(const Base::Vector3d &location, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+   // directional spreading function
+    bool computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue, std::string& featureName);
+    
+    bool computeDirectionalSpreadingFunctionVectorT(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeDirectionalSpreadingFunctionVectorP(const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+
+    bool computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
 
     bool computeCrossCoherenceValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
     bool computeCrossCorrelationValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue, std::string& featureName);
     bool computeMeanAccelerationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName);
-    bool computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName);
     bool computeRandomValue(double &dValue, std::string& featureName);
-    bool computeCrossSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
 	bool computeFrequencyValue(const Base::Vector3d &location, const int &frequencyIndex, double &dValue, std::string& featureName);
 
     bool tableToolCompute(mat& inputTable, mat& outputTable, std::string& featureName);

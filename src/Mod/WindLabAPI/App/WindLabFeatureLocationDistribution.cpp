@@ -41,10 +41,12 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureLocationDistribution, WindLabAPI::Wind
 
 WindLabFeatureLocationDistribution::WindLabFeatureLocationDistribution(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 WindLabFeatureLocationDistribution::~WindLabFeatureLocationDistribution()
 {
+
 }
 
 short WindLabFeatureLocationDistribution::mustExecute(void) const

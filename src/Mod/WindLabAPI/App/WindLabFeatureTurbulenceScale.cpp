@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureTurbulenceScale, WindLabAPI::WindLabFe
 
 WindLabFeatureTurbulenceScale::WindLabFeatureTurbulenceScale(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 WindLabFeatureTurbulenceScale::~WindLabFeatureTurbulenceScale()

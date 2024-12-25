@@ -51,8 +51,11 @@
 #include <Mod/SeaLabAPI/App/SeaLabFeatureUserDefinedRPSObject.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureVariance.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureWavePassageEffect.h>
-#include <Mod/SeaLabAPI/App/SeaLabFeatureSpectrum.h>
 #include <Mod/SeaLabAPI/App/SeaLabFeatureMeanAcceleration.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureFrequencySpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpectrum.h>
+#include <Mod/SeaLabAPI/App/SeaLabFeatureDirectionalSpreadingFunction.h>
+
 #include <Base/Console.h>
 #include <Mod/SeaLab/App/SeaLabSimulationPy.h>
 
@@ -119,7 +122,9 @@ SeaLabSimulation::SeaLabSimulation()
 
     ADD_PROPERTY_TYPE(SpatialDistribution, ((long int)0), featuregroup, Prop_None,"Active location distribution name");
     ADD_PROPERTY_TYPE(MeanFunction, ((long int)0), featuregroup, Prop_None,"Active mean acceleration name");
-    ADD_PROPERTY_TYPE(SpectrumModel, ((long int)0), featuregroup, Prop_None,"Active spectrum model name");
+    ADD_PROPERTY_TYPE(FrequencySpectrum, ((long int)0), featuregroup, Prop_None,"Active frequency spectrum name");
+    ADD_PROPERTY_TYPE(DirectionalSpectrum, ((long int)0), featuregroup, Prop_None,"Active directional spectrum name");
+    ADD_PROPERTY_TYPE(DirectionalSpreadingFunction, ((long int)0), featuregroup, Prop_None,"Active directional spreading function name");
     ADD_PROPERTY_TYPE(CoherenceFunction, ((long int)0), featuregroup, Prop_None,"Active coherence function name");
     ADD_PROPERTY_TYPE(SimulationMethod, ((long int)0), featuregroup, Prop_None,"Active simulation method name");
     ADD_PROPERTY_TYPE(FrequencyDistribution, ((long int)0), featuregroup, Prop_None,"Active frequency distribution name");
@@ -154,7 +159,9 @@ SeaLabSimulation::SeaLabSimulation()
     SpatialDistribution.setEnums(someEnums);
     ShearVelocity.setEnums(someEnums);
     MeanFunction.setEnums(someEnums);
-    SpectrumModel.setEnums(someEnums);
+    FrequencySpectrum.setEnums(someEnums);
+    DirectionalSpectrum.setEnums(someEnums);
+    DirectionalSpreadingFunction.setEnums(someEnums);
     CoherenceFunction.setEnums(someEnums);
     SimulationMethod.setEnums(someEnums);
     FrequencyDistribution.setEnums(someEnums);
@@ -231,7 +238,9 @@ void SeaLabSimulation::updateSimulationData()
     _simuData->spatialDistribution.setValue(this->SpatialDistribution.getValueAsString());
     _simuData->shearVelocity.setValue(this->ShearVelocity.getValueAsString());
     _simuData->meanFunction.setValue(this->MeanFunction.getValueAsString());
-    _simuData->spectrumModel.setValue(this->SpectrumModel.getValueAsString());
+    _simuData->frequencySpectrum.setValue(this->FrequencySpectrum.getValueAsString());
+    _simuData->directionalSpectrum.setValue(this->DirectionalSpectrum.getValueAsString());
+    _simuData->directionalSpreadingFunction.setValue(this->DirectionalSpreadingFunction.getValueAsString());
     _simuData->coherenceFunction.setValue(this->CoherenceFunction.getValueAsString());
     _simuData->simulationMethod.setValue(this->SimulationMethod.getValueAsString());
     _simuData->frequencyDistribution.setValue(this->FrequencyDistribution.getValueAsString());
@@ -262,9 +271,17 @@ void SeaLabSimulation::updateSimulationData()
 
 }
 
-bool SeaLabSimulation::run() { return false; }
+bool SeaLabSimulation::run(){
+    this->setStatus(App::SimulationStatus::Running, true);
+    return true;
+}
 
-bool SeaLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool SeaLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string SeaLabSimulation::getPhenomenonName() const
 {
@@ -551,8 +568,32 @@ void SeaLabSimulation::seaLabFeatureInitalSetting(QString group, QString current
     if (simuData)
         activefeature->OnInitialSetting(*simuData);
     }
-    else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(
+    else if (group == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(
+    doc->getObject(currentSelected.toUtf8().constData()));
+
+    if (!activefeature) {
+        return;
+    }
+
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(
+    doc->getObject(currentSelected.toUtf8().constData()));
+
+    if (!activefeature) {
+        return;
+    }
+
+    auto simuData = getSimulationData();
+    if (simuData)
+        activefeature->OnInitialSetting(*simuData);
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(
     doc->getObject(currentSelected.toUtf8().constData()));
 
     if (!activefeature) {
@@ -587,11 +628,29 @@ QStringList SeaLabSimulation::findAllPluggedSeaLabFeatures(QString group)
         }
         return theList;
     }
-    else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        typedef IrpsSeLSpectrum* (*CreateXSpectrumCallback)();
-        std::map<const std::string, CreateXSpectrumCallback>::iterator psdIt;
-        for (psdIt = CrpsSpectrumFactory::GetObjectNamesMap().begin();
-     psdIt != CrpsSpectrumFactory::GetObjectNamesMap().end(); ++psdIt) {
+    else if (group == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        typedef IrpsSeLFrequencySpectrum* (*CreateFrequencySpectrumCallback)();
+        std::map<const std::string, CreateFrequencySpectrumCallback>::iterator psdIt;
+        for (psdIt = CrpsFrequencySpectrumFactory::GetObjectNamesMap().begin();
+     psdIt != CrpsFrequencySpectrumFactory::GetObjectNamesMap().end(); ++psdIt) {
+    theList.append(QString::fromUtf8(psdIt->first.c_str()));
+        }
+        return theList;
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        typedef IrpsSeLDirectionalSpectrum* (*CreateDirectionalSpectrumCallback)();
+        std::map<const std::string, CreateDirectionalSpectrumCallback>::iterator psdIt;
+        for (psdIt = CrpsDirectionalSpectrumFactory::GetObjectNamesMap().begin();
+     psdIt != CrpsDirectionalSpectrumFactory::GetObjectNamesMap().end(); ++psdIt) {
+    theList.append(QString::fromUtf8(psdIt->first.c_str()));
+        }
+        return theList;
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        typedef IrpsSeLDirectionalSpreadingFunction* (*CreateDirectionalSpreadingFunctionCallback)();
+        std::map<const std::string, CreateDirectionalSpreadingFunctionCallback>::iterator psdIt;
+        for (psdIt = CrpsDirectionalSpreadingFunctionFactory::GetObjectNamesMap().begin();
+     psdIt != CrpsDirectionalSpreadingFunctionFactory::GetObjectNamesMap().end(); ++psdIt) {
     theList.append(QString::fromUtf8(psdIt->first.c_str()));
         }
         return theList;
@@ -818,14 +877,33 @@ QStringList SeaLabSimulation::findAllFeatureMethods(QString group)
         theList.append(SeaLab::SeaLabUtils::ComputeMeanAccelerationVectorT);
         return theList;
     }
-    else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        theList.append(SeaLab::SeaLabUtils::ComputeCrossSpectrumValue);
-        theList.append(SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorF);
-        theList.append(SeaLab::SeaLabUtils::ComputeCrossSpectrumVectorT);
-        theList.append(SeaLab::SeaLabUtils::ComputeCrossSpectrumMatrixPP);
-        theList.append(SeaLab::SeaLabUtils::ComputeAutoSpectrumValue);
-        theList.append(SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorF);
-        theList.append(SeaLab::SeaLabUtils::ComputeAutoSpectrumVectorT);
+    else if (group == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumValue);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorF);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumVectorT);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossFrequencySpectrumMatrixPP);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumValue);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorF);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoFrequencySpectrumVectorT);
+        return theList;
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumValue);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorF);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorT);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumVectorD);
+        theList.append(SeaLab::SeaLabUtils::ComputeCrossDirectionalSpectrumMatrixPP);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumValue);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorF);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorT);
+        theList.append(SeaLab::SeaLabUtils::ComputeAutoDirectionalSpectrumVectorD);
+        return theList;
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue);
+        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT);
+        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP);
+        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD);
         return theList;
     }
     else if (group == SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod) {
@@ -1159,8 +1237,28 @@ SeaLabAPI::SeaLabFeature* SeaLabSimulation::createFeature(Base::Type type, std::
 
         return newFeature;
     }
-    else if (type == SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId()) {
-        SeaLabAPI::SeaLabFeatureSpectrum* newFeature = CrpsSpectrumFactory::BuildObject(pluggedObjectTypeName);
+    else if (type == SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId()) {
+        SeaLabAPI::SeaLabFeatureFrequencySpectrum* newFeature = CrpsFrequencySpectrumFactory::BuildObject(pluggedObjectTypeName);
+
+        if (NULL == newFeature) {
+    return nullptr;
+        }
+        App::GetApplication().getActiveDocument()->addObject(newFeature, uniqueName.c_str());
+
+        return newFeature;
+    }
+    else if (type == SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId()) {
+        SeaLabAPI::SeaLabFeatureDirectionalSpectrum* newFeature = CrpsDirectionalSpectrumFactory::BuildObject(pluggedObjectTypeName);
+
+        if (NULL == newFeature) {
+    return nullptr;
+        }
+        App::GetApplication().getActiveDocument()->addObject(newFeature, uniqueName.c_str());
+
+        return newFeature;
+    }
+    else if (type == SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId()) {
+        SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction* newFeature = CrpsDirectionalSpreadingFunctionFactory::BuildObject(pluggedObjectTypeName);
 
         if (NULL == newFeature) {
     return nullptr;
@@ -1238,8 +1336,14 @@ void SeaLabSimulation::setEnums(Base::Type type)
     else if (type == SeaLabAPI::SeaLabFeatureWavePassageEffect::getClassTypeId()) {
         WavePassageEffect.setEnums(findAllSeaLabFeaturesOfThisType(type));
     }
-    else if (type == SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId()) {
-        SpectrumModel.setEnums(findAllSeaLabFeaturesOfThisType(type));
+    else if (type == SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId()) {
+        FrequencySpectrum.setEnums(findAllSeaLabFeaturesOfThisType(type));
+    }
+    else if (type == SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId()) {
+        DirectionalSpectrum.setEnums(findAllSeaLabFeaturesOfThisType(type));
+    }
+    else if (type == SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId()) {
+        DirectionalSpreadingFunction.setEnums(findAllSeaLabFeaturesOfThisType(type));
     }
 }
 
@@ -1266,7 +1370,10 @@ void SeaLabSimulation::resetAllEnums()
   UserDefinedRPSObject.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureUserDefinedRPSObject::getClassTypeId()));
   VarianceFunction.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureVariance::getClassTypeId()));
   WavePassageEffect.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureWavePassageEffect::getClassTypeId()));
-  SpectrumModel.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId()));
+  FrequencySpectrum.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId()));
+  DirectionalSpectrum.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId()));
+  DirectionalSpreadingFunction.setEnums(findAllSeaLabFeaturesOfThisType(SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId()));
+
 }
 
 QStringList SeaLabSimulation::findAllSeaLabFeatures(Base::Type type)
@@ -1380,8 +1487,14 @@ Base::Type SeaLabSimulation::getRPSType(QString group)
     else if (group == SeaLab::SeaLabUtils::objGroupWavePassageEffect) {
         return SeaLabAPI::IrpsSeLWavePassageEffect::getClassTypeId();
     }
-    else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        return SeaLabAPI::IrpsSeLSpectrum::getClassTypeId();
+    else if (group == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        return SeaLabAPI::IrpsSeLFrequencySpectrum::getClassTypeId();
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        return SeaLabAPI::IrpsSeLDirectionalSpectrum::getClassTypeId();
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        return SeaLabAPI::IrpsSeLDirectionalSpreadingFunction::getClassTypeId();
     }
 }
 
@@ -1390,7 +1503,9 @@ std::vector<Base::Type> SeaLabSimulation::getRPSTypesOfPluggableFeatures()
     std::vector<Base::Type> types;
     types.emplace_back(SeaLabAPI::SeaLabFeatureLocationDistribution::getClassTypeId());
     types.emplace_back(SeaLabAPI::SeaLabFeatureMeanAcceleration::getClassTypeId());
-    types.emplace_back(SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId());
+    types.emplace_back(SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId());
+    types.emplace_back(SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId());
+    types.emplace_back(SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId());
     types.emplace_back(SeaLabAPI::SeaLabFeaturePSDDecompositionMethod::getClassTypeId());
     types.emplace_back(SeaLabAPI::SeaLabFeatureCoherence::getClassTypeId());
     types.emplace_back(SeaLabAPI::SeaLabFeatureSimulationMethod::getClassTypeId());
@@ -1419,7 +1534,9 @@ std::vector<QString> SeaLabSimulation::getSeaLabPluggableFeatures()
     std::vector<QString> groups;
     groups.emplace_back(SeaLab::SeaLabUtils::objGroupLocationDistribution);
     groups.emplace_back(SeaLab::SeaLabUtils::objGroupMeanAccelerationProfile);
-    groups.emplace_back(SeaLab::SeaLabUtils::objGroupSpectrum);
+    groups.emplace_back(SeaLab::SeaLabUtils::objGroupFrequencySpectrum);
+    groups.emplace_back(SeaLab::SeaLabUtils::objGroupDirectionalSpectrum);
+    groups.emplace_back(SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction);
     groups.emplace_back(SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod);
     groups.emplace_back(SeaLab::SeaLabUtils::objGroupCoherenceFunction);
     groups.emplace_back(SeaLab::SeaLabUtils::objGroupSimulationMethod);
@@ -1576,15 +1693,35 @@ SeaLabAPI::SeaLabFeatureDescription* SeaLabSimulation::GetSeaLabPluggedSeaLabFea
         stationarity = CrpsMeanFactory::GetStationarityMap()[objectName];
 
     }
-    else if (objectGroup == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        pluginName = CrpsSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
-        descrip = CrpsSpectrumFactory::GetOjectDescriptionMap()[objectName];
-        pubTitle = CrpsSpectrumFactory::GetTitleMap()[objectName];
-        pubLink = CrpsSpectrumFactory::GetLinkMap()[objectName];
-        pubAuthor = CrpsSpectrumFactory::GetAuthorMap()[objectName];
-        pubDate = CrpsSpectrumFactory::GetDateMap()[objectName];
-        version = CrpsSpectrumFactory::GetVersionMap()[objectName]; 
-        stationarity = CrpsSpectrumFactory::GetStationarityMap()[objectName];
+    else if (objectGroup == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        pluginName = CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
+        descrip = CrpsFrequencySpectrumFactory::GetOjectDescriptionMap()[objectName];
+        pubTitle = CrpsFrequencySpectrumFactory::GetTitleMap()[objectName];
+        pubLink = CrpsFrequencySpectrumFactory::GetLinkMap()[objectName];
+        pubAuthor = CrpsFrequencySpectrumFactory::GetAuthorMap()[objectName];
+        pubDate = CrpsFrequencySpectrumFactory::GetDateMap()[objectName];
+        version = CrpsFrequencySpectrumFactory::GetVersionMap()[objectName]; 
+        stationarity = CrpsFrequencySpectrumFactory::GetStationarityMap()[objectName];
+    }
+    else if (objectGroup == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        pluginName = CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap()[objectName];
+        descrip = CrpsDirectionalSpectrumFactory::GetOjectDescriptionMap()[objectName];
+        pubTitle = CrpsDirectionalSpectrumFactory::GetTitleMap()[objectName];
+        pubLink = CrpsDirectionalSpectrumFactory::GetLinkMap()[objectName];
+        pubAuthor = CrpsDirectionalSpectrumFactory::GetAuthorMap()[objectName];
+        pubDate = CrpsDirectionalSpectrumFactory::GetDateMap()[objectName];
+        version = CrpsDirectionalSpectrumFactory::GetVersionMap()[objectName]; 
+        stationarity = CrpsDirectionalSpectrumFactory::GetStationarityMap()[objectName];
+    }
+    else if (objectGroup == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        pluginName = CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap()[objectName];
+        descrip = CrpsDirectionalSpreadingFunctionFactory::GetOjectDescriptionMap()[objectName];
+        pubTitle = CrpsDirectionalSpreadingFunctionFactory::GetTitleMap()[objectName];
+        pubLink = CrpsDirectionalSpreadingFunctionFactory::GetLinkMap()[objectName];
+        pubAuthor = CrpsDirectionalSpreadingFunctionFactory::GetAuthorMap()[objectName];
+        pubDate = CrpsDirectionalSpreadingFunctionFactory::GetDateMap()[objectName];
+        version = CrpsDirectionalSpreadingFunctionFactory::GetVersionMap()[objectName]; 
+        stationarity = CrpsDirectionalSpreadingFunctionFactory::GetStationarityMap()[objectName];
     }
     else if (objectGroup == SeaLab::SeaLabUtils::objGroupSpectrumDecompositionMethod) {
         pluginName = CrpsPSDdecomMethodFactory::GetTobeInstalledObjectsMap()[objectName];
@@ -2010,7 +2147,28 @@ bool SeaLabSimulation::computeMeanAccelerationVectorT(Base::Vector3d location, v
     return true;
 }
 
-bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName)
+
+bool SeaLabSimulation::computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the modulation value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2022,7 +2180,7 @@ bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dV
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2031,7 +2189,7 @@ bool SeaLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dV
     return true;
 }
 
-bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeModulationVectorP(const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2043,7 +2201,7 @@ bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVe
     }
     dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
     dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dFrequency, dTime, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2051,6 +2209,28 @@ bool SeaLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVe
     featureName = activefeature->Label.getStrValue();
     return true;
 }
+
+bool SeaLabSimulation::computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeModulationVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    if (!returnResult) {
+        Base::Console().Error("The computation of the modulation vector has failed.\n");
+        return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
 
 bool SeaLabSimulation::computeDecomposedCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
 {
@@ -2163,41 +2343,62 @@ bool SeaLabSimulation::generateRandomCubeFPS(cube& dRandomValueCube, std::string
     return true;
 }
 
-bool SeaLabSimulation::computeCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
+	// frequency spectrum
+bool SeaLabSimulation::computeAutoFrequencySpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
     if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
+        Base::Console().Error("No valid active frequency spectrum feature found.\n");
+        return false;
+    }
+    bool returnResult = activefeature->ComputeAutoFrequencySpectrumValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);    
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the spectrum value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+   
+bool SeaLabSimulation::computeAutoFrequencySpectrumVectorF(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active frequency spectrum feature found.\n");
         return false;
     }
     dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
     dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
-    bool returnResult = activefeature->ComputeCrossSpectrumVectorF(*this->getSimulationData(), locationJ, locationK, dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeAutoFrequencySpectrumVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
     if (!returnResult)
     {
-     Base::Console().Error("The computation of the spectrum vector has failed.\n");
+     Base::Console().Error("The computation of the frequency spectrum vector has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();
     return true;
 }
 
-bool SeaLabSimulation::computeCrossSpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeAutoFrequencySpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
     if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
+        Base::Console().Error("No valid active frequency spectrum model feature found.\n");
         return false;
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeCrossSpectrumVectorT(*this->getSimulationData(), locationJ, locationK, dFrequency, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeAutoFrequencySpectrumVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the spectrum vector has failed.\n");
@@ -2205,21 +2406,64 @@ bool SeaLabSimulation::computeCrossSpectrumVectorT(const Base::Vector3d &locatio
     }
     featureName = activefeature->Label.getStrValue();
     return true;
-
 }
 
-bool SeaLabSimulation::computeCrossSpectrumMatrixPP(const double &dFrequency, const double &dTime, cx_mat &psdMatrix, std::string& featureName)
+bool SeaLabSimulation::computeCrossFrequencySpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active frequency spectrum feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    bool returnResult = activefeature->ComputeCrossFrequencySpectrumVectorF(*this->getSimulationData(), locationJ, locationK, dTime, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the frequency spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeCrossFrequencySpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active frequency spectrum model feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeCrossFrequencySpectrumVectorT(*this->getSimulationData(), locationJ, locationK, dFrequency, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the frequency spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeCrossFrequencySpectrumMatrixPP(const double &dFrequency, const double &dTime, cx_mat &psdMatrix, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
     if (!activefeature) {
         Base::Console().Error("No valid active spectrum model feature found.\n");
         return false;
     }
     psdMatrix.resize(this->getSimulationData()->numberOfSpatialPosition.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeCrossSpectrumMatrixPP(*this->getSimulationData(), dFrequency, dTime, psdMatrix);
+    bool returnResult = activefeature->ComputeCrossFrequencySpectrumMatrixPP(*this->getSimulationData(), dFrequency, dTime, psdMatrix);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the decomposed spectrum matrix has failed.\n");
@@ -2229,61 +2473,213 @@ bool SeaLabSimulation::computeCrossSpectrumMatrixPP(const double &dFrequency, co
     return true;
 }
 
-bool SeaLabSimulation::computeAutoSpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
+bool SeaLabSimulation::computeCrossFrequencySpectrumValue(const Base::Vector3d& locationJ,
+    const Base::Vector3d& locationK, const double& dFrequency, const double& dTime,
+    std::complex<double>& dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLFrequencySpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLFrequencySpectrum*>(doc->getObject(_simuData->frequencySpectrum.getValue()));
     if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
+        Base::Console().Error("No valid active frequency spectrum model feature found.\n");
         return false;
     }
-    bool returnResult = activefeature->ComputeAutoSpectrumValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);    
+
+    bool returnResult = activefeature->ComputeCrossFrequencySpectrumValue(*this->getSimulationData(), locationJ, locationK, dFrequency, dTime, dValue);
     if (!returnResult)
     {
-     Base::Console().Error("The computation of the spectrum value has failed.\n");
+     Base::Console().Error("The computation of the spectrum vector has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();
     return true;
-}
-    
-bool SeaLabSimulation::computeAutoSpectrumVectorF(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+}   
+    // directional spectrum
+bool SeaLabSimulation::computeCrossDirectionalSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, const double &dDirection, std::complex<double> &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
     if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
+        Base::Console().Error("No valid active directional spectrum feature found.\n");
         return false;
     }
-    dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
-    dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
-    bool returnResult = activefeature->ComputeAutoSpectrumVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeCrossDirectionalSpectrumValue(*this->getSimulationData(), locationJ, locationK, dFrequency, dTime, dDirection, dValue);    
     if (!returnResult)
     {
-     Base::Console().Error("The computation of the spectrum vector has failed.\n");
+     Base::Console().Error("The computation of the directional spectrum value has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();
     return true;
 }
 
-bool SeaLabSimulation::computeAutoSpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeCrossDirectionalSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, const double &dDirection, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
     if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
+        Base::Console().Error("No valid active directional spectrum feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    bool returnResult = activefeature->ComputeCrossDirectionalSpectrumVectorF(*this->getSimulationData(), locationJ, locationK, dTime, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeCrossDirectionalSpectrumVectorT(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dDirection, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active direction spectrum model feature found.\n");
         return false;
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeAutoSpectrumVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeCrossDirectionalSpectrumVectorT(*this->getSimulationData(), locationJ, locationK, dFrequency, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the direction spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeCrossDirectionalSpectrumVectorD(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spectrum model feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    bool returnResult = activefeature->ComputeCrossDirectionalSpectrumVectorD(*this->getSimulationData(), locationJ, locationK, dFrequency, dTime, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeCrossDirectionalSpectrumMatrixPP(const double &dFrequency, const double &dTime, const double &dDirection, cx_mat &psdMatrix, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spectrum model feature found.\n");
+        return false;
+    }
+    psdMatrix.resize(this->getSimulationData()->numberOfSpatialPosition.getValue(), this->getSimulationData()->numberOfSpatialPosition.getValue());
+    bool returnResult = activefeature->ComputeCrossDirectionalSpectrumMatrixPP(*this->getSimulationData(), dFrequency, dTime, dDirection, psdMatrix);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the decomposed spectrum matrix has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeAutoDirectionalSpectrumValue(const Base::Vector3d &location, const double &dFrequency, const double &dTime, const double &dDirection, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spectrum feature found.\n");
+        return false;
+    }
+    bool returnResult = activefeature->ComputeAutoDirectionalSpectrumValue(*this->getSimulationData(), location, dFrequency, dTime, dDirection, dValue);    
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spectrum value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeAutoDirectionalSpectrumVectorF(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spectrum feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    bool returnResult = activefeature->ComputeAutoDirectionalSpectrumVectorF(*this->getSimulationData(), location, dTime, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeAutoDirectionalSpectrumVectorT(const Base::Vector3d &location, const double &dFrequency, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spectrum model feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeAutoDirectionalSpectrumVectorT(*this->getSimulationData(), location, dFrequency, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spectrum vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeAutoDirectionalSpectrumVectorD(const Base::Vector3d &location, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+ {
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpectrum*>(doc->getObject(_simuData->directionalSpectrum.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active frequency spectrum model feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    bool returnResult = activefeature->ComputeAutoDirectionalSpectrumVectorD(*this->getSimulationData(), location, dFrequency, dTime, dVarVector, dValVector);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the spectrum vector has failed.\n");
@@ -2291,7 +2687,94 @@ bool SeaLabSimulation::computeAutoSpectrumVectorT(const Base::Vector3d &location
     }
     featureName = activefeature->Label.getStrValue();
     return true;
+}   
+
+    // directional spreading function
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(_simuData->directionalSpreadingFunction.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spreading function feature found.\n");
+        return false;
+    }
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionValue(*this->getSimulationData(), location, dTime, dDirection, dValue);    
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spreading function value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
 }
+
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorT(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(_simuData->directionalSpreadingFunction.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spreading function feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorT(*this->getSimulationData(), location, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the  directional spreading function vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorP(const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(_simuData->directionalSpreadingFunction.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spreading function feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorP(*this->getSimulationData(), dTime, dDirection, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spreading function vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}  
+
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    SeaLabAPI::IrpsSeLDirectionalSpreadingFunction* activefeature = static_cast<SeaLabAPI::IrpsSeLDirectionalSpreadingFunction*>(doc->getObject(_simuData->directionalSpreadingFunction.getValue()));
+    if (!activefeature) {
+        Base::Console().Error("No valid active directional spreading function feature found.\n");
+        return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorD(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the directional spreading function vector has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}  
 
 bool SeaLabSimulation::computeCrossCoherenceValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName)
 {
@@ -2353,25 +2836,6 @@ bool SeaLabSimulation::computeMeanAccelerationValue(Base::Vector3d location, con
     return true;
 }
 
-bool SeaLabSimulation::computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    SeaLabAPI::IrpsSeLModulation* activefeature = static_cast<SeaLabAPI::IrpsSeLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
-    if (!activefeature) {
-    Base::Console().Error("No valid active modulation function feature found.\n");
-    return false;
-    }
-    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dTime, dValue);
-    if (!returnResult)
-    {
-     Base::Console().Error("The computation of the modulation value has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
-}
 bool SeaLabSimulation::computeRandomValue(double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
@@ -2380,25 +2844,6 @@ bool SeaLabSimulation::computeRandomValue(double &dValue, std::string& featureNa
     Base::Console().Error("Sorry this tool is not yet implemented.\n");
     return true;
 
-}
-bool SeaLabSimulation::computeCrossSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    SeaLabAPI::IrpsSeLSpectrum* activefeature = static_cast<SeaLabAPI::IrpsSeLSpectrum*>(doc->getObject(_simuData->spectrumModel.getValue()));
-    if (!activefeature) {
-        Base::Console().Error("No valid active spectrum model feature found.\n");
-        return false;
-    }
-    bool returnResult = activefeature->ComputeCrossSpectrumValue(*this->getSimulationData(), locationJ, locationK, dFrequency, dTime, dValue);
-    if (!returnResult)
-    {
-     Base::Console().Error("The computation of the spectrum value has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
 }
 
 bool SeaLabSimulation::computeFrequencyValue(const Base::Vector3d &location, const int &frequencyIndex, double &dValue, std::string& featureName)
@@ -3148,8 +3593,14 @@ void SeaLabSimulation::setActiveFeature(App::RPSFeature* feature)
     else if (feature->getTypeId().isDerivedFrom(SeaLabAPI::SeaLabFeatureWavePassageEffect::getClassTypeId())) {
         _simuData->wavePassageEffect.setValue(feature->getNameInDocument());  
     }
-    else if (feature->getTypeId().isDerivedFrom(SeaLabAPI::SeaLabFeatureSpectrum::getClassTypeId())) {
-        _simuData->spectrumModel.setValue(feature->getNameInDocument());  
+    else if (feature->getTypeId().isDerivedFrom(SeaLabAPI::SeaLabFeatureFrequencySpectrum::getClassTypeId())) {
+        _simuData->frequencySpectrum.setValue(feature->getNameInDocument());  
+    }
+    else if (feature->getTypeId().isDerivedFrom(SeaLabAPI::SeaLabFeatureDirectionalSpectrum::getClassTypeId())) {
+        _simuData->directionalSpectrum.setValue(feature->getNameInDocument());  
+    }
+    else if (feature->getTypeId().isDerivedFrom(SeaLabAPI::SeaLabFeatureDirectionalSpreadingFunction::getClassTypeId())) {
+        _simuData->directionalSpreadingFunction.setValue(feature->getNameInDocument());  
     }
 }
 
@@ -3219,8 +3670,14 @@ App::RPSFeature* SeaLabSimulation::getActiveFeature(const QString group)
     else if (group == SeaLab::SeaLabUtils::objGroupWavePassageEffect) {
         return static_cast<App::RPSFeature*>(doc->getObject(_simuData->wavePassageEffect.getValue()));  
     }
-    else if (group == SeaLab::SeaLabUtils::objGroupSpectrum) {
-        return static_cast<App::RPSFeature*>(doc->getObject(_simuData->spectrumModel.getValue()));  
+    else if (group == SeaLab::SeaLabUtils::objGroupFrequencySpectrum) {
+        return static_cast<App::RPSFeature*>(doc->getObject(_simuData->frequencySpectrum.getValue()));  
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpectrum) {
+        return static_cast<App::RPSFeature*>(doc->getObject(_simuData->directionalSpectrum.getValue()));  
+    }
+    else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
+        return static_cast<App::RPSFeature*>(doc->getObject(_simuData->directionalSpreadingFunction.getValue()));  
     }
 }
 
@@ -3392,12 +3849,28 @@ App::DocumentObject* SeaLabSimulation::getActiveWavePassageEffect()
     return activeFeature;
 }
 
-App::DocumentObject* SeaLabSimulation::getActiveSpectrum()
+App::DocumentObject* SeaLabSimulation::getActiveFrequencySpectrum()
 {
     auto doc = App::GetApplication().getActiveDocument();
     if (!doc)
         return nullptr;
-    App::DocumentObject* activeFeature = doc->getObject(_simuData->spectrumModel.getValue());
+    App::DocumentObject* activeFeature = doc->getObject(_simuData->frequencySpectrum.getValue());
+    return activeFeature;
+}
+App::DocumentObject* SeaLabSimulation::getActiveDirectionalSpectrum()
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if (!doc)
+        return nullptr;
+    App::DocumentObject* activeFeature = doc->getObject(_simuData->directionalSpectrum.getValue());
+    return activeFeature;
+}
+App::DocumentObject* SeaLabSimulation::getActiveDirectionalSpreadingFunction()
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if (!doc)
+        return nullptr;
+    App::DocumentObject* activeFeature = doc->getObject(_simuData->directionalSpreadingFunction.getValue());
     return activeFeature;
 }
 

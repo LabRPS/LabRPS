@@ -46,7 +46,9 @@
 #include "ViewProviderSeaLabFeatureUserDefinedRPSObject.h"
 #include "ViewProviderSeaLabFeatureVariance.h"
 #include "ViewProviderSeaLabFeatureWavePassageEffect.h"
-#include "ViewProviderSeaLabFeatureSpectrum.h"
+#include "ViewProviderSeaLabFeatureFrequencySpectrum.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpectrum.h"
+#include "ViewProviderSeaLabFeatureDirectionalSpreadingFunction.h"
 #include "ViewProviderSeaLabSimulation.h"
 
 
@@ -58,7 +60,6 @@
 #include <Gui/BitmapFactory.h>
 #include <Gui/Language/Translator.h>
 #include <Gui/WidgetFactory.h>
-#include "RPSSeaLabPyTool.h"
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
 #include <Mod/SeaLab/Gui/SeaLabSimulationObserver.h>
 #include <App/DocumentObjectPy.h>
@@ -176,7 +177,9 @@ PyMOD_INIT_FUNC(SeaLabGui)
     SeaLabGui::ViewProviderSeaLabSimulation ::init();
     SeaLabGui::ViewProviderSeaLabFeatureLocationDistribution::init();
     SeaLabGui::ViewProviderSeaLabFeatureMeanAcceleration::init();
-    SeaLabGui::ViewProviderSeaLabFeatureSpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureFrequencySpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureDirectionalSpectrum::init();
+    SeaLabGui::ViewProviderSeaLabFeatureDirectionalSpreadingFunction::init();
     SeaLabGui::ViewProviderSeaLabFeaturePSDDecompositionMethod::init();
     SeaLabGui::ViewProviderSeaLabFeatureCoherence::init();
     SeaLabGui::ViewProviderSeaLabFeatureSimulationMethod::init();
@@ -201,19 +204,6 @@ PyMOD_INIT_FUNC(SeaLabGui)
     new Gui::PrefPageProducer<SeaLabGui::DlgSettingsSeaLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "SeaLab"));
 
     loadSeaLabResource();
-
-    static struct PyModuleDef pSeaLabPyToolPyModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "SeaLabPyTool",
-        "SeaLabPyTool", -1,
-        SeaLabGui::RPSSeaLabPyTool::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pSeaLabPyToolPyModule = PyModule_Create(&pSeaLabPyToolPyModuleDef);
-
-    Py_INCREF(pSeaLabPyToolPyModule);
-    PyModule_AddObject(mod, "SeaLabPyTool", pSeaLabPyToolPyModule);
-
 
     PyMOD_Return(mod);
 }

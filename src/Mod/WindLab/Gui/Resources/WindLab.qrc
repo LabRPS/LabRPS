@@ -1,9 +1,11 @@
 <RCC>
     <qresource>
         <file>icons/WindLabWorkbench.svg</file>
-        <file>icons/WindLab_NewSimulation.svg</file>
-        <file>icons/WindLab_Features.svg</file>
+        <file>icons/WindLab_CreateSimulation.svg</file>
+        <file>icons/WindLab_CreateFeature.svg</file>
         <file>icons/WindLab_Examples.svg</file>
+        <file>icons/WindLab_Simulation_Start.svg</file>
+        <file>icons/WindLab_Simulation_Stop.svg</file>
         <file>icons/general/folder.svg</file>
         <file>icons/WindLabFeatures/WindLab_Feature_CoherenceObj.svg</file>
         <file>icons/WindLabFeatures/WindLab_Feature_CorrelationObj.svg</file>

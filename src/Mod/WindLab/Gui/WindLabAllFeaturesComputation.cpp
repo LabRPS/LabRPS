@@ -89,7 +89,7 @@ QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
         profile = WindLab::WindLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = WindLab::WindLabUtils::makeHtmlTable(37, 2, false, profile);
+    table = WindLab::WindLabUtils::makeHtmlTable(36, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetWindLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -576,7 +576,12 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
 void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
         Gui::getMainWindow()->getAlphaPlot()->newTableShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -605,14 +610,21 @@ void WindLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
 
     Gui::getMainWindow()->showResults(info);
 
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
 {
+    if (what == 0)
+    {
+         
+    }
     if (what == 1)
     {
          Gui::getMainWindow()->getAlphaPlot()->newMatrixShowMatrix(simulationWorker->m_ResultMatrix, str);
@@ -641,6 +653,13 @@ void WindLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
     if (win) {
         win->showMessage(QString());
     }
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
+
+    Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void WindLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
@@ -653,4 +672,8 @@ void WindLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayT
 	{
        complexRrealImag = 1;
     }
+
+   Q_EMIT simulationWorker->finished();
+
+   Gui::getMainWindow()->updateActions();
 }

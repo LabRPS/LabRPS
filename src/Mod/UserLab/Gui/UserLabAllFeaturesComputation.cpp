@@ -170,7 +170,12 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
 
 void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int what)
 {
-    if (what == 1)
+    if (what == 0) 
+    {
+        m_sim->setStatus(App::SimulationStatus::Failed, true);
+        m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    }
+    else if (what == 1)
     {
         Gui::getMainWindow()->getAlphaPlot()->newTableShowMatrix(simulationWorker->m_ResultMatrix, str);
     }
@@ -199,9 +204,13 @@ void UserLabAllFeaturesComputation::slotDisplayResultInTable(QString str, int wh
     if (win) {
         win->showMessage(QString());
     }
-    QString info = logSimulationInfo(true, QString::fromLatin1("Results"));
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
 
     Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void UserLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int what)
@@ -234,6 +243,13 @@ void UserLabAllFeaturesComputation::slotDisplayResultInMatrix(QString str, int w
     if (win) {
         win->showMessage(QString());
     }
+    QString info = logSimulationInfo(m_sim->isSuccessfull(), str);
+
+    Gui::getMainWindow()->showResults(info);
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }
 
 void UserLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayType)
@@ -246,4 +262,8 @@ void UserLabAllFeaturesComputation::setComplexNumberDisplay(const char* displayT
 	{
        complexRrealImag = 1;
     }
+
+    Q_EMIT simulationWorker->finished();
+
+    Gui::getMainWindow()->updateActions();
 }

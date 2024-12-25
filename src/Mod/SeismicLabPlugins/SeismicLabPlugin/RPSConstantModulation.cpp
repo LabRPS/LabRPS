@@ -18,38 +18,54 @@ CRPSConstantModulation::CRPSConstantModulation()
    ADD_PROPERTY_TYPE(ConstantModulationValue, (1), "Parameters", App::Prop_None, "The constant modulation value.");
 }
 
-bool CRPSConstantModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double& dTime, double& dValue)
+bool CRPSConstantModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::ConstantModulation constantModulation;
    dValue = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue());
    return true;
 }
-bool CRPSConstantModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double& dTime, vec& dVarVector, vec& dValVector)
+bool CRPSConstantModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)
 {
-   SeismicLabTools::ConstantModulation constantModulation;
-    const double modulationValue = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue());
-    for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++)
+    bool returnResult = true;    
+	for (int k = 0; k < Data.numberOfSpatialPosition.getValue() && returnResult; k++)
     {
-        dVarVector(k) = k+1;
-        dValVector(k) = modulationValue;
+		dVarVector(k) = k + 1;	
+        returnResult = ComputeModulationValue(Data, Base::Vector3d(0,0,0), dFrequency, dTime, dValVector(k));
     }
 
 	return true;
 }
 
-bool CRPSConstantModulation::ComputeModulationVectorT(const SeismicLabSimulationData& Data, Base::Vector3d location, vec& dVarVector, vec& dValVector)
+bool CRPSConstantModulation::ComputeModulationVectorT(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, vec& dVarVector, vec& dValVector)
 {
-    SeismicLabTools::ConstantModulation constantModulation;
-
-	 //For each time increment
-	for (int k = 0; k < Data.numberOfTimeIncrements.getValue(); k++)
+    bool returnResult = true;
+    for (int k = 0; k < Data.numberOfTimeIncrements.getValue() && returnResult; k++)
 	{
-		const double 	dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
-        dVarVector(k) = dTime;
-		dValVector(k) = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue());
+		dVarVector(k) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;;	
+        returnResult = ComputeModulationValue(Data, location, dFrequency, dVarVector(k), dValVector(k));
 	}
-
 	return true;
+}
+
+bool CRPSConstantModulation::ComputeModulationVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+     bool returnResult = true;
+    
+    returnResult = CRPSSeismicLabFramework::ComputeFrequenciesVectorF(Data, location, dVarVector);
+    
+    if (!returnResult)
+    {
+        Base::Console().Warning("The computation of frequency vector  has failed.\n");
+
+        return false;
+    }
+
+    for (int loop = 0; loop < Data.numberOfFrequency.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
+    {
+        returnResult = ComputeModulationValue(Data, location, dVarVector(loop), dTime, dValVector(loop));
+    }
+
+     return returnResult;    
 }
 
     //Initial setting

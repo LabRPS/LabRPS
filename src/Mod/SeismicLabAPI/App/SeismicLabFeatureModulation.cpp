@@ -40,6 +40,8 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureModulation, SeismicLabAPI::Seism
 
 SeismicLabFeatureModulation::SeismicLabFeatureModulation(void)
 {
+    ADD_PROPERTY_TYPE(isUniform, (true), "Parameters", App::Prop_None, "Tell if the modulation funtion varies with frequency");
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureModulation::~SeismicLabFeatureModulation()

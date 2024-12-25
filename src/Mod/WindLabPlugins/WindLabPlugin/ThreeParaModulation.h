@@ -39,13 +39,12 @@ public:
 
     ~CThreeParaModulation() {};
 
-  bool ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue);
+    bool ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue);
+    bool ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector);
+    bool ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector);
+    bool ComputeModulationVectorF(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector);
 
-  bool ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector);
-
-  bool ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector);
-
-  bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
+    bool OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data);
 
 public:
     App::PropertyFloat Alpha;

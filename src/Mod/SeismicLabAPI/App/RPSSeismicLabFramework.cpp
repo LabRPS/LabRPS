@@ -195,7 +195,7 @@ bool CRPSSeismicLabFramework::ComputeMeanAccelerationSpeedVectorT(const SeismicL
 }
 
 
-bool CRPSSeismicLabFramework::ComputeModulationVectorT(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CRPSSeismicLabFramework::ComputeModulationValue(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -211,12 +211,12 @@ bool CRPSSeismicLabFramework::ComputeModulationVectorT(const SeismicLabAPI::Seis
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dFrequency, dTime, dValue);
 
     return returnValue;
 }
 
-bool CRPSSeismicLabFramework::ComputeModulationVectorP(const SeismicLabAPI::SeismicLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CRPSSeismicLabFramework::ComputeModulationVectorP(const SeismicLabAPI::SeismicLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -232,7 +232,49 @@ bool CRPSSeismicLabFramework::ComputeModulationVectorP(const SeismicLabAPI::Seis
         return false;
 	}
 
-    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dTime, dVarVector, dValVector);
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorP(Data, dFrequency, dTime, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeismicLabFramework::ComputeModulationVectorT(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeismicLabAPI::IrpsSLModulation* SelectedModulationObject = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorT(Data, location, dFrequency, dVarVector, dValVector);
+
+    return returnValue;
+}
+
+bool CRPSSeismicLabFramework::ComputeModulationVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+
+    if (!doc)
+    {
+        return false;
+    }
+
+    SeismicLabAPI::IrpsSLModulation* SelectedModulationObject = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
+
+	if (NULL == SelectedModulationObject)
+	{
+        return false;
+	}
+
+    bool returnValue = SelectedModulationObject->ComputeModulationVectorF(Data, location, dTime, dVarVector, dValVector);
 
     return returnValue;
 }
@@ -574,28 +616,6 @@ bool CRPSSeismicLabFramework::ComputeMeanAccelerationSpeedValue(const SeismicLab
 
     return returnValue;
 }
-
-bool CRPSSeismicLabFramework::ComputeModulationValue(const SeismicLabAPI::SeismicLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-
-    if (!doc)
-    {
-        return false;
-    }
-
-    SeismicLabAPI::IrpsSLModulation* SelectedModulationObject = static_cast<SeismicLabAPI::IrpsSLModulation*>(doc->getObject(Data.modulationFunction.getValue()));
-
-	if (NULL == SelectedModulationObject)
-	{
-        return false;
-	}
-
-    bool returnValue = SelectedModulationObject->ComputeModulationValue(Data, location, dTime, dValue);
-
-    return returnValue;
-}
-
 
 bool CRPSSeismicLabFramework::ComputeRandomValue(const SeismicLabAPI::SeismicLabSimulationData &Data, double &dValue)
 {

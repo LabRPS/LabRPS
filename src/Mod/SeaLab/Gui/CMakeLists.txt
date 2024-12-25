@@ -43,10 +43,12 @@ generate_from_xml(ViewProviderSeaLabFeatureStandardDeviationPy)
 generate_from_xml(ViewProviderSeaLabFeatureUserDefinedRPSObjectPy)
 generate_from_xml(ViewProviderSeaLabFeatureVariancePy)
 generate_from_xml(ViewProviderSeaLabFeatureWavePassageEffectPy)
-generate_from_xml(ViewProviderSeaLabFeatureSpectrumPy)
 generate_from_xml(ViewProviderSeaLabFeatureMatrixToolPy)
 generate_from_xml(ViewProviderSeaLabFeatureTableToolPy)
 generate_from_xml(ViewProviderSeaLabSimulationPy)
+generate_from_xml(ViewProviderSeaLabFeatureFrequencySpectrumPy)
+generate_from_xml(ViewProviderSeaLabFeatureDirectionalSpectrumPy)
+generate_from_xml(ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy)
 
 
 # The XML files
@@ -70,10 +72,13 @@ set(SeaLabGui_XML_SRCS
     ViewProviderSeaLabFeatureUserDefinedRPSObjectPy.xml
     ViewProviderSeaLabFeatureVariancePy.xml
     ViewProviderSeaLabFeatureWavePassageEffectPy.xml
-    ViewProviderSeaLabFeatureSpectrumPy.xml
     ViewProviderSeaLabFeatureMatrixToolPy.xml
     ViewProviderSeaLabFeatureTableToolPy.xml
     ViewProviderSeaLabSimulationPy.xml
+    ViewProviderSeaLabFeatureFrequencySpectrumPy.xml
+    ViewProviderSeaLabFeatureDirectionalSpectrumPy.xml
+    ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy.xml
+
 )
 
 set(SeaLabGui_LIBS
@@ -140,10 +145,12 @@ ViewProviderSeaLabFeatureStandardDeviation.cpp
 ViewProviderSeaLabFeatureUserDefinedRPSObject.cpp
 ViewProviderSeaLabFeatureVariance.cpp
 ViewProviderSeaLabFeatureWavePassageEffect.cpp
-ViewProviderSeaLabFeatureSpectrum.cpp
 ViewProviderSeaLabFeatureMatrixTool.cpp
 ViewProviderSeaLabFeatureTableTool.cpp
 ViewProviderSeaLabSimulation.cpp
+ViewProviderSeaLabFeatureFrequencySpectrum.cpp
+ViewProviderSeaLabFeatureDirectionalSpectrum.cpp
+ViewProviderSeaLabFeatureDirectionalSpreadingFunction.cpp
 
 ViewProviderSeaLabFeatureCoherencePyImp.cpp
 ViewProviderSeaLabFeatureCorrelationPyImp.cpp
@@ -164,10 +171,12 @@ ViewProviderSeaLabFeatureStandardDeviationPyImp.cpp
 ViewProviderSeaLabFeatureUserDefinedRPSObjectPyImp.cpp
 ViewProviderSeaLabFeatureVariancePyImp.cpp
 ViewProviderSeaLabFeatureWavePassageEffectPyImp.cpp
-ViewProviderSeaLabFeatureSpectrumPyImp.cpp
 ViewProviderSeaLabFeatureMatrixToolPyImp.cpp
 ViewProviderSeaLabFeatureTableToolPyImp.cpp
 ViewProviderSeaLabSimulationPyImp.cpp
+ViewProviderSeaLabFeatureFrequencySpectrumPyImp.cpp
+ViewProviderSeaLabFeatureDirectionalSpectrumPyImp.cpp
+ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPyImp.cpp
 
 )
 SET(ViewProvider_HPP_SRCS
@@ -191,9 +200,11 @@ ViewProviderSeaLabFeatureStandardDeviation.h
 ViewProviderSeaLabFeatureUserDefinedRPSObject.h
 ViewProviderSeaLabFeatureVariance.h
 ViewProviderSeaLabFeatureWavePassageEffect.h
-ViewProviderSeaLabFeatureSpectrum.h
 ViewProviderSeaLabFeatureMatrixTool.h
 ViewProviderSeaLabFeatureTableTool.h
+ViewProviderSeaLabFeatureFrequencySpectrum.h
+ViewProviderSeaLabFeatureDirectionalSpectrum.h
+ViewProviderSeaLabFeatureDirectionalSpreadingFunction.h
 )
 
 SET(ViewProvider_SRCS
@@ -220,8 +231,6 @@ SET(SeaLabGui_SRCS
     DlgNewSimulation.h
     DlgSeaLabFeaturesCreation.h
     DlgSeaLabFeaturesCreation.cpp
-    RPSSeaLabPyTool.cpp
-    RPSSeaLabPyTool.h
     SeaLabSimulationObserver.h
     SeaLabSimulationObserver.cpp
     SeaLabSimulationWorker.h

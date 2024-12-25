@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureTableTool, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureTableTool::SeaLabFeatureTableTool(void)
 {
+    this->OutputUnitString.setValue("");
 }
 
 SeaLabFeatureTableTool::~SeaLabFeatureTableTool()

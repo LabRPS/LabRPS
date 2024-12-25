@@ -37,24 +37,26 @@
 #include "DlgNewSimulation.h"
 #include "DlgUserLabFeaturesCreation.h"
 #include "Base/Interpreter.h"
+#include "UserLabSimulationObserver.h"
+#include <App/Simulation.h>
 
 
 using namespace std;
 
 //===========================================================================
-// UserLab_NewSimulation
+// UserLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdUserLabNewSimulation)
 
-CmdUserLabNewSimulation::CmdUserLabNewSimulation() : Command("UserLab_NewSimulation")
+CmdUserLabNewSimulation::CmdUserLabNewSimulation() : Command("UserLab_CreateSimulation")
 {
     sAppModule = "UserLab";
     sGroup = QT_TR_NOOP("UserLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "UserLab_NewSimulation";
+    sWhatsThis = "UserLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "UserLab_NewSimulation";
+    sPixmap = "UserLab_CreateSimulation";
 }
 
 void CmdUserLabNewSimulation::activated(int iMsg)
@@ -83,19 +85,19 @@ bool CmdUserLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// UserLab_Features
+// UserLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdUserLabFeatures)
 
-CmdUserLabFeatures::CmdUserLabFeatures() : Command("UserLab_Features")
+CmdUserLabFeatures::CmdUserLabFeatures() : Command("UserLab_CreateFeature")
 {
     sAppModule = "UserLab";
     sGroup = QT_TR_NOOP("UserLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of UserLab Features");
-    sWhatsThis = "UserLab_Features";
+    sWhatsThis = "UserLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "UserLab_Features";
+    sPixmap = "UserLab_CreateFeature";
 }
 
 void CmdUserLabFeatures::activated(int iMsg)
@@ -164,10 +166,70 @@ bool CmdUserLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
+//===========================================================================
+// UserLab_Simulation_Start
+//===========================================================================
+DEF_STD_CMD_A(CmdUserLabSimulationStart)
+
+CmdUserLabSimulationStart::CmdUserLabSimulationStart()
+    : Command("UserLab_Simulation_Start")
+{
+    sAppModule = "UserLab";
+    sGroup = QT_TR_NOOP("UserLab");
+    sMenuText = QT_TR_NOOP("Start");
+    sToolTipText = QT_TR_NOOP("Start the simulation");
+    sWhatsThis = "UserLab_Simulation_Start";
+    sStatusTip = sToolTipText;
+    sPixmap = "UserLab_Simulation_Start";
+}
+
+void CmdUserLabSimulationStart::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import UserLabGui\n"
+                  "UserLabGui.getActiveSimulation().ViewObject.run()");
+}
+
+bool CmdUserLabSimulationStart::isActive(void)
+{
+    App::Simulation* sim = UserLabGui::UserLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && !sim->isRuning());
+}
+
+//===========================================================================
+// UserLab_Simulation_Stop
+//===========================================================================
+DEF_STD_CMD_A(CmdUserLabSimulationStop)
+
+CmdUserLabSimulationStop::CmdUserLabSimulationStop() : Command("UserLab_Simulation_Stop")
+{
+    sAppModule = "UserLab";
+    sGroup = QT_TR_NOOP("UserLab");
+    sMenuText = QT_TR_NOOP("Stop");
+    sToolTipText = QT_TR_NOOP("Stop the simulation");
+    sWhatsThis = "UserLab_Simulation_Stop";
+    sStatusTip = sToolTipText;
+    sPixmap = "UserLab_Simulation_Stop";
+}
+
+void CmdUserLabSimulationStop::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import UserLabGui\n"
+                  "UserLabGui.getActiveSimulation().ViewObject.stop()");
+}
+
+bool CmdUserLabSimulationStop::isActive(void)
+{
+    App::Simulation* sim = UserLabGui::UserLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
+}
 
 void CreateUserLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdUserLabNewSimulation());
     rcCmdMgr.addCommand(new CmdUserLabFeatures());
+    rcCmdMgr.addCommand(new CmdUserLabSimulationStart());
+    rcCmdMgr.addCommand(new CmdUserLabSimulationStop());
 }

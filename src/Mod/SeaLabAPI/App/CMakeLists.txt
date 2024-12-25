@@ -81,7 +81,9 @@ SET(SeaLabAPI_Interface_SRCS
     IrpsSeLModulation.h
     IrpsSeLPSDdecompositionMethod.h
     IrpsSeLRandomness.h
-    IrpsSeLSpectrum.h
+    IrpsSeLFrequencySpectrum.h
+    IrpsSeLDirectionalSpectrum.h
+    IrpsSeLDirectionalSPreadingFunction.h
     IrpsSeLSimulationMethod.h
     IrpsSeLMatrixTool.h
     IrpsSeLTableTool.h
@@ -145,7 +147,10 @@ SET(SeaLab_Features_CPP_SRCS
     SeaLabFeatureUserDefinedRPSObject.cpp
     SeaLabFeatureVariance.cpp
     SeaLabFeatureWavePassageEffect.cpp
-    SeaLabFeatureSpectrum.cpp
+    SeaLabFeatureFrequencySpectrum.cpp
+    SeaLabFeatureDirectionalSpectrum.cpp
+    SeaLabFeatureDirectionalSpreadingFunction.cpp
+
 )
 
 SET(SeaLab_Features_HPP_SRCS
@@ -171,7 +176,9 @@ SET(SeaLab_Features_HPP_SRCS
     SeaLabFeatureUserDefinedRPSObject.h
     SeaLabFeatureVariance.h
     SeaLabFeatureWavePassageEffect.h
-    SeaLabFeatureSpectrum.h    
+    SeaLabFeatureFrequencySpectrum.h
+    SeaLabFeatureDirectionalSpectrum.h
+    SeaLabFeatureDirectionalSpreadingFunction.h    
 )
 
 SET(SeaLab_Features_SRCS

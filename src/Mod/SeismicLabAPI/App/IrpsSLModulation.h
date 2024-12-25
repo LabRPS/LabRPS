@@ -34,11 +34,13 @@ class IrpsSLModulation : public SeismicLabAPI::SeismicLabFeatureModulation
 public:
     virtual ~IrpsSLModulation() {};
 
-    virtual bool ComputeModulationValue(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue) = 0;
+    virtual bool ComputeModulationValue(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue) = 0;
 
-    virtual bool ComputeModulationVectorP(const SeismicLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeModulationVectorP(const SeismicLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
-    virtual bool ComputeModulationVectorT(const SeismicLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector) = 0;
+    virtual bool ComputeModulationVectorT(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector) = 0;
+
+    virtual bool ComputeModulationVectorF(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector) = 0;
 
 	virtual bool OnInitialSetting(const SeismicLabSimulationData &Data) = 0;
 

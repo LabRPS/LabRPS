@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureSkewness, SeismicLabAPI::Seismic
 
 SeismicLabFeatureSkewness::SeismicLabFeatureSkewness(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureSkewness::~SeismicLabFeatureSkewness()

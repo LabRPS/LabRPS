@@ -205,21 +205,13 @@ ActivateFeature();
     WindLab::WindLabSimulation* sim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-        WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp)
+    WindLabGui::ViewProviderWindLabSimulation* vp = dynamic_cast<WindLabGui::ViewProviderWindLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (sim->isRuning())
     {
-        auto computation = vp->getAllComputation();
-        if (computation)
-        {
-            auto worker = vp->getAllComputation()->GetWindLabSimulationWorker();
-            if (worker) {
-                if (!vp->getAllComputation()->GetWindLabSimulationWorker()->isStopped()) {
-                    Base::Console().Error("A simulation is running, please stop it first.\n");
-                    return false;
-                }
-            }
-        }
+        Base::Console().Error("A simulation is running, please stop it first.\n");
+        return false;
     }
+
     vp->setAllComputation(new WindLabAllFeaturesComputation(sim));
     vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
     vp->getAllComputation()->getWindLabSimulationThread()->start();

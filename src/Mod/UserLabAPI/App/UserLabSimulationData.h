@@ -127,7 +127,13 @@ class RPS_CORE_API UserLabSimulationData : public UserLabAPI::UserLabFeature
    App::PropertyPath workingDirectoryPath;
 
    App::PropertyString fileName;
-	
+
+   App::PropertyLength spatialCoordinateIncrement;
+   App::PropertyLength spatialCoordinateMinimum;
+   App::PropertyLength spatialCoordinatetMaximum;
+   App::PropertyInteger numberOfSpatialCoordinateIncrement;
+   App::PropertyInteger spatialCoordinateIndex;
+
    /** @name methods override feature */
 //@{
    virtual short mustExecute() const override;

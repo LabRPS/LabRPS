@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureCumulativeProbabilityDistribution, SeaLa
 
 SeaLabFeatureCumulativeProbabilityDistribution::SeaLabFeatureCumulativeProbabilityDistribution(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureCumulativeProbabilityDistribution::~SeaLabFeatureCumulativeProbabilityDistribution()

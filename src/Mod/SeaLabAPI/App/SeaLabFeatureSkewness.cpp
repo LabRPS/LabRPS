@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureSkewness, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureSkewness::SeaLabFeatureSkewness(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureSkewness::~SeaLabFeatureSkewness()

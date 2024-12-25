@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeaturePSDDecompositionMethod, WindLabAPI::Wi
 
 WindLabFeaturePSDDecompositionMethod::WindLabFeaturePSDDecompositionMethod(void)
 {
+    this->OutputUnitString.setValue("m^2/s");
 }
 
 WindLabFeaturePSDDecompositionMethod::~WindLabFeaturePSDDecompositionMethod()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureSimulationMethod, SeaLabAPI::SeaLabFeatu
 
 SeaLabFeatureSimulationMethod::SeaLabFeatureSimulationMethod(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 SeaLabFeatureSimulationMethod::~SeaLabFeatureSimulationMethod()

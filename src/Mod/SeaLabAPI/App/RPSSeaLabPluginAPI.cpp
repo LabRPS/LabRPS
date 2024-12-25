@@ -103,31 +103,6 @@ const char * RPSSeaLabPluginAPIInfo::getSeaLabPluginAPIVersion()
      CrpsMeanFactory::UnregisterObject(name, pluginName);
  }
 
-
- ////////////////////////////////////Along wind target spectrum//////////////////////////////////////////
-
- void RegisterSpectrum(const std::string name, const std::string& pluginName, const std::string& description, SpectrumInitFunc init_cb, SpectrumFreeFunc free_cb)
- {
-	 if (CrpsSpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
-		 CrpsSpectrumFactory::GetTobeInstalledObjectsMap().end())
-	 {
-		 return;
-	 }
-     CrpsSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
-	 (void)free_cb; 
- }
-
- void InitializeSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
- {
-     CrpsSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
- }
-
- void UnregisterSpectrum(const std::string name, const std::string& pluginName)
- {
-     CrpsSpectrumFactory::UnregisterObject(name, pluginName);
- }
-
-
  ////////////////////////////////////Simulation method//////////////////////////////////////////
 
  void RegisterSimuMethod(const std::string name, const std::string& pluginName, const std::string& description, SimuMethodInitFunc init_cb, SimuMethodFreeFunc free_cb)
@@ -550,4 +525,74 @@ const char * RPSSeaLabPluginAPIInfo::getSeaLabPluginAPIVersion()
  void UnregisterWavePassageEffect(const std::string name, const std::string& pluginName)
  {
      CrpsWavePassageEffectFactory::UnregisterObject(name, pluginName);
+ }
+
+////////////////////////////////////frequency spectrum//////////////////////////////////////////
+
+ void RegisterFrequencySpectrum(const std::string name, const std::string& pluginName, const std::string& description, FrequencySpectrumInitFunc init_cb, FrequencySpectrumFreeFunc free_cb)
+ {
+	 if (CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsFrequencySpectrumFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsFrequencySpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeFrequencySpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsFrequencySpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterFrequencySpectrum(const std::string name, const std::string& pluginName)
+ {
+     CrpsFrequencySpectrumFactory::UnregisterObject(name, pluginName);
+ }
+
+
+////////////////////////////////////directional spectrum//////////////////////////////////////////
+
+ void RegisterDirectionalSpectrum(const std::string name, const std::string& pluginName, const std::string& description, DirectionalSpectrumInitFunc init_cb, DirectionalSpectrumFreeFunc free_cb)
+ {
+	 if (CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsDirectionalSpectrumFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsDirectionalSpectrumFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeDirectionalSpectrum(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsDirectionalSpectrumFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterDirectionalSpectrum(const std::string name, const std::string& pluginName)
+ {
+     CrpsDirectionalSpectrumFactory::UnregisterObject(name, pluginName);
+ }
+
+////////////////////////////////////directional spreading function//////////////////////////////////////////
+
+ void RegisterDirectionalSpreadingFunction(const std::string name, const std::string& pluginName, const std::string& description, DirectionalSpreadingFunctionInitFunc init_cb, DirectionalSpreadingFunctionFreeFunc free_cb)
+ {
+	 if (CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap().find(name) ==
+		 CrpsDirectionalSpreadingFunctionFactory::GetTobeInstalledObjectsMap().end())
+	 {
+		 return;
+	 }
+     CrpsDirectionalSpreadingFunctionFactory::RegisterObject(name, pluginName, description, init_cb);
+	 (void)free_cb; 
+ }
+
+ void InitializeDirectionalSpreadingFunction(const std::string name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity)
+ {
+     CrpsDirectionalSpreadingFunctionFactory::InitializeObject(name, pluginName, publicationTitle, publicationLink, publicationAuthor, publicationDate, version, stationarity);
+ }
+
+ void UnregisterDirectionalSpreadingFunction(const std::string name, const std::string& pluginName)
+ {
+     CrpsDirectionalSpreadingFunctionFactory::UnregisterObject(name, pluginName);
  }

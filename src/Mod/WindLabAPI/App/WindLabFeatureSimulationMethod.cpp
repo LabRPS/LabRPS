@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureSimulationMethod, WindLabAPI::WindLabF
 
 WindLabFeatureSimulationMethod::WindLabFeatureSimulationMethod(void)
 {
+    this->OutputUnitString.setValue("w/s");
 }
 
 WindLabFeatureSimulationMethod::~WindLabFeatureSimulationMethod()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeaturePeakFactor, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeaturePeakFactor::SeaLabFeaturePeakFactor(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeaturePeakFactor::~SeaLabFeaturePeakFactor()

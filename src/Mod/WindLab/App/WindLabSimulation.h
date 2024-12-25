@@ -248,8 +248,11 @@ public:
     bool computeMeanWindSpeedVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName);
 
 	// modulation function
-    bool computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName);
-    bool computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName);
+    bool computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationVectorP(const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+
 
 	// psd decomposition
     bool computeDecomposedCrossSpectrumVectorF(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector, std::string& featureName);
@@ -295,7 +298,6 @@ public:
     bool computeCrossCoherenceValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
     bool computeCrossCorrelationValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue, std::string& featureName);
     bool computeMeanWindSpeedValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName);
-    bool computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName);
     bool computeRandomValue(double &dValue, std::string& featureName);
     bool computeXCrossSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
     bool computeYCrossSpectrumValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);

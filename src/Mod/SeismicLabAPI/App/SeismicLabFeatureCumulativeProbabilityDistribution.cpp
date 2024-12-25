@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureCumulativeProbabilityDistributio
 
 SeismicLabFeatureCumulativeProbabilityDistribution::SeismicLabFeatureCumulativeProbabilityDistribution(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureCumulativeProbabilityDistribution::~SeismicLabFeatureCumulativeProbabilityDistribution()

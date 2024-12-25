@@ -39,7 +39,6 @@ PROPERTY_SOURCE(WindLab::CRPSRandomPhasesFromFile, WindLabAPI::WindLabFeatureRan
 CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
 {
   ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
-    this->OutputUnit.setValue("radian");
 }
 
 bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const WindLabAPI::WindLabSimulationData &Data, cube &dRandomValueCube)
@@ -62,7 +61,9 @@ bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const WindLabAPI::WindLabSi
 
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const WindLabAPI::WindLabSimulationData& Data, mat &dRandomValueArray)
 {
-  ReadPhaseAngleFromFile(Data, FilePath.getValue(), dRandomValueArray);
+  int errorCode = ReadPhaseAngleFromFile(Data, FilePath.getValue(), dRandomValueArray);
+    if (errorCode != 1)
+        return false;
   return true;
 
 }
@@ -125,6 +126,11 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const WindLabAPI::WindLabSi
             if (!in.atEnd()) {
                 line = in.readLine();
                 QStringList fields = line.split('\t');
+                if (fields.size() != Data.numberOfSpatialPosition.getValue())
+                {
+                    Base::Console().Error("The number of columns in the file does not match the number of the simulation points.\n");
+                    return 0;
+                }
 
                  // FOR EACH COL
                 for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureStandardDeviation, SeaLabAPI::SeaLabFeat
 
 SeaLabFeatureStandardDeviation::SeaLabFeatureStandardDeviation(void)
 {
+    this->OutputUnitString.setValue("m");
 }
 
 SeaLabFeatureStandardDeviation::~SeaLabFeatureStandardDeviation()

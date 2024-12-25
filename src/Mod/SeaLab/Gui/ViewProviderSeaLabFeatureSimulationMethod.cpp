@@ -207,19 +207,13 @@ ActivateFeature();
     SeaLab::SeaLabSimulation* sim = static_cast<SeaLab::SeaLabSimulation*>(SeaLabGui::SeaLabSimulationObserver::instance()->active());
     if (!sim) {Base::Console().Warning("No valide active simulation found.\n");return false;}
 
-        SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
-    if (vp) {
-        auto computation = vp->getAllComputation();
-        if (computation) {
-            auto worker = vp->getAllComputation()->GetSeaLabSimulationWorker();
-            if (worker) {
-                if (!vp->getAllComputation()->GetSeaLabSimulationWorker()->isStopped()) {
-                    Base::Console().Error("A simulation is running, please stop it first.\n");
-                    return false;
-                }
-            }
-        }
+    SeaLabGui::ViewProviderSeaLabSimulation* vp = dynamic_cast<SeaLabGui::ViewProviderSeaLabSimulation*>(Gui::Application::Instance->getViewProvider(sim));
+    if (sim->isRuning())
+    {
+        Base::Console().Error("A simulation is running, please stop it first.\n");
+        return false;
     }
+
     vp->setAllComputation(new SeaLabAllFeaturesComputation(sim));
     vp->getAllComputation()->startSimulationWorker(function, complexNumberDisplay);
     vp->getAllComputation()->getSeaLabSimulationThread()->start();

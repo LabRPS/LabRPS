@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureShearVelocityOfFlow, WindLabAPI::WindL
 
 WindLabFeatureShearVelocityOfFlow::WindLabFeatureShearVelocityOfFlow(void)
 {
+    this->OutputUnitString.setValue("m/s");
 }
 
 WindLabFeatureShearVelocityOfFlow::~WindLabFeatureShearVelocityOfFlow()

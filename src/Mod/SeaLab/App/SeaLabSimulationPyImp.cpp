@@ -335,14 +335,27 @@ PyObject* SeaLabSimulationPy::getActiveCoherence(PyObject* args){
 
     Py_Return;
 }
-    PyObject* SeaLabSimulationPy::getActiveSpectrum(PyObject* args){
-    App::DocumentObject* feat = getSeaLabSimulationPtr()->getActiveSpectrum();
+    PyObject* SeaLabSimulationPy::getActiveFrequencySpectrum(PyObject* args){
+    App::DocumentObject* feat = getSeaLabSimulationPtr()->getActiveFrequencySpectrum();
     if (feat)
     return Py::new_reference_to(feat->getPyObject());
 
     Py_Return;
 }
+    PyObject* SeaLabSimulationPy::getActiveDirectionalSpectrum(PyObject* args){
+    App::DocumentObject* feat = getSeaLabSimulationPtr()->getActiveDirectionalSpectrum();
+    if (feat)
+    return Py::new_reference_to(feat->getPyObject());
 
+    Py_Return;
+}
+    PyObject* SeaLabSimulationPy::getActiveDirectionalSpreadingFunction(PyObject* args){
+    App::DocumentObject* feat = getSeaLabSimulationPtr()->getActiveDirectionalSpreadingFunction();
+    if (feat)
+    return Py::new_reference_to(feat->getPyObject());
+
+    Py_Return;
+}
     PyObject* SeaLabSimulationPy::getActiveMatrixTool(PyObject* args){
     App::DocumentObject* feat = getSeaLabSimulationPtr()->getActiveMatrixTool();
     if (feat)
@@ -707,8 +720,10 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
 
 PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
 {
- PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -720,7 +735,7 @@ PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -731,106 +746,23 @@ PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
 
 PyObject *SeaLabSimulationPy::computeModulationVectorP(PyObject* args)
 {
-    double time;
-    if (!PyArg_ParseTuple(args, "d", &time))
+    double time = 0.0;
+    double frequency = 0.0;
+    if (!PyArg_ParseTuple(args, "dd", &frequency, &time))
     return nullptr;
 
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeModulationVectorP(time, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
     if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject* args)
-{
-    PyObject* pyLocationJ = nullptr;
-    PyObject* pyLocationK = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
-
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
-
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    cx_vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult2(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject* args)
-{
-    PyObject* pyLocationJ = nullptr;
-    PyObject* pyLocationK = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
-
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
-
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    cx_vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorT(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult2(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* args)
-{
-    char* displayOption;
-    double frequency;
-    double time;
-
-    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
-    return nullptr;
-    
-    cx_mat resArray;
-    std::string featureName;
-
-    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-    return returnResult3(resArray, featureName, displayOption);
-}	
+}
 
 PyObject *SeaLabSimulationPy::generateRandomMatrixFP(PyObject* args)
 {
@@ -869,168 +801,6 @@ PyObject *SeaLabSimulationPy::generateRandomCubeFPS(PyObject* args)
 }
 	
 //-----------------------------------------------------------------------------------------------------------//
-
-PyObject *SeaLabSimulationPy::computeCrossSpectrumVectorF(PyObject* args)
-{
-    PyObject* pyLocationJ = nullptr;
-    PyObject* pyLocationK = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
-
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
-
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    cx_vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult2(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeCrossSpectrumVectorT(PyObject* args)
-{
-    PyObject* pyLocationJ = nullptr;
-    PyObject* pyLocationK = nullptr;
-    double frequency;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &frequency))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
-
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
-
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    cx_vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult2(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
-{
-   char* displayOption;
-    double frequency;
-    double time;
-
-    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
-    return nullptr;
-    
-    cx_mat resArray;
-    std::string featureName;
-
-    bool result = getSeaLabSimulationPtr()->computeCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-    return returnResult3(resArray, featureName, displayOption);
-}	
-
-PyObject *SeaLabSimulationPy::computeAutoSpectrumValue(PyObject* args)
-{
-    PyObject* pyLocation = nullptr;
-    double frequency;
-    double time;
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
-
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
-
-    double resValue;
-    std::string featureName;
-
-    bool result = getSeaLabSimulationPtr()->computeAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult6(resValue, featureName);
-}	
-    
-PyObject *SeaLabSimulationPy::computeAutoSpectrumVectorF(PyObject* args)
-{
-    PyObject* pyLocation = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
-
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult1(dVarVector, dValVector, featureName);
-}	
-
-PyObject *SeaLabSimulationPy::computeAutoSpectrumVectorT(PyObject* args)
-{
-    PyObject* pyLocation = nullptr;
-    double frequency;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
-
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
-    
-    std::string featureName;
-    vec dVarVector;
-    vec dValVector;
-
-    bool result = getSeaLabSimulationPtr()->computeAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-
-     return returnResult1(dVarVector, dValVector, featureName);
-}	
-//-----------------------------------------------------------------------------------------------------
 PyObject *SeaLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
@@ -1059,7 +829,8 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
      }
 
      return returnResult5(resValue, featureName);
-}	
+}
+
 PyObject *SeaLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
@@ -1114,8 +885,10 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    double time = 0.0;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -1126,7 +899,7 @@ PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
      double resValue;
      std::string featureName;
 
-     bool result = getSeaLabSimulationPtr()->computeModulationValue(*location, time, resValue, featureName);
+     bool result = getSeaLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
      if (!result) {
     Py_INCREF(Py_None);
     return Py_None;
@@ -1149,36 +922,7 @@ PyObject *SeaLabSimulationPy::computeRandomValue(PyObject* args)
      }
 
      return returnResult6(resValue, featureName);
-}	
-PyObject *SeaLabSimulationPy::computeCrossSpectrumValue(PyObject* args)
-{
-    PyObject* pyLocationJ = nullptr;
-    PyObject* pyLocationK = nullptr;
-    double frequency;
-    double time;
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
-    return nullptr;
-
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
-
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
-
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
-
-     std::complex<double> resValue;
-     std::string featureName;
-
-     bool result = getSeaLabSimulationPtr()->computeCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
-
-     return returnResult5(resValue, featureName);
-}	
+}
 
 PyObject *SeaLabSimulationPy::computeFrequencyValue(PyObject* args)
 {
@@ -1928,8 +1672,9 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
 
 PyObject* SeaLabSimulationPy::simulate(PyObject* args)
 {
-    if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
+    int sampleIndex = -1;
+    if (!PyArg_ParseTuple(args, "|i", &sampleIndex))
+        return nullptr;
     
     cube resArray;
     std::string featureName;
@@ -1941,7 +1686,17 @@ PyObject* SeaLabSimulationPy::simulate(PyObject* args)
     return Py_None;
     }
 
-     return returnResult7(resArray, featureName);
+    if (sampleIndex >= 0 && sampleIndex <= getSeaLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
+    {
+        Eigen::Tensor<double, 2> matrix_at_k = resArray.chip(sampleIndex, 2);
+        Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+        mat ResultMatrix = matrix_k;
+        return returnResult4(ResultMatrix, featureName);
+    }
+    else
+    {
+        return returnResult7(resArray, featureName);
+    }
 }
 PyObject* SeaLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
 {
@@ -2006,3 +1761,655 @@ PyObject* SeaLabSimulationPy::getAllFeatures(PyObject* args)
     }
     PY_CATCH
 }
+
+PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double time;
+    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}	
+
+PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double time;
+    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorT(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}	
+
+PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* args)
+{
+    char* displayOption;
+    double frequency;
+    double time;
+
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
+    return nullptr;
+    
+    cx_mat resArray;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+    return returnResult3(resArray, featureName, displayOption);
+}	
+
+PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumValue(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+
+    double resValue;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumValue(*location, frequency, time, resValue, featureName);
+    if (!result) {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult6(resValue, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumValue(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double frequency;
+    double time;
+    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+
+    std::complex<double> resValue;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
+    if (!result) {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult5(resValue, featureName);
+}
+
+
+PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorF(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+
+PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorT(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}	
+
+PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorF(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorT(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double frequency = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &frequency))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumMatrixPP(PyObject* args)
+{
+    char* displayOption = "r";
+    double frequency = 0.0;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "dd|s", &frequency, &time, &displayOption))
+    return nullptr;
+    
+    cx_mat resArray;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumMatrixPP(frequency, time, resArray, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+    return returnResult3(resArray, featureName, displayOption);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumValue(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double frequency = 0.0;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOddd", &pyLocationJ, &pyLocationK, &frequency, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+
+     std::complex<double> resValue;
+     std::string featureName;
+
+     bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumValue(*locationJ, *locationK, frequency, time, direction, resValue, featureName);
+     if (!result) {
+    Py_INCREF(Py_None);
+    return Py_None;
+     }
+
+     return returnResult5(resValue, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorF(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorF(*locationJ, *locationK, time, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorT(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double frequency = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorT(*locationJ, *locationK, frequency, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorD(PyObject* args)
+{
+    PyObject* pyLocationJ = nullptr;
+    PyObject* pyLocationK = nullptr;
+    double frequency = 0.0;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the second argument to be a vector object");
+
+    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    cx_vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorD(*locationJ, *locationK, frequency, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult2(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumMatrixPP(PyObject* args)
+{
+    char* displayOption = "r";
+    double frequency = 0.0;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "ddd|s", &frequency, &time, &direction, &displayOption))
+    return nullptr;
+    
+    cx_mat resArray;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumMatrixPP(frequency, time, direction, resArray, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+    return returnResult3(resArray, featureName, displayOption);
+}
+
+PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumValue(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Oddd", &pyLocation, &frequency, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+
+    double resValue;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumValue(*location, frequency, time, direction, resValue, featureName);
+    if (!result) {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+    return returnResult6(resValue, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorF(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the first argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorF(*location, time, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorT(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorT(*location, frequency, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorD(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double frequency = 0.0;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorD(*location, frequency, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionValue(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+
+    double resValue;
+    std::string featureName;
+
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionValue(*location, time, direction, resValue, featureName);
+    if (!result) {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+    return returnResult6(resValue, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorT(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorT(*location, time, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorP(PyObject* args)
+{
+    double time = 0.0;
+    double direction = 0.0;
+
+    if (!PyArg_ParseTuple(args, "dd", &time, &direction))
+    return nullptr;
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorP(time, direction, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorD(PyObject* args)
+{
+    PyObject* pyLocation = nullptr;
+    double time = 0.0;
+
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    return nullptr;
+
+    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+        throw Py::TypeError("Expect the  argument to be a vector object");
+
+    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    
+    std::string featureName;
+    vec dVarVector;
+    vec dValVector;
+
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorD(*location, time, dVarVector, dValVector, featureName);
+    if (!result)
+    {
+    Py_INCREF(Py_None);
+    return Py_None;
+    }
+
+     return returnResult1(dVarVector, dValVector, featureName);
+}
+
+//-----------------------------------------------------------------------------------------------------

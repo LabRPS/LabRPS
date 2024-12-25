@@ -42,8 +42,10 @@ bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const SeaLabAPI::SeaLabSimu
 
 bool CRPSRandomPhasesFromFile::GenerateRandomMatrixFP(const SeaLabAPI::SeaLabSimulationData& Data, mat &dRandomValueArray)
 {
-  ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
-    return true;
+  int errorCode = ReadPhaseAngleFromFile(Data, WorkingDirectory.getValue(), dRandomValueArray);
+  if (errorCode != 1)
+      return false;
+  return true;
 
 }
 bool CRPSRandomPhasesFromFile::ComputeRandomValue(const SeaLabAPI::SeaLabSimulationData& Data, double &dValue)
@@ -105,7 +107,11 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const SeaLabAPI::SeaLabSimu
             if (!in.atEnd()) {
                 line = in.readLine();
                 QStringList fields = line.split('\t');
-
+                if (fields.size() != Data.numberOfSpatialPosition.getValue())
+                {
+                    Base::Console().Error("The number of columns in the file does not match the number of the simulation points.\n");
+                    return 0;
+                }
                 // FOR EACH COL
                 for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {
 

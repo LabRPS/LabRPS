@@ -81,9 +81,9 @@ def setup(doc=None, showGui=True):
         # explanation object
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
-        import SeaLabGui
+        import GeneralToolsGui
         #show the mean ground motion accelerations in Alphaplot
-        SeaLabGui.SeaLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, sim.getSimulationData().numberOfSpatialPosition, randomnesses)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, sim.getSimulationData().numberOfSpatialPosition, randomnesses, False)
     
     doc.recompute()
     return doc

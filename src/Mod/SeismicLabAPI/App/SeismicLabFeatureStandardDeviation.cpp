@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureStandardDeviation, SeismicLabAPI
 
 SeismicLabFeatureStandardDeviation::SeismicLabFeatureStandardDeviation(void)
 {
+    this->OutputUnitString.setValue("m/s^2");
 }
 
 SeismicLabFeatureStandardDeviation::~SeismicLabFeatureStandardDeviation()

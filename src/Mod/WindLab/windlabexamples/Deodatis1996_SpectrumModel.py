@@ -30,8 +30,6 @@ import WindLabObjects
 from . import manager
 from .manager import init_doc
 
-
-
 def get_information():
     return {
         "name": "Deodatis 1996 et al Spectrum Model",
@@ -59,7 +57,7 @@ def setup(doc=None, showGui=True):
     # get the existing simulation
     sim = WindLab.getSimulation("Simulation")
     
-    # check if the simulation is really exist
+    # check if the simulation does really exist
     if not sim:
         LabRPS.Console.PrintError("The simulation does not exist.\n")
         return None
@@ -78,25 +76,25 @@ def setup(doc=None, showGui=True):
     v2 = vec(simPoints[1][1], simPoints[1][2], simPoints[1][3])
     v3 = vec(simPoints[2][1], simPoints[2][2], simPoints[2][3])
 
-    # coherence function in this example is stationary. Meanning coherence functions are not varying in time
+    # spectrum function in this example is stationary. Meanning spectrum functions are not varying in time
     # here we use time instant of 0 second.
     time = 0.0
 
-    # compute the coherence function between point j and k for all frequencies at time instant of 0s
+    # compute the auto spectrum function between at point j for all frequencies at time instant of 0s
     psd11 = sim.computeXAutoSpectrumVectorF(v1, time)
     psd22 = sim.computeXAutoSpectrumVectorF(v2, time)
     psd33 = sim.computeXAutoSpectrumVectorF(v3, time)
     
-    # if we are Gui mode, show the stored result in Alphaplot
+    # if we are Gui mode, show the stored result in Alphaplot and plot the results
     if LabRPS.GuiUp and showGui:
         # explanation object
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
-        import WindLabGui
+        import GeneralToolsGui
         #show the mean wind speeds in Alphaplot
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd11)
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd22)
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd33)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd11)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd22, False)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 2, psd33, False)
 
         import numpy
         import matplotlib.pyplot as plt
@@ -116,6 +114,9 @@ def setup(doc=None, showGui=True):
         ax.set_xscale("log")
         ax.set_yscale("log")
         plt.show()
+
+        from LabRPS.Plot import Plot
+        Plot.plot(arr1[:,0], arr1[:,1])
 
     doc.recompute()
     return doc

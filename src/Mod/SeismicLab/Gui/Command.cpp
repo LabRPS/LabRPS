@@ -37,24 +37,26 @@
 #include "DlgNewSimulation.h"
 #include "DlgSeismicLabFeaturesCreation.h"
 #include "Base/Interpreter.h"
+#include "SeismicLabSimulationObserver.h"
+#include <App/Simulation.h>
 
 
 using namespace std;
 
 //===========================================================================
-// SeismicLab_NewSimulation
+// SeismicLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdSeismicLabNewSimulation)
 
-CmdSeismicLabNewSimulation::CmdSeismicLabNewSimulation() : Command("SeismicLab_NewSimulation")
+CmdSeismicLabNewSimulation::CmdSeismicLabNewSimulation() : Command("SeismicLab_CreateSimulation")
 {
     sAppModule = "SeismicLab";
     sGroup = QT_TR_NOOP("SeismicLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "SeismicLab_NewSimulation";
+    sWhatsThis = "SeismicLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "SeismicLab_NewSimulation";
+    sPixmap = "SeismicLab_CreateSimulation";
 }
 
 void CmdSeismicLabNewSimulation::activated(int iMsg)
@@ -83,19 +85,19 @@ bool CmdSeismicLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// SeismicLab_Features
+// SeismicLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdSeismicLabFeatures)
 
-CmdSeismicLabFeatures::CmdSeismicLabFeatures() : Command("SeismicLab_Features")
+CmdSeismicLabFeatures::CmdSeismicLabFeatures() : Command("SeismicLab_CreateFeature")
 {
     sAppModule = "SeismicLab";
     sGroup = QT_TR_NOOP("SeismicLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of SeismicLab Features");
-    sWhatsThis = "SeismicLab_Features";
+    sWhatsThis = "SeismicLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "SeismicLab_Features";
+    sPixmap = "SeismicLab_CreateFeature";
 }
 
 void CmdSeismicLabFeatures::activated(int iMsg)
@@ -164,10 +166,70 @@ bool CmdSeismicLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
+//===========================================================================
+// SeismicLab_Simulation_Start
+//===========================================================================
+DEF_STD_CMD_A(CmdSeismicLabSimulationStart)
+
+CmdSeismicLabSimulationStart::CmdSeismicLabSimulationStart()
+    : Command("SeismicLab_Simulation_Start")
+{
+    sAppModule = "SeismicLab";
+    sGroup = QT_TR_NOOP("SeismicLab");
+    sMenuText = QT_TR_NOOP("Start");
+    sToolTipText = QT_TR_NOOP("Start the simulation");
+    sWhatsThis = "SeismicLab_Simulation_Start";
+    sStatusTip = sToolTipText;
+    sPixmap = "SeismicLab_Simulation_Start";
+}
+
+void CmdSeismicLabSimulationStart::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import SeismicLabGui\n"
+                  "SeismicLabGui.getActiveSimulation().ViewObject.run()");
+}
+
+bool CmdSeismicLabSimulationStart::isActive(void)
+{
+    App::Simulation* sim = SeismicLabGui::SeismicLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && !sim->isRuning());
+}
+
+//===========================================================================
+// SeismicLab_Simulation_Stop
+//===========================================================================
+DEF_STD_CMD_A(CmdSeismicLabSimulationStop)
+
+CmdSeismicLabSimulationStop::CmdSeismicLabSimulationStop() : Command("SeismicLab_Simulation_Stop")
+{
+    sAppModule = "SeismicLab";
+    sGroup = QT_TR_NOOP("SeismicLab");
+    sMenuText = QT_TR_NOOP("Stop");
+    sToolTipText = QT_TR_NOOP("Stop the simulation");
+    sWhatsThis = "SeismicLab_Simulation_Stop";
+    sStatusTip = sToolTipText;
+    sPixmap = "SeismicLab_Simulation_Stop";
+}
+
+void CmdSeismicLabSimulationStop::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import SeismicLabGui\n"
+                  "SeismicLabGui.getActiveSimulation().ViewObject.stop()");
+}
+
+bool CmdSeismicLabSimulationStop::isActive(void)
+{
+    App::Simulation* sim = SeismicLabGui::SeismicLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
+}
 
 void CreateSeismicLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdSeismicLabNewSimulation());
     rcCmdMgr.addCommand(new CmdSeismicLabFeatures());
+    rcCmdMgr.addCommand(new CmdSeismicLabSimulationStart());
+    rcCmdMgr.addCommand(new CmdSeismicLabSimulationStop());
 }

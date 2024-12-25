@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UserLabGui::DlgGoenagaEtAl2017</class>
+ <widget class="QWidget" name="UserLabGui::DlgGoenagaEtAl2017">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>360</width>
+    <height>277</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Feature Parameters</string>
+  </property>
+  <property name="sizeGripEnabled" stdset="0">
+   <bool>true</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="GroupBox5_3">
+     <property name="title">
+      <string>Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="_3">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Reference Wave Number (m/rad)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_ReferenceWaveNumber" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Reference Spectrum (m^3/rad)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_ReferenceSpectrum" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Pavement Waviness Indicator</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Gui::QuantitySpinBox" name="doubleSpinBox_PavementWavinessIndicator" native="true">
+          <property name="keyboardTracking" stdset="0">
+           <bool>false</bool>
+          </property>
+          
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="GroupBox5_5">
+     <property name="title">
+      <string>Image</string>
+     </property>
+     <layout class="QGridLayout" name="_6">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0">
+        <item>
+         <widget class="QLabel" name="label_Image">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Gui::QuantitySpinBox</class>
+   <extends>QWidget</extends>
+   <header>Gui/QuantitySpinBox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

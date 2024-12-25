@@ -108,6 +108,11 @@ public:
     App::PropertyFloat MinVariableX;
     App::PropertyPath WorkingDirectoryPath;
     App::PropertyString FileName;
+    App::PropertyLength SpatialCoordinateIncrement;
+    App::PropertyLength SpatialCoordinateMinimum;
+    App::PropertyLength SpatialCoordinatetMaximum;
+    App::PropertyInteger NumberOfSpatialCoordinateIncrement;
+    App::PropertyInteger SpatialCoordinateIndex;
 
     App::PropertyEnumeration SimulationMethod;
 

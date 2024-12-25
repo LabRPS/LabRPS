@@ -28,7 +28,6 @@
 #include "IrpsSeLCoherence.h"
 #include "IrpsSeLLocationDistribution.h"
 #include "IrpsSeLMeanAcceleration.h"
-#include "IrpsSeLSpectrum.h"
 #include "IrpsSeLSimulationMethod.h"
 #include "IrpsSeLFrequencyDistribution.h"
 #include "IrpsSeLRandomness.h"
@@ -47,6 +46,9 @@
 #include "IrpsSeLStandardDeviation.h"
 #include "IrpsSeLVariance.h"
 #include "IrpsSeLWavePassageEffect.h"
+#include "IrpsSeLFrequencySpectrum.h"
+#include "IrpsSeLDirectionalSpectrum.h"
+#include "IrpsSeLDirectionalSpreadingFunction.h"
 
 #include <map>
 #include<vector>
@@ -227,60 +229,6 @@ public:
         static std::map<const std::string, PyObject*> mProducerMap;
         static std::map<const std::string, bool> mStationarityMap;
 
-
- 	};
-
-
- 	//////////////////////// Along wind Sepctrum//////////////////////////////////////////////////
-
- 	class RPS_CORE_API CrpsSpectrumFactory
- 	{
- 	public:
-        CrpsSpectrumFactory();
-        ~CrpsSpectrumFactory();
- 		typedef IrpsSeLSpectrum *(*CreateXSpectrumCallback)();
-
- 		static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
-
- 		static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateXSpectrumCallback cb);
-
- 		static void UnregisterObject(const std::string& name, const std::string& pluginName);
-
- 		static IrpsSeLSpectrum * BuildObject(const std::string& name);
-
-        static PyObject* produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName);
-
- 		static std::map<const std::string, CreateXSpectrumCallback>& GetObjectNamesMap();
- 		static QString GetOwnerPlugin();
- 		static void SetOwnerPlugin(QString ownerPlugin);
- 		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();
- 		static std::map<const std::string, std::string> & GetOjectDescriptionMap();
- 		static std::map<const std::string, std::string> & GetOjectAndPluginMap();
- 		static std::map<const std::string, std::string> & GetTitleMap();
- 		static std::map<const std::string, std::string> & GetLinkMap();
- 		static std::map<const std::string, std::string> & GetAuthorMap();
- 		static std::map<const std::string, std::string> & GetDateMap();
- 	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();
- 		static std::map<const std::string, std::string> & GetVersionMap();
-        static std::map<const std::string, PyObject*>& GetProducerMap();
-        static std::map<const std::string, bool>& GetStationarityMap();
-
-
- 	private:
- 		typedef std::map<const std::string, CreateXSpectrumCallback> CallbackMap;
- 		static CallbackMap mXSpectrums;
- 		static QString mOwnerPlugin;
- 		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;
- 		static std::map<const std::string, std::string> mOjectDescriptionMap;
- 		static std::map<const std::string, std::string> mOjectAndPluginMap;
- 		static std::map<const std::string, std::string> mTitleMap;
- 		static std::map<const std::string, std::string> mLinkMap;
- 		static std::map<const std::string, std::string> mAuthorMap;
- 		static std::map<const std::string, std::string> mDateMap;
- 		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;
- 		static std::map<const std::string, std::string> mVersionMap;
-        static std::map<const std::string, PyObject*> mProducerMap;
-        static std::map<const std::string, bool> mStationarityMap;
 
  	};
 
@@ -1252,100 +1200,166 @@ class RPS_CORE_API CrpsWavePassageEffectFactory
 };
 
 
-//#define SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(_ObjectClass_, _ObjectInterface_, _CreateCallback_) \
-//class RPS_CORE_API _ObjectClass_\
-//{\
-//	public:\
-//        typedef _ObjectInterface_ *(*_CreateCallback_)();\
-//        static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);\
-//        static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, _CreateCallback_ cb);\
-//        static void UnregisterObject(const std::string& name, const std::string& pluginName);\
-//        static _ObjectInterface_ *BuildObject(const std::string& name);\
-//		static std::vector<std::string> GetNameVector();\
-//        static std::map<const std::string, _CreateCallback_>& GetObjectNamesMap();\
-//		static QString GetOwnerPlugin();\
-//		static void SetOwnerPlugin(QString ownerPlugin);\
-//		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();\
-//		static std::map<const std::string, std::string> & GetOjectDescriptionMap();\
-//		static std::map<const std::string, std::string> & GetOjectAndPluginMap();\
-//		static std::map<const std::string, std::string> & GetTitleMap();\
-//		static std::map<const std::string, std::string> & GetLinkMap();\
-//		static std::map<const std::string, std::string> & GetAuthorMap();\
-//		static std::map<const std::string, std::string> & GetDateMap();\
-//	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();\
-//		static std::map<const std::string, std::string> & GetVersionMap();\
-//	private:\
-//        typedef std::map<const std::string, _CreateCallback_> CallbackMap;\
-//        static CallbackMap mObjects;\
-//        static std::vector<std::string> mObjectNames;\
-//        static QString mOwnerPlugin;\
-//		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;\
-//		static std::map<const std::string, std::string> mOjectDescriptionMap;\
-//		static std::map<const std::string, std::string> mOjectAndPluginMap;\
-//		static std::map<const std::string, std::string> mTitleMap;\
-//		static std::map<const std::string, std::string> mLinkMap;\
-//		static std::map<const std::string, std::string> mAuthorMap;\
-//		static std::map<const std::string, std::string> mDateMap;\
-//		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;\
-//		static std::map<const std::string, std::string> mVersionMap;\
-//};
-//
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCoherenceFactory, IrpsSeLCoherence, IrpsSeLCoherenceCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsLocationDistributionFactory, IrpsSeLLocationDistribution, IrpsSeLLocationDistributionCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsMeanFactory, IrpsSeLMeanAcceleration, IrpsSeLMeanAccelerationCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsSpectrumFactory, IrpsSeLSpectrum, IrpsSeLSpectrumCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsZSpectrumFactory, IrpsSeLZSpectrum, IrpsSeLZSpectrumCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsYSpectrumFactory, IrpsSeLYSpectrum, IrpsSeLYSpectrumCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsSimuMethodFactory, IrpsSeLSimulationMethod, IrpsSeLSimulationMethodCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsFrequencyDistributionFactory, IrpsSeLFrequencyDistribution, IrpsSeLFrequencyDistributionCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsRandomnessFactory, IrpsSeLRandomness, IrpsSeLRandomnessCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsPSDdecomMethodFactory, IrpsSeLPSDdecompositionMethod, IrpsSeLPSDdecompositionMethodCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCorrelationFactory, IrpsSeLCorrelation, IrpsSeLCorrelationCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsModulationFactory, IrpsSeLModulation, IrpsSeLModulationCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTableToolFactory, IrpsSeLTableTool, IrpsSeLTableToolCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsMatrixToolFactory, IrpsSeLMatrixTool, IrpsSeLMatrixToolCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsUserDefinedRPSObjectFactory, IrpsSeLUserDefinedRPSObject, IrpsSeLUserDefinedRPSObjectCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsCumulativeProbabilityDistributionFactory, IrpsSeLCumulativeProbabilityDistribution, IrpsSeLCumulativeProbabilityDistributionCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsGustFactorFactory, IrpsSeLGustFactor, IrpsSeLGustFactorCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsKurtosisFactory, IrpsSeLKurtosis, IrpsSeLKurtosisCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsPeakFactorFactory, IrpsSeLPeakFactor, IrpsSeLPeakFactorCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsProbabilityDensityFunctionFactory, IrpsSeLProbabilityDensityFunction, IrpsSeLProbabilityDensityFunctionCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsRoughnessFactory, IrpsSeLRoughness, IrpsSeLRoughnessCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsShearVelocityOfFlowFactory, IrpsSeLShearVelocityOfFlow, IrpsSeLShearVelocityOfFlowCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsSkewnessFactory, IrpsSeLSkewness, IrpsSeLSkewnessCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsStandardDeviationFactory, IrpsSeLStandardDeviation, IrpsSeLStandardDeviationCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTurbulenceIntensityFactory, IrpsSeLTurbulenceIntensity, IrpsSeLTurbulenceIntensityCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsTurbulenceScaleFactory, IrpsSeLTurbulenceScale, IrpsSeLTurbulenceScaleCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsVarianceFactory, IrpsSeLVariance, IrpsSeLVarianceCallback)
-//
-//SEALAB_API_OBJECT_FACTORY_CLASS_HEADER(CrpsWavePassageEffectFactory, IrpsSeLWavePassageEffect, IrpsSeLWavePassageEffectCallback)
+ 	//////////////////////// Frequency Sepctrum//////////////////////////////////////////////////
+
+ 	class RPS_CORE_API CrpsFrequencySpectrumFactory
+ 	{
+ 	public:
+        CrpsFrequencySpectrumFactory();
+        ~CrpsFrequencySpectrumFactory();
+ 		typedef IrpsSeLFrequencySpectrum *(*CreateFrequencySpectrumCallback)();
+
+ 		static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+
+ 		static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateFrequencySpectrumCallback cb);
+
+ 		static void UnregisterObject(const std::string& name, const std::string& pluginName);
+
+ 		static IrpsSeLFrequencySpectrum * BuildObject(const std::string& name);
+
+        static PyObject* produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName);
+
+ 		static std::map<const std::string, CreateFrequencySpectrumCallback>& GetObjectNamesMap();
+ 		static QString GetOwnerPlugin();
+ 		static void SetOwnerPlugin(QString ownerPlugin);
+ 		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();
+ 		static std::map<const std::string, std::string> & GetOjectDescriptionMap();
+ 		static std::map<const std::string, std::string> & GetOjectAndPluginMap();
+ 		static std::map<const std::string, std::string> & GetTitleMap();
+ 		static std::map<const std::string, std::string> & GetLinkMap();
+ 		static std::map<const std::string, std::string> & GetAuthorMap();
+ 		static std::map<const std::string, std::string> & GetDateMap();
+ 	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();
+ 		static std::map<const std::string, std::string> & GetVersionMap();
+        static std::map<const std::string, PyObject*>& GetProducerMap();
+        static std::map<const std::string, bool>& GetStationarityMap();
+
+
+ 	private:
+ 		typedef std::map<const std::string, CreateFrequencySpectrumCallback> CallbackMap;
+ 		static CallbackMap mFrequencySpectrums;
+ 		static QString mOwnerPlugin;
+ 		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;
+ 		static std::map<const std::string, std::string> mOjectDescriptionMap;
+ 		static std::map<const std::string, std::string> mOjectAndPluginMap;
+ 		static std::map<const std::string, std::string> mTitleMap;
+ 		static std::map<const std::string, std::string> mLinkMap;
+ 		static std::map<const std::string, std::string> mAuthorMap;
+ 		static std::map<const std::string, std::string> mDateMap;
+ 		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;
+ 		static std::map<const std::string, std::string> mVersionMap;
+        static std::map<const std::string, PyObject*> mProducerMap;
+        static std::map<const std::string, bool> mStationarityMap;
+
+ 	};
+
+
+ 	//////////////////////// Directional Sepctrum//////////////////////////////////////////////////
+
+ 	class RPS_CORE_API CrpsDirectionalSpectrumFactory
+ 	{
+ 	public:
+        CrpsDirectionalSpectrumFactory();
+        ~CrpsDirectionalSpectrumFactory();
+ 		typedef IrpsSeLDirectionalSpectrum *(*CreateDirectionalSpectrumCallback)();
+
+ 		static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+
+ 		static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateDirectionalSpectrumCallback cb);
+
+ 		static void UnregisterObject(const std::string& name, const std::string& pluginName);
+
+ 		static IrpsSeLDirectionalSpectrum * BuildObject(const std::string& name);
+
+        static PyObject* produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName);
+
+ 		static std::map<const std::string, CreateDirectionalSpectrumCallback>& GetObjectNamesMap();
+ 		static QString GetOwnerPlugin();
+ 		static void SetOwnerPlugin(QString ownerPlugin);
+ 		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();
+ 		static std::map<const std::string, std::string> & GetOjectDescriptionMap();
+ 		static std::map<const std::string, std::string> & GetOjectAndPluginMap();
+ 		static std::map<const std::string, std::string> & GetTitleMap();
+ 		static std::map<const std::string, std::string> & GetLinkMap();
+ 		static std::map<const std::string, std::string> & GetAuthorMap();
+ 		static std::map<const std::string, std::string> & GetDateMap();
+ 	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();
+ 		static std::map<const std::string, std::string> & GetVersionMap();
+        static std::map<const std::string, PyObject*>& GetProducerMap();
+        static std::map<const std::string, bool>& GetStationarityMap();
+
+
+ 	private:
+ 		typedef std::map<const std::string, CreateDirectionalSpectrumCallback> CallbackMap;
+ 		static CallbackMap mDirectionalSpectrums;
+ 		static QString mOwnerPlugin;
+ 		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;
+ 		static std::map<const std::string, std::string> mOjectDescriptionMap;
+ 		static std::map<const std::string, std::string> mOjectAndPluginMap;
+ 		static std::map<const std::string, std::string> mTitleMap;
+ 		static std::map<const std::string, std::string> mLinkMap;
+ 		static std::map<const std::string, std::string> mAuthorMap;
+ 		static std::map<const std::string, std::string> mDateMap;
+ 		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;
+ 		static std::map<const std::string, std::string> mVersionMap;
+        static std::map<const std::string, PyObject*> mProducerMap;
+        static std::map<const std::string, bool> mStationarityMap;
+
+ 	};
+
+ 	//////////////////////// Directional spreading function //////////////////////////////////////////////////
+
+ 	class RPS_CORE_API CrpsDirectionalSpreadingFunctionFactory
+ 	{
+ 	public:
+        CrpsDirectionalSpreadingFunctionFactory();
+        ~CrpsDirectionalSpreadingFunctionFactory();
+ 		typedef IrpsSeLDirectionalSpreadingFunction *(*CreateDirectionalSpreadingFunctionCallback)();
+
+ 		static void InitializeObject(const std::string& name, const std::string& pluginName, const std::string& publicationTitle, const std::string& publicationLink, const std::string& publicationAuthor, const std::string& publicationDate, const std::string& version, const bool& stationarity);
+
+ 		static void RegisterObject(const std::string& name, const std::string& pluginName, const std::string& description, CreateDirectionalSpreadingFunctionCallback cb);
+
+ 		static void UnregisterObject(const std::string& name, const std::string& pluginName);
+
+ 		static IrpsSeLDirectionalSpreadingFunction * BuildObject(const std::string& name);
+
+        static PyObject* produceFeature(const std::string& newFeatureName, const std::string& simulationName, const std::string& pluggedFeatureName);
+
+ 		static std::map<const std::string, CreateDirectionalSpreadingFunctionCallback>& GetObjectNamesMap();
+ 		static QString GetOwnerPlugin();
+ 		static void SetOwnerPlugin(QString ownerPlugin);
+ 		static std::map<const std::string, std::string> & GetTobeInstalledObjectsMap();
+ 		static std::map<const std::string, std::string> & GetOjectDescriptionMap();
+ 		static std::map<const std::string, std::string> & GetOjectAndPluginMap();
+ 		static std::map<const std::string, std::string> & GetTitleMap();
+ 		static std::map<const std::string, std::string> & GetLinkMap();
+ 		static std::map<const std::string, std::string> & GetAuthorMap();
+ 		static std::map<const std::string, std::string> & GetDateMap();
+ 	    static std::map<const std::string, std::string> & GetOjectsSkipDuringUnintallationMap();
+ 		static std::map<const std::string, std::string> & GetVersionMap();
+        static std::map<const std::string, PyObject*>& GetProducerMap();
+        static std::map<const std::string, bool>& GetStationarityMap();
+
+
+ 	private:
+ 		typedef std::map<const std::string, CreateDirectionalSpreadingFunctionCallback> CallbackMap;
+ 		static CallbackMap mDirectionalSpreadingFunctions;
+ 		static QString mOwnerPlugin;
+ 		static std::map<const std::string, std::string> mTobeInstalledObjectsMap;
+ 		static std::map<const std::string, std::string> mOjectDescriptionMap;
+ 		static std::map<const std::string, std::string> mOjectAndPluginMap;
+ 		static std::map<const std::string, std::string> mTitleMap;
+ 		static std::map<const std::string, std::string> mLinkMap;
+ 		static std::map<const std::string, std::string> mAuthorMap;
+ 		static std::map<const std::string, std::string> mDateMap;
+ 		static std::map<const std::string, std::string> mOjectsSkipDuringUnintallationMap;
+ 		static std::map<const std::string, std::string> mVersionMap;
+        static std::map<const std::string, PyObject*> mProducerMap;
+        static std::map<const std::string, bool> mStationarityMap;
+
+ 	};
+
 
 } //namespace SeaLabAPI
 

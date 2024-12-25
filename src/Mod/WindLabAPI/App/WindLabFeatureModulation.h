@@ -48,6 +48,9 @@ public:
     virtual short mustExecute() const override;
     //@}
 
+public:
+    App::PropertyBool isUniform;
+    
 protected:
     /// recompute only this object
     virtual App::DocumentObjectExecReturn *recompute() override;

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeaturePSDDecompositionMethod, SeaLabAPI::SeaLa
 
 SeaLabFeaturePSDDecompositionMethod::SeaLabFeaturePSDDecompositionMethod(void)
 {
+    this->OutputUnitString.setValue("m^2/(rad/s)");
 }
 
 SeaLabFeaturePSDDecompositionMethod::~SeaLabFeaturePSDDecompositionMethod()

@@ -48,7 +48,7 @@ CRPSYangEtAl1997Ind::CRPSYangEtAl1997Ind()
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), "Parameters", App::Prop_None, "The number of time increments.");
     ADD_PROPERTY_TYPE(RoughnessLength, (10.0), "Parameters", App::Prop_None, "The terrain roughness length.");
 
-    this->OutputUnit.setValue("m/s");
+    
 
 }
 //Initial setting

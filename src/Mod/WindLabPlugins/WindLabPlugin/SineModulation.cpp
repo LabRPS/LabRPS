@@ -24,6 +24,7 @@
 #include <Mod/WindLabTools/App/modulation/SineModulation.h>
 #include "Widgets/DlgSineModulation.h"
 #include <Gui/Control.h>
+#include <Mod/WindLabAPI/App/RPSWindLabFramework.h>
 
 using namespace WindLab;
 
@@ -32,7 +33,6 @@ PROPERTY_SOURCE(WindLab::CSineModulation, WindLabAPI::WindLabFeatureModulation)
 CSineModulation::CSineModulation()
 {
     ADD_PROPERTY_TYPE(PulseDuration, (150), "Parameters", App::Prop_None, "The pulse duration");
-    this->OutputUnit.setValue("Dimensionless");
 }
 
 bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
@@ -43,38 +43,53 @@ bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& 
 }
 
 
-bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, double &dValue)
+bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
-	dValue = sin(3.14*dTime / PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
+    WindLabTools::SineModulation sineModulation;
+    dValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
 	return true;
 }
 
-bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, vec &dVarVector, vec &dValVector)
+bool CSineModulation::ComputeModulationVectorT(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
-    double dTime = 0.0;
-
-    WindLabTools::SineModulation sineModulation;
-
-	for (int k = 0; k < Data.numberOfTimeIncrements.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); k++)
+    bool returnResult = true;
+    for (int k = 0; k < Data.numberOfTimeIncrements.getValue() && returnResult; k++)
 	{
-		dTime = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;
-		dVarVector(k) = dTime;	
-        dValVector(k) = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
+		dVarVector(k) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second) * k;;	
+        returnResult = ComputeModulationValue(Data, location, dFrequency, dVarVector(k), dValVector(k));
 	}
 	return true;
 }
 
-bool CSineModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
+bool CSineModulation::ComputeModulationVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector)
 {
-    WindLabTools::SineModulation sineModulation;
-
-    const double dModValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
-    
-	for (int k = 0; k < Data.numberOfSpatialPosition.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue(); k++)
+    bool returnResult = true;    
+	for (int k = 0; k < Data.numberOfSpatialPosition.getValue() && returnResult; k++)
     {
-        dVarVector(k) = k+1;
-        dValVector(k) = dModValue;
+		dVarVector(k) = k + 1;	
+        returnResult = ComputeModulationValue(Data, Base::Vector3d(0,0,0), dFrequency, dTime, dValVector(k));
     }
 
 	return true;
+}
+
+bool CSineModulation::ComputeModulationVectorF(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector)
+{
+    bool returnResult = true;
+    
+    returnResult = WindLabAPI::CRPSWindLabFramework::ComputeFrequenciesVectorF(Data, location, dVarVector);
+    
+    if (!returnResult)
+    {
+        Base::Console().Warning("The computation of frequency vector  has failed.\n");
+
+        return false;
+    }
+
+    for (int loop = 0; loop < Data.numberOfFrequency.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
+    {
+        returnResult = ComputeModulationValue(Data, location, dVarVector(loop), dTime, dValVector(loop));
+    }
+
+     return returnResult;    
 }

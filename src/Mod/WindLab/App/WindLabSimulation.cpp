@@ -289,9 +289,17 @@ void WindLabSimulation::updateSimulationData()
 
 }
 
-bool WindLabSimulation::run() { return false; }
+bool WindLabSimulation::run(){
+    this->setStatus(App::SimulationStatus::Running, true);
+    return true;
+}
 
-bool WindLabSimulation::stop() { _simuData->isInterruptionRequested.setValue(true);  return true;}
+bool WindLabSimulation::stop()
+{ 
+    _simuData->isInterruptionRequested.setValue(true);
+    this->setStatus(App::SimulationStatus::Stopped, true);
+    return true;
+}
 
 std::string WindLabSimulation::getPhenomenonName() const
 {
@@ -2394,7 +2402,27 @@ bool WindLabSimulation::computeMeanWindSpeedVectorT(Base::Vector3d location, vec
     return true;
 }
 
-bool WindLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool WindLabSimulation::computeModulationValue(Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    WindLabAPI::IrpsWLModulation* activefeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dFrequency, dTime, dValue);
+    if (!returnResult)
+    {
+     Base::Console().Error("The computation of the modulation value has failed.\n");
+     return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool WindLabSimulation::computeModulationVectorT(Base::Vector3d location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2406,7 +2434,7 @@ bool WindLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &d
     }
     dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorT(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -2415,7 +2443,7 @@ bool WindLabSimulation::computeModulationVectorT(Base::Vector3d location, vec &d
     return true;
 }
 
-bool WindLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool WindLabSimulation::computeModulationVectorP(const double &dFrequency,const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2427,7 +2455,28 @@ bool WindLabSimulation::computeModulationVectorP(const double &dTime, vec &dVarV
     }
     dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
     dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeModulationVectorP(*this->getSimulationData(), dFrequency, dTime, dVarVector, dValVector);
+    if (!returnResult) {
+        Base::Console().Error("The computation of the modulation vector has failed.\n");
+        return false;
+    }
+    featureName = activefeature->Label.getStrValue();
+    return true;
+}
+
+bool WindLabSimulation::computeModulationVectorF(Base::Vector3d location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if(!doc)
+	    return false;
+    WindLabAPI::IrpsWLModulation* activefeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
+    if (!activefeature) {
+    Base::Console().Error("No valid active modulation function feature found.\n");
+    return false;
+    }
+    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
+    bool returnResult = activefeature->ComputeModulationVectorF(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
     if (!returnResult) {
         Base::Console().Error("The computation of the modulation vector has failed.\n");
         return false;
@@ -3084,25 +3133,6 @@ bool WindLabSimulation::computeMeanWindSpeedValue(Base::Vector3d location, const
     return true;
 }
 
-bool WindLabSimulation::computeModulationValue(Base::Vector3d location, const double &dTime, double &dValue, std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    WindLabAPI::IrpsWLModulation* activefeature = static_cast<WindLabAPI::IrpsWLModulation*>(doc->getObject(_simuData->modulationFunction.getValue()));
-    if (!activefeature) {
-    Base::Console().Error("No valid active modulation function feature found.\n");
-    return false;
-    }
-    bool returnResult = activefeature->ComputeModulationValue(*this->getSimulationData(), location, dTime, dValue);
-    if (!returnResult)
-    {
-     Base::Console().Error("The computation of the modulation value has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
-}
 bool WindLabSimulation::computeRandomValue(double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();

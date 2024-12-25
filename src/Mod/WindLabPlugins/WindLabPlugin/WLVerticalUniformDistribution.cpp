@@ -42,7 +42,7 @@ CWLVerticalUniformDistribution::CWLVerticalUniformDistribution()
     ADD_PROPERTY_TYPE(Spacing, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points");
 
     Spacing.setConstraints(&SpacingContraint);
-    this->OutputUnit.setValue("m");
+    
 }
 bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const WindLabAPI::WindLabSimulationData& Data, mat &dLocCoord)
 {

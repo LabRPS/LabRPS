@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureProbabilityDensityFunction, Seis
 
 SeismicLabFeatureProbabilityDensityFunction::SeismicLabFeatureProbabilityDensityFunction(void)
 {
+    this->OutputUnitString.setValue("m/s^2");
 }
 
 SeismicLabFeatureProbabilityDensityFunction::~SeismicLabFeatureProbabilityDensityFunction()

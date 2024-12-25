@@ -250,8 +250,6 @@ SET(WindLabGui_SRCS
     Workbench.h
     DlgNewSimulation.cpp
     DlgNewSimulation.h
-    RPSWindLabPyTool.cpp
-    RPSWindLabPyTool.h
     WindLabSimulationObserver.h
     WindLabSimulationObserver.cpp
     WindLabSimulationWorker.h

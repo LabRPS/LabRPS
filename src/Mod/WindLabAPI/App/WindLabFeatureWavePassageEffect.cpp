@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureWavePassageEffect, WindLabAPI::WindLab
 
 WindLabFeatureWavePassageEffect::WindLabFeatureWavePassageEffect(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureWavePassageEffect::~WindLabFeatureWavePassageEffect()

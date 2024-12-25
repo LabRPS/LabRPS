@@ -31,7 +31,6 @@ using namespace WindLabAPI;
 PROPERTY_SOURCE(WindLab::CRPSDoubleIndexFrequency, WindLabAPI::WindLabFeatureFrequencyDistribution)
 
 CRPSDoubleIndexFrequency::CRPSDoubleIndexFrequency() {
-    this->OutputUnit.setValue("Input");
 }
 
 bool CRPSDoubleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)

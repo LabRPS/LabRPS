@@ -41,7 +41,6 @@ CRPSDavenportCoherence::CRPSDavenportCoherence()
     ADD_PROPERTY_TYPE(ExponentialDecayCx, (10.0), "Decay Coefficients", App::Prop_None, "The decay coefficient Cx");
     ADD_PROPERTY_TYPE(ExponentialDecayCy, (7.0), "Decay Coefficients", App::Prop_None, "The decay coefficient Cy");
     ADD_PROPERTY_TYPE(ExponentialDecayCz, (6.0), "Decay Coefficients", App::Prop_None, "The decay coefficient Cz");
-    this->OutputUnit.setValue("Dimensionless");
 }
 
 bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)

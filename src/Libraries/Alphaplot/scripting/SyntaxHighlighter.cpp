@@ -68,7 +68,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
                   << "import"
                   << "super";
 
-  foreach (const QString &pattern, keywords) {
+  Q_FOREACH (const QString& pattern, keywords) {
     rule.pattern = QRegExp("\\b" + pattern + "\\b");
     rule.format = keywordFormat;
     highlightingRules.append(rule);
@@ -100,7 +100,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
 
   // Exclude keywords misinterpretation as functions
   QString keywordExcludePatterns;
-  foreach (const QString &pattern, keywords) {
+  Q_FOREACH (const QString& pattern, keywords) {
     (pattern == keywords[0])
         ? keywordExcludePatterns.append(pattern)
         : keywordExcludePatterns.append(QString("|%1").arg(pattern));
@@ -124,7 +124,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextDocument *parent)
 }
 
 void SyntaxHighlighter::highlightBlock(const QString &text) {
-  foreach (const HighlightingRule &rule, highlightingRules) {
+    Q_FOREACH (const HighlightingRule& rule, highlightingRules) {
     QRegExp expression(rule.pattern);
     int index = expression.indexIn(text);
     while (index >= 0) {

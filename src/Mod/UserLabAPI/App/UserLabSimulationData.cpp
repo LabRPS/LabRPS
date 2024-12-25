@@ -75,6 +75,11 @@ UserLabSimulationData::UserLabSimulationData()
 	ADD_PROPERTY_TYPE(workingDirectoryPath, (App::Application::getHomePath()), 0, Prop_None, "The working directory path.");
     ADD_PROPERTY_TYPE(fileName, (""), 0, Prop_None, "The wind velocity file name.");
 	ADD_PROPERTY_TYPE(sampleIndex, (0), 0, Prop_None,"The index of the a given sample");
+	ADD_PROPERTY_TYPE(numberOfSpatialCoordinateIncrement, (10000), 0, Prop_None, "The number of increments for the spatial coordinate which can be x, y or z.");
+	ADD_PROPERTY_TYPE(spatialCoordinateIndex, (1), 0, Prop_None, "This current index of the spatial coordinate.");
+	ADD_PROPERTY_TYPE(spatialCoordinateIncrement, (0.01), 0, Prop_None, "This is the spatial coordinate increment value");
+	ADD_PROPERTY_TYPE(spatialCoordinateMinimum, (0), 0, Prop_None, "This is the minimum spatial coordinate value");
+    ADD_PROPERTY_TYPE(spatialCoordinatetMaximum, (100), 0, Prop_None, "This is the maximum spatial coordinate value");
 
 }
 

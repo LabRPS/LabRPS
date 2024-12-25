@@ -37,24 +37,26 @@
 #include "DlgNewSimulation.h"
 #include "DlgSeaLabFeaturesCreation.h"
 #include "Base/Interpreter.h"
+#include "SeaLabSimulationObserver.h"
+#include <App/Simulation.h>
 
 
 using namespace std;
 
 //===========================================================================
-// SeaLab_NewSimulation
+// SeaLab_CreateSimulation
 //===========================================================================
 DEF_STD_CMD_A(CmdSeaLabNewSimulation)
 
-CmdSeaLabNewSimulation::CmdSeaLabNewSimulation() : Command("SeaLab_NewSimulation")
+CmdSeaLabNewSimulation::CmdSeaLabNewSimulation() : Command("SeaLab_CreateSimulation")
 {
     sAppModule = "SeaLab";
     sGroup = QT_TR_NOOP("SeaLab");
     sMenuText = QT_TR_NOOP("New Simulation");
     sToolTipText = QT_TR_NOOP("Creation of new simulation");
-    sWhatsThis = "SeaLab_NewSimulation";
+    sWhatsThis = "SeaLab_CreateSimulation";
     sStatusTip = sToolTipText;
-    sPixmap = "SeaLab_NewSimulation";
+    sPixmap = "SeaLab_CreateSimulation";
 }
 
 void CmdSeaLabNewSimulation::activated(int iMsg)
@@ -83,19 +85,19 @@ bool CmdSeaLabNewSimulation::isActive(void)
 }
 
 //===========================================================================
-// SeaLab_Features
+// SeaLab_CreateFeature
 //===========================================================================
 DEF_STD_CMD_A(CmdSeaLabFeatures)
 
-CmdSeaLabFeatures::CmdSeaLabFeatures() : Command("SeaLab_Features")
+CmdSeaLabFeatures::CmdSeaLabFeatures() : Command("SeaLab_CreateFeature")
 {
     sAppModule = "SeaLab";
     sGroup = QT_TR_NOOP("SeaLab");
     sMenuText = QT_TR_NOOP("Create Features...");
     sToolTipText = QT_TR_NOOP("Creation of SeaLab Features");
-    sWhatsThis = "SeaLab_Features";
+    sWhatsThis = "SeaLab_CreateFeature";
     sStatusTip = sToolTipText;
-    sPixmap = "SeaLab_Features";
+    sPixmap = "SeaLab_CreateFeature";
 }
 
 void CmdSeaLabFeatures::activated(int iMsg)
@@ -164,11 +166,70 @@ bool CmdSeaLabFeaturesLocationDistribution::isActive(void)
     return (hasActiveDocument() && !Gui::Control().activeDialog());
 }
 
+//===========================================================================
+// SeaLab_Simulation_Start
+//===========================================================================
+DEF_STD_CMD_A(CmdSeaLabSimulationStart)
+
+CmdSeaLabSimulationStart::CmdSeaLabSimulationStart()
+    : Command("SeaLab_Simulation_Start")
+{
+    sAppModule = "SeaLab";
+    sGroup = QT_TR_NOOP("SeaLab");
+    sMenuText = QT_TR_NOOP("Start");
+    sToolTipText = QT_TR_NOOP("Start the simulation");
+    sWhatsThis = "SeaLab_Simulation_Start";
+    sStatusTip = sToolTipText;
+    sPixmap = "SeaLab_Simulation_Start";
+}
+
+void CmdSeaLabSimulationStart::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import SeaLabGui\n"
+                  "SeaLabGui.getActiveSimulation().ViewObject.run()");
+}
+
+bool CmdSeaLabSimulationStart::isActive(void)
+{
+    App::Simulation* sim = SeaLabGui::SeaLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && !sim->isRuning());
+}
+
+//===========================================================================
+// SeaLab_Simulation_Stop
+//===========================================================================
+DEF_STD_CMD_A(CmdSeaLabSimulationStop)
+
+CmdSeaLabSimulationStop::CmdSeaLabSimulationStop() : Command("SeaLab_Simulation_Stop")
+{
+    sAppModule = "SeaLab";
+    sGroup = QT_TR_NOOP("SeaLab");
+    sMenuText = QT_TR_NOOP("Stop");
+    sToolTipText = QT_TR_NOOP("Stop the simulation");
+    sWhatsThis = "SeaLab_Simulation_Stop";
+    sStatusTip = sToolTipText;
+    sPixmap = "SeaLab_Simulation_Stop";
+}
+
+void CmdSeaLabSimulationStop::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    doCommand(Gui,"import SeaLabGui\n"
+                  "SeaLabGui.getActiveSimulation().ViewObject.stop()");
+}
+
+bool CmdSeaLabSimulationStop::isActive(void)
+{
+    App::Simulation* sim = SeaLabGui::SeaLabSimulationObserver::instance()->active();
+    return (hasActiveDocument() && sim && sim->isRuning());
+}
 
 void CreateSeaLabCommands(void)
 {
     Gui::CommandManager &rcCmdMgr = Gui::Application::Instance->commandManager();
     rcCmdMgr.addCommand(new CmdSeaLabNewSimulation());
     rcCmdMgr.addCommand(new CmdSeaLabFeatures());
-
+    rcCmdMgr.addCommand(new CmdSeaLabSimulationStart());
+    rcCmdMgr.addCommand(new CmdSeaLabSimulationStop());
 }

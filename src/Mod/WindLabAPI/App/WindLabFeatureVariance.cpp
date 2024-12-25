@@ -44,6 +44,7 @@ WindLabFeatureVariance::WindLabFeatureVariance(void)
 
 WindLabFeatureVariance::~WindLabFeatureVariance()
 {
+    this->OutputUnitString.setValue("m^2/s^2");
 }
 
 short WindLabFeatureVariance::mustExecute(void) const

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureKurtosis, WindLabAPI::WindLabFeature)
 
 WindLabFeatureKurtosis::WindLabFeatureKurtosis(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 WindLabFeatureKurtosis::~WindLabFeatureKurtosis()

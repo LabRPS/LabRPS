@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeatureCoherence, SeaLabAPI::SeaLabFeature)
 
 SeaLabFeatureCoherence::SeaLabFeatureCoherence(void)
 {
+   this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeaLabFeatureCoherence::~SeaLabFeatureCoherence()

@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureCoherence, SeismicLabAPI::Seismi
 
 SeismicLabFeatureCoherence::SeismicLabFeatureCoherence(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeatureCoherence::~SeismicLabFeatureCoherence()

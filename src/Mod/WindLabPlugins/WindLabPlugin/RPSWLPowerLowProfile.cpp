@@ -44,7 +44,7 @@ RPSWLPowerLowProfile::RPSWLPowerLowProfile()
     ADD_PROPERTY_TYPE(ReferenceSpeed, (30000.0), "Parameters", App::Prop_None, "The mean speed reference speed");
     ADD_PROPERTY_TYPE(DimensionlessPower, (0.12), "Parameters", App::Prop_None, "The dimensionless power");
     ADD_PROPERTY_TYPE(ZeroPlanDisplacement, (0), "Parameters", App::Prop_None, "The zero plan displacement");
-    this->OutputUnit.setValue("m/s");
+    
 }
 
 bool RPSWLPowerLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)

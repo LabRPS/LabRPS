@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeatureVariance, SeismicLabAPI::Seismic
 
 SeismicLabFeatureVariance::SeismicLabFeatureVariance(void)
 {
+    this->OutputUnitString.setValue("m^2/s^4");
 }
 
 SeismicLabFeatureVariance::~SeismicLabFeatureVariance()

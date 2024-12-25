@@ -40,6 +40,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeaturePeakFactor, SeismicLabAPI::Seism
 
 SeismicLabFeaturePeakFactor::SeismicLabFeaturePeakFactor(void)
 {
+    this->OutputUnitString.setValue("Dimensionless");
 }
 
 SeismicLabFeaturePeakFactor::~SeismicLabFeaturePeakFactor()

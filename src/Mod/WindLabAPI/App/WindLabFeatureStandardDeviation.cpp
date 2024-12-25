@@ -40,6 +40,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureStandardDeviation, WindLabAPI::WindLab
 
 WindLabFeatureStandardDeviation::WindLabFeatureStandardDeviation(void)
 {
+    this->OutputUnitString.setValue("m/s");
 }
 
 WindLabFeatureStandardDeviation::~WindLabFeatureStandardDeviation()
