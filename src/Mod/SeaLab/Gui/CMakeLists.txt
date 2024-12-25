@@ -231,8 +231,6 @@ SET(SeaLabGui_SRCS
     DlgNewSimulation.h
     DlgSeaLabFeaturesCreation.h
     DlgSeaLabFeaturesCreation.cpp
-    RPSSeaLabPyTool.cpp
-    RPSSeaLabPyTool.h
     SeaLabSimulationObserver.h
     SeaLabSimulationObserver.cpp
     SeaLabSimulationWorker.h

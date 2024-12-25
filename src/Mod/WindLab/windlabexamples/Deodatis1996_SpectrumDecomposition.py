@@ -92,11 +92,11 @@ def setup(doc=None, showGui=True):
         # explanation object
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
-        import WindLabGui
+        import GeneralToolsGui
         #show the mean wind speeds in Alphaplot
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd11)
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd22)
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd33)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd11)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd22, False)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, 3, psd33, False)
 
         import numpy
         import matplotlib.pyplot as plt

@@ -85,9 +85,9 @@ def setup(doc=None, showGui=True):
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
         
-        import SeaLabGui
+        import GeneralToolsGui
         #show the frequency coordinate in Alphaplot
-        SeaLabGui.SeaLabPyTool.showArray(sim.getSimulationData().numberOfFrequency, sim.getSimulationData().numberOfSpatialPosition, frequencies)
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfFrequency, sim.getSimulationData().numberOfSpatialPosition, frequencies, False)
 
     doc.recompute()
     return doc

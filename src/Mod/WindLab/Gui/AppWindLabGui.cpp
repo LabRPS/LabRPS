@@ -64,7 +64,6 @@
 #include <Gui/BitmapFactory.h>
 #include <Gui/Language/Translator.h>
 #include <Gui/WidgetFactory.h>
-#include "RPSWindLabPyTool.h"
 #include <Mod/WindLab/App/WindLabSimulation.h>
 #include <Mod/WindLab/Gui/WindLabSimulationObserver.h>
 #include <App/DocumentObjectPy.h>
@@ -213,18 +212,6 @@ PyMOD_INIT_FUNC(WindLabGui)
     new Gui::PrefPageProducer<WindLabGui::DlgSettingsWindLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "WindLab"));
 
     loadWindLabResource();
-
-    static struct PyModuleDef pWindLabPyToolPyModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "WindLabPyTool",
-        "WindLabPyTool", -1,
-        WindLabGui::RPSWindLabPyTool::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pWindLabPyToolPyModule = PyModule_Create(&pWindLabPyToolPyModuleDef);
-
-    Py_INCREF(pWindLabPyToolPyModule);
-    PyModule_AddObject(mod, "WindLabPyTool", pWindLabPyToolPyModule);
 
     PyMOD_Return(mod);
 }

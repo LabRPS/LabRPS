@@ -24,24 +24,26 @@
 
 #include <Gui/MainWindow.h>
 #include <Gui/AlphaPlot.h>
-#include "RPSSeismicLabPyTool.h"
+#include "RPSGeneralToolsPyTool.h"
 #include <Base/PyObjectBase.h>
 #include <Libraries/Alphaplot/RPS.h>
 #include <string.h> 
 #include <boost/algorithm/string/predicate.hpp>
-
 #include <boost/python/copy_const_reference.hpp>
+#include <Libraries/Alphaplot/2Dplot/Layout2D.h>
+#include <Libraries/Alphaplot/future/core/column/Column.h>
 
-namespace SeismicLabGui
+namespace GeneralToolsGui
 {
 
-PyObject* RPSSeismicLabPyTool::ShowArray(PyObject* self, PyObject* args)
+PyObject* RPSGeneralToolsPyTool::ShowArray(PyObject* self, PyObject* args)
 {
     int row;
     int col;
+    bool drawCurve = true;
     PyObject* numpyArray;
 
-    if (!PyArg_ParseTuple(args, "iiO", &row, &col, &numpyArray))
+    if (!PyArg_ParseTuple(args, "iiO|b", &row, &col, &numpyArray, &drawCurve))
         throw Py::Exception();
     try {
         std::vector<std::vector<double>> poly;
@@ -78,7 +80,22 @@ PyObject* RPSSeismicLabPyTool::ShowArray(PyObject* self, PyObject* args)
             poly.push_back(point);
         }
 
-        Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
+        if(drawCurve)
+        {
+            Table *table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
+            Layout2D* layout = Gui::getMainWindow()->getAlphaPlot()->newGraph2D();
+            if (!layout)
+                return NULL;
+            if (!table)
+                return NULL;
+            if (table->numCols() < 2)
+                return NULL;
+            QList<Column*> columns;
+            columns.append(table->column(0));
+            columns.append(table->column(1));
+            layout->generateCurve2DPlot(AxisRect2D::LineScatterType::Line2D, table, columns.at(0), QList<Column *>() << columns.at(1), 0, table->numRows() - 1);
+        }
+
         Py_Return;
     }
     catch (const Py::Exception&) {
@@ -86,7 +103,7 @@ PyObject* RPSSeismicLabPyTool::ShowArray(PyObject* self, PyObject* args)
     }
 }
 
-PyObject* RPSSeismicLabPyTool::ShowArrayAsMatrix(PyObject* self, PyObject* args)
+PyObject* RPSGeneralToolsPyTool::ShowArrayAsMatrix(PyObject* self, PyObject* args)
 {
     int row;
     int col;
@@ -137,7 +154,7 @@ PyObject* RPSSeismicLabPyTool::ShowArrayAsMatrix(PyObject* self, PyObject* args)
     }
 }
 
-PyObject* RPSSeismicLabPyTool::ShowValueAsTable(PyObject* self, PyObject* args)
+PyObject* RPSGeneralToolsPyTool::ShowValueAsTable(PyObject* self, PyObject* args)
 {
     double value;
 
@@ -156,7 +173,7 @@ PyObject* RPSSeismicLabPyTool::ShowValueAsTable(PyObject* self, PyObject* args)
     }
 }
 
-PyObject* RPSSeismicLabPyTool::GetActiveTable(PyObject* self, PyObject* args)
+PyObject* RPSGeneralToolsPyTool::GetActiveTable(PyObject* self, PyObject* args)
 {
     //get the current table
     Table* table = qobject_cast<Table*>(Gui::getMainWindow()->getactiveMyWidget());
@@ -181,7 +198,7 @@ PyObject* RPSSeismicLabPyTool::GetActiveTable(PyObject* self, PyObject* args)
     return boost::python::incref(activeArray.ptr());
 }
 
-PyObject* RPSSeismicLabPyTool::GetActiveMatrix(PyObject* self, PyObject* args)
+PyObject* RPSGeneralToolsPyTool::GetActiveMatrix(PyObject* self, PyObject* args)
 {
     //get the current matrix
     Matrix* matrix = qobject_cast<Matrix*>(Gui::getMainWindow()->getactiveMyWidget());
@@ -208,19 +225,19 @@ PyObject* RPSSeismicLabPyTool::GetActiveMatrix(PyObject* self, PyObject* args)
 }
 
 
-PyMethodDef RPSSeismicLabPyTool::Methods[] = {
-    {"showArray", (PyCFunction)RPSSeismicLabPyTool::ShowArray, METH_VARARGS,
+PyMethodDef RPSGeneralToolsPyTool::Methods[] = {
+    {"showArray", (PyCFunction)RPSGeneralToolsPyTool::ShowArray, METH_VARARGS,
     "showArray(row,col,array) - take a python list and display it in Alphaplot table"},
-    {"showArrayAsMatrix", (PyCFunction)RPSSeismicLabPyTool::ShowArrayAsMatrix, METH_VARARGS,
+    {"showArrayAsMatrix", (PyCFunction)RPSGeneralToolsPyTool::ShowArrayAsMatrix, METH_VARARGS,
     "showArrayAsMatrix(row,col,array) - take a python list and display it in Alphaplot matrix"},
-    {"showValueAsTable", (PyCFunction)RPSSeismicLabPyTool::ShowValueAsTable, METH_VARARGS,
+    {"showValueAsTable", (PyCFunction)RPSGeneralToolsPyTool::ShowValueAsTable, METH_VARARGS,
     "showValueAsTable(value) - take a python floating value and display it in Alphaplot table"},
-    {"getActiveTable", (PyCFunction)RPSSeismicLabPyTool::GetActiveTable, METH_VARARGS,
+    {"getActiveTable", (PyCFunction)RPSGeneralToolsPyTool::GetActiveTable, METH_VARARGS,
     "getActiveTable() - return the active AlphaPlot table as python list of lists"},
-    {"getActiveMatrix", (PyCFunction)RPSSeismicLabPyTool::GetActiveMatrix, METH_VARARGS,
+    {"getActiveMatrix", (PyCFunction)RPSGeneralToolsPyTool::GetActiveMatrix, METH_VARARGS,
     "getActiveMatrix() - return the active AlphaPlot matrix as python list of lists"},
     {nullptr, nullptr, 0, nullptr}  /* Sentinel */
 };
 
 
-} //namespace SeismicLabAPI
+} //namespace GeneralToolsAPI

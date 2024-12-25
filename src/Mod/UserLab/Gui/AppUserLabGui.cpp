@@ -37,7 +37,6 @@
 #include <Gui/BitmapFactory.h>
 #include <Gui/Language/Translator.h>
 #include <Gui/WidgetFactory.h>
-#include "RPSUserLabPyTool.h"
 #include <Mod/UserLab/App/UserLabSimulation.h>
 #include <Mod/UserLab/Gui/UserLabSimulationObserver.h>
 #include <App/DocumentObjectPy.h>
@@ -159,19 +158,6 @@ PyMOD_INIT_FUNC(UserLabGui)
     new Gui::PrefPageProducer<UserLabGui::DlgSettingsUserLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "UserLab"));
 
     loadUserLabResource();
-
-    static struct PyModuleDef pUserLabPyToolPyModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "UserLabPyTool",
-        "UserLabPyTool", -1,
-        UserLabGui::RPSUserLabPyTool::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pUserLabPyToolPyModule = PyModule_Create(&pUserLabPyToolPyModuleDef);
-
-    Py_INCREF(pUserLabPyToolPyModule);
-    PyModule_AddObject(mod, "UserLabPyTool", pUserLabPyToolPyModule);
-
 
     PyMOD_Return(mod);
 }

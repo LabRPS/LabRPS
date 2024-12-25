@@ -61,20 +61,20 @@ def setup(doc=None, showGui=True):
         LabRPS.Console.PrintError("The installation of the 'WindLabPlugin' plugin has failed.\n")
         return None
     
-    installResuslt2 = WindLab.installPlugin("CorrelationErgodicityPlugin")
-    if not installResuslt2:
-        LabRPS.Console.PrintError("The installation of the 'CorrelationErgodicityPlugin' plugin has failed.\n")
-        return None
+    # installResuslt2 = WindLab.installPlugin("CorrelationErgodicityPlugin")
+    # if not installResuslt2:
+    #     LabRPS.Console.PrintError("The installation of the 'CorrelationErgodicityPlugin' plugin has failed.\n")
+    #     return None
     
-    installResuslt3 = WindLab.installPlugin("PDFCheckToolPlugin")
-    if not installResuslt3:
-        LabRPS.Console.PrintError("The installation of the 'PDFCheckToolPlugin' plugin has failed.\n")
-        return None
+    # installResuslt3 = WindLab.installPlugin("PDFCheckToolPlugin")
+    # if not installResuslt3:
+    #     LabRPS.Console.PrintError("The installation of the 'PDFCheckToolPlugin' plugin has failed.\n")
+    #     return None
     
-    installResuslt4 = WindLab.installPlugin("ErgodicityCheckToolPlugin")
-    if not installResuslt4:
-        LabRPS.Console.PrintError("The installation of the 'ErgodicityCheckToolPlugin' plugin has failed.\n")
-        return None
+    # installResuslt4 = WindLab.installPlugin("ErgodicityCheckToolPlugin")
+    # if not installResuslt4:
+    #     LabRPS.Console.PrintError("The installation of the 'ErgodicityCheckToolPlugin' plugin has failed.\n")
+    #     return None
 
     # create new simulation with default name "Simulation"
     sim = WindLabObjects.makeSimulation(doc)
@@ -120,11 +120,9 @@ def setup(doc=None, showGui=True):
         # explanation object
         # just keep the following line and change text string in get_explanation method
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
-        import WindLabGui
+        import GeneralToolsGui
         #show the location coordinate in Alphaplot
-        WindLabGui.WindLabPyTool.showArray(sim.getSimulationData().numberOfSpatialPosition, 4, locRes)
-        loc.ViewObject.Document.activeView().viewAxonometric()
-        loc.ViewObject.Document.activeView().fitAll()
+        GeneralToolsGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfSpatialPosition, 4, locRes, False)
 
         import numpy
         import matplotlib.pyplot as plt

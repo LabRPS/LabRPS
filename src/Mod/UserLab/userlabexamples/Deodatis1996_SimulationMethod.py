@@ -130,7 +130,7 @@ def setup(doc=None, showGui=True, location = 1):
         manager.add_explanation_obj(doc, get_explanation(manager.get_header(get_information())))
         import UserLabGui
         #show the mean wind speeds in Alphaplot
-        UserLabGui.UserLabPyTool.showArray(sim.getSimulationData().numberOfTimeIncrements, sim.getSimulationData().numberOfSpatialPosition + 1, velocities)
+        UserLabGui.GeneralToolsPyTool.showArray(sim.getSimulationData().numberOfTimeIncrements, sim.getSimulationData().numberOfSpatialPosition + 1, velocities)
         
         # # 3D stacked line plot
         # import numpy

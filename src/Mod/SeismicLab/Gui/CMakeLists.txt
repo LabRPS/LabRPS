@@ -220,8 +220,6 @@ SET(SeismicLabGui_SRCS
     Workbench.h
     DlgNewSimulation.cpp
     DlgNewSimulation.h
-    RPSSeismicLabPyTool.cpp
-    RPSSeismicLabPyTool.h
     SeismicLabSimulationObserver.h
     SeismicLabSimulationObserver.cpp
     SeismicLabSimulationWorker.h

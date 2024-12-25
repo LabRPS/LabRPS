@@ -114,8 +114,6 @@ SET(UserLabGui_SRCS
     Workbench.h
     DlgNewSimulation.cpp
     DlgNewSimulation.h
-    RPSUserLabPyTool.cpp
-    RPSUserLabPyTool.h
     UserLabSimulationObserver.h
     UserLabSimulationObserver.cpp
     UserLabSimulationWorker.h

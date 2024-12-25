@@ -25,16 +25,16 @@
   * of attachment modes, as well as help texts, and the like.
   */
 
-#ifndef RPSSEISMICLABPYTHONPLUGIN_UTILITIES
-#define RPSSEISMICLABPYTHONPLUGIN_UTILITIES
+#ifndef RPSGeneralToolsPYTHONPLUGIN_UTILITIES
+#define RPSGeneralToolsPYTHONPLUGIN_UTILITIES
 
-#include <Mod/SeismicLab/SeismicLabGlobal.h>
+#include <Mod/GeneralTools/GeneralToolsGlobal.h>
 #include <CXX/Objects.hxx>
 
-namespace SeismicLabGui
+namespace GeneralToolsGui
 {
 // Python interface
-class SeismicLabGuiExport RPSSeismicLabPyTool
+class GeneralToolsGuiExport RPSGeneralToolsPyTool
 {
 public:
     static PyMethodDef    Methods[];
@@ -48,4 +48,4 @@ public:
 };
 
 } 
-#endif // RPSSEISMICLABPYTHONPLUGIN_UTILITIES
+#endif // RPSGeneralToolsPYTHONPLUGIN_UTILITIES

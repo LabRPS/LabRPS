@@ -58,7 +58,6 @@
 #include <Gui/BitmapFactory.h>
 #include <Gui/Language/Translator.h>
 #include <Gui/WidgetFactory.h>
-#include "RPSSeismicLabPyTool.h"
 #include <Mod/SeismicLab/App/SeismicLabSimulation.h>
 #include <Mod/SeismicLab/Gui/SeismicLabSimulationObserver.h>
 #include <App/DocumentObjectPy.h>
@@ -201,19 +200,6 @@ PyMOD_INIT_FUNC(SeismicLabGui)
     new Gui::PrefPageProducer<SeismicLabGui::DlgSettingsSeismicLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "SeismicLab"));
 
     loadSeismicLabResource();
-
-    static struct PyModuleDef pSeismicLabPyToolPyModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "SeismicLabPyTool",
-        "SeismicLabPyTool", -1,
-        SeismicLabGui::RPSSeismicLabPyTool::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pSeismicLabPyToolPyModule = PyModule_Create(&pSeismicLabPyToolPyModuleDef);
-
-    Py_INCREF(pSeismicLabPyToolPyModule);
-    PyModule_AddObject(mod, "SeismicLabPyTool", pSeismicLabPyToolPyModule);
-
 
     PyMOD_Return(mod);
 }

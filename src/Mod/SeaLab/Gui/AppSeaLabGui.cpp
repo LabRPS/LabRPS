@@ -60,7 +60,6 @@
 #include <Gui/BitmapFactory.h>
 #include <Gui/Language/Translator.h>
 #include <Gui/WidgetFactory.h>
-#include "RPSSeaLabPyTool.h"
 #include <Mod/SeaLab/App/SeaLabSimulation.h>
 #include <Mod/SeaLab/Gui/SeaLabSimulationObserver.h>
 #include <App/DocumentObjectPy.h>
@@ -205,19 +204,6 @@ PyMOD_INIT_FUNC(SeaLabGui)
     new Gui::PrefPageProducer<SeaLabGui::DlgSettingsSeaLabLimitImp>(QT_TRANSLATE_NOOP("QObject", "SeaLab"));
 
     loadSeaLabResource();
-
-    static struct PyModuleDef pSeaLabPyToolPyModuleDef = {
-        PyModuleDef_HEAD_INIT,
-        "SeaLabPyTool",
-        "SeaLabPyTool", -1,
-        SeaLabGui::RPSSeaLabPyTool::Methods,
-        nullptr, nullptr, nullptr, nullptr};
-
-    PyObject* pSeaLabPyToolPyModule = PyModule_Create(&pSeaLabPyToolPyModuleDef);
-
-    Py_INCREF(pSeaLabPyToolPyModule);
-    PyModule_AddObject(mod, "SeaLabPyTool", pSeaLabPyToolPyModule);
-
 
     PyMOD_Return(mod);
 }

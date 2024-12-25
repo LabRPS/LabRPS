@@ -26,6 +26,7 @@
 #include <Base/Interpreter.h>
 #include <Base/PyObjectBase.h>
 #include <Gui/Application.h>
+#include "RPSGeneralToolsPyTool.h"
 
 
 namespace GeneralToolsGui {
@@ -61,5 +62,17 @@ PyMOD_INIT_FUNC(GeneralToolsGui)
     PyObject* mod = GeneralToolsGui::initModule();
 
     Base::Console().Log("Loading GUI of GeneralToolsGui module... done\n");
+
+    static struct PyModuleDef pGeneralToolsPyToolPyModuleDef = {
+        PyModuleDef_HEAD_INIT,
+        "GeneralToolsPyTool",
+        "GeneralToolsPyTool", -1,
+        GeneralToolsGui::RPSGeneralToolsPyTool::Methods,
+        nullptr, nullptr, nullptr, nullptr};
+
+    PyObject* pGeneralToolsPyToolPyModule = PyModule_Create(&pGeneralToolsPyToolPyModuleDef);
+
+    Py_INCREF(pGeneralToolsPyToolPyModule);
+    PyModule_AddObject(mod, "GeneralToolsPyTool", pGeneralToolsPyToolPyModule);
     PyMOD_Return(mod);
 }
