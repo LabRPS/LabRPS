@@ -244,6 +244,10 @@ QStringList DlgWorkbenchesImp::load_disabled_workbenches()
 #else
     disabled_wbs_list = disabled_wbs.split(QLatin1String(","), QString::SkipEmptyParts);
 #endif
+
+    if (disabled_wbs_list.isEmpty())
+        return disabled_wbs_list;
+
     if (disabled_wbs_list.at(0) == all_Default_Dis_workbenches) {
         disabled_wbs_list.removeFirst();
 
