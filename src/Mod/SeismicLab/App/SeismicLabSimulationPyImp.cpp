@@ -1933,8 +1933,9 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
 
 PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
 {
-    if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
+    int sampleIndex = -1;
+    if (!PyArg_ParseTuple(args, "|i", &sampleIndex))
+        return nullptr;
     
     cube resArray;
     std::string featureName;
@@ -1946,7 +1947,17 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
     return Py_None;
     }
 
-     return returnResult7(resArray, featureName);
+    if (sampleIndex >= 0 && sampleIndex <= getSeismicLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
+    {
+        Eigen::Tensor<double, 2> matrix_at_k = resArray.chip(sampleIndex, 2);
+        Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+        mat ResultMatrix = matrix_k;
+        return returnResult4(ResultMatrix, featureName);
+    }
+    else
+    {
+        return returnResult7(resArray, featureName);
+    }
 }
 PyObject* SeismicLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
 {
