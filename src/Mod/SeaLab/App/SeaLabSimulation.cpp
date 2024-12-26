@@ -274,7 +274,12 @@ void SeaLabSimulation::updateSimulationData()
     _simuData->minVariableX.setValue(this->MinVariableX.getValue());
     _simuData->fileName.setValue(this->FileName.getValue());
     _simuData->sampleIndex.setValue(this->SampleIndex.getValue());
-
+    _simuData->numberOfGridPointsAlongX.setValue(this->NumberOfGridPointsAlongX.getValue());
+    _simuData->numberOfGridPointsAlongY.setValue(this->NumberOfGridPointsAlongY.getValue());
+    _simuData->gridSpacingAlongX.setValue(this->GridSpacingAlongX.getValue());
+    _simuData->gridSpacingAlongY.setValue(this->GridSpacingAlongY.getValue());
+    _simuData->gridLengthAlongX.setValue(this->GridLengthAlongX.getValue());
+    _simuData->gridLengthAlongY.setValue(this->GridLengthAlongY.getValue());
 }
 
 bool SeaLabSimulation::run(){
