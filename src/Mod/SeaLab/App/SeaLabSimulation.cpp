@@ -155,6 +155,12 @@ SeaLabSimulation::SeaLabSimulation()
     ADD_PROPERTY_TYPE(FileName, ("Velocities"), 0, Prop_None, "The wind velocity file name.");
     ADD_PROPERTY_TYPE(SampleIndex, (0), datagroup, Prop_None,"The index of the a given sample");
 
+    ADD_PROPERTY_TYPE(NumberOfGridPointsAlongX, (3), datagroup, Prop_None, "The number of grid points along the x axis");
+    ADD_PROPERTY_TYPE(NumberOfGridPointsAlongY, (3), datagroup, Prop_None, "The number of grid points along the y axis");
+    ADD_PROPERTY_TYPE(GridSpacingAlongX, (5), datagroup, Prop_None,"The grid space along the x axis");
+    ADD_PROPERTY_TYPE(GridSpacingAlongY, (5), datagroup, Prop_None, "The grid space along the y axis");
+    ADD_PROPERTY_TYPE(GridLengthAlongX, (10), datagroup, Prop_ReadOnly, "The grid length along the x axis");
+    ADD_PROPERTY_TYPE(GridLengthAlongY, (10), datagroup, Prop_ReadOnly, "The grid length along the y axis");
 
     SpatialDistribution.setEnums(someEnums);
     ShearVelocity.setEnums(someEnums);

@@ -109,6 +109,13 @@ SeaLabSimulationData::SeaLabSimulationData()
 
 	ADD_PROPERTY_TYPE(sampleIndex, (0), 0, Prop_None,"The index of the a given sample");
 
+    ADD_PROPERTY_TYPE(numberOfGridPointsAlongX, (3), 0, Prop_None, "The number of grid points along the x axis");
+    ADD_PROPERTY_TYPE(numberOfGridPointsAlongY, (3), 0, Prop_None, "The number of grid points along the y axis");
+    ADD_PROPERTY_TYPE(gridSpacingAlongX, (5), 0, Prop_None,"The grid space along the x axis");
+    ADD_PROPERTY_TYPE(gridSpacingAlongY, (5), 0, Prop_None, "The grid space along the y axis");
+    ADD_PROPERTY_TYPE(gridLengthAlongX, (10), 0, Prop_ReadOnly, "The grid length along the x axis");
+    ADD_PROPERTY_TYPE(gridLengthAlongY, (10), 0, Prop_ReadOnly, "The grid length along the y axis");
+
 }
 
 SeaLabSimulationData::~SeaLabSimulationData()
