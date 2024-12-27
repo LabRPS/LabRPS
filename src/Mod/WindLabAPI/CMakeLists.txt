@@ -3,11 +3,13 @@ add_subdirectory(App)
 set(WindLabAPI_Scripts
 Init.py
 WindLabAPIScripts.py
+TestWindLabAPIApp.py
 )
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND WindLabAPI_Scripts InitGui.py)
+    list (APPEND WindLabAPI_Scripts InitGui.py TestWindLabAPIGui.py
+    )
 endif(BUILD_GUI)
 
 add_custom_target(WindLabAPIScripts ALL

@@ -23,3 +23,4 @@
 
 # LabRPS init script of the SeaLab module
 
+LabRPS.__unit_test__ += [ "TestSeaLabToolsApp" ]

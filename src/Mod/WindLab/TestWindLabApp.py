@@ -22,3 +22,45 @@
 #***************************************************************************/
 
 
+import os
+import sys
+import math
+from math import sqrt
+import unittest
+import LabRPS
+import tempfile
+from LabRPS import Base
+from LabRPS import Units
+
+v = Base.Vector
+
+# ----------------------------------------------------------------------------------
+# define the functions to test the LabRPS WindLab module and expression engine
+# ----------------------------------------------------------------------------------
+
+
+class WindLabCases(unittest.TestCase):
+    def setUp(self):
+        self.doc = LabRPS.newDocument()
+        self.TempPath = tempfile.gettempdir()
+        LabRPS.Console.PrintLog("  Using temp path: " + self.TempPath + "\n")
+
+    def testAggregates(self):
+        """Test all aggregate functions"""
+        wind = self.doc.addObject("WindLab::WindLabSimulation", "Wind")
+        wind.TimeIncrement = "0.785 s"
+
+        self.doc.recompute()
+        self.assertEqual(wind.TimeIncrement.Value, 0.785)
+        self.assertEqual(wind.TimeIncrement.Unit, LabRPS.Units.TimeSpan)
+
+    def testUnits(self):
+        """Units -- test unit calculations."""
+        wind = self.doc.addObject("WindLab::WindLabSimulation", "Wind")
+        # wind.set("A1", "=2mm + 3mm")
+        self.doc.recompute()
+        # self.assertEqual(wind.A1, Units.Quantity("5mm"))
+
+    def tearDown(self):
+        # closing doc
+        LabRPS.closeDocument(self.doc.Name)

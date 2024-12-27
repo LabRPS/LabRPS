@@ -1,11 +1,13 @@
 add_subdirectory(App)
 
 set(WindLabTools_Scripts
-Init.py)
+Init.py
+TestWindLabToolsApp.py
+)
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND WindLabTools_Scripts InitGui.py)
+    list (APPEND WindLabTools_Scripts InitGui.py TestWindLabToolsGui.py)
 endif(BUILD_GUI)
 
 add_custom_target(WindLabToolsScripts ALL

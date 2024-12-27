@@ -1,12 +1,18 @@
 add_subdirectory(App)
 
 set(GeneralTools_Scripts
-Init.py)
+Init.py
+TestGeneralToolsApp.py
+)
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND GeneralTools_Scripts InitGui.py)
+    list (APPEND GeneralTools_Scripts 
+    InitGui.py
+    TestGeneralToolsGui.py
+    )
 endif(BUILD_GUI)
+
 
 add_custom_target(GeneralToolsScripts ALL
     SOURCES ${GeneralTools_Scripts}

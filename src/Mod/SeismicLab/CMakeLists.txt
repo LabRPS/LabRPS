@@ -10,23 +10,6 @@ set(SeismicLab_Scripts
     TestSeismicLabApp.py
 )
 
-SET(SeismicLabCommands_SRCS
-    seismiclabcommands/__init__.py
-    seismiclabcommands/commands.py
-    seismiclabcommands/manager.py
-)
-
-SET(SeismicLabExamples_SRCS
-    seismiclabexamples/__init__.py
-    seismiclabexamples/examplesgui.py
-    seismiclabexamples/manager.py
-    seismiclabexamples/Deodatis1996_LocationDistribution.py
-    seismiclabexamples/Deodatis1996_FrequencyDistribution.py
-    seismiclabexamples/Deodatis1996_UniformRandomPhases.py
-    seismiclabexamples/RPS_WavePassageEffect.py
-)
-
-
 set(SeismicLab_TestScripts
     SeismicLabTests/__init__.py
     SeismicLabTests/TestSeismicLab.py
@@ -40,7 +23,7 @@ if(BUILD_GUI)
 endif(BUILD_GUI)
 
 add_custom_target(SeismicLabScripts ALL
-    SOURCES ${SeismicLab_Scripts} ${SeismicLab_TestScripts} ${SeismicLabCommands_SRCS} ${SeismicLabExamples_SRCS}
+    SOURCES ${SeismicLab_Scripts} ${SeismicLab_TestScripts}
 )
 set_target_properties(SeismicLabScripts PROPERTIES FOLDER "Workbenches/SeismicLab")
 
@@ -49,11 +32,7 @@ rps_target_copy_resource(SeismicLabScripts
     ${CMAKE_BINARY_DIR}/Mod/SeismicLab
     ${SeismicLab_Scripts}
     ${SeismicLab_TestScripts}
-    ${SeismicLabCommands_SRCS}
-    ${SeismicLabExamples_SRCS}  
 )
 
 INSTALL(FILES ${SeismicLab_Scripts} DESTINATION Mod/SeismicLab)
-INSTALL(FILES ${SeismicLabCommands_SRCS} DESTINATION Mod/SeismicLab/seismiclabcommands)
-INSTALL(FILES ${SeismicLabExamples_SRCS} DESTINATION Mod/SeismicLab/seismiclabexamples)
 INSTALL(FILES ${SeismicLab_TestScripts} DESTINATION Mod/SeismicLab/SeismicLabTests)

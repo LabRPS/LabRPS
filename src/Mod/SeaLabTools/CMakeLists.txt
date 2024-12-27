@@ -1,11 +1,13 @@
 add_subdirectory(App)
 
 set(SeaLabTools_Scripts
-Init.py)
+Init.py
+TestSeaLabToolsApp.py
+)
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND SeaLabTools_Scripts InitGui.py)
+    list (APPEND SeaLabTools_Scripts InitGui.py TestSeaLabToolsGui.py)
 endif(BUILD_GUI)
 
 add_custom_target(SeaLabToolsScripts ALL

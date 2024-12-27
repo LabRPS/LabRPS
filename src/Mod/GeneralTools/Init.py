@@ -23,4 +23,4 @@
 
 # LabRPS init script of the WindLab module
 
-LabRPS.__unit_test__ += [ "TestWindLabToolsApp" ]
+LabRPS.__unit_test__ += [ "TestGeneralToolsApp" ]

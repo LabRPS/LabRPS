@@ -13,9 +13,11 @@
 		<workbench>
 			<classname>MyFirstWorkbench</classname>
 			<icon>Resources/icons/PackageIcon.svg</icon>
-			<depend>Part WORKBENCH</depend>
 			<depend>Plot</depend>
 			<depend>Spreadsheet</depend>
+			<depend>WindLab</depend>
+			<depend>SeismicLab</depend>
+			<depend>SeaLab</depend>
 		</workbench>
 	</content>
 

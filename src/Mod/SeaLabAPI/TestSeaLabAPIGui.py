@@ -21,6 +21,12 @@
 #*                                                                         *
 #***************************************************************************/
 
-# LabRPS init script of the WindLab module
+#import LabRPS, LabRPSGui, os, sys, unittest, SeismicLab, SeismicLabGui
 
-LabRPS.__unit_test__ += [ "TestWindLabAPIApp" ]
+
+#---------------------------------------------------------------------------
+# define the test cases to test the LabRPS SeismicLab module
+#---------------------------------------------------------------------------
+
+
+
