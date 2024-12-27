@@ -79,10 +79,9 @@ PyObject* RPSGeneralToolsPyTool::ShowArray(PyObject* self, PyObject* args)
             }
             poly.push_back(point);
         }
-
+    Table *table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
         if(drawCurve)
         {
-            Table *table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
             Layout2D* layout = Gui::getMainWindow()->getAlphaPlot()->newGraph2D();
             if (!layout)
                 return NULL;

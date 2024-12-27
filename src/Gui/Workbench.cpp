@@ -783,7 +783,7 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Graph
     MenuItem* AlphaPlot = new MenuItem;
     AlphaPlot->setCommand("AlphaPlot");
-    *AlphaPlot << plot << TreeDPlot << Graph << Table << Matrix << "Std_SaveAlphaplotData" << "Std_LoadAlphaplotData";
+    *AlphaPlot << plot << TreeDPlot << Graph << Table << Matrix /*<< "Std_SaveAlphaplotData" << "Std_LoadAlphaplotData"*/;
 
      // Tools
     MenuItem* tool = new MenuItem( menuBar );
@@ -811,18 +811,20 @@ MenuItem* StdWorkbench::setupMenuBar() const
     // Macro
     MenuItem* macro = new MenuItem( menuBar );
     macro->setCommand("&Macro");
-    *macro << "Std_DlgMacroRecord"
-           << "Std_MacroStopRecord"
+     *macro 
+         //<< "Std_DlgMacroRecord"
+         //   << "Std_MacroStopRecord"
            << "Std_DlgMacroExecute"
            << "Std_RecentMacros"
            << "Separator"
            << "Std_DlgMacroExecuteDirect"
-           << "Std_MacroAttachDebugger"
-           << "Std_MacroStartDebug"
-           << "Std_MacroStopDebug"
-           << "Std_MacroStepOver"
-           << "Std_MacroStepInto"
-           << "Std_ToggleBreakpoint";
+        //    << "Std_MacroAttachDebugger"
+        //    << "Std_MacroStartDebug"
+        //    << "Std_MacroStopDebug"
+        //    << "Std_MacroStepOver"
+        //    << "Std_MacroStepInto"
+        //    << "Std_ToggleBreakpoint"
+        ;
 
     // Windows
     MenuItem* wnd = new MenuItem( menuBar );
@@ -862,14 +864,16 @@ ToolBarItem* StdWorkbench::setupToolBars() const
     wb->setCommand("Workbench");
     *wb << "Std_Workbench";
 
-    // // Macro
-    // ToolBarItem* macro = new ToolBarItem( root );
-    // macro->setCommand("Macro");
-    // *macro << "Std_DlgMacroRecord" << "Std_MacroStopRecord" << "Std_DlgMacroExecute"
-    //        << "Std_DlgMacroExecuteDirect";
+    // Macro
+    ToolBarItem* macro = new ToolBarItem( root );
+    macro->setCommand("Macro");
+    *macro 
+    // << "Std_DlgMacroRecord" << "Std_MacroStopRecord" 
+    << "Std_DlgMacroExecute"
+    << "Std_DlgMacroExecuteDirect";
 
       Gui::ToolBarItem* GraphTools = new Gui::ToolBarItem(root);
-    GraphTools->setCommand("Graph Tools");
+    GraphTools->setCommand("AlphaPlot Tools");
     *GraphTools << "Std_Tools_Disable_tools"
                 << "Std_Tools_Data_reader"
                 << "Std_Tools_Screen_reader"
@@ -879,11 +883,9 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                 << "Separator"
                 << "Std_Graph_Drag_range"
                 << "Std_Tools_Zoom_range"
-                << "Std_Tools_Rescale_to_show_all";
-
-    Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
-    TableTools->setCommand("Table Tools");
-    *TableTools << "Std_StdScatters"
+                << "Std_Tools_Rescale_to_show_all"
+                << "Separator"
+                << "Std_StdScatters"
                 << "Std_LinesAndSteps"
                 << "Std_VerticalAndHorizontalBars"
                 << "Std_Plot_Area"
@@ -894,35 +896,54 @@ ToolBarItem* StdWorkbench::setupToolBars() const
                 << "Std_PiePlots"
                 << "Separator"
                 << "Std_3DPlot_Bar"
-                << "Std_3DPlot_Scatter";
+                << "Std_3DPlot_Scatter"
+                << "Std_AppendNewColumnToTable"
+                << "Std_ShowColumnStatistics"
+                << "Std_ShowRowStatistics"
+                << "Std_3DSurfaceTools";
+
+    //Gui::ToolBarItem* TableTools = new Gui::ToolBarItem(root);
+    //TableTools->setCommand("Table Tools");
+    //*TableTools << "Std_StdScatters"
+    //            << "Std_LinesAndSteps"
+    //            << "Std_VerticalAndHorizontalBars"
+    //            << "Std_Plot_Area"
+    //            << "Std_Plot_Channel_fil"
+    //            << "Std_Plot_SG_histogram"
+    //            << "Std_Plot_SG_box_plot"
+    //            << "Std_VectorPlots"
+    //            << "Std_PiePlots"
+    //            << "Separator"
+    //            << "Std_3DPlot_Bar"
+    //            << "Std_3DPlot_Scatter";
     // 3D Plot
-    Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    TreeDPlot->setCommand("3D Plot");
-    *TreeDPlot << "Std_3DPlot_3D_Wire_frame"
-               << "Std_3DPlot_3D_Surface"
-               << "Std_3DPlot_3D_Wire_frame_surface"
-               << "Separator"
-               << "Std_3DPlot_Bar"
-               << "Std_3DPlot_Scatter"
-               << "Separator"
-               << "Std_3DPlot_Countour_color_fill"
-               << "Std_3DPlot_Countour_lines"
-               << "Std_3DPlot_Gray_scale_map";
+    // Gui::ToolBarItem* TreeDPlot = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    // TreeDPlot->setCommand("3D Plot");
+    // *TreeDPlot << "Std_3DPlot_3D_Wire_frame"
+    //            << "Std_3DPlot_3D_Surface"
+    //            << "Std_3DPlot_3D_Wire_frame_surface"
+    //            << "Separator"
+    //            << "Std_3DPlot_Bar"
+    //            << "Std_3DPlot_Scatter"
+    //            << "Separator"
+    //            << "Std_3DPlot_Countour_color_fill"
+    //            << "Std_3DPlot_Countour_lines"
+    //            << "Std_3DPlot_Gray_scale_map";
 
     // 3D Plot Tools
-    Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    TreeDPlotT->setCommand("3D Plot Tools");
-    *TreeDPlotT << "Std_PlotPlot3dModecolumnSelect"
-                << "Std_PlotPlot3dModeRowSelect"
-                << "Std_PlotPlot3dModeItemSelect"
-                << "Std_PlotPlot3dAnimate";
+    // Gui::ToolBarItem* TreeDPlotT = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    // TreeDPlotT->setCommand("3D Plot Tools");
+    // *TreeDPlotT << "Std_PlotPlot3dModecolumnSelect"
+    //             << "Std_PlotPlot3dModeRowSelect"
+    //             << "Std_PlotPlot3dModeItemSelect"
+    //             << "Std_PlotPlot3dAnimate";
 
     // Table statistics
-    Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
-    TableStatistics->setCommand("Table Statistics");
-    *TableStatistics << "Std_AppendNewColumnToTable"
-                     << "Std_ShowColumnStatistics"
-                     << "Std_ShowRowStatistics";
+    // Gui::ToolBarItem* TableStatistics = new Gui::ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
+    // TableStatistics->setCommand("Table Statistics");
+    // *TableStatistics << "Std_AppendNewColumnToTable"
+    //                  << "Std_ShowColumnStatistics"
+    //                  << "Std_ShowRowStatistics";
     // View
     ToolBarItem* view = new ToolBarItem(root, Gui::ToolBarItem::DefaultVisibility::Hidden);
     view->setCommand("View");
@@ -937,7 +958,8 @@ ToolBarItem* StdWorkbench::setupCommandBars() const
     // Special Ops
     ToolBarItem* macro = new ToolBarItem( root );
     macro->setCommand("Special Ops");
-    *macro << "Std_DlgParameter" << "Std_DlgPreferences" << "Std_DlgMacroRecord" << "Std_MacroStopRecord"
+    *macro << "Std_DlgParameter" << "Std_DlgPreferences" 
+    // << "Std_DlgMacroRecord" << "Std_MacroStopRecord"
            << "Std_DlgMacroExecute" << "Std_DlgCustomize";
 
     return root;

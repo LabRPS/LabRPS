@@ -80,7 +80,7 @@ bool CRPSKaimalVerticalSpectr::ComputeZCrossSpectrumMatrixPP(const WindLabAPI::W
     bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
         if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
     

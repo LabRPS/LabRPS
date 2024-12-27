@@ -67,7 +67,7 @@ bool CRPSHarichandranVanmarckeCoherence::ComputeCrossCoherenceMatrixPP(const Sei
     
     if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
 	

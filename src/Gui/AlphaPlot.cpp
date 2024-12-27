@@ -7715,14 +7715,14 @@ void MainAlphaPlot::pickSelectionType(QAction* action)
         lout->setCustomInteractions(graph, false);
         graph->setSelectionMode(QAbstract3DGraph::SelectionItem);
     }
-    else if (action
-             == Application::Instance->commandManager()
-                    .getCommandByName("Std_PlotPlot3dModeNoneSelect")
-                    ->getAction()
-                    ->action()) {
-        lout->setCustomInteractions(graph, true);
-        graph->setSelectionMode(QAbstract3DGraph::SelectionNone);
-    }
+    // else if (action
+    //          == Application::Instance->commandManager()
+    //                 .getCommandByName("Std_PlotPlot3dModeNoneSelect")
+    //                 ->getAction()
+    //                 ->action()) {
+    //     lout->setCustomInteractions(graph, true);
+    //     graph->setSelectionMode(QAbstract3DGraph::SelectionNone);
+    // }
 
     Q_EMIT modified();
 }
@@ -11263,12 +11263,14 @@ void MainAlphaPlot::attachQtScript()
 
 bool MainAlphaPlot::isActiveSubWindowAGraph()
 {
-    bool result = false;
-    if (getactiveMyWidget()) {
-        (qobject_cast<Layout2D*>(getactiveMyWidget())) ? result = true : result = false;
-    }
+    // bool result = false;
+    // if (getactiveMyWidget()) {
+    //     (qobject_cast<Layout2D*>(getactiveMyWidget())) ? result = true : result = false;
+    // }
 
-    return result;
+    // return result;
+
+     return (isActiveSubWindow(getactiveMyWidget(), SubWindowType::Plot2DSubWindow));
 }
 bool MainAlphaPlot::isActiveSubWindowA3DPlot()
 {

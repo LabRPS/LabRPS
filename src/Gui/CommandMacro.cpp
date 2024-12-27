@@ -134,7 +134,7 @@ StdCmdDlgMacroExecuteDirect::StdCmdDlgMacroExecuteDirect()
     sToolTipText  = QT_TR_NOOP("Execute the macro in the editor");
     sWhatsThis    = "Std_DlgMacroExecuteDirect";
     sStatusTip    = QT_TR_NOOP("Execute the macro in the editor");
-    sPixmap       = "media-playback-start";
+    sPixmap       = "debug-start";
     sAccel        = "Ctrl+F6";
     eType         = 0;
 }

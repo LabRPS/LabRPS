@@ -56,7 +56,7 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::Win
 
     if(!returnResult)
     {
-        Base::Console().Error("The computation of the location coordinates matrix has failed.");
+        Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
         
         return false;
     }
@@ -85,7 +85,7 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::Win
 
     if(!returnResult)
     {
-       Base::Console().Error("The computation of the location coordinates matrix has failed.");
+       Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
        return false;
     }
 

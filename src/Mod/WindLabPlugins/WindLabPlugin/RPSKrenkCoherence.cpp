@@ -120,7 +120,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceMatrixPP(const WindLabAPI::WindLabS
     
     if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
 	
