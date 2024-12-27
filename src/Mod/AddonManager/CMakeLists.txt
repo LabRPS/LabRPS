@@ -54,15 +54,15 @@ SET(AddonManagerTestsGui_SRCS
 
 SET(AddonManagerTestsFiles_SRCS
     AddonManagerTest/data/__init__.py
-    AddonManagerTest/data/bad_macro_metadata.RPSStd
+    AddonManagerTest/data/bad_macro_metadata.rps
     AddonManagerTest/data/combination.xml
     AddonManagerTest/data/depends_on_all_workbenches.xml
     AddonManagerTest/data/DoNothing.RPSMacro
-    AddonManagerTest/data/good_macro_metadata.RPSStd
+    AddonManagerTest/data/good_macro_metadata.rps
     AddonManagerTest/data/good_package.xml
     AddonManagerTest/data/macro_only.xml
-    AddonManagerTest/data/macro_template.RPSStd
-    AddonManagerTest/data/missing_macro_metadata.RPSStd
+    AddonManagerTest/data/macro_template.rps
+    AddonManagerTest/data/missing_macro_metadata.rps
     AddonManagerTest/data/prefpack_only.xml
     AddonManagerTest/data/test_version_detection.xml
     AddonManagerTest/data/workbench_only.xml

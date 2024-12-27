@@ -3951,8 +3951,8 @@ kolore-barraz aparte</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>RPSStd fitxategien konpresio-maila</translation>
+      <source>Compression level for rps files</source>
+      <translation>rps fitxategien konpresio-maila</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4654,8 +4654,8 @@ Honako forma ere erabili dezakezu: Jon Inor &lt;jon@inor.com&gt;</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9090,8 +9090,8 @@ Fitxategia beste izen batekin gorde nahi al duzu?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 dokumentua (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 dokumentua (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10410,8 +10410,8 @@ egindako aldaketak galdu egingo direla.</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 dokumentua (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 dokumentua (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

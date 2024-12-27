@@ -2909,8 +2909,8 @@ bounding box size of the 3D object that is currently displayed.</translation>
       <translation type="unfinished">The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for RPSStd files</source>
-      <translation type="unfinished">Compression level for RPSStd files</translation>
+      <source>Compression level for rps files</source>
+      <translation type="unfinished">Compression level for rps files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>
@@ -3346,7 +3346,7 @@ You can also use the form: John Doe &lt;john@doe.com&gt;</translation>
       <translation>Logg alle kommandoer utstedt av menyer til fil:</translation>
     </message>
     <message>
-      <source>FullScript.FCScript</source>
+      <source>FullScript.RPSScript</source>
       <translation>FullSkript.FCSkript</translation>
     </message>
     <message>
@@ -6637,8 +6637,8 @@ Please open a browser window and type in: http://localhost:%1.</source>
       <translation>Lagre %1 dokument</translation>
     </message>
     <message>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 dokument (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 dokument (*.rps)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7950,8 +7950,8 @@ Physical path: </translation>
       <translation>Kan ikke flette prosjekt med seg selv.</translation>
     </message>
     <message>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 dokument (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 dokument (*.rps)</translation>
     </message>
   </context>
   <context>

@@ -589,11 +589,11 @@ QIcon FileIconProvider::icon(IconType type) const
 
 QIcon FileIconProvider::icon(const QFileInfo & info) const
 {
-    if (info.suffix().toLower() == QLatin1String("rpsstd")) {
+    if (info.suffix().toLower() == QLatin1String("rps")) {
         // return QApplication::windowIcon();
         return QIcon(QString::fromLatin1(":/icons/labrps-doc.png"));
     }
-    else if (info.suffix().toLower().startsWith(QLatin1String("rpsstd"))) {
+    else if (info.suffix().toLower().startsWith(QLatin1String("rps"))) {
         QIcon icon(QString::fromLatin1(":/icons/labrps-doc.png"));
         QIcon darkIcon;
         int w = QApplication::style()->pixelMetric(QStyle::PM_ListViewIconSize);

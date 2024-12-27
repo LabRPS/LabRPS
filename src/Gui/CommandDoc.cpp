@@ -99,11 +99,11 @@ void StdCmdOpen::activated(int iMsg)
 
     std::vector<std::string> filetypes = App::GetApplication().getImportTypes();
     std::vector<std::string>::iterator it;
-    // Make sure RPSStd is the very first fileformat
-    it = std::find(filetypes.begin(), filetypes.end(), "RPSStd");
+    // Make sure rps is the very first fileformat
+    it = std::find(filetypes.begin(), filetypes.end(), "rps");
     if (it != filetypes.end()) {
         filetypes.erase(it);
-        filetypes.insert(filetypes.begin(), "RPSStd");
+        filetypes.insert(filetypes.begin(), "rps");
     }
     for (it=filetypes.begin();it != filetypes.end();++it) {
         formatList += QLatin1String(" *.");
@@ -114,9 +114,9 @@ void StdCmdOpen::activated(int iMsg)
 
     std::map<std::string, std::string> FilterList = App::GetApplication().getImportFilters();
     std::map<std::string, std::string>::iterator jt;
-    // Make sure the format name for RPSStd is the very first in the list
+    // Make sure the format name for rps is the very first in the list
     for (jt=FilterList.begin();jt != FilterList.end();++jt) {
-        if (jt->first.find("*.RPSStd") != std::string::npos) {
+        if (jt->first.find("*.rps") != std::string::npos) {
             formatList += QLatin1String(jt->first.c_str());
             formatList += QLatin1String(";;");
             FilterList.erase(jt);
@@ -190,7 +190,7 @@ void StdCmdImport::activated(int iMsg)
     std::vector<std::string> filetypes = App::GetApplication().getImportTypes();
     std::vector<std::string>::const_iterator it;
     for (it=filetypes.begin();it != filetypes.end();++it) {
-        if (*it != "RPSStd") {
+        if (*it != "rps") {
             // ignore the project file format
             formatList += QLatin1String(" *.");
             formatList += QLatin1String(it->c_str());
@@ -203,7 +203,7 @@ void StdCmdImport::activated(int iMsg)
     std::map<std::string, std::string>::const_iterator jt;
     for (jt=FilterList.begin();jt != FilterList.end();++jt) {
         // ignore the project file format
-        if (jt->first.find("(*.RPSStd)") == std::string::npos) {
+        if (jt->first.find("(*.rps)") == std::string::npos) {
             formatList += QLatin1String(jt->first.c_str());
             formatList += QLatin1String(";;");
         }
@@ -260,7 +260,7 @@ StdCmdExport::StdCmdExport()
 Create a default filename from a user-specified format string
  
 Format options are:
-%F - the basename of the .RPSStd file (or the label, if it is not saved yet)
+%F - the basename of the .rps file (or the label, if it is not saved yet)
 %Lx - the label of the selected object(s), separated by character 'x'
 %Px - the label of the selected object(s) and their first parent, separated by character 'x'
 %U - the date and time, in UTC, ISO 8601
@@ -289,12 +289,12 @@ QString createDefaultExportBasename()
 
     // For code simplicity, pull all values we might need
 
-    // %F - the basename of the.RPSStd file(or the label, if it is not saved yet)
+    // %F - the basename of the.rps file(or the label, if it is not saved yet)
     QString docFilename = QString::fromUtf8(App::GetApplication().getActiveDocument()->getFileName());
     QFileInfo fi(docFilename);
-    QString rpsstdBasename = fi.completeBaseName();
-    if (rpsstdBasename.isEmpty()) 
-        rpsstdBasename = QString::fromStdString(App::GetApplication().getActiveDocument()->Label.getStrValue());
+    QString rpsBasename = fi.completeBaseName();
+    if (rpsBasename.isEmpty()) 
+        rpsBasename = QString::fromStdString(App::GetApplication().getActiveDocument()->Label.getStrValue());
 
     // %L - the label of the selected object(s)
     QStringList objectLabels;
@@ -345,7 +345,7 @@ QString createDefaultExportBasename()
 
                 // Handle our format characters:
                 if (formatChar == QLatin1Char('F')) {
-                    defaultFilename.append(rpsstdBasename);
+                    defaultFilename.append(rpsBasename);
                 }
                 else if (formatChar == QLatin1Char('L')) {
                     defaultFilename.append(objectLabels.join(separatorChar));
@@ -397,7 +397,7 @@ void StdCmdExport::activated(int iMsg)
     std::map<std::string, std::string> filterMap = App::GetApplication().getExportFilters();
     for (const auto &filter : filterMap) {
         // ignore the project file format
-        if (filter.first.find("(*.RPSStd)") == std::string::npos)
+        if (filter.first.find("(*.rps)") == std::string::npos)
             filterList << QString::fromStdString(filter.first);
     }
     QString formatList = filterList.join(QLatin1String(";;"));
@@ -418,7 +418,7 @@ void StdCmdExport::activated(int iMsg)
     bool filenameWasGenerated = false;
     // We want to generate a new default name in two cases:
     if (defaultFilename.isEmpty() || lastExportUsedGeneratedFilename) {
-        // First, get the name and path of the current .RPSStd file, if there is one:
+        // First, get the name and path of the current .rps file, if there is one:
         QString docFilename = QString::fromUtf8(
             App::GetApplication().getActiveDocument()->getFileName());
 
@@ -507,7 +507,7 @@ void StdCmdMergeProjects::activated(int iMsg)
     QString exe = qApp->applicationName();
     QString project = FileDialog::getOpenFileName(Gui::getMainWindow(),
         QString::fromUtf8(QT_TR_NOOP("Merge project")), FileDialog::getWorkingDirectory(),
-        QString::fromUtf8(QT_TR_NOOP("%1 document (*.RPSStd)")).arg(exe));
+        QString::fromUtf8(QT_TR_NOOP("%1 document (*.rps)")).arg(exe));
     if (!project.isEmpty()) {
         FileDialog::setWorkingDirectory(project);
         App::Document* doc = App::GetApplication().getActiveDocument();

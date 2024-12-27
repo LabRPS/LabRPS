@@ -12,10 +12,10 @@
 
 	<content>
 		<macro>
-			<file>MyMacro.RPSStd</file>
+			<file>MyMacro.rps</file>
 		</macro>
 		<macro>
-			<file>MyOtherMacro.RPSStd</file>
+			<file>MyOtherMacro.rps</file>
 		</macro>
 	</content>
 

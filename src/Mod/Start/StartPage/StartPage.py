@@ -133,8 +133,8 @@ def getInfo(filename):
         image = None
         descr = ""
 
-        # get additional info from rpsstd files
-        if filename.lower().endswith(".rpsstd"):
+        # get additional info from rps files
+        if filename.lower().endswith(".rps"):
             try:
                 zfile=zipfile.ZipFile(filename)
             except Exception:
@@ -146,7 +146,7 @@ def getInfo(filename):
                 try:
                     doc = str(zfile.read(files[0]))
                 except OSError as e:
-                    print ("Fail to load corrupted RPSStd file: '{0}' with this error: {1}".format(filename, str(e)))
+                    print ("Fail to load corrupted rps file: '{0}' with this error: {1}".format(filename, str(e)))
                     return None
                 doc = doc.replace("\n"," ")
                 r = re.findall("Property name=\"CreatedBy.*?String value=\"(.*?)\"/>",doc)

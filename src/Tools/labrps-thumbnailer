@@ -11,7 +11,7 @@ Installation:
   Thus, the file src/Gui/Icons/labrps-icon-48.png must be installed.
     "$ sudo cp labrps-icon-48.png /usr/share/icons/hicolor/48x48/apps/labrps.png"
 
-- The application/x-extension-rpsstd MIME type should be registered
+- The application/x-extension-rps MIME type should be registered
     Check that a corresponding /usr/share/mime/packages/labrps.xml file exists
     Make sure the MIME database is up to date
     "$ sudo update-mime-database /usr/share/mime"
@@ -22,7 +22,7 @@ Installation:
     [Thumbnailer Entry]
     TryExec=labrps-thumbnailer
     Exec=labrps-thumbnailer -s %s %i %o
-    MimeType=application/x-extension-rpsstd;
+    MimeType=application/x-extension-rps;
 
 HINT: Make sure that the symlink /usr/bin/python exists and points to the Python executable
 

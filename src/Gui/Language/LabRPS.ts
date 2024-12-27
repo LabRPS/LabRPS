@@ -3894,7 +3894,7 @@ besides the color bar</source>
     </message>
     <message>
         <location filename="../DlgSettingsDocument.ui" line="98"/>
-        <source>Compression level for RPSStd files</source>
+        <source>Compression level for rps files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4586,7 +4586,7 @@ You can also use the form: John Doe &lt;john@doe.com&gt;</source>
     </message>
     <message>
         <location filename="../DlgSettingsMacro.ui" line="224"/>
-        <source>FullScript.FCScript</source>
+        <source>FullScript.RPSScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -8986,7 +8986,7 @@ Would you like to save the file with a different name?</source>
     </message>
     <message>
         <location filename="../Document.cpp" line="1324"/>
-        <source>%1 document (*.RPSStd)</source>
+        <source>%1 document (*.rps)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -10297,7 +10297,7 @@ the current copy will be lost.
     </message>
     <message>
         <location filename="../CommandDoc.cpp" line="523"/>
-        <source>%1 document (*.RPSStd)</source>
+        <source>%1 document (*.rps)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

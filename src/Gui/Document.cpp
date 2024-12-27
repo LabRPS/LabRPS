@@ -1029,7 +1029,7 @@ bool Document::saveAs()
     QString exe = qApp->applicationName();
     QString fn = FileDialog::getSaveFileName(getMainWindow(), QObject::tr("Save %1 Document").arg(exe),
         QString::fromUtf8(getDocument()->FileName.getValue()),
-        QString::fromLatin1("%1 %2 (*.RPSStd)").arg(exe).arg(QObject::tr("Document")));
+        QString::fromLatin1("%1 %2 (*.rps)").arg(exe).arg(QObject::tr("Document")));
 
     if (!fn.isEmpty()) {
         QFileInfo fi;
@@ -1130,7 +1130,7 @@ bool Document::saveCopy()
     QString exe = qApp->applicationName();
     QString fn = FileDialog::getSaveFileName(getMainWindow(), QObject::tr("Save %1 Document").arg(exe),
                                              QString::fromUtf8(getDocument()->FileName.getValue()),
-                                             QObject::tr("%1 document (*.RPSStd)").arg(exe));
+                                             QObject::tr("%1 document (*.rps)").arg(exe));
     if (!fn.isEmpty()) {
         const char * DocName = App::GetApplication().getDocumentName(getDocument());
 

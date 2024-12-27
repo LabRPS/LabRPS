@@ -396,7 +396,7 @@ void Application::open(const char* FileName, const char* Module)
 
     if (Module != nullptr) {
         try {
-            if (File.hasExtension("RPSStd")) {
+            if (File.hasExtension("rps")) {
                 bool handled = false;
                 std::string filepath = File.filePath();
                 for (auto &v : d->documents) {
@@ -462,7 +462,7 @@ void Application::importFrom(const char* FileName, const char* DocName, const ch
             Command::doCommand(Command::App, "import %s", Module);
 
             // load the file with the module
-            if (File.hasExtension("RPSStd")) {
+            if (File.hasExtension("rps")) {
                 Command::doCommand(Command::App, "%s.open(u\"%s\")"
                                                , Module, unicodepath.c_str());
                 if (activeDocument())

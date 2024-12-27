@@ -163,7 +163,7 @@ static char * blarg_xpm[] = {
 
 
     def generate_macro_file(self, replacements:Dict[str,str] = {}) -> os.PathLike:
-        with open(os.path.join(self.test_dir,"macro_template.RPSStd")) as f:
+        with open(os.path.join(self.test_dir,"macro_template.rps")) as f:
             lines = f.readlines()
             outfile = tempfile.NamedTemporaryFile(mode="wt",delete=False)
             for line in lines:

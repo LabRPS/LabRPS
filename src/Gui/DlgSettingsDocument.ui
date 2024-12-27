@@ -95,7 +95,7 @@
         <item>
          <widget class="Gui::PrefSpinBox" name="prefCompression">
           <property name="toolTip">
-           <string>Compression level for RPSStd files</string>
+           <string>Compression level for rps files</string>
           </property>
           <property name="value">
            <number>3</number>

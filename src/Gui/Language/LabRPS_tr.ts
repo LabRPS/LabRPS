@@ -3944,8 +3944,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>RPSStd dosyaları için sıkıştırma seviyesi</translation>
+      <source>Compression level for rps files</source>
+      <translation>rps dosyaları için sıkıştırma seviyesi</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4646,8 +4646,8 @@ Ayrıca formu da kullanabilirsiniz: John Doe &lt;john@doe.com&gt;</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9076,8 +9076,8 @@ Dosyayı farklı bir adla kaydetmek ister misiniz?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 belgesi (*. RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 belgesi (*. rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10396,8 +10396,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 belgesi (*. RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 belgesi (*. rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

@@ -3949,8 +3949,8 @@ oprócz paska kolorów</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>Stopień kompresji dla plików RPSStd</translation>
+      <source>Compression level for rps files</source>
+      <translation>Stopień kompresji dla plików rps</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4650,8 +4650,8 @@ Możesz również skorzystać z formatki: John Doe &lt;john@doe.com&gt;</transla
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9079,8 +9079,8 @@ Czy chcesz zapisać plik pod inną nazwą?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Dokument %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Dokument %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10401,8 +10401,8 @@ bieżącej kopii zostaną utracone.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Dokument %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Dokument %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

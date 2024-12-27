@@ -2273,11 +2273,11 @@ static std::string checkFileName(const char *file) {
                 ("User parameter:BaseApp/Preferences/Document")->GetBool("CheckExtension",true))
     {
         const char *ext = strrchr(file,'.');
-        if(!ext || !boost::iequals(ext+1,"rpsstd")) {
+        if(!ext || !boost::iequals(ext+1,"rps")) {
             if(ext && ext[1] == 0)
-                fn += "RPSStd";
+                fn += "rps";
             else
-                fn += ".RPSStd";
+                fn += ".rps";
         }
     }
     return fn;

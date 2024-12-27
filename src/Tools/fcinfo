@@ -28,7 +28,7 @@ __title__="LabRPS File info utility"
 __author__ = "Yorik van Havre"
 __url__ = ["http://www.freecadweb.org"]
 __doc__ = '''
-This utility prints information about a given LabRPS file (*.RPSStd)
+This utility prints information about a given LabRPS file (*.rps)
 on screen, including document properties, number of included objects,
 object sizes and properties and values. Its main use is to compare
 two files and be able to see the differences in a text-based form.
@@ -38,7 +38,7 @@ of properties of each object found in the given file.
 
 Usage:
 
-    fcinfo [options] myfile.RPSStd
+    fcinfo [options] myfile.rps
 
 Options:
 
@@ -60,14 +60,14 @@ Git usage:
 
      1) add to .gitattributes (or ~/.gitattributes for user-wide):
 
-         *.rpsstd diff=fcinfo
+         *.rps diff=fcinfo
 
      2) add to .git/config (or ~/.gitconfig for user-wide):
 
          [diff "fcinfo"]
              textconv = /path/to/fcinfo
 
-    With this, when committing a .RPSStd file with Git,
+    With this, when committing a .rps file with Git,
     'git diff' will show you the difference between the two
     texts obtained by fcinfo
 '''
@@ -212,7 +212,7 @@ if __name__ == '__main__':
         sys.exit()
 
     ext = sys.argv[-1].rsplit(".")[-1].lower()
-    if not ext.startswith("rpsstd") and not ext.startswith("rpsbak"):
+    if not ext.startswith("rps") and not ext.startswith("rpsbak"):
         print(__doc__)
         sys.exit()
 

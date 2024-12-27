@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
-  <mime-type type="application/x-extension-rpsstd">
+  <mime-type type="application/x-extension-rps">
     <!-- <sub-class-of type="application/zip"/> -->
     <comment>LabRPS document files</comment>
-    <glob pattern="*.rpsstd"/>
-    <generic-icon name="application-x-extension-rpsstd"/>
+    <glob pattern="*.rps"/>
+    <generic-icon name="application-x-extension-rps"/>
   </mime-type>
 </mime-info>

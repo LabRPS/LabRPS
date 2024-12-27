@@ -212,7 +212,7 @@ QString DocumentRecovery::createProjectFile(const QString& documentXml)
 {
     QString source = documentXml;
     QFileInfo fi(source);
-    QString dest = fi.dir().absoluteFilePath(QString::fromLatin1("rps_recovery_file.rpsstd"));
+    QString dest = fi.dir().absoluteFilePath(QString::fromLatin1("rps_recovery_file.rps"));
 
     std::stringstream str;
     str << doctools << "\n";
@@ -312,7 +312,7 @@ void DocumentRecovery::accept()
                 QFileInfo fi(info.projectFile);
                 bool res = false;
 
-                if (fi.fileName() == QLatin1String("rps_recovery_file.rpsstd")) {
+                if (fi.fileName() == QLatin1String("rps_recovery_file.rps")) {
                     transDir.remove(fi.fileName());
                     res = transDir.rename(fi.absoluteFilePath(),fi.fileName());
                 }
@@ -393,8 +393,8 @@ DocumentRecoveryPrivate::Info DocumentRecoveryPrivate::getRecoveryInfo(const QFi
     QDir rec_dir(doc_dir.absoluteFilePath(QLatin1String("rps_recovery_files")));
 
     // compressed recovery file
-    if (doc_dir.exists(QLatin1String("rps_recovery_file.rpsstd"))) {
-        file = doc_dir.absoluteFilePath(QLatin1String("rps_recovery_file.rpsstd"));
+    if (doc_dir.exists(QLatin1String("rps_recovery_file.rps"))) {
+        file = doc_dir.absoluteFilePath(QLatin1String("rps_recovery_file.rps"));
     }
     // separate files for recovery
     else if (rec_dir.exists(QLatin1String("Document.xml"))) {

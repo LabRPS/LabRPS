@@ -3944,8 +3944,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>Уровень сжатия для файлов RPSStd</translation>
+      <source>Compression level for rps files</source>
+      <translation>Уровень сжатия для файлов rps</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4650,8 +4650,8 @@ Opening mode: If you defined a hinge in this component or any other earlier in t
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9080,8 +9080,8 @@ Would you like to save the file with a different name?</source>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>документ %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>документ %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10400,8 +10400,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>документ %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>документ %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>
@@ -10604,7 +10604,7 @@ the current copy will be lost.
       <location filename="../CommandDoc.cpp" line="837"/>
       <location filename="../CommandDoc.cpp" line="838"/>
       <source>Utility to extract or create project files</source>
-      <translation>Утилита для разборки и сборки файлов .RPSStd</translation>
+      <translation>Утилита для разборки и сборки файлов .rps</translation>
     </message>
   </context>
   <context>

@@ -1026,7 +1026,7 @@ else(WIN32)
     INSTALL(FILES Icons/labrps-icon-64.png DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/64x64/apps RENAME labrps.png)
     INSTALL(FILES Icons/labrps.svg DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/apps)
     INSTALL(FILES Icons/labrps.xpm DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pixmaps)
-    INSTALL(FILES Icons/labrps-doc.svg DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/mimetypes RENAME application-x-extension-rpsstd.svg)
+    INSTALL(FILES Icons/labrps-doc.svg DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/icons/hicolor/scalable/mimetypes RENAME application-x-extension-rps.svg)
 endif(WIN32)
 
 set(LabRPSGui_Scripts
