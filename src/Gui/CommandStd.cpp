@@ -1945,7 +1945,7 @@ public:
         addCommand(new StdPlotPlot3dModecolumnSelect());
         addCommand(new StdPlotPlot3dModeRowSelect());
         addCommand(new StdPlotPlot3dModeItemSelect());
-        addCommand(new StdPlotPlot3dModeNoneSelect());
+        // addCommand(new StdPlotPlot3dModeNoneSelect());
         addCommand(new StdPlotPlot3dAnimate());
      
     }

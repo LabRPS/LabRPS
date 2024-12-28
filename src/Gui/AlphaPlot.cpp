@@ -11347,3 +11347,34 @@ void MainAlphaPlot::getActiveTableAsEigenMatrix(mat& matrix)
     Table* AplaPlotTable = getActiveTable();
     convertTableToEigenMatrix(AplaPlotTable, matrix);
 }
+
+Table* MainAlphaPlot::getTableByName(QString tableName)
+{
+  Table *table = nullptr;
+    if (!aprojhandler_)
+        return nullptr;
+
+  QList<Table*> tabs = aprojhandler_->tables(this);
+  Q_FOREACH (Table *tab, tabs) {
+      if (tab->name() == tableName)
+      {
+          return tab;
+      }
+  }
+  return table;
+}
+
+Matrix* MainAlphaPlot::getMatrixByName(QString matrixName) {
+  Matrix *matrix = nullptr;
+    if (!aprojhandler_)
+        return nullptr;
+
+  QList<Matrix*> mats = aprojhandler_->matrixs(this);
+    Q_FOREACH (Matrix* mat, mats) {
+      if (mat->name() == matrixName)
+      {
+            return mat;
+      }
+  }
+  return matrix;
+}

@@ -977,7 +977,7 @@ DockWindowItems* StdWorkbench::setupDockWindows() const
     root->addDockWidget("Std_ReportView", Qt::BottomDockWidgetArea, true, true);
     root->addDockWidget("Std_PythonView", Qt::BottomDockWidgetArea, true, true);
     root->addDockWidget("Std_PlotExplorerView", Qt::BottomDockWidgetArea, true, true);
-    root->addDockWidget("Std_PlotPropertyView", Qt::RightDockWidgetArea, true, false);
+    root->addDockWidget("Std_PlotPropertyView", Qt::RightDockWidgetArea, true, true);
     root->addDockWidget("Std_ResultView", Qt::BottomDockWidgetArea, true, true);
     
     return root;

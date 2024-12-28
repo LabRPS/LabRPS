@@ -223,6 +223,64 @@ PyObject* RPSGeneralToolsPyTool::GetActiveMatrix(PyObject* self, PyObject* args)
     return boost::python::incref(activeArray.ptr());
 }
 
+PyObject* RPSGeneralToolsPyTool::GetTableByName(PyObject* self, PyObject* args)
+{
+    char* tableName = nullptr;
+    if (!PyArg_ParseTuple(args, "s", &tableName))
+        return nullptr;
+
+    //get the table by a name
+    Table* table = Gui::getMainWindow()->getAlphaPlot()->getTableByName(QString::fromLatin1(tableName));
+
+    if (!table)
+       return NULL;
+
+    //allocate momery for the table
+    mat theTable(table->numRows(), table->numCols());
+
+    //convert the Alphaplot table to Eigen matrix
+    Gui::getMainWindow()->getAlphaPlot()->convertTableToEigenMatrix(table, theTable);
+
+    // <class 'numpy.array'>
+    Py::List theArray;
+    for (int i = 0; i < theTable.rows(); i++) {
+        Py::List row;
+        for (int j = 0; j < theTable.cols(); j++) {
+            row.append(Py::Float((theTable.coeff(i, j))));
+        }
+        theArray.append(row);
+    }
+    return boost::python::incref(theArray.ptr());
+}
+PyObject* RPSGeneralToolsPyTool::GetMatrixByName(PyObject* /*self*/, PyObject* args)
+{
+    char* matrixName = nullptr;
+    if (!PyArg_ParseTuple(args, "s", &matrixName))
+        return nullptr;
+
+    //get the matrix by a name
+    Matrix* matrix = Gui::getMainWindow()->getAlphaPlot()->getMatrixByName(QString::fromLatin1(matrixName));
+
+    if (!matrix)
+       return NULL;
+
+    //allocate momery for the matrix
+    mat theMatrix(matrix->numRows(), matrix->numCols());
+
+    //convert the Alphaplot matrix to Eigen matrix
+    Gui::getMainWindow()->getAlphaPlot()->convertMatrixToEigenMatrix(matrix, theMatrix);
+
+    // <class 'numpy.array'>
+    Py::List theArray;
+    for (int i = 0; i < theMatrix.rows(); i++) {
+        Py::List row;
+        for (int j = 0; j < theMatrix.cols(); j++) {
+            row.append(Py::Float((theMatrix.coeff(i, j))));
+        }
+        theArray.append(row);
+    }
+    return boost::python::incref(theArray.ptr());
+}
 
 PyMethodDef RPSGeneralToolsPyTool::Methods[] = {
     {"showArray", (PyCFunction)RPSGeneralToolsPyTool::ShowArray, METH_VARARGS,
@@ -235,6 +293,10 @@ PyMethodDef RPSGeneralToolsPyTool::Methods[] = {
     "getActiveTable() - return the active AlphaPlot table as python list of lists"},
     {"getActiveMatrix", (PyCFunction)RPSGeneralToolsPyTool::GetActiveMatrix, METH_VARARGS,
     "getActiveMatrix() - return the active AlphaPlot matrix as python list of lists"},
+    {"getTableByName", (PyCFunction)RPSGeneralToolsPyTool::GetTableByName, METH_VARARGS,
+    "getTableByName() - return the AlphaPlot table as python list of lists given the AphaPlot table name"},
+    {"getMatrixByName", (PyCFunction)RPSGeneralToolsPyTool::GetMatrixByName, METH_VARARGS,
+    "getMatrixByName() - return the AlphaPlot matrix as python list of lists given the AphaPlot matrix name"},
     {nullptr, nullptr, 0, nullptr}  /* Sentinel */
 };
 

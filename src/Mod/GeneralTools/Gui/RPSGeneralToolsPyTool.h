@@ -43,6 +43,8 @@ public:
     static PyObject* ShowValueAsTable(PyObject* /*self*/, PyObject* args);
     static PyObject* GetActiveTable(PyObject* /*self*/, PyObject* args);
     static PyObject* GetActiveMatrix(PyObject* /*self*/, PyObject* args);
+    static PyObject* GetTableByName(PyObject* /*self*/, PyObject* args);
+    static PyObject* GetMatrixByName(PyObject* /*self*/, PyObject* args);
 
 
 };

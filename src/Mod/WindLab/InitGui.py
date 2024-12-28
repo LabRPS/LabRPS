@@ -37,8 +37,6 @@ class WindLabWorkbench ( Workbench ):
         # load the module
         import WindLabGui
         import WindLab
-        import windlabcommands.commands
-
             
     def GetClassName(self):
         return "WindLabGui::Workbench"
