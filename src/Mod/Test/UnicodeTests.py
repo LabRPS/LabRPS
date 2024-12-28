@@ -55,7 +55,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
 
   def testSaveAndRestore(self):
     # saving and restoring
-    SaveName = self.TempPath + os.sep + "UnicodeTest.RPSStd"
+    SaveName = self.TempPath + os.sep + "UnicodeTest.rps"
     self.Doc.saveAs(SaveName)
     LabRPS.closeDocument("SaveRestoreTests")
     self.Doc = LabRPS.open(SaveName)

@@ -192,6 +192,12 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
    App::PropertyString wavePassageEffect;
    App::PropertyPath workingDirectoryPath;
    App::PropertyString fileName;
+   App::PropertyInteger numberOfGridPointsAlongX;
+   App::PropertyInteger numberOfGridPointsAlongY;
+   App::PropertyLength gridSpacingAlongX;
+   App::PropertyLength gridSpacingAlongY;
+   App::PropertyLength gridLengthAlongX;
+   App::PropertyLength gridLengthAlongY;
 
    /** @name methods override feature */
 //@{

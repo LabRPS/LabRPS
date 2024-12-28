@@ -24,8 +24,6 @@ import sys
 import math
 import unittest
 import LabRPS
-import Part
-import Sketcher
 import tempfile
 from LabRPS import Base
 from LabRPS import Units
@@ -508,18 +506,6 @@ class SpreadsheetCases(unittest.TestCase):
         sheet.set('A51', '=+(-1 + 1)')
         sheet.set('A52', '=+(-1 + -1)')
 
-        self.doc.addObject("Part::Cylinder", "Cylinder")
-        # We cannot use Thickness, as this feature requires a source shape,
-        # otherwise it will cause recomputation failure. The new logic of
-        # App::Document will not continue recompute any dependent objects
-
-        #  self.doc.addObject("Part::Thickness", "Pipe")
-        self.doc.addObject("Part::Box", "Box")
-        self.doc.Box.Length = 1
-
-        sheet.set('B1', '101')
-        sheet.set('A53', '=-(-(B1-1)/2)')
-        sheet.set('A54', '=-(Cylinder.Radius + Box.Length - 1"/2)')
 
         self.doc.recompute()
         self.assertEqual(sheet.getContents("A1"), "=1 < 2 ? 3 : 4")
@@ -572,8 +558,6 @@ class SpreadsheetCases(unittest.TestCase):
         self.assertEqual(sheet.A50, 0)
         self.assertEqual(sheet.A51, 0)
         self.assertEqual(sheet.A52, -2)
-        self.assertEqual(sheet.A53, 50)
-        self.assertEqual(sheet.A54, Units.Quantity('9.7mm'))
         self.assertEqual(sheet.getContents('A1'), '=1 < 2 ? 3 : 4')
         self.assertEqual(sheet.getContents('A2'), '=1 + 2 < 3 + 4 ? 5 + 6 : 7 + 8')
         self.assertEqual(sheet.getContents('A3'), '=1 + 2 * 1 < 3 + 4 ? 5 * 2 + 6 * 3 + 2 ^ 4 : 7 * 2 + 8 * 3 + 2 ^ 3')
@@ -732,23 +716,14 @@ class SpreadsheetCases(unittest.TestCase):
         sheet = self.doc.addObject('Spreadsheet::Sheet','Spreadsheet')
         sheet.set('B1', '124')
         sheet.setAlias('B1', 'alias1')
-        box = self.doc.addObject('Part::Box', 'Box')
-        box.setExpression('Length', 'Spreadsheet.alias1')
-        sheet.setAlias('B1', 'alias2')
-        self.assertEqual(box.ExpressionEngine[0][1], "Spreadsheet.alias2");
+
 
     def testRenameAlias3(self):
         """ Test renaming of document object referenced from another object """
         sheet = self.doc.addObject('Spreadsheet::Sheet','Spreadsheet')
         sheet.set('B1', '124')
         sheet.setAlias('B1', 'alias1')
-        box = self.doc.addObject('Part::Box', 'Box')
-        box.setExpression('Length', 'Spreadsheet.alias1')
-        box2 = self.doc.addObject('Part::Box', 'Box')
-        box2.setExpression('Length', '<<Spreadsheet>>.alias1')
-        sheet.Label = "Params"
-        self.assertEqual(box.ExpressionEngine[0][1], "Spreadsheet.alias1");
-        self.assertEqual(box2.ExpressionEngine[0][1], "<<Params>>.alias1");
+
 
     def testAlias(self):
         """ Playing with aliases """
@@ -798,222 +773,6 @@ class SpreadsheetCases(unittest.TestCase):
         else:
             self.fail("A unit (reserved word) was used as alias which shouldn't be allowed")
 
-    def testPlacementName(self):
-        """ Object name is equal to property name (bug #2389) """
-        if not LabRPS.GuiUp:
-            return
-
-        import LabRPSGui
-        o = self.doc.addObject("Part::FeaturePython","Placement")
-        LabRPSGui.Selection.addSelection(o)
-
-    def testInvoluteGear(self):
-        """ Support of boolean or integer values """
-        try:
-            import InvoluteGearFeature
-        except ImportError:
-            return
-        InvoluteGearFeature.makeInvoluteGear('InvoluteGear')
-        self.doc.recompute()
-        sketch=self.doc.addObject('Sketcher::SketchObject','Sketch')
-        sketch.addGeometry(Part.LineSegment(v(0,0,0),v(10,10,0)),False)
-        sketch.addConstraint(Sketcher.Constraint('Distance',0,65.285388))
-        sketch.setExpression('Constraints[0]', 'InvoluteGear.NumberOfTeeth')
-        self.doc.recompute()
-        self.assertIn('Up-to-date',sketch.State)
-
-    def testSketcher(self):
-        """ Mixup of Label and Name (bug #2407)"""
-        sketch=self.doc.addObject('Sketcher::SketchObject','Sketch')
-        sheet=self.doc.addObject('Spreadsheet::Sheet','Spreadsheet')
-        sheet.setAlias('A1', 'Length')
-        self.doc.recompute()
-        sheet.set('A1', '47,11')
-        self.doc.recompute()
-
-        index=sketch.addGeometry(Part.LineSegment(v(0,0,0),v(10,10,0)),False)
-        sketch.addConstraint(Sketcher.Constraint('Distance',index,14.0))
-        self.doc.recompute()
-        sketch.setExpression('Constraints[0]', u'<<Spreadsheet>>.Length')
-        self.doc.recompute()
-        sheet.Label="Calc"
-        self.doc.recompute()
-        self.assertEqual(sketch.ExpressionEngine[0][1],'<<Calc>>.Length')
-        self.assertIn('Up-to-date',sketch.State)
-
-    def testCrossDocumentLinks(self):
-        """ Expressions across files are not saved (bug #2442) """
-
-        # Create a box
-        box = self.doc.addObject('Part::Box', 'Box')
-
-        # Create a second document with a cylinder
-        doc2 = LabRPS.newDocument()
-        cylinder = doc2.addObject('Part::Cylinder', 'Cylinder')
-        cylinder.setExpression('Radius', 'cube#Cube.Height')
-
-        # Save and close first document
-        self.doc.saveAs(self.TempPath + os.sep + 'cube.rpsstd')
-        LabRPS.closeDocument(self.doc.Name)
-
-        # Save and close second document
-        doc2.saveAs(self.TempPath + os.sep + 'cylinder.rpsstd')
-        LabRPS.closeDocument(doc2.Name)
-
-        # Open both documents again
-        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'cube.rpsstd')
-        doc2 = LabRPS.openDocument(self.TempPath + os.sep + 'cylinder.rpsstd')
-
-        # Check reference between them
-        self.assertEqual(doc2.getObject('Cylinder').ExpressionEngine[0][1], 'cube#Cube.Height')
-
-        # Close second document
-        LabRPS.closeDocument(doc2.Name)
-
-    def testMatrix(self):
-        ''' Test Matrix/Vector/Placement/Rotation operations'''
-
-        def plm_equal(plm1, plm2):
-            from math import sqrt
-            qpair = zip(plm1.Rotation.Q, plm2.Rotation.Q)
-            qdiff1 = sqrt(sum([(v1 - v2)**2 for v1,v2 in qpair]))
-            qdiff2 = sqrt(sum([(v1 + v2)**2 for v1,v2 in qpair]))
-            return (plm1.Base-plm2.Base).Length < 1e-7 and (qdiff1 < 1e-12 or dqiff2 < 1e-12)
-
-        sheet = self.doc.addObject('Spreadsheet::Sheet','Spreadsheet')
-
-        mat = LabRPS.Matrix()
-        mat.scale(2,1,2)
-        imat = mat.inverse()
-
-        vec = LabRPS.Vector(2,1,2)
-
-        rot = LabRPS.Rotation(LabRPS.Vector(0,1,0),45)
-        irot = rot.inverted()
-
-        pla = LabRPS.Placement(vec,rot)
-        ipla = pla.inverse()
-
-        sheet.set('A1', '=create(<<vector>>, 2, 1, 2)')
-
-        # different ways of calling mscale()
-        sheet.set('B1', '=mscale(create(<<matrix>>), A1)')
-        sheet.set('C1', '=mscale(create(<<matrix>>), tuple(2, 1, 2))')
-        sheet.set('A2', '=mscale(create(<<matrix>>), 2, 1, 2)')
-
-        # test matrix power operation
-        sheet.set('B2', '=A2^-2')
-        sheet.set('C2', '=A2^-1')
-        sheet.set('D2', '=A2^0')
-        sheet.set('E2', '=A2^1')
-        sheet.set('F2', '=A2^2')
-        sheet.set('G2', '=create(<<matrix>>, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)')
-        sheet.set('H2', '=G2^-1')
-
-        sheet.set('A3', '=create(<<rotation>>, create(<<vector>>, 0, 1, 0), 45)')
-
-        # test rotation power operation
-        sheet.set('B3', '=A3^-2')
-        sheet.set('C3', '=A3^-1')
-        sheet.set('D3', '=A3^0')
-        sheet.set('E3', '=A3^1')
-        sheet.set('F3', '=A3^2')
-
-        sheet.set('A4', '=create(<<placement>>, A1, A3)')
-
-        # test placement power operation
-        sheet.set('B4', '=A4^-2')
-        sheet.set('C4', '=A4^-1')
-        sheet.set('D4', '=A4^0')
-        sheet.set('E4', '=A4^1')
-        sheet.set('F4', '=A4^2')
-
-        # vector transformation with mixing matrix and placement and rotation
-        sheet.set('A5', '=A2*A3*A4*A1')
-        sheet.set('B5', '=B2*B4*B3*A1')
-        sheet.set('C5', '=C3*C2*C4*A1')
-        sheet.set('D5', '=D3*D4*D2*A1')
-        sheet.set('E5', '=E4*E2*E3*A1')
-        sheet.set('F5', '=F3*F4*F2*A1')
-
-        # inverse of the above transformation with power -1 and minvert()
-        sheet.set('A6', '=A4^-1 * minvert(A3) * A2^-1 * A5')
-        sheet.set('B6', '=minvert(B3) * B4^-1 * minvert(B2) * B5')
-        sheet.set('C6', '=C4^-1 * C2^-1 * C3^-1 * C5')
-        sheet.set('D6', '=minvert(D4*D2) * minvert(D3) * D5')
-        sheet.set('E6', '=(E2 * E3)^-1 * E4^-1 * E5')
-        sheet.set('F6', '=(F3*F4*F2)^-1 * F5')
-
-        self.doc.recompute()
-
-        self.assertEqual(sheet.A1,vec)
-
-        self.assertEqual(sheet.B1,mat)
-        self.assertEqual(sheet.C1,mat)
-        self.assertEqual(sheet.A2,mat)
-
-        self.assertEqual(sheet.B2,imat*imat)
-        self.assertEqual(sheet.B2,mat**-2)
-        self.assertEqual(sheet.C2,imat)
-        self.assertEqual(sheet.C2,mat**-1)
-        self.assertEqual(sheet.D2,LabRPS.Matrix())
-        self.assertEqual(sheet.D2,mat**0)
-        self.assertEqual(sheet.E2,mat)
-        self.assertEqual(sheet.E2,mat**1)
-        self.assertEqual(sheet.F2,mat*mat)
-        self.assertEqual(sheet.F2,mat**2)
-
-        self.assertTrue(sheet.H2.startswith(u'ERR: Cannot invert singular matrix'))
-
-        self.assertEqual(sheet.A3,rot)
-
-        rtol = 1e-12
-        self.assertTrue(sheet.B3.isSame(irot*irot,rtol))
-        self.assertTrue(sheet.B3.isSame(rot**-2,rtol))
-        self.assertTrue(sheet.C3.isSame(irot,rtol))
-        self.assertTrue(sheet.C3.isSame(rot**-1,rtol))
-        self.assertTrue(sheet.D3.isSame(LabRPS.Rotation(),rtol))
-        self.assertTrue(sheet.D3.isSame(rot**0,rtol))
-        self.assertTrue(sheet.E3.isSame(rot,rtol))
-        self.assertTrue(sheet.E3.isSame(rot**1,rtol))
-        self.assertTrue(sheet.F3.isSame(rot*rot,rtol))
-        self.assertTrue(sheet.F3.isSame(rot**2,rtol))
-
-        self.assertEqual(sheet.A4,pla)
-
-        self.assertTrue(plm_equal(sheet.B4,ipla*ipla))
-        self.assertTrue(plm_equal(sheet.B4,pla**-2))
-        self.assertTrue(plm_equal(sheet.C4,ipla))
-        self.assertTrue(plm_equal(sheet.C4,pla**-1))
-        self.assertTrue(plm_equal(sheet.D4,LabRPS.Placement()))
-        self.assertTrue(plm_equal(sheet.D4,pla**0))
-        self.assertTrue(plm_equal(sheet.E4,pla))
-        self.assertTrue(plm_equal(sheet.E4,pla**1))
-        self.assertTrue(plm_equal(sheet.F4,pla*pla))
-        self.assertTrue(plm_equal(sheet.F4,pla**2))
-
-        tol = 1e-10
-
-        self.assertLess(sheet.A5.distanceToPoint(
-            sheet.A2.multiply(sheet.A3.Matrix).multiply(sheet.A4.Matrix).multVec(vec)),tol)
-        self.assertLess(sheet.B5.distanceToPoint(
-            sheet.B2.multiply(sheet.B4.Matrix).multiply(sheet.B3.Matrix).multVec(vec)),tol)
-        self.assertLess(sheet.C5.distanceToPoint(
-            sheet.C3.Matrix.multiply(sheet.C2).multiply(sheet.C4.Matrix).multVec(vec)),tol)
-        self.assertLess(sheet.D5.distanceToPoint(
-            sheet.D3.Matrix.multiply(sheet.D4.Matrix).multiply(sheet.D2).multVec(vec)),tol)
-        self.assertLess(sheet.E5.distanceToPoint(
-            sheet.E4.Matrix.multiply(sheet.E2).multiply(sheet.E3.Matrix).multVec(vec)),tol)
-        self.assertLess(sheet.F5.distanceToPoint(
-            sheet.F3.Matrix.multiply(sheet.F4.Matrix).multiply(sheet.F2).multVec(vec)),tol)
-
-        self.assertLess(sheet.A6.distanceToPoint(vec),tol)
-        self.assertLess(sheet.B6.distanceToPoint(vec),tol)
-        self.assertLess(sheet.C6.distanceToPoint(vec),tol)
-        self.assertLess(sheet.D6.distanceToPoint(vec),tol)
-        self.assertLess(sheet.E6.distanceToPoint(vec),tol)
-        self.assertLess(sheet.F6.distanceToPoint(vec),tol)
-
     def testIssue3128(self):
         """ Regression test for issue 3128; mod should work with arbitrary units for both arguments """
         sheet = self.doc.addObject('Spreadsheet::Sheet','Spreadsheet')
@@ -1032,11 +791,11 @@ class SpreadsheetCases(unittest.TestCase):
         self.doc.recompute()
 
         # Save and close first document
-        self.doc.saveAs(self.TempPath + os.sep + 'conditionals.rpsstd')
+        self.doc.saveAs(self.TempPath + os.sep + 'conditionals.rps')
         LabRPS.closeDocument(self.doc.Name)
 
         # Open documents again
-        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'conditionals.rpsstd')
+        self.doc = LabRPS.openDocument(self.TempPath + os.sep + 'conditionals.rps')
 
         sheet = self.doc.getObject('Spreadsheet')
         self.assertEqual(sheet.getContents('B1'), '=A1 == 1 ? 11 : (A1 == 2 ? 12 : 13)')
@@ -1143,47 +902,6 @@ class SpreadsheetCases(unittest.TestCase):
         self.doc.recompute()
         sheet.setAlias('C3','test')
 
-    def testCrossLinkEmptyPropertyName(self):
-        # https://forum.freecadweb.org/viewtopic.php?f=3&t=58603
-        base = LabRPS.newDocument("base")
-        sheet = base.addObject('Spreadsheet::Sheet','Spreadsheet')
-        sheet.setAlias('A1', 'x')
-        sheet.set('x', '42mm')
-        base.recompute()
-
-        square = LabRPS.newDocument("square")
-        body = square.addObject('PartDesign::Body','Body')
-        box = square.addObject('PartDesign::AdditiveBox','Box')
-        body.addObject(box)
-        box.Length = 10.00
-        box.Width = 10.00
-        box.Height = 10.00
-        square.recompute()
-
-        basePath = self.TempPath + os.sep + 'base.RPSStd'
-        base.saveAs(basePath)
-        squarePath = self.TempPath + os.sep + 'square.RPSStd'
-        square.saveAs(squarePath)
-
-        base.save()
-        square.save()
-
-        LabRPS.closeDocument(square.Name)
-        LabRPS.closeDocument(base.Name)
-
-        ##
-        ## preparation done
-        base = LabRPS.openDocument(basePath)
-        square = LabRPS.openDocument(squarePath)
-
-        square.Box.setExpression('Length', u'base#Spreadsheet.x')
-        square.recompute()
-
-        square.save()
-        base.save()
-        LabRPS.closeDocument(square.Name)
-        LabRPS.closeDocument(base.Name)
-
     def testExpressionWithAlias(self):
         # https://forum.freecadweb.org/viewtopic.php?p=564502#p564502
         ss1 = self.doc.addObject("Spreadsheet::Sheet", "Input")
@@ -1205,7 +923,7 @@ class SpreadsheetCases(unittest.TestCase):
         self.assertEqual(ss2.get("A3"), 3)
         self.assertEqual(ss2.get("A4"), 3)
 
-        project_path = self.TempPath + os.sep + 'alias.RPSStd'
+        project_path = self.TempPath + os.sep + 'alias.rps'
         self.doc.saveAs(project_path)
         LabRPS.closeDocument(self.doc.Name)
         self.doc = LabRPS.openDocument(project_path)

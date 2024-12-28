@@ -35,7 +35,6 @@ import addonmanager_utilities as utils
 translate = LabRPS.Qt.translate
 
 INTERNAL_WORKBENCHES = {}
-INTERNAL_WORKBENCHES["part"] = "Part"
 INTERNAL_WORKBENCHES["plot"] = "Plot"
 INTERNAL_WORKBENCHES["spreadsheet"] = "Spreadsheet"
 INTERNAL_WORKBENCHES["windlab"] = "WindLab"

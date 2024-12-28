@@ -101,8 +101,8 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     user->setCommand("&UserLab");
     *user << "UserLab_CreateSimulation"
              << "UserLab_CreateFeature"
-             << "UserLab_Simulation_Start" << "UserLab_Simulation_Stop"
-             << "UserLab_Examples";
+             << "UserLab_Simulation_Start" 
+             << "UserLab_Simulation_Stop";
     
 
     return root;
@@ -116,8 +116,8 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     UserLabToolBar->setCommand("UserLab Features");
      *UserLabToolBar << "UserLab_CreateSimulation"
                      << "UserLab_CreateFeature"
-                     << "UserLab_Simulation_Start" << "UserLab_Simulation_Stop"
-                     << "UserLab_Examples";
+                     << "UserLab_Simulation_Start" 
+                     << "UserLab_Simulation_Stop";
 
      return root;
 }

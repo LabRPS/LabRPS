@@ -37,8 +37,6 @@ class SeismicLabWorkbench ( Workbench ):
         # load the module
         import SeismicLabGui
         import SeismicLab
-        import seismiclabcommands.commands
-
             
     def GetClassName(self):
         return "SeismicLabGui::Workbench"

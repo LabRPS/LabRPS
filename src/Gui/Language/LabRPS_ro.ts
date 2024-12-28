@@ -3947,8 +3947,8 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>Nivel de compresie pentru fișierele RPSStd</translation>
+      <source>Compression level for rps files</source>
+      <translation>Nivel de compresie pentru fișierele rps</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4649,8 +4649,8 @@ Puteți folosi și formatul: John Doe &lt;john@doe.com&gt;</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9078,8 +9078,8 @@ Doriți să salvați fișierul cu alt nume?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Documentul %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Documentul %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10398,8 +10398,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Documentul %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Documentul %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

@@ -600,7 +600,7 @@ PyObject* Application::sOpen(PyObject * /*self*/, PyObject *args)
 
         if (ext == QLatin1String("py") ||
                  ext == QLatin1String("rpsmacro") ||
-                 ext == QLatin1String("fcscript")) {
+                 ext == QLatin1String("rpsscript")) {
             PythonEditor* editor = new PythonEditor();
             editor->setWindowIcon(Gui::BitmapFactory().iconFromTheme("applications-python"));
             PythonEditorView* edit = new PythonEditorView(editor, getMainWindow());
@@ -634,7 +634,7 @@ PyObject* Application::sInsert(PyObject * /*self*/, PyObject *args)
         QString ext = fi.suffix().toLower();
         if (ext == QLatin1String("py") ||
                  ext == QLatin1String("rpsmacro") ||
-                 ext == QLatin1String("fcscript")) {
+                 ext == QLatin1String("rpsscript")) {
             PythonEditor* editor = new PythonEditor();
             editor->setWindowIcon(Gui::BitmapFactory().iconFromTheme("applications-python"));
             PythonEditorView* edit = new PythonEditorView(editor, getMainWindow());

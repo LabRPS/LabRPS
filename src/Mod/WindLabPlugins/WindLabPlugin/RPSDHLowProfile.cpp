@@ -56,7 +56,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimu
 
     if(!returnResult)
     {
-        Base::Console().Error("The computation of the location coordinates matrix has failed.");
+        Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
         
         return false;
     }
@@ -85,7 +85,7 @@ bool CRPSDHLowProfile::ComputeMeanWindSpeedVectorT(const WindLabAPI::WindLabSimu
 
     if(!returnResult)
     {
-        Base::Console().Error("The computation of the location coordinates matrix has failed.");
+        Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
         
         return false;
     }

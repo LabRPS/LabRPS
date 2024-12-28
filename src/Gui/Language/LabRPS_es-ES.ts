@@ -3945,8 +3945,8 @@ además de la barra de color</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>Nivel de compresión para archivos RPSStd</translation>
+      <source>Compression level for rps files</source>
+      <translation>Nivel de compresión para archivos rps</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4646,8 +4646,8 @@ También puede utilizar el formulario: John Doe &lt;john@doe.com&gt;</translatio
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9073,8 +9073,8 @@ Would you like to save the file with a different name?</source>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 documento (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 documento (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10394,8 +10394,8 @@ la copia actual se perderá.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 documento (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 documento (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

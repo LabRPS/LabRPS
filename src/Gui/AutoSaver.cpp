@@ -190,7 +190,7 @@ void AutoSaver::saveDocument(const std::string& name, AutoSaveProperty& saver)
             // only create the file if something has changed
             else if (!saver.touched.empty()) {
                 std::string fn = doc->TransientDir.getValue();
-                fn += "/rps_recovery_file.rpsstd";
+                fn += "/rps_recovery_file.rps";
                 Base::FileInfo tmp(fn);
                 Base::ofstream file(tmp, std::ios::out | std::ios::binary);
                 if (file.is_open())

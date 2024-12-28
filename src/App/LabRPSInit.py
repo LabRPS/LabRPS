@@ -704,7 +704,7 @@ except Exception as e:
     Err(traceback.format_exc())
     Err('-'*80+'\n')
 
-LabRPS.addImportType("LabRPS document (*.RPSStd)","LabRPS")
+LabRPS.addImportType("LabRPS document (*.rps)","LabRPS")
 
 # set to no gui, is overwritten by InitGui
 App.GuiUp = 0

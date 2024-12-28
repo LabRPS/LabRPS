@@ -221,7 +221,7 @@
          <item>
           <widget class="Gui::PrefFileChooser" name="MacroPath_2">
            <property name="fileName" stdset="0">
-            <string>FullScript.FCScript</string>
+            <string>FullScript.RPSScript</string>
            </property>
            <property name="prefEntry" stdset="0">
             <cstring>ScriptFile</cstring>

@@ -61,7 +61,7 @@ bool CRPSKanaiTajimiSpectrum::ComputeCrossSpectrumMatrixPP(const SeismicLabAPI::
     bool returnResult = CRPSSeismicLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
         if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.") ;
+       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
     

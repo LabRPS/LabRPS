@@ -1645,7 +1645,7 @@ DEF_STD_CMD_A(Std3DWireFrameSurface)
 Std3DWireFrameSurface::Std3DWireFrameSurface() : Command("Std_3DPlot_3D_Wire_frame_surface")
 {
     sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("3D Surface");
+    sMenuText = QT_TR_NOOP("3D wire frame Surface");
     sToolTipText = QT_TR_NOOP("3D surface plot");
     sWhatsThis = "Std_3DPlot_3D_Wire_frame_surface";
     sStatusTip = QT_TR_NOOP("3D surface plot");
@@ -1785,6 +1785,172 @@ void StdGrayScaleMap::activated(int iMsg)
 }
 
 bool StdGrayScaleMap::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_PlotPlot3dModecolumnSelect
+//===========================================================================
+
+DEF_STD_CMD_A(StdPlotPlot3dModecolumnSelect)
+
+StdPlotPlot3dModecolumnSelect::StdPlotPlot3dModecolumnSelect()
+    : Command("Std_PlotPlot3dModecolumnSelect")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Column Select");
+    sToolTipText = QT_TR_NOOP("Column select");
+    sWhatsThis = "Std_PlotPlot3dModecolumnSelect";
+    sStatusTip = QT_TR_NOOP("Column select");
+    sPixmap = "Std_Plot3d_ColumnSelect";
+    eType = 0;
+}
+
+void StdPlotPlot3dModecolumnSelect::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
+}
+
+bool StdPlotPlot3dModecolumnSelect::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_PlotPlot3dModeRowSelect
+//===========================================================================
+
+DEF_STD_CMD_A(StdPlotPlot3dModeRowSelect)
+
+StdPlotPlot3dModeRowSelect::StdPlotPlot3dModeRowSelect() : Command("Std_PlotPlot3dModeRowSelect")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Row Select");
+    sToolTipText = QT_TR_NOOP("Row select");
+    sWhatsThis = "Std_PlotPlot3dModeRowSelect";
+    sStatusTip = QT_TR_NOOP("Row select");
+    sPixmap = "Std_Plot3d_RowSelect";
+    eType = 0;
+}
+
+void StdPlotPlot3dModeRowSelect::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
+}
+
+bool StdPlotPlot3dModeRowSelect::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_PlotPlot3dModeItemSelect
+//===========================================================================
+
+DEF_STD_CMD_A(StdPlotPlot3dModeItemSelect)
+
+StdPlotPlot3dModeItemSelect::StdPlotPlot3dModeItemSelect() : Command("Std_PlotPlot3dModeItemSelect")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Item Select");
+    sToolTipText = QT_TR_NOOP("Point select");
+    sWhatsThis = "Std_PlotPlot3dModeItemSelect";
+    sStatusTip = QT_TR_NOOP("Point select");
+    sPixmap = "Std_Plot3d_PointSelect";
+    eType = 0;
+}
+
+void StdPlotPlot3dModeItemSelect::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
+}
+
+bool StdPlotPlot3dModeItemSelect::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_PlotPlot3dModeNoneSelect
+//===========================================================================
+
+DEF_STD_CMD_A(StdPlotPlot3dModeNoneSelect)
+
+StdPlotPlot3dModeNoneSelect::StdPlotPlot3dModeNoneSelect() : Command("Std_PlotPlot3dModeNoneSelect")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("No Selection");
+    sToolTipText = QT_TR_NOOP("No selection");
+    sWhatsThis = "Std_PlotPlot3dModeNoneSelect";
+    sStatusTip = QT_TR_NOOP("No selection");
+    sPixmap = "no-selection";
+    eType = 0;
+}
+
+void StdPlotPlot3dModeNoneSelect::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
+}
+
+bool StdPlotPlot3dModeNoneSelect::isActive() { return true; }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//===========================================================================
+// Std_PlotPlot3dAnimate
+//===========================================================================
+
+DEF_STD_CMD_A(StdPlotPlot3dAnimate)
+
+StdPlotPlot3dAnimate::StdPlotPlot3dAnimate() : Command("Std_PlotPlot3dAnimate")
+{
+    sGroup = "Tools";
+    sMenuText = QT_TR_NOOP("Animate");
+    sToolTipText = QT_TR_NOOP("Plot 3D animate");
+    sWhatsThis = "Std_PlotPlot3dAnimate";
+    sStatusTip = QT_TR_NOOP("Plot 3D animate");
+    sPixmap = "Std_Plot_3D_animate";
+    eType = 0;
+}
+
+void StdPlotPlot3dAnimate::activated(int iMsg)
+{
+    Q_UNUSED(iMsg);
+    Gui::getMainWindow()->getAlphaPlot()->toggle3DAnimation();
+}
+
+bool StdPlotPlot3dAnimate::isActive() { return true; }
+
+//======================================================================
+// Std_3DSurfaceTools
+//===========================================================================
+//
+class Std3DSurfaceTools: public GroupCommand
+{
+public:
+    Std3DSurfaceTools() : GroupCommand("Std_3DSurfaceTools")
+    {
+        sGroup = "Alphaplot Table Tools";
+        sMenuText = QT_TR_NOOP("3D Surface Tools");
+        sToolTipText = QT_TR_NOOP("3D Surface Tools");
+        sWhatsThis = "Std_3DSurfaceTools";
+        sStatusTip = QT_TR_NOOP("3D Surface Tools");
+        eType = 0;
+        bCanLog = false;
+
+        addCommand(new Std3DWireFrame());
+        addCommand(new Std3DSurface());
+        addCommand(new Std3DWireFrameSurface());
+        addCommand(new Std3DPlotBar());
+        addCommand(new Std3DPlotScatter());
+        addCommand(new StdContourAndColourFill());
+        addCommand(new StdContourLines());
+        addCommand(new StdGrayScaleMap());
+        addCommand(new StdPlotPlot3dModecolumnSelect());
+        addCommand(new StdPlotPlot3dModeRowSelect());
+        addCommand(new StdPlotPlot3dModeItemSelect());
+        // addCommand(new StdPlotPlot3dModeNoneSelect());
+        addCommand(new StdPlotPlot3dAnimate());
+     
+    }
+    virtual const char* className() const { return "Std3DSurfaceTools"; }
+};
 
 //===========================================================================
 // Std_3DWireFramePolar
@@ -3375,7 +3541,7 @@ DEF_STD_CMD_A(StdPlotConvertTable)
 StdPlotConvertTable::StdPlotConvertTable() : Command("Std_Table_Convert_to_matrix")
 {
     sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Convert Table");
+    sMenuText = QT_TR_NOOP("Convert to Matrix");
     sToolTipText = QT_TR_NOOP("Convert table to matrix");
     sWhatsThis = "Std_Table_Convert_to_matrix";
     sStatusTip = QT_TR_NOOP("Convert table to matrix");
@@ -3765,7 +3931,7 @@ DEF_STD_CMD_A(StdPlotConvertMatrix)
 StdPlotConvertMatrix::StdPlotConvertMatrix() : Command("Std_Matrix_Convert_to_table")
 {
     sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Convert Matrix");
+    sMenuText = QT_TR_NOOP("Convert to Table");
     sToolTipText = QT_TR_NOOP("Convert matrix");
     sWhatsThis = "Std_Matrix_Convert_to_table";
     sStatusTip = QT_TR_NOOP("Convert matrix");
@@ -3877,31 +4043,7 @@ StdPlotSaveNote::StdPlotSaveNote() : Command("Std_PlotSaveNote")
 void StdPlotSaveNote::activated(int iMsg) { Q_UNUSED(iMsg); }
 
 bool StdPlotSaveNote::isActive() { return hasActiveDocument(); }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// Std_PlotPlot3dAnimate
-//===========================================================================
 
-DEF_STD_CMD_A(StdPlotPlot3dAnimate)
-
-StdPlotPlot3dAnimate::StdPlotPlot3dAnimate() : Command("Std_PlotPlot3dAnimate")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Animate");
-    sToolTipText = QT_TR_NOOP("Plot 3D animate");
-    sWhatsThis = "Std_PlotPlot3dAnimate";
-    sStatusTip = QT_TR_NOOP("Plot 3D animate");
-    sPixmap = "Std_Plot_3D_animate";
-    eType = 0;
-}
-
-void StdPlotPlot3dAnimate::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::getMainWindow()->getAlphaPlot()->toggle3DAnimation();
-}
-
-bool StdPlotPlot3dAnimate::isActive() { return true; }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //===========================================================================
@@ -3954,111 +4096,6 @@ void StdPlotResetZoomFactor::activated(int iMsg)
 }
 
 bool StdPlotResetZoomFactor::isActive() { return true; }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// Std_PlotPlot3dModecolumnSelect
-//===========================================================================
-
-DEF_STD_CMD_A(StdPlotPlot3dModecolumnSelect)
-
-StdPlotPlot3dModecolumnSelect::StdPlotPlot3dModecolumnSelect()
-    : Command("Std_PlotPlot3dModecolumnSelect")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Column Select");
-    sToolTipText = QT_TR_NOOP("Column select");
-    sWhatsThis = "Std_PlotPlot3dModecolumnSelect";
-    sStatusTip = QT_TR_NOOP("Column select");
-    sPixmap = "Std_Plot3d_ColumnSelect";
-    eType = 0;
-}
-
-void StdPlotPlot3dModecolumnSelect::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
-}
-
-bool StdPlotPlot3dModecolumnSelect::isActive() { return true; }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// Std_PlotPlot3dModeRowSelect
-//===========================================================================
-
-DEF_STD_CMD_A(StdPlotPlot3dModeRowSelect)
-
-StdPlotPlot3dModeRowSelect::StdPlotPlot3dModeRowSelect() : Command("Std_PlotPlot3dModeRowSelect")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Row Select");
-    sToolTipText = QT_TR_NOOP("Row select");
-    sWhatsThis = "Std_PlotPlot3dModeRowSelect";
-    sStatusTip = QT_TR_NOOP("Row select");
-    sPixmap = "Std_Plot3d_RowSelect";
-    eType = 0;
-}
-
-void StdPlotPlot3dModeRowSelect::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
-}
-
-bool StdPlotPlot3dModeRowSelect::isActive() { return true; }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// Std_PlotPlot3dModeItemSelect
-//===========================================================================
-
-DEF_STD_CMD_A(StdPlotPlot3dModeItemSelect)
-
-StdPlotPlot3dModeItemSelect::StdPlotPlot3dModeItemSelect() : Command("Std_PlotPlot3dModeItemSelect")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("Item Select");
-    sToolTipText = QT_TR_NOOP("Point select");
-    sWhatsThis = "Std_PlotPlot3dModeItemSelect";
-    sStatusTip = QT_TR_NOOP("Point select");
-    sPixmap = "Std_Plot3d_PointSelect";
-    eType = 0;
-}
-
-void StdPlotPlot3dModeItemSelect::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
-}
-
-bool StdPlotPlot3dModeItemSelect::isActive() { return true; }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//===========================================================================
-// Std_PlotPlot3dModeNoneSelect
-//===========================================================================
-
-DEF_STD_CMD_A(StdPlotPlot3dModeNoneSelect)
-
-StdPlotPlot3dModeNoneSelect::StdPlotPlot3dModeNoneSelect() : Command("Std_PlotPlot3dModeNoneSelect")
-{
-    sGroup = "Tools";
-    sMenuText = QT_TR_NOOP("No Selection");
-    sToolTipText = QT_TR_NOOP("No selection");
-    sWhatsThis = "Std_PlotPlot3dModeNoneSelect";
-    sStatusTip = QT_TR_NOOP("No selection");
-    sPixmap = "no-selection";
-    eType = 0;
-}
-
-void StdPlotPlot3dModeNoneSelect::activated(int iMsg)
-{
-    Q_UNUSED(iMsg);
-    Gui::getMainWindow()->getAlphaPlot()->pickSelectionType(this->getAction()->action());
-}
-
-bool StdPlotPlot3dModeNoneSelect::isActive() { return true; }
 
 //===========================================================================
 // Std_PlotActivateWindow
@@ -4760,14 +4797,14 @@ void CreateStdCommands()
     rcCmdMgr.addCommand(new StdHalfPie());
     rcCmdMgr.addCommand(new StdVectorsXYXY());
     rcCmdMgr.addCommand(new StdVectorsXYAM());
-    rcCmdMgr.addCommand(new Std3DWireFrame());
-    rcCmdMgr.addCommand(new Std3DSurface());
-    rcCmdMgr.addCommand(new Std3DWireFrameSurface());
-    rcCmdMgr.addCommand(new Std3DPlotBar());
-    rcCmdMgr.addCommand(new Std3DPlotScatter());
-    rcCmdMgr.addCommand(new StdContourAndColourFill());
-    rcCmdMgr.addCommand(new StdContourLines());
-    rcCmdMgr.addCommand(new StdGrayScaleMap());
+    // rcCmdMgr.addCommand(new Std3DWireFrame());
+    // rcCmdMgr.addCommand(new Std3DSurface());
+    // rcCmdMgr.addCommand(new Std3DWireFrameSurface());
+    // rcCmdMgr.addCommand(new Std3DPlotBar());
+    // rcCmdMgr.addCommand(new Std3DPlotScatter());
+    // rcCmdMgr.addCommand(new StdContourAndColourFill());
+    // rcCmdMgr.addCommand(new StdContourLines());
+    // rcCmdMgr.addCommand(new StdGrayScaleMap());
     rcCmdMgr.addCommand(new Std3DWireFramePolar());
     rcCmdMgr.addCommand(new Std3DWireSurfacePolar());
     rcCmdMgr.addCommand(new Std3DWireFrameSurfacePolar());
@@ -4851,13 +4888,13 @@ void CreateStdCommands()
     rcCmdMgr.addCommand(new StdPlotClearTable());
     rcCmdMgr.addCommand(new StdPlotGoToCell());
     rcCmdMgr.addCommand(new StdPlotSaveNote());
-    rcCmdMgr.addCommand(new StdPlotPlot3dAnimate());
     rcCmdMgr.addCommand(new StdPlotResetCameraFront());
     rcCmdMgr.addCommand(new StdPlotResetZoomFactor());
-    rcCmdMgr.addCommand(new StdPlotPlot3dModecolumnSelect());
-    rcCmdMgr.addCommand(new StdPlotPlot3dModeRowSelect());
-    rcCmdMgr.addCommand(new StdPlotPlot3dModeItemSelect());
-    rcCmdMgr.addCommand(new StdPlotPlot3dModeNoneSelect());
+    // rcCmdMgr.addCommand(new StdPlotPlot3dModecolumnSelect());
+    // rcCmdMgr.addCommand(new StdPlotPlot3dModeRowSelect());
+    // rcCmdMgr.addCommand(new StdPlotPlot3dModeItemSelect());
+    // rcCmdMgr.addCommand(new StdPlotPlot3dModeNoneSelect());
+    // rcCmdMgr.addCommand(new StdPlotPlot3dAnimate());
     rcCmdMgr.addCommand(new StdPlotActivateWindow());
 
     rcCmdMgr.addCommand(new StdCmdNewTable());
@@ -4877,6 +4914,8 @@ void CreateStdCommands()
     rcCmdMgr.addCommand(new StdVerticalAndHorizontalBars());
     rcCmdMgr.addCommand(new StdVectorPlots());
     rcCmdMgr.addCommand(new StdPiePlots());
+    rcCmdMgr.addCommand(new Std3DSurfaceTools());
+
 
     rcCmdMgr.addCommand(new StdAppendNewColumnToTable());
     rcCmdMgr.addCommand(new StdShowColumnStatistics());

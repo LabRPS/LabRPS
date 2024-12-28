@@ -28,5 +28,32 @@
 # define the test cases to test the LabRPS WindLab module
 #---------------------------------------------------------------------------
 
+import unittest
+import LabRPS
+
+from PySide import QtCore, QtGui
+import LabRPSGui
+
+# ----------------------------------------------------------------------------------
+# define the functions to test the LabRPS WindLab GUI
+# ----------------------------------------------------------------------------------
 
 
+class WindLabGuiCases(unittest.TestCase):
+    def setUp(self):
+        self.doc = LabRPS.newDocument()
+        self.wind = self.doc.addObject("WindLab::WindLabSimulation", "Wind")
+        self.view_provider = self.wind.ViewObject
+
+    def tearDown(self):
+        pass
+        # LabRPS.closeDocument(self.doc.Name)
+
+    def injectSimpleData(self):
+        """A utility function to initialize a blank wind with some known data"""
+        self.doc.recompute()
+
+    def testSomething(self):
+        self.injectSimpleData()
+        self.view_provider.doubleClicked()
+        self.doc.recompute()

@@ -146,7 +146,7 @@ bool GUIApplication::event(QEvent * ev)
     if (ev->type() == QEvent::FileOpen) {
         QString file = static_cast<QFileOpenEvent*>(ev)->file();
         QFileInfo fi(file);
-        if (fi.suffix().toLower() == QLatin1String("rpsstd")) {
+        if (fi.suffix().toLower() == QLatin1String("rps")) {
             QByteArray fn = file.toUtf8();
             Application::Instance->open(fn, "LabRPS");
             return true;

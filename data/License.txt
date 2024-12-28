@@ -1,7 +1,7 @@
 
 The files:
 
-Example_1.RPSStd
+Example_1.rps
 
 are
 (c) 2024 Koffi Daniel (kfdani@labrps.com)

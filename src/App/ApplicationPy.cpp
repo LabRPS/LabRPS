@@ -219,7 +219,7 @@ PyObject* Application::sLoadFile(PyObject * /*self*/, PyObject *args)
 
         std::stringstream str;
         str << "import " << module << std::endl;
-        if (fi.hasExtension("RPSStd"))
+        if (fi.hasExtension("rps"))
             str << module << ".openDocument('" << path << "')" << std::endl;
         else
             str << module << ".insert('" << path << "','" << doc << "')" << std::endl;

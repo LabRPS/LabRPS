@@ -10,28 +10,6 @@ set(WindLab_Scripts
     TestWindLabApp.py
 )
 
-SET(WindLabCommands_SRCS
-    windlabcommands/__init__.py
-    windlabcommands/commands.py
-    windlabcommands/manager.py
-)
-
-SET(WindLabExamples_SRCS
-    windlabexamples/__init__.py
-    windlabexamples/examplesgui.py
-    windlabexamples/manager.py
-    windlabexamples/Deodatis1996_LocationDistribution.py
-    windlabexamples/Deodatis1996_MeanWind.py
-    windlabexamples/Deodatis1996_CoherenceFunction.py
-    windlabexamples/Deodatis1996_FrequencyDistribution.py
-    windlabexamples/Deodatis1996_SpectrumModel.py
-    windlabexamples/Deodatis1996_SpectrumDecomposition.py
-    windlabexamples/Deodatis1996_SimulationMethod.py
-    windlabexamples/Deodatis1996_UniformRandomPhases.py
-    windlabexamples/RPS_WavePassageEffect.py
-)
-
-
 set(WindLab_TestScripts
     WindLabTests/__init__.py
     WindLabTests/TestWindLab.py
@@ -45,7 +23,7 @@ if(BUILD_GUI)
 endif(BUILD_GUI)
 
 add_custom_target(WindLabScripts ALL
-    SOURCES ${WindLab_Scripts} ${WindLab_TestScripts} ${WindLabCommands_SRCS} ${WindLabExamples_SRCS}
+    SOURCES ${WindLab_Scripts} ${WindLab_TestScripts}
 )
 set_target_properties(WindLabScripts PROPERTIES FOLDER "Workbenches/WindLab")
 
@@ -53,12 +31,8 @@ rps_target_copy_resource(WindLabScripts
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_BINARY_DIR}/Mod/WindLab
     ${WindLab_Scripts}
-    ${WindLab_TestScripts}
-    ${WindLabCommands_SRCS}
-    ${WindLabExamples_SRCS}  
+    ${WindLab_TestScripts} 
 )
 
 INSTALL(FILES ${WindLab_Scripts} DESTINATION Mod/WindLab)
-INSTALL(FILES ${WindLabCommands_SRCS} DESTINATION Mod/WindLab/windlabcommands)
-INSTALL(FILES ${WindLabExamples_SRCS} DESTINATION Mod/WindLab/windlabexamples)
 INSTALL(FILES ${WindLab_TestScripts} DESTINATION Mod/WindLab/WindLabTests)

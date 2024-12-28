@@ -2662,12 +2662,12 @@ std::list<std::string> Application::processFiles(const std::list<std::string>& f
         Base::Console().Log("Init:     Processing file: %s\n",file.filePath().c_str());
 
         try {
-            if (file.hasExtension("rpsstd") || file.hasExtension("std")) {
+            if (file.hasExtension("rps") || file.hasExtension("std")) {
                 // try to open
                 Application::_pcSingleton->openDocument(file.filePath().c_str());
                 processed.push_back(*it);
             }
-            else if (file.hasExtension("fcscript") || file.hasExtension("rpsmacro")) {
+            else if (file.hasExtension("rpsscript") || file.hasExtension("rpsmacro")) {
                 Base::Interpreter().runFile(file.filePath().c_str(), true);
                 processed.push_back(*it);
             }

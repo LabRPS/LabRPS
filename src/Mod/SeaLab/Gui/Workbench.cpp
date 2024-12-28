@@ -101,8 +101,8 @@ Gui::MenuItem* Workbench::setupMenuBar() const
     seaLab->setCommand("&SeaLab");
     *seaLab << "SeaLab_CreateSimulation"
              << "SeaLab_CreateFeature"
-             << "SeaLab_Simulation_Start" << "SeaLab_Simulation_Stop"
-             << "SeaLab_Examples";
+             << "SeaLab_Simulation_Start" 
+             << "SeaLab_Simulation_Stop";
     
 
     return root;
@@ -113,11 +113,11 @@ Gui::ToolBarItem* Workbench::setupToolBars() const
     Gui::ToolBarItem* root = StdWorkbench::setupToolBars();
 
      Gui::ToolBarItem* SeaLabToolBar = new Gui::ToolBarItem(root);
-    SeaLabToolBar->setCommand("SeaLab Features");
+     SeaLabToolBar->setCommand("SeaLab Features");
      *SeaLabToolBar << "SeaLab_CreateSimulation"
                      << "SeaLab_CreateFeature"
-                     << "SeaLab_Simulation_Start" << "SeaLab_Simulation_Stop"
-                     << "SeaLab_Examples";
+                     << "SeaLab_Simulation_Start" 
+                     << "SeaLab_Simulation_Stop";
 
      return root;
 }

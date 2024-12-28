@@ -2910,8 +2910,8 @@ bounding box size of the 3D object that is currently displayed.</translation>
       <translation type="unfinished">The application will create a new document when started</translation>
     </message>
     <message>
-      <source>Compression level for RPSStd files</source>
-      <translation type="unfinished">Compression level for RPSStd files</translation>
+      <source>Compression level for rps files</source>
+      <translation type="unfinished">Compression level for rps files</translation>
     </message>
     <message>
       <source>All changes in documents are stored so that they can be undone/redone</source>
@@ -3347,8 +3347,8 @@ You can also use the form: John Doe &lt;john@doe.com&gt;</translation>
       <translation type="unfinished">Log all commands issued by menus to file:</translation>
     </message>
     <message>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <source>Gui commands</source>
@@ -6641,8 +6641,8 @@ Please open a browser window and type in: http://localhost:%1.</source>
       <translation>Сачувај %1 Документ</translation>
     </message>
     <message>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 документ (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 документ (*.rps)</translation>
     </message>
     <message>
       <source>Document not closable</source>
@@ -7955,8 +7955,8 @@ Physical path: </translation>
       <translation>Не могу cпојити пројекат cа cамим cобом.</translation>
     </message>
     <message>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>%1 документ (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>%1 документ (*.rps)</translation>
     </message>
   </context>
   <context>

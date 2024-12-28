@@ -278,8 +278,8 @@ InitApplications()
 # set standard workbench (needed as fallback)
 Gui.activateWorkbench("NoneWorkbench")
 
-# Register .py, .FCScript and .RPSMacro
-LabRPS.addImportType("Python (*.py *.RPSMacro *.FCScript)","LabRPSGui")
+# Register .py, .RPSScript and .RPSMacro
+LabRPS.addImportType("Python (*.py *.RPSMacro *.RPSScript)","LabRPSGui")
 LabRPS.addExportType("Portable Document Format (*.pdf)","LabRPSGui")
 
 del(InitApplications)

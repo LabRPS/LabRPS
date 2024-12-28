@@ -79,10 +79,9 @@ PyObject* RPSGeneralToolsPyTool::ShowArray(PyObject* self, PyObject* args)
             }
             poly.push_back(point);
         }
-
+    Table *table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
         if(drawCurve)
         {
-            Table *table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(row, col, poly, QString::fromLatin1("table"));
             Layout2D* layout = Gui::getMainWindow()->getAlphaPlot()->newGraph2D();
             if (!layout)
                 return NULL;
@@ -224,6 +223,131 @@ PyObject* RPSGeneralToolsPyTool::GetActiveMatrix(PyObject* self, PyObject* args)
     return boost::python::incref(activeArray.ptr());
 }
 
+PyObject* RPSGeneralToolsPyTool::GetTableByName(PyObject* self, PyObject* args)
+{
+    char* tableName = nullptr;
+    if (!PyArg_ParseTuple(args, "s", &tableName))
+        return nullptr;
+
+    //get the table by a name
+    Table* table = Gui::getMainWindow()->getAlphaPlot()->getTableByName(QString::fromLatin1(tableName));
+
+    if (!table)
+       return NULL;
+
+    //allocate momery for the table
+    mat theTable(table->numRows(), table->numCols());
+
+    //convert the Alphaplot table to Eigen matrix
+    Gui::getMainWindow()->getAlphaPlot()->convertTableToEigenMatrix(table, theTable);
+
+    // <class 'numpy.array'>
+    Py::List theArray;
+    for (int i = 0; i < theTable.rows(); i++) {
+        Py::List row;
+        for (int j = 0; j < theTable.cols(); j++) {
+            row.append(Py::Float((theTable.coeff(i, j))));
+        }
+        theArray.append(row);
+    }
+    return boost::python::incref(theArray.ptr());
+}
+
+PyObject* RPSGeneralToolsPyTool::GetMatrixByName(PyObject* /*self*/, PyObject* args)
+{
+    char* matrixName = nullptr;
+    if (!PyArg_ParseTuple(args, "s", &matrixName))
+        return nullptr;
+
+    //get the matrix by a name
+    Matrix* matrix = Gui::getMainWindow()->getAlphaPlot()->getMatrixByName(QString::fromLatin1(matrixName));
+
+    if (!matrix)
+       return NULL;
+
+    //allocate momery for the matrix
+    mat theMatrix(matrix->numRows(), matrix->numCols());
+
+    //convert the Alphaplot matrix to Eigen matrix
+    Gui::getMainWindow()->getAlphaPlot()->convertMatrixToEigenMatrix(matrix, theMatrix);
+
+    // <class 'numpy.array'>
+    Py::List theArray;
+    for (int i = 0; i < theMatrix.rows(); i++) {
+        Py::List row;
+        for (int j = 0; j < theMatrix.cols(); j++) {
+            row.append(Py::Float((theMatrix.coeff(i, j))));
+        }
+        theArray.append(row);
+    }
+    return boost::python::incref(theArray.ptr());
+}
+
+PyObject* RPSGeneralToolsPyTool::TablePlotCurve(PyObject* self, PyObject* args)
+{
+    int row;
+    int col;
+    PyObject* numpyArray;
+    int xColumn = 0;
+    int yColumn = 1;
+    if (!PyArg_ParseTuple(args, "iiO|ii", &row, &col, &numpyArray, &xColumn, &yColumn))
+        throw Py::Exception();
+    try {
+        std::vector<std::vector<double>> poly;
+        int num_items = PyList_Size(numpyArray);
+        if (num_items < 0)
+            return NULL;
+        Py::List list_f(numpyArray);
+
+        for (int i = 0; i < num_items; ++i) {
+            PyObject* pypoint = PyList_GetItem(numpyArray, i);
+            std::vector<double> point;
+            // Verify that each pypoint also is a list
+            if (!PyList_Check(pypoint)) {
+                PyErr_SetString(PyExc_TypeError, "must pass in list of list");
+                return NULL;
+            }
+            for (int j = 0; j < PyList_Size(pypoint); ++j) {
+                PyObject* coord = PyList_GetItem(pypoint, j);
+                double val;
+                // Check that each coord is a long/double
+                if (PyLong_Check(coord)) {
+                    val = (double)PyLong_AsLong(coord);
+                }
+                else if (PyFloat_Check(coord)) {
+                    val = PyFloat_AsDouble(coord);
+                }
+                else {
+                    PyErr_SetString(PyExc_TypeError, "must pass in list of list of number");
+                    return NULL;
+                }
+                point.push_back(val);
+            }
+            poly.push_back(point);
+        }
+        Table* table = Gui::getMainWindow()->getAlphaPlot()->newTableShowArrayPy(
+            row, col, poly, QString::fromLatin1("table"));
+        Layout2D* layout = Gui::getMainWindow()->getAlphaPlot()->newGraph2D();
+        if (!layout)
+            return NULL;
+        if (!table)
+            return NULL;
+        if (table->numCols() < 2 || xColumn > table->numCols() || yColumn > table->numCols()) {
+            PyErr_SetString(PyExc_TypeError, "Wrong parameters passed to the function");
+            return NULL;
+        }
+        QList<Column*> columns;
+        columns.append(table->column(xColumn));
+        columns.append(table->column(yColumn));
+        layout->generateCurve2DPlot(AxisRect2D::LineScatterType::Line2D, table, columns.at(0),
+                                    QList<Column*>() << columns.at(1), 0, table->numRows() - 1);
+
+        Py_Return;
+    }
+    catch (const Py::Exception&) {
+        throw;
+    }
+}
 
 PyMethodDef RPSGeneralToolsPyTool::Methods[] = {
     {"showArray", (PyCFunction)RPSGeneralToolsPyTool::ShowArray, METH_VARARGS,
@@ -236,8 +360,13 @@ PyMethodDef RPSGeneralToolsPyTool::Methods[] = {
     "getActiveTable() - return the active AlphaPlot table as python list of lists"},
     {"getActiveMatrix", (PyCFunction)RPSGeneralToolsPyTool::GetActiveMatrix, METH_VARARGS,
     "getActiveMatrix() - return the active AlphaPlot matrix as python list of lists"},
+    {"getTableByName", (PyCFunction)RPSGeneralToolsPyTool::GetTableByName, METH_VARARGS,
+    "getTableByName() - return the AlphaPlot table as python list of lists given the AphaPlot table name"},
+    {"getMatrixByName", (PyCFunction)RPSGeneralToolsPyTool::GetMatrixByName, METH_VARARGS,
+    "getMatrixByName() - return the AlphaPlot matrix as python list of lists given the AphaPlot matrix name"},
+    {"tablePlotCurve", (PyCFunction)RPSGeneralToolsPyTool::TablePlotCurve, METH_VARARGS,
+    "tablePlotCurve() - plot a 2D line curve for a given Alphaplot table with specified x and y columns indices."},
     {nullptr, nullptr, 0, nullptr}  /* Sentinel */
 };
-
 
 } //namespace GeneralToolsAPI

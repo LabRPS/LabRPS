@@ -7715,14 +7715,14 @@ void MainAlphaPlot::pickSelectionType(QAction* action)
         lout->setCustomInteractions(graph, false);
         graph->setSelectionMode(QAbstract3DGraph::SelectionItem);
     }
-    else if (action
-             == Application::Instance->commandManager()
-                    .getCommandByName("Std_PlotPlot3dModeNoneSelect")
-                    ->getAction()
-                    ->action()) {
-        lout->setCustomInteractions(graph, true);
-        graph->setSelectionMode(QAbstract3DGraph::SelectionNone);
-    }
+    // else if (action
+    //          == Application::Instance->commandManager()
+    //                 .getCommandByName("Std_PlotPlot3dModeNoneSelect")
+    //                 ->getAction()
+    //                 ->action()) {
+    //     lout->setCustomInteractions(graph, true);
+    //     graph->setSelectionMode(QAbstract3DGraph::SelectionNone);
+    // }
 
     Q_EMIT modified();
 }
@@ -11263,12 +11263,14 @@ void MainAlphaPlot::attachQtScript()
 
 bool MainAlphaPlot::isActiveSubWindowAGraph()
 {
-    bool result = false;
-    if (getactiveMyWidget()) {
-        (qobject_cast<Layout2D*>(getactiveMyWidget())) ? result = true : result = false;
-    }
+    // bool result = false;
+    // if (getactiveMyWidget()) {
+    //     (qobject_cast<Layout2D*>(getactiveMyWidget())) ? result = true : result = false;
+    // }
 
-    return result;
+    // return result;
+
+     return (isActiveSubWindow(getactiveMyWidget(), SubWindowType::Plot2DSubWindow));
 }
 bool MainAlphaPlot::isActiveSubWindowA3DPlot()
 {
@@ -11344,4 +11346,35 @@ void MainAlphaPlot::getActiveTableAsEigenMatrix(mat& matrix)
 {
     Table* AplaPlotTable = getActiveTable();
     convertTableToEigenMatrix(AplaPlotTable, matrix);
+}
+
+Table* MainAlphaPlot::getTableByName(QString tableName)
+{
+  Table *table = nullptr;
+    if (!aprojhandler_)
+        return nullptr;
+
+  QList<Table*> tabs = aprojhandler_->tables(this);
+  Q_FOREACH (Table *tab, tabs) {
+      if (tab->name() == tableName)
+      {
+          return tab;
+      }
+  }
+  return table;
+}
+
+Matrix* MainAlphaPlot::getMatrixByName(QString matrixName) {
+  Matrix *matrix = nullptr;
+    if (!aprojhandler_)
+        return nullptr;
+
+  QList<Matrix*> mats = aprojhandler_->matrixs(this);
+    Q_FOREACH (Matrix* mat, mats) {
+      if (mat->name() == matrixName)
+      {
+            return mat;
+      }
+  }
+  return matrix;
 }

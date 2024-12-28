@@ -3,11 +3,12 @@ add_subdirectory(App)
 set(UserLabAPI_Scripts
 Init.py
 UserLabAPIScripts.py
+TestUserLabAPIApp.py
 )
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND UserLabAPI_Scripts InitGui.py)
+    list (APPEND UserLabAPI_Scripts InitGui.py TestUserLabAPIGui.py)
 endif(BUILD_GUI)
 
 add_custom_target(UserLabAPIScripts ALL

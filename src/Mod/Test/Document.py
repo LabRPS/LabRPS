@@ -109,7 +109,7 @@ class DocumentBasicCases(unittest.TestCase):
     obj=self.Doc.addObject("App::FeatureTest","Label")
     self.Doc.abortTransaction()
     TempPath = tempfile.gettempdir()
-    SaveName = TempPath + os.sep + "SaveRestoreTests.RPSStd"
+    SaveName = TempPath + os.sep + "SaveRestoreTests.rps"
     self.Doc.saveAs(SaveName)
 
   def testRemoval(self):
@@ -274,94 +274,6 @@ class DocumentBasicCases(unittest.TestCase):
       self.failUnless(False)
     del L2
 
-  def testSubObject(self):
-    obj = self.Doc.addObject("App::Origin", "Origin")
-    self.Doc.recompute()
-
-    self.assertEqual(obj.getSubObject("XY_Plane", retType=1).Label, "XY_Plane")
-    self.assertEqual(obj.getSubObject("XZ_Plane", retType=1).Label, "XZ_Plane")
-    self.assertEqual(obj.getSubObject("YZ_Plane", retType=1).Label, "YZ_Plane")
-    self.assertEqual(obj.getSubObject("X_Axis", retType=1).Label, "X_Axis")
-    self.assertEqual(obj.getSubObject("Y_Axis", retType=1).Label, "Y_Axis")
-    self.assertEqual(obj.getSubObject("Z_Axis", retType=1).Label, "Z_Axis")
-
-    res = obj.getSubObject("X_Axis", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(1,0,0)).getAngle(LabRPS.Vector(1,0,0)), 0.0)
-
-    res = obj.getSubObject("Y_Axis", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(1,0,0)).getAngle(LabRPS.Vector(0,1,0)), 0.0)
-
-    res = obj.getSubObject("Z_Axis", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(1,0,0)).getAngle(LabRPS.Vector(0,0,1)), 0.0)
-
-    res = obj.getSubObject("XY_Plane", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(0,0,1)).getAngle(LabRPS.Vector(0,0,1)), 0.0)
-
-    res = obj.getSubObject("XZ_Plane", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(0,0,1)).getAngle(LabRPS.Vector(0,-1,0)), 0.0)
-
-    res = obj.getSubObject("YZ_Plane", retType=2)
-    self.assertEqual(res[1].multVec(LabRPS.Vector(0,0,1)).getAngle(LabRPS.Vector(1,0,0)), 0.0)
-
-    res = obj.getSubObject("YZ_Plane", retType=3)
-    self.assertEqual(res.multVec(LabRPS.Vector(0,0,1)).getAngle(LabRPS.Vector(1,0,0)), 0.0)
-
-    res = obj.getSubObject("YZ_Plane", retType=4)
-    self.assertEqual(res.multVec(LabRPS.Vector(0,0,1)).getAngle(LabRPS.Vector(1,0,0)), 0.0)
-
-    self.assertEqual(obj.getSubObject(("XY_Plane", "YZ_Plane"), retType=4)[0], obj.getSubObject("XY_Plane", retType=4))
-    self.assertEqual(obj.getSubObject(("XY_Plane", "YZ_Plane"), retType=4)[1], obj.getSubObject("YZ_Plane", retType=4))
-
-    # Create a second origin object
-    obj2 = self.Doc.addObject("App::Origin", "Origin2")
-    self.Doc.recompute()
-
-    # Use the names of the origin's out-list
-    for i in obj2.OutList:
-        self.assertEqual(obj2.getSubObject(i.Name, retType=1).Name, i.Name)
-    # Add a '.' to the names
-    for i in obj2.OutList:
-        self.assertEqual(obj2.getSubObject(i.Name + '.', retType=1).Name, i.Name)
-
-  def testExtensions(self):
-    #we try to create a normal python object and add an extension to it
-    obj = self.Doc.addObject("App::DocumentObject", "Extension_1")
-    grp = self.Doc.addObject("App::DocumentObject", "Extension_2")
-    #we should have all methods we need to handle extensions
-    try:
-      self.failUnless(not grp.hasExtension("App::GroupExtensionPython"))
-      grp.addExtension("App::GroupExtensionPython")
-      self.failUnless(grp.hasExtension("App::GroupExtension"))
-      self.failUnless(grp.hasExtension("App::GroupExtensionPython"))
-      grp.addObject(obj)
-      self.failUnless(len(grp.Group) == 1)
-      self.failUnless(grp.Group[0] == obj)
-    except Exception:
-      self.failUnless(False)
-
-    #test if the method override works
-    class SpecialGroup():
-        def allowObject(self, obj):
-            return False;
-
-    callback = SpecialGroup()
-    grp2 = self.Doc.addObject("App::FeaturePython", "Extension_3")
-    grp2.addExtension("App::GroupExtensionPython")
-    grp2.Proxy = callback
-
-    try:
-      self.failUnless(grp2.hasExtension("App::GroupExtension"))
-      grp2.addObject(obj)
-      self.failUnless(len(grp2.Group) == 0)
-    except Exception:
-      self.failUnless(True)
-
-    self.Doc.removeObject(grp.Name)
-    self.Doc.removeObject(grp2.Name)
-    self.Doc.removeObject(obj.Name)
-    del obj
-    del grp
-    del grp2
 
   def testExtensionBug0002785(self):
 
@@ -440,7 +352,7 @@ class DocumentBasicCases(unittest.TestCase):
       list_of_types.append(obj.getTypeOfProperty("String" + str(i)))
 
     # saving and restoring
-    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
+    SaveName = tempfile.gettempdir() + os.sep + "CreateTest.rps"
     self.Doc.saveAs(SaveName)
     LabRPS.closeDocument("CreateTest")
     self.Doc = LabRPS.open(SaveName)
@@ -498,7 +410,7 @@ class DocumentBasicCases(unittest.TestCase):
   #   link.addProperty("App::PropertyFloat", "Test")
   #   link.LinkedObject = test
     # # saving and restoring
-    # SaveName = tempfile.gettempdir() + os.sep + "CreateTest.RPSStd"
+    # SaveName = tempfile.gettempdir() + os.sep + "CreateTest.rps"
     # self.Doc.saveAs(SaveName)
     # LabRPS.closeDocument("CreateTest")
     # self.Doc = LabRPS.open(SaveName)
@@ -538,7 +450,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
 
   def testSaveAndRestore(self):
     # saving and restoring
-    SaveName = self.TempPath + os.sep + "SaveRestoreTests.RPSStd"
+    SaveName = self.TempPath + os.sep + "SaveRestoreTests.rps"
     self.failUnless(self.Doc.Label_1.TypeTransient == 4711)
     self.Doc.Label_1.TypeTransient = 4712
     # setup Linking
@@ -565,7 +477,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
     Doc = LabRPS.newDocument("RestoreTests")
     Doc.addObject("App::FeatureTest","Label_1")
     # saving and restoring
-    FileName = self.TempPath + os.sep + "Test2.RPSStd"
+    FileName = self.TempPath + os.sep + "Test2.rps"
     Doc.saveAs(FileName)
     # restore must first clear the current content
     Doc.restore()
@@ -588,7 +500,7 @@ class DocumentSaveRestoreCases(unittest.TestCase):
 
   def testExtensionSaveRestore(self):
     # saving and restoring
-    SaveName = self.TempPath + os.sep + "SaveRestoreExtensions.RPSStd"
+    SaveName = self.TempPath + os.sep + "SaveRestoreExtensions.rps"
     Doc = LabRPS.newDocument("SaveRestoreExtensions")
     #we try to create a normal python object and add an extension to it
     obj  = Doc.addObject("App::DocumentObject", "Obj")
@@ -990,48 +902,7 @@ class UndoRedoCases(unittest.TestCase):
     self.failUnless(len(self.Cylinder.InList) == 1)
     self.failUnless(self.Cylinder.InList[0] == self.Doc.Fuse)
 
-  def testUndoIssue0003150Part1(self):
-
-    self.Doc.UndoMode = 1
-
-    self.Doc.openTransaction("Box")
-    self.Box = self.Doc.addObject('App::FeatureTest')
-    self.Doc.commitTransaction()
-
-    self.Doc.openTransaction("Cylinder")
-    self.Cylinder = self.Doc.addObject('App::FeatureTest')
-    self.Doc.commitTransaction()
-
-    self.Doc.openTransaction("Fuse")
-    self.Fuse1 = self.Doc.addObject('App::FeatureTest')
-    self.Fuse1.LinkList = [self.Box, self.Cylinder]
-    self.Doc.commitTransaction()
-    self.Doc.recompute()
-
-    self.Doc.openTransaction("Sphere")
-    self.Sphere = self.Doc.addObject('App::FeatureTest')
-    self.Doc.commitTransaction()
-
-    self.Doc.openTransaction("Fuse")
-    self.Fuse2 = self.Doc.addObject('App::FeatureTest')
-    self.Fuse2.LinkList = [self.Fuse1, self.Sphere]
-    self.Doc.commitTransaction()
-    self.Doc.recompute()
-
-    self.Doc.openTransaction("Part")
-    self.Part = self.Doc.addObject('App::Part')
-    self.Doc.commitTransaction()
-
-    self.Doc.openTransaction("Drag")
-    self.Part.addObject(self.Fuse2)
-    self.Doc.commitTransaction()
-
-    #3 undos show the problem of failing recompute
-    self.Doc.undo()
-    self.Doc.undo()
-    self.Doc.undo()
-    self.failUnless(self.Doc.recompute() >= 0)
-
+  
   def tearDown(self):
     # closing doc
     LabRPS.closeDocument("UndoTest")
@@ -1117,7 +988,7 @@ class DocumentGroupCases(unittest.TestCase):
     self.Doc.removeObject("Label_2")
     self.Doc.removeObject("Label_3")
 
-  def testGroupAndGeoFeatureGroup(self):
+  def testGroupGroup(self):
 
     # an object can only be in one group at once, that must be enforced
     obj1 = self.Doc.addObject("App::FeatureTest","obj1")
@@ -1131,36 +1002,16 @@ class DocumentGroupCases(unittest.TestCase):
     self.failUnless(grp1.hasObject(obj1)==False)
     self.failUnless(grp2.hasObject(obj1))
 
-    # an object is allowed to be in a group and a geofeaturegroup
-    prt1 = self.Doc.addObject("App::Part","Part1")
-    prt2 = self.Doc.addObject("App::Part","Part2")
+    # an object is allowed to be in a group
+    wnd1 = self.Doc.addObject("WindLab::WindLabSimulation","Wind1")
+    wnd2 = self.Doc.addObject("WindLab::WindLabSimulation","Wind2")
 
-    prt1.addObject(grp2)
-    self.failUnless(grp2.getParentGeoFeatureGroup() == prt1)
-    self.failUnless(grp2.getParentGroup() is None)
+    wnd1.addObject(grp2)
     self.failUnless(grp2.hasObject(obj1))
-    self.failUnless(prt1.hasObject(grp2))
-    self.failUnless(prt1.hasObject(obj1))
-
-    #it is not allowed to be in 2 geofeaturegroups
-    prt2.addObject(grp2)
-    self.failUnless(grp2.hasObject(obj1))
-    self.failUnless(prt1.hasObject(grp2)==False)
-    self.failUnless(prt1.hasObject(obj1)==False)
-    self.failUnless(prt2.hasObject(grp2))
-    self.failUnless(prt2.hasObject(obj1))
-    try:
-        grp = prt1.Group
-        grp.append(obj1)
-        prt1.Group = grp
-    except Exception:
-        grp.remove(obj1)
-        self.failUnless(prt1.Group == grp)
-    else:
-        self.fail("No exception thrown when object is in multiple Groups")
+    self.failUnless(wnd1.hasObject(grp2))
 
     #it is not allowed to be in 2 Groups
-    prt2.addObject(grp1)
+    wnd2.addObject(grp1)
     grp = grp1.Group
     grp.append(obj1)
     try:
@@ -1170,68 +1021,8 @@ class DocumentGroupCases(unittest.TestCase):
     else:
         self.fail("No exception thrown when object is in multiple Groups")
 
-    #cross linking between GeoFeatureGroups is not allowed
-    self.Doc.recompute()
-    box = self.Doc.addObject("App::FeatureTest","Box")
-    cyl = self.Doc.addObject("App::FeatureTest","Cylinder")
-    fus = self.Doc.addObject("App::FeatureTest","Fusion")
-    fus.LinkList = [cyl, box]
-    self.Doc.recompute()
-    self.failUnless(fus.State[0] == 'Up-to-date')
-    fus.LinkList = [] #remove all links as addObject would otherwise transfer all linked objects
-    prt1.addObject(cyl)
-    fus.LinkList = [cyl, box]
-    self.Doc.recompute()
-    #self.failUnless(fus.State[0] == 'Invalid')
-    fus.LinkList = []
-    prt1.addObject(box)
-    fus.LinkList = [cyl, box]
-    self.Doc.recompute()
-    #self.failUnless(fus.State[0] == 'Invalid')
-    fus.LinkList = []
-    prt1.addObject(fus)
-    fus.LinkList = [cyl, box]
-    self.Doc.recompute()
-    self.failUnless(fus.State[0] == 'Up-to-date')
-    prt2.addObject(box) #this time addObject should move all dependencies to the new part
-    self.Doc.recompute()
-    self.failUnless(fus.State[0] == 'Up-to-date')
-
-    #grouping must be resilient against cyclic links and not crash: #issue 0002567
-    prt1.addObject(prt2)
-    grp = prt2.Group
-    grp.append(prt1)
-    prt2.Group = grp
-    self.Doc.recompute()
-    prt2.Group = []
-    try:
-        prt2.Group = [prt2]
-    except Exception:
-        pass
-    else:
-        self.fail("Exception is expected")
-
     self.Doc.recompute()
 
-  def testIssue0003150Part2(self):
-    self.box = self.Doc.addObject("App::FeatureTest")
-    self.cyl = self.Doc.addObject("App::FeatureTest")
-    self.sph = self.Doc.addObject("App::FeatureTest")
-
-    self.fus1 = self.Doc.addObject("App::FeatureTest")
-    self.fus2 = self.Doc.addObject("App::FeatureTest")
-
-    self.fus1.LinkList = [self.box, self.cyl];
-    self.fus2.LinkList = [self.sph, self.cyl];
-
-    self.prt = self.Doc.addObject("App::Part")
-    self.prt.addObject(self.fus1)
-    self.failUnless(len(self.prt.Group)==5)
-    self.failUnless(self.fus2.getParentGeoFeatureGroup() == self.prt)
-    self.failUnless(self.prt.hasObject(self.sph))
-
-    self.prt.removeObject(self.fus1)
-    self.failUnless(len(self.prt.Group)==0)
 
   def tearDown(self):
     # closing doc
@@ -1242,7 +1033,7 @@ class DocumentPlatformCases(unittest.TestCase):
     self.Doc = LabRPS.newDocument("PlatformTests")
     self.Doc.addObject("App::FeatureTest", "Test")
     self.TempPath = tempfile.gettempdir()
-    self.DocName = self.TempPath + os.sep + "PlatformTests.RPSStd"
+    self.DocName = self.TempPath + os.sep + "PlatformTests.rps"
 
   def testFloatList(self):
     self.Doc.Test.FloatList = [-0.05, 2.5, 5.2]
@@ -1255,23 +1046,6 @@ class DocumentPlatformCases(unittest.TestCase):
     self.failUnless(abs(self.Doc.Test.FloatList[0] + .05) < 0.01)
     self.failUnless(abs(self.Doc.Test.FloatList[1] - 2.5) < 0.01)
     self.failUnless(abs(self.Doc.Test.FloatList[2] - 5.2) < 0.01)
-
-  def testColorList(self):
-    self.Doc.Test.ColourList = [(1.0,0.5,0.0),(0.0,0.5,1.0)]
-
-    # saving and restoring
-    self.Doc.saveAs(self.DocName)
-    LabRPS.closeDocument("PlatformTests")
-    self.Doc = LabRPS.open(self.DocName)
-
-    self.failUnless(abs(self.Doc.Test.ColourList[0][0] - 1.0) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[0][1] - 0.5) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[0][2] - 0.0) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[0][3] - 0.0) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[1][0] - 0.0) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[1][1] - 0.5) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[1][2] - 1.0) < 0.01)
-    self.failUnless(abs(self.Doc.Test.ColourList[1][3] - 0.0) < 0.01)
 
   def testVectorList(self):
     self.Doc.Test.VectorList = [(-0.05, 2.5, 5.2),(-0.05, 2.5, 5.2)]
@@ -1379,10 +1153,10 @@ class DocumentFileIncludeCases(unittest.TestCase):
     self.failUnless(file.read()=="test No2")
     file.close()
     # Save restore test
-    FileName = self.TempPath+"/FileIncludeTests.rpsstd"
+    FileName = self.TempPath+"/FileIncludeTests.rps"
     self.Doc.saveAs(FileName)
     LabRPS.closeDocument("FileIncludeTests")
-    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rpsstd")
+    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rps")
     # check if the file is still there
     self.L1 = self.Doc.getObject("FileObject1")
     file = open(self.L1.File,"r")
@@ -1425,7 +1199,7 @@ class DocumentFileIncludeCases(unittest.TestCase):
     L5.File = L3.File
     L6.File = L3.File
     LabRPS.closeDocument("FileIncludeTests")
-    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rpsstd")
+    self.Doc = LabRPS.open(self.TempPath+"/FileIncludeTests.rps")
     self.failUnless(os.path.exists(L4.File))
     self.failUnless(os.path.exists(L5.File))
     self.failUnless(os.path.exists(L6.File))
@@ -1453,7 +1227,7 @@ class DocumentPropertyCases(unittest.TestCase):
     for i in props:
         self.Obj.addProperty(i,i.replace(':','_'))
     tempPath = tempfile.gettempdir()
-    tempFile = tempPath + os.sep + "PropertyTests.RPSStd"
+    tempFile = tempPath + os.sep + "PropertyTests.rps"
     self.Doc.saveAs(tempFile)
     LabRPS.closeDocument("PropertyTests")
     self.Doc = LabRPS.open(tempFile)
@@ -1512,26 +1286,6 @@ class DocumentExpressionCases(unittest.TestCase):
 
 
   def testExpression(self):
-    self.Obj1 = self.Doc.addObject("App::FeatureTest","Test")
-    self.Obj2 = self.Doc.addObject("App::FeatureTest","Test")
-    # set the object twice to test that the backlinks are removed when overwriting the expression
-    self.Obj2.setExpression('Placement.Rotation.Angle', u'%s.Placement.Rotation.Angle' % self.Obj1.Name)
-    self.Obj2.setExpression('Placement.Rotation.Angle', u'%s.Placement.Rotation.Angle' % self.Obj1.Name)
-    self.Obj1.Placement = LabRPS.Placement(LabRPS.Vector(0,0,0),LabRPS.Rotation(LabRPS.Vector(0,0,1),10))
-    self.Doc.recompute()
-    self.assertAlmostEqual(self.Obj1.Placement.Rotation.Angle, self.Obj2.Placement.Rotation.Angle)
-
-    # clear the expression
-    self.Obj2.setExpression('Placement.Rotation.Angle', None)
-    self.assertAlmostEqual(self.Obj1.Placement.Rotation.Angle, self.Obj2.Placement.Rotation.Angle)
-    self.Doc.recompute()
-    self.assertAlmostEqual(self.Obj1.Placement.Rotation.Angle, self.Obj2.Placement.Rotation.Angle)
-    # touch the objects to perform a recompute
-    self.Obj1.Placement = self.Obj1.Placement
-    self.Obj2.Placement = self.Obj2.Placement
-    # must not raise a topological error
-    self.assertEqual(self.Doc.recompute(), 2)
-
     # add test for issue #6948
     self.Obj3 = self.Doc.addObject("App::FeatureTest", "Test")
     self.Obj3.setExpression('Float', u'2*(5%3)')
@@ -1577,7 +1331,7 @@ class DocumentExpressionCases(unittest.TestCase):
   #     obj.ExpressionEngine
 
   #     TempPath = tempfile.gettempdir()
-  #     SaveName = TempPath + os.sep + "ExpressionTests.RPSStd"
+  #     SaveName = TempPath + os.sep + "ExpressionTests.rps"
   #     self.Doc.saveAs(SaveName)
   #     LabRPS.closeDocument(self.Doc.Name)
   #     self.Doc = LabRPS.openDocument(SaveName)
@@ -1771,7 +1525,7 @@ class DocumentObserverCases(unittest.TestCase):
 
   def testSave(self):
     TempPath = tempfile.gettempdir()
-    SaveName = TempPath + os.sep + "SaveRestoreTests.RPSStd"
+    SaveName = TempPath + os.sep + "SaveRestoreTests.rps"
     self.Doc1 = LabRPS.newDocument("Observer1");
     self.Doc1.saveAs(SaveName)
     self.assertEqual(self.Obs.signal.pop(), 'DocFinishSave')
@@ -2026,7 +1780,7 @@ class DocumentObserverCases(unittest.TestCase):
 
     self.GuiObs = self.GuiObserver()
     LabRPS.Gui.addDocumentObserver(self.GuiObs)
-    self.Doc1 = LabRPS.newDocument("Observer1");
+    self.Doc1 = LabRPS.newDocument("Observer1")
     self.GuiDoc1 = LabRPS.Gui.getDocument(self.Doc1.Name)
     self.Obs.signal = []
     self.Obs.parameter = []

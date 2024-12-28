@@ -3,11 +3,14 @@ add_subdirectory(App)
 set(SeismicLabAPI_Scripts
 Init.py
 SeismicLabAPIScripts.py
+TestSeismicLabAPIApp.py
+
 )
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND SeismicLabAPI_Scripts InitGui.py)
+    list (APPEND SeismicLabAPI_Scripts InitGui.py TestSeismicLabAPIGui.py
+    )
 endif(BUILD_GUI)
 
 add_custom_target(SeismicLabAPIScripts ALL

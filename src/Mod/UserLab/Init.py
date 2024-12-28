@@ -23,4 +23,4 @@
 
 # LabRPS init script of the UserLab module
 
-LabRPS.__unit_test__ += [ "TestUserLabApp" ]
+LabRPS.__unit_test__ += [ "TestUserLabAPIApp" ]

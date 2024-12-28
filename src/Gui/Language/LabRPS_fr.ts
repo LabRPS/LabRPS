@@ -3946,8 +3946,8 @@ en plus de la barre de couleur</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
-      <translation>Niveau de compression pour les fichiers RPSStd</translation>
+      <source>Compression level for rps files</source>
+      <translation>Niveau de compression pour les fichiers rps</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="129"/>
@@ -4648,8 +4648,8 @@ Vous pouvez également utiliser la forme : John Doe &lt;john@doe.com&gt;</transl
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9074,8 +9074,8 @@ Voulez-vous enregistrer le fichier avec un nom différent ?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Document %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Document %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10393,8 +10393,8 @@ Notez que toute modification apportée à la copie en cours sera perdue.</transl
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Document %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Document %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>

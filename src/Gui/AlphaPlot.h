@@ -1189,9 +1189,11 @@ public Q_SLOTS:
     bool isActiveSubWindowAMatrix();
     void convertTableToEigenMatrix(Table* table, mat& eigenMatrix);
     void convertMatrixToEigenMatrix(Matrix* matrix, mat& eigenMatrix);
+    Table* getTableByName(QString tableName);
+    Matrix* getMatrixByName(QString matrixName);
 
 public Q_SLOTS:
-/*    Table* getTableHandle();
+    /*    Table* getTableHandle();
     Matrix* getMatrixHandle()*/;
 
 public:

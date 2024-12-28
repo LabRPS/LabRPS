@@ -135,6 +135,12 @@ public:
     App::PropertyFloat MinVariableX;
     App::PropertyPath WorkingDirectoryPath;
     App::PropertyString FileName;
+    App::PropertyInteger NumberOfGridPointsAlongX;
+    App::PropertyInteger NumberOfGridPointsAlongY;
+    App::PropertyLength GridSpacingAlongX;
+    App::PropertyLength GridSpacingAlongY;
+    App::PropertyLength GridLengthAlongX;
+    App::PropertyLength GridLengthAlongY;
 
     App::PropertyUUID    Uid;
 

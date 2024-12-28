@@ -1,11 +1,13 @@
 add_subdirectory(App)
 
 set(SeismicLabTools_Scripts
-Init.py)
+Init.py
+TestSeismicLabToolsApp.py
+)
 
 if(BUILD_GUI)
     add_subdirectory(Gui)
-    list (APPEND SeismicLabTools_Scripts InitGui.py)
+    list (APPEND SeismicLabTools_Scripts InitGui.py TestSeismicLabToolsGui.py)
 endif(BUILD_GUI)
 
 add_custom_target(SeismicLabToolsScripts ALL

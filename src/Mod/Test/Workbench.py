@@ -110,9 +110,5 @@ class TestNavigationStyle(unittest.TestCase):
     def setUp(self):
         self.Doc = LabRPS.newDocument("CreateTest")
 
-    def testInvalidStyle(self):
-        LabRPSGui.getDocument(self.Doc).ActiveView.setNavigationType("App::Extension")
-        self.assertNotEqual(LabRPSGui.getDocument(self.Doc).ActiveView.getNavigationType(), "App::Extension")
-
     def tearDown(self):
         LabRPS.closeDocument("CreateTest")

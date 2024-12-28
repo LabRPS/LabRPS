@@ -1448,6 +1448,7 @@ WindLabAPI::WindLabFeature* WindLabSimulation::createFeature(Base::Type type, st
         return newFeature;
     }
 
+  return nullptr;
 }
 
 void WindLabSimulation::setEnums(Base::Type type)

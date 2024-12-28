@@ -99,9 +99,9 @@ BinFilter = ["^Plugin\\.*$",
           "^.*CADDCmdPy.dll$",
           "^.*GuiD.dll$",
           "^.*\\.bsc$",
-          "^.*\\.FCScript\\..*$",
+          "^.*\\.RPSScript\\..*$",
           "^.*\\.FCParam$",
-          "^.*\\.FCScript$"]
+          "^.*\\.RPSScript$"]
 
 LibFilter = ["^Plugin\\.*$",
           "^Standard\\.*$",
@@ -117,7 +117,7 @@ LibFilter = ["^Plugin\\.*$",
           "^.*CmdD.lib$",
           "^.*BaseD.lib$",
           "^.*GuiD.lib$",
-          "^.*\\.FCScript\\..*$",
+          "^.*\\.RPSScript\\..*$",
           "^.*\\.FCParam$"]
 
 LibPackFilter = ["^.*\\.o$",

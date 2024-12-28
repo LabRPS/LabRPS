@@ -37,8 +37,6 @@ class SeaLabWorkbench ( Workbench ):
         # load the module
         import SeaLabGui
         import SeaLab
-        import sealabcommands.commands
-
             
     def GetClassName(self):
         return "SeaLabGui::Workbench"

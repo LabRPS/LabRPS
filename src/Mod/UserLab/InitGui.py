@@ -37,8 +37,6 @@ class UserLabWorkbench ( Workbench ):
         # load the module
         import UserLabGui
         import UserLab
-        import userlabcommands.commands
-
             
     def GetClassName(self):
         return "UserLabGui::Workbench"

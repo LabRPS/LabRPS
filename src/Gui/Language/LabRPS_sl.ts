@@ -3951,7 +3951,7 @@ besides the color bar</translation>
     </message>
     <message>
       <location filename="../DlgSettingsDocument.ui" line="98"/>
-      <source>Compression level for RPSStd files</source>
+      <source>Compression level for rps files</source>
       <translation>Raven stiskanja pri datotekah FCtd</translation>
     </message>
     <message>
@@ -4653,8 +4653,8 @@ Lahko uporabite tudi obliko: Neznanec &lt;ne@znanec.com&gt;</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="224"/>
-      <source>FullScript.FCScript</source>
-      <translation>FullScript.FCScript</translation>
+      <source>FullScript.RPSScript</source>
+      <translation>FullScript.RPSScript</translation>
     </message>
     <message>
       <location filename="../DlgSettingsMacro.ui" line="243"/>
@@ -9086,8 +9086,8 @@ Ali želite datoteko shraniti z drugačnim imenom?</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1324"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Dokument %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Dokument %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../Document.cpp" line="1974"/>
@@ -10408,8 +10408,8 @@ the current copy will be lost.
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="523"/>
-      <source>%1 document (*.RPSStd)</source>
-      <translation>Dokument %1 (*.RPSStd)</translation>
+      <source>%1 document (*.rps)</source>
+      <translation>Dokument %1 (*.rps)</translation>
     </message>
     <message>
       <location filename="../CommandDoc.cpp" line="532"/>
