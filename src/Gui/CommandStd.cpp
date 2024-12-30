@@ -3172,7 +3172,11 @@ StdDisableTools::StdDisableTools() : Command("Std_Tools_Disable_tools")
     eType = 0;
 }
 
-void StdDisableTools::activated(int iMsg) { Q_UNUSED(iMsg); }
+void StdDisableTools::activated(int iMsg) 
+{ 
+    Q_UNUSED(iMsg); 
+    Gui::getMainWindow()->getAlphaPlot()->pickGraphTool(this->getAction()->action());
+}
 
 bool StdDisableTools::isActive() { return true; }
 
