@@ -52,6 +52,7 @@ public Q_SLOTS:
 
     void stop();
     void complete();
+    void failed();
     
     Q_SIGNALS:
     void finished();

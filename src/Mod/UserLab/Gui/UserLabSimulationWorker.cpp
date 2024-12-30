@@ -64,7 +64,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -79,7 +79,7 @@ bool RPSUserLabSimulationWorker::workerSimulate()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -128,7 +128,7 @@ bool RPSUserLabSimulationWorker::workerSimulateInLargeScaleMode()
                 Base::Console().Warning(
                     "The computation of the wind velocity matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -163,6 +163,18 @@ void RPSUserLabSimulationWorker::complete()
     m_sim->setStatus(App::SimulationStatus::Successfull, true);
     m_sim->getSimulationData()->isInterruptionRequested.setValue(false);
     m_sim->getSimulationData()->isSimulationSuccessful.setValue(true);
+    mutex.unlock();
+}
+
+void RPSUserLabSimulationWorker::failed()
+{
+    mutex.lock();
+    m_sim->setStatus(App::SimulationStatus::Completed, true);
+    m_sim->setStatus(App::SimulationStatus::Running, false);
+    m_sim->setStatus(App::SimulationStatus::Stopped, true);
+    m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    m_sim->getSimulationData()->isInterruptionRequested.setValue(false);
+    m_sim->getSimulationData()->isSimulationSuccessful.setValue(false);
     mutex.unlock();
 }
 
