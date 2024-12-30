@@ -1,2 +1,3 @@
 add_subdirectory(SeaLabPlugin)
 add_subdirectory(QBladePlugin)
+add_subdirectory(DataReshaperPlugin)
