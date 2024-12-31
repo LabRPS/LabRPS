@@ -1278,6 +1278,8 @@ SeaLabAPI::SeaLabFeature* SeaLabSimulation::createFeature(Base::Type type, std::
 
         return newFeature;
     }
+    
+    return nullptr;
 
 }
 

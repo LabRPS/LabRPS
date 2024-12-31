@@ -282,6 +282,8 @@ UserLabAPI::UserLabFeature* UserLabSimulation::createFeature(Base::Type type, st
 
         return newFeature;
     }
+
+    return nullptr;
 }
 
 void UserLabSimulation::setEnums(Base::Type type)

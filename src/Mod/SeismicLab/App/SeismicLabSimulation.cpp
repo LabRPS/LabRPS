@@ -1196,7 +1196,7 @@ SeismicLabAPI::SeismicLabFeature* SeismicLabSimulation::createFeature(Base::Type
 
         return newFeature;
     }
-
+    return nullptr;
 }
 
 void SeismicLabSimulation::setEnums(Base::Type type)
