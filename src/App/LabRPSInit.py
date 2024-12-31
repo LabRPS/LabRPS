@@ -850,6 +850,8 @@ App.Units.MPH           = App.Units.Quantity('mi/h')
 App.Units.KMH           = App.Units.Quantity('km/h')
 App.Units.MetrePerSecond= App.Units.Quantity('m/s')
 
+App.Units.MetrePerSecondSquared        = App.Units.Quantity('m/s^2')
+
 App.Units.Degree        = App.Units.Quantity('deg')
 App.Units.Radian        = App.Units.Quantity('rad')
 App.Units.Gon           = App.Units.Quantity('gon')

@@ -329,7 +329,8 @@ public:
     static Quantity AngSecond;
     static Quantity MetrePerSecond;
     static Quantity RadianPerSecond;
-    static Quantity KinematicViscosity; 
+    static Quantity KinematicViscosity;
+    static Quantity MetrePerSecondSquared; 
     //@}
 
 
