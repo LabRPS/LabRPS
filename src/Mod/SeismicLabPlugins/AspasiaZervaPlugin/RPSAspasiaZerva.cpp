@@ -53,6 +53,11 @@ bool CRPSAspasiaZerva::OnInitialSetting(const SeismicLabAPI::SeismicLabSimulatio
 // The simulation function 
 bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& Data, cube &dPhenomenon)
 {
+    if (Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     if (!Data.stationarity.getValue() ) {
         Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
         return false;
@@ -151,6 +156,11 @@ return true;
 // The simulation function in large scale mode
 bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabSimulationData& Data, QString &strFileName)
 {
+    if (!Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     //int n = NumberOfLocation.getValue();
     //int N = NumberOfFrequencies.getValue();
     //double timeMin = 0.00;

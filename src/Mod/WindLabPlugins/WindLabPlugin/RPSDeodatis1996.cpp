@@ -48,6 +48,12 @@ bool CRPSDeodatis1996::OnInitialSetting(const WindLabAPI::WindLabSimulationData&
 
 bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon)
 {
+
+    if (Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     auto PbuInfo =
         CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
@@ -186,6 +192,10 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
 // The simulation function in large scale mode
 bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
+    if (!Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
    auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
     if (!PbuInfo)

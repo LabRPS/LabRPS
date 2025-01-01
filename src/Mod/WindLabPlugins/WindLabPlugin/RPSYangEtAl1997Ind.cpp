@@ -62,6 +62,12 @@ bool CRPSYangEtAl1997Ind::OnInitialSetting(const WindLabAPI::WindLabSimulationDa
     // The simulation function 
 bool CRPSYangEtAl1997Ind::Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon)
 {
+
+    if (Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;
@@ -156,6 +162,11 @@ return true;
 // The simulation function in large scale mode
 bool CRPSYangEtAl1997Ind::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
+    if (!Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+    
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;
