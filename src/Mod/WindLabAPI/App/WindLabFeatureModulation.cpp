@@ -40,7 +40,6 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeatureModulation, WindLabAPI::WindLabFeature
 
 WindLabFeatureModulation::WindLabFeatureModulation(void)
 {
-    ADD_PROPERTY_TYPE(isUniform, (true), "Parameters", App::Prop_None, "Tell if the modulation funtion varies with frequency");
     this->OutputUnitString.setValue("Dimensionless");
 }
 
