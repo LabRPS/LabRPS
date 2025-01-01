@@ -58,7 +58,7 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
         return false;
     }
 
-    if (!Data.stationarity.getValue() ) {
+    if (Data.stationarity.getValue() ) {
         Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
         return false;
     }
@@ -165,7 +165,7 @@ bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabS
         return false;
     }
 
-     if (!Data.stationarity.getValue() ) {
+     if (Data.stationarity.getValue() ) {
         Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
         return false;
     }
