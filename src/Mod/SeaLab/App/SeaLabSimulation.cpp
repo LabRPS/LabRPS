@@ -100,7 +100,7 @@ SeaLabSimulation::SeaLabSimulation()
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), timegroup, Prop_None,"This is the number of time increments");
     ADD_PROPERTY_TYPE(TimeIncrement, (0.25), timegroup, Prop_None,"This is the time increment value");
     ADD_PROPERTY_TYPE(MinTime, (0.00), timegroup, Prop_None, "This is the minimum time value");
-    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, Prop_None, "This is the maximum time value");
+    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, App::Prop_ReadOnly, "This is the maximum time value");
     ADD_PROPERTY_TYPE(TimeIndex, (1), timegroup, Prop_None,"Index correponding to Kth time increment");
 
     static const char* directiongroup = "Direction Discretization";
@@ -1712,6 +1712,15 @@ void SeaLabSimulation::onChanged(const App::Property* prop)
             LargeScaleSimulationMode.setValue(false);
         }
     }
+
+    if (prop == &NumberOfTimeIncrements
+        || prop == &TimeIncrement
+        || prop == &MinTime)
+    {
+        MaxTime.setValue(MinTime.getValue()
+                         + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue()) ;
+    }
+          
    
     updateSimulationData();
 
