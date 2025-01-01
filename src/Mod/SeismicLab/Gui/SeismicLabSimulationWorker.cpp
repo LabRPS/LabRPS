@@ -226,7 +226,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -308,7 +308,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -532,7 +532,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -770,7 +770,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequencyValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -964,7 +964,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -1044,7 +1044,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -1116,7 +1116,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -1721,7 +1721,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -1802,7 +1802,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -1874,7 +1874,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2060,7 +2060,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF(
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2147,7 +2147,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2407,7 +2407,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2488,7 +2488,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2561,7 +2561,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2632,7 +2632,7 @@ bool RPSSeismicLabSimulationWorker::workerSimulate()
             watch.start();
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
             if (!returnResult) {
-                Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
+                Base::Console().Error("The generation of the random sea surface heights has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2732,7 +2732,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2812,7 +2812,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2884,7 +2884,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -2963,7 +2963,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3044,7 +3044,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3117,7 +3117,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3305,7 +3305,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceValue()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3385,7 +3385,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorP()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3457,7 +3457,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3628,7 +3628,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3712,7 +3712,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -3950,7 +3950,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -4031,7 +4031,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -4263,7 +4263,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
@@ -4341,7 +4341,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             bool returnResult = activeSpatialDistr->ComputeLocationCoordinateMatrixP3(
                 *m_sim->getSimulationData(), locationCoord);
             if (!returnResult) {
-                Base::Console().Error("The computation of the spectrum value has failed.\n");
+                Base::Console().Error("The computation of location coordinates matrix has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);

@@ -330,5 +330,8 @@ bool CRPSQBladeMethods::SimulateInLargeScaleMode(const SeaLabAPI::SeaLabSimulati
         Base::Console().Error("The simulation fails.\n");
         return false;
     }
+
+    Base::Console().Error("Sorry, the large scale simulation mode is not implemented for this method yet.\n");
+
     return false;
 }
