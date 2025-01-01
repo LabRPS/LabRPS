@@ -2478,9 +2478,9 @@ private:
                             if ((startsWith(file, fn) &&
                                  (file.length() > fn.length()) &&
                                  checkDigits(file.substr(fn.length()))) ||
-                                 // .FCBak case : The bame starts with the base name of the project + "."
-                                 // + complement with no "." + ".FCBak"
-                                 ((fextUp == "FCBAK") && startsWith(file, pbn) &&
+                                 // .RPSBak case : The bame starts with the base name of the project + "."
+                                 // + complement with no "." + ".RPSBak"
+                                 ((fextUp == "RPSBAK") && startsWith(file, pbn) &&
                                  (checkValidComplement(file, pbn, fext)))) {
                                 backup.push_back(*it);
                             }
@@ -2533,7 +2533,7 @@ private:
                             }
                         }
                         else {
-                            if (renameFileNoErase(fi, fn+".FCBak") == false) {
+                            if (renameFileNoErase(fi, fn+".RPSBak") == false) {
                                 fn = fn + "-";
                             }
                             else {
@@ -2543,7 +2543,7 @@ private:
 
                         if (!done) {
                             while (ext < numberOfFiles + 10) {
-                                if (renameFileNoErase(fi, fn+std::to_string(ext)+".FCBak"))
+                                if (renameFileNoErase(fi, fn+std::to_string(ext)+".RPSBak"))
                                     break;
                                 ext++;
                             }
