@@ -17,6 +17,7 @@ CRPSBoxCarModulation::CRPSBoxCarModulation()
 {
    ADD_PROPERTY_TYPE(ScalingFactor, (1.0), "Parameters", App::Prop_None, "This is the scaling factor.");
    ADD_PROPERTY_TYPE(StrongMotionDuration, (15.0), "Parameters", App::Prop_None, "This is the strong motion duration of the earthquake excitation.");
+   this->IsUniformModulationFeature.setValue(true);
 }
 
 

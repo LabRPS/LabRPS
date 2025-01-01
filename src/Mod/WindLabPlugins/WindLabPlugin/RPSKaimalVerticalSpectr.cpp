@@ -161,7 +161,7 @@ bool CRPSKaimalVerticalSpectr::ComputeZAutoSpectrumValue(const WindLabAPI::WindL
     WindLabTools::KaimalSpectrum kaimalPSD;
   
     //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformlyModulated.getValue()))
+	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformModulationFeature.getValue()))
 	{
         dValue = kaimalPSD.computeVerticalWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 

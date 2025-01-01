@@ -16,6 +16,8 @@ PROPERTY_SOURCE(SeismicLab::CRPSConstantModulation, SeismicLabAPI::SeismicLabFea
 CRPSConstantModulation::CRPSConstantModulation()
 {
    ADD_PROPERTY_TYPE(ConstantModulationValue, (1), "Parameters", App::Prop_None, "The constant modulation value.");
+   this->IsUniformModulationFeature.setValue(true);
+
 }
 
 bool CRPSConstantModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)

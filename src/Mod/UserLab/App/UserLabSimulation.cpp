@@ -76,7 +76,7 @@ UserLabSimulation::UserLabSimulation()
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), timegroup, Prop_None,"This is the number of time increments");
     ADD_PROPERTY_TYPE(TimeIncrement, (0.25), timegroup, Prop_None,"This is the time increment value");
     ADD_PROPERTY_TYPE(MinTime, (0.00), timegroup, Prop_None, "This is the minimum time value");
-    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, Prop_None, "This is the maximum time value");
+    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, App::Prop_ReadOnly, "This is the maximum time value");
     ADD_PROPERTY_TYPE(TimeIndex, (1), timegroup, Prop_None,"Index correponding to Kth time increment");
 
     static const char* directiongroup = "Direction Discretization";
@@ -282,6 +282,8 @@ UserLabAPI::UserLabFeature* UserLabSimulation::createFeature(Base::Type type, st
 
         return newFeature;
     }
+
+    return nullptr;
 }
 
 void UserLabSimulation::setEnums(Base::Type type)
@@ -372,50 +374,46 @@ bool UserLabSimulation::doubleClicked(void)
 
 void UserLabSimulation::onChanged(const App::Property* prop)
 {
+     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/UserLab/General");
+     int limitAutoAct = hGrp->GetBool("AutomaticLargeScaleModeActivation", true);
+    
+    hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/UserLab/Limit");
+    int numberOfSampleLimit = hGrp->GetInt("MaxSN", 300);  
+    int numberOfProcessLimit = hGrp->GetInt("MaxSPN", 300);
+    int numberOfFrequencyLimit = hGrp->GetInt("MaxFIN", 102400);
+    int numberOfTimeIncrementsLimit = hGrp->GetInt("MaxTIN", 61400);
+    int numberOfDirectionIncrementsLimit = hGrp->GetInt("MaxDIN", 100000);
+    int numberOfIncrementOfVariableXLimit = hGrp->GetInt("MaxXIN", 100000);
+
     if (prop == &LocationIndexJ) {
         if (LocationIndexJ.getValue() < 0)
-    LocationIndexJ.setValue(0);
+            LocationIndexJ.setValue(0);
         if (LocationIndexJ.getValue() > NumberOfProcess.getValue() - 1)
-    LocationIndexJ.setValue(NumberOfProcess.getValue() - 1);
+            LocationIndexJ.setValue(NumberOfProcess.getValue() - 1);
     }
     else if (prop == &LocationIndexK) {
         if (LocationIndexK.getValue() < 0)
-    LocationIndexK.setValue(0);
+            LocationIndexK.setValue(0);
         if (LocationIndexK.getValue() > NumberOfProcess.getValue() - 1)
-    LocationIndexK.setValue(NumberOfProcess.getValue() - 1);
+            LocationIndexK.setValue(NumberOfProcess.getValue() - 1);
     }
     else if (prop == &FrequencyIndex) {
         if (FrequencyIndex.getValue() < 0)
-    FrequencyIndex.setValue(0);
+            FrequencyIndex.setValue(0);
         if (FrequencyIndex.getValue() > NumberOfFrequency.getValue() - 1)
-    FrequencyIndex.setValue(NumberOfFrequency.getValue() - 1);
+            FrequencyIndex.setValue(NumberOfFrequency.getValue() - 1);
     }
     else if (prop == &TimeIndex) {
         if (TimeIndex.getValue() < 0)
-    TimeIndex.setValue(0);
+            TimeIndex.setValue(0);
         if (TimeIndex.getValue() > NumberOfTimeIncrements.getValue() - 1)
-    TimeIndex.setValue(NumberOfTimeIncrements.getValue() - 1);
+            TimeIndex.setValue(NumberOfTimeIncrements.getValue() - 1);
     }
     else if (prop == &DirectionIndex) {
         if (DirectionIndex.getValue() < 0)
-    DirectionIndex.setValue(0);
+            DirectionIndex.setValue(0);
         if (DirectionIndex.getValue() > NumberOfDirectionIncrements.getValue() - 1)
-    DirectionIndex.setValue(NumberOfDirectionIncrements.getValue() - 1);
-    }
-    else if (prop == &NumberOfSample) {
-
-        if (NumberOfSample.getValue() < 1) {
-    NumberOfSample.setValue(1);
-        }
-
-        if (NumberOfSample.getValue() > 1)
-        {
-    LargeScaleSimulationMode.setValue(true);
-        }
-        else {
-
-    LargeScaleSimulationMode.setValue(false);
-        }
+            DirectionIndex.setValue(NumberOfDirectionIncrements.getValue() - 1);
     }
     else if (prop == &SampleIndex) {
         if (SampleIndex.getValue() < 0)
@@ -423,40 +421,100 @@ void UserLabSimulation::onChanged(const App::Property* prop)
         if (SampleIndex.getValue() > NumberOfSample.getValue() - 1)
             SampleIndex.setValue(NumberOfSample.getValue() - 1);
     }
-    else if ((prop == &NumberOfProcess)
-     || (prop == &NumberOfFrequency)
-     || (prop == &NumberOfTimeIncrements) 
-     || (prop == &NumberOfDirectionIncrements)
-     || (prop == &NumberOfIncrementOfVariableX)) {
-
-        ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/UserLab/General");
-        int limitAutoAct = hGrp->GetBool("AutomaticLargeScaleModeActivation", true);
-    
-        hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/UserLab/Limit");
-        int numberOfProcessLimit = hGrp->GetInt("MaxSPN", 300);
-        int numberOfFrequencyLimit = hGrp->GetInt("MaxFIN", 102400);
-        int numberOfTimeIncrementsLimit = hGrp->GetInt("MaxTIN", 61400);
-        int numberOfDirectionIncrementsLimit = hGrp->GetInt("MaxDIN", 100000);
-        int numberOfIncrementOfVariableXLimit = hGrp->GetInt("MaxXIN", 100000);
-
-        if (limitAutoAct)
+    else if (prop == &NumberOfSample) {
+        if (NumberOfSample.getValue() < 1) 
         {
-    if ((NumberOfProcess.getValue() > numberOfProcessLimit)
-        || (NumberOfFrequency.getValue() > numberOfFrequencyLimit)
-        || (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit)
-        || (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit)
-        || (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit)) {
-
-        LargeScaleSimulationMode.setValue(true);
-    }
-    else {
-        LargeScaleSimulationMode.setValue(false);
-    }
+            NumberOfSample.setValue(1);
         }
-       
-
+        if (NumberOfSample.getValue() > numberOfSampleLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of sample(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfSample.getValue(), numberOfSampleLimit);
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
     }
-   
+    else if (prop == &NumberOfProcess) {
+        if (NumberOfProcess.getValue() < 1) 
+        {
+            NumberOfProcess.setValue(1);
+        }
+        if (NumberOfProcess.getValue() > numberOfProcessLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of process(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfProcess.getValue(), numberOfProcessLimit);
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfFrequency) {
+        if (NumberOfFrequency.getValue() < 1) 
+        {
+            NumberOfFrequency.setValue(1);
+        }
+        if (NumberOfFrequency.getValue() > numberOfFrequencyLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of frequency increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfFrequency.getValue(), numberOfFrequencyLimit);
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfTimeIncrements) {
+        if (NumberOfTimeIncrements.getValue() < 1) 
+        {
+            NumberOfTimeIncrements.setValue(1);
+        }
+        if (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of time increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfTimeIncrements.getValue(), numberOfTimeIncrementsLimit);
+
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfDirectionIncrements) {
+        if (NumberOfDirectionIncrements.getValue() < 1) 
+        {
+            NumberOfDirectionIncrements.setValue(1);
+        }
+        if (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of direction increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfDirectionIncrements.getValue(), numberOfDirectionIncrementsLimit);
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfIncrementOfVariableX) {
+        if (NumberOfIncrementOfVariableX.getValue() < 1) 
+        {
+            NumberOfIncrementOfVariableX.setValue(1);
+        }
+        if (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of increments(%s) of the variable X has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfIncrementOfVariableX.getValue(), numberOfIncrementOfVariableXLimit);
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+
+    if (prop == &NumberOfTimeIncrements
+        || prop == &TimeIncrement
+        || prop == &MinTime)
+    {
+        MaxTime.setValue(MinTime.getValue()
+                         + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue());
+    }
+
     updateSimulationData();
 
     Simulation::onChanged(prop);

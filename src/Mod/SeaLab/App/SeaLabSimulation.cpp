@@ -100,7 +100,7 @@ SeaLabSimulation::SeaLabSimulation()
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), timegroup, Prop_None,"This is the number of time increments");
     ADD_PROPERTY_TYPE(TimeIncrement, (0.25), timegroup, Prop_None,"This is the time increment value");
     ADD_PROPERTY_TYPE(MinTime, (0.00), timegroup, Prop_None, "This is the minimum time value");
-    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, Prop_None, "This is the maximum time value");
+    ADD_PROPERTY_TYPE(MaxTime, (1536.00), timegroup, App::Prop_ReadOnly, "This is the maximum time value");
     ADD_PROPERTY_TYPE(TimeIndex, (1), timegroup, Prop_None,"Index correponding to Kth time increment");
 
     static const char* directiongroup = "Direction Discretization";
@@ -1278,6 +1278,8 @@ SeaLabAPI::SeaLabFeature* SeaLabSimulation::createFeature(Base::Type type, std::
 
         return newFeature;
     }
+    
+    return nullptr;
 
 }
 
@@ -1578,50 +1580,46 @@ bool SeaLabSimulation::doubleClicked(void)
 
 void SeaLabSimulation::onChanged(const App::Property* prop)
 {
+     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/SeaLab/General");
+     int limitAutoAct = hGrp->GetBool("AutomaticLargeScaleModeActivation", true);
+    
+    hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
+    int numberOfSampleLimit = hGrp->GetInt("MaxSN", 300);
+    int numberOfProcessLimit = hGrp->GetInt("MaxSPN", 300);
+    int numberOfFrequencyLimit = hGrp->GetInt("MaxFIN", 102400);
+    int numberOfTimeIncrementsLimit = hGrp->GetInt("MaxTIN", 61400);
+    int numberOfDirectionIncrementsLimit = hGrp->GetInt("MaxDIN", 100000);
+    int numberOfIncrementOfVariableXLimit = hGrp->GetInt("MaxXIN", 100000);
+
     if (prop == &LocationIndexJ) {
         if (LocationIndexJ.getValue() < 0)
-    LocationIndexJ.setValue(0);
+            LocationIndexJ.setValue(0);
         if (LocationIndexJ.getValue() > NumberOfProcess.getValue() - 1)
-    LocationIndexJ.setValue(NumberOfProcess.getValue() - 1);
+            LocationIndexJ.setValue(NumberOfProcess.getValue() - 1);
     }
     else if (prop == &LocationIndexK) {
         if (LocationIndexK.getValue() < 0)
-    LocationIndexK.setValue(0);
+            LocationIndexK.setValue(0);
         if (LocationIndexK.getValue() > NumberOfProcess.getValue() - 1)
-    LocationIndexK.setValue(NumberOfProcess.getValue() - 1);
+            LocationIndexK.setValue(NumberOfProcess.getValue() - 1);
     }
     else if (prop == &FrequencyIndex) {
         if (FrequencyIndex.getValue() < 0)
-    FrequencyIndex.setValue(0);
+            FrequencyIndex.setValue(0);
         if (FrequencyIndex.getValue() > NumberOfFrequency.getValue() - 1)
-    FrequencyIndex.setValue(NumberOfFrequency.getValue() - 1);
+            FrequencyIndex.setValue(NumberOfFrequency.getValue() - 1);
     }
     else if (prop == &TimeIndex) {
         if (TimeIndex.getValue() < 0)
-    TimeIndex.setValue(0);
+            TimeIndex.setValue(0);
         if (TimeIndex.getValue() > NumberOfTimeIncrements.getValue() - 1)
-    TimeIndex.setValue(NumberOfTimeIncrements.getValue() - 1);
+            TimeIndex.setValue(NumberOfTimeIncrements.getValue() - 1);
     }
     else if (prop == &DirectionIndex) {
         if (DirectionIndex.getValue() < 0)
-    DirectionIndex.setValue(0);
+            DirectionIndex.setValue(0);
         if (DirectionIndex.getValue() > NumberOfDirectionIncrements.getValue() - 1)
-    DirectionIndex.setValue(NumberOfDirectionIncrements.getValue() - 1);
-    }
-    else if (prop == &NumberOfSample) {
-
-        if (NumberOfSample.getValue() < 1) {
-    NumberOfSample.setValue(1);
-        }
-
-        if (NumberOfSample.getValue() > 1)
-        {
-    LargeScaleSimulationMode.setValue(true);
-        }
-        else {
-
-    LargeScaleSimulationMode.setValue(false);
-        }
+            DirectionIndex.setValue(NumberOfDirectionIncrements.getValue() - 1);
     }
     else if (prop == &SampleIndex) {
         if (SampleIndex.getValue() < 0)
@@ -1629,39 +1627,100 @@ void SeaLabSimulation::onChanged(const App::Property* prop)
         if (SampleIndex.getValue() > NumberOfSample.getValue() - 1)
             SampleIndex.setValue(NumberOfSample.getValue() - 1);
     }
-    else if ((prop == &NumberOfProcess)
-     || (prop == &NumberOfFrequency)
-     || (prop == &NumberOfTimeIncrements) 
-     || (prop == &NumberOfDirectionIncrements)
-     || (prop == &NumberOfIncrementOfVariableX)) {
-
-        ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/SeaLab/General");
-        int limitAutoAct = hGrp->GetBool("AutomaticLargeScaleModeActivation", true);
-    
-        hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
-        int numberOfProcessLimit = hGrp->GetInt("MaxSPN", 300);
-        int numberOfFrequencyLimit = hGrp->GetInt("MaxFIN", 102400);
-        int numberOfTimeIncrementsLimit = hGrp->GetInt("MaxTIN", 61400);
-        int numberOfDirectionIncrementsLimit = hGrp->GetInt("MaxDIN", 100000);
-        int numberOfIncrementOfVariableXLimit = hGrp->GetInt("MaxXIN", 100000);
-
-        if (limitAutoAct)
+    else if (prop == &NumberOfSample) {
+        if (NumberOfSample.getValue() < 1) 
         {
-    if ((NumberOfProcess.getValue() > numberOfProcessLimit)
-        || (NumberOfFrequency.getValue() > numberOfFrequencyLimit)
-        || (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit)
-        || (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit)
-        || (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit)) {
-
-        LargeScaleSimulationMode.setValue(true);
-    }
-    else {
-        LargeScaleSimulationMode.setValue(false);
-    }
+            NumberOfSample.setValue(1);
         }
-       
-
+        if (NumberOfSample.getValue() > numberOfSampleLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of sample(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfSample.getValue()), std::to_string(numberOfSampleLimit));
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
     }
+    else if (prop == &NumberOfProcess) {
+        if (NumberOfProcess.getValue() < 1) 
+        {
+            NumberOfProcess.setValue(1);
+        }
+        if (NumberOfProcess.getValue() > numberOfProcessLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of process(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfProcess.getValue()), std::to_string(numberOfProcessLimit));
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfFrequency) {
+        if (NumberOfFrequency.getValue() < 1) 
+        {
+            NumberOfFrequency.setValue(1);
+        }
+        if (NumberOfFrequency.getValue() > numberOfFrequencyLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of frequency increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfFrequency.getValue()), std::to_string(numberOfFrequencyLimit));
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfTimeIncrements) {
+        if (NumberOfTimeIncrements.getValue() < 1) 
+        {
+            NumberOfTimeIncrements.setValue(1);
+        }
+        if (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of time increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfTimeIncrements.getValue()), std::to_string(numberOfTimeIncrementsLimit));
+
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfDirectionIncrements) {
+        if (NumberOfDirectionIncrements.getValue() < 1) 
+        {
+            NumberOfDirectionIncrements.setValue(1);
+        }
+        if (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of direction increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfDirectionIncrements.getValue()), std::to_string(numberOfDirectionIncrementsLimit));
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+    else if (prop == &NumberOfIncrementOfVariableX) {
+        if (NumberOfIncrementOfVariableX.getValue() < 1) 
+        {
+            NumberOfIncrementOfVariableX.setValue(1);
+        }
+        if (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit && limitAutoAct)
+        {
+            LargeScaleSimulationMode.setValue(true);
+            Base::Console().Warning("The number of increments(%s) of the variable X has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfIncrementOfVariableX.getValue()), std::to_string(numberOfIncrementOfVariableXLimit));
+        }
+        else {
+            LargeScaleSimulationMode.setValue(false);
+        }
+    }
+
+    if (prop == &NumberOfTimeIncrements
+        || prop == &TimeIncrement
+        || prop == &MinTime)
+    {
+        MaxTime.setValue(MinTime.getValue()
+                         + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue()) ;
+    }
+          
    
     updateSimulationData();
 
@@ -3509,7 +3568,7 @@ bool SeaLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
     bool returnResult = activefeature->Simulate(*this->getSimulationData(), dPhenomenon);
 
     if (!returnResult) {
-     Base::Console().Error("The computation of the ground acceleration matrix has failed.\n");
+     Base::Console().Error("The computation of the sea surface matrix has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();
@@ -3528,10 +3587,10 @@ bool SeaLabSimulation::simulateInLargeScaleMode(std::string& featureName)
         Base::Console().Error("No valid active simulation method feature found.\n");
         return false;
     }
-    QString fineName = QString::fromLatin1("WindVelocity");
+    QString fineName = QString::fromLatin1("SeaSurface");
     bool returnResult = activefeature->SimulateInLargeScaleMode(*this->getSimulationData(), fineName);
     if (!returnResult) {
-     Base::Console().Error("The computation of the ground acceleration matrix has failed.\n");
+     Base::Console().Error("The computation of the sea surface matrix has failed.\n");
      return false;
     }
     featureName = activefeature->Label.getStrValue();

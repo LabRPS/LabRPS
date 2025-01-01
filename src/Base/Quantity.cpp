@@ -432,6 +432,8 @@ Quantity Quantity::Gon              (360.0/400.0   ,Unit(0,0,0,0,0,0,0,1)); // g
 
 Quantity Quantity::KinematicViscosity   (1.0         ,Unit(2,0,-1));// m^2/s
 
+Quantity Quantity::MetrePerSecondSquared(1.0e3, Unit(1, 0, -2));// m/s^2
+
 
 
 

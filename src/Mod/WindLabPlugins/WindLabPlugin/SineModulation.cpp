@@ -33,6 +33,8 @@ PROPERTY_SOURCE(WindLab::CSineModulation, WindLabAPI::WindLabFeatureModulation)
 CSineModulation::CSineModulation()
 {
     ADD_PROPERTY_TYPE(PulseDuration, (150), "Parameters", App::Prop_None, "The pulse duration");
+   this->IsUniformModulationFeature.setValue(true);
+
 }
 
 bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)

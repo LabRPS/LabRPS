@@ -65,6 +65,11 @@ bool CRPSTogbenouEtAl2016::OnInitialSetting(const WindLabAPI::WindLabSimulationD
     // The simulation function 
 bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon)
 {
+    if (Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;
@@ -187,6 +192,11 @@ return true;
 // The simulation function in large scale mode
 bool CRPSTogbenouEtAl2016::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
 {
+    if (!Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+    
     int n = NumberOfLocation.getValue();
     int N = NumberOfFrequencies.getValue();
     double timeMin = 0.00;

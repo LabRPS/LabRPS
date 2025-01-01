@@ -7,7 +7,6 @@
 #include <Base/Console.h>
 #include <Gui/Control.h>
 
-
 using namespace SeismicLab;
 using namespace SeismicLabAPI;
 
@@ -17,6 +16,8 @@ CRPSBogdanoffGoldbergBernardModulation::CRPSBogdanoffGoldbergBernardModulation()
 {
     ADD_PROPERTY_TYPE(CoefficientOne, (0.68), "Parameters", App::Prop_None, "The coefficient 1.");
     ADD_PROPERTY_TYPE(CoefficientTwo, (1.0/4.0), "Parameters", App::Prop_None, "The coefficient 2.");
+    this->IsUniformModulationFeature.setValue(true);
+
 }
 
 bool CRPSBogdanoffGoldbergBernardModulation::ComputeModulationValue(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)

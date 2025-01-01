@@ -15,9 +15,10 @@ PROPERTY_SOURCE(SeismicLab::CRPSSaragoniHart1974Modulation, SeismicLabAPI::Seism
 
 CRPSSaragoniHart1974Modulation::CRPSSaragoniHart1974Modulation()
 {
-    ADD_PROPERTY_TYPE(AlphaOne, (0.4618), "Parameters", App::Prop_None, "The parameter 1.");
+   ADD_PROPERTY_TYPE(AlphaOne, (0.4618), "Parameters", App::Prop_None, "The parameter 1.");
    ADD_PROPERTY_TYPE(AlphaTwo, (3.0), "Parameters", App::Prop_None, "The parameter 2.");
    ADD_PROPERTY_TYPE(AlphaThree, (0.5), "Parameters", App::Prop_None, "The parameter 3.");
+   this->IsUniformModulationFeature.setValue(true);
 }
 
 

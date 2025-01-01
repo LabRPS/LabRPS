@@ -23,13 +23,13 @@
       </sizepolicy>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="title">
       <string>Large Scale Simulation Mode</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -70,26 +70,33 @@
       </sizepolicy>
      </property>
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="title">
       <string>Limit Settings</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <layout class="QGridLayout" name="wl_ly_limit">
-        <item row="2" column="0">
-         <widget class="QLabel" name="l_max_FrequencyNumber">
+        <item row="4" column="0">
+         <widget class="QLabel" name="l_max_DirectionNumber">
           <property name="text">
-           <string>Max Frequency Increment Number</string>
+           <string>Max Direction Increment Number</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="Gui::PrefSpinBox" name="sb_lm_FrequencyNumber">
+        <item row="3" column="0">
+         <widget class="QLabel" name="l_max_TimeNumber">
+          <property name="text">
+           <string>Max Time Increment Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="Gui::PrefSpinBox" name="sb_lm_DirectionNumber">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -97,7 +104,7 @@
            </size>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -109,20 +116,51 @@
            <number>100</number>
           </property>
           <property name="value">
-           <number>102400</number>
+           <number>100000</number>
           </property>
           <property name="prefEntry" stdset="0">
-           <cstring>MaxFIN</cstring>
+           <cstring>MaxDIN</cstring>
           </property>
           <property name="prefPath" stdset="0">
            <cstring>Mod/WindLab/Limit</cstring>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="l_max_DirectionNumber">
+        <item row="1" column="0">
+         <widget class="QLabel" name="l_max_SimulationPointsNumber">
           <property name="text">
-           <string>Max Direction Increment Number</string>
+           <string>Max Simulation Point number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="Gui::PrefSpinBox" name="sb_lm_XValueNumber">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>2147483647</number>
+          </property>
+          <property name="singleStep">
+           <number>100</number>
+          </property>
+          <property name="value">
+           <number>100000</number>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>MaxXIN</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/WindLab/Limit</cstring>
           </property>
          </widget>
         </item>
@@ -135,7 +173,7 @@
            </size>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -157,20 +195,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="l_max_TimeNumber">
-          <property name="text">
-           <string>Max Time Increment Number</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="l_max_SimulationPointsNumber">
-          <property name="text">
-           <string>Max Simulation Point number</string>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="2">
          <widget class="Gui::PrefSpinBox" name="sb_lm_TimeNumber">
           <property name="minimumSize">
@@ -180,7 +204,7 @@
            </size>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -209,8 +233,15 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="Gui::PrefSpinBox" name="sb_lm_DirectionNumber">
+        <item row="2" column="0">
+         <widget class="QLabel" name="l_max_FrequencyNumber">
+          <property name="text">
+           <string>Max Frequency Increment Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="Gui::PrefSpinBox" name="sb_lm_FrequencyNumber">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -218,7 +249,7 @@
            </size>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -230,18 +261,25 @@
            <number>100</number>
           </property>
           <property name="value">
-           <number>100000</number>
+           <number>102400</number>
           </property>
           <property name="prefEntry" stdset="0">
-           <cstring>MaxDIN</cstring>
+           <cstring>MaxFIN</cstring>
           </property>
           <property name="prefPath" stdset="0">
            <cstring>Mod/WindLab/Limit</cstring>
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
-         <widget class="Gui::PrefSpinBox" name="sb_lm_XValueNumber">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Max Sample Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="Gui::PrefSpinBox" name="sb_lm_SampleNumber">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -249,7 +287,7 @@
            </size>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>
@@ -258,13 +296,13 @@
            <number>2147483647</number>
           </property>
           <property name="singleStep">
-           <number>100</number>
+           <number>10</number>
           </property>
           <property name="value">
-           <number>100000</number>
+           <number>300</number>
           </property>
           <property name="prefEntry" stdset="0">
-           <cstring>MaxXIN</cstring>
+           <cstring>MaxSN</cstring>
           </property>
           <property name="prefPath" stdset="0">
            <cstring>Mod/WindLab/Limit</cstring>
@@ -279,7 +317,7 @@
    <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
-      <enum>Qt::Vertical</enum>
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>

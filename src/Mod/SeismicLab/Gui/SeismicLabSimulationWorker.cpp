@@ -91,7 +91,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeLocationCoordinateMatrixP3()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -115,7 +115,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -128,7 +128,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -140,7 +140,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -176,7 +176,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -204,7 +204,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -217,7 +217,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -228,7 +228,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -263,7 +263,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -286,7 +286,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -299,7 +299,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -310,7 +310,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -347,7 +347,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -376,7 +376,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -404,7 +404,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -427,7 +427,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -440,7 +440,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -452,7 +452,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -484,7 +484,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -510,7 +510,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -523,7 +523,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -534,7 +534,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -569,7 +569,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -593,7 +593,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -606,7 +606,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -630,7 +630,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationMatrixPP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the correlation matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -653,7 +653,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCPDValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -677,7 +677,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCPDValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -704,7 +704,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCPDVectorX()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -725,7 +725,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCPDVectorX()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the cpd has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -748,7 +748,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequencyValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -761,7 +761,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequencyValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -772,7 +772,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequencyValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -801,7 +801,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequencyValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -825,7 +825,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -838,7 +838,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -849,7 +849,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the location coordinates fails.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -875,7 +875,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the frequency vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -898,7 +898,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesMatrixFP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -918,7 +918,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeFrequenciesMatrixFP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -942,7 +942,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -955,7 +955,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -966,7 +966,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -995,7 +995,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1022,7 +1022,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1035,7 +1035,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1046,7 +1046,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1072,7 +1072,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1094,7 +1094,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1107,7 +1107,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1118,7 +1118,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1150,7 +1150,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1174,7 +1174,7 @@ bool RPSSeismicLabSimulationWorker::workerMatrixToolCompute()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1187,7 +1187,7 @@ bool RPSSeismicLabSimulationWorker::workerMatrixToolCompute()
             if (!activefeature) {
                 Base::Console().Warning("No valid active matrix tool feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1199,7 +1199,7 @@ bool RPSSeismicLabSimulationWorker::workerMatrixToolCompute()
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1216,7 +1216,7 @@ bool RPSSeismicLabSimulationWorker::workerMatrixToolCompute()
             if (!returnResult) {
                 Base::Console().Warning("The running of the matrix tool has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1241,7 +1241,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1254,7 +1254,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1285,7 +1285,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1312,7 +1312,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1337,7 +1337,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1360,7 +1360,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1373,7 +1373,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1403,7 +1403,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeMeanAccelerationVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the mean ground motion acceleration has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1427,7 +1427,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1440,7 +1440,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1474,7 +1474,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1499,7 +1499,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1527,7 +1527,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1551,7 +1551,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1564,7 +1564,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1600,7 +1600,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1627,7 +1627,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1640,7 +1640,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1676,7 +1676,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the modulation function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1699,7 +1699,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1712,7 +1712,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1723,7 +1723,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1753,7 +1753,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the kurtosis value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1780,7 +1780,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1793,7 +1793,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1804,7 +1804,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1830,7 +1830,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peak factor vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1852,7 +1852,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1865,7 +1865,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1876,7 +1876,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1908,7 +1908,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the peack factor vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1932,7 +1932,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePDFValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1956,7 +1956,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePDFValue()
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -1983,7 +1983,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePDFVectorX()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2005,7 +2005,7 @@ bool RPSSeismicLabSimulationWorker::workerComputePDFVectorX()
                 Base::Console().Warning(
                     "The computation of probability density function has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2038,7 +2038,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF(
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2051,7 +2051,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF(
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2062,7 +2062,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF(
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2098,7 +2098,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorF(
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2121,7 +2121,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2134,7 +2134,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2149,7 +2149,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2187,7 +2187,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2210,7 +2210,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2223,7 +2223,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2252,7 +2252,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP
                 Base::Console().Warning(
                     "The computation of the decomposed spectrum matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2287,7 +2287,7 @@ bool RPSSeismicLabSimulationWorker::workerGenerateRandomMatrixFP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2306,7 +2306,7 @@ bool RPSSeismicLabSimulationWorker::workerGenerateRandomMatrixFP()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2330,7 +2330,7 @@ bool RPSSeismicLabSimulationWorker::workerGenerateRandomCubeFPS()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2345,7 +2345,7 @@ bool RPSSeismicLabSimulationWorker::workerGenerateRandomCubeFPS()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2361,7 +2361,7 @@ bool RPSSeismicLabSimulationWorker::workerGenerateRandomCubeFPS()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random phase angle has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2385,7 +2385,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2398,7 +2398,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2409,7 +2409,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2439,7 +2439,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the shear velocity value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2466,7 +2466,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2479,7 +2479,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2490,7 +2490,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2517,7 +2517,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorP()
                 Base::Console().Warning(
                     "The computation of the shear velocity vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2539,7 +2539,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2552,7 +2552,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2563,7 +2563,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2595,7 +2595,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the shear vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2619,7 +2619,7 @@ bool RPSSeismicLabSimulationWorker::workerSimulate()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2634,7 +2634,7 @@ bool RPSSeismicLabSimulationWorker::workerSimulate()
             if (!returnResult) {
                 Base::Console().Warning("The generation of the random sea surface heights has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2668,7 +2668,7 @@ bool RPSSeismicLabSimulationWorker::workerSimulateInLargeScaleMode()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2687,7 +2687,7 @@ bool RPSSeismicLabSimulationWorker::workerSimulateInLargeScaleMode()
                 Base::Console().Warning(
                     "The computation of the ground motion matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2710,7 +2710,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2723,7 +2723,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2734,7 +2734,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2763,7 +2763,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2790,7 +2790,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2803,7 +2803,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2814,7 +2814,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2840,7 +2840,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2862,7 +2862,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2875,7 +2875,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2886,7 +2886,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2918,7 +2918,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2941,7 +2941,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2954,7 +2954,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2965,7 +2965,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -2995,7 +2995,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3022,7 +3022,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3035,7 +3035,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3046,7 +3046,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3073,7 +3073,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorP()
                 Base::Console().Warning(
                     "The computation of the standard deviation vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3095,7 +3095,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3108,7 +3108,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3119,7 +3119,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3151,7 +3151,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3175,7 +3175,7 @@ bool RPSSeismicLabSimulationWorker::workerTableToolCompute()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3187,7 +3187,7 @@ bool RPSSeismicLabSimulationWorker::workerTableToolCompute()
             if (!activefeature) {
                 Base::Console().Warning("No valid active table tool feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3199,7 +3199,7 @@ bool RPSSeismicLabSimulationWorker::workerTableToolCompute()
             if (!sim) {
                 Base::Console().Warning("No valid active simulation found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3216,7 +3216,7 @@ bool RPSSeismicLabSimulationWorker::workerTableToolCompute()
             if (!returnResult) {
                 Base::Console().Warning("The running of the table tool has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3240,7 +3240,7 @@ bool RPSSeismicLabSimulationWorker::workerUserDefinedRPSObjectCompute()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3260,7 +3260,7 @@ bool RPSSeismicLabSimulationWorker::workerUserDefinedRPSObjectCompute()
                 Base::Console().Warning(
                     "The computation of the user defined feature has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3283,7 +3283,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3296,7 +3296,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3307,7 +3307,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3336,7 +3336,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3363,7 +3363,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3376,7 +3376,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3387,7 +3387,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3413,7 +3413,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the variance vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3435,7 +3435,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3448,7 +3448,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3459,7 +3459,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3491,7 +3491,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the skewness vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3516,7 +3516,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3529,7 +3529,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3542,7 +3542,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3577,7 +3577,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3605,7 +3605,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3618,7 +3618,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3630,7 +3630,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorF()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3667,7 +3667,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorF()
                 Base::Console().Warning(
                     "The computation of wave passage effect vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3690,7 +3690,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3703,7 +3703,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3714,7 +3714,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3751,7 +3751,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the coherence vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3774,7 +3774,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3787,7 +3787,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3815,7 +3815,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
             if (!returnResult) {
                 Base::Console().Error("The computation of the coherence matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3840,7 +3840,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3853,7 +3853,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3865,7 +3865,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3900,7 +3900,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3928,7 +3928,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3941,7 +3941,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3952,7 +3952,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -3986,7 +3986,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4009,7 +4009,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4022,7 +4022,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4033,7 +4033,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4070,7 +4070,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4093,7 +4093,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4106,7 +4106,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4134,7 +4134,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4158,7 +4158,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumValue()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4171,7 +4171,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumValue()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4183,7 +4183,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4214,7 +4214,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumValue()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4241,7 +4241,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4254,7 +4254,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4265,7 +4265,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4296,7 +4296,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorF()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4319,7 +4319,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             if (!doc)
             {
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4332,7 +4332,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             if (!activeSpatialDistr) {
                 Base::Console().Error("No valid active location distribution feature found.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4343,7 +4343,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Error("The computation of the spectrum value has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4374,7 +4374,7 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             if (!returnResult) {
                 Base::Console().Warning("The computation of the spectrum vector has failed.\n");
                 stopped = true;
-                m_sim->setStatus(App::SimulationStatus::Failed, true);
+                failed();
                 signalDisplayResultInTable(m_computingFunction, 0);
                 return false;
             }
@@ -4410,6 +4410,18 @@ void RPSSeismicLabSimulationWorker::complete()
     m_sim->setStatus(App::SimulationStatus::Successfull, true);
     m_sim->getSimulationData()->isInterruptionRequested.setValue(false);
     m_sim->getSimulationData()->isSimulationSuccessful.setValue(true);
+    mutex.unlock();
+}
+
+void RPSSeismicLabSimulationWorker::failed()
+{
+    mutex.lock();
+    m_sim->setStatus(App::SimulationStatus::Completed, true);
+    m_sim->setStatus(App::SimulationStatus::Running, false);
+    m_sim->setStatus(App::SimulationStatus::Stopped, true);
+    m_sim->setStatus(App::SimulationStatus::Successfull, false);
+    m_sim->getSimulationData()->isInterruptionRequested.setValue(false);
+    m_sim->getSimulationData()->isSimulationSuccessful.setValue(false);
     mutex.unlock();
 }
 

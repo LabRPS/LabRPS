@@ -60,6 +60,11 @@ const char* CRPSGoenagaEtAl2017::GetPhenomenonName()
     // The simulation function 
 bool CRPSGoenagaEtAl2017::Simulate(const UserLabAPI::UserLabSimulationData& Data, cube &dPhenomenon)
 {
+    if (Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
+
     int N = Data.numberOfWaveLengthIncrements.getValue();
     int n = Data.numberOfSpatialPosition.getValue();
     double deltaLambda = Data.waveLengthIncrement.getQuantityValue().getValueAs(Base::Quantity:: Metre);
@@ -108,6 +113,10 @@ return true;
 // The simulation function in large scale mode
 bool CRPSGoenagaEtAl2017::SimulateInLargeScaleMode(const UserLabAPI::UserLabSimulationData& Data, QString &strFileName)
 {
+    if (!Data.largeScaleSimulationMode.getValue()) {
+        Base::Console().Error("The simulation fails.\n");
+        return false;
+    }
     //int n = NumberOfLocation.getValue();
     //int N = NumberOfFrequencies.getValue();
     //double timeMin = 0.00;

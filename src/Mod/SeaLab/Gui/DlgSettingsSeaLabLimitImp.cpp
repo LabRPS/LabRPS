@@ -48,6 +48,8 @@ void DlgSettingsSeaLabLimitImp::saveSettings()
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
 
+    hGrp->SetInt("MaxSN", ui->sb_lm_SampleNumber->value());
+    ui->sb_lm_SampleNumber->onSave();
     hGrp->SetInt("MaxSPN", ui->sb_lm_SimulationPointsNumber->value());
     ui->sb_lm_SimulationPointsNumber->onSave();
     hGrp->SetInt("MaxFIN", ui->sb_lm_FrequencyNumber->value());
@@ -66,6 +68,11 @@ void DlgSettingsSeaLabLimitImp::loadSettings()
 
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
+        
+    int MaxSN = hGrp->GetInt("MaxSN", 300);
+    if (MaxSN > -1)
+        ui->sb_lm_SampleNumber->setValue(MaxSN);
+
     int MaxSPN = hGrp->GetInt("MaxSPN", 300);
     if (MaxSPN > -1)
         ui->sb_lm_SimulationPointsNumber->setValue(MaxSPN);

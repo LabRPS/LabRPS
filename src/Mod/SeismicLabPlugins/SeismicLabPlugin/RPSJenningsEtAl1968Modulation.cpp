@@ -19,6 +19,7 @@ CRPSJenningsEtAl1968Modulation::CRPSJenningsEtAl1968Modulation()
    ADD_PROPERTY_TYPE(LevelTime, (8.0), "Parameters", App::Prop_None, "The instant of time corresponding to the beginning of the descending branch of the envelope. The Level Time should be larger than the Rise Time.");
    ADD_PROPERTY_TYPE(Alpha, (0.2), "Parameters", App::Prop_None, "The parameter alpha.");
    ADD_PROPERTY_TYPE(Power, (2.0), "Parameters", App::Prop_None, "The power coefficient");
+   this->IsUniformModulationFeature.setValue(true);
 }
 
 bool CRPSJenningsEtAl1968Modulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)

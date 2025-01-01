@@ -45,7 +45,7 @@ class DlgGridPoints : public QWidget
     Q_OBJECT
 
 public:
-    DlgGridPoints(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgGridPoints(const App::PropertyPosition& startPoint, const App::PropertyString& featureName, QWidget* parent = nullptr);
     ~DlgGridPoints();
     void accept();
     void reject();
@@ -60,7 +60,7 @@ class GridPointsDialogEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    GridPointsDialogEdit(const App::PropertyPosition& centerPoint, const App::PropertyLength& spacing1, const App::PropertyLength& spacing2, const App::PropertyLength& length1, const App::PropertyLength& length2, const App::PropertyEnumeration& locationPlan, const App::PropertyString& featureName);
+    GridPointsDialogEdit(const App::PropertyPosition& startPoint, const App::PropertyString& featureName);
     ~GridPointsDialogEdit();
     
 public:

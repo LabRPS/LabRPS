@@ -18,6 +18,7 @@ CRPSTrapezoidalModulation::CRPSTrapezoidalModulation()
    ADD_PROPERTY_TYPE(RiseTime, (5.0), "Parameters", App::Prop_None, "This is the instant of time (in sec) corresponding to the beginning of the horizontal part of the envelope.");
    ADD_PROPERTY_TYPE(LevelTime, (15.0), "Parameters", App::Prop_None, "This is the instant of time corresponding to the beginning of the descending branch of the envelope. The Level Time should be larger than the Rise Time");
    ADD_PROPERTY_TYPE(MaxTime, (1536), "Parameters", App::Prop_None, "The Duration.");
+   this->IsUniformModulationFeature.setValue(true);
 }
 
 

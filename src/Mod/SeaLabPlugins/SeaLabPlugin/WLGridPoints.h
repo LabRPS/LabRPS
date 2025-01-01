@@ -44,22 +44,8 @@ public:
     bool OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& Data);
 
 	// the center point of the grid
-    App::PropertyPosition CenterPoint;
+    App::PropertyPosition GridStartingPoint;
 
-	// the even spacing between the points along one axis
-    App::PropertyLength Spacing1;
-
-	// the even spacing between the points along the other axis
-    App::PropertyLength Spacing2;
-
-	// the length along one axis
-    App::PropertyLength Length1;
-
-	// the length along the other axis
-    App::PropertyLength Length2;
-
-	// the plan in which the points a distributed ( parallel to xy, yz, xz)
-    App::PropertyEnumeration LocationPlan;
 };
 
 } // namespace App

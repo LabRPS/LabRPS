@@ -46,10 +46,7 @@ public:
     /** @name methods override feature */
     //@{
     virtual short mustExecute() const override;
-    //@}
-    
-public:
-    App::PropertyBool isUniform;
+    //@}   
 
 protected:
     /// recompute only this object
