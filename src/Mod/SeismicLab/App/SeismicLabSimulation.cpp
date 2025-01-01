@@ -3553,7 +3553,13 @@ App::DocumentObject*  SeismicLabSimulation::addFeature(const std::string feature
     newFeature->APIVersion.setValue(featureProperties->APIVersion.getValue());
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(this->getNameInDocument());
-
+    newFeature->Description.setValue(featureProperties->Description.getValue());
+    newFeature->ApplicationFields.setValue(featureProperties->ApplicationFields.getValue());
+    newFeature->IsUniformModulationFeature.setValue(featureProperties->IsUniformModulationFeature.getValue());
+    newFeature->LabRPSVersion.setValue(featureProperties->LabRPSVersion.getValue());
+    newFeature->Path.setValue(featureProperties->Path.getValue());
+    newFeature->OutputUnitString.setValue(featureProperties->OutputUnitString.getValue());
+    
     this->setActiveFeature(newFeature);
 	App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(static_cast<App::DocumentObject*>(this));
     newFeature->recomputeFeature();

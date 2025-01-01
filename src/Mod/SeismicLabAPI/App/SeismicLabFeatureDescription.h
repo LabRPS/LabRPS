@@ -66,6 +66,7 @@ public:
             && PublicationAuthor.getValue() == rhs.PublicationAuthor.getValue()
             && PublicationDate.getValue() == rhs.PublicationDate.getValue()
             && ObjectName.getValue() == rhs.ObjectName.getValue()
+            && Path.getValue() == rhs.Path.getValue()
             && ReleaseDate.getValue() == rhs.ReleaseDate.getValue()
             && Author.getValue() == rhs.Author.getValue()
             && Version.getValue() == rhs.Version.getValue()

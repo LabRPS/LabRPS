@@ -59,12 +59,12 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
     }
 
     if (Data.stationarity.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
+        Base::Console().Error("The simulation method is only for non-stationary ground motion.\n");
         return false;
     }
 
-    if (!Data.IsUniformModulationFeature.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated wind velocity.\n");
+    if (!Data.uniformModulation.getValue() ) {
+        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated ground motion.\n");
         return false;
     }
 
@@ -166,12 +166,12 @@ bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabS
     }
 
      if (Data.stationarity.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
+        Base::Console().Error("The simulation method is only for non-stationary ground motion.\n");
         return false;
     }
 
-    if (!Data.IsUniformModulationFeature.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated wind velocity.\n");
+    if (!Data.uniformModulation.getValue()) {
+        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated ground motion.\n");
         return false;
     }
 
