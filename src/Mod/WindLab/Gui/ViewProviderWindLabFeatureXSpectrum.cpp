@@ -98,12 +98,12 @@ auto doc = App::GetApplication().getActiveDocument();
     vp->doubleClicked();
 
     WindLab::WindLabSimulation* parentSim = static_cast<WindLab::WindLabSimulation*>(WindLabGui::WindLabSimulationObserver::instance()->getSimulation(parentSimName));
-    if (!parentSim) {Base::Console().Warning("The parent simulation of the selected feature couldn't be actived.\n");return false;}
+    if (!parentSim) {Base::Console().Error("The parent simulation of the selected feature couldn't be actived.\n");return false;}
 
     bool isfeatureStationary = static_cast<WindLabAPI::WindLabFeature*>(obj)->IsStationary.getValue();
     if (true == parentSim->Stationarity.getValue() && false == isfeatureStationary)
     {
-        Base::Console().Warning("Simulation stationarity and that of the feature does not match. The feature couldn't be activated.\n");
+        Base::Console().Error("Simulation stationarity and that of the feature does not match. The feature couldn't be activated.\n");
         return false;
     }
 

@@ -42,6 +42,7 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(IsActive, (false), featuregroup, App::Prop_ReadOnly, "Whether this feature is active or not");
     ADD_PROPERTY_TYPE(Author, (""), featuregroup, App::Prop_ReadOnly, "The name of the person that implements the feature");
     ADD_PROPERTY_TYPE(Version, (""), featuregroup, App::Prop_ReadOnly, "This feature version");
+    ADD_PROPERTY_TYPE(LabRPSVersion, (""), featuregroup, App::Prop_ReadOnly, "This feature LabRPS version");
     ADD_PROPERTY_TYPE(APIVersion, (""), featuregroup, App::Prop_ReadOnly, "This feature API version");
     ADD_PROPERTY_TYPE(ReleaseDate, (""), featuregroup, App::Prop_ReadOnly, "This feature release date");
     ADD_PROPERTY_TYPE(FeatureType, (""), featuregroup, App::Prop_ReadOnly, "The feature type");
@@ -65,6 +66,8 @@ RPSFeature::RPSFeature(void)
 
     ADD_PROPERTY_TYPE(ApplicationFields, (""), featuregroup, App::Prop_ReadOnly, "This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,..");
     ADD_PROPERTY_TYPE(OutputUnitString, (""), featuregroup, App::Prop_ReadOnly, "The unit of the computed values");
+    ADD_PROPERTY_TYPE(Description, (""), featuregroup, App::Prop_ReadOnly, "The description of the feature");
+    ADD_PROPERTY_TYPE(Path, (""), featuregroup, App::Prop_ReadOnly, "The path to the folder containing the folder");
 
     this->OutputUnitString.setValue("");
     std::vector<std::string> fields;

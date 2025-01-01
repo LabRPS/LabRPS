@@ -92,6 +92,8 @@ SET(WindModule_SRCS
     RPSUserLabAPIdefines.h
     RPSUserLabpluginAPI.h
     UserLabSimulationData.h
+    RPSUserLabFramework.h
+    RPSUserLabFramework.cpp
     RPS.h
     RPS.cpp
 

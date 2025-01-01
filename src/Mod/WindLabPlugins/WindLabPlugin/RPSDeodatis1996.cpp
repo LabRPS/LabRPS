@@ -217,9 +217,9 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int M = 2*N;
     int T = Data.numberOfTimeIncrements.getValue();
-    double value = 0.0;
     double sampleN = Data.numberOfSample.getValue();
-
+    double time = 0;
+    double value = 0.0;
     cx_mat decomposedPSD2D(n, n);
     cx_cube decomposedPSD3D(n, n, N);
     
@@ -274,9 +274,6 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
 
         returnResult = WindLabAPI::CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
-
-        // this method is for stationry wind. Spectrum is not function of time
-        double time = 0;
 
         // Get the current date and time
         std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
@@ -339,7 +336,6 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
                 }
             }
 
-            double time = 0;
             int q = 0;
             // Generate the wind velocity
             for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
@@ -347,17 +343,14 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
                 time = (p - 1) * dt + timeMin;
                 value = 0.0;
                 for (int k = 1; k <= m && false == Data.isInterruptionRequested.getValue(); k++) {
-                    value =
-                        value + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n)));
+                    value = value + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n)));
                 }
                 fout << value << "\t";
             }
             fout << std::endl;
         }
-        fout.close();
-    
+        fout.close(); 
     }
 
- 
     return returnResult;
 }

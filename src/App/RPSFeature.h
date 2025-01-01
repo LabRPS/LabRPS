@@ -71,6 +71,9 @@ public:
     /// The current version of the feature
     App::PropertyString Version;
 
+    /// The LabRPS version of the feature
+    App::PropertyString LabRPSVersion;
+
     /// The name of the feature parent plugin
     App::PropertyString PluginName;
 
@@ -97,6 +100,12 @@ public:
 
     /// The unit string of the computed values 
     App::PropertyString OutputUnitString;
+
+    /// Description of the feature
+    App::PropertyString Description;
+
+    /// The path to the folder containing the feature
+    App::PropertyString Path;
     //@}
 
     /// Constructor

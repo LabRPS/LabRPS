@@ -58,13 +58,13 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
         return false;
     }
 
-    if (!Data.stationarity.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary wind velocity.\n");
+    if (Data.stationarity.getValue() ) {
+        Base::Console().Error("The simulation method is only for non-stationary ground motion.\n");
         return false;
     }
 
-    if (!Data.IsUniformModulationFeature.getValue() ) {
-        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated wind velocity.\n");
+    if (!Data.uniformModulation.getValue() ) {
+        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated ground motion.\n");
         return false;
     }
 
@@ -82,7 +82,6 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
     double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
     int T = Data.numberOfTimeIncrements.getValue();
     double sampleN = Data.numberOfSample.getValue();
-    double time = 0;
 
     // local array for the location coordinates
     mat dLocCoord(n, 4);
@@ -118,8 +117,13 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
 
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) 
     {
-        rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
-        uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(thet, 0, 2 * PI);
+        double time = 0;
+
+        returnResult = SeismicLabAPI::CRPSSeismicLabFramework::GenerateRandomMatrixFP(Data, thet);
+        if (!returnResult) {
+            Base::Console().Warning("The computation of the random phases has failed.\n");
+            return false;
+        }
 
         for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++)
         {
@@ -161,123 +165,132 @@ bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabS
         return false;
     }
 
-    //int n = NumberOfLocation.getValue();
-    //int N = NumberOfFrequencies.getValue();
-    //double timeMin = 0.00;
-    //int M = 2*N;
-    //int T = NumberOfTimeIncrements.getValue();
-    //double wu = UpperCutOffFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
-    //double dt = 2 * 3.14 / (2 * wu);
-    //double deltaomega = wu/N;
-    //double distance = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
-    //double speed = MeanSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond);
-    //double height = LocationHeight.getQuantityValue().getValueAs(Base::Quantity::Metre);
-    //double zo = RoughnessLength.getQuantityValue().getValueAs(Base::Quantity::Metre);
-    //double Uo = 0.4 * speed / log(height / zo);
-    //double Cy = CoherenceDecayCoefficient.getValue();
-    //double value = 0.0;
-    //double sampleN = Data.numberOfSample.getValue();
+     if (Data.stationarity.getValue() ) {
+        Base::Console().Error("The simulation method is only for non-stationary ground motion.\n");
+        return false;
+    }
 
-    //vec PSD1(N);
-    //vec Kz(N);
-    //cx_mat B = Eigen::MatrixXcd::Zero(n,M);
-    //cx_mat G = Eigen::MatrixXcd::Zero(n,M);
-    //mat thet(N, n);
-    //vec w(N);
+    if (!Data.uniformModulation.getValue()) {
+        Base::Console().Error("The simulation method is only for non-stationary uniformly modulated ground motion.\n");
+        return false;
+    }
 
-    //bool returnResult = CRPSSeismicLabFramework::GenerateRandomMatrixFP(Data, thet);
-    //if(!returnResult)
-    //{
-    //   Base::Console().Warning("The computation of the random phase angle matrix has failed.\n");
-    //   return false;
-    //}
+    auto PbuInfo = SeismicLabAPI::CRPSSeismicLabFramework::getSeismicLabFeatureDescription(Data.modulationFunction.getValue());
 
-    //std::complex<double> i2(0, 1);
-    //Eigen::FFT<double> fft;
+    if (!PbuInfo->IsUniformModulationFeature.getValue()) {
+        Base::Console().Error("Invalid modulation function. The method accepts only uniform modulation function.\n");
+        return false;
+    }
 
-    //for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
+    int n = Data.numberOfSpatialPosition.getValue();
+    int N = Data.numberOfFrequency.getValue();
+    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    int T = Data.numberOfTimeIncrements.getValue();
+    double sampleN = Data.numberOfSample.getValue();
+    double time = 0;
+    double value = 0.0;
 
-    //    // Get the current date and time
-    //    std::string dateTimeStr = CRPSSeismicLabFramework::getCurrentDateTime();
+    // local array for the location coordinates
+    mat dLocCoord(n, 4);
+    mat frequencies(N, n);
+    vec freq(N);
+    vec PSD(N);
+    vec Env(T);
+    vec EnvVar(T);
 
-    //    // Create the new file name by appending the date and time
-    //    std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/"
-    //        + Data.fileName.getValue() + "_Sample_" + std::to_string(ss) + "_" + dateTimeStr
-    //        + ".txt";
+    //compute the simulation point coordinates
+    bool returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
 
-    //    // Define an output stream
-    //    std::ofstream fout;
+    if (!returnResult) {
+        Base::Console().Warning("The computation of the location coordinates matrix has failed.\n");
+        return false;
+    }
 
-    //    // open the file output mode to erase its content first
-    //    fout.width(10);
-    //    fout.setf(std::ios::left);
-    //    fout.setf(std::ios::fixed);
-    //    fout.fill('0');
-    //    fout.open(newFileName, std::ios::out);
+    // generate n sequences of random phase angles phi(l), l = 1, 2, ..., N
+    mat thet(N, n);
 
-    //    for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
+    if (!returnResult) {
+        Base::Console().Warning("The generation of the random phase matrix has failed.\n");
+        return false;
+    }
 
-    //        fout << (p - 1) * dt + timeMin << "\t";
-    //    }
-    //    fout << std::endl;
+    // compute le frequency matrix. Note that this method required the double indexing frequency
+    returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
+
+    if (!returnResult) {
+        Base::Console().Warning("The computation of the frequency increments has failed.\n");
+        return false;
+    }
+
+    for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) 
+    {
+        returnResult = SeismicLabAPI::CRPSSeismicLabFramework::GenerateRandomMatrixFP(Data, thet);
+        if (!returnResult) {
+            Base::Console().Warning("The computation of the random phases has failed.\n");
+            return false;
+        }
+        // this method is for stationry wind. Spectrum is not function of time
+        time = 0;
+
+        // Get the current date and time
+        std::string dateTimeStr = CRPSSeismicLabFramework::getCurrentDateTime();
+
+        // Create the new file name by appending the date and time
+        std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/"
+            + Data.fileName.getValue() + "_Sample_" + std::to_string(ss) + "_" + dateTimeStr
+            + ".txt";
+
+        // Define an output stream
+        std::ofstream fout;
+
+        // open the file output mode to erase its content first
+        fout.width(10);
+        fout.setf(std::ios::left);
+        fout.setf(std::ios::fixed);
+        fout.fill('0');
+        fout.open(newFileName, std::ios::out);
 
 
-    //    for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++) {
-    //        for (int m = 1; m <= j && false == Data.isInterruptionRequested.getValue(); m++) {
-    //            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-    //                w(l - 1) = (l - 1) * deltaomega + (double)m / n * deltaomega;
+        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
+            fout << (p - 1) * dt + timeMin << "\t";
+        }
 
-    //                PSD1(l - 1) = 200 * height * Uo * Uo / speed
-    //                    / (pow(1 + 50 * w(l - 1) * height / speed, 5.0 / 3.0));
-    //            }
+        fout << std::endl;
 
-    //            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-    //                Kz(l - 1) = exp(-2 * w(l - 1) * distance * Cy / (speed + speed));
-    //            }
+        for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++)
+        {
+            Base::Vector3d point(dLocCoord(j - 1, 1), dLocCoord(j - 1, 2), dLocCoord(j - 1, 3));
+            returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeAutoSpectrumVectorF(Data, point, 0.0, freq, PSD);
+            if (!returnResult)
+            {
+                Base::Console().Warning("The computation of the frequency increments has failed.\n");
+                return false;
+            }
 
-    //            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-    //                if (m == 1) {
-    //                    B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
-    //                        * pow(Kz(l - 1), abs(m - j)) * exp(i2 * thet(l - 1, m - 1));
-    //                }
-    //                else {
-    //                    B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
-    //                        * pow(Kz(l - 1), abs(m - j)) * pow((1 - pow(Kz(l - 1), 2)), 0.5)
-    //                        * exp(i2 * thet(l - 1, m - 1));
-    //                }
-    //            }
-    //        }
+            returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeModulationVectorT(Data, point, 0.0, EnvVar, Env);
 
-    //        for (int ii = 1; ii <= j && false == Data.isInterruptionRequested.getValue(); ii++) {
-    //            G.row(ii - 1) = (double)(M)*fft.inv(B.row(ii - 1));
-    //        }
+            if (!returnResult) {
+                Base::Console().Warning(
+                    "The computation of the modulation function vector has failed.\n");
+                return false;
+            }
 
-    //        int q = 0;
-    //        double time = 0;
-
-    //        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-
-    //            q = fmod(p - 1, M);
-
-    //            time = (p - 1) * dt + timeMin;
-
-    //            value = 0.0;
-
-    //            for (int k = 1; k <= j && false == Data.isInterruptionRequested.getValue(); k++) {
-
-    //                value = value + real(G(k - 1, q) * exp(i2 * (k * deltaomega * time / n)));
-    //            }
-
-    //            fout << value << "\t";
-    //        }
-
-    //        fout << std::endl;
-    //    }
-
-    //    fout.close();
-    //
-    //}
-
+            for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
+                time = (p - 1) * dt + timeMin;
+                value = 0.0;
+                for (int k = 1; k <= N && false == Data.isInterruptionRequested.getValue(); k++) {
+                    value = value
+                        + Env(p - 1) * 2 * std::sqrt(PSD(k - 1) * deltaomega)
+                            * std::cos(frequencies(k - 1, j - 1) * time + thet(k - 1, j - 1));
+                }
+                fout << value << "\t";
+            }
+            fout << std::endl;
+         }
+        fout.close();
+    }
 return true;
 }
 
