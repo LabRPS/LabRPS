@@ -586,6 +586,9 @@ PLUGIN_INIT_TYPE()
     if (SeismicLab::CRPSBogdanoffGoldbergBernardModulation::getClassTypeId() == Base::Type::badType()) {
         SeismicLab::CRPSBogdanoffGoldbergBernardModulation::init();
     }
+    if (SeismicLab::CRPSBoxCarModulation::getClassTypeId() == Base::Type::badType()) {
+        SeismicLab::CRPSBoxCarModulation::init();
+    }
     if (SeismicLab::CRPSAbrahamsonCoherence::getClassTypeId() == Base::Type::badType()) {
         SeismicLab::CRPSAbrahamsonCoherence::init();
     }
@@ -668,10 +671,10 @@ INSTALL_PLUGIN()
     RegisterModulation(objNameCon_M, strPluginName, objDescriptionCon_M, BuildCRPSConstantModulation, DestroyCRPSConstantModulation);
     RegisterModulation(objNameExp_M, strPluginName, objDescriptionExp_M, BuildCRPSExponentialModulation, DestroyCRPSExponentialModulation);
     RegisterModulation(objNameJen_M, strPluginName, objDescriptionJen_M, BuildCRPSJenningsEtAl1968Modulation, DestroyCRPSJenningsEtAl1968Modulation);
-    RegisterModulation(objNameSar_M, strPluginName, objDescriptionSar_M, BuildCRPSSaragoniHart1974Modulation, DestroyCRPSJenningsEtAl1968Modulation);
+    RegisterModulation(objNameSar_M, strPluginName, objDescriptionSar_M, BuildCRPSSaragoniHart1974Modulation, DestroyCRPSSaragoniHart1974Modulation);
     RegisterModulation(objNameTra_M, strPluginName, objDescriptionTra_M, BuildCRPSTrapezoidalModulation, DestroyCRPSTrapezoidalModulation);
     RegisterModulation(objNameBog_M, strPluginName, objDescriptionBog_M, BuildCRPSBogdanoffGoldbergBernardModulation, DestroyCRPSBogdanoffGoldbergBernardModulation);
-    RegisterModulation(objNameBog_M, strPluginName, objDescriptionBog_M, BuildCRPSBoxCarModulation, DestroyCRPSBoxCarModulation);
+    RegisterModulation(objNameBox_M, strPluginName, objDescriptionBox_M, BuildCRPSBoxCarModulation, DestroyCRPSBoxCarModulation);
 
     RegisterCoherence(objNameAbr_C, strPluginName, objDescriptionAbr_C, BuildCRPSAbrahamsonCoherence, DestroyCRPSAbrahamsonCoherence);
     RegisterCoherence(objNameHar_C, strPluginName, objDescriptionHar_C, BuildCRPSHarichandranVanmarckeCoherence, DestroyCRPSHarichandranVanmarckeCoherence);
@@ -710,7 +713,7 @@ UNINSTALL_PLUGIN()
     UnregisterModulation(objNameSar_M, strPluginName);
     UnregisterModulation(objNameTra_M, strPluginName);
     UnregisterModulation(objNameBog_M, strPluginName);
-    UnregisterModulation(objNameBog_M, strPluginName);
+    UnregisterModulation(objNameBox_M, strPluginName);
 
     UnregisterCoherence(objNameAbr_C, strPluginName);
     UnregisterCoherence(objNameHar_C, strPluginName);

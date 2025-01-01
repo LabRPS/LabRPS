@@ -36,6 +36,7 @@ PROPERTY_SOURCE(WindLab::CThreeParaModulation, WindLabAPI::WindLabFeatureModulat
     ADD_PROPERTY_TYPE(Alpha, (4.98), "The three Parameters", App::Prop_None, "The alpha coefficient");
     ADD_PROPERTY_TYPE(Betta, (3.00), "The three Parameters", App::Prop_None, "The beta coefficient");
     ADD_PROPERTY_TYPE(Lambda, (0.003), "The three Parameters", App::Prop_None, "The lambda coefficient");
+    this->IsUniformModulationFeature.setValue(true);
 
  }
 

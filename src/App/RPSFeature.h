@@ -89,8 +89,8 @@ public:
     /// This flag should be set to true if the feature varies with time. f = f(time,x,y,z,...)
     App::PropertyBool IsStationary;
 
-    /// This flag should be set to true if the feature allows non-stationarity (time dependency) by simply applying a modulation function. f(time,x,y,z...) = M(time) * G(x,y,z...)
-    App::PropertyBool IsUniformlyModulated;
+    /// This flag should be set to true if the feature is a uniform modulation function feature(independent of frequency)
+    App::PropertyBool IsUniformModulationFeature;
 
     /// This is a list of all fields where the feature is applicable. Example: Mechanical Enigineering, Finance,...
     App::PropertyStringList ApplicationFields;

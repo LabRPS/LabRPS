@@ -58,14 +58,14 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
         return false;
     }
 
-    if (!Data.IsUniformlyModulated.getValue() ) {
+    if (!Data.IsUniformModulationFeature.getValue() ) {
         Base::Console().Error("The simulation method is only for non-stationary uniformly modulated wind velocity.\n");
         return false;
     }
 
     auto PbuInfo = SeismicLabAPI::CRPSSeismicLabFramework::getSeismicLabFeatureDescription(Data.modulationFunction.getValue());
 
-    if (!PbuInfo->IsUniformlyModulated.getValue()) {
+    if (!PbuInfo->IsUniformModulationFeature.getValue()) {
         Base::Console().Error("Invalid modulation function. The method accepts only uniform modulation function.\n");
         return false;
     }

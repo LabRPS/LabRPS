@@ -36,6 +36,7 @@ CExpoModulation::CExpoModulation()
 {
     ADD_PROPERTY_TYPE(TimeOfMax, (300), "Parameters", App::Prop_None, "The time when the modulation function reaches its maximum");
     ADD_PROPERTY_TYPE(StormLength, (60), "Parameters", App::Prop_None, "The storm length");
+    this->IsUniformModulationFeature.setValue(true);
 }
 bool CExpoModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
