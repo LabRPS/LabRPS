@@ -710,7 +710,7 @@ void UserLabGui::Workbench::createSimulation(const std::string simulationName)
     auto doc = App::GetApplication().getActiveDocument();
     if (!doc)
     {
-        Base::Console().Warning("No valid active document found.\n");
+        Base::Console().Error("No valid active document found.\n");
         return;
     }
     std::string uniqueName = doc->getUniqueObjectName(simulationName.c_str());
