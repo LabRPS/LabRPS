@@ -260,8 +260,8 @@ class GitControl(VersionControl):
         The first number reflects the number of commits in common with the
         blessed master repository. The second part (separated by " +") reflects
         the number of commits that are different from the master repository"""
-        referencecommit="8d271d8"
-        referencerevision=59
+        referencecommit="d1216de"
+        referencerevision=204
 
         result = None
         countallfh=os.popen("git rev-list --count %s..HEAD" % \

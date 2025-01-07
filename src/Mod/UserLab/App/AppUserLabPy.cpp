@@ -118,7 +118,7 @@ private:
             
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc) {
-                Base::Console().Warning("No valid active document found.\n");
+                Base::Console().Error("No valid active document found.\n");
                 return Py::Object();
             }
 
@@ -153,7 +153,7 @@ private:
 
         auto doc = App::GetApplication().getActiveDocument();
         if (!doc) {
-           Base::Console().Warning("No valid active document found.\n");
+           Base::Console().Error("No valid active document found.\n");
            return Py::Object();
         }
 
