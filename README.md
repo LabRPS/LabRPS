@@ -12,6 +12,8 @@
 
 ![LabRPS with SeaLab actived](https://github.com/LabRPS/Images/blob/main/LabRPS_Screenshot_1.png?raw=true)
 
+![LabRPS Scripting](https://github.com/LabRPS/Images/blob/main/LabRPS_Scripting_Wind_Simuation_Example.png?raw=true)
+
 Overview
 --------
 
