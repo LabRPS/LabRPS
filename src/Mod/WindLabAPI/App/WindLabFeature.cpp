@@ -41,6 +41,7 @@ PROPERTY_SOURCE(WindLabAPI::WindLabFeature, App::RPSFeature)
 
 WindLabFeature::WindLabFeature(void)
 {
+    this->Module.setValue("WindLab");
 }
 
 WindLabFeature::~WindLabFeature()

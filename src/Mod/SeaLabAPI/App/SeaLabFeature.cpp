@@ -41,6 +41,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabFeature, App::RPSFeature)
 
 SeaLabFeature::SeaLabFeature(void)
 {
+    this->Module.setValue("SeaLab");
 }
 
 SeaLabFeature::~SeaLabFeature()

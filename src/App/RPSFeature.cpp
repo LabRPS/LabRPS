@@ -68,6 +68,7 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(OutputUnitString, (""), featuregroup, App::Prop_ReadOnly, "The unit of the computed values");
     ADD_PROPERTY_TYPE(Description, (""), featuregroup, App::Prop_ReadOnly, "The description of the feature");
     ADD_PROPERTY_TYPE(Path, (""), featuregroup, App::Prop_ReadOnly, "The path to the folder containing the folder");
+    ADD_PROPERTY_TYPE(Module, (""), featuregroup, App::Prop_ReadOnly, "The parent module");
 
     this->OutputUnitString.setValue("");
     std::vector<std::string> fields;

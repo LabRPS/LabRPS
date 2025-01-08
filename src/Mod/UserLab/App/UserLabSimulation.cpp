@@ -688,6 +688,7 @@ App::DocumentObject*  UserLabSimulation::addFeature(const std::string featureNam
     newFeature->APIVersion.setValue(featureProperties->APIVersion.getValue());
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(this->getNameInDocument());
+    newFeature->Path.setValue(featureProperties->Path.getValue());
 
     this->setActiveFeature(newFeature);
 	App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(static_cast<App::DocumentObject*>(this));

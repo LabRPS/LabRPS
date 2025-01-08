@@ -114,6 +114,7 @@ recompute path. Also, it enables more complicated dependencies beyond trees.
 #include <zipios++/zipinputstream.h>
 #include <zipios++/zipoutputstream.h>
 #include <zipios++/meta-iostreams.h>
+#include "RPSpluginManager.h"
 
 
 RPS_LOG_LEVEL_INIT("App", true, true, true)
@@ -1718,12 +1719,38 @@ void Document::saveAllDependentPluginsToFile()
        if ((*it)->getTypeId().isDerivedFrom(App::RPSFeature::getClassTypeId())) {
             pos = std::find(intalledPlugins.begin(), intalledPlugins.end(), (*it)->getNameInDocument());
             if (pos == intalledPlugins.end()) {
-                intalledPlugins.emplace_back(static_cast<App::RPSFeature*>(*it)->PluginName.getValue());
-               PluginList.setValue(static_cast<App::RPSFeature*>(*it)->PluginName.getValue(), static_cast<App::RPSFeature*>(*it)->PluginVersion.getValue());
+                std::string kk = static_cast<App::RPSFeature*>(*it)->Path.getValue();
+                intalledPlugins.emplace_back(static_cast<App::RPSFeature*>(*it)->Path.getValue());
+               PluginList.setValue(static_cast<App::RPSFeature*>(*it)->Path.getValue(), static_cast<App::RPSFeature*>(*it)->Module.getValue());
             }
        }
     }
 }
+
+void Document::restoreAllDependentPluginsFromFile() 
+{
+    QString plugin;
+    QString info;
+
+    std::map<std::string, std::string> map = PluginList.getValues();
+    std::map<std::string, std::string>::iterator it;
+    for (it = map.begin(); it != map.end(); ++it) {
+
+        std::string Mod = it->second;
+        // ignore base modules
+        if (Mod != "App" && Mod != "Gui" && Mod != "Base") {
+            // here we need to add code to remember already loaded modules
+            Base::Interpreter().loadModule(Mod.c_str());
+        }
+
+        plugin = QString::fromLatin1(it->first.c_str());
+        App::PluginManager::GetInstance().InitializePlugin(plugin, 1, info);
+        App::PluginManager::GetInstance().InitializePluginType(plugin, 1);
+        App::PluginManager::GetInstance().InstallPlugin(plugin);
+    }
+
+}
+
 
 void Document::Restore(Base::XMLReader &reader)
 {
@@ -1737,7 +1764,7 @@ void Document::Restore(Base::XMLReader &reader)
     if (reader.hasAttribute("ProgramVersion")) {
         reader.ProgramVersion = reader.getAttribute("ProgramVersion");
     } else {
-        reader.ProgramVersion = "pre-0.14";
+        reader.ProgramVersion = "pre-0.1";
     }
     if (reader.hasAttribute("FileVersion")) {
         reader.FileVersion = reader.getAttributeAsUnsigned("FileVersion");
@@ -1757,6 +1784,8 @@ void Document::Restore(Base::XMLReader &reader)
 
     // read the Document Properties, when reading in Uid the transient directory gets renamed automatically
     PropertyContainer::Restore(reader);
+
+    restoreAllDependentPluginsFromFile();
 
     // We must restore the correct 'FileName' property again because the stored
     // value could be invalid.

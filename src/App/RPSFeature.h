@@ -106,6 +106,9 @@ public:
 
     /// The path to the folder containing the feature
     App::PropertyString Path;
+
+    /// The parent module
+    App::PropertyString Module;
     //@}
 
     /// Constructor

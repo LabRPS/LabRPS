@@ -41,6 +41,7 @@ PROPERTY_SOURCE(UserLabAPI::UserLabFeature, App::RPSFeature)
 
 UserLabFeature::UserLabFeature(void)
 {
+    this->Module.setValue("UserLab");
 }
 
 UserLabFeature::~UserLabFeature()

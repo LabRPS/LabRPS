@@ -41,6 +41,7 @@ PROPERTY_SOURCE(SeismicLabAPI::SeismicLabFeature, App::RPSFeature)
 
 SeismicLabFeature::SeismicLabFeature(void)
 {
+    this->Module.setValue("SeismicLab");
 }
 
 SeismicLabFeature::~SeismicLabFeature()

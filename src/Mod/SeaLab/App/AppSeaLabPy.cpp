@@ -285,7 +285,7 @@ private:
         return Py::Boolean(ok);
     }
 
-    ok = App::PluginManager::GetInstance().InstallPlugin(QString::fromLatin1(psName));
+    ok = App::PluginManager::GetInstance().InstallPlugin(InstallingPluginFullPath);
     }
     }
     catch (const Base::Exception& e) {
