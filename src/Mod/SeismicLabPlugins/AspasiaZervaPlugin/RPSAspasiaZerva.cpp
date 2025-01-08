@@ -69,9 +69,13 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
     }
 
     auto PbuInfo = SeismicLabAPI::CRPSSeismicLabFramework::getSeismicLabFeatureDescription(Data.modulationFunction.getValue());
-
+    if (!PbuInfo) {
+        Base::Console().Error(
+            "Invalid active modulation function.\n");
+        return false;
+    }
     if (!PbuInfo->IsUniformModulationFeature.getValue()) {
-        Base::Console().Error("Invalid modulation function. The method accepts only uniform modulation function.\n");
+        Base::Console().Error("The method accepts only uniform modulation function.\n");
         return false;
     }
 
@@ -111,7 +115,7 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
     returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
 
     if (!returnResult) {
-        Base::Console().Warning("The computation of the frequency increments has failed.\n");
+        Base::Console().Warning("The computation of the frequency distribution has failed.\n");
         return false;
     }
 
@@ -131,7 +135,7 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
             returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeAutoSpectrumVectorF(Data, point, 0.0, freq, PSD);
             if (!returnResult)
             {
-                Base::Console().Warning("The computation of the frequency increments has failed.\n");
+                Base::Console().Warning("The computation of the auto spectrum vector has failed.\n");
                 return false;
             }
 
@@ -220,7 +224,7 @@ bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabS
     returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
 
     if (!returnResult) {
-        Base::Console().Warning("The computation of the frequency increments has failed.\n");
+        Base::Console().Warning("The computation of the frequency distribution has failed.\n");
         return false;
     }
 
@@ -265,7 +269,7 @@ bool CRPSAspasiaZerva::SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabS
             returnResult = SeismicLabAPI::CRPSSeismicLabFramework::ComputeAutoSpectrumVectorF(Data, point, 0.0, freq, PSD);
             if (!returnResult)
             {
-                Base::Console().Warning("The computation of the frequency increments has failed.\n");
+                Base::Console().Warning("The computation of the auto spectrum vector has failed.\n");
                 return false;
             }
 

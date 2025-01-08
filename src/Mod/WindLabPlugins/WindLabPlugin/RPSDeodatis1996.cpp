@@ -118,7 +118,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     returnResult = WindLabAPI::CRPSWindLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
 
     if (!returnResult) {
-        Base::Console().Warning("The computation of the frequency increments has failed.\n");
+        Base::Console().Warning("The computation of the frequency distribution has failed.\n");
         return false;
     }
 
