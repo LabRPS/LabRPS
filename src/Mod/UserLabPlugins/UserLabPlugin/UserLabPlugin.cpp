@@ -37,7 +37,7 @@ bool stationarity = true;
 PLUGIN_NAME("UserLabPlugin");
 RANDOM_PHENOMENON("User Defined Phenomenon");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of wind velocity");
+PLUGIN_DESCRIPTION("This plugin implements tools for the simulation of pavement profiles");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("0.1");
 API_VERSION("0.1");

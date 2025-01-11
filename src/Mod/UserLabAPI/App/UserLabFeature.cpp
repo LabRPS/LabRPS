@@ -41,6 +41,7 @@ PROPERTY_SOURCE(UserLabAPI::UserLabFeature, App::RPSFeature)
 
 UserLabFeature::UserLabFeature(void)
 {
+    ADD_PROPERTY_TYPE(Phenomenon, (""), 0, App::Prop_None,"This name of the random phenomenon.");
     this->Module.setValue("UserLab");
 }
 
