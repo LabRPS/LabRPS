@@ -1,1 +1,7 @@
 add_subdirectory(WindLabPlugin)
+add_subdirectory(CorrelationErgodicityPlugin)
+add_subdirectory(ErgodicityCheckToolPlugin)
+add_subdirectory(PDFCheckToolPlugin)
+add_subdirectory(GeneralizedSpectrum)
+add_subdirectory(RPSCholeskyDecomposition)
+add_subdirectory(RPSRandomnessProviders)
