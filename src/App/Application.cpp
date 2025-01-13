@@ -2281,7 +2281,6 @@ void processProgramOptions(const variables_map& vm, std::map<std::string,std::st
             str << "Python   " << PY_VERSION << '\n';
             str << "PySide   " << RPS_PYSIDE_VERSION << '\n';
             str << "shiboken " << RPS_SHIBOKEN_VERSION << '\n';
-            str << "VTK      " << RPS_VTK_VERSION << '\n';
             str << "xerces-c " << RPS_XERCESC_VERSION << '\n';
         }
         throw Base::ProgramInformation(str.str());

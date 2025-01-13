@@ -4,19 +4,13 @@ List of Open Source components<br />
 <p>LabRPS uses the following Open Source Components.</p>
 <ul>
 <li><p><a href="#_TocBoost">Boost</a></p></li>
-<li><p><a href="#_TocCoin3D">Coin3D</a></p></li>
 <li><p><a href="#_TocEigen">Eigen</a></p></li>
 <li><p><a href="#_TocFreeType">FreeType</a></p></li>
-<li><p><a href="#_TocKDL">KDL</a></p></li>
-<li><p><a href="#_TocLibArea">libarea</a></p></li>
-<li><p><a href="#_TocOCCT">Open CASCADE Technology</a></p></li>
 <li><p><a href="#_TocPcl">Point Cloud Library</a></p></li>
 <li><p><a href="#_TocPyCXX">PyCXX</a></p></li>
 <li><p><a href="#_TocPython">Python</a></p></li>
 <li><p><a href="#_TocPySide">Shiboken/PySide</a></p></li>
 <li><p><a href="#_TocQt">Qt</a></p></li>
-<li><p><a href="#_TocSalomeSMESH">Salome SMESH</a></p></li>
-<li><p><a href="#_TocVtk">Visualization Toolkit</a></p></li>
 <li><p><a href="#_TocXercesC">Xerces-C</a></p></li>
 <li><p><a href="#_TocZipios">Zipios++</a></p></li>
 <li><p><a href="#_TocZlib">zlib</a></p></li>
@@ -27,14 +21,6 @@ List of Open Source components<br />
 <p>Version: ${Boost_VERSION}</p>
 <p>Web site: <a href="https://www.boost.org/">https://www.boost.org/</a></p>
 <p>License: Boost Software License: <a href="https://www.boost.org/users/license.html">https://www.boost.org/users/license.html</a></p>
-
-
-<hr>
-
-<h3><a name="_TocCoin3D"></a>Coin3D</h3>
-<p>Version: ${COIN3D_VERSION}</p>
-<p>Web site: <a href="https://coin3d.github.io">https://coin3d.github.io</a></p>
-<p>License: BSD 3-Clause: <a href="https://github.com/coin3d/coin/blob/master/COPYING">https://github.com/coin3d/coin/blob/master/COPYING</a></p>
 
 
 <hr>
@@ -62,27 +48,6 @@ List of Open Source components<br />
 
 <hr>
 
-<h3><a name="_TocLibArea"></a>libarea</h3>
-<p>Web site: <a href="https://github.com/danielfalck/libarea/">https://github.com/danielfalck/libarea/</a></p>
-<p>License: BSD-3-clause: <a href="https://github.com/danielfalck/libarea/blob/master/License.txt">https://github.com/danielfalck/libarea/blob/master/License.txt</a></p>
-
-
-<hr>
-
-<h3><a name="_Ondsel"></a>Ondsel Solver</h3>
-<p>Version: 1.0.1</p>
-<p>Web site: <a href="https://github.com/Ondsel-Development/OndselSolver">https://github.com/Ondsel-Development/OndselSolver</a></p>
-<p>License: LGPL version 2.1: <a href="#_LGPLv21">LGPL v2.1</a></p>
-
-
-<hr>
-
-<h3><a name="_TocOCCT"></a>Open CASCADE Technology</h3>
-<p>Version: ${OCC_VERSION_STRING}</p>
-<p>Web site: <a href="https://www.opencascade.com/open-cascade-technology/">https://www.opencascade.com/open-cascade-technology/</a></p>
-<p>License: LGPL version 2.1 with additional exception:<a href="https://dev.opencascade.org/resources/licensing">https://dev.opencascade.org/resources/licensing</a></p>
-
-<hr>
 
 <h3><a name="_TocPcl"></a>Point Cloud Library</h3>
 <p>Version: ${PCL_VERSION}</p>
