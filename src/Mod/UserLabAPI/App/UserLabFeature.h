@@ -56,6 +56,9 @@ protected:
 
 protected:// attributes
     Py::SmartPtr PythonObject;
+
+public:
+    App::PropertyString Phenomenon;
 };
 
 } //namespace App

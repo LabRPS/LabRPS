@@ -3559,7 +3559,8 @@ App::DocumentObject*  SeismicLabSimulation::addFeature(const std::string feature
     newFeature->LabRPSVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
     newFeature->OutputUnitString.setValue(featureProperties->OutputUnitString.getValue());
-    
+    newFeature->Path.setValue(featureProperties->Path.getValue());
+
     this->setActiveFeature(newFeature);
 	App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(static_cast<App::DocumentObject*>(this));
     newFeature->recomputeFeature();

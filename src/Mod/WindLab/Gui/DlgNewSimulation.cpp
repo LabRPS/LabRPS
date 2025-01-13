@@ -290,43 +290,43 @@ void DlgNewSimulation::createNewSimulation()
 void  DlgNewSimulation::saveSimulation(App::Document* doc,  WindLab::WindLabSimulation* sim)
 {
 	//save number of process
-	sim->getSimulationData()->numberOfSpatialPosition.setValue(ui->numberOfProcessSpinBox->value());
+	sim->NumberOfProcess.setValue(ui->numberOfProcessSpinBox->value());
 
 	//save number of sample
-	sim->getSimulationData()->numberOfSample.setValue(ui->numberOfSampleSpinBox->value());
+	sim->NumberOfSample.setValue(ui->numberOfSampleSpinBox->value());
 
 	//save stationarity
-	sim->getSimulationData()->stationarity.setValue(stationarity);
+	sim->Stationarity.setValue(stationarity);
 
 	//save gaussianity
-	sim->getSimulationData()->gaussianity.setValue(gaussianity);
+	sim->Gaussianity.setValue(gaussianity);
 
 	//save modulation
-	sim->getSimulationData()->uniformModulation.setValue(uniformModulation);
+	sim->UniformModulation.setValue(uniformModulation);
 
 	//save time discretization
-	sim->getSimulationData()->numberOfTimeIncrements.setValue(ui->timeNumberSpinBox->value());
-	sim->getSimulationData()->minTime.setValue(ui->timeMinSpinBox->value().getValue());
-	sim->getSimulationData()->maxTime.setValue(ui->timeMaxSpinBox->value().getValue());
-	sim->getSimulationData()->timeIncrement.setValue(ui->timeIncrementSpinBox->value().getValue());
+	sim->NumberOfTimeIncrements.setValue(ui->timeNumberSpinBox->value());
+	sim->MinTime.setValue(ui->timeMinSpinBox->value().getValue());
+	sim->MaxTime.setValue(ui->timeMaxSpinBox->value().getValue());
+	sim->TimeIncrement.setValue(ui->timeIncrementSpinBox->value().getValue());
 
 	//save frequency discretization
-	sim->getSimulationData()->numberOfFrequency.setValue(ui->frequencyNumberSpinBox->value());
-	sim->getSimulationData()->minFrequency.setValue(ui->frequencyMinSpinBox->value().getValue());
-	sim->getSimulationData()->maxFrequency.setValue(ui->frequencyMaxSpinBox->value().getValue());
-	sim->getSimulationData()->frequencyIncrement.setValue(ui->frequencyIncrementSpinBox->value().getValue());
+	sim->NumberOfFrequency.setValue(ui->frequencyNumberSpinBox->value());
+	sim->MinFrequency.setValue(ui->frequencyMinSpinBox->value().getValue());
+	sim->MaxFrequency.setValue(ui->frequencyMaxSpinBox->value().getValue());
+	sim->FrequencyIncrement.setValue(ui->frequencyIncrementSpinBox->value().getValue());
 
 	//save wave length discretization
-	sim->getSimulationData()->numberOfWaveLengthIncrements.setValue(ui->waveNumberOfIncrementSpinBox->value());
-	sim->getSimulationData()->minWaveLength.setValue(ui->waveMinLengthSpinBox->value().getValue());
-	sim->getSimulationData()->maxWaveLength.setValue(ui->waveMaxLengthSpinBox->value().getValue());
-	sim->getSimulationData()->waveLengthIncrement.setValue(ui->waveLengthIncrementSpinBox->value().getValue());
+	sim->NumberOfWaveLengthIncrements.setValue(ui->waveNumberOfIncrementSpinBox->value());
+	sim->MinWaveLength.setValue(ui->waveMinLengthSpinBox->value().getValue());
+	sim->MaxWaveLength.setValue(ui->waveMaxLengthSpinBox->value().getValue());
+	sim->WaveLengthIncrement.setValue(ui->waveLengthIncrementSpinBox->value().getValue());
 
 	//save direction discretization
-	sim->getSimulationData()->numberOfDirectionIncrements.setValue(ui->directionNumberOfIncrementSpinBox->value());
-	sim->getSimulationData()->minDirection.setValue(ui->directionMinSpinBox->value().getValue());
-	sim->getSimulationData()->maxDirection.setValue(ui->directionMaxSpinBox->value().getValue());
-	sim->getSimulationData()->directionIncrement.setValue(ui->directionIncrementSpinBox->value().getValue());
+	sim->NumberOfDirectionIncrements.setValue(ui->directionNumberOfIncrementSpinBox->value());
+	sim->MinDirection.setValue(ui->directionMinSpinBox->value().getValue());
+	sim->MaxDirection.setValue(ui->directionMaxSpinBox->value().getValue());
+	sim->DirectionIncrement.setValue(ui->directionIncrementSpinBox->value().getValue());
 
 	//App::GetApplication().signalCreateSimulation(sim->Label.getValue());
 	doc->updateObject(sim);
@@ -486,7 +486,7 @@ void DlgWindLabFeatures::setAllComboBoxesCurrentText( WindLab::WindLabSimulation
 void  DlgWindLabFeatures::saveLabFeatures( WindLab::WindLabSimulation* sim)
 {
 	sim->getSimulationData()->spatialDistribution.setValue(ui->lacationDistributionComboBox->currentText().toUtf8().constData());
-	sim->getSimulationData()->meanFunction.setValue(ui->meanWindProfileComboBox->currentText().toUtf8().constData());
+	sim->MeanFunction.setValue(ui->meanWindProfileComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->alongWindSpectrumModel.setValue(ui->alongWindSpectrumComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->verticalWindSpectrumModel.setValue(ui->verticalWindSpectrumComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->acrossWindSpectrumModel.setValue(ui->acrossWindSpectrumComboBox->currentText().toUtf8().constData());
@@ -495,7 +495,7 @@ void  DlgWindLabFeatures::saveLabFeatures( WindLab::WindLabSimulation* sim)
 	sim->getSimulationData()->simulationMethod.setValue(ui->simulationMethodComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->frequencyDistribution.setValue(ui->frequencyDistributionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->randomnessProvider.setValue(ui->randomnessProviderComboBox->currentText().toUtf8().constData());
-	sim->getSimulationData()->modulationFunction.setValue(ui->modulationFunctionComboBox->currentText().toUtf8().constData());
+	sim->ModulationFunction.setValue(ui->modulationFunctionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->correlationFunction.setValue(ui->correlationFunctionComboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->userDefinedRPSObject.setValue(ui->userDefinedFeatureCcomboBox->currentText().toUtf8().constData());
 	sim->getSimulationData()->cumulativeProbabilityDistribution.setValue(ui->CPDComboBox->currentText().toUtf8().constData());

@@ -14,6 +14,9 @@
 
 ![LabRPS Scripting](https://github.com/LabRPS/Images/blob/main/LabRPS_Scripting_Wind_Simuation_Example.png?raw=true)
 
+# Watch the Video Tutorials
+[![LabRPS Basics](data/screenshots/LabRPSSimulateRandomSeaSurface.png)](https://www.youtube.com/watch?v=hlXRR48OYa0 "LabRPS Basics")
+
 Overview
 --------
 
@@ -87,6 +90,7 @@ pages might help you get started:
 The [LabRPS forum](https://labrps.com/boards) is also a great place
 to find help and solve specific problems you might encounter when
 learning to use LabRPS.
+
 
 Acknowledgments
 ---------------

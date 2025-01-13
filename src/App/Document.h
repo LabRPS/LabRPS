@@ -191,6 +191,8 @@ public:
     bool saveAs(const char* file);
     bool saveCopy(const char* file) const;
     void saveAllDependentPluginsToFile();
+    void restoreAllDependentPluginsFromFile();
+
     /// Restore the document from the file in Property Path
     void restore (const char *filename=nullptr,
             bool delaySignal=false, const std::vector<std::string> &objNames={});
