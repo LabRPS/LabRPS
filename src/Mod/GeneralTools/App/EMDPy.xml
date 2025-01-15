@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="EMDPy"
+    Twin="EMD"
+    TwinPointer="EMD"
+    Include="Mod/GeneralTools/App/EMD.h"
+    Namespace="GeneralTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute the Empirical Mode Decomposition</UserDocu>
+    </Documentation>
+    <Methode Name="computeEMD">
+      <Documentation>
+        <UserDocu>
+          computeEMD(data, tol)
+					signal = the data for which the EMD will be computed
+          maxIMFs = the maximum number of  intrinsic mode functions
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

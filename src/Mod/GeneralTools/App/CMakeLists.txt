@@ -42,11 +42,13 @@ else()
     )
 endif()
 
+generate_from_xml(EMDPy)
+
 SET(GeneralTools_CPP_SRCS
 CholeskyDecomposition.cpp
 UniformRandomPhaseMatrixGenerator.cpp
 AvailableWindows.cpp
-   
+EMD.cpp   
 )
 
 SET(GeneralTools_HPP_SRCS
@@ -54,7 +56,7 @@ RPS.h
 CholeskyDecomposition.h
 UniformRandomPhaseMatrixGenerator.h
 AvailableWindows.h
-
+EMD.h
 )
 
 SET(GeneralTools_SRCS
@@ -64,7 +66,8 @@ SET(GeneralTools_SRCS
 )
 
 SET(Python_SRCS
-
+    EMDPy.xml
+    EMDPyImp.cpp
 )
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
 
