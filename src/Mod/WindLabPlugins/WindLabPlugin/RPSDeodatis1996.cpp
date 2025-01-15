@@ -133,22 +133,14 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
         returnResult = WindLabAPI::CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
 
-        for (int m = 1;
-             m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-             m++) {
-            for (int l = 1;
-                 l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-                 l++) {
-                returnResult =
-                    WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(
-                        Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
+        for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
+            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult; l++) {
+                returnResult = WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
                 if (!returnResult) {
                     Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
                     return false;
                 }
-                for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue()
-                     && true == returnResult;
-                     j++) {
+                for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++) {
                     decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
                 }
             }
