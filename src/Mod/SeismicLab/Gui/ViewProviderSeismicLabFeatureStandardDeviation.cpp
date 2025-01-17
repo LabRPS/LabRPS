@@ -151,6 +151,9 @@ void ViewProviderSeismicLabFeatureStandardDeviation::setupContextMenu(QMenu* men
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureStandardDeviation::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureStandardDeviation::goToWiki, this));
 }
 
 

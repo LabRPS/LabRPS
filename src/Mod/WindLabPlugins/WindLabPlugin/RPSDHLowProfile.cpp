@@ -45,6 +45,7 @@ CRPSDHLowProfile::CRPSDHLowProfile()
     ADD_PROPERTY_TYPE(Latitude, (0.00), "Parameters", App::Prop_None, "The latitude");
 	ADD_PROPERTY_TYPE(EarthAngularVelocity, (0.0000729), "Parameters", App::Prop_None, "The earth angular velocity");
     ADD_PROPERTY_TYPE(Betta, (6.0), "Parameters", App::Prop_None, "The coefficient beta");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Deaves_and_Harris_Profile");
     
 }
 

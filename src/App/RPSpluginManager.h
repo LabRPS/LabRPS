@@ -42,6 +42,9 @@ public:
 
 	// the full path to the plugin file
 	QString fullPath;
+
+	// the wiki link of the plugin
+	QString wikiLink;
 };
 
 
@@ -103,6 +106,9 @@ public:
 	
 	// Get the installation state of the plugin (true = installed)
 	bool GetInstallationState();
+
+	// Get the wiki link of the plugin
+	QString GetPluginWikiLink();
 
 	// Set the installation state of the plugin (true = installed)
 	void SetInstallationState(bool state);

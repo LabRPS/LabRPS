@@ -170,6 +170,9 @@ void ViewProviderSeaLabFeatureFrequencySpectrum::setupContextMenu(QMenu* menu, Q
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureFrequencySpectrum::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureFrequencySpectrum::ComputeCrossFrequencySpectrumValue()

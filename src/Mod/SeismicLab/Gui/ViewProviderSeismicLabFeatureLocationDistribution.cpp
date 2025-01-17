@@ -230,6 +230,9 @@ void ViewProviderSeismicLabFeatureLocationDistribution::setupContextMenu(QMenu* 
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureLocationDistribution::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureLocationDistribution::goToWiki, this));
 }
 
 

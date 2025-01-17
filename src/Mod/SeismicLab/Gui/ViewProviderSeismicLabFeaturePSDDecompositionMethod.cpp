@@ -153,6 +153,9 @@ void ViewProviderSeismicLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeaturePSDDecompositionMethod::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeaturePSDDecompositionMethod::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()

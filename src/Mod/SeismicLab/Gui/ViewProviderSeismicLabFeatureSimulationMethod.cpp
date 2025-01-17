@@ -149,6 +149,9 @@ void ViewProviderSeismicLabFeatureSimulationMethod::setupContextMenu(QMenu* menu
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::goToPublication, this));
 
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::goToWiki, this));
+
 }
 
 bool ViewProviderSeismicLabFeatureSimulationMethod::simulate()

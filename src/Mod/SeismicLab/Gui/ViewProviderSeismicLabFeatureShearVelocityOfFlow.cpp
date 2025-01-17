@@ -153,6 +153,9 @@ void ViewProviderSeismicLabFeatureShearVelocityOfFlow::setupContextMenu(QMenu* m
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureShearVelocityOfFlow::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureShearVelocityOfFlow::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeatureShearVelocityOfFlow::computeShearVelocityOfFlowValue()

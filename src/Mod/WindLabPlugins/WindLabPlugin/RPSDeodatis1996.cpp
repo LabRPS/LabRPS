@@ -36,7 +36,7 @@ PROPERTY_SOURCE(WindLab::CRPSDeodatis1996, WindLabAPI::WindLabFeatureSimulationM
 
 CRPSDeodatis1996::CRPSDeodatis1996()
 { 
-    
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#George_Deodatis_Simulation_Method_1996");
 }
 
 

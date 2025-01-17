@@ -59,6 +59,9 @@ public:
     // a string
     QString theString;
 
+	// a link to the plugin wiki page
+    QString wikiLink;
+
 	// the flag to show whether the plugin is installed
 	bool isPluginInstalled;
 
@@ -221,7 +224,8 @@ bool PluginInstance::Load()
     mImpl->pluginReleaseDate = GetStringFromDllFunct(QString::fromLatin1("PluginReleaseDate"));
     mImpl->labRPSVersion = GetStringFromDllFunct(QString::fromLatin1("Labrpsversion"));
     mImpl->apiVersion = GetStringFromDllFunct(QString::fromLatin1("Apiversion"));
-    
+    mImpl->wikiLink = GetStringFromDllFunct(QString::fromLatin1("PluginWikiLink"));
+
 	// get the plugin installation function
 	Impl::MyPrototypeOne install_func = mImpl->GetFunctionPrototypeOne("InstallPlugin");
 	if (!install_func)
@@ -399,6 +403,11 @@ QString PluginInstance::GetStringFromDllFunct(const QString &name)
 bool PluginInstance::GetInstallationState()
 {
 	return mImpl->isPluginInstalled;
+}
+
+QString PluginInstance::GetPluginWikiLink()
+{
+	return mImpl->wikiLink;
 }
 
 void PluginInstance::SetInstallationState(bool state)
@@ -581,6 +590,11 @@ bool PluginManager::ReadPlgTXT(const QString& path, const QString& phenomenon, c
 		{
 			line.replace(QString::fromLatin1("__Comment__ = "), QString::fromLatin1(""));
             Description->description = line.remove(QChar::fromLatin1('"'), Qt::CaseInsensitive);
+		}
+		else if (true == line.contains(QString::fromLatin1("__Wiki__ = ")))
+		{
+			line.replace(QString::fromLatin1("__Wiki__ = "), QString::fromLatin1(""));
+            Description->wikiLink = line.remove(QChar::fromLatin1('"'), Qt::CaseInsensitive);
 		}
 	   }
     

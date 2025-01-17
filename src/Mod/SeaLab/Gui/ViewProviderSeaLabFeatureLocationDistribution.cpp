@@ -230,6 +230,9 @@ void ViewProviderSeaLabFeatureLocationDistribution::setupContextMenu(QMenu* menu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureLocationDistribution::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureLocationDistribution::goToWiki, this));
 }
 
 

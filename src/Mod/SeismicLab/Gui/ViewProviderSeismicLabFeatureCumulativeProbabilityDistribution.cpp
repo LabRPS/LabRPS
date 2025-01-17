@@ -148,6 +148,9 @@ void ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::setupContex
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeatureCumulativeProbabilityDistribution::computeCPDVectorX()

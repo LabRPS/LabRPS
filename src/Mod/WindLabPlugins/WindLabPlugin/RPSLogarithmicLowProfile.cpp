@@ -46,7 +46,8 @@ RPSLogarithmicLowProfile::RPSLogarithmicLowProfile()
     ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", Prop_None, "This is the shear velocity value");
     ADD_PROPERTY_TYPE(vonKarmanConstant, (0.4), "Parameters", Prop_None, "This is the von karman constant value");
     ADD_PROPERTY_TYPE(ZeroPlanDisplacement, (0), "Parameters", Prop_None, "This is the zero plan displacement value");
-    
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Logarithmic_Law_Profile");
+   
 }
 bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedVectorP(const WindLabAPI::WindLabSimulationData &Data, const double &dTime, vec &dVarVector, vec &dValVector)
 {

@@ -93,6 +93,9 @@ void ViewProviderRPSFeature::setupContextMenu(QMenu* menu, QObject*, const char*
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderRPSFeature::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderRPSFeature::goToWiki, this));
 }
 
 
@@ -110,6 +113,24 @@ bool ViewProviderRPSFeature::goToPublication()
 
     Gui::Command::doCommand(Gui::Command::Doc, "import WebGui");
     Gui::Command::doCommand(Gui::Command::Doc, "WebGui.openBrowser(\"%s\")", active->LinkToPublication.getStrValue().c_str());
+
+    return true;
+}
+
+bool ViewProviderRPSFeature::goToWiki()
+{
+    auto doc = App::GetApplication().getActiveDocument();
+    if (!doc)
+        return false;
+    auto obj = doc->getObject(this->getObject()->getNameInDocument());
+    if (!obj)
+        return false;
+    auto active = static_cast<WindLabAPI::WindLabFeature*>(obj);
+    if (!active)
+        return false;
+
+    Gui::Command::doCommand(Gui::Command::Doc, "import WebGui");
+    Gui::Command::doCommand(Gui::Command::Doc, "WebGui.openBrowser(\"%s\")", active->LinkToWiki.getStrValue().c_str());
 
     return true;
 }

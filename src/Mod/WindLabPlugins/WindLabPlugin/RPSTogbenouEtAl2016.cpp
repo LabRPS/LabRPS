@@ -47,6 +47,7 @@ CRPSTogbenouEtAl2016::CRPSTogbenouEtAl2016()
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), "Parameters", App::Prop_None, "The number of time increments.");
     ADD_PROPERTY_TYPE(RoughnessLength, (10.0), "Parameters", App::Prop_None, "The terrain roughness length.");
     ADD_PROPERTY_TYPE(StartingElevation, (10000.0), "Parameters", App::Prop_None, "The lowest elevation points are uniformly distributed from.");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab");
 
     
 

@@ -150,6 +150,9 @@ void ViewProviderSeaLabFeatureRandomness::setupContextMenu(QMenu* menu, QObject*
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureRandomness::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureRandomness::goToWiki, this));
 }
 
 

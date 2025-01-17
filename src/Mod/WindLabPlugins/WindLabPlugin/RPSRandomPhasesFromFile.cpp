@@ -39,6 +39,8 @@ PROPERTY_SOURCE(WindLab::CRPSRandomPhasesFromFile, WindLabAPI::WindLabFeatureRan
 CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
 {
   ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
+  this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Uniform_Random_Phases_Import");
+
 }
 
 bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const WindLabAPI::WindLabSimulationData &Data, cube &dRandomValueCube)

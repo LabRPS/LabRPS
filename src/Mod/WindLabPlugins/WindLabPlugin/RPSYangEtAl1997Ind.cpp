@@ -47,6 +47,7 @@ CRPSYangEtAl1997Ind::CRPSYangEtAl1997Ind()
     ADD_PROPERTY_TYPE(UpperCutOffFrequency, (2.00), "Parameters", App::Prop_None, "The upper cut off frequency.");
     ADD_PROPERTY_TYPE(NumberOfTimeIncrements, (6144), "Parameters", App::Prop_None, "The number of time increments.");
     ADD_PROPERTY_TYPE(RoughnessLength, (10.0), "Parameters", App::Prop_None, "The terrain roughness length.");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab");
 
     
 

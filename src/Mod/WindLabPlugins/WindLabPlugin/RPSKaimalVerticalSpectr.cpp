@@ -39,7 +39,8 @@ CRPSKaimalVerticalSpectr::CRPSKaimalVerticalSpectr()
   ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The shear velocity of the flow");
   ADD_PROPERTY_TYPE(Constant1, (2.0), "Parameters", App::Prop_None, "Constant 1");
   ADD_PROPERTY_TYPE(Constant2, (5.3), "Parameters", App::Prop_None, "Constant 2");
-  
+  this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Kaimal_Vertical_Wind_Spectrum");
+ 
 }
 
 bool CRPSKaimalVerticalSpectr::ComputeZCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

@@ -152,6 +152,9 @@ void ViewProviderSeaLabFeatureVariance::setupContextMenu(QMenu* menu, QObject*, 
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureVariance::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureVariance::goToWiki, this));
 }
 
 

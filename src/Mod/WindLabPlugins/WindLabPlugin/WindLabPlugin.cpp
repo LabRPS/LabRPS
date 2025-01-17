@@ -780,12 +780,12 @@ PLUGIN_INIT_TYPE()
     if (WindLab::CRPSvonKarmanAlongWindSpectrum::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSvonKarmanAlongWindSpectrum::init();
     }
-    if (WindLab::CRPSvonKarmanAcrossWindSpectrum::getClassTypeId() == Base::Type::badType()) {
-        WindLab::CRPSvonKarmanAcrossWindSpectrum::init();
-    }
-    if (WindLab::CRPSvonKarmanVerticalWindSpectrum::getClassTypeId() == Base::Type::badType()) {
-        WindLab::CRPSvonKarmanVerticalWindSpectrum::init();
-    }
+    // if (WindLab::CRPSvonKarmanAcrossWindSpectrum::getClassTypeId() == Base::Type::badType()) {
+    //     WindLab::CRPSvonKarmanAcrossWindSpectrum::init();
+    // }
+    // if (WindLab::CRPSvonKarmanVerticalWindSpectrum::getClassTypeId() == Base::Type::badType()) {
+    //     WindLab::CRPSvonKarmanVerticalWindSpectrum::init();
+    // }
     if (WindLab::CRPSDavenportCoherence::getClassTypeId() == Base::Type::badType()) {
         WindLab::CRPSDavenportCoherence::init();
     }
@@ -863,8 +863,8 @@ PLUGIN_INIT()
     InitializeYSpectrum(objNameSi_Ac, strPluginName, objTileSi_Ac, objLinkSi_Ac, objAuthorsSi_Ac, objDateSi_Ac, objVersionSi_Ac, stationarity);
     InitializeZSpectrum(objNameSim_V, strPluginName, objTileSim_V, objLinkSim_V, objAuthorsSim_V, objDateSim_V, objVersionSim_V, stationarity);
     InitializeXSpectrum(objNameKar_A, strPluginName, objTileKar_A, objLinkKar_A, objAuthorsKar_A, objDateKar_A, objVersionKar_A, stationarity);
-    InitializeYSpectrum(objNameK_Acc, strPluginName, objTileK_Acc, objLinkK_Acc, objAuthorsK_Acc, objDateK_Acc, objVersionK_Acc, stationarity);
-    InitializeZSpectrum(objNameKar_V, strPluginName, objTileKar_V, objLinkKar_V, objAuthorsKar_V, objDateKar_V, objVersionKar_V, stationarity);
+    // InitializeYSpectrum(objNameK_Acc, strPluginName, objTileK_Acc, objLinkK_Acc, objAuthorsK_Acc, objDateK_Acc, objVersionK_Acc, stationarity);
+    // InitializeZSpectrum(objNameKar_V, strPluginName, objTileKar_V, objLinkKar_V, objAuthorsKar_V, objDateKar_V, objVersionKar_V, stationarity);
 
     InitializeCoherence(objNameDav_C, strPluginName, objTileDav_C, objLinkDav_C, objAuthorsDav_C, objDateDav_C, objVersionDav_C, stationarity);
     InitializeCoherence(objNameKre_C, strPluginName, objTileKre_C, objLinkKre_C, objAuthorsKre_C, objDateKre_C, objVersionKre_C, stationarity);
@@ -916,8 +916,8 @@ INSTALL_PLUGIN()
     RegisterYSpectrum(objNameSi_Ac, strPluginName, objDescriptionSi_Ac, BuildRPSSimuAcrossWindSpectrum, DestroyRPSSimuAcrossWindSpectrum);
     RegisterZSpectrum(objNameSim_V, strPluginName, objDescriptionSim_V, BuildRPSSimuVerticalWindSpectrum, DestroyRPSSimuVerticalWindSpectrum);
     RegisterXSpectrum(objNameKar_A, strPluginName, objDescriptionKar_A, BuildRPSVonKarmanAlongWindSpectrum, DestroyRPSVonKarmanAlongWindSpectrum);
-    RegisterYSpectrum(objNameK_Acc, strPluginName, objDescriptionK_Acc, BuildRPSVonKarmanAcrossWindSpectrum, DestroyRPSVonKarmanAcrossWindSpectrum);
-    RegisterZSpectrum(objNameKar_V, strPluginName, objDescriptionKar_V, BuildRPSVonKarmanVerticalWindSpectrum, DestroyRPSVonKarmanVerticalWindSpectrum);
+    // RegisterYSpectrum(objNameK_Acc, strPluginName, objDescriptionK_Acc, BuildRPSVonKarmanAcrossWindSpectrum, DestroyRPSVonKarmanAcrossWindSpectrum);
+    // RegisterZSpectrum(objNameKar_V, strPluginName, objDescriptionKar_V, BuildRPSVonKarmanVerticalWindSpectrum, DestroyRPSVonKarmanVerticalWindSpectrum);
 
   
     RegisterCoherence(objNameDav_C, strPluginName, objDescriptionDav_C, BuildRPSDavenportCoh, DestroyRPSDavenportCoh);
@@ -970,8 +970,8 @@ UNINSTALL_PLUGIN()
     UnregisterYSpectrum(objNameSi_Ac, strPluginName);
     UnregisterZSpectrum(objNameSim_V, strPluginName);
     UnregisterXSpectrum(objNameKar_A, strPluginName);
-    UnregisterYSpectrum(objNameK_Acc, strPluginName);
-    UnregisterZSpectrum(objNameKar_V, strPluginName);
+    // UnregisterYSpectrum(objNameK_Acc, strPluginName);
+    // UnregisterZSpectrum(objNameKar_V, strPluginName);
 
     UnregisterCoherence(objNameDav_C, strPluginName);
     UnregisterCoherence(objNameKre_C, strPluginName);

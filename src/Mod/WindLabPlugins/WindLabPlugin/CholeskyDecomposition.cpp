@@ -32,7 +32,7 @@ using namespace std;
 PROPERTY_SOURCE(WindLab::CCholeskyDecomposition, WindLabAPI::WindLabFeaturePSDDecompositionMethod)
 
 CCholeskyDecomposition::CCholeskyDecomposition() {
-
+	this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Cholesky_Decomposition");
 }
 
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

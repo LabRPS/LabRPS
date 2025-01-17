@@ -153,6 +153,9 @@ void ViewProviderSeismicLabFeaturePeakFactor::setupContextMenu(QMenu* menu, QObj
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeaturePeakFactor::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeaturePeakFactor::goToWiki, this));
 }
 
 

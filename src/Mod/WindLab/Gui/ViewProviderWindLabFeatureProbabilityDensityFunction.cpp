@@ -150,6 +150,9 @@ void ViewProviderWindLabFeatureProbabilityDensityFunction::setupContextMenu(QMen
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureProbabilityDensityFunction::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderWindLabFeatureProbabilityDensityFunction::goToWiki, this));
 }
 
 bool ViewProviderWindLabFeatureProbabilityDensityFunction::computePDFVectorX()

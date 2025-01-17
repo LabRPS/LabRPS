@@ -46,6 +46,7 @@ public:
     void setupContextMenu(QMenu*, QObject*, const char*);
 
     bool goToPublication();
+    bool goToWiki();
 
 
 public:

@@ -48,6 +48,7 @@ public:
      App::PropertyString type;
      App::PropertyString group;
      App::PropertyBool Stationarity;
+     App::PropertyString WikiLink;
 
 	App::PropertyString LabRPSVersion;
 	App::PropertyString Path;

@@ -152,6 +152,9 @@ void ViewProviderSeismicLabFeatureCorrelation::setupContextMenu(QMenu* menu, QOb
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureCorrelation::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureCorrelation::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeatureCorrelation::computeCrossCorrelationValue()

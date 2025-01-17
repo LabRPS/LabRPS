@@ -54,7 +54,7 @@ PluginInstallerBrowser::PluginInstallerBrowser(const QString& workbenchName, QWi
 	connect(ui->pushButtonInstall, &QPushButton::clicked, this, &PluginInstallerBrowser::install);
 	connect(ui->pushButtonUninstall, &QPushButton::clicked, this, &PluginInstallerBrowser::uninstall);
 	connect(ui->pushButtonClose, &QPushButton::clicked, this, &PluginInstallerBrowser::close);
-	connect(ui->pushButtonRefresh, &QPushButton::clicked, this, &PluginInstallerBrowser::refresh);
+	connect(ui->pushButtonHelp, &QPushButton::clicked, this, &PluginInstallerBrowser::help);
 
 }
 
@@ -185,9 +185,20 @@ void PluginInstallerBrowser::close()
 	this->reject();
 }
 
-void PluginInstallerBrowser::refresh()
+void PluginInstallerBrowser::help()
 {
-	fillLocalPluginsList(_workbenchName);
+	int row = ui->tableWidget->currentRow();
+	QTableWidgetItem *currentItem = ui->tableWidget->item(row, 0);
+
+	if (NULL != currentItem)
+	{
+		QString ItemText = currentItem->text();
+		auto InstallingPluginDescription = App::PluginManager::GetInstance().GetPluginDescriptionsMap()[ItemText];
+		QString wikiLink = InstallingPluginDescription->wikiLink;
+		Gui::Command::doCommand(Gui::Command::Doc, "import WebGui");
+        Gui::Command::doCommand(Gui::Command::Doc, "WebGui.openBrowser(\"%s\")", wikiLink.toStdString().c_str());
+
+    }
 }
 
 void PluginInstallerBrowser::fillLocalPluginsList(const QString& workbenchName)
