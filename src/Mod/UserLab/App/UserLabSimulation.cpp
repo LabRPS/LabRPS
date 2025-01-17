@@ -507,13 +507,15 @@ void UserLabSimulation::onChanged(const App::Property* prop)
         }
     }
 
-    if (prop == &NumberOfTimeIncrements
-        || prop == &TimeIncrement
-        || prop == &MinTime)
-    {
-        MaxTime.setValue(MinTime.getValue()
-                         + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue());
-    }
+    // if (prop == &NumberOfFrequency || prop == &FrequencyIncrement || prop == &MinFrequency)
+    // {
+    //     MaxFrequency.setValue(MinFrequency.getValue() + FrequencyIncrement.getValue() * NumberOfFrequency.getValue());
+    // }
+
+    // if (prop == &NumberOfTimeIncrements || prop == &TimeIncrement || prop == &MinTime)
+    // {
+    //     MaxTime.setValue(MinTime.getValue() + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue());
+    // }
 
     updateSimulationData();
 

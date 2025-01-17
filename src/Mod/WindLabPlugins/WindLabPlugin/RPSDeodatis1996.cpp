@@ -58,13 +58,13 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
         CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
     if (!PbuInfo) {
-        Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n");
+        Base::Console().Error("Invalid frequency distribution. The simulation has failed.\n");
         return false;
     }
 
     if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0
         || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0) {
-        Base::Console().Warning(
+        Base::Console().Error(
             "This tool required the wind velocity to be simulated with the double index frequency "
             "discretization implemented by the WindLab plugin.\n");
         return false;
@@ -102,7 +102,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
         WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
 
     if (!returnResult) {
-        Base::Console().Warning("The computation of the location coordinates matrix has failed.\n");
+        Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
         return false;
     }
 
@@ -110,7 +110,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     mat thet(N, n);
 
     if (!returnResult) {
-        Base::Console().Warning("The generation of the random phase matrix has failed.\n");
+        Base::Console().Error("The generation of the random phase matrix has failed.\n");
         return false;
     }
 
@@ -118,7 +118,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     returnResult = WindLabAPI::CRPSWindLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
 
     if (!returnResult) {
-        Base::Console().Warning("The computation of the frequency distribution has failed.\n");
+        Base::Console().Error("The computation of the frequency distribution has failed.\n");
         return false;
     }
 
@@ -133,18 +133,14 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
         returnResult = WindLabAPI::CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
 
-        for (int m = 1;
-             m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-             m++) {
-            for (int l = 1;
-                 l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult;
-                 l++) {
-                returnResult =
-                    WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(
-                        Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
-                for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue()
-                     && true == returnResult;
-                     j++) {
+        for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
+            for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult; l++) {
+                returnResult = WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, frequencies(l - 1, m - 1), time, decomposedPSD2D);
+                if (!returnResult) {
+                    Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
+                    return false;
+                }
+                for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++) {
                     decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
                 }
             }
@@ -200,13 +196,15 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
 
     if (!PbuInfo)
     {
-       Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n") ;
+       Base::Console().Error("Invalid frequency distribution. The simulation has failed.\n");
        return false;
     }
 
     if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0 || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0)
     {
-        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency discretization implemented by the WindLab plugin.\n");
+        Base::Console().Error(
+            "This tool required the wind velocity to be simulated with the double index frequency "
+            "discretization implemented by the WindLab plugin.\n");
         return false;
     }
 
@@ -242,7 +240,7 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     
     if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
+        Base::Console().Error("The computation of the location coordinates matrix has failed.\n");
        return false;
     }
 
@@ -251,7 +249,7 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     
     if(!returnResult)
     {
-       Base::Console().Warning("The generation of the random phase matrix has failed.\n") ;
+        Base::Console().Error("The generation of the random phase matrix has failed.\n");
        return false;
     }
 
@@ -260,7 +258,7 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
 
     if(!returnResult)
     {
-       Base::Console().Warning("The computation of the frequency increments has failed.\n") ;
+        Base::Console().Error("The computation of the frequency increments has failed.\n");
        return false;
     }
 
@@ -274,7 +272,11 @@ bool CRPSDeodatis1996::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulat
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
 
         returnResult = WindLabAPI::CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
-
+        if (!returnResult) {
+            Base::Console().Error(
+                "The computation of the random phase angle matrix has failed.\n");
+            return false;
+        }
         // Get the current date and time
         std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
 

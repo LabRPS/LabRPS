@@ -29,9 +29,6 @@ constexpr char * RPS_PYBIND11_VERSION = "${pybind11_VERSION}";
 // Shiboken
 constexpr char * RPS_SHIBOKEN_VERSION = "${Shiboken2_VERSION}";
 
-// vtk
-constexpr char * RPS_VTK_VERSION = "${VTK_VERSION}";
-
 // Xerces-C
 constexpr char * RPS_XERCESC_VERSION = "${XercesC_VERSION}";
 

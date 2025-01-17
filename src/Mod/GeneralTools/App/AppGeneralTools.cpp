@@ -26,6 +26,7 @@
 #include <Base/Interpreter.h>
 #include <Base/PyObjectBase.h>
 #include <Base/Factory.h>
+#include <Mod/GeneralTools/App/EMDPy.h>
 
 
 namespace GeneralTools {
@@ -38,6 +39,7 @@ PyMOD_INIT_FUNC(GeneralTools)
     PyObject* GeneralToolsModule = GeneralTools::initModule();
 
     Base::Console().Log("Loading GeneralTools module... done\n");
+    Base::Interpreter().addType(&GeneralTools::EMDPy ::Type, GeneralToolsModule, "emd");
 
     PyMOD_Return(GeneralToolsModule);
 }

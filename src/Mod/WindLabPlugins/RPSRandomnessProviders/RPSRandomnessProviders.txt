@@ -1,0 +1,18 @@
+﻿# -*- coding: utf-8 -*-
+# (c) Koffi Daniel 2023
+
+__Name__ = "RPSRandomnessProviders"
+__Comment__ = "This plugin adds a series of randomness providers to LabRPS."
+__License__ = "LGPL v 2.1"
+__Web__ = ""
+__Wiki__ = "https://wiki.labrps.com/Plugin_RPS_Randomness_Providers"
+__Icon__  = ""
+__Help__ = ""
+__Author__ = "Koffi Daniel"
+__Version__ = "0.1.0"
+__Status__ = ""
+__Requires__ = ""
+__Files__ = "RPSRandomnessProviders.dll"
+__Date__ = "25-08-2023"
+__Phenomenon__ = "Wind Velocity"
+__RPSVersion__ = "0.1"

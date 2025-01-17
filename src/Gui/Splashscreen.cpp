@@ -673,7 +673,6 @@ void AboutDialog::on_copyButton_clicked()
     // report also the version numbers of the most important libraries in LabRPS
     str << "Python " << PY_VERSION << ", ";
     str << "Qt " << QT_VERSION_STR << ", ";
-    str << "Vtk " << RPS_VTK_VERSION << ", ";
 
     QLocale loc;
     str << "Locale: " << loc.languageToString(loc.language()) << "/"
