@@ -144,12 +144,12 @@ class PackageDetails(QWidget):
                 self.ui.buttonExecute.hide()
                 self.ui.buttonDisable.hide()
                 self.ui.buttonEnable.hide()
-            elif repo.repo_type == Addon.Kind.WORKBENCH:
-                self.show_workbench(repo)
-                self.ui.buttonExecute.hide()
-            elif repo.repo_type == Addon.Kind.PACKAGE:
-                self.show_package(repo)
-                self.ui.buttonExecute.hide()
+            # elif repo.repo_type == Addon.Kind.WORKBENCH:
+            #     self.show_workbench(repo)
+            #     self.ui.buttonExecute.hide()
+            # elif repo.repo_type == Addon.Kind.PACKAGE:
+            #     self.show_package(repo)
+            #     self.ui.buttonExecute.hide()
 
         if repo.status() == Addon.Status.UNCHECKED:
             if not self.status_update_thread:
@@ -511,25 +511,26 @@ class PackageDetails(QWidget):
 
     def show_macro(self, repo: Addon) -> None:
         """loads information of a given macro"""
-
-        if not repo.macro.url:
-            # We need to populate the macro information... may as well do it while the user reads the wiki page
-            self.worker = GetMacroDetailsWorker(repo)
-            self.worker.readme_updated.connect(self.macro_readme_updated)
-            self.worker.start()
-        else:
-            self.macro_readme_updated()
+        
+        if repo.macro:
+           if not repo.macro.url:
+               # We need to populate the macro information... may as well do it while the user reads the wiki page
+               self.worker = GetMacroDetailsWorker(repo)
+               self.worker.readme_updated.connect(self.macro_readme_updated)
+               self.worker.start()
+           else:
+               self.macro_readme_updated()
 
     def show_plugin(self, repo: Addon) -> None:
         """loads information of a given plugin"""
-
-        if not repo.plugin.url:
-            # We need to populate the plugin information... may as well do it while the user reads the wiki page
-            self.worker = GetPluginDetailsWorker(repo)
-            self.worker.readme_updated.connect(self.plugin_readme_updated)
-            self.worker.start()
-        else:
-            self.plugin_readme_updated()
+        if repo.plugin:
+           if not repo.plugin.url:
+               # We need to populate the plugin information... may as well do it while the user reads the wiki page
+               self.worker = GetPluginDetailsWorker(repo)
+               self.worker.readme_updated.connect(self.plugin_readme_updated)
+               self.worker.start()
+           else:
+               self.plugin_readme_updated()
 
     def macro_readme_updated(self):
         url = self.repo.macro.wiki
@@ -751,7 +752,7 @@ class PackageDetails(QWidget):
             self.repo.load_metadata_file(path_to_metadata)
             self.repo.installed_version = self.repo.metadata.Version
         else:
-            self.repo.repo_type = Addon.Kind.WORKBENCH
+            self.repo.repo_type = Addon.Kind.MACRO
             self.repo.metadata = None
             self.repo.installed_version = None
         self.repo.updated_timestamp = QDateTime.currentDateTime().toSecsSinceEpoch()

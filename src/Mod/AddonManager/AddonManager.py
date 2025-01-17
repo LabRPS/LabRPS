@@ -942,10 +942,10 @@ class CommandAddonManager:
             return repo.icon
 
         path = ":/icons/" + repo.name.replace(" ", "_")
-        if repo.repo_type == Addon.Kind.WORKBENCH:
-            path += "_workbench_icon.svg"
-            default_icon = QtGui.QIcon(":/icons/document-package.svg")
-        elif repo.repo_type == Addon.Kind.MACRO:
+        # if repo.repo_type == Addon.Kind.WORKBENCH:
+        #     path += "_workbench_icon.svg"
+        #     default_icon = QtGui.QIcon(":/icons/document-package.svg")
+        if repo.repo_type == Addon.Kind.MACRO:
             if repo.macro and repo.macro.icon:
                 if os.path.isabs(repo.macro.icon):
                     path = repo.macro.icon
@@ -989,21 +989,21 @@ class CommandAddonManager:
             else:
                 path += "_macro_icon.svg"
                 default_icon = QtGui.QIcon(":/icons/document-python.svg")
-        elif repo.repo_type == Addon.Kind.PACKAGE:
-            # The cache might not have been downloaded yet, check to see if it's there...
-            if os.path.isfile(repo.get_cached_icon_filename()):
-                path = repo.get_cached_icon_filename()
-            elif repo.contains_workbench():
-                path += "_workbench_icon.svg"
-                default_icon = QtGui.QIcon(":/icons/document-package.svg")
-            elif repo.contains_macro():
-                path += "_macro_icon.svg"
-                default_icon = QtGui.QIcon(":/icons/document-python.svg")
-            elif repo.contains_plugin():
-                path += "_plugin_icon.svg"
-                default_icon = QtGui.QIcon(":/icons/rpspython.svg")
-            else:
-                default_icon = QtGui.QIcon(":/icons/document-package.svg")
+        # elif repo.repo_type == Addon.Kind.PACKAGE:
+        #     # The cache might not have been downloaded yet, check to see if it's there...
+        #     if os.path.isfile(repo.get_cached_icon_filename()):
+        #         path = repo.get_cached_icon_filename()
+        #     elif repo.contains_workbench():
+        #         path += "_workbench_icon.svg"
+        #         default_icon = QtGui.QIcon(":/icons/document-package.svg")
+        #     elif repo.contains_macro():
+        #         path += "_macro_icon.svg"
+        #         default_icon = QtGui.QIcon(":/icons/document-python.svg")
+        #     elif repo.contains_plugin():
+        #         path += "_plugin_icon.svg"
+        #         default_icon = QtGui.QIcon(":/icons/rpspython.svg")
+        #     else:
+        #         default_icon = QtGui.QIcon(":/icons/document-package.svg")
 
         if QtCore.QFile.exists(path):
             addonicon = QtGui.QIcon(path)
@@ -1396,20 +1396,20 @@ class CommandAddonManager:
         if not repo:
             return
 
-        if (
-            repo.repo_type == Addon.Kind.WORKBENCH
-            or repo.repo_type == Addon.Kind.PACKAGE
-        ):
-            self.show_progress_widgets()
-            self.install_worker = InstallWorkbenchWorker(repo)
-            self.install_worker.status_message.connect(self.show_information)
-            self.current_progress_region = 1
-            self.number_of_progress_regions = 1
-            self.install_worker.progress_made.connect(self.update_progress_bar)
-            self.install_worker.success.connect(self.on_package_installed)
-            self.install_worker.failure.connect(self.on_installation_failed)
-            self.install_worker.start()
-        elif repo.repo_type == Addon.Kind.MACRO:
+        # if (
+        #     repo.repo_type == Addon.Kind.WORKBENCH
+        #     or repo.repo_type == Addon.Kind.PACKAGE
+        # ):
+        #     self.show_progress_widgets()
+        #     self.install_worker = InstallWorkbenchWorker(repo)
+        #     self.install_worker.status_message.connect(self.show_information)
+        #     self.current_progress_region = 1
+        #     self.number_of_progress_regions = 1
+        #     self.install_worker.progress_made.connect(self.update_progress_bar)
+        #     self.install_worker.success.connect(self.on_package_installed)
+        #     self.install_worker.failure.connect(self.on_installation_failed)
+        #     self.install_worker.start()
+        if repo.repo_type == Addon.Kind.MACRO:
             macro = repo.macro
 
             # To try to ensure atomicity, test the installation into a temp directory first,
@@ -1720,73 +1720,73 @@ class CommandAddonManager:
         if confirm == QtWidgets.QMessageBox.Cancel:
             return
 
-        if (
-            repo.repo_type == Addon.Kind.WORKBENCH
-            or repo.repo_type == Addon.Kind.PACKAGE
-        ):
-            basedir = LabRPS.getUserAppDataDir()
-            moddir = basedir + os.sep + "Mod"
-            clonedir = moddir + os.sep + repo.name
+        # if (
+        #     repo.repo_type == Addon.Kind.WORKBENCH
+        #     or repo.repo_type == Addon.Kind.PACKAGE
+        # ):
+        #     basedir = LabRPS.getUserAppDataDir()
+        #     moddir = basedir + os.sep + "Mod"
+        #     clonedir = moddir + os.sep + repo.name
 
-            # First remove any macros that were copied or symlinked in, as long as they have not been modified
-            macro_dir = LabRPS.getUserMacroDir(True)
-            if os.path.exists(macro_dir) and os.path.exists(clonedir):
-                for macro_filename in os.listdir(clonedir):
-                    if macro_filename.lower().endswith(".rpsmacro"):
-                        mod_macro_path = os.path.join(clonedir, macro_filename)
-                        macro_path = os.path.join(macro_dir, macro_filename)
+        #     # First remove any macros that were copied or symlinked in, as long as they have not been modified
+        #     macro_dir = LabRPS.getUserMacroDir(True)
+        #     if os.path.exists(macro_dir) and os.path.exists(clonedir):
+        #         for macro_filename in os.listdir(clonedir):
+        #             if macro_filename.lower().endswith(".rpsmacro"):
+        #                 mod_macro_path = os.path.join(clonedir, macro_filename)
+        #                 macro_path = os.path.join(macro_dir, macro_filename)
 
-                        if not os.path.isfile(macro_path):
-                            continue
+        #                 if not os.path.isfile(macro_path):
+        #                     continue
 
-                        # Load both files (one may be a symlink of the other, this will still work in that case)
-                        with open(mod_macro_path) as f1:
-                            f1_contents = f1.read()
-                        with open(macro_path) as f2:
-                            f2_contents = f2.read()
+        #                 # Load both files (one may be a symlink of the other, this will still work in that case)
+        #                 with open(mod_macro_path) as f1:
+        #                     f1_contents = f1.read()
+        #                 with open(macro_path) as f2:
+        #                     f2_contents = f2.read()
 
-                        if f1_contents == f2_contents:
-                            os.remove(macro_path)
-                        else:
-                            LabRPS.Console.PrintMessage(
-                                translate(
-                                    "AddonsInstaller",
-                                    "Macro {} has local changes in the macros directory, so is not being removed by this uninstall process.\n",
-                                ).format(macro_filename)
-                            )
+        #                 if f1_contents == f2_contents:
+        #                     os.remove(macro_path)
+        #                 else:
+        #                     LabRPS.Console.PrintMessage(
+        #                         translate(
+        #                             "AddonsInstaller",
+        #                             "Macro {} has local changes in the macros directory, so is not being removed by this uninstall process.\n",
+        #                         ).format(macro_filename)
+        #                     )
 
-            # Second, run the Addon's "uninstall.py" script, if it exists
-            uninstall_script = os.path.join(clonedir, "uninstall.py")
-            if os.path.exists(uninstall_script):
-                try:
-                    with open(uninstall_script, "r") as f:
-                        exec(f.read())
-                except Exception:
-                    LabRPS.Console.PrintError(
-                        translate(
-                            "AddonsInstaller",
-                            "Execution of Addon's uninstall.py script failed. Proceeding with uninstall...",
-                        )
-                        + "\n"
-                    )
+        #     # Second, run the Addon's "uninstall.py" script, if it exists
+        #     uninstall_script = os.path.join(clonedir, "uninstall.py")
+        #     if os.path.exists(uninstall_script):
+        #         try:
+        #             with open(uninstall_script, "r") as f:
+        #                 exec(f.read())
+        #         except Exception:
+        #             LabRPS.Console.PrintError(
+        #                 translate(
+        #                     "AddonsInstaller",
+        #                     "Execution of Addon's uninstall.py script failed. Proceeding with uninstall...",
+        #                 )
+        #                 + "\n"
+        #             )
 
-            if os.path.exists(clonedir):
-                shutil.rmtree(clonedir, onerror=self.remove_readonly)
-                self.item_model.update_item_status(
-                    repo.name, Addon.Status.NOT_INSTALLED
-                )
-                if repo.contains_workbench():
-                    self.restart_required = True
-                self.packageDetails.show_repo(repo)
-            else:
-                self.dialog.textBrowserReadMe.setText(
-                    translate(
-                        "AddonsInstaller",
-                        "Unable to remove this addon with the Addon Manager.",
-                    )
-                )
+        #     if os.path.exists(clonedir):
+        #         shutil.rmtree(clonedir, onerror=self.remove_readonly)
+        #         self.item_model.update_item_status(
+        #             repo.name, Addon.Status.NOT_INSTALLED
+        #         )
+        #         if repo.contains_workbench():
+        #             self.restart_required = True
+        #         self.packageDetails.show_repo(repo)
+        #     else:
+        #         self.dialog.textBrowserReadMe.setText(
+        #             translate(
+        #                 "AddonsInstaller",
+        #                 "Unable to remove this addon with the Addon Manager.",
+        #             )
+        #         )
 
-        elif repo.repo_type == Addon.Kind.MACRO:
+        if repo.repo_type == Addon.Kind.MACRO:
             macro = repo.macro
             if macro.remove():
                 remove_custom_toolbar_button(repo)

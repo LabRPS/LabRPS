@@ -48,19 +48,19 @@ class Addon:
     from enum import IntEnum
 
     class Kind(IntEnum):
-        WORKBENCH = 1
-        MACRO = 2
-        PACKAGE = 3
-        PLUGIN = 4
+        # WORKBENCH = 1
+        MACRO = 1
+        # PACKAGE = 3
+        PLUGIN = 2
 
         def __str__(self) -> str:
+            # if self.value == 1:
+            #     return "Workbench"
             if self.value == 1:
-                return "Workbench"
-            elif self.value == 2:
                 return "Macro"
-            elif self.value == 3:
-                return "Package"
-            elif self.value == 4:
+            # elif self.value == 3:
+            #     return "Package"
+            elif self.value == 2:
                 return "Plugin"
             
     class Status(IntEnum):
@@ -111,7 +111,7 @@ class Addon:
         self.python2 = False
         self.obsolete = False
         self.rejected = False
-        self.repo_type = Addon.Kind.WORKBENCH
+        self.repo_type = Addon.Kind.MACRO
         self.description = None
         self.tags = set()  # Just a cache, loaded from Metadata
 
@@ -210,16 +210,16 @@ class Addon:
             instance.__dict__[key] = value
 
         instance.repo_type = Addon.Kind(cache_dict["repo_type"])
-        if instance.repo_type == Addon.Kind.PACKAGE:
-            # There must be a cached metadata file, too
-            cached_package_xml_file = os.path.join(
-                LabRPS.getUserCachePath(),
-                "AddonManager",
-                "PackageMetadata",
-                instance.name,
-            )
-            if os.path.isfile(cached_package_xml_file):
-                instance.load_metadata_file(cached_package_xml_file)
+        # if instance.repo_type == Addon.Kind.PACKAGE:
+        #     # There must be a cached metadata file, too
+        #     cached_package_xml_file = os.path.join(
+        #         LabRPS.getUserCachePath(),
+        #         "AddonManager",
+        #         "PackageMetadata",
+        #         instance.name,
+        #     )
+        #     if os.path.isfile(cached_package_xml_file):
+        #         instance.load_metadata_file(cached_package_xml_file)
 
         if "requires" in cache_dict:
             instance.requires = set(cache_dict["requires"])
@@ -259,7 +259,7 @@ class Addon:
     def set_metadata(self, metadata: LabRPS.Metadata) -> None:
         self.metadata = metadata
         self.display_name = metadata.Name
-        self.repo_type = Addon.Kind.PACKAGE
+        self.repo_type = Addon.Kind.MACRO
         self.description = metadata.Description
         for url in metadata.Urls:
             if "type" in url and url["type"] == "repository":
@@ -372,37 +372,37 @@ class Addon:
     def contains_workbench(self) -> bool:
         """Determine if this package contains (or is) a workbench"""
 
-        if self.repo_type == Addon.Kind.WORKBENCH:
-            return True
-        elif self.repo_type == Addon.Kind.PACKAGE:
-            if self.metadata is None:
-                LabRPS.Console.PrintLog(
-                    f"Addon Manager internal error: lost metadata for package {self.name}\n"
-                )
-                return False
-            content = self.metadata.Content
-            if not content:
-                LabRPS.Console.PrintLog(
-                    f"Package {self.display_name} does not list any content items in its package.xml metadata file.\n"
-                )
-                return False
-            return "workbench" in content
-        else:
-            return False
+        # if self.repo_type == Addon.Kind.WORKBENCH:
+        #     return True
+        # elif self.repo_type == Addon.Kind.PACKAGE:
+        #     if self.metadata is None:
+        #         LabRPS.Console.PrintLog(
+        #             f"Addon Manager internal error: lost metadata for package {self.name}\n"
+        #         )
+        #         return False
+        #     content = self.metadata.Content
+        #     if not content:
+        #         LabRPS.Console.PrintLog(
+        #             f"Package {self.display_name} does not list any content items in its package.xml metadata file.\n"
+        #         )
+        #         return False
+        #     return "workbench" in content
+        # else:
+        return False
 
     def contains_macro(self) -> bool:
         """Determine if this package contains (or is) a macro"""
 
         if self.repo_type == Addon.Kind.MACRO:
             return True
-        elif self.repo_type == Addon.Kind.PACKAGE:
-            if self.metadata is None:
-                LabRPS.Console.PrintLog(
-                    f"Addon Manager internal error: lost metadata for package {self.name}\n"
-                )
-                return False
-            content = self.metadata.Content
-            return "macro" in content
+        # elif self.repo_type == Addon.Kind.PACKAGE:
+        #     if self.metadata is None:
+        #         LabRPS.Console.PrintLog(
+        #             f"Addon Manager internal error: lost metadata for package {self.name}\n"
+        #         )
+        #         return False
+        #     content = self.metadata.Content
+        #     return "macro" in content
         else:
             return False
     
@@ -411,30 +411,30 @@ class Addon:
 
         if self.repo_type == Addon.Kind.PLUGIN:
             return True
-        elif self.repo_type == Addon.Kind.PACKAGE:
-            if self.metadata is None:
-                LabRPS.Console.PrintLog(
-                    f"Addon Manager internal error: lost metadata for package {self.name}\n"
-                )
-                return False
-            content = self.metadata.Content
-            return "plugin" in content
+        # elif self.repo_type == Addon.Kind.PACKAGE:
+        #     if self.metadata is None:
+        #         LabRPS.Console.PrintLog(
+        #             f"Addon Manager internal error: lost metadata for package {self.name}\n"
+        #         )
+        #         return False
+        #     content = self.metadata.Content
+        #     return "plugin" in content
         else:
             return False
 
     def contains_preference_pack(self) -> bool:
         """Determine if this package contains a preference pack"""
 
-        if self.repo_type == Addon.Kind.PACKAGE:
-            if self.metadata is None:
-                LabRPS.Console.PrintLog(
-                    f"Addon Manager internal error: lost metadata for package {self.name}\n"
-                )
-                return False
-            content = self.metadata.Content
-            return "preferencepack" in content
-        else:
-            return False
+        # if self.repo_type == Addon.Kind.PACKAGE:
+        #     if self.metadata is None:
+        #         LabRPS.Console.PrintLog(
+        #             f"Addon Manager internal error: lost metadata for package {self.name}\n"
+        #         )
+        #         return False
+        #     content = self.metadata.Content
+        #     return "preferencepack" in content
+        # else:
+        return False
 
     def get_cached_icon_filename(self) -> str:
         """Get the filename for the locally-cached copy of the icon"""

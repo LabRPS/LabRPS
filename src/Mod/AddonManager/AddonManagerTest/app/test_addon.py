@@ -134,12 +134,12 @@ class TestAddon(unittest.TestCase):
         self.assertTrue(addon_with_all.contains_macro())
         self.assertTrue(addon_with_all.contains_preference_pack())
 
-        # Now do the simple, explicitly-set cases
-        addon_wb = Addon("LabRPS","https://github.com/LabRPS/LabRPS", Addon.Status.NOT_INSTALLED, "master")
-        addon_wb.repo_type = Addon.Kind.WORKBENCH
-        self.assertTrue(addon_wb.contains_workbench())
-        self.assertFalse(addon_wb.contains_macro())
-        self.assertFalse(addon_wb.contains_preference_pack())
+        # # Now do the simple, explicitly-set cases
+        # addon_wb = Addon("LabRPS","https://github.com/LabRPS/LabRPS", Addon.Status.NOT_INSTALLED, "master")
+        # addon_wb.repo_type = Addon.Kind.WORKBENCH
+        # self.assertTrue(addon_wb.contains_workbench())
+        # self.assertFalse(addon_wb.contains_macro())
+        # self.assertFalse(addon_wb.contains_preference_pack())
 
         addon_m = Addon("LabRPS","https://github.com/LabRPS/LabRPS", Addon.Status.NOT_INSTALLED, "master")
         addon_m.repo_type = Addon.Kind.MACRO
