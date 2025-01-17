@@ -718,7 +718,7 @@ SeismicLabAPI::SeismicLabFeatureDescription* CRPSSeismicLabFramework::getSeismic
      information->Stationarity.setValue(feature->IsStationary.getValue());
      information->type.setValue(feature->FeatureType.getValue());
      information->group.setValue(feature->FeatureGroup.getValue());
-     information->LabRPSVersion.setValue(feature->LabRPSVersion.getValue());
+     information->LabRPSVersion.setValue(feature->LabrpsVersion.getValue());
      information->Description.setValue(feature->Description.getValue());
      information->IsUniformModulationFeature.setValue(feature->IsUniformModulationFeature.getValue());
      information->OutputUnitString.setValue(feature->OutputUnitString.getValue());

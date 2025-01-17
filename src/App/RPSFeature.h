@@ -72,7 +72,7 @@ public:
     App::PropertyString Version;
 
     /// The LabRPS version of the feature
-    App::PropertyString LabRPSVersion;
+    App::PropertyString LabrpsVersion;
 
     /// The name of the feature parent plugin
     App::PropertyString PluginName;
@@ -109,6 +109,9 @@ public:
 
     /// The parent module
     App::PropertyString Module;
+
+    /// The web link to the wiki page of the feature
+    App::PropertyString LinkToWiki;
     //@}
 
     /// Constructor

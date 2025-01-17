@@ -3558,7 +3558,7 @@ App::DocumentObject*  SeismicLabSimulation::addFeature(const std::string feature
     newFeature->Description.setValue(featureProperties->Description.getValue());
     newFeature->ApplicationFields.setValue(featureProperties->ApplicationFields.getValue());
     newFeature->IsUniformModulationFeature.setValue(featureProperties->IsUniformModulationFeature.getValue());
-    newFeature->LabRPSVersion.setValue(featureProperties->LabRPSVersion.getValue());
+    newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
     newFeature->OutputUnitString.setValue(featureProperties->OutputUnitString.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());

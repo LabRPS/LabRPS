@@ -42,7 +42,7 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(IsActive, (false), featuregroup, App::Prop_ReadOnly, "Whether this feature is active or not");
     ADD_PROPERTY_TYPE(Author, (""), featuregroup, App::Prop_ReadOnly, "The name of the person that implements the feature");
     ADD_PROPERTY_TYPE(Version, (""), featuregroup, App::Prop_ReadOnly, "This feature version");
-    ADD_PROPERTY_TYPE(LabRPSVersion, (""), featuregroup, App::Prop_ReadOnly, "This feature LabRPS version");
+    ADD_PROPERTY_TYPE(LabrpsVersion, (""), featuregroup, App::Prop_ReadOnly, "This feature LabRPS version");
     ADD_PROPERTY_TYPE(APIVersion, (""), featuregroup, App::Prop_ReadOnly, "This feature API version");
     ADD_PROPERTY_TYPE(ReleaseDate, (""), featuregroup, App::Prop_ReadOnly, "This feature release date");
     ADD_PROPERTY_TYPE(FeatureType, (""), featuregroup, App::Prop_ReadOnly, "The feature type");
@@ -53,7 +53,8 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(PublicationTopic, (""), publicationgroup, App::Prop_ReadOnly, "The publication topic of the article in which this feature was published");
     ADD_PROPERTY_TYPE(PublicationDate, (""), publicationgroup, App::Prop_ReadOnly, "The publication date of the article in which this feature was published");
     ADD_PROPERTY_TYPE(LinkToPublication, (""), publicationgroup, App::Prop_None, "The internet link to the article in which this feature was published");
-   
+    ADD_PROPERTY_TYPE(LinkToWiki, (""), publicationgroup, App::Prop_None, "The internet link to the wiki page of the feature");
+
     static const char* parentPlugin = "Parent Plugin";
     ADD_PROPERTY_TYPE(PluginVersion, (""), parentPlugin, App::Prop_ReadOnly, "The version of the plugin in which the feature is implemented.");
     ADD_PROPERTY_TYPE(PluginName, (""), parentPlugin, App::Prop_ReadOnly, "The name of the plugin in which the feature is implemented");

@@ -2151,7 +2151,7 @@ void SeismicLabGui::Workbench::createFeature(const std::string simulationName, c
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(simParent->Label.getValue());
     newFeature->Description.setValue(featureProperties->Description.getValue());
-    newFeature->LabRPSVersion.setValue(featureProperties->LabRPSVersion.getValue());
+    newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
 
 	App::DocumentObjectGroup* group = static_cast<App::DocumentObjectGroup*>(static_cast<App::DocumentObject*>(simParent));
