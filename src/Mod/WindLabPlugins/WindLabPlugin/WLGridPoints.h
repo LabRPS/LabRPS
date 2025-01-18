@@ -45,8 +45,8 @@ public:
 
 	void onChanged(const App::Property* prop) override;
 
-	// the center point of the grid
-    App::PropertyPosition CenterPoint;
+	// the start point of the grid
+    App::PropertyPosition StartPoint;
 
 	// the even spacing between the points along one axis
     App::PropertyLength Spacing1;
