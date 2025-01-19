@@ -20,11 +20,6 @@
           <UserDocu>Simulate the random wind velocity</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="simulateInLargeScaleMode">
-        <Documentation>
-          <UserDocu>Simulate the random wind velocity in large scale mode</UserDocu>
-        </Documentation>
-      </Methode>
     </PythonExport>
 </GenerateModel>
  

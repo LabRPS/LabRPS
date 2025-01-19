@@ -113,7 +113,6 @@ QString SeismicLabUtils::ComputeShearVelocityOfFlowVectorT = QString::fromLatin1
 QString SeismicLabUtils::ComputeShearVelocityOfFlowVectorP = QString::fromLatin1("ComputeShearVelocityOfFlowVectorP");
 
 QString SeismicLabUtils::Simulate = QString::fromLatin1("Simulate");
-QString SeismicLabUtils::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");
 
 QString SeismicLabUtils::ComputeSkewnessValue = QString::fromLatin1("ComputeSkewnessValue");
 QString SeismicLabUtils::ComputeSkewnessVectorP = QString::fromLatin1("ComputeSkewnessVectorP");

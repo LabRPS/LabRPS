@@ -485,8 +485,8 @@ PyObject *SeismicLabSimulationPy::computeCrossCoherenceVectorF(PyObject* args)
 
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -516,8 +516,8 @@ PyObject *SeismicLabSimulationPy::computeCrossCoherenceVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossCoherenceVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -538,8 +538,8 @@ PyObject *SeismicLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossCoherenceMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -569,8 +569,8 @@ PyObject *SeismicLabSimulationPy::computeCrossCorrelationVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossCorrelationVectorT(*locationJ, *locationK, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -588,8 +588,8 @@ PyObject *SeismicLabSimulationPy::computeCrossCorrelationMatrixPP(PyObject* args
     bool result = getSeismicLabSimulationPtr()->computeCrossCorrelationMatrixPP(time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -613,8 +613,8 @@ PyObject *SeismicLabSimulationPy::computeFrequenciesVectorF(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeFrequenciesVectorF(*locationJ, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     Py::List activeArray;
@@ -635,8 +635,8 @@ PyObject *SeismicLabSimulationPy::computeFrequenciesMatrixFP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeFrequenciesMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -653,8 +653,8 @@ PyObject *SeismicLabSimulationPy::computeLocationCoordinateMatrixP3(PyObject* ar
     bool result = getSeismicLabSimulationPtr()->computeLocationCoordinateMatrixP3(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -673,8 +673,8 @@ PyObject *SeismicLabSimulationPy::computeMeanAccelerationVectorP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeMeanAccelerationVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -698,8 +698,8 @@ PyObject *SeismicLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeMeanAccelerationVectorT(*locationJ, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -723,9 +723,10 @@ PyObject *SeismicLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dValVector;
 
     bool result = getSeismicLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -744,9 +745,10 @@ PyObject *SeismicLabSimulationPy::computeModulationVectorP(PyObject* args)
     vec dValVector;
 
     bool result = getSeismicLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -776,8 +778,8 @@ PyObject *SeismicLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject
     bool result = getSeismicLabSimulationPtr()->computeDecomposedCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -807,8 +809,8 @@ PyObject *SeismicLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject
     bool result = getSeismicLabSimulationPtr()->computeDecomposedCrossSpectrumVectorT(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -829,8 +831,8 @@ PyObject *SeismicLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObjec
     bool result = getSeismicLabSimulationPtr()->computeDecomposedCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -847,8 +849,8 @@ PyObject *SeismicLabSimulationPy::generateRandomMatrixFP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->generateRandomMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -865,8 +867,8 @@ PyObject *SeismicLabSimulationPy::generateRandomCubeFPS(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->generateRandomCubeFPS(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult7(resArray, featureName);
@@ -897,8 +899,8 @@ PyObject *SeismicLabSimulationPy::computeCrossSpectrumVectorF(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -928,8 +930,8 @@ PyObject *SeismicLabSimulationPy::computeCrossSpectrumVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -950,8 +952,8 @@ PyObject *SeismicLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -974,9 +976,10 @@ PyObject *SeismicLabSimulationPy::computeAutoSpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1001,8 +1004,8 @@ PyObject *SeismicLabSimulationPy::computeAutoSpectrumVectorF(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1027,8 +1030,8 @@ PyObject *SeismicLabSimulationPy::computeAutoSpectrumVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1056,10 +1059,11 @@ PyObject *SeismicLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeCrossCoherenceValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1084,10 +1088,11 @@ PyObject *SeismicLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeCrossCorrelationValue(*locationJ, *locationK, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1107,10 +1112,11 @@ PyObject *SeismicLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeMeanAccelerationValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1132,10 +1138,11 @@ PyObject *SeismicLabSimulationPy::computeModulationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1148,10 +1155,11 @@ PyObject *SeismicLabSimulationPy::computeRandomValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeRandomValue(resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1177,10 +1185,11 @@ PyObject *SeismicLabSimulationPy::computeCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1201,10 +1210,11 @@ PyObject *SeismicLabSimulationPy::computeFrequencyValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeFrequencyValue(*location, index, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1254,11 +1264,11 @@ PyObject* SeismicLabSimulationPy::tableToolCompute(PyObject* args)
         }
 
         bool result = getSeismicLabSimulationPtr()->tableToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1310,11 +1320,11 @@ PyObject* SeismicLabSimulationPy::matrixToolCompute(PyObject* args)
         }
 
         bool result = getSeismicLabSimulationPtr()->matrixToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1333,8 +1343,8 @@ PyObject* SeismicLabSimulationPy::userDefinedRPSObjectCompute(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->userDefinedRPSObjectCompute(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -1350,10 +1360,11 @@ PyObject *SeismicLabSimulationPy::computeCPDValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeCPDValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1369,8 +1380,8 @@ PyObject* SeismicLabSimulationPy::computeCPDVectorX(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeCPDVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1392,10 +1403,11 @@ PyObject *SeismicLabSimulationPy::computeKurtosisValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computeKurtosisValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1412,8 +1424,8 @@ PyObject *SeismicLabSimulationPy::computeKurtosisVectorP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeKurtosisVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1436,8 +1448,8 @@ PyObject *SeismicLabSimulationPy::computeKurtosisVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1459,10 +1471,11 @@ PyObject *SeismicLabSimulationPy::computePeakFactorValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computePeakFactorValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1484,8 +1497,8 @@ PyObject *SeismicLabSimulationPy::computePeakFactorVectorP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1508,8 +1521,8 @@ PyObject *SeismicLabSimulationPy::computePeakFactorVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computePeakFactorVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1525,10 +1538,11 @@ PyObject *SeismicLabSimulationPy::computePDFValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeismicLabSimulationPtr()->computePDFValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1544,8 +1558,8 @@ PyObject *SeismicLabSimulationPy::computePDFVectorX(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computePDFVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1568,9 +1582,10 @@ PyObject *SeismicLabSimulationPy::computeShearVelocityOfFlowValue(PyObject* args
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeShearVelocityOfFlowValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1588,8 +1603,8 @@ PyObject *SeismicLabSimulationPy::computeShearVelocityOfFlowVectorP(PyObject* ar
     bool result = getSeismicLabSimulationPtr()->computeShearVelocityOfFlowVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1612,8 +1627,8 @@ PyObject *SeismicLabSimulationPy::computeShearVelocityOfFlowVectorT(PyObject* ar
     bool result = getSeismicLabSimulationPtr()->computeShearVelocityOfFlowVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1635,9 +1650,10 @@ PyObject *SeismicLabSimulationPy::computeSkewnessValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeSkewnessValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1655,8 +1671,8 @@ PyObject *SeismicLabSimulationPy::computeSkewnessVectorP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeSkewnessVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1679,8 +1695,8 @@ PyObject *SeismicLabSimulationPy::computeSkewnessVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeSkewnessVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1702,9 +1718,10 @@ PyObject *SeismicLabSimulationPy::computeStandardDeviationValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeStandardDeviationValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1722,8 +1739,8 @@ PyObject *SeismicLabSimulationPy::computeStandardDeviationVectorP(PyObject* args
     bool result = getSeismicLabSimulationPtr()->computeStandardDeviationVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1746,8 +1763,8 @@ PyObject *SeismicLabSimulationPy::computeStandardDeviationVectorT(PyObject* args
     bool result = getSeismicLabSimulationPtr()->computeStandardDeviationVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1769,9 +1786,10 @@ PyObject *SeismicLabSimulationPy::computeVarianceValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeVarianceValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1789,8 +1807,8 @@ PyObject *SeismicLabSimulationPy::computeVarianceVectorP(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeVarianceVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1813,8 +1831,8 @@ PyObject *SeismicLabSimulationPy::computeVarianceVectorT(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->computeVarianceVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1844,8 +1862,8 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectVectorF(PyObject* args
     bool result = getSeismicLabSimulationPtr()->computeWavePassageEffectVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -1874,8 +1892,8 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectVectorT(PyObject* args
     bool result = getSeismicLabSimulationPtr()->computeWavePassageEffectVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -1895,8 +1913,8 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* arg
     bool result = getSeismicLabSimulationPtr()->computeWavePassageEffectMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1923,9 +1941,10 @@ PyObject *SeismicLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeismicLabSimulationPtr()->computeWavePassageEffectValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult5(resValue, featureName);
@@ -1943,8 +1962,8 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
     bool result = getSeismicLabSimulationPtr()->simulate(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     if (sampleIndex >= 0 && sampleIndex <= getSeismicLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
@@ -1957,20 +1976,6 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
     else
     {
         return returnResult7(resArray, featureName);
-    }
-}
-PyObject* SeismicLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
-{
-     if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
-    
-    std::string featureName;
-
-    bool result = getSeismicLabSimulationPtr()->simulateInLargeScaleMode(featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
     }
 }
 

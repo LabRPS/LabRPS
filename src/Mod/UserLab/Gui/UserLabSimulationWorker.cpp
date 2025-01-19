@@ -103,42 +103,6 @@ bool RPSUserLabSimulationWorker::workerSimulate()
     signalDisplayResultInTable(m_computingFunction, 1);
     return true;
 }
-bool RPSUserLabSimulationWorker::workerSimulateInLargeScaleMode()
-{
-    if (isStopped()) {
-        stopped = false;
-        if (m_computingFunction == UserLab::UserLabUtils::SimulateInLargeScaleMode) {
-
-            //get the active document
-            auto doc = App::GetApplication().getActiveDocument();
-            if (!doc)
-                return false;
-
-            QString fineName = QString::fromLatin1("WindVelocity\n");
-            Base::StopWatch watch;
-            watch.start();
-            bool returnResult = m_sim->simulateInLargeScaleMode(featureName);
-
-            m_simulationTime = watch.elapsed();
-            std::string str = watch.toString(m_simulationTime);
-            Base::Console().Message("The computation %s\n", str.c_str());
-            if (m_sim->getSimulationData()->comparisonMode.getValue())
-                setComputationTime();
-            if (!returnResult) {
-                Base::Console().Warning(
-                    "The computation of the wind velocity matrix has failed.\n");
-                stopped = true;
-                failed();
-                signalDisplayResultInTable(m_computingFunction, 0);
-                return false;
-            }
-        }
-    }
-
-    stopped = true;
-    complete();
-    return true;
-}
 
 void RPSUserLabSimulationWorker::stop()
 {

@@ -35,8 +35,6 @@ public:
 	
     virtual bool Simulate(const SeismicLabSimulationData &Data, cube &dPhenomenon) = 0;
 
-    virtual bool SimulateInLargeScaleMode(const SeismicLabSimulationData &Data, QString &strFileName) = 0;
-
 	virtual bool OnInitialSetting(const SeismicLabSimulationData &Data) = 0;
 
 };

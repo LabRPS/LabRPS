@@ -85,7 +85,6 @@ public:
 	App::PropertyBool Stationarity;
 	App::PropertyBool Gaussianity;
 	App::PropertyBool  ComparisonMode;
-	App::PropertyBool  LargeScaleSimulationMode;
 	App::PropertyBool IsSimulationSuccessful;
 	App::PropertyBool IsInterruptionRequested;
 	App::PropertyBool UniformModulation;
@@ -358,7 +357,6 @@ public:
     bool computeWavePassageEffectValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
 
     bool simulate(cube &dPhenomenon, std::string& featureName);
-    bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 public:
     /** Called when a simulation should be aborted */

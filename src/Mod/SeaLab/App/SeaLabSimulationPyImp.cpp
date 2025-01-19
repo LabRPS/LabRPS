@@ -498,8 +498,8 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceVectorF(PyObject* args)
 
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -529,8 +529,8 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeCrossCoherenceVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -551,8 +551,8 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeCrossCoherenceMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -582,8 +582,8 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeCrossCorrelationVectorT(*locationJ, *locationK, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -601,8 +601,8 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationMatrixPP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeCrossCorrelationMatrixPP(time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -626,8 +626,8 @@ PyObject *SeaLabSimulationPy::computeFrequenciesVectorF(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeFrequenciesVectorF(*locationJ, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     Py::List activeArray;
@@ -648,8 +648,8 @@ PyObject *SeaLabSimulationPy::computeFrequenciesMatrixFP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeFrequenciesMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -666,8 +666,8 @@ PyObject *SeaLabSimulationPy::computeLocationCoordinateMatrixP3(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeLocationCoordinateMatrixP3(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -686,8 +686,8 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeMeanAccelerationVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -711,8 +711,8 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeMeanAccelerationVectorT(*locationJ, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -736,9 +736,10 @@ PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dValVector;
 
     bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -756,9 +757,10 @@ PyObject *SeaLabSimulationPy::computeModulationVectorP(PyObject* args)
     vec dValVector;
 
     bool result = getSeaLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -775,8 +777,8 @@ PyObject *SeaLabSimulationPy::generateRandomMatrixFP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->generateRandomMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -793,8 +795,8 @@ PyObject *SeaLabSimulationPy::generateRandomCubeFPS(PyObject* args)
     bool result = getSeaLabSimulationPtr()->generateRandomCubeFPS(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult7(resArray, featureName);
@@ -823,10 +825,11 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeCrossCoherenceValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }
@@ -852,10 +855,11 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeCrossCorrelationValue(*locationJ, *locationK, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -875,10 +879,11 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeMeanAccelerationValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -900,10 +905,11 @@ PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -916,10 +922,11 @@ PyObject *SeaLabSimulationPy::computeRandomValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeRandomValue(resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }
@@ -940,10 +947,11 @@ PyObject *SeaLabSimulationPy::computeFrequencyValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeFrequencyValue(*location, index, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -993,11 +1001,11 @@ PyObject* SeaLabSimulationPy::tableToolCompute(PyObject* args)
         }
 
         bool result = getSeaLabSimulationPtr()->tableToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1049,11 +1057,11 @@ PyObject* SeaLabSimulationPy::matrixToolCompute(PyObject* args)
         }
 
         bool result = getSeaLabSimulationPtr()->matrixToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1072,8 +1080,8 @@ PyObject* SeaLabSimulationPy::userDefinedRPSObjectCompute(PyObject* args)
     bool result = getSeaLabSimulationPtr()->userDefinedRPSObjectCompute(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -1089,10 +1097,11 @@ PyObject *SeaLabSimulationPy::computeCPDValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeCPDValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1108,8 +1117,8 @@ PyObject* SeaLabSimulationPy::computeCPDVectorX(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeCPDVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1131,10 +1140,11 @@ PyObject *SeaLabSimulationPy::computeKurtosisValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeKurtosisValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1151,8 +1161,8 @@ PyObject *SeaLabSimulationPy::computeKurtosisVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeKurtosisVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1175,8 +1185,8 @@ PyObject *SeaLabSimulationPy::computeKurtosisVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1198,10 +1208,11 @@ PyObject *SeaLabSimulationPy::computePeakFactorValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computePeakFactorValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1223,8 +1234,8 @@ PyObject *SeaLabSimulationPy::computePeakFactorVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1247,8 +1258,8 @@ PyObject *SeaLabSimulationPy::computePeakFactorVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computePeakFactorVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1264,10 +1275,11 @@ PyObject *SeaLabSimulationPy::computePDFValue(PyObject* args)
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computePDFValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1283,8 +1295,8 @@ PyObject *SeaLabSimulationPy::computePDFVectorX(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computePDFVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1307,9 +1319,10 @@ PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeShearVelocityOfFlowValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1327,8 +1340,8 @@ PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeShearVelocityOfFlowVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1351,8 +1364,8 @@ PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeShearVelocityOfFlowVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1374,9 +1387,10 @@ PyObject *SeaLabSimulationPy::computeSkewnessValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeSkewnessValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1394,8 +1408,8 @@ PyObject *SeaLabSimulationPy::computeSkewnessVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeSkewnessVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1418,8 +1432,8 @@ PyObject *SeaLabSimulationPy::computeSkewnessVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeSkewnessVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1441,9 +1455,10 @@ PyObject *SeaLabSimulationPy::computeStandardDeviationValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeStandardDeviationValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1461,8 +1476,8 @@ PyObject *SeaLabSimulationPy::computeStandardDeviationVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeStandardDeviationVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1485,8 +1500,8 @@ PyObject *SeaLabSimulationPy::computeStandardDeviationVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeStandardDeviationVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1508,9 +1523,10 @@ PyObject *SeaLabSimulationPy::computeVarianceValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeVarianceValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1528,8 +1544,8 @@ PyObject *SeaLabSimulationPy::computeVarianceVectorP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeVarianceVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1552,8 +1568,8 @@ PyObject *SeaLabSimulationPy::computeVarianceVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeVarianceVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1583,8 +1599,8 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectVectorF(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeWavePassageEffectVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -1613,8 +1629,8 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectVectorT(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeWavePassageEffectVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -1634,8 +1650,8 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* args)
     bool result = getSeaLabSimulationPtr()->computeWavePassageEffectMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1662,9 +1678,10 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeWavePassageEffectValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult5(resValue, featureName);
@@ -1682,8 +1699,8 @@ PyObject* SeaLabSimulationPy::simulate(PyObject* args)
     bool result = getSeaLabSimulationPtr()->simulate(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     if (sampleIndex >= 0 && sampleIndex <= getSeaLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
@@ -1696,20 +1713,6 @@ PyObject* SeaLabSimulationPy::simulate(PyObject* args)
     else
     {
         return returnResult7(resArray, featureName);
-    }
-}
-PyObject* SeaLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
-{
-     if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
-    
-    std::string featureName;
-
-    bool result = getSeaLabSimulationPtr()->simulateInLargeScaleMode(featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
     }
 }
 
@@ -1786,8 +1789,8 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1817,8 +1820,8 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumVectorT(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1839,8 +1842,8 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* a
     bool result = getSeaLabSimulationPtr()->computeDecomposedCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1864,9 +1867,10 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1894,9 +1898,10 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult5(resValue, featureName);
@@ -1923,8 +1928,8 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorF(PyObject* args
     bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1951,8 +1956,8 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorT(PyObject* args
     bool result = getSeaLabSimulationPtr()->computeAutoFrequencySpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1983,8 +1988,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorF(PyObject* arg
     bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -2015,8 +2020,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorT(PyObject* arg
     bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -2037,8 +2042,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumMatrixPP(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeCrossFrequencySpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -2068,10 +2073,11 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumValue(PyObject* arg
      std::string featureName;
 
      bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumValue(*locationJ, *locationK, frequency, time, direction, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }
@@ -2102,8 +2108,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorF(PyObject* a
     bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorF(*locationJ, *locationK, time, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -2135,8 +2141,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorT(PyObject* a
     bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorT(*locationJ, *locationK, frequency, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -2168,8 +2174,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorD(PyObject* a
     bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumVectorD(*locationJ, *locationK, frequency, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -2191,8 +2197,8 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumMatrixPP(PyObject* 
     bool result = getSeaLabSimulationPtr()->computeCrossDirectionalSpectrumMatrixPP(frequency, time, direction, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -2217,9 +2223,10 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumValue(PyObject* args
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumValue(*location, frequency, time, direction, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult6(resValue, featureName);
@@ -2246,8 +2253,8 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorF(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorF(*location, time, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -2274,8 +2281,8 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorT(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorT(*location, frequency, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -2302,8 +2309,8 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorD(PyObject* ar
     bool result = getSeaLabSimulationPtr()->computeAutoDirectionalSpectrumVectorD(*location, frequency, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -2327,9 +2334,10 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionValue(PyObject*
     std::string featureName;
 
     bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionValue(*location, time, direction, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult6(resValue, featureName);
@@ -2356,8 +2364,8 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorT(PyObjec
     bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorT(*location, time, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -2378,8 +2386,8 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorP(PyObjec
     bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorP(time, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -2405,8 +2413,8 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorD(PyObjec
     bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorD(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);

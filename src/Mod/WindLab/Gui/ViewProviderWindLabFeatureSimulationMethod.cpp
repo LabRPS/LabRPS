@@ -137,9 +137,6 @@ void ViewProviderWindLabFeatureSimulationMethod::setupContextMenu(QMenu* menu, Q
     QAction* simulate = menu->addAction(QObject::tr("Simulate"));
     func->trigger(simulate, boost::bind(&ViewProviderWindLabFeatureSimulationMethod::simulate, this));
 
-    QAction* simulateLargeScale = menu->addAction(QObject::tr("SimulateInLargeScaleMode"));
-    func->trigger(simulateLargeScale, boost::bind(&ViewProviderWindLabFeatureSimulationMethod::simulateInLargeScaleMode, this));
-
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderWindLabFeatureSimulationMethod::OnInitialSetting, this));
 
@@ -178,13 +175,6 @@ bool ViewProviderWindLabFeatureSimulationMethod::stop()
         }
     }
     return false;
-}
-
-bool ViewProviderWindLabFeatureSimulationMethod::simulateInLargeScaleMode()
-{
-   
-    return runFeatureMethod(WindLab::WindLabUtils::SimulateInLargeScaleMode);
-    
 }
 
 bool ViewProviderWindLabFeatureSimulationMethod::OnInitialSetting()

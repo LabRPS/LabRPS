@@ -43,8 +43,6 @@ DlgSettingsWindLabLimitImp::~DlgSettingsWindLabLimitImp()
 
 void DlgSettingsWindLabLimitImp::saveSettings()
 {
- ui->cb_lm_AutoLargeScaleMode->onSave();
-
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/WindLab/Limit");
 
@@ -64,8 +62,6 @@ void DlgSettingsWindLabLimitImp::saveSettings()
 
 void DlgSettingsWindLabLimitImp::loadSettings()
 {
-    ui->cb_lm_AutoLargeScaleMode->onRestore();
-
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/WindLab/Limit");
 

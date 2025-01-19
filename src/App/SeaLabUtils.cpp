@@ -115,7 +115,6 @@ QString SeaLabUtils::ComputeShearVelocityOfFlowVectorT = QString::fromLatin1("Co
 QString SeaLabUtils::ComputeShearVelocityOfFlowVectorP = QString::fromLatin1("ComputeShearVelocityOfFlowVectorP");
 
 QString SeaLabUtils::Simulate = QString::fromLatin1("Simulate");
-QString SeaLabUtils::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");
 
 QString SeaLabUtils::ComputeSkewnessValue = QString::fromLatin1("ComputeSkewnessValue");
 QString SeaLabUtils::ComputeSkewnessVectorP = QString::fromLatin1("ComputeSkewnessVectorP");

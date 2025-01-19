@@ -20,11 +20,6 @@
           <UserDocu>Simulate the random ground motion</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="simulateInLargeScaleMode">
-        <Documentation>
-          <UserDocu>Simulate the random ground motion in large scale mode</UserDocu>
-        </Documentation>
-      </Methode>
     </PythonExport>
 </GenerateModel>
  

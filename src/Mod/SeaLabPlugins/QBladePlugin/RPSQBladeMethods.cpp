@@ -93,11 +93,6 @@ bool CRPSQBladeMethods::OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& 
 bool CRPSQBladeMethods::Simulate(const SeaLabAPI::SeaLabSimulationData& Data, cube& dPhenomenon)
 {
 
-    if (Data.largeScaleSimulationMode.getValue()) {
-        Base::Console().Error("The simulation fails.\n");
-        return false;
-    }
-
     LinearWave* linearWave = new LinearWave(
         Data,
         TimeOffset, WaveGeneratorType,
@@ -323,15 +318,3 @@ if (!returnResult) {
    return true;
 }
 
-// The simulation function in large scale mode
-bool CRPSQBladeMethods::SimulateInLargeScaleMode(const SeaLabAPI::SeaLabSimulationData& Data, QString &strFileName)
-{
-    if (!Data.largeScaleSimulationMode.getValue()) {
-        Base::Console().Error("The simulation fails.\n");
-        return false;
-    }
-
-    Base::Console().Error("Sorry, the large scale simulation mode is not implemented for this method yet.\n");
-
-    return false;
-}

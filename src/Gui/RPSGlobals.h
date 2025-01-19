@@ -113,7 +113,6 @@ class GuiExport RPSGlobals : public QObject {
   static QString ComputeDecomposedCrossSpectrumVectorF;
   static QString ComputeDecomposedCrossSpectrumVectorT;
   static QString Simulate;
-  static QString SimulateInLargeScaleMode;
   static QString ComputeXCrossSpectrumVectorF;
   static QString ComputeYCrossSpectrumVectorF;
   static QString ComputeZCrossSpectrumVectorF;

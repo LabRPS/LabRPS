@@ -43,8 +43,6 @@ public:
 
     bool Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon);
 
-    bool SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName);
-
 	void onChanged(const App::Property* prop);
 
 public:

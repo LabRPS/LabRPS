@@ -43,8 +43,6 @@ DlgSettingsSeismicLabLimitImp::~DlgSettingsSeismicLabLimitImp()
 
 void DlgSettingsSeismicLabLimitImp::saveSettings()
 {
- ui->cb_lm_AutoLargeScaleMode->onSave();
-
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeismicLab/Limit");
 
@@ -64,8 +62,6 @@ void DlgSettingsSeismicLabLimitImp::saveSettings()
 
 void DlgSettingsSeismicLabLimitImp::loadSettings()
 {
-    ui->cb_lm_AutoLargeScaleMode->onRestore();
-
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeismicLab/Limit");
 

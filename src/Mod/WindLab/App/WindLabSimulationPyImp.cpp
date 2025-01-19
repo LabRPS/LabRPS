@@ -522,8 +522,8 @@ PyObject *WindLabSimulationPy::computeCrossCoherenceVectorF(PyObject* args)
 
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -553,8 +553,8 @@ PyObject *WindLabSimulationPy::computeCrossCoherenceVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossCoherenceVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -575,8 +575,8 @@ PyObject *WindLabSimulationPy::computeCrossCoherenceMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossCoherenceMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -606,8 +606,8 @@ PyObject *WindLabSimulationPy::computeCrossCorrelationVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossCorrelationVectorT(*locationJ, *locationK, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -625,8 +625,8 @@ PyObject *WindLabSimulationPy::computeCrossCorrelationMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossCorrelationMatrixPP(time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -650,8 +650,8 @@ PyObject *WindLabSimulationPy::computeFrequenciesVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeFrequenciesVectorF(*locationJ, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     Py::List activeArray;
@@ -672,8 +672,8 @@ PyObject *WindLabSimulationPy::computeFrequenciesMatrixFP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeFrequenciesMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -690,8 +690,8 @@ PyObject *WindLabSimulationPy::computeLocationCoordinateMatrixP3(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeLocationCoordinateMatrixP3(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -710,8 +710,8 @@ PyObject *WindLabSimulationPy::computeMeanWindSpeedVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeMeanWindSpeedVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -735,8 +735,8 @@ PyObject *WindLabSimulationPy::computeMeanWindSpeedVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeMeanWindSpeedVectorT(*locationJ, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -760,9 +760,10 @@ PyObject *WindLabSimulationPy::computeModulationVectorT(PyObject* args)
     vec dValVector;
 
     bool result = getWindLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -781,9 +782,10 @@ PyObject *WindLabSimulationPy::computeModulationVectorP(PyObject* args)
     vec dValVector;
 
     bool result = getWindLabSimulationPtr()->computeModulationVectorP(frequency, time, dVarVector, dValVector, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -813,8 +815,8 @@ PyObject *WindLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject* a
     bool result = getWindLabSimulationPtr()->computeDecomposedCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -844,8 +846,8 @@ PyObject *WindLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject* a
     bool result = getWindLabSimulationPtr()->computeDecomposedCrossSpectrumVectorT(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -866,8 +868,8 @@ PyObject *WindLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* 
     bool result = getWindLabSimulationPtr()->computeDecomposedCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -884,8 +886,8 @@ PyObject *WindLabSimulationPy::generateRandomMatrixFP(PyObject* args)
     bool result = getWindLabSimulationPtr()->generateRandomMatrixFP(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -902,8 +904,8 @@ PyObject *WindLabSimulationPy::generateRandomCubeFPS(PyObject* args)
     bool result = getWindLabSimulationPtr()->generateRandomCubeFPS(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult7(resArray, featureName);
@@ -934,8 +936,8 @@ PyObject *WindLabSimulationPy::computeXCrossSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeXCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -965,8 +967,8 @@ PyObject *WindLabSimulationPy::computeXCrossSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeXCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -987,8 +989,8 @@ PyObject *WindLabSimulationPy::computeXCrossSpectrumMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeXCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1011,9 +1013,10 @@ PyObject *WindLabSimulationPy::computeXAutoSpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeXAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1038,8 +1041,8 @@ PyObject *WindLabSimulationPy::computeXAutoSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeXAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1064,8 +1067,8 @@ PyObject *WindLabSimulationPy::computeXAutoSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeXAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1095,8 +1098,8 @@ PyObject *WindLabSimulationPy::computeYCrossSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeYCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1126,8 +1129,8 @@ PyObject *WindLabSimulationPy::computeYCrossSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeYCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1148,8 +1151,8 @@ PyObject *WindLabSimulationPy::computeYCrossSpectrumMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeYCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1172,9 +1175,10 @@ PyObject *WindLabSimulationPy::computeYAutoSpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeYAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1199,8 +1203,8 @@ PyObject *WindLabSimulationPy::computeYAutoSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeYAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1225,8 +1229,8 @@ PyObject *WindLabSimulationPy::computeYAutoSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeYAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1256,8 +1260,8 @@ PyObject *WindLabSimulationPy::computeZCrossSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeZCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1287,8 +1291,8 @@ PyObject *WindLabSimulationPy::computeZCrossSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeZCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1309,8 +1313,8 @@ PyObject *WindLabSimulationPy::computeZCrossSpectrumMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeZCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1333,9 +1337,10 @@ PyObject *WindLabSimulationPy::computeZAutoSpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeZAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1360,8 +1365,8 @@ PyObject *WindLabSimulationPy::computeZAutoSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeZAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1386,8 +1391,8 @@ PyObject *WindLabSimulationPy::computeZAutoSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeZAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1417,8 +1422,8 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossSpectrumVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1448,8 +1453,8 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossSpectrumVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult2(dVarVector, dValVector, featureName);
@@ -1470,8 +1475,8 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCrossSpectrumMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -1494,9 +1499,10 @@ PyObject *WindLabSimulationPy::computeAutoSpectrumValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeAutoSpectrumValue(*location, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -1521,8 +1527,8 @@ PyObject *WindLabSimulationPy::computeAutoSpectrumVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeAutoSpectrumVectorF(*location, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1547,8 +1553,8 @@ PyObject *WindLabSimulationPy::computeAutoSpectrumVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeAutoSpectrumVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult1(dVarVector, dValVector, featureName);
@@ -1576,10 +1582,11 @@ PyObject *WindLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeCrossCoherenceValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1604,10 +1611,11 @@ PyObject *WindLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeCrossCorrelationValue(*locationJ, *locationK, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1627,10 +1635,11 @@ PyObject *WindLabSimulationPy::computeMeanWindSpeedValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeMeanWindSpeedValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1652,10 +1661,11 @@ PyObject *WindLabSimulationPy::computeModulationValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeModulationValue(*location, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1668,10 +1678,11 @@ PyObject *WindLabSimulationPy::computeRandomValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeRandomValue(resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1697,10 +1708,11 @@ PyObject *WindLabSimulationPy::computeXCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeXCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1726,10 +1738,11 @@ PyObject *WindLabSimulationPy::computeYCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeYCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1755,10 +1768,11 @@ PyObject *WindLabSimulationPy::computeZCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeZCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1784,10 +1798,11 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeCrossSpectrumValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult5(resValue, featureName);
 }	
@@ -1807,10 +1822,11 @@ PyObject *WindLabSimulationPy::computeCrossSpectrumValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeFrequencyValue(*location, index, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1860,11 +1876,11 @@ PyObject* WindLabSimulationPy::tableToolCompute(PyObject* args)
         }
 
         bool result = getWindLabSimulationPtr()->tableToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1916,11 +1932,11 @@ PyObject* WindLabSimulationPy::matrixToolCompute(PyObject* args)
         }
 
         bool result = getWindLabSimulationPtr()->matrixToolCompute(inputMatrix, outputMatrix, featureName);
-        if (!result)
-        {
-        Py_INCREF(Py_None);
-        return Py_None;
-        }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
     }
     catch (const Py::Exception&) {
         throw;
@@ -1939,8 +1955,8 @@ PyObject* WindLabSimulationPy::userDefinedRPSObjectCompute(PyObject* args)
     bool result = getWindLabSimulationPtr()->userDefinedRPSObjectCompute(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult4(resArray, featureName);
@@ -1956,10 +1972,11 @@ PyObject *WindLabSimulationPy::computeCPDValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeCPDValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -1975,8 +1992,8 @@ PyObject* WindLabSimulationPy::computeCPDVectorX(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeCPDVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -1998,10 +2015,11 @@ PyObject *WindLabSimulationPy::computeGustFactorValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeGustFactorValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -2018,8 +2036,8 @@ PyObject *WindLabSimulationPy::computeGustFactorVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeGustFactorVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2042,8 +2060,8 @@ PyObject *WindLabSimulationPy::computeGustFactorVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeGustFactorVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2065,10 +2083,11 @@ PyObject *WindLabSimulationPy::computeKurtosisValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeKurtosisValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -2085,8 +2104,8 @@ PyObject *WindLabSimulationPy::computeKurtosisVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeKurtosisVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2109,8 +2128,8 @@ PyObject *WindLabSimulationPy::computeKurtosisVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2132,10 +2151,11 @@ PyObject *WindLabSimulationPy::computePeakFactorValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computePeakFactorValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -2157,8 +2177,8 @@ PyObject *WindLabSimulationPy::computePeakFactorVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeKurtosisVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2181,8 +2201,8 @@ PyObject *WindLabSimulationPy::computePeakFactorVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computePeakFactorVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2198,10 +2218,11 @@ PyObject *WindLabSimulationPy::computePDFValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computePDFValue(x, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -2217,8 +2238,8 @@ PyObject *WindLabSimulationPy::computePDFVectorX(PyObject* args)
     bool result = getWindLabSimulationPtr()->computePDFVectorX(dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2240,10 +2261,11 @@ PyObject *WindLabSimulationPy::computeRoughnessValue(PyObject* args)
      std::string featureName;
 
      bool result = getWindLabSimulationPtr()->computeRoughnessValue(*location, time, resValue, featureName);
-     if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
-     }
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
+    }
 
      return returnResult6(resValue, featureName);
 }	
@@ -2260,8 +2282,8 @@ PyObject *WindLabSimulationPy::computeRoughnessVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeRoughnessVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2284,8 +2306,8 @@ PyObject *WindLabSimulationPy::computeRoughnessVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeRoughnessVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2307,9 +2329,10 @@ PyObject *WindLabSimulationPy::computeShearVelocityOfFlowValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeShearVelocityOfFlowValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2327,8 +2350,8 @@ PyObject *WindLabSimulationPy::computeShearVelocityOfFlowVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeShearVelocityOfFlowVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2351,8 +2374,8 @@ PyObject *WindLabSimulationPy::computeShearVelocityOfFlowVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeShearVelocityOfFlowVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2374,9 +2397,10 @@ PyObject *WindLabSimulationPy::computeSkewnessValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeSkewnessValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2394,8 +2418,8 @@ PyObject *WindLabSimulationPy::computeSkewnessVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeSkewnessVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2418,8 +2442,8 @@ PyObject *WindLabSimulationPy::computeSkewnessVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeSkewnessVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2441,9 +2465,10 @@ PyObject *WindLabSimulationPy::computeStandardDeviationValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeStandardDeviationValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2461,8 +2486,8 @@ PyObject *WindLabSimulationPy::computeStandardDeviationVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeStandardDeviationVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2485,8 +2510,8 @@ PyObject *WindLabSimulationPy::computeStandardDeviationVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeStandardDeviationVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2508,9 +2533,10 @@ PyObject *WindLabSimulationPy::computeTurbulenceIntensityValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeTurbulenceIntensityValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2528,8 +2554,8 @@ PyObject *WindLabSimulationPy::computeTurbulenceIntensityVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeTurbulenceIntensityVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2552,8 +2578,8 @@ PyObject *WindLabSimulationPy::computeTurbulenceIntensityVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeTurbulenceIntensityVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2575,9 +2601,10 @@ PyObject *WindLabSimulationPy::computeTurbulenceScaleValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeTurbulenceScaleValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2595,8 +2622,8 @@ PyObject *WindLabSimulationPy::computeTurbulenceScaleVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeTurbulenceScaleVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2619,8 +2646,8 @@ PyObject *WindLabSimulationPy::computeTurbulenceScaleVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeTurbulenceScaleVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2642,9 +2669,10 @@ PyObject *WindLabSimulationPy::computeVarianceValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeVarianceValue(*location, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult6(resValue, featureName);
@@ -2662,8 +2690,8 @@ PyObject *WindLabSimulationPy::computeVarianceVectorP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeVarianceVectorP(time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2686,8 +2714,8 @@ PyObject *WindLabSimulationPy::computeVarianceVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeVarianceVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult1(dVarVector, dValVector, featureName);
@@ -2717,8 +2745,8 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectVectorF(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeWavePassageEffectVectorF(*locationJ, *locationK, time, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -2747,8 +2775,8 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectVectorT(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeWavePassageEffectVectorT(*locationJ, *locationK, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult2(dVarVector, dValVector, featureName);
@@ -2768,8 +2796,8 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectMatrixPP(PyObject* args)
     bool result = getWindLabSimulationPtr()->computeWavePassageEffectMatrixPP(frequency, time, resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     return returnResult3(resArray, featureName, displayOption);
@@ -2796,9 +2824,10 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
     std::string featureName;
 
     bool result = getWindLabSimulationPtr()->computeWavePassageEffectValue(*locationJ, *locationK, frequency, time, resValue, featureName);
-    if (!result) {
-    Py_INCREF(Py_None);
-    return Py_None;
+    if (!result)
+    {
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
      return returnResult5(resValue, featureName);
@@ -2816,8 +2845,8 @@ PyObject* WindLabSimulationPy::simulate(PyObject* args)
     bool result = getWindLabSimulationPtr()->simulate(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     if (sampleIndex >= 0 && sampleIndex <= getWindLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
@@ -2833,20 +2862,7 @@ PyObject* WindLabSimulationPy::simulate(PyObject* args)
     }
 
 }
-PyObject* WindLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
-{
-     if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
-    
-    std::string featureName;
 
-    bool result = getWindLabSimulationPtr()->simulateInLargeScaleMode(featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
-    }
-}
 
 PyObject* WindLabSimulationPy::setActiveFeature(PyObject* args)
 {

@@ -693,12 +693,6 @@
 			  <UserDocu>run the simulate function from the active simulation method feature</UserDocu>
 		  </Documentation>
 	  </Methode>
-	      <Methode Name="simulateInLargeScaleMode">
-		  <Documentation>
-			  <UserDocu>run the simulateInLargeScaleMode function from the active simulation method feature</UserDocu>
-		  </Documentation>
-	  </Methode>
-
 	  <Methode Name="findAllPluggedWindLabFeatures">
 		  <Documentation>
 			  <UserDocu>Find all installed feature type</UserDocu>

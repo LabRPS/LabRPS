@@ -73,7 +73,7 @@ QString SeaLabAllFeaturesComputation::logSimulationInfo(bool status, const QStri
         profile = SeaLab::SeaLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = SeaLab::SeaLabUtils::makeHtmlTable(34, 2, false, profile);
+    table = SeaLab::SeaLabUtils::makeHtmlTable(33, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetSeaLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -132,15 +132,6 @@ QString SeaLabAllFeaturesComputation::logSimulationInfo(bool status, const QStri
     else
     {
         table = table.arg(tr("Gaussianity"), QString::fromLatin1("Non-Gaussian"));
-    }
-
-    if (true == m_sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("Yes"));
-    }
-    else
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("No"));
     }
 
     if(true == status)
@@ -340,10 +331,6 @@ void SeaLabAllFeaturesComputation::startSimulationWorker(QString function, const
     {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-    }
-    else if(function == SeaLab::SeaLabUtils::SimulateInLargeScaleMode) {
-        simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
     else if(function == SeaLab::SeaLabUtils::ComputeSkewnessValue) {
         simulationWorker->setComputingFunction(function);

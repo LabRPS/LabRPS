@@ -100,7 +100,6 @@ public Q_SLOTS:
     bool workerComputeShearVelocityOfFlowVectorP();
 
     bool workerSimulate();
-    bool workerSimulateInLargeScaleMode();
 
     bool workerComputeSkewnessValue();
     bool workerComputeSkewnessVectorP();

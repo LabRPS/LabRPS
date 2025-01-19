@@ -32,4 +32,3 @@ QString UserLabUtils::objGroupSimulationMethod =  QString::fromLatin1("Simulatio
 QString UserLabUtils::docRPSFeatures =  QString::fromLatin1("RPS Features");
 QString UserLabUtils::docSimulations =  QString::fromLatin1("Simulations");
 QString UserLabUtils::Simulate = QString::fromLatin1("Simulate");
-QString UserLabUtils::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");

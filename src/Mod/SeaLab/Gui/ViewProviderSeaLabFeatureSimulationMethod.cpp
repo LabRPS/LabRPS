@@ -137,9 +137,6 @@ void ViewProviderSeaLabFeatureSimulationMethod::setupContextMenu(QMenu* menu, QO
     QAction* simulate = menu->addAction(QObject::tr("Simulate"));
     func->trigger(simulate, boost::bind(&ViewProviderSeaLabFeatureSimulationMethod::simulate, this));
 
-    QAction* simulateLargeScale = menu->addAction(QObject::tr("SimulateInLargeScaleMode"));
-    func->trigger(simulateLargeScale, boost::bind(&ViewProviderSeaLabFeatureSimulationMethod::simulateInLargeScaleMode, this));
-
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderSeaLabFeatureSimulationMethod::OnInitialSetting, this));
 
@@ -177,12 +174,6 @@ bool ViewProviderSeaLabFeatureSimulationMethod::stop()
     return false;
 }
 
-bool ViewProviderSeaLabFeatureSimulationMethod::simulateInLargeScaleMode()
-{
-   
-    return runFeatureMethod(SeaLab::SeaLabUtils::SimulateInLargeScaleMode);
-    
-}
 
 bool ViewProviderSeaLabFeatureSimulationMethod::OnInitialSetting()
 {

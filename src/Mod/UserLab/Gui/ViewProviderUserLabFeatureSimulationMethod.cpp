@@ -137,9 +137,6 @@ void ViewProviderUserLabFeatureSimulationMethod::setupContextMenu(QMenu* menu, Q
     QAction* simulate = menu->addAction(QObject::tr("Simulate"));
     func->trigger(simulate, boost::bind(&ViewProviderUserLabFeatureSimulationMethod::simulate, this));
 
-    QAction* simulateLargeScale = menu->addAction(QObject::tr("SimulateInLargeScaleMode"));
-    func->trigger(simulateLargeScale, boost::bind(&ViewProviderUserLabFeatureSimulationMethod::simulateInLargeScaleMode, this));
-
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderUserLabFeatureSimulationMethod::OnInitialSetting, this));
 
@@ -172,13 +169,6 @@ bool ViewProviderUserLabFeatureSimulationMethod::stop()
     }
 
     return false;
-}
-
-bool ViewProviderUserLabFeatureSimulationMethod::simulateInLargeScaleMode()
-{
-   
-    return runFeatureMethod(UserLab::UserLabUtils::SimulateInLargeScaleMode);
-    
 }
 
 bool ViewProviderUserLabFeatureSimulationMethod::OnInitialSetting()

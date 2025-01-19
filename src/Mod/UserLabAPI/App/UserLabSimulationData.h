@@ -94,9 +94,6 @@ class RPS_CORE_API UserLabSimulationData : public UserLabAPI::UserLabFeature
 	// whether we are doing comparison or not
 	App::PropertyBool  comparisonMode;
 
-	// whether we are doing large scale simulation or not
-	App::PropertyBool  largeScaleSimulationMode;
-
 	// simulation successfull or not flag
 	App::PropertyBool isSimulationSuccessful;
 

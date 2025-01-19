@@ -51,20 +51,6 @@ PyObject* ViewProviderSeismicLabFeatureSimulationMethodPy::simulate(PyObject* ar
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeismicLabFeatureSimulationMethodPy::simulateInLargeScaleMode(PyObject* args)
-{
-    if (!PyArg_ParseTuple(args, ""))
-        return nullptr;
-
-    ViewProviderSeismicLabFeatureSimulationMethod* vp = this->getViewProviderSeismicLabFeatureSimulationMethodPtr();
-    if (vp)
-    {
-        bool ok = vp->simulateInLargeScaleMode();
-        return Py::new_reference_to(Py::Boolean(ok));
-    }
-
-    Py_RETURN_NONE;
-}
 
 PyObject *ViewProviderSeismicLabFeatureSimulationMethodPy::getCustomAttributes(const char* /*attr*/) const
 {
