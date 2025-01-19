@@ -46,7 +46,6 @@ class AppExport UserLabUtils {
   static QString docRPSFeatures;
   static QString docSimulations;
   static QString Simulate;
-  static QString SimulateInLargeScaleMode;
 
 };
 

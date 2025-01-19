@@ -106,7 +106,6 @@ QString RPSGlobals::ComputeDecomposedCrossSpectrumVectorF = tr("ComputeDecompose
 QString RPSGlobals::ComputeDecomposedCrossSpectrumVectorT = tr("ComputeDecomposedCrossSpectrumVectorT");
 
 QString RPSGlobals::Simulate = QString::fromLatin1("Simulate");
-QString RPSGlobals::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");
 QString RPSGlobals::ComputeXCrossSpectrumVectorF = QString::fromLatin1("ComputeXCrossSpectrumVectorF");
 QString RPSGlobals::ComputeYCrossSpectrumVectorF = QString::fromLatin1("ComputeYCrossSpectrumVectorF");
 QString RPSGlobals::ComputeZCrossSpectrumVectorF = QString::fromLatin1("ComputeZCrossSpectrumVectorF");

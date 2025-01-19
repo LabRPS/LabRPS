@@ -176,6 +176,9 @@ void ViewProviderSeaLabFeatureDirectionalSpectrum::setupContextMenu(QMenu* menu,
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpectrum::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpectrum::goToWiki, this));
 }
 
 

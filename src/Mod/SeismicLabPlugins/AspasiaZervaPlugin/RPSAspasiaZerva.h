@@ -43,8 +43,6 @@ public:
 
     bool Simulate(const SeismicLabAPI::SeismicLabSimulationData& Data, cube &dPhenomenon);
 
-    bool SimulateInLargeScaleMode(const SeismicLabAPI::SeismicLabSimulationData& Data, QString &strFileName);
-
 public:
     App::PropertyAcceleration StandardDeviation; 
     App::PropertyFrequency DominantFrequency;

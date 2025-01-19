@@ -29,6 +29,7 @@ PROPERTY_SOURCE(WindLab::ZervaModelFrequencyDistribution, WindLabAPI::WindLabFea
 
 ZervaModelFrequencyDistribution::ZervaModelFrequencyDistribution()
 {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Zerva_Frequency_Discretization");
 }
 
 bool ZervaModelFrequencyDistribution::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)

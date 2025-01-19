@@ -163,6 +163,9 @@ void ViewProviderSeaLabFeatureCoherence::setupContextMenu(QMenu* menu, QObject*,
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureCoherence::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureCoherence::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureCoherence::ComputeCrossCoherenceValue() 

@@ -121,6 +121,9 @@ void ViewProviderSeaLabFeatureUserDefinedRPSObject::setupContextMenu(QMenu* menu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureUserDefinedRPSObject::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureUserDefinedRPSObject::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureUserDefinedRPSObject::userDefinedRPSObjectCompute()

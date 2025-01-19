@@ -85,7 +85,6 @@ public:
 	App::PropertyBool Stationarity;
 	App::PropertyBool Gaussianity;
 	App::PropertyBool  ComparisonMode;
-	App::PropertyBool  LargeScaleSimulationMode;
 	App::PropertyBool IsSimulationSuccessful;
 	App::PropertyBool IsInterruptionRequested;
 	App::PropertyBool UniformModulation;
@@ -179,7 +178,6 @@ public:
     std::vector <App::RPSFeature*> getAllFeatures(const QString group);
 
     bool simulate(cube &dPhenomenon, std::string& featureName);
-    bool simulateInLargeScaleMode(std::string& featureName);
     App::DocumentObject* addFeature(const std::string featureName, const std::string simulationName, const std::string featureTypeName, const std::string featureGroup);
 public:
     /** Called when a simulation should be aborted */

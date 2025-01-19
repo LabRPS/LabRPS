@@ -400,12 +400,12 @@ class CheckSingleUpdateWorker(QtCore.QObject):
     def do_work(self):
         # Borrow the function from another class:
         checker = UpdateChecker()
-        if self.repo.repo_type == Addon.Kind.WORKBENCH:
-            checker.check_workbench(self.repo)
-        elif self.repo.repo_type == Addon.Kind.MACRO:
+        # if self.repo.repo_type == Addon.Kind.WORKBENCH:
+        #     checker.check_workbench(self.repo)
+        if self.repo.repo_type == Addon.Kind.MACRO:
             checker.check_macro(self.repo)
-        elif self.repo.repo_type == Addon.Kind.PACKAGE:
-            checker.check_package(self.repo)
+        # elif self.repo.repo_type == Addon.Kind.PACKAGE:
+        #     checker.check_package(self.repo)
         elif self.repo.repo_type == Addon.Kind.PLUGIN:
             checker.check_plugin(self.repo)
 
@@ -436,15 +436,15 @@ class CheckWorkbenchesForUpdatesWorker(QtCore.QThread):
             self.progress_made.emit(count, len(self.repos))
             count += 1
             if repo.status() == Addon.Status.UNCHECKED:
-                if repo.repo_type == Addon.Kind.WORKBENCH:
-                    checker.check_workbench(repo)
-                    self.update_status.emit(repo)
-                elif repo.repo_type == Addon.Kind.MACRO:
+                # if repo.repo_type == Addon.Kind.WORKBENCH:
+                #     checker.check_workbench(repo)
+                    # self.update_status.emit(repo)
+                if repo.repo_type == Addon.Kind.MACRO:
                     checker.check_macro(repo)
                     self.update_status.emit(repo)
-                elif repo.repo_type == Addon.Kind.PACKAGE:
-                    checker.check_package(repo)
-                    self.update_status.emit(repo)
+                # elif repo.repo_type == Addon.Kind.PACKAGE:
+                #     checker.check_package(repo)
+                #     self.update_status.emit(repo)
                 elif repo.repo_type == Addon.Kind.PLUGIN:
                     checker.check_plugin(repo)
 
@@ -551,12 +551,12 @@ class UpdateChecker:
                 macro_wrapper.macro.fill_details_from_file(
                     macro_wrapper.macro.src_filename
                 )
-            elif not macro_wrapper.macro.parsed and macro_wrapper.macro.on_wiki:
-                mac = macro_wrapper.macro.name.replace(" ", "_")
-                mac = mac.replace("&", "%26")
-                mac = mac.replace("+", "%2B")
-                url = "https://wiki.labrps.com/Macro_" + mac
-                macro_wrapper.macro.fill_details_from_wiki(url)
+            # elif not macro_wrapper.macro.parsed and macro_wrapper.macro.on_wiki:
+            #     mac = macro_wrapper.macro.name.replace(" ", "_")
+            #     mac = mac.replace("&", "%26")
+            #     mac = mac.replace("+", "%2B")
+            #     url = "https://wiki.labrps.com/Macro_" + mac
+            #     macro_wrapper.macro.fill_details_from_wiki(url)
         except Exception:
             LabRPS.Console.PrintWarning(
                 translate(
@@ -602,12 +602,12 @@ class UpdateChecker:
                 plugin_wrapper.plugin.fill_details_from_file(
                     plugin_wrapper.plugin.src_filename
                 )
-            elif not plugin_wrapper.plugin.parsed and plugin_wrapper.plugin.on_wiki:
-                mac = plugin_wrapper.plugin.name.replace(" ", "_")
-                mac = mac.replace("&", "%26")
-                mac = mac.replace("+", "%2B")
-                url = "https://wiki.labrps.com/Plugin" + mac
-                plugin_wrapper.plugin.fill_details_from_wiki(url)
+            # elif not plugin_wrapper.plugin.parsed and plugin_wrapper.plugin.on_wiki:
+            #     mac = plugin_wrapper.plugin.name.replace(" ", "_")
+            #     mac = mac.replace("&", "%26")
+            #     mac = mac.replace("+", "%2B")
+            #     url = "https://wiki.labrps.com/Plugin" + mac
+            #     plugin_wrapper.plugin.fill_details_from_wiki(url)
         except Exception:
             LabRPS.Console.PrintWarning(
                 translate(
@@ -674,14 +674,14 @@ class FillMacroListWorker(QtCore.QThread):
             )
             self.retrieve_macros_from_git()
 
-        if not self.current_thread.isInterruptionRequested():
-            self.status_message_signal.emit(
-                translate(
-                    "AddonsInstaller",
-                    "Retrieving macros from LabRPS wiki",
-                )
-            )
-            self.retrieve_macros_from_wiki()
+        # if not self.current_thread.isInterruptionRequested():
+        #     self.status_message_signal.emit(
+        #         translate(
+        #             "AddonsInstaller",
+        #             "Retrieving macros from LabRPS wiki",
+        #         )
+        #     )
+        #     self.retrieve_macros_from_wiki()
 
         if self.current_thread.isInterruptionRequested():
             return
@@ -854,14 +854,14 @@ class FillPluginListWorker(QtCore.QThread):
             )
             self.retrieve_plugins_from_git()
 
-        if not self.current_thread.isInterruptionRequested():
-            self.status_message_signal.emit(
-                translate(
-                    "AddonsInstaller",
-                    "Retrieving plugins from LabRPS wiki",
-                )
-            )
-            self.retrieve_plugins_from_wiki()
+        # if not self.current_thread.isInterruptionRequested():
+        #     self.status_message_signal.emit(
+        #         translate(
+        #             "AddonsInstaller",
+        #             "Retrieving plugins from LabRPS wiki",
+        #         )
+        #     )
+        #     self.retrieve_plugins_from_wiki()
 
         if self.current_thread.isInterruptionRequested():
             return
@@ -1298,15 +1298,15 @@ class GetMacroDetailsWorker(QtCore.QThread):
                 translate("AddonsInstaller", "Retrieving info from git")
             )
             self.macro.fill_details_from_file(self.macro.src_filename)
-        if not self.macro.parsed and self.macro.on_wiki:
-            self.status_message.emit(
-                translate("AddonsInstaller", "Retrieving info from wiki")
-            )
-            mac = self.macro.name.replace(" ", "_")
-            mac = mac.replace("&", "%26")
-            mac = mac.replace("+", "%2B")
-            url = "https://wiki.labrps.com/Macro_" + mac
-            self.macro.fill_details_from_wiki(url)
+        # if not self.macro.parsed and self.macro.on_wiki:
+        #     self.status_message.emit(
+        #         translate("AddonsInstaller", "Retrieving info from wiki")
+        #     )
+        #     mac = self.macro.name.replace(" ", "_")
+        #     mac = mac.replace("&", "%26")
+        #     mac = mac.replace("+", "%2B")
+        #     url = "https://wiki.labrps.com/Macro_" + mac
+        #     self.macro.fill_details_from_wiki(url)
         message = (
             "<h1>"
             + self.macro.name
@@ -1343,15 +1343,15 @@ class GetPluginDetailsWorker(QtCore.QThread):
                 translate("AddonsInstaller", "Retrieving info from git")
             )
             self.plugin.fill_details_from_file(self.plugin.src_filename)
-        if not self.plugin.parsed and self.plugin.on_wiki:
-            self.status_message.emit(
-                translate("AddonsInstaller", "Retrieving info from wiki")
-            )
-            mac = self.plugin.name.replace(" ", "_")
-            mac = mac.replace("&", "%26")
-            mac = mac.replace("+", "%2B")
-            url = "https://wiki.labrps.com/Plugin_" + mac
-            self.plugin.fill_details_from_wiki(url)
+        # if not self.plugin.parsed and self.plugin.on_wiki:
+        #     self.status_message.emit(
+        #         translate("AddonsInstaller", "Retrieving info from wiki")
+        #     )
+        #     mac = self.plugin.name.replace(" ", "_")
+        #     mac = mac.replace("&", "%26")
+        #     mac = mac.replace("+", "%2B")
+        #     url = "https://wiki.labrps.com/Plugin_" + mac
+        #     self.plugin.fill_details_from_wiki(url)
         message = (
             "<h1>"
             + self.plugin.name
@@ -1563,31 +1563,31 @@ class InstallWorkbenchWorker(QtCore.QThread):
                 "Addon successfully installed.",
             )
 
-        if self.repo.repo_type == Addon.Kind.WORKBENCH:
-            # symlink any macro contained in the module to the macros folder
-            macro_dir = LabRPS.getUserMacroDir(True)
-            if not os.path.exists(macro_dir):
-                os.makedirs(macro_dir)
-            if os.path.exists(clonedir):
-                for f in os.listdir(clonedir):
-                    if f.lower().endswith(".rpsmacro"):
-                        try:
-                            utils.symlink(
-                                os.path.join(clonedir, f), os.path.join(macro_dir, f)
-                            )
-                        except OSError:
-                            # If the symlink failed (e.g. for a non-admin user on Windows), copy the macro instead
-                            shutil.copy(
-                                os.path.join(clonedir, f), os.path.join(macro_dir, f)
-                            )
-                        LabRPS.ParamGet(
-                            "User parameter:Plugins/" + self.repo.name
-                        ).SetString("destination", clonedir)
-                        answer += "\n\n" + translate(
-                            "AddonsInstaller",
-                            "A macro has been installed and is available under Macro -> Macros menu",
-                        )
-                        answer += ":\n<b>" + f + "</b>"
+        # if self.repo.repo_type == Addon.Kind.WORKBENCH:
+        #     # symlink any macro contained in the module to the macros folder
+        #     macro_dir = LabRPS.getUserMacroDir(True)
+        #     if not os.path.exists(macro_dir):
+        #         os.makedirs(macro_dir)
+        #     if os.path.exists(clonedir):
+        #         for f in os.listdir(clonedir):
+        #             if f.lower().endswith(".rpsmacro"):
+        #                 try:
+        #                     utils.symlink(
+        #                         os.path.join(clonedir, f), os.path.join(macro_dir, f)
+        #                     )
+        #                 except OSError:
+        #                     # If the symlink failed (e.g. for a non-admin user on Windows), copy the macro instead
+        #                     shutil.copy(
+        #                         os.path.join(clonedir, f), os.path.join(macro_dir, f)
+        #                     )
+        #                 LabRPS.ParamGet(
+        #                     "User parameter:Plugins/" + self.repo.name
+        #                 ).SetString("destination", clonedir)
+        #                 answer += "\n\n" + translate(
+        #                     "AddonsInstaller",
+        #                     "A macro has been installed and is available under Macro -> Macros menu",
+        #                 )
+        #                 answer += ":\n<b>" + f + "</b>"
         self.update_metadata()
         self.success.emit(self.repo, answer)
 
@@ -1947,43 +1947,44 @@ class UpdateMetadataCacheWorker(QtCore.QThread):
                     self.process_icon(request[0], data)
 
     def process_package_xml(self, repo: Addon, data: QtCore.QByteArray):
-        repo.repo_type = Addon.Kind.PACKAGE  # By definition
-        package_cache_directory = os.path.join(self.store, repo.name)
-        if not os.path.exists(package_cache_directory):
-            os.makedirs(package_cache_directory)
-        new_xml_file = os.path.join(package_cache_directory, "package.xml")
-        with open(new_xml_file, "wb") as f:
-            f.write(data.data())
-        metadata = LabRPS.Metadata(new_xml_file)
-        repo.metadata = metadata
-        self.status_message.emit(
-            translate("AddonsInstaller", "Downloaded package.xml for {}").format(
-                repo.name
-            )
-        )
+        # repo.repo_type = Addon.Kind.PACKAGE  # By definition
+        # package_cache_directory = os.path.join(self.store, repo.name)
+        # if not os.path.exists(package_cache_directory):
+        #     os.makedirs(package_cache_directory)
+        # new_xml_file = os.path.join(package_cache_directory, "package.xml")
+        # with open(new_xml_file, "wb") as f:
+        #     f.write(data.data())
+        # metadata = LabRPS.Metadata(new_xml_file)
+        # repo.metadata = metadata
+        # self.status_message.emit(
+        #     translate("AddonsInstaller", "Downloaded package.xml for {}").format(
+        #         repo.name
+        #     )
+        # )
 
-        # Grab a new copy of the icon as well: we couldn't enqueue this earlier because
-        # we didn't know the path to it, which is stored in the package.xml file.
-        icon = metadata.Icon
-        if not icon:
-            # If there is no icon set for the entire package, see if there are
-            # any workbenches, which are required to have icons, and grab the first
-            # one we find:
-            content = repo.metadata.Content
-            if "workbench" in content:
-                wb = content["workbench"][0]
-                if wb.Icon:
-                    if wb.Subdirectory:
-                        subdir = wb.Subdirectory
-                    else:
-                        subdir = wb.Name
-                    repo.Icon = subdir + wb.Icon
-                    icon = repo.Icon
+        # # Grab a new copy of the icon as well: we couldn't enqueue this earlier because
+        # # we didn't know the path to it, which is stored in the package.xml file.
+        # icon = metadata.Icon
+        # if not icon:
+        #     # If there is no icon set for the entire package, see if there are
+        #     # any workbenches, which are required to have icons, and grab the first
+        #     # one we find:
+        #     content = repo.metadata.Content
+        #     if "workbench" in content:
+        #         wb = content["workbench"][0]
+        #         if wb.Icon:
+        #             if wb.Subdirectory:
+        #                 subdir = wb.Subdirectory
+        #             else:
+        #                 subdir = wb.Name
+        #             repo.Icon = subdir + wb.Icon
+        #             icon = repo.Icon
 
-        icon_url = utils.construct_git_url(repo, icon)
-        index = NetworkManager.AM_NETWORK_MANAGER.submit_unmonitored_get(icon_url)
-        self.requests[index] = (repo, UpdateMetadataCacheWorker.RequestType.ICON)
-        self.total_requests += 1
+        # icon_url = utils.construct_git_url(repo, icon)
+        # index = NetworkManager.AM_NETWORK_MANAGER.submit_unmonitored_get(icon_url)
+        # self.requests[index] = (repo, UpdateMetadataCacheWorker.RequestType.ICON)
+        # self.total_requests += 1
+          print("")
 
     def process_metadata_txt(self, repo: Addon, data: QtCore.QByteArray):
         self.status_message.emit(

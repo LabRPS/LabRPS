@@ -71,7 +71,7 @@ QString UserLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
         profile = UserLab::UserLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = UserLab::UserLabUtils::makeHtmlTable(7, 2, false, profile);
+    table = UserLab::UserLabUtils::makeHtmlTable(6, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetUserLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -101,15 +101,6 @@ QString UserLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
     else
     {
         table = table.arg(tr("Gaussianity"), QString::fromLatin1("Non-Gaussian"));
-    }
-
-    if (true == m_sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("Yes"));
-    }
-    else
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("No"));
     }
 
     if(true == status)
@@ -156,10 +147,6 @@ void UserLabAllFeaturesComputation::startSimulationWorker(QString function, cons
     {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-    }
-    else if(function == UserLab::UserLabUtils::SimulateInLargeScaleMode) {
-        simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
     
     QProgressBar* bar = Gui::SequencerBar::instance()->getProgressBar();

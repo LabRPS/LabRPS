@@ -24,7 +24,7 @@ private Q_SLOTS:
   void uninstall();
   void modify();
   void close();
-  void refresh();
+  void help();
   void updateButton();
   void fillLocalPluginsList(const QString& workbenchName);
   void fillOnlinePluginsList();

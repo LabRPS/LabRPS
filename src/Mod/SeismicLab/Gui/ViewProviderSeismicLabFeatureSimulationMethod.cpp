@@ -137,9 +137,6 @@ void ViewProviderSeismicLabFeatureSimulationMethod::setupContextMenu(QMenu* menu
     QAction* simulate = menu->addAction(QObject::tr("Simulate"));
     func->trigger(simulate, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::simulate, this));
 
-    QAction* simulateLargeScale = menu->addAction(QObject::tr("SimulateInLargeScaleMode"));
-    func->trigger(simulateLargeScale, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::simulateInLargeScaleMode, this));
-
     QAction* init = menu->addAction(QObject::tr("Setup Feature"));
     func->trigger(init, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::OnInitialSetting, this));
 
@@ -148,6 +145,9 @@ void ViewProviderSeismicLabFeatureSimulationMethod::setupContextMenu(QMenu* menu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureSimulationMethod::goToWiki, this));
 
 }
 
@@ -172,12 +172,6 @@ bool ViewProviderSeismicLabFeatureSimulationMethod::stop()
     return false;
 }
 
-bool ViewProviderSeismicLabFeatureSimulationMethod::simulateInLargeScaleMode()
-{
-   
-    return runFeatureMethod(SeismicLab::SeismicLabUtils::SimulateInLargeScaleMode);
-    
-}
 
 bool ViewProviderSeismicLabFeatureSimulationMethod::OnInitialSetting()
 {

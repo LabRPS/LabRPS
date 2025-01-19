@@ -23,9 +23,6 @@ public:
 	// The simulation function 
     bool Simulate(const SeaLabAPI::SeaLabSimulationData& Data, cube& dPhenomenon);
 
-	// The simulation function in large scale mode 
-    bool SimulateInLargeScaleMode(const SeaLabAPI::SeaLabSimulationData& Data, QString &strFileName);
-
     //virtual void onChanged(const App::Property* prop);
 
 public:

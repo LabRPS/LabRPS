@@ -48,7 +48,6 @@ public:
 
     bool simulate();
     bool stop();
-    bool simulateInLargeScaleMode();
     bool ActivateFeature();
     bool OnInitialSetting();
 

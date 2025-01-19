@@ -40,7 +40,8 @@ PROPERTY_SOURCE(WindLab::CRPSImportSimulationPointsFromFile, WindLabAPI::WindLab
 CRPSImportSimulationPointsFromFile::CRPSImportSimulationPointsFromFile()
 {
   ADD_PROPERTY_TYPE(FilePath, (""), "Parameters", App::Prop_None, "The directory to import the simulation points from");
-  
+  this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Import_Simulation_Points_from_File");
+
 }
 
 
@@ -75,14 +76,14 @@ int CRPSImportSimulationPointsFromFile::ReadSimulationPointsFromFile(const WindL
 {
     QFile inputFile(file_path);
 
-    if (dPointArray.rows() == Data.numberOfFrequency.getValue())
+    if (dPointArray.rows() != Data.numberOfSpatialPosition.getValue())
     {
-        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files does not match the number of simulation points.\n");
+        Base::Console().Error("The importing of the simulation points has failed because the number of rows in the files does not match the number of simulation points.\n");
         return 0;
     }
-    if (dPointArray.cols() == 4)
+    if (dPointArray.cols() != 4)
     {
-        Base::Console().Error("The random phase angles importing has failed because the number of rows in the files is not 4.\n");
+        Base::Console().Error("The importing of the simulation points has failed because the number of rows in the files is not 4.\n");
         return 0;
     }
 
@@ -108,8 +109,10 @@ int CRPSImportSimulationPointsFromFile::ReadSimulationPointsFromFile(const WindL
 	    }
 
         inputFile.close();
-    }
 
-return 1;
+        return 1;
+    }
+Base::Console().Error("The importing of the simulation points has failed. Invalid file.\n");
+return 0;
 }
 

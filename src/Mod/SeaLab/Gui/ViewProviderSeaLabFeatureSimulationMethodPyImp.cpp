@@ -51,21 +51,6 @@ PyObject* ViewProviderSeaLabFeatureSimulationMethodPy::simulate(PyObject* args)
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureSimulationMethodPy::simulateInLargeScaleMode(PyObject* args)
-{
-    if (!PyArg_ParseTuple(args, ""))
-        return nullptr;
-
-    ViewProviderSeaLabFeatureSimulationMethod* vp = this->getViewProviderSeaLabFeatureSimulationMethodPtr();
-    if (vp)
-    {
-        bool ok = vp->simulateInLargeScaleMode();
-        return Py::new_reference_to(Py::Boolean(ok));
-    }
-
-    Py_RETURN_NONE;
-}
-
 PyObject *ViewProviderSeaLabFeatureSimulationMethodPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;

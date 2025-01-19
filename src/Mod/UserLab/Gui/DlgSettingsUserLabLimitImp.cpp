@@ -43,8 +43,6 @@ DlgSettingsUserLabLimitImp::~DlgSettingsUserLabLimitImp()
 
 void DlgSettingsUserLabLimitImp::saveSettings()
 {
- ui->cb_lm_AutoLargeScaleMode->onSave();
-
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/UserLab/Limit");
 
@@ -64,8 +62,6 @@ void DlgSettingsUserLabLimitImp::saveSettings()
 
 void DlgSettingsUserLabLimitImp::loadSettings()
 {
-    ui->cb_lm_AutoLargeScaleMode->onRestore();
-
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/UserLab/Limit");
 

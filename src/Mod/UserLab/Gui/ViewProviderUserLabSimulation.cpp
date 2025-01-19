@@ -123,16 +123,9 @@ bool ViewProviderUserLabSimulation::run()
         sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
-
-    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        vp->simulate();
-    }
-    else
-    {
-        vp->simulateInLargeScaleMode();
-    }
     
+    vp->simulate();
+
     sim->setStatus(App::SimulationStatus::Running, true);
     return true;
 }

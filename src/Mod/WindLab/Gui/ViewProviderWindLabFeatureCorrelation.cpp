@@ -152,6 +152,9 @@ void ViewProviderWindLabFeatureCorrelation::setupContextMenu(QMenu* menu, QObjec
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureCorrelation::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderWindLabFeatureCorrelation::goToWiki, this));
 }
 
 bool ViewProviderWindLabFeatureCorrelation::computeCrossCorrelationValue()

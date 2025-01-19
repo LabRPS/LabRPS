@@ -148,6 +148,7 @@ bool ViewProviderWindLabSimulation::run()
         sim->setStatus(App::SimulationStatus::Failed, true);
         return false;
     }
+    
     WindLabGui::ViewProviderWindLabFeatureSimulationMethod* vp = dynamic_cast<WindLabGui::ViewProviderWindLabFeatureSimulationMethod*>(Gui::Application::Instance->getViewProvider(activeMethod));
 
     if (!vp) {
@@ -155,14 +156,7 @@ bool ViewProviderWindLabSimulation::run()
         return false;
     }
 
-    if (!sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        vp->simulate();
-    }
-    else
-    {
-        vp->simulateInLargeScaleMode();
-    }
+    vp->simulate();
     
     sim->setStatus(App::SimulationStatus::Running, true);
     return true;

@@ -54,7 +54,6 @@ WindLabSimulationData::WindLabSimulationData()
 	ADD_PROPERTY_TYPE(stationarity, (true), 0, Prop_None, "This specifies whether the simulated wind is stationary or not.");
 	ADD_PROPERTY_TYPE(gaussianity, (true), 0, Prop_None, "This specifies whether the simulated wind is gaussian or not.");
 	ADD_PROPERTY_TYPE(comparisonMode, (false), 0, Prop_None, "This specifies whether we are in comparison mode or not.");
-	ADD_PROPERTY_TYPE(largeScaleSimulationMode, (false), 0, Prop_None, "This specifies whether we are in large scale simulation or not.");
 	ADD_PROPERTY_TYPE(isSimulationSuccessful, (false), 0, Prop_None, "This specifies whether the simulation was successful or not.");
 	ADD_PROPERTY_TYPE(isInterruptionRequested, (false), 0, Prop_None, "This specifies whether the simulation has been interrupted or not.");
 	ADD_PROPERTY_TYPE(uniformModulation, (true), 0, Prop_None, "This specifies whether a non stataionary wind is uniformly modulated or not.");

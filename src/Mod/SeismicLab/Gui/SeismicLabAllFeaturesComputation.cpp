@@ -73,7 +73,7 @@ QString SeismicLabAllFeaturesComputation::logSimulationInfo(bool status, const Q
         profile = SeismicLab::SeismicLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = SeismicLab::SeismicLabUtils::makeHtmlTable(32, 2, false, profile);
+    table = SeismicLab::SeismicLabUtils::makeHtmlTable(31, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetSeismicLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -130,15 +130,6 @@ QString SeismicLabAllFeaturesComputation::logSimulationInfo(bool status, const Q
     else
     {
         table = table.arg(tr("Gaussianity"), QString::fromLatin1("Non-Gaussian"));
-    }
-
-    if (true == m_sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("Yes"));
-    }
-    else
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("No"));
     }
 
     if(true == status)
@@ -338,10 +329,6 @@ void SeismicLabAllFeaturesComputation::startSimulationWorker(QString function, c
     {
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-    }
-    else if(function == SeismicLab::SeismicLabUtils::SimulateInLargeScaleMode) {
-        simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
     }
     else if(function == SeismicLab::SeismicLabUtils::ComputeSkewnessValue) {
         simulationWorker->setComputingFunction(function);

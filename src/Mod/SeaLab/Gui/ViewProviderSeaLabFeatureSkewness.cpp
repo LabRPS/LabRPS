@@ -152,6 +152,9 @@ void ViewProviderSeaLabFeatureSkewness::setupContextMenu(QMenu* menu, QObject*, 
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureSkewness::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureSkewness::goToWiki, this));
 }
 
 

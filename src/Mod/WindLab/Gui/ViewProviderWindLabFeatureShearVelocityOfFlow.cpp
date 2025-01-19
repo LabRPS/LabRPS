@@ -153,6 +153,9 @@ void ViewProviderWindLabFeatureShearVelocityOfFlow::setupContextMenu(QMenu* menu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureShearVelocityOfFlow::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderWindLabFeatureShearVelocityOfFlow::goToWiki, this));
 }
 
 bool ViewProviderWindLabFeatureShearVelocityOfFlow::computeShearVelocityOfFlowValue()

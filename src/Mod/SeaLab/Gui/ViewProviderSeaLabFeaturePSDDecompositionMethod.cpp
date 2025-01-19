@@ -151,6 +151,9 @@ void ViewProviderSeaLabFeaturePSDDecompositionMethod::setupContextMenu(QMenu* me
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeaturePSDDecompositionMethod::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeaturePSDDecompositionMethod::computeDecomposedCrossSpectrumMatrixPP()

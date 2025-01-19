@@ -51,21 +51,6 @@ PyObject* ViewProviderWindLabFeatureSimulationMethodPy::simulate(PyObject* args)
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderWindLabFeatureSimulationMethodPy::simulateInLargeScaleMode(PyObject* args)
-{
-    if (!PyArg_ParseTuple(args, ""))
-        return nullptr;
-
-    ViewProviderWindLabFeatureSimulationMethod* vp = this->getViewProviderWindLabFeatureSimulationMethodPtr();
-    if (vp)
-    {
-        bool ok = vp->simulateInLargeScaleMode();
-        return Py::new_reference_to(Py::Boolean(ok));
-    }
-
-    Py_RETURN_NONE;
-}
-
 PyObject *ViewProviderWindLabFeatureSimulationMethodPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;

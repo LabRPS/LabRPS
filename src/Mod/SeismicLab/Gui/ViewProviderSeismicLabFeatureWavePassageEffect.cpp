@@ -155,6 +155,9 @@ void ViewProviderSeismicLabFeatureWavePassageEffect::setupContextMenu(QMenu* men
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureWavePassageEffect::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureWavePassageEffect::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeatureWavePassageEffect::computeWavePassageEffectValue()

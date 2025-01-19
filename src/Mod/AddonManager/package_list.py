@@ -206,15 +206,15 @@ class PackageListItemModel(QAbstractListModel):
         row = index.row()
         if role == Qt.ToolTipRole:
             tooltip = ""
-            if self.repos[row].repo_type == Addon.Kind.PACKAGE:
-                tooltip = translate(
-                    "AddonsInstaller", "Click for details about package {}"
-                ).format(self.repos[row].display_name)
-            elif self.repos[row].repo_type == Addon.Kind.WORKBENCH:
-                tooltip = translate(
-                    "AddonsInstaller", "Click for details about workbench {}"
-                ).format(self.repos[row].display_name)
-            elif self.repos[row].repo_type == Addon.Kind.MACRO:
+            # if self.repos[row].repo_type == Addon.Kind.PACKAGE:
+            #     tooltip = translate(
+            #         "AddonsInstaller", "Click for details about package {}"
+            #     ).format(self.repos[row].display_name)
+            # elif self.repos[row].repo_type == Addon.Kind.WORKBENCH:
+            #     tooltip = translate(
+            #         "AddonsInstaller", "Click for details about workbench {}"
+            #     ).format(self.repos[row].display_name)
+            if self.repos[row].repo_type == Addon.Kind.MACRO:
                 tooltip = translate(
                     "AddonsInstaller", "Click for details about macro {}"
                 ).format(self.repos[row].display_name)
@@ -800,17 +800,17 @@ class Ui_PackageList(object):
         self.comboPackageType.setItemText(
             0, QCoreApplication.translate("AddonsInstaller", "All", None)
         )
+        # self.comboPackageType.setItemText(
+        #     1, QCoreApplication.translate("AddonsInstaller", "Workbenches", None)
+        # )
         self.comboPackageType.setItemText(
-            1, QCoreApplication.translate("AddonsInstaller", "Workbenches", None)
+            1, QCoreApplication.translate("AddonsInstaller", "Macros", None)
         )
+        # self.comboPackageType.setItemText(
+        #     3, QCoreApplication.translate("AddonsInstaller", "Preference Packs", None)
+        # )
         self.comboPackageType.setItemText(
-            2, QCoreApplication.translate("AddonsInstaller", "Macros", None)
-        )
-        self.comboPackageType.setItemText(
-            3, QCoreApplication.translate("AddonsInstaller", "Preference Packs", None)
-        )
-        self.comboPackageType.setItemText(
-            4, QCoreApplication.translate("AddonsInstaller", "Plugins", None)
+            2, QCoreApplication.translate("AddonsInstaller", "Plugins", None)
         )
         self.labelStatus.setText(
             QCoreApplication.translate("AddonsInstaller", "Status:", None)

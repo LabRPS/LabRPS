@@ -34,7 +34,6 @@ QString UserLabUtils::docRPSFeatures =  QString::fromLatin1("RPS Features");
 QString UserLabUtils::docSimulations =  QString::fromLatin1("Simulations");
 
 QString UserLabUtils::Simulate = QString::fromLatin1("Simulate");
-QString UserLabUtils::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");
 
 bool UserLabUtils::getObjects(std::map<const std::string, std::string>& map, std::map<const std::string, std::string>& lstObject, const std::string& pluginName, const std::string& objectGroup)
 {

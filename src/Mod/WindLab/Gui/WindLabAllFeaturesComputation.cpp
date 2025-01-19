@@ -89,7 +89,7 @@ QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
         profile = WindLab::WindLabUtils::TableColorProfile::Failure;
 
     QString table;
-    table = WindLab::WindLabUtils::makeHtmlTable(36, 2, false, profile);
+    table = WindLab::WindLabUtils::makeHtmlTable(35, 2, false, profile);
 
     table = table.arg(tr("Computation Time"), QString::number(GetWindLabSimulationWorker()->getSimulationTime()/1000) + QString::fromLatin1(" seconds"));
     table = table.arg(tr("Simulation Method"), QString::fromLatin1(m_sim->getSimulationData()->simulationMethod.getValue()));
@@ -162,15 +162,6 @@ QString WindLabAllFeaturesComputation::logSimulationInfo(bool status, const QStr
     else
     {
         table = table.arg(tr("Gaussianity"), QString::fromLatin1("Non-Gaussian"));
-    }
-
-    if (true == m_sim->getSimulationData()->largeScaleSimulationMode.getValue())
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("Yes"));
-    }
-    else
-    {
-        table = table.arg(tr("Large Scale Simulation Mode"), QString::fromLatin1("No"));
     }
 
     if(true == status)
@@ -390,13 +381,9 @@ void WindLabAllFeaturesComputation::startSimulationWorker(QString function, cons
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeShearVelocityOfFlowVectorP()));
     }
     else if(function == WindLab::WindLabUtils::Simulate)
-        {
-            simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
-        }
-    else if(function == WindLab::WindLabUtils::SimulateInLargeScaleMode) {
+    {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulateInLargeScaleMode()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerSimulate()));
     }
     else if(function == WindLab::WindLabUtils::ComputeSkewnessValue) {
         simulationWorker->setComputingFunction(function);

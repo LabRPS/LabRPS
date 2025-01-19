@@ -6,7 +6,6 @@
 [Bug tracker](https://www.labrps.com/tracker/) •
 [Git repository](https://github.com/LabRPS/LabRPS)
 
-
 [![Release](https://img.shields.io/github/release/labrps/labrps.svg)](https://github.com/labrps/labrps/releases/latest) 
 [![Liberapay](https://img.shields.io/liberapay/receives/LabRPS.svg?logo=liberapay)](https://liberapay.com/LabRPS)
 
@@ -86,6 +85,7 @@ pages might help you get started:
 - [Workbenches](https://wiki.labrps.com/Workbenches)
 - [Scripting](https://wiki.labrps.com/Power_users_hub)
 - [Development](https://wiki.labrps.com/Developer_hub)
+- [Video Tutorial](https://wiki.labrps.com/Video_Tutorials)
 
 The [LabRPS forum](https://labrps.com/boards) is also a great place
 to find help and solve specific problems you might encounter when

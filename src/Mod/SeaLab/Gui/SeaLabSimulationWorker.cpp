@@ -2660,49 +2660,7 @@ bool RPSSeaLabSimulationWorker::workerSimulate()
     complete();
     signalDisplayResultInTable(m_computingFunction, 1);
     return true;
-}
-bool RPSSeaLabSimulationWorker::workerSimulateInLargeScaleMode()
-{
-    if (isStopped()) {
-        stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::SimulateInLargeScaleMode) {
-
-            //get the active document
-            auto doc = App::GetApplication().getActiveDocument();
-            if (!doc)
-            {
-                stopped = true;
-                failed();
-                signalDisplayResultInTable(m_computingFunction, 0);
-                return false;
-            }
-
-            QString fineName = QString::fromLatin1("SeaSurface");
-            Base::StopWatch watch;
-            watch.start();
-            bool returnResult = m_sim->simulateInLargeScaleMode(featureName);
-
-            m_simulationTime = watch.elapsed();
-            std::string str = watch.toString(m_simulationTime);
-            Base::Console().Message("The computation %s\n", str.c_str());
-            if (m_sim->getSimulationData()->comparisonMode.getValue())
-                setComputationTime();
-            if (!returnResult) {
-                Base::Console().Error(
-                    "The computation of the sea surface matrix has failed.\n");
-                stopped = true;
-                failed();
-                signalDisplayResultInTable(m_computingFunction, 0);
-                return false;
-            }
-        }
-    }
-
-    stopped = true;
-    complete();
-    signalDisplayResultInTable(m_computingFunction, 1);
-    return true;
-}
+} 
 
 bool RPSSeaLabSimulationWorker::workerComputeSkewnessValue()
 {

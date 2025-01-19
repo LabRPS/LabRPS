@@ -84,7 +84,6 @@ WindLabSimulation::WindLabSimulation()
     ADD_PROPERTY_TYPE(Stationarity, (true), datagroup, Prop_None,"This specifies whether the simulated wind is stationary or not.");
     ADD_PROPERTY_TYPE(Gaussianity, (true), datagroup, Prop_None,"This specifies whether the simulated wind is gaussian or not.");
     ADD_PROPERTY_TYPE(ComparisonMode, (false), datagroup, Prop_None,"This specifies whether we are in comparison mode or not.");
-    ADD_PROPERTY_TYPE(LargeScaleSimulationMode, (false), datagroup, Prop_None,"This specifies whether we are in large scale simulation mode or not.");
     ADD_PROPERTY_TYPE(IsSimulationSuccessful, (false), datagroup, Prop_None,"This specifies whether the simulation was successful or not.");
     ADD_PROPERTY_TYPE(IsInterruptionRequested, (false), datagroup, Prop_None,"This specifies whether the simulation has been interrupted or not.");
     ADD_PROPERTY_TYPE(UniformModulation, (true), datagroup, Prop_None,"This specifies whether a non stataionary wind is uniformly modulated or not.");
@@ -233,7 +232,6 @@ void WindLabSimulation::updateSimulationData()
     _simuData->stationarity.setValue(this->Stationarity.getValue());
     _simuData->gaussianity.setValue(this->Gaussianity.getValue());
     _simuData->comparisonMode.setValue(this->ComparisonMode.getValue());
-    _simuData->largeScaleSimulationMode.setValue(this->LargeScaleSimulationMode.getValue());
     _simuData->isSimulationSuccessful.setValue(this->IsSimulationSuccessful.getValue());
     _simuData->isInterruptionRequested.setValue(this->IsInterruptionRequested.getValue());
     _simuData->uniformModulation.setValue(this->UniformModulation.getValue());
@@ -1039,7 +1037,6 @@ QStringList WindLabSimulation::findAllFeatureMethods(QString group)
     }
     else if (group == WindLab::WindLabUtils::objGroupSimulationMethod) {
         theList.append(WindLab::WindLabUtils::Simulate);
-        theList.append(WindLab::WindLabUtils::SimulateInLargeScaleMode);
         return theList;
     }
     else if (group == WindLab::WindLabUtils::objGroupFrequencyDistribution) {
@@ -1784,7 +1781,6 @@ bool WindLabSimulation::doubleClicked(void)
 void WindLabSimulation::onChanged(const App::Property* prop)
 {
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/WindLab/General");
-     int limitAutoAct = hGrp->GetBool("AutomaticLargeScaleModeActivation", true);
     
     hGrp = App::GetApplication().GetParameterGroupByPath("User parameter:BaseApp/Preferences/Mod/WindLab/Limit");
     int numberOfSampleLimit = hGrp->GetInt("MaxSN", 300);   
@@ -1835,13 +1831,10 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfSample.setValue(1);
         }
-        if (NumberOfSample.getValue() > numberOfSampleLimit && limitAutoAct)
+        if (NumberOfSample.getValue() > numberOfSampleLimit)
         {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of sample(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",std::to_string(NumberOfSample.getValue()), std::to_string(numberOfSampleLimit));
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+            Base::Console().Error("The number (%d) of sample has exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfSample.getValue(), numberOfSampleLimit);
+            NumberOfSample.setValue(numberOfSampleLimit);
         }
     }
     else if (prop == &NumberOfProcess) {
@@ -1849,13 +1842,9 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfProcess.setValue(1);
         }
-        if (NumberOfProcess.getValue() > numberOfProcessLimit && limitAutoAct)
-        {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of process(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfProcess.getValue(), numberOfProcessLimit);
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+        if (NumberOfProcess.getValue() > numberOfProcessLimit) {
+            Base::Console().Error("The number (%d) of simulation points has exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfProcess.getValue(), numberOfProcessLimit);
+            NumberOfProcess.setValue(numberOfProcessLimit);
         }
     }
     else if (prop == &NumberOfFrequency) {
@@ -1863,13 +1852,9 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfFrequency.setValue(1);
         }
-        if (NumberOfFrequency.getValue() > numberOfFrequencyLimit && limitAutoAct)
-        {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of frequency increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfFrequency.getValue(), numberOfFrequencyLimit);
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+        if (NumberOfFrequency.getValue() > numberOfFrequencyLimit) {
+            Base::Console().Error("The number (%d) of frequency increments has exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfFrequency.getValue(), numberOfFrequencyLimit);
+            NumberOfFrequency.setValue(numberOfFrequencyLimit);
         }
     }
     else if (prop == &NumberOfTimeIncrements) {
@@ -1877,14 +1862,9 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfTimeIncrements.setValue(1);
         }
-        if (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit && limitAutoAct)
-        {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of time increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfTimeIncrements.getValue(), numberOfTimeIncrementsLimit);
-
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+        if (NumberOfTimeIncrements.getValue() > numberOfTimeIncrementsLimit) {
+            Base::Console().Error("The number (%d) of time increments has exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfTimeIncrements.getValue(), numberOfTimeIncrementsLimit);
+            NumberOfTimeIncrements.setValue(numberOfTimeIncrementsLimit);
         }
     }
     else if (prop == &NumberOfDirectionIncrements) {
@@ -1892,13 +1872,9 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfDirectionIncrements.setValue(1);
         }
-        if (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit && limitAutoAct)
-        {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of direction increments(%s) has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfDirectionIncrements.getValue(), numberOfDirectionIncrementsLimit);
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+        if (NumberOfDirectionIncrements.getValue() > numberOfDirectionIncrementsLimit) {
+            Base::Console().Error("The number (%d) of direction increments exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfDirectionIncrements.getValue(), numberOfDirectionIncrementsLimit);
+            NumberOfDirectionIncrements.setValue(numberOfDirectionIncrementsLimit);
         }
     }
     else if (prop == &NumberOfIncrementOfVariableX) {
@@ -1906,25 +1882,12 @@ void WindLabSimulation::onChanged(const App::Property* prop)
         {
             NumberOfIncrementOfVariableX.setValue(1);
         }
-        if (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit && limitAutoAct)
-        {
-            LargeScaleSimulationMode.setValue(true);
-            Base::Console().Warning("The number of increments(%s) of the variable X has exceded its limit(%s). Large scale simulation mode has been activated.\n",NumberOfIncrementOfVariableX.getValue(), numberOfIncrementOfVariableXLimit);
-        }
-        else {
-            LargeScaleSimulationMode.setValue(false);
+        if (NumberOfIncrementOfVariableX.getValue() > numberOfIncrementOfVariableXLimit) {
+            Base::Console().Error("The number (%d) of number of increments of variable X has exceeded its limit (%d). You can modify the limit in Preferences.\n", NumberOfIncrementOfVariableX.getValue(), numberOfIncrementOfVariableXLimit);
+            NumberOfIncrementOfVariableX.setValue(numberOfIncrementOfVariableXLimit);
         }
     }
 
-    // if (prop == &NumberOfFrequency || prop == &FrequencyIncrement || prop == &MinFrequency)
-    // {
-    //     MaxFrequency.setValue(MinFrequency.getValue() + FrequencyIncrement.getValue() * NumberOfFrequency.getValue());
-    // }
-
-    // if (prop == &NumberOfTimeIncrements || prop == &TimeIncrement || prop == &MinTime)
-    // {
-    //     MaxTime.setValue(MinTime.getValue() + TimeIncrement.getValue() * NumberOfTimeIncrements.getValue());
-    // }
 
     updateSimulationData();
 
@@ -4188,26 +4151,6 @@ bool WindLabSimulation::simulate(cube &dPhenomenon, std::string& featureName)
 
 }
 
-bool WindLabSimulation::simulateInLargeScaleMode(std::string& featureName)
-{
-    auto doc = App::GetApplication().getActiveDocument();
-    if(!doc)
-	    return false;
-    WindLabAPI::IrpsWLSimuMethod* activefeature = static_cast<WindLabAPI::IrpsWLSimuMethod*>(doc->getObject(_simuData->simulationMethod.getValue()));
-    if (!activefeature) {
-        Base::Console().Error("No valid active simulation method feature found.\n");
-        return false;
-    }
-    QString fineName = QString::fromLatin1("WindVelocity");
-    bool returnResult = activefeature->SimulateInLargeScaleMode(*this->getSimulationData(), fineName);
-    if (!returnResult) {
-     Base::Console().Error("The computation of the wind velocity matrix has failed.\n");
-     return false;
-    }
-    featureName = activefeature->Label.getStrValue();
-    return true;
-}
-
 
 void WindLabSimulation::setActiveFeature(App::RPSFeature* feature)
 {
@@ -4653,6 +4596,9 @@ App::DocumentObject*  WindLabSimulation::addFeature(const std::string featureNam
     newFeature->APIVersion.setValue(featureProperties->APIVersion.getValue());
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(this->getNameInDocument());
+    newFeature->Description.setValue(featureProperties->Description.getValue());
+    newFeature->IsUniformModulationFeature.setValue(featureProperties->IsUniformModulationFeature.getValue());
+    newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
 
     this->setActiveFeature(newFeature);

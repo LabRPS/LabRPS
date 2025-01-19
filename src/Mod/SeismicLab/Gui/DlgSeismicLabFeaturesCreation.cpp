@@ -158,7 +158,7 @@ void DlgSeismicLabFeaturesCreation::createDlgSeismicLabFeature(const QString& si
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(simParent->Label.getValue());
     newFeature->Description.setValue(featureProperties->Description.getValue());
-    newFeature->LabRPSVersion.setValue(featureProperties->LabRPSVersion.getValue());
+    newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
 
 	//convert the parent simulation to a group object

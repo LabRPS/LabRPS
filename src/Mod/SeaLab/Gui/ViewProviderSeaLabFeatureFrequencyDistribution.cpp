@@ -152,6 +152,9 @@ void ViewProviderSeaLabFeatureFrequencyDistribution::setupContextMenu(QMenu* men
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureFrequencyDistribution::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureFrequencyDistribution::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureFrequencyDistribution::computeFrequencyValue()

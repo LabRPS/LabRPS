@@ -36,8 +36,6 @@ public:
 	
     virtual bool Simulate(const UserLabSimulationData &Data, cube &dPhenomenon) = 0;
 
-    virtual bool SimulateInLargeScaleMode(const UserLabSimulationData &Data, QString &strFileName) = 0;
-
     virtual const char* GetPhenomenonName() = 0;
 
 	virtual bool OnInitialSetting(const UserLabSimulationData &Data) = 0;

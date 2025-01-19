@@ -141,7 +141,6 @@ class WindLabExport WindLabUtils {
   static QString ComputeShearVelocityOfFlowVectorP;
 
   static QString Simulate;
-  static QString SimulateInLargeScaleMode;
 
   static QString ComputeSkewnessValue;
   static QString ComputeSkewnessVectorP;

@@ -163,6 +163,9 @@ void ViewProviderSeismicLabFeatureCoherence::setupContextMenu(QMenu* menu, QObje
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureCoherence::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureCoherence::goToWiki, this));
 }
 
 bool ViewProviderSeismicLabFeatureCoherence::ComputeCrossCoherenceValue() 

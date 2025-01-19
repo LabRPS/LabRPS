@@ -67,16 +67,6 @@ public:
      */		
     virtual bool Simulate(const WindLabSimulationData &Data, cube &dPhenomenon) = 0;
 
-    /** Generate random wind velocity in large scale simulation mode.
-     * @param Data           the simulation data containing all the simulation parameters input by the user.
-     * @param strFileName    In large scale mode, the generated wind velocity is not save in memory. It should 
-     * be written to computer disc to avoid memory usage overflow. This is the name of the file in which the 
-     * generated wind speed values will be written. You can get the working directory that from the simulation 
-     * Data in order to create the full path of the file.
-     * @return                 return true if the computation is successful and false in case of failure.
-     */	
-    virtual bool SimulateInLargeScaleMode(const WindLabSimulationData &Data, QString &strFileName) = 0;
-
     /** Allows to do any initial taks before any of the other methods is called.
      * @param Data         the simulation data containing all the simulation parameters input by the user.
      * @return             return true if the computation is successful and false in case of failure.

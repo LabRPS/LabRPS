@@ -116,9 +116,6 @@ class RPS_CORE_API WindLabSimulationData : public WindLabAPI::WindLabFeature
 	/// Specifies whether we are in comparison  mode or not
 	App::PropertyBool  comparisonMode;
 
-	/// Specifies whether we are doing large scale simulation or not
-	App::PropertyBool  largeScaleSimulationMode;
-
 	/// The flag specfies simulation successfull or not
 	App::PropertyBool isSimulationSuccessful;
 

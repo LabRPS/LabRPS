@@ -32,9 +32,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonRefresh">
+        <widget class="QPushButton" name="pushButtonHelp">
          <property name="text">
-          <string>Refresh</string>
+          <string>Help</string>
          </property>
         </widget>
        </item>

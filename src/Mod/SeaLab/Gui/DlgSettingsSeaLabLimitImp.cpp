@@ -43,8 +43,6 @@ DlgSettingsSeaLabLimitImp::~DlgSettingsSeaLabLimitImp()
 
 void DlgSettingsSeaLabLimitImp::saveSettings()
 {
- ui->cb_lm_AutoLargeScaleMode->onSave();
-
      ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
 
@@ -64,8 +62,6 @@ void DlgSettingsSeaLabLimitImp::saveSettings()
 
 void DlgSettingsSeaLabLimitImp::loadSettings()
 {
-    ui->cb_lm_AutoLargeScaleMode->onRestore();
-
     ParameterGrp::handle hGrp = App::GetApplication().GetParameterGroupByPath(
         "User parameter:BaseApp/Preferences/Mod/SeaLab/Limit");
         

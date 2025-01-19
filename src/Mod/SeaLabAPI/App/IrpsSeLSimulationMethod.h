@@ -35,8 +35,6 @@ public:
 	
     virtual bool Simulate(const SeaLabSimulationData &Data, cube &dPhenomenon) = 0;
 
-    virtual bool SimulateInLargeScaleMode(const SeaLabSimulationData &Data, QString &strFileName) = 0;
-
 	virtual bool OnInitialSetting(const SeaLabSimulationData &Data) = 0;
 
 };

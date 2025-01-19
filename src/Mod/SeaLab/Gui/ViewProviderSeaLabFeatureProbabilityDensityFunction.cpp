@@ -150,6 +150,9 @@ void ViewProviderSeaLabFeatureProbabilityDensityFunction::setupContextMenu(QMenu
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureProbabilityDensityFunction::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureProbabilityDensityFunction::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureProbabilityDensityFunction::computePDFVectorX()

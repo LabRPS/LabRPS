@@ -43,8 +43,6 @@ public:
 
     bool Simulate(const UserLabAPI::UserLabSimulationData& Data, cube &dPhenomenon);
 
-    bool SimulateInLargeScaleMode(const UserLabAPI::UserLabSimulationData& Data, QString &strFileName);
-
     const char* GetPhenomenonName();
 
 public:

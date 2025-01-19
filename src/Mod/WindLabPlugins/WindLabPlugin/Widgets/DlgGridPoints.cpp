@@ -93,7 +93,7 @@ void DlgGridPoints::accept()
     if (!activefeature)
         return;
     Base::Vector3d lowestPoint(ui->doubleSpinBox_X->value().getValue(), ui->doubleSpinBox_Y->value().getValue(), ui->doubleSpinBox_Z->value().getValue());
-    activefeature->CenterPoint.setValue(lowestPoint);
+    activefeature->StartPoint.setValue(lowestPoint);
     activefeature->Spacing1.setValue(ui->doubleSpinBox_Spacing1->value().getValue());
     activefeature->Spacing2.setValue(ui->doubleSpinBox_Spacing2->value().getValue());
     activefeature->Length1.setValue(ui->doubleSpinBox_Length1->value().getValue());

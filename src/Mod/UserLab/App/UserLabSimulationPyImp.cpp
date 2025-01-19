@@ -320,8 +320,8 @@ PyObject* UserLabSimulationPy::simulate(PyObject* args)
     bool result = getUserLabSimulationPtr()->simulate(resArray, featureName);
     if (!result)
     {
-    Py_INCREF(Py_None);
-    return Py_None;
+        PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
+        return nullptr;
     }
 
     if (sampleIndex >= 0 && sampleIndex <= getUserLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
@@ -334,20 +334,6 @@ PyObject* UserLabSimulationPy::simulate(PyObject* args)
     else
     {
         return returnResult7(resArray, featureName);
-    }
-}
-PyObject* UserLabSimulationPy::simulateInLargeScaleMode(PyObject* args)
-{
-     if (!PyArg_ParseTuple(args, ""))
-    return nullptr;
-    
-    std::string featureName;
-
-    bool result = getUserLabSimulationPtr()->simulateInLargeScaleMode(featureName);
-    if (!result)
-    {
-    Py_INCREF(Py_None);
-    return Py_None;
     }
 }
 

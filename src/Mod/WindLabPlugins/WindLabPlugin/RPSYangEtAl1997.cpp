@@ -36,7 +36,7 @@ PROPERTY_SOURCE(WindLab::CRPSYangEtAl1997, WindLabAPI::WindLabFeatureSimulationM
 
 CRPSYangEtAl1997::CRPSYangEtAl1997()
 { 
-    
+        this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab");
 }
 
 
@@ -48,12 +48,6 @@ bool CRPSYangEtAl1997::OnInitialSetting(const WindLabAPI::WindLabSimulationData&
 
 bool CRPSYangEtAl1997::Simulate(const WindLabAPI::WindLabSimulationData& Data, cube &dPhenomenon)
 {
-
-    if (Data.largeScaleSimulationMode.getValue()) {
-        Base::Console().Error("The simulation fails.\n");
-        return false;
-    }
-
     auto PbuInfo =
         CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
 
@@ -197,184 +191,6 @@ bool CRPSYangEtAl1997::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
                 }
             }
         }
-    }
-
-    return returnResult;
-}
-
-// The simulation function in large scale mode
-bool CRPSYangEtAl1997::SimulateInLargeScaleMode(const WindLabAPI::WindLabSimulationData& Data, QString &strFileName)
-{
-    if (!Data.largeScaleSimulationMode.getValue()) {
-        Base::Console().Error("The simulation fails.\n");
-        return false;
-    }
-    
-    auto PbuInfo = CRPSWindLabFramework::getWindLabFeatureDescription(Data.frequencyDistribution.getValue());
-
-    if (!PbuInfo)
-    {
-       Base::Console().Warning("Invalid frequency distribution. The simulation has failed.\n") ;
-       return false;
-    }
-
-    if (strcmp(PbuInfo->type.getValue(), "Double Index Frequency Discretization") != 0 || strcmp(PbuInfo->PluginName.getValue(), "WindLabPlugin") != 0)
-    {
-        Base::Console().Warning("This tool required the wind velocity to be simulated with the double index frequency discretization implemented by the WindLab plugin.\n");
-        return false;
-    }
-
-    int n = Data.numberOfSpatialPosition.getValue();
-    int N = Data.numberOfFrequency.getValue();
-    double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-    double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
-    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
-    int M = 2*N;
-    int T = Data.numberOfTimeIncrements.getValue();
-    double value = 0.0;
-    double sampleN = Data.numberOfSample.getValue();
-
-    vec PSD1(N);
-    vec Kz(N);
-    cx_mat B = Eigen::MatrixXcd::Zero(n,M);
-    cx_mat G = Eigen::MatrixXcd::Zero(n,M);
-
-    // local array for the location coordinates
-    mat dLocCoord(n, 4);
-    mat frequencies(N,n);
-
-     bool returnResult = CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-
-    if(!returnResult)
-    {
-        Base::Console().Warning("The computation of the location coordinates matrix has failed.\n");
-       return false;
-    }
-
-    //compute the simulation point coordinates
-    returnResult = WindLabAPI::CRPSWindLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
-    
-    if(!returnResult)
-    {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
-       return false;
-    }
-
-    mat thet(N, n);
-    returnResult = CRPSWindLabFramework::GenerateRandomMatrixFP(Data, thet);
-    if(!returnResult)
-    {
-       Base::Console().Warning("The computation of the random phase angle matrix has failed.\n");
-       return false;
-    }
-
-    returnResult = WindLabAPI::CRPSWindLabFramework::ComputeFrequenciesMatrixFP(Data, frequencies);
-    if (!returnResult) {
-        Base::Console().Warning("The computation of the frequency matrix has failed.\n");
-        return false;
-    }
-
-    std::complex<double> i2(0, 1);
-    Eigen::FFT<double> fft;
-    std::complex<double> coherenceValue;
-    double C;
-
-    double speed = 0.0;
-    returnResult = WindLabAPI::CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, Base::Vector3d(dLocCoord(0, 1), dLocCoord(0, 2), dLocCoord(0, 3)), 0.00, speed);
-    if (!returnResult) {
-        Base::Console().Warning("The computation of the mean wind value has failed.\n");
-        return false;
-    }
-
-    Base::Vector3d AA(dLocCoord(0, 1), dLocCoord(0, 2), dLocCoord(0, 3));
-    Base::Vector3d BB(dLocCoord(1, 1), dLocCoord(1, 2), dLocCoord(1, 3));
-
-    // pick two adjacent simulation and compute the distance between them
-    double x = AA.x - BB.x, y = AA.y - BB.y, z = AA.z - BB.z;
-    double distance = sqrt((x * x) + (y * y) + (z * z));
-
-    for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
-        
-            // Get the current date and time
-        std::string dateTimeStr = CRPSWindLabFramework::getCurrentDateTime();
-
-        // Create the new file name by appending the date and time
-        std::string newFileName = Data.workingDirectoryPath.getValue().string() + "/"
-            + Data.fileName.getValue() + "_Sample_" + std::to_string(ss) + "_" + dateTimeStr
-            + ".txt";
-
-        // Define an output stream
-        std::ofstream fout;
-
-        // open the file output mode to erase its content first
-        fout.width(10);
-        fout.setf(std::ios::left);
-        fout.setf(std::ios::fixed);
-        fout.fill('0');
-        fout.open(newFileName, std::ios::out);
-
-        for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-            fout << (p - 1) * dt + timeMin << "\t";
-        }
-
-        fout << std::endl;
-
-        for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++) {
-            for (int m = 1; m <= j && false == Data.isInterruptionRequested.getValue(); m++) {
-                for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                    returnResult = CRPSWindLabFramework::ComputeAutoSpectrumValue(
-                        Data, AA, frequencies(l - 1, m - 1), 0, PSD1(l - 1));
-                    if (!returnResult) {
-                        Base::Console().Warning(
-                            "The computation of the auto spectrum value has failed.\n");
-                        return false;
-                    }
-                }
-
-                for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                    Kz(l - 1) =
-                        exp(-2 * frequencies(l - 1, m - 1) * distance * 7 / (speed + speed));
-                }
-
-                for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                    if (m == 1) {
-                        B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
-                            * pow(Kz(l - 1), abs(m - j)) * exp(i2 * thet(l - 1, m - 1));
-                    }
-                    else {
-                        B(m - 1, l - 1) = 2 * sqrt(deltaomega) * pow(PSD1(l - 1), 0.5)
-                            * pow(Kz(l - 1), abs(m - j)) * pow((1 - pow(Kz(l - 1), 2)), 0.5)
-                            * exp(i2 * thet(l - 1, m - 1));
-                    }
-                }
-            }
-
-            for (int ii = 1; ii <= j && false == Data.isInterruptionRequested.getValue(); ii++) {
-                G.row(ii - 1) = (double)(M)*fft.inv(B.row(ii - 1));
-            }
-            int q = 0;
-            double time = 0;
-
-            for (int p = 1; p <= T && false == Data.isInterruptionRequested.getValue(); p++) {
-
-                q = fmod(p - 1, M);
-
-                time = (p - 1) * dt + timeMin;
-
-                value = 0.0;
-
-                for (int k = 1; k <= j && false == Data.isInterruptionRequested.getValue(); k++) {
-
-                    value = value + real(G(k - 1, q) * exp(i2 * (k * deltaomega * time / n)));
-                }
-
-                fout << value << "\t";
-            }
-
-            fout << std::endl;
-        }
-
-        fout.close();
     }
 
     return returnResult;

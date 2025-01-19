@@ -38,7 +38,8 @@ CRPSHarrisSpectrum::CRPSHarrisSpectrum()
 {
     ADD_PROPERTY_TYPE(MeanWindSpeed10, (30000.0), "Parameters", App::Prop_None, "The mean weed speed at 10 m above sea level");
 	ADD_PROPERTY_TYPE(ShearVelocity, (1760.0), "Parameters", App::Prop_None, "The shear velocity of the flow");
-    
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Harris_Along_Wind_Spectrum");
+   
 }
 
 bool CRPSHarrisSpectrum::ComputeXCrossSpectrumVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

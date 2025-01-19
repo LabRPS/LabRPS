@@ -48,7 +48,6 @@ class UserLabExport UserLabUtils {
   static QString docSimulations;
 
   static QString Simulate;
-  static QString SimulateInLargeScaleMode;
 
   static bool getObjects(std::map<const std::string, std::string>& map, std::map<const std::string, std::string>& lstObject, const std::string& pluginName, const std::string& objectGroup);
   static bool updateObjectsMap(std::map<const std::string, std::string>& map, const QString& lstObject);

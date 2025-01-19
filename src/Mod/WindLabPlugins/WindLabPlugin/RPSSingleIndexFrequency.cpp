@@ -31,6 +31,7 @@ PROPERTY_SOURCE(WindLab::CRPSSingleIndexFrequency, WindLabAPI::WindLabFeatureFre
 
 CRPSSingleIndexFrequency::CRPSSingleIndexFrequency()
 {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Single_Index_Frequency_Discretization");   
 }
 
 bool CRPSSingleIndexFrequency::ComputeFrequenciesVectorF(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, vec &dValVector)

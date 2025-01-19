@@ -155,6 +155,9 @@ void ViewProviderSeaLabFeatureWavePassageEffect::setupContextMenu(QMenu* menu, Q
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeaLabFeatureWavePassageEffect::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeaLabFeatureWavePassageEffect::goToWiki, this));
 }
 
 bool ViewProviderSeaLabFeatureWavePassageEffect::computeWavePassageEffectValue()

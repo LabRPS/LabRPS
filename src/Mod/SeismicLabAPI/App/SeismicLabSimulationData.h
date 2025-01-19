@@ -99,9 +99,6 @@ class RPS_CORE_API SeismicLabSimulationData : public SeismicLabAPI::SeismicLabFe
 	// whether we are doing comparison or not
 	App::PropertyBool  comparisonMode;
 
-	// whether we are doing large scale simulation or not
-	App::PropertyBool  largeScaleSimulationMode;
-
 	// simulation successfull or not flag
 	App::PropertyBool isSimulationSuccessful;
 

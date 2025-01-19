@@ -48,7 +48,6 @@ public:
 public Q_SLOTS:
    
     bool workerSimulate();
-    bool workerSimulateInLargeScaleMode();
 
     void stop();
     void complete();

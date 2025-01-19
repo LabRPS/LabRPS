@@ -121,6 +121,9 @@ void ViewProviderWindLabFeatureUserDefinedRPSObject::setupContextMenu(QMenu* men
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderWindLabFeatureUserDefinedRPSObject::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderWindLabFeatureUserDefinedRPSObject::goToWiki, this));
 }
 
 bool ViewProviderWindLabFeatureUserDefinedRPSObject::userDefinedRPSObjectCompute()

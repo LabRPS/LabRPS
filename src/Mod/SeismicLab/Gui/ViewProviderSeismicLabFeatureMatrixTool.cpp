@@ -150,6 +150,9 @@ void ViewProviderSeismicLabFeatureMatrixTool::setupContextMenu(QMenu* menu, QObj
 
     QAction* gtp = menu->addAction(QObject::tr("Go to Publication"));
     func->trigger(gtp, boost::bind(&ViewProviderSeismicLabFeatureMatrixTool::goToPublication, this));
+
+    QAction* gtw = menu->addAction(QObject::tr("Go to Wiki"));
+    func->trigger(gtw, boost::bind(&ViewProviderSeismicLabFeatureMatrixTool::goToWiki, this));
 }
 
 

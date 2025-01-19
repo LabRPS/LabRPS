@@ -110,6 +110,10 @@
 #define PLUGIN_RELEASE_DATE(releasedate) \
 	RPS_PLUGIN_FUNC const char *  PluginReleaseDate = releasedate
 
+/// declare the wiki link for a plugin
+#define PLUGIN_WIKI_LINK(wikilink) \
+	RPS_PLUGIN_FUNC const char* PluginWikiLink = wikilink
+
 /// the LabRPS version
 #define LABRPS_VERSION(labrpsversion) \
 	RPS_PLUGIN_FUNC const char *  Labrpsversion = labrpsversion

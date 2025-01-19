@@ -129,7 +129,6 @@ QString WindLabUtils::ComputeShearVelocityOfFlowVectorT = QString::fromLatin1("C
 QString WindLabUtils::ComputeShearVelocityOfFlowVectorP = QString::fromLatin1("ComputeShearVelocityOfFlowVectorP");
 
 QString WindLabUtils::Simulate = QString::fromLatin1("Simulate");
-QString WindLabUtils::SimulateInLargeScaleMode = QString::fromLatin1("SimulateInLargeScaleMode");
 
 QString WindLabUtils::ComputeSkewnessValue = QString::fromLatin1("ComputeSkewnessValue");
 QString WindLabUtils::ComputeSkewnessVectorP = QString::fromLatin1("ComputeSkewnessVectorP");
