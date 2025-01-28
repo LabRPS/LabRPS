@@ -32,14 +32,14 @@ std::string objDateQbl_M = "15/06/2024";
 std::string objVersionQbl_M = "1.0";
 
 RPS_PLUGIN_FUNC IrpsSeLSimulationMethod* BuildQBladeMethods()
- {
-     return new CRPSQBladeMethods;
- }
+{
+    return new CRPSQBladeMethods;
+}
 
- RPS_PLUGIN_FUNC void DestroyQBladeMethods(SeaLabAPI::IrpsSeLSimulationMethod* r)
- {
-     delete r;
- }
+RPS_PLUGIN_FUNC void DestroyQBladeMethods(SeaLabAPI::IrpsSeLSimulationMethod* r)
+{
+    delete r;
+}
 
 PLUGIN_INIT_TYPE()
 { 

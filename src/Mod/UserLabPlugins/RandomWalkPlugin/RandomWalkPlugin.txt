@@ -1,0 +1,19 @@
+﻿# -*- coding: utf-8 -*-
+# (c) Koffi Daniel 2024
+
+__Name__ = "RandomWalkPlugin"
+__Comment__ = "This plugin adds a series of functionalities to LabRPS"
+__License__ = "LGPL v 2.1"
+__Web__ = ""
+__Wiki__ = "https://wiki.labrps.com/UserLab_Plugin"
+__Icon__  = ""
+__Help__ = ""
+__Author__ = "Koffi Daniel"
+__Version__ = "0.1.0"
+__Status__ = ""
+__Requires__ = ""
+__Files__ = "RandomWalkPlugin.dll"
+__Date__ = "21-12-2024"
+__Phenomenon__ = "User Defined Phenomenon"
+__RPSVersion__ = "0.1"
+

@@ -472,9 +472,9 @@ RPS_PLUGIN_FUNC void DestroyCRPSBoxCarModulation(IrpsSLModulation* r) {
 //////////////////////////Abrahamson Coherence//////////////////////////////////////////
 std::string objNameAbr_C = "Abrahamson Coherence Function";
 std::string objDescriptionAbr_C = "This feature allows the user to input the coherence based Abrahamson coherence function.";
-std::string objTileAbr_C = "Spatial variation of multiple support inputs.";
-std::string objLinkAbr_C = "https://wiki.labrps.com";
-std::string objAuthorsAbr_C = "Abrahamson N. A";
+std::string objTileAbr_C = "Non-stationary stochastic vector processes: seismic ground motion applications";
+std::string objLinkAbr_C = "https://doi.org/10.1016/0266-8920(96)00007-0";
+std::string objAuthorsAbr_C = "George Deodatis";
 std::string objDateAbr_C = "15/06/2024";
 std::string objVersionAbr_C = "1.0";
 
@@ -508,9 +508,9 @@ RPS_PLUGIN_FUNC void DestroyCRPSHarichandranVanmarckeCoherence(IrpsSLCoherence* 
 //////////////////////////Loh And Lin Coherence//////////////////////////////////////////
 std::string objNameLoh_C = "Loh and Lin Coherence Function";
 std::string objDescriptionLoh_C = "This feature allows the user to input the modulation based Loh and Lin coherence model.";
-std::string objTileLoh_C = "LabRPS";
-std::string objLinkLoh_C = "https://wiki.labrps.com";
-std::string objAuthorsLoh_C = "LabRPS";
+std::string objTileLoh_C = "Directionality and simulation in spatial variation of seismic waves";
+std::string objLinkLoh_C = "https://doi.org/10.1016/0141-0296(90)90019-O";
+std::string objAuthorsLoh_C = "Chin-Hsiung Loh and Su-Gen Lin";
 std::string objDateLoh_C = "15/06/2024";
 std::string objVersionLoh_C = "1.0";
 

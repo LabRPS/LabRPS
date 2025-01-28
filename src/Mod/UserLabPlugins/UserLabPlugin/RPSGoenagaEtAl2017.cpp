@@ -81,7 +81,7 @@ bool CRPSGoenagaEtAl2017::Simulate(const UserLabAPI::UserLabSimulationData& Data
     vec w(N);
 
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
-         rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
+        rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
         uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(thet, 0, 2 * PI);
 
          for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++){
@@ -93,15 +93,15 @@ bool CRPSGoenagaEtAl2017::Simulate(const UserLabAPI::UserLabSimulationData& Data
 
          for (int p = 1; p <= L && false == Data.isInterruptionRequested.getValue(); p++) {
 
-             x = (p - 1) * dx + minX;
+            x = (p - 1) * dx + minX;
 
              dPhenomenon(p - 1, 0, ss - 1) = x;
 
              for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
                  dPhenomenon(p - 1, j, ss - 1) = dPhenomenon(p - 1, j, ss - 1) + Amp(l - 1) * sin(w(l - 1) * x - thet(l - 1, j - 1));
-             }
+            }
          }      
-         }
+        }
     }
 
 return true;

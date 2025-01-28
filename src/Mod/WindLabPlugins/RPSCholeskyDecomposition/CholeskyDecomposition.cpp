@@ -28,7 +28,7 @@ using namespace WindLabAPI;
 
 CholeskyDecomposition::CholeskyDecomposition()
 {
-
+	this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab_RPSCholeskyDecomposition#RPS_Cholesky_Decomposition");
 }
 
 bool CholeskyDecomposition::MatrixToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat &inputMatrix, mat &outputMatrix)
