@@ -3072,7 +3072,7 @@ bool RPSWindLabSimulationWorker::workerSimulate()
             watch.start();
             bool returnResult = m_sim->simulate(m_ResultCube, featureName);
             if (!returnResult) {
-                Base::Console().Error("The generation of the random sea surface heights has failed.\n");
+                Base::Console().Error("The generation of the random wind velocity has failed.\n");
                 stopped = true;
                 failed();
                 signalDisplayResultInTable(m_computingFunction, 0);

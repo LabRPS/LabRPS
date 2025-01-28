@@ -17,6 +17,7 @@ PROPERTY_SOURCE(WindLab::SimulatedCorrelationTool, WindLabAPI::WindLabFeatureTab
 SimulatedCorrelationTool::SimulatedCorrelationTool()
 {
     ADD_PROPERTY_TYPE(fftPointsNumber, (512), "Parameters", App::Prop_None, "The number of FFT points");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab_SimulatedCorrelationTool#Simulated_Correlation_Tool");
 
 }
 

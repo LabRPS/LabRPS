@@ -3930,7 +3930,6 @@ App::DocumentObject*  SeaLabSimulation::addFeature(const std::string featureName
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(this->getNameInDocument());
     newFeature->Description.setValue(featureProperties->Description.getValue());
-    newFeature->IsUniformModulationFeature.setValue(featureProperties->IsUniformModulationFeature.getValue());
     newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
 

@@ -42,6 +42,7 @@ CWeibullRandomnessProvider::CWeibullRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The Weibull distribution exponential factor");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-weibull-distribution");
 
 }
 
@@ -117,6 +118,7 @@ CGaussianRandomnessProvider::CGaussianRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
    ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The standard deviation");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-gaussian-distribution");
 
 
 }
@@ -191,6 +193,7 @@ PROPERTY_SOURCE(RandomnessProviders::CExponentialRandomnessProvider, WindLabAPI:
 CExponentialRandomnessProvider::CExponentialRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-exponential-distribution");
 
 }
 
@@ -266,6 +269,8 @@ CLaplaceRandomnessProvider::CLaplaceRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(Width, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-laplace-distribution");
+
 }
 bool CLaplaceRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -340,6 +345,8 @@ CExponentialPowerRandomnessProvider::CExponentialPowerRandomnessProvider()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (2.5), "Parameters", App::Prop_None, "The exponent factor");
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-exponential-power-distribution");
+
 }
 bool CExponentialPowerRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -414,6 +421,7 @@ PROPERTY_SOURCE(RandomnessProviders::CCauchyRandomnessProvider, WindLabAPI::Wind
 CCauchyRandomnessProvider::CCauchyRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-cauchy-distribution");
 
 }
 
@@ -487,6 +495,7 @@ PROPERTY_SOURCE(RandomnessProviders::CRayleighRandomnessProvider, WindLabAPI::Wi
 CRayleighRandomnessProvider::CRayleighRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-rayleigh-distribution");
 
 }
 
@@ -561,6 +570,8 @@ CRayleighTailRandomnessProvider::CRayleighTailRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(LowerLimit, (1.0), "Parameters", App::Prop_None, "The scale parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-rayleigh-tail-distribution");
+
 }
 
 bool CRayleighTailRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
@@ -631,6 +642,7 @@ bool CRayleighTailRandomnessProvider::ComputeRandomValue(const WindLabAPI::WindL
 PROPERTY_SOURCE(RandomnessProviders::CLandauRandomnessProvider, WindLabAPI::WindLabFeatureRandomness)
 
 CLandauRandomnessProvider::CLandauRandomnessProvider() {
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-landau-distribution");
 
 }
 
@@ -705,6 +717,8 @@ CLevyAlphaStableRandomnessProvider::CLevyAlphaStableRandomnessProvider()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The exponent factor");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-levy-alpha-stable-distributions");
+
 }
 bool CLevyAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -779,6 +793,8 @@ CLevySkewAlphaStableRandomnessProvider::CLevySkewAlphaStableRandomnessProvider()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The exponent factor");
    ADD_PROPERTY_TYPE(SkewnessParameter, (1.0), "Parameters", App::Prop_None, "The skewness parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-levy-skew-alpha-stable-distribution");
+
 }
 
 bool CLevySkewAlphaStableRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
@@ -854,6 +870,8 @@ CFlatRandomnessProvider::CFlatRandomnessProvider()
 {
     ADD_PROPERTY_TYPE(LowerBound, (0.5), "Parameters", App::Prop_None, "The lower bound limit value");
     ADD_PROPERTY_TYPE(UpperBound, (2.5), "Parameters", App::Prop_None, "The upper bound limit value");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-flat-uniform-distribution");
+
 }
 bool CFlatRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -926,6 +944,8 @@ CGammaRandomnessProvider::CGammaRandomnessProvider()
 {
     ADD_PROPERTY_TYPE(ParameterA, (0.5), "Parameters", App::Prop_None, "The A parameter");
     ADD_PROPERTY_TYPE(ParameterB, (2.5), "Parameters", App::Prop_None, "The B parameter");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-gamma-distribution");
+
 }
 bool CGammaRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -999,6 +1019,8 @@ CLognormalRandomnessProvider::CLognormalRandomnessProvider()
 {
     ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
     ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The stantard devialtion");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-lognormal-distribution");
+
 }
 bool CLognormalRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
 {
@@ -1071,6 +1093,8 @@ PROPERTY_SOURCE(RandomnessProviders::CChiSquaredRandomnessProvider, WindLabAPI::
 CChiSquaredRandomnessProvider::CChiSquaredRandomnessProvider()
 {
     ADD_PROPERTY_TYPE(DegreeOfFreedom, (1.0), "Parameters", App::Prop_None, "The degree of freedom");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#the-chi-squared-distribution");
+
 }
 
 bool CChiSquaredRandomnessProvider::OnInitialSetting(const WindLabAPI::WindLabSimulationData& Data)
@@ -1147,6 +1171,7 @@ CWeibullPDF::CWeibullPDF()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (1.0), "Parameters", App::Prop_None, "The Weibull distribution exponential factor");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_weibull_pdf");
 
 }
 
@@ -1187,6 +1212,7 @@ CGaussianPDF::CGaussianPDF()
 {
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
    ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The standard deviation");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_gaussian_pdf");
 
 
 }
@@ -1226,6 +1252,7 @@ PROPERTY_SOURCE(RandomnessProviders::CExponentialPDF, WindLabAPI::WindLabFeature
 CExponentialPDF::CExponentialPDF()
 {
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_exponential_pdf");
 
 }
 bool CExponentialPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1261,8 +1288,9 @@ PROPERTY_SOURCE(RandomnessProviders::CLaplacePDF, WindLabAPI::WindLabFeatureProb
 
 CLaplacePDF::CLaplacePDF()
 {
-   ADD_PROPERTY_TYPE(Width, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
+   ADD_PROPERTY_TYPE(Width, (1.0), "Parameters", App::Prop_None, "The with");
    ADD_PROPERTY_TYPE(Mean, (1.0), "Parameters", App::Prop_None, "The mean or the expected value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_laplace_pdf");
 }
 bool CLaplacePDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
@@ -1304,6 +1332,8 @@ CExponentialPowerPDF::CExponentialPowerPDF()
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(ExponentFactor, (2.5), "Parameters", App::Prop_None, "The exponent factor");
    ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_exppow_pdf");
+
 }
 
 bool CExponentialPowerPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1344,6 +1374,7 @@ PROPERTY_SOURCE(RandomnessProviders::CCauchyPDF, WindLabAPI::WindLabFeatureProba
 CCauchyPDF::CCauchyPDF()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_cauchy_pdf");
 
 }
 
@@ -1384,7 +1415,7 @@ PROPERTY_SOURCE(RandomnessProviders::CRayleighPDF, WindLabAPI::WindLabFeaturePro
 CRayleighPDF::CRayleighPDF()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
-
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_rayleigh_pdf");
 }
 bool CRayleighPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
@@ -1425,6 +1456,8 @@ CRayleighTailPDF::CRayleighTailPDF()
 {
    ADD_PROPERTY_TYPE(ScaleParameter, (1.0), "Parameters", App::Prop_None, "The scale parameter");
    ADD_PROPERTY_TYPE(LowerLimit, (1.0), "Parameters", App::Prop_None, "The scale parameter");
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_rayleigh_tail_pdf");
+
 }
 bool CRayleighTailPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
@@ -1463,7 +1496,7 @@ PROPERTY_SOURCE(RandomnessProviders::CLandauPDF, WindLabAPI::WindLabFeatureProba
 
 CLandauPDF::CLandauPDF()
 {
-
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_landau_pdf");
 }
 
 bool CLandauPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1504,6 +1537,7 @@ CFlatPDF::CFlatPDF()
 {
     ADD_PROPERTY_TYPE(LowerBound, (0.5), "Parameters", App::Prop_None, "The lower bound limit value");
     ADD_PROPERTY_TYPE(UpperBound, (2.5), "Parameters", App::Prop_None, "The upper bound limit value");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_flat_pdf");
 }
 
 bool CFlatPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1551,6 +1585,8 @@ CGammaPDF::CGammaPDF()
 {
     ADD_PROPERTY_TYPE(ParameterA, (0.5), "Parameters", App::Prop_None, "The A parameter");
     ADD_PROPERTY_TYPE(ParameterB, (2.5), "Parameters", App::Prop_None, "The B parameter");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_gamma_pdf");
+
 }
 
 bool CGammaPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1592,6 +1628,7 @@ CLognormalPDF::CLognormalPDF()
 {
     ADD_PROPERTY_TYPE(Mean, (0.0), "Parameters", App::Prop_None, "The mean value");
     ADD_PROPERTY_TYPE(StandardDeviation, (1.0), "Parameters", App::Prop_None, "The stantard devialtion");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_lognormal_pdf");
 }
 
 bool CLognormalPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1632,6 +1669,8 @@ PROPERTY_SOURCE(RandomnessProviders::CChiSquaredPDF, WindLabAPI::WindLabFeatureP
 CChiSquaredPDF::CChiSquaredPDF()
 {
     ADD_PROPERTY_TYPE(DegreeOfFreedom, (1.0), "Parameters", App::Prop_None, "The degree of freedom");
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_ran_chisq_pdf");
+
 }
 
 bool CChiSquaredPDF::ComputePDFValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1679,6 +1718,8 @@ CWeibullCPD::CWeibullCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_weibull_P");
+
 }
 
 
@@ -1734,6 +1775,7 @@ CGaussianCPD::CGaussianCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_gamma_P");
 
 }
 bool CGaussianCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1788,6 +1830,8 @@ CExponentialCPD::CExponentialCPD()
 
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
+    this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_exponential_P");
+
 }
 
 bool CExponentialCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1840,6 +1884,8 @@ CLaplaceCPD::CLaplaceCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_laplace_P");
+
 }
 
 bool CLaplaceCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1894,6 +1940,7 @@ CExponentialPowerCPD::CExponentialPowerCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_exppow_P");
 }
 
 bool CExponentialPowerCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -1948,6 +1995,7 @@ CCauchyCPD::CCauchyCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_cauchy_P");
 }
 
 bool CCauchyCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -2000,6 +2048,8 @@ CRayleighCPD::CRayleighCPD()
 
    static const char* types[] = {"Lower tail", "Upper tail", nullptr};
    Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_rayleigh_P");
+
 }
 
 bool CRayleighCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -2051,6 +2101,8 @@ CFlatCPD::CFlatCPD()
 
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_flat_P");
+
 }
 
 bool CFlatCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -2106,6 +2158,8 @@ CGammaCPD::CGammaCPD()
 
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_gamma_P");
+
 }
 
 bool CGammaCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
@@ -2158,6 +2212,8 @@ CLognormalCPD::CLognormalCPD()
 
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_lognormal_P");
+
 }
 bool CLognormalCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)
 {
@@ -2208,6 +2264,8 @@ CChiSquaredCPD::CChiSquaredCPD()
 
     static const char* types[] = {"Lower tail", "Upper tail", nullptr};
     Types.setEnums(types);
+   this->LinkToWiki.setValue("https://www.gnu.org/software/gsl/doc/html/randist.html#c.gsl_cdf_chisq_P");
+
 }
 
 bool CChiSquaredCPD::ComputeCPDValue(const WindLabAPI::WindLabSimulationData& Data, const double &x, double &dValue)

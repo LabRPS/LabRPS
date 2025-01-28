@@ -14,7 +14,7 @@ bool stationarity = true;
 PLUGIN_NAME("DataReshaperPlugin");
 RANDOM_PHENOMENON("Sea Surface");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of seismic ground motion");
+PLUGIN_DESCRIPTION("This plugin allows the user to pick the data at all positions at a given time instance and reshape them into grid.");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("All");
 API_VERSION("ALL");

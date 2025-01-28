@@ -632,7 +632,6 @@ App::DocumentObject*  UserLabSimulation::addFeature(const std::string featureNam
     newFeature->ReleaseDate.setValue(featureProperties->ReleaseDate.getValue());
 	newFeature->Simulation.setValue(this->getNameInDocument());
     newFeature->Description.setValue(featureProperties->Description.getValue());
-    newFeature->IsUniformModulationFeature.setValue(featureProperties->IsUniformModulationFeature.getValue());
     newFeature->LabrpsVersion.setValue(featureProperties->LabRPSVersion.getValue());
     newFeature->Path.setValue(featureProperties->Path.getValue());
 

@@ -35,9 +35,9 @@ std::string strPluginName = "AspasiaZervaPlugin";
 bool stationarity = true;
 
 PLUGIN_NAME("AspasiaZervaPlugin");
-RANDOM_PHENOMENON("User Defined Phenomenon");
+RANDOM_PHENOMENON("Seismic Ground Motion");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of wind velocity");
+PLUGIN_DESCRIPTION("This plugin simulates seismic ground motion according to the approach proposed by Aspasia Zerva (1992)");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("0.1");
 API_VERSION("0.1");

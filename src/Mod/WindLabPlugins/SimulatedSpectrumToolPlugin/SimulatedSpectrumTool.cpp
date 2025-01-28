@@ -39,6 +39,8 @@ SimulatedSpectrumTool::SimulatedSpectrumTool()
                                   nullptr};
     ADD_PROPERTY_TYPE(WindowType, ((long int)0), "Parameters", App::Prop_None, "The window type");
      WindowType.setEnums(types);
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab_SimulatedSpectrumTool#Simulated_Spectrum_Tool");
+
 }
 
 bool SimulatedSpectrumTool::TableToolCompute(const WindLabAPI::WindLabSimulationData& Data, const mat& inputTable, mat& outputTable)

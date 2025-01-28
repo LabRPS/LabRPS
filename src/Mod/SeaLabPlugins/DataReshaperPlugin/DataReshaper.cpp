@@ -36,6 +36,7 @@ DataReshaper::DataReshaper()
     ADD_PROPERTY_TYPE(LengthNumberOfPoints, (3), "Parameters", App::Prop_None, "The number of points along the length of lthe grid.");
     ADD_PROPERTY_TYPE(WidthNumberOfPoints, (1), "Parameters", App::Prop_None, "The number of points along the width of lthe grid.");
     ADD_PROPERTY_TYPE(TimeIndex, (0), "Parameters", App::Prop_None, "The index of the time instant at with the data will be reshaped.");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab_DataReshaper#Data_Reshaper");
 }
 
 bool DataReshaper::TableToolCompute(const SeaLabAPI::SeaLabSimulationData &Data, const mat &inputTable, mat &outputTable)

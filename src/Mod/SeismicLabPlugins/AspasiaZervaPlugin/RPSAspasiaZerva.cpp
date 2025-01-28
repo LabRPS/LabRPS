@@ -42,8 +42,11 @@ CRPSAspasiaZerva::CRPSAspasiaZerva()
     ADD_PROPERTY_TYPE(DominantFrequency, (5.0), "Parameters", App::Prop_None, "The dominant frequency of the earthquake excitation.");
     ADD_PROPERTY_TYPE(DampingRatio, (0.3), "Parameters", App::Prop_None, "The bandwidth of the earthquake excitation.");
     ADD_PROPERTY_TYPE(EnvelopValueAtNinetyPercentDuration, (0.3), "Parameters", App::Prop_None, "The value of the envelop function at 90 percent of the duration.");
-    ADD_PROPERTY_TYPE(NormalizedDurationTimeAtPeak, (0.4), "Parameters", App::Prop_None, "normalized duration time when ground motion achieves peak.");
+    ADD_PROPERTY_TYPE(NormalizedDurationTimeAtPeak, (0.4), "Parameters", App::Prop_None, "The normalized duration time when ground motion achieves peak.");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab_AspasiaZerva#Aspasia_Zerva_1992");
+
 }
+
 //Initial setting
 bool CRPSAspasiaZerva::OnInitialSetting(const SeismicLabAPI::SeismicLabSimulationData& Data)
 {

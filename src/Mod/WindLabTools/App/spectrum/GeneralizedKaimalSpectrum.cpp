@@ -30,13 +30,12 @@ double GeneralizedKaimalSpectrum::computeGeneralizedKaimalWindAutoSpectrum(const
                                                    const double &i,
                                                    const double &j)
 {
-    const double towPi = 2*22.0/7.0;
-    const double freq = (frequency * height/(meanSpeed))/towPi;
+    const double freq = (frequency * height/(meanSpeed));
     const double numer = a*freq*std::pow(b+(c*(std::pow(freq,d))),e);
     const double denom = f*std::pow(g+(h*(std::pow(freq,i))),j);
-    const double psd = (shearVelocity*shearVelocity)*(numer/denom)/(frequency/towPi);
+    const double psd = (shearVelocity*shearVelocity)*(numer/denom)/(frequency);
 
-    return psd/towPi;
+    return psd;
 }
 
 PyObject* GeneralizedKaimalSpectrum::getPyObject(void)
