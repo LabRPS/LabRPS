@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SEALABGUI_DlgPiersonMoskowitzSpectrum_H
-#define SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+#ifndef SEALABGUI_DlgOchiAndHubbleSpectrum_H
+#define SEALABGUI_DlgOchiAndHubbleSpectrum_H
 
 
 #include <Gui/TaskView/TaskDialog.h>
@@ -33,32 +33,47 @@ class QSignalMapper;
 
 namespace SeaLabGui {
 
-class Ui_DlgPiersonMoskowitzSpectrum;
-class DlgPiersonMoskowitzSpectrum : public QWidget
+class Ui_DlgOchiAndHubbleSpectrum;
+class DlgOchiAndHubbleSpectrum : public QWidget
 {
     Q_OBJECT
 
 public:
-    DlgPiersonMoskowitzSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgOchiAndHubbleSpectrum(const App::PropertyLength& SignificantWaveHeight1,
+                             const App::PropertyLength& SignificantWaveHeight2,
+                             const App::PropertyFrequency& PeakFrequency1,
+                             const App::PropertyFrequency& PeakFrequency2,
+                             const App::PropertyFloat& PeakShape1, const App::PropertyFloat& PeakShape2,
+                             const App::PropertyBool& AutoPara,
+                             const App::PropertyLength& SignificantWaveHeight,
+                             const App::PropertyString& featureName, QWidget* parent = nullptr);
     
-    ~DlgPiersonMoskowitzSpectrum();
+    ~DlgOchiAndHubbleSpectrum();
     void accept();
     void reject();
 
        
 
 private:
-    std::unique_ptr<Ui_DlgPiersonMoskowitzSpectrum> ui;
+    std::unique_ptr<Ui_DlgOchiAndHubbleSpectrum> ui;
     std::string _featureName;
 };
 
-class DlgPiersonMoskowitzSpectrumEdit : public Gui::TaskView::TaskDialog
+class DlgOchiAndHubbleSpectrumEdit : public Gui::TaskView::TaskDialog
 {
     Q_OBJECT
 
 public:
-    DlgPiersonMoskowitzSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName);
-    ~DlgPiersonMoskowitzSpectrumEdit();
+    DlgOchiAndHubbleSpectrumEdit(const App::PropertyLength& SignificantWaveHeight1,
+                                 const App::PropertyLength& SignificantWaveHeight2,
+                                 const App::PropertyFrequency& PeakFrequency1,
+                                 const App::PropertyFrequency& PeakFrequency2,
+                                 const App::PropertyFloat& PeakShape1,
+                                 const App::PropertyFloat& PeakShape2,
+                                 const App::PropertyBool& AutoPara,
+                                 const App::PropertyLength& SignificantWaveHeight,
+                                 const App::PropertyString& featureName);
+    ~DlgOchiAndHubbleSpectrumEdit();
     
 public:
     bool accept();
@@ -66,11 +81,11 @@ public:
     QDialogButtonBox::StandardButtons getStandardButtons() const;
 
 public:
-    DlgPiersonMoskowitzSpectrum* widget;
+    DlgOchiAndHubbleSpectrum* widget;
     Gui::TaskView::TaskBox* taskbox;
 
 };
 
 } // namespace SeaLabGui
 
-#endif // SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+#endif // SEALABGUI_DlgOchiAndHubbleSpectrum_H

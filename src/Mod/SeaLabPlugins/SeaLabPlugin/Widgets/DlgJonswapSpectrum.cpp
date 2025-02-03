@@ -39,7 +39,7 @@ using namespace SeaLabGui;
 
 /* TRANSLATOR SeaLabGui::DlgJonswapSpectrum */
 
-DlgJonswapSpectrum::DlgJonswapSpectrum(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName, QWidget* parent)
+DlgJonswapSpectrum::DlgJonswapSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent), ui(new Ui_DlgJonswapSpectrum), _featureName(featureName.getStrValue())
 {
 	ui->setupUi(this);
@@ -98,7 +98,7 @@ void DlgJonswapSpectrum::reject()
 
 /* TRANSLATOR PartGui::DlgJonswapSpectrumEdit */
 
-DlgJonswapSpectrumEdit::DlgJonswapSpectrumEdit(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName)
+DlgJonswapSpectrumEdit::DlgJonswapSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName)
 {
 	// create and show dialog for the SeaLabFeatures
     widget = new DlgJonswapSpectrum(SignificantWaveHeight, PeakPeriod, AutoGamma, AutoSigma, Gamma, Sigma1, Sigma2, featureName, nullptr);

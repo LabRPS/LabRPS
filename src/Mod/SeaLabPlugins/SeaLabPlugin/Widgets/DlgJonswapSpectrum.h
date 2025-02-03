@@ -39,7 +39,7 @@ class DlgJonswapSpectrum : public QWidget
     Q_OBJECT
 
 public:
-    DlgJonswapSpectrum(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgJonswapSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName, QWidget* parent = nullptr);
     
     ~DlgJonswapSpectrum();
     void accept();
@@ -57,7 +57,7 @@ class DlgJonswapSpectrumEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    DlgJonswapSpectrumEdit(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName);
+    DlgJonswapSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyString& featureName);
     ~DlgJonswapSpectrumEdit();
     
 public:

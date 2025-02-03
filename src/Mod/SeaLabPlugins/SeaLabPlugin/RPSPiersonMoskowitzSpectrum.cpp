@@ -98,8 +98,8 @@ bool CRPSPiersonMoskowitzSpectrum::ComputeCrossFrequencySpectrumValue(const SeaL
 
     returnResult = CRPSSeaLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
 
-    SeaLabTools::PiersonMoskowitzSpectrum jonswapSpectrum;
-    PSD = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second));
+    SeaLabTools::PiersonMoskowitzSpectrum piersonMoskowitzSpectrum;
+    PSD = piersonMoskowitzSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second));
 
     dValue = PSD * COHjk;
 
@@ -110,8 +110,8 @@ bool CRPSPiersonMoskowitzSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLa
 {
    bool returnResult = true;
   
-   SeaLabTools::PiersonMoskowitzSpectrum jonswapSpectrum;
-   dValue = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second));
+   SeaLabTools::PiersonMoskowitzSpectrum piersonMoskowitzSpectrum;
+   dValue = piersonMoskowitzSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second));
 
     return returnResult;
 }    

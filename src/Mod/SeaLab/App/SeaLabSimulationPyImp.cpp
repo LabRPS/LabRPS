@@ -1849,7 +1849,7 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* a
     return returnResult3(resArray, featureName, displayOption);
 }	
 
-PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumValue(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double frequency = 0.0;
@@ -1876,7 +1876,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumValue(PyObject* args)
      return returnResult6(resValue, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumValue(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -1908,7 +1908,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumValue(PyObject* args)
 }
 
 
-PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorF(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double time = 0.0;
@@ -1936,7 +1936,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorF(PyObject* args
 }
 
 
-PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double frequency = 0.0;
@@ -1963,7 +1963,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoFrequencySpectrumVectorT(PyObject* args
      return returnResult1(dVarVector, dValVector, featureName);
 }	
 
-PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorF(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -1995,7 +1995,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorF(PyObject* arg
      return returnResult2(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -2027,7 +2027,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumVectorT(PyObject* arg
      return returnResult2(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumMatrixPP(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumMatrixPP(PyObject* args)
 {
     char* displayOption = "r";
     double frequency = 0.0;
@@ -2049,7 +2049,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossFrequencySpectrumMatrixPP(PyObject* ar
     return returnResult3(resArray, featureName, displayOption);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumValue(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -2082,7 +2082,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumValue(PyObject* arg
      return returnResult5(resValue, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorF(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -2115,7 +2115,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorF(PyObject* a
      return returnResult2(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -2148,7 +2148,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorT(PyObject* a
      return returnResult2(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorD(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorD(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
@@ -2181,7 +2181,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumVectorD(PyObject* a
      return returnResult2(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumMatrixPP(PyObject* args)
+PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumMatrixPP(PyObject* args)
 {
     char* displayOption = "r";
     double frequency = 0.0;
@@ -2204,7 +2204,7 @@ PyObject *SeaLabSimulationPy::ComputeCrossDirectionalSpectrumMatrixPP(PyObject* 
     return returnResult3(resArray, featureName, displayOption);
 }
 
-PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumValue(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double frequency = 0.0;
@@ -2232,7 +2232,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumValue(PyObject* args
     return returnResult6(resValue, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorF(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double time = 0.0;
@@ -2260,7 +2260,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorF(PyObject* ar
      return returnResult1(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double frequency = 0.0;
@@ -2288,7 +2288,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorT(PyObject* ar
      return returnResult1(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorD(PyObject* args)
+PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorD(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double frequency = 0.0;
@@ -2316,7 +2316,7 @@ PyObject *SeaLabSimulationPy::ComputeAutoDirectionalSpectrumVectorD(PyObject* ar
      return returnResult1(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionValue(PyObject* args)
+PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double time = 0.0;
@@ -2343,7 +2343,7 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionValue(PyObject*
     return returnResult6(resValue, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double time = 0.0;
@@ -2371,7 +2371,7 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorT(PyObjec
      return returnResult1(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorP(PyObject* args)
+PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorP(PyObject* args)
 {
     double time = 0.0;
     double direction = 0.0;
@@ -2393,7 +2393,7 @@ PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorP(PyObjec
      return returnResult1(dVarVector, dValVector, featureName);
 }
 
-PyObject *SeaLabSimulationPy::ComputeDirectionalSpreadingFunctionVectorD(PyObject* args)
+PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorD(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
     double time = 0.0;

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="DirectionalSpreadingFunctionPy"
+    Name="OrcaFlexDirectionalSpreadingFunctionPy"
+    Twin="OrcaFlexDirectionalSpreadingFunction"
+    TwinPointer="OrcaFlexDirectionalSpreadingFunction"
+    Include="Mod/SeaLabTools/App/DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunction.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h" 
+    FatherNamespace="SeaLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute wave direcational spreading function according to OrcaFlex</UserDocu>
+    </Documentation>
+    <Methode Name="computeSpreadingFunction">
+      <Documentation>
+        <UserDocu>
+          computeSpreadingFunction(waveDirection, principalWaveDirection, spreadingExponent)
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

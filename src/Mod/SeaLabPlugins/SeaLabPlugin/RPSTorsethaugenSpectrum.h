@@ -34,7 +34,7 @@ public:
 
 public:
 
-    App::PropertyFrequency SignificantWaveHeight;
+    App::PropertyLength SignificantWaveHeight;
     App::PropertyTime PeakPeriod;
     App::PropertyBool AutoGamma;
     App::PropertyBool AutoSigma;

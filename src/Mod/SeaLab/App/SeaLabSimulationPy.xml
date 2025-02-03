@@ -426,102 +426,102 @@
 			  <UserDocu>run the simulate function from the active simulation method feature</UserDocu>
 		  </Documentation>
 	  </Methode>
-	<Methode Name="ComputeCrossFrequencySpectrumValue">
+	<Methode Name="computeCrossFrequencySpectrumValue">
 		  <Documentation>
 			  <UserDocu>Compute the cross frequency spectrum between two locations for given time instant, frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossFrequencySpectrumVectorF">
+	  <Methode Name="computeCrossFrequencySpectrumVectorF">
 		  <Documentation>
 			  <UserDocu>Compute the cross frequency spectrum between two locations for all frequencies</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossFrequencySpectrumVectorT">
+	  <Methode Name="computeCrossFrequencySpectrumVectorT">
 		  <Documentation>
 			  <UserDocu>Compute the cross frequency spectrum between two locations for all time instants</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossFrequencySpectrumMatrixPP">
+	  <Methode Name="computeCrossFrequencySpectrumMatrixPP">
 		  <Documentation>
 			  <UserDocu>Compute the cross frequency spectrum between two locations for locations</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoFrequencySpectrumValue">
+	  <Methode Name="computeAutoFrequencySpectrumValue">
 		  <Documentation>
 			  <UserDocu>Compute the auto frequency spectrum at a location for given time instant, frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoFrequencySpectrumVectorF">
+	  <Methode Name="computeAutoFrequencySpectrumVectorF">
 		  <Documentation>
 			  <UserDocu>Compute the auto frequency spectrum at a location for all frequencies</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoFrequencySpectrumVectorT">
+	  <Methode Name="computeAutoFrequencySpectrumVectorT">
 		  <Documentation>
 			  <UserDocu>Compute the auto frequency spectrum at a location for all times</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossDirectionalSpectrumValue">
+	  <Methode Name="computeCrossDirectionalSpectrumValue">
 		  <Documentation>
 			  <UserDocu>Compute the cross directional spectrum between two locations for given time instant, frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossDirectionalSpectrumVectorF">
+	  <Methode Name="computeCrossDirectionalSpectrumVectorF">
 		  <Documentation>
 			  <UserDocu>Compute the cross directional spectrum between two locations for all frequencies</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossDirectionalSpectrumVectorT">
+	  <Methode Name="computeCrossDirectionalSpectrumVectorT">
 		  <Documentation>
 			  <UserDocu>Compute the cross directional spectrum between two locations for all times</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossDirectionalSpectrumVectorD">
+	  <Methode Name="computeCrossDirectionalSpectrumVectorD">
 		  <Documentation>
 			  <UserDocu>Compute the cross directional spectrum between two locations for all directions</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeCrossDirectionalSpectrumMatrixPP">
+	  <Methode Name="computeCrossDirectionalSpectrumMatrixPP">
 		  <Documentation>
 			  <UserDocu>Compute the cross directional spectrum for all locations</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoDirectionalSpectrumValue">
+	  <Methode Name="computeAutoDirectionalSpectrumValue">
 		  <Documentation>
 			  <UserDocu>Compute the auto between two locations spectrum for given time instant, frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoDirectionalSpectrumVectorF">
+	  <Methode Name="computeAutoDirectionalSpectrumVectorF">
 		  <Documentation>
 			  <UserDocu>Compute the auto between two locations spectrum for all frequencies</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoDirectionalSpectrumVectorT">
+	  <Methode Name="computeAutoDirectionalSpectrumVectorT">
 		  <Documentation>
 			  <UserDocu>Compute the auto between two locations spectrum for all times</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeAutoDirectionalSpectrumVectorD">
+	  <Methode Name="computeAutoDirectionalSpectrumVectorD">
 		  <Documentation>
 			  <UserDocu>Compute the auto between two locations spectrum for all directions</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeDirectionalSpreadingFunctionValue">
+	  <Methode Name="computeDirectionalSpreadingFunctionValue">
 		  <Documentation>
 			  <UserDocu>Compute the directional spreading function for given time, frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorT">
+	  <Methode Name="computeDirectionalSpreadingFunctionVectorT">
 		  <Documentation>
 			  <UserDocu>Compute the directional spreading function for all times</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorP">
+	  <Methode Name="computeDirectionalSpreadingFunctionVectorP">
 		  <Documentation>
 			  <UserDocu>Compute the directional spreading function for all locations</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="ComputeDirectionalSpreadingFunctionVectorD">
+	  <Methode Name="computeDirectionalSpreadingFunctionVectorD">
 		  <Documentation>
 			  <UserDocu>Compute the directional spreading function for all direction</UserDocu>
 		  </Documentation>

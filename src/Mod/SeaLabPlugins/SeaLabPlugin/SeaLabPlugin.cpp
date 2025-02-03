@@ -14,6 +14,8 @@
 #include "RPSJonswapSpectrum.h"
 #include "RPSPiersonMoskowitzSpectrum.h"
 #include "RPSTorsethaugenSpectrum.h"
+#include "RPSOchiAndHubbleSpectrum.h"
+#include "RPSGaussianSwellSpectrum.h"
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
 
@@ -184,10 +186,10 @@ RPS_PLUGIN_FUNC void DestroyRPSRandomPhasesFromFile(IrpsSeLRandomness* r)
 
 //////////////////////////Jonswap Spectrum//////////////////////////////////////////
 std::string objNameJon_S = "Jonswap Spectrum (1974)";
-std::string objDescriptionJon_S = "This feature allows the user to compute sea surface spectrum from Jonswap Spectrum";
-std::string objTileJon_S = "Measurements of Wind Wave Growth and Swell Decay during the Joint North Sea Wave Project ";
-    std::string objLinkJon_S = "https://repository.tudelft.nl/record/uuid:f204e188-13b9-49d8-a6dc-4fb7c20562fc";
-std::string objAuthorsJon_S = "Hasselmann et al";
+std::string objDescriptionJon_S = "This feature allows the user to compute sea surface elevation spectrum from Jonswap Spectrum";
+std::string objTileJon_S = "On environmental conditions and environmental loads. In DNV Recommended Practice DNV-RP-C205. 05 2006";
+    std::string objLinkJon_S = "https://www.dnv.com/";
+std::string objAuthorsJon_S = "Arne Nestegård, Marit Ronæss, Øistein Hagen, Knut Ronold, and Elzbieta Maria Bitner-Gregersen";
 std::string objDateJon_S = "15/06/2024";
 std::string objVersionJon_S = "1.0";
 
@@ -237,6 +239,41 @@ RPS_PLUGIN_FUNC void DestroyTorsethaugenSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
+//////////////////////////Ochi-Hubble Spectrum//////////////////////////////////////////
+std::string objNameOch_S = "Ochi-Hubble Spectrum";
+std::string objDescriptionOch_S = "This feature allows the user to compute sea surface spectrum from Ochi-Hubble Spectrum";
+std::string objTileOch_S = "Ochi-Hubble spectrum";
+std::string objLinkOch_S = "https://www.orcina.com/webhelp/OrcaFlex/Content/html/Waves,Wavespectra.htm";
+std::string objAuthorsOch_S = "OrcaFlex";
+std::string objDateOch_S = "01/02/2025";
+std::string objVersionOch_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildOchiAndHubbleSpectrum()
+{
+    return new CRPSOchiAndHubbleSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyOchiAndHubbleSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+//////////////////////////Gaussian Swell Spectrum//////////////////////////////////////////
+std::string objNameGau_S = "Gaussian Swell Spectrum";
+std::string objDescriptionGau_S = "This feature allows the user to compute sea surface spectrum from Gaussian swell Spectrum";
+std::string objTileGau_S = "Gaussian Swell Spectrum";
+std::string objLinkGau_S = "https://www.orcina.com/webhelp/OrcaFlex/Content/html/Waves,Wavespectra.htm";
+std::string objAuthorsGau_S = "OrcaFlex";
+std::string objDateGau_S = "01/02/2025";
+std::string objVersionGau_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildGaussianSwellSpectrum()
+{
+    return new CRPSGaussianSwellSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyGaussianSwellSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -272,6 +309,12 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSTorsethaugenSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSTorsethaugenSpectrum::init();
     }
+    if (SeaLab::CRPSOchiAndHubbleSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSOchiAndHubbleSpectrum::init();
+    }
+    if (SeaLab::CRPSGaussianSwellSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSGaussianSwellSpectrum::init();
+    }
     return 1;
 }
 
@@ -292,6 +335,8 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameJon_S, strPluginName, objTileJon_S, objLinkJon_S, objAuthorsJon_S, objDateJon_S, objVersionJon_S, stationarity);
     InitializeFrequencySpectrum(objNameMos_S, strPluginName, objTileMos_S, objLinkMos_S, objAuthorsMos_S, objDateMos_S, objVersionMos_S, stationarity);
     InitializeFrequencySpectrum(objNameTor_S, strPluginName, objTileTor_S, objLinkTor_S, objAuthorsTor_S, objDateTor_S, objVersionTor_S, stationarity);
+    InitializeFrequencySpectrum(objNameOch_S, strPluginName, objTileOch_S, objLinkOch_S, objAuthorsOch_S, objDateOch_S, objVersionOch_S, stationarity);
+    InitializeFrequencySpectrum(objNameGau_S, strPluginName, objTileGau_S, objLinkGau_S, objAuthorsGau_S, objDateGau_S, objVersionGau_S, stationarity);
 
     return 1;
 }
@@ -314,6 +359,8 @@ INSTALL_PLUGIN()
     RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
     RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
     RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
+    RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S,BuildOchiAndHubbleSpectrum,DestroyOchiAndHubbleSpectrum);
+    RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S,BuildGaussianSwellSpectrum,DestroyGaussianSwellSpectrum);
 
     return 1;
 }
@@ -335,6 +382,8 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameJon_S, strPluginName);
     UnregisterFrequencySpectrum(objNameMos_S, strPluginName);
     UnregisterFrequencySpectrum(objNameTor_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameOch_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameGau_S, strPluginName);
 
     return 1;
 }

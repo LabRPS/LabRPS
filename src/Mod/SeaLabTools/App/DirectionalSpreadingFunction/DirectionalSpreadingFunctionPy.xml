@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="PyObjectBase"
+    Name="DirectionalSpreadingFunctionPy"
+    Twin="DirectionalSpreadingFunction"
+    TwinPointer="DirectionalSpreadingFunction"
+    Include="Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunction.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Base/PyObjectBase.h" 
+    FatherNamespace="Base"
+    Constructor="true">
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This is the base object for all directional spreading function objects in SeaLabTools</UserDocu>
+    </Documentation>
+  </PythonExport>
+</GenerateModel>

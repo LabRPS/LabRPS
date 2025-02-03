@@ -14,7 +14,7 @@ public:
     ~OchiAndHubbleSpectrum();
 
     //this computes the along wind spectrum
-    double computeSpectrum(double frequency, double peakShape1, double peakShape2, double peakFrequency1, double peakFrequency2, double significantWaveHeight1, double significantWaveHeight2);
+    double computeSpectrum(double frequency, double peakShape1, double peakShape2, double peakFrequency1, double peakFrequency2, double significantWaveHeight1, double significantWaveHeight2, bool autoPara, double significantWaveHeight);
     
     virtual PyObject* getPyObject(void);
 

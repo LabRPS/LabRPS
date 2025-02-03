@@ -37,6 +37,7 @@ double  JonswapSpectrum::computeSpectrum(double frequency, double significantWav
 
     double f_ratio = frequency / peakFrequency;
 
+    // On environmental conditions and environmental loads. In DNV Recommended Practice, section 3.5.5 The Pierson-Moskowitz and JONSWAP spectra 
     double value = 0.3125*pow(significantWaveHeight,2.0)*peakPeriod*pow(f_ratio,-5.0)*exp(-1.25*pow(f_ratio,-4.0))*(1.0-0.287*log(gamma))*pow(gamma,exp(-0.5*pow((f_ratio-1.0)/sigma,2.0)));
 
     return value;

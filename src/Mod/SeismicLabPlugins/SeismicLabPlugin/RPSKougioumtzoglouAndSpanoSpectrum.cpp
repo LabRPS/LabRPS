@@ -22,6 +22,11 @@ CRPSKougioumtzoglouAndSpanoSpectrum::CRPSKougioumtzoglouAndSpanoSpectrum()
 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
 	bool returnResult = true;
     
     returnResult = CRPSSeismicLabFramework::ComputeFrequenciesVectorF(Data, locationJ, dVarVector);
@@ -40,6 +45,11 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumVectorF(const Seis
 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumVectorT(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, vec &dVarVector, cx_vec &dValVector)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
    bool returnResult = true;
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)
@@ -52,7 +62,12 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumVectorT(const Seis
 }
 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumMatrixPP(const SeismicLabAPI::SeismicLabSimulationData &Data, const double &dFrequency, const double &dTime, cx_mat &psdMatrix)
-{   
+{
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
     Base::Vector3d locationJ(0, 0, 0);
     Base::Vector3d locationK(0, 0, 0);
 
@@ -82,6 +97,11 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::OnInitialSetting(const SeismicLabAPI::
 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
      bool returnResult = true;
 
     std::complex<double> COHjk = 0.0;
@@ -102,12 +122,22 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumValue(const Seismi
 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
    SeismicLabTools::KougioumtzoglouAndSpanoSpectrum kougioumtzoglouAndSpanoSpectrum;
    dValue = kougioumtzoglouAndSpanoSpectrum.computeKougioumtzoglouAndSpanoSpectrum(dFrequency, dTime, ConstantS.getValue());
    return true;
 }    
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
      bool returnResult = true;
     
     returnResult = CRPSSeismicLabFramework::ComputeFrequenciesVectorF(Data, location, dVarVector);
@@ -128,6 +158,11 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumVectorF(const Seism
 } 
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumVectorT(const SeismicLabAPI::SeismicLabSimulationData& Data, const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector)
 {
+    if (Data.stationarity.getValue()) {
+        Base::Console().Error("The active spectrum model is only for non-stationary ground motion.\n");
+        return false;
+    }
+
      bool returnResult = true;
 
     for (int loop = 0; loop < Data.numberOfTimeIncrements.getValue() && false == Data.isInterruptionRequested.getValue() && true == returnResult; loop++)

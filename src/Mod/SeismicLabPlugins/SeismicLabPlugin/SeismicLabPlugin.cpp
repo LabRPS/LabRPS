@@ -291,7 +291,7 @@ RPS_PLUGIN_FUNC void DestroyCRPSCloughPenzienSpectrum(IrpsSLSpectrum* r) {
     delete r;
 }
 
-//////////////////////////Clough Penzien Spectrum//////////////////////////////////////////
+//////////////////////////Tajimi-Kanai Spectrum//////////////////////////////////////////
 std::string objNameTaj_S = "Tajimi-Kanai Spectrum";
 std::string objDescriptionTaj_S = "This feature allows the user to compute seismic ground motion spectrum according to the Clough-Penzien spectral model.";
 std::string objTileTaj_S = "Semi-empirical formula for the seismic characteristics of the ground";
@@ -323,12 +323,12 @@ RPS_PLUGIN_FUNC IrpsSLSpectrum* BuildCRPSKougioumtzoglouAndSpanoSpectrum()
 
 RPS_PLUGIN_FUNC void DestroyCRPSKougioumtzoglouAndSpanoSpectrum(IrpsSLSpectrum* r) { delete r; }
 
-//////////////////////////Clough Penzien Spectrum//////////////////////////////////////////
+//////////////////////////Hu Zhou Spectrum//////////////////////////////////////////
 std::string objNameHuz_S = "Hu Zhou Spectrum";
 std::string objDescriptionHuz_S = "This feature allows the user to compute seismic ground motion spectrum according to the Hu Zhou spectral model.";
-std::string objTileHuz_S = "The response of the elastic system under the stationary and nonstationary ground motions";
-std::string objLinkHuz_S = "https://wiki.labrps.com";
-std::string objAuthorsHuz_S = "Hu Y, Zhou X";
+std::string objTileHuz_S = "Power spectral models of stationary earthquake-induced ground motion process considering site characteristics";
+std::string objLinkHuz_S = "https://doi.org/10.48130/EMST-2022-0011";
+std::string objAuthorsHuz_S = "Bo Chen, Guangjun Sun, and Hongjing Li";
 std::string objDateHuz_S = "15/06/2024";
 std::string objVersionHuz_S = "1.0";
 

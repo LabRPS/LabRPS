@@ -1,6 +1,6 @@
 
-#ifndef SEALAB_PLUGIN_PIERSONMOSKOWITZ_PSD_H
-#define SEALAB_PLUGIN_PIERSONMOSKOWITZ_PSD_H
+#ifndef SEALAB_PLUGIN_OCHIANDHUBBLE_PSD_H
+#define SEALAB_PLUGIN_OCHIANDHUBBLE_PSD_H
 
 #include <Mod/SeaLabAPI/App/IrpsSeLFrequencySpectrum.h>
 #include <App/PropertyUnits.h>
@@ -8,13 +8,13 @@
 
 namespace SeaLab {
 
-class CRPSPiersonMoskowitzSpectrum: public SeaLabAPI::IrpsSeLFrequencySpectrum
+class CRPSOchiAndHubbleSpectrum : public SeaLabAPI::IrpsSeLFrequencySpectrum
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(SeaLab::CRPSPiersonMoskowitzSpectrum);
+    PROPERTY_HEADER_WITH_OVERRIDE(SeaLab::CRPSOchiAndHubbleSpectrum);
 public:
-	CRPSPiersonMoskowitzSpectrum();
+	CRPSOchiAndHubbleSpectrum();
 	
-	~CRPSPiersonMoskowitzSpectrum() {};
+	~CRPSOchiAndHubbleSpectrum() {};
 
     bool ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
 
@@ -33,12 +33,17 @@ public:
     bool OnInitialSetting(const SeaLabAPI::SeaLabSimulationData& Data);
 
 public:
-
+    App::PropertyLength SignificantWaveHeight1;
+    App::PropertyLength SignificantWaveHeight2;
+    App::PropertyFrequency PeakFrequency1;
+    App::PropertyFrequency PeakFrequency2;
+    App::PropertyFloat PeakShape1;
+    App::PropertyFloat PeakShape2;
+    App::PropertyBool AutoPara;
     App::PropertyLength SignificantWaveHeight;
-    App::PropertyTime PeakPeriod;
 
 };
 
 } // namespace App
 
-#endif // SEALAB_PLUGIN_PIERSONMOSKOWITZ_PSD_H
+#endif// SEALAB_PLUGIN_OCHIANDHUBBLE_PSD_H

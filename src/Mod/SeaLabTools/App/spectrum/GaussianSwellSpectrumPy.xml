@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeaSurfaceSpectrumPy"
+    Name="GaussianSwellSpectrumPy"
+    Twin="GaussianSwellSpectrum"
+    TwinPointer="GaussianSwellSpectrum"
+    Include="Mod/SeaLabTools/App/spectrum/GaussianSwellSpectrum.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Mod/SeaLabTools/App/spectrum/SeaSurfaceSpectrumPy.h" 
+    FatherNamespace="SeaLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the spectrum using the gaussian spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeSpectrum(frequency, significantWaveHeight, peakFrequency, sigma)
+					frequency = the frequency value for which the spectrum will be calculated
+          significantWaveHeight = the significant wave height
+          peakFrequency = the peak frequency
+          sigma = the width of spectral peak sigma
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>
