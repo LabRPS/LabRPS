@@ -34,6 +34,7 @@
 #include <Mod/SeaLabTools/App/spectrum/GaussianSwellSpectrumPy.h>
 #include "Mod/SeaLabTools/App/spectrum/BretschneiderSpectrumPy.h"
 #include "Mod/SeaLabTools/App/spectrum/ISSCSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/ITTCSpectrumPy.h"
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h>
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy.h>
 

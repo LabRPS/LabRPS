@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="SeaSurfaceSpectrumPy"
+    Name="ITTCSpectrumPy"
+    Twin="ITTCSpectrum"
+    TwinPointer="ITTCSpectrum"
+    Include="Mod/SeaLabTools/App/spectrum/ITTCSpectrum.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Mod/SeaLabTools/App/spectrum/SeaSurfaceSpectrumPy.h" 
+    FatherNamespace="SeaLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to computation of the spectrum using the Jonswap spectrum</UserDocu>
+    </Documentation>
+    <Methode Name="computeSpectrum">
+      <Documentation>
+        <UserDocu>
+          computeSpectrum(frequency, significantWaveHeight, peakPeriod, autoGamma=True, autoSigma=True, gamma=0, sigma1=0, sigma2=0)
+					frequency = the frequency value for which the spectrum will be calculated
+
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>

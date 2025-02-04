@@ -49,7 +49,9 @@ generate_from_xml(spectrum/PiersonMoskowitzSpectrumPy)
 generate_from_xml(spectrum/SeaSurfaceSpectrumPy)
 generate_from_xml(spectrum/GaussianSwellSpectrumPy)
 generate_from_xml(spectrum/BretschneiderSpectrumPy)
+generate_from_xml(spectrum/ITTCSpectrumPy)
 generate_from_xml(spectrum/ISSCSpectrumPy)
+generate_from_xml(spectrum/ITTCSpectrumPy)
 generate_from_xml(DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy)
 generate_from_xml(DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy)
 
@@ -63,6 +65,7 @@ SET(SeaLabTools_CPP_SRCS
     spectrum/PiersonMoskowitzSpectrum.cpp
     spectrum/BretschneiderSpectrum.cpp
     spectrum/ISSCSpectrum.cpp
+    spectrum/ITTCSpectrum.cpp
     spectrum/SeaSurfaceSpectrum.cpp
     spectrum/GaussianSwellSpectrum.cpp
     DirectionalSpreadingFunction/DirectionalSpreadingFunction.cpp
@@ -79,6 +82,7 @@ SET(SeaLabTools_HPP_SRCS
     spectrum/PiersonMoskowitzSpectrum.h
     spectrum/BretschneiderSpectrum.h
     spectrum/ISSCSpectrum.h
+    spectrum/ITTCSpectrum.h
     spectrum/SeaSurfaceSpectrum.h
     spectrum/GaussianSwellSpectrum.h
     DirectionalSpreadingFunction/DirectionalSpreadingFunction.h
@@ -109,6 +113,8 @@ SET(Python_SRCS
     spectrum/BretschneiderSpectrumPy.xml
     spectrum/ISSCSpectrumPyImp.cpp
     spectrum/ISSCSpectrumPy.xml
+    spectrum/ITTCSpectrumPyImp.cpp
+    spectrum/ITTCSpectrumPy.xml
     DirectionalSpreadingFunction/DirectionalSpreadingFunctionPyImp.cpp
     DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.xml
     DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPyImp.cpp
