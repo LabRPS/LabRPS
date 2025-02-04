@@ -86,9 +86,9 @@ bool CRPSGoenagaEtAl2017::Simulate(const UserLabAPI::UserLabSimulationData& Data
 
          for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue(); j++){
              for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                 w(l - 1) = 2 * PI / (minLambda + l * deltaLambda);
+                 w(l - 1) = (minLambda + l * deltaLambda);
                  PSD(l - 1) = referenceSpectrum * (pow(w(l - 1) / referenceWaveNumber, - pavementWavinessIndicator));
-                 Amp(l - 1) = sqrt(PSD(l - 1) * (2 * PI / deltaLambda) / PI);
+                 Amp(l - 1) = sqrt(PSD(l - 1) * (deltaLambda) / PI);
              }
 
          for (int p = 1; p <= L && false == Data.isInterruptionRequested.getValue(); p++) {

@@ -1,6 +1,6 @@
 
-#ifndef SEALAB_PLUGIN_PIERSONMOSKOWITZ_PSD_H
-#define SEALAB_PLUGIN_PIERSONMOSKOWITZ_PSD_H
+#ifndef SEALAB_PLUGIN_GAUSSIANSWELL_PSD_H
+#define SEALAB_PLUGIN_GAUSSIANSWELL_PSD_H
 
 #include <Mod/SeaLabAPI/App/IrpsSeLFrequencySpectrum.h>
 #include <App/PropertyUnits.h>
@@ -8,13 +8,13 @@
 
 namespace SeaLab {
 
-class CRPSPiersonMoskowitzSpectrum: public SeaLabAPI::IrpsSeLFrequencySpectrum
+class CRPSGaussianSwellSpectrum: public SeaLabAPI::IrpsSeLFrequencySpectrum
 {
-    PROPERTY_HEADER_WITH_OVERRIDE(SeaLab::CRPSPiersonMoskowitzSpectrum);
+    PROPERTY_HEADER_WITH_OVERRIDE(SeaLab::CRPSGaussianSwellSpectrum);
 public:
-	CRPSPiersonMoskowitzSpectrum();
+	CRPSGaussianSwellSpectrum();
 	
-	~CRPSPiersonMoskowitzSpectrum() {};
+	~CRPSGaussianSwellSpectrum() {};
 
     bool ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue);
 
@@ -36,6 +36,7 @@ public:
 
     App::PropertyLength SignificantWaveHeight;
     App::PropertyTime PeakPeriod;
+    App::PropertyFloat Sigma;
 
 };
 

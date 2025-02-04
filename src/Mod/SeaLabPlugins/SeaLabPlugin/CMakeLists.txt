@@ -36,7 +36,8 @@ Widgets/DlgGridPoints.ui
 Widgets/DlgJonswapSpectrum.ui
 Widgets/DlgPiersonMoskowitzSpectrum.ui
 Widgets/DlgTorsethaugenSpectrum.ui
-
+Widgets/DlgOchiAndHubbleSpectrum.ui
+Widgets/DlgGaussianSwellSpectrum.ui
 
 )
 
@@ -65,6 +66,11 @@ Widgets/DlgPiersonMoskowitzSpectrum.h
 Widgets/DlgPiersonMoskowitzSpectrum.cpp
 Widgets/DlgTorsethaugenSpectrum.h
 Widgets/DlgTorsethaugenSpectrum.cpp
+Widgets/DlgOchiAndHubbleSpectrum.h
+Widgets/DlgOchiAndHubbleSpectrum.cpp
+Widgets/DlgGaussianSwellSpectrum.h
+Widgets/DlgGaussianSwellSpectrum.cpp
+
 
 SeaLabPlugin.cpp
 GeneralSpatialDistribution.cpp
@@ -92,6 +98,11 @@ RPSPiersonMoskowitzSpectrum.cpp
 RPSPiersonMoskowitzSpectrum.h
 RPSTorsethaugenSpectrum.cpp
 RPSTorsethaugenSpectrum.h
+RPSOchiAndHubbleSpectrum.cpp
+RPSOchiAndHubbleSpectrum.h
+RPSGaussianSwellSpectrum.cpp
+RPSGaussianSwellSpectrum.h
+
 )
 
 SET(Metadata_Files

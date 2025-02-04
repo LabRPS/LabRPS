@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2007 Werner Mayer <wmayer[at]users.sourceforge.net>     *
+ *   Copyright (c) 2010 Jürgen Riegel <juergen.riegel@web.de>              *
  *                                                                         *
  *   This file is part of the LabRPS development system.              *
  *                                                                         *
@@ -20,57 +20,51 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SEALABGUI_DlgPiersonMoskowitzSpectrum_H
-#define SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+#include "PreCompiled.h"
+
+#include <CXX/Objects.hxx>
+#include "DirectionalSpreadingFunction.h"
+#include <Base/VectorPy.h>
 
 
-#include <Gui/TaskView/TaskDialog.h>
-#include <Gui/TaskView/TaskView.h>
-#include <App/PropertyUnits.h>
-#include <QString>
+// inclusion of the generated files (generated out of DirectionalSpreadingFunctionPy.xml)
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.cpp"
 
-class QSignalMapper;
+//#include <API/SeaLabAPI/RPSSeaLabsimuDataPy.h>
 
-namespace SeaLabGui {
+using namespace SeaLabTools;
 
-class Ui_DlgPiersonMoskowitzSpectrum;
-class DlgPiersonMoskowitzSpectrum : public QWidget
+// returns a string which represents the object e.g. when printed in python
+std::string DirectionalSpreadingFunctionPy::representation(void) const
 {
-    Q_OBJECT
+    return std::string("<DirectionalSpreadingFunction object>");
+}
 
-public:
-    DlgPiersonMoskowitzSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName, QWidget* parent = nullptr);
-    
-    ~DlgPiersonMoskowitzSpectrum();
-    void accept();
-    void reject();
-
-       
-
-private:
-    std::unique_ptr<Ui_DlgPiersonMoskowitzSpectrum> ui;
-    std::string _featureName;
-};
-
-class DlgPiersonMoskowitzSpectrumEdit : public Gui::TaskView::TaskDialog
+PyObject* DirectionalSpreadingFunctionPy::PyMake(struct _typeobject*, PyObject*, PyObject*)// Python wrapper
 {
-    Q_OBJECT
+    // create a new instance of WindPy and the Twin object
+    return new DirectionalSpreadingFunctionPy(new DirectionalSpreadingFunction());
+}
 
-public:
-    DlgPiersonMoskowitzSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName);
-    ~DlgPiersonMoskowitzSpectrumEdit();
-    
-public:
-    bool accept();
-    bool reject();
-    QDialogButtonBox::StandardButtons getStandardButtons() const;
+// constructor method
+int DirectionalSpreadingFunctionPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
+{
+    return 0;
+}
 
-public:
-    DlgPiersonMoskowitzSpectrum* widget;
-    Gui::TaskView::TaskBox* taskbox;
+// +++ methods implementer ++++++++++++++++++++++++++++++++++++++++++++++++
 
-};
 
-} // namespace SeaLabGui
+// +++ custom attributes implementer ++++++++++++++++++++++++++++++++++++++++
 
-#endif // SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+
+PyObject *DirectionalSpreadingFunctionPy::getCustomAttributes(const char* /*attr*/) const
+{
+    return nullptr;
+}
+
+int DirectionalSpreadingFunctionPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+{
+    return 0;
+}

@@ -39,7 +39,7 @@ class DlgTorsethaugenSpectrum : public QWidget
     Q_OBJECT
 
 public:
-    DlgTorsethaugenSpectrum(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgTorsethaugenSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName, QWidget* parent = nullptr);
     
     ~DlgTorsethaugenSpectrum();
     void accept();
@@ -57,7 +57,7 @@ class DlgTorsethaugenSpectrumEdit : public Gui::TaskView::TaskDialog
     Q_OBJECT
 
 public:
-    DlgTorsethaugenSpectrumEdit(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName);
+    DlgTorsethaugenSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName);
     ~DlgTorsethaugenSpectrumEdit();
     
 public:

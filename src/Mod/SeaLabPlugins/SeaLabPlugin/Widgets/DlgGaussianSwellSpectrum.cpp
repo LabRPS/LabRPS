@@ -23,9 +23,9 @@
 
 
 
-#include "DlgPiersonMoskowitzSpectrum.h"
-#include <Mod/SeaLabPlugins/SeaLabPlugin/ui_DlgPiersonMoskowitzSpectrum.h>
-#include <Mod/SeaLabPlugins/SeaLabPlugin/RPSPiersonMoskowitzSpectrum.h>
+#include "DlgGaussianSwellSpectrum.h"
+#include <Mod/SeaLabPlugins/SeaLabPlugin/ui_DlgGaussianSwellSpectrum.h>
+#include <Mod/SeaLabPlugins/SeaLabPlugin/RPSGaussianSwellSpectrum.h>
 
 #include <QSignalMapper>
 #include <App/Application.h>
@@ -37,10 +37,10 @@
 
 using namespace SeaLabGui;
 
-/* TRANSLATOR SeaLabGui::DlgPiersonMoskowitzSpectrum */
+/* TRANSLATOR SeaLabGui::DlgGaussianSwellSpectrum */
 
-DlgPiersonMoskowitzSpectrum::DlgPiersonMoskowitzSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName, QWidget* parent)
-	: QWidget(parent), ui(new Ui_DlgPiersonMoskowitzSpectrum), _featureName(featureName.getStrValue())
+DlgGaussianSwellSpectrum::DlgGaussianSwellSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyFloat&  Sigma, const App::PropertyString& featureName, QWidget* parent)
+	: QWidget(parent), ui(new Ui_DlgGaussianSwellSpectrum), _featureName(featureName.getStrValue())
 {
 	ui->setupUi(this);
 
@@ -49,8 +49,9 @@ DlgPiersonMoskowitzSpectrum::DlgPiersonMoskowitzSpectrum(const App::PropertyLeng
 
     ui->doubleSpinBox_SignificantWaveHeight->setValue(SignificantWaveHeight.getValue());
     ui->doubleSpinBox_PeakPeriod->setValue(PeakPeriod.getValue());
+    ui->doubleSpinBox_Sigma->setValue(Sigma.getValue());
 
-    ui->label_Image->setPixmap(QPixmap(":icons/RPSPiersonMoskowitzSpectrum.png"));
+    ui->label_Image->setPixmap(QPixmap(":icons/RPSGaussianSwellSpectrum.png"));
 
 
 }
@@ -58,26 +59,27 @@ DlgPiersonMoskowitzSpectrum::DlgPiersonMoskowitzSpectrum(const App::PropertyLeng
 /*
  *  Destroys the object and frees any allocated resources
  */
-DlgPiersonMoskowitzSpectrum::~DlgPiersonMoskowitzSpectrum()
+DlgGaussianSwellSpectrum::~DlgGaussianSwellSpectrum()
 {
 }
 
-void DlgPiersonMoskowitzSpectrum::accept()
+void DlgGaussianSwellSpectrum::accept()
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
 	    return;
 
-    SeaLab::CRPSPiersonMoskowitzSpectrum* activefeature = static_cast<SeaLab::CRPSPiersonMoskowitzSpectrum*>(doc->getObject(_featureName.c_str()));
+    SeaLab::CRPSGaussianSwellSpectrum* activefeature = static_cast<SeaLab::CRPSGaussianSwellSpectrum*>(doc->getObject(_featureName.c_str()));
     if (!activefeature)
         return;
 
     activefeature->SignificantWaveHeight.setValue(ui->doubleSpinBox_SignificantWaveHeight->value().getValue());
     activefeature->PeakPeriod.setValue(ui->doubleSpinBox_PeakPeriod->value().getValue());
+    activefeature->Sigma.setValue(ui->doubleSpinBox_Sigma->value().getValue());
 
   }
 
-void DlgPiersonMoskowitzSpectrum::reject()
+void DlgGaussianSwellSpectrum::reject()
 {
 
 }
@@ -85,38 +87,38 @@ void DlgPiersonMoskowitzSpectrum::reject()
 
 // ----------------------------------------------
 
-/* TRANSLATOR PartGui::DlgPiersonMoskowitzSpectrumEdit */
+/* TRANSLATOR PartGui::DlgGaussianSwellSpectrumEdit */
 
-DlgPiersonMoskowitzSpectrumEdit::DlgPiersonMoskowitzSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName)
+DlgGaussianSwellSpectrumEdit::DlgGaussianSwellSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyFloat&  Sigma, const App::PropertyString& featureName)
 {
 	// create and show dialog for the SeaLabFeatures
-    widget = new DlgPiersonMoskowitzSpectrum(SignificantWaveHeight, PeakPeriod, featureName, nullptr);
+    widget = new DlgGaussianSwellSpectrum(SignificantWaveHeight, PeakPeriod, Sigma, featureName, nullptr);
 	taskbox = new Gui::TaskView::TaskBox(QPixmap(), widget->windowTitle(), true, nullptr);
 	taskbox->groupLayout()->addWidget(widget);
 	Content.push_back(taskbox);
 
 }
 
-DlgPiersonMoskowitzSpectrumEdit::~DlgPiersonMoskowitzSpectrumEdit()
+DlgGaussianSwellSpectrumEdit::~DlgGaussianSwellSpectrumEdit()
 {
 	// automatically deleted in the sub-class
 }
 
-QDialogButtonBox::StandardButtons DlgPiersonMoskowitzSpectrumEdit::getStandardButtons() const
+QDialogButtonBox::StandardButtons DlgGaussianSwellSpectrumEdit::getStandardButtons() const
 {
 	return QDialogButtonBox::Cancel | QDialogButtonBox::Ok;
 }
 
-bool DlgPiersonMoskowitzSpectrumEdit::accept()
+bool DlgGaussianSwellSpectrumEdit::accept()
 { 
 	widget->accept();
 	return true;
 }
 
-bool DlgPiersonMoskowitzSpectrumEdit::reject()
+bool DlgGaussianSwellSpectrumEdit::reject()
 {
 	widget->reject();
 	return true;
 }
 
-//#include "moc_DlgPiersonMoskowitzSpectrum.cpp"
+//#include "moc_DlgGaussianSwellSpectrum.cpp"

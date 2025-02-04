@@ -23,65 +23,60 @@
 #include "PreCompiled.h"
 
 #include <CXX/Objects.hxx>
-#include "OchiAndHubbleSpectrum.h"
+#include "GaussianSwellSpectrum.h"
 #include <Base/VectorPy.h>
 
 
-// inclusion of the generated files (generated out of OchiAndHubbleSpectrumPy.xml)
-#include "Mod/SeaLabTools/App/spectrum/OchiAndHubbleSpectrumPy.h"
-#include "Mod/SeaLabTools/App/spectrum/OchiAndHubbleSpectrumPy.cpp"
+// inclusion of the generated files (generated out of GaussianSwellSpectrumPy.xml)
+#include "Mod/SeaLabTools/App/spectrum/GaussianSwellSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/GaussianSwellSpectrumPy.cpp"
 
 //#include <API/SeaLabAPI/RPSSeaLabsimuDataPy.h>
 
 using namespace SeaLabTools;
 
 // returns a string which represents the object e.g. when printed in python
-std::string OchiAndHubbleSpectrumPy::representation(void) const
+std::string GaussianSwellSpectrumPy::representation(void) const
 {
-    return std::string("<OchiAndHubbleSpectrum object>");
+    return std::string("<GaussianSwellSpectrum object>");
 }
 
-PyObject* OchiAndHubbleSpectrumPy::PyMake(struct _typeobject*, PyObject*, PyObject*)// Python wrapper
+PyObject* GaussianSwellSpectrumPy::PyMake(struct _typeobject*, PyObject*, PyObject*)// Python wrapper
 {
     // create a new instance of WindPy and the Twin object
-    return new OchiAndHubbleSpectrumPy(new OchiAndHubbleSpectrum());
+    return new GaussianSwellSpectrumPy(new GaussianSwellSpectrum());
 }
 
 // constructor method
-int OchiAndHubbleSpectrumPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
+int GaussianSwellSpectrumPy::PyInit(PyObject* /*args*/, PyObject* /*kwd*/)
 {
     return 0;
 }
 
 // +++ methods implementer ++++++++++++++++++++++++++++++++++++++++++++++++
 
-PyObject* OchiAndHubbleSpectrumPy::computeSpectrum(PyObject *args)
+PyObject* GaussianSwellSpectrumPy::computeSpectrum(PyObject *args)
 {
     double frequency;
-    double peakShape1;
-    double peakShape2;
-    double peakFrequency1;
-    double peakFrequency2;
-    double significantWaveHeight1;
-    double significantWaveHeight2;
-    bool autoPara;
     double significantWaveHeight;
+    double peakFrequency;
+    double sigma;
 
-    if (!PyArg_ParseTuple(args, "dddddddbd", &frequency, &peakShape1, &peakShape2, &peakFrequency1, &peakFrequency2, &significantWaveHeight1, &significantWaveHeight2, &autoPara, &significantWaveHeight))
+    if (!PyArg_ParseTuple(args, "dddd", &frequency, &significantWaveHeight, &peakFrequency, &sigma))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getOchiAndHubbleSpectrumPtr()->computeSpectrum(frequency, peakShape1, peakShape2, peakFrequency1, peakFrequency2, significantWaveHeight1, significantWaveHeight2, autoPara, significantWaveHeight)));
+    return Py::new_reference_to(Py::Float(getGaussianSwellSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, peakFrequency, sigma)));
 
 }
 
 // +++ custom attributes implementer ++++++++++++++++++++++++++++++++++++++++
 
 
-PyObject *OchiAndHubbleSpectrumPy::getCustomAttributes(const char* /*attr*/) const
+PyObject *GaussianSwellSpectrumPy::getCustomAttributes(const char* /*attr*/) const
 {
     return nullptr;
 }
 
-int OchiAndHubbleSpectrumPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
+int GaussianSwellSpectrumPy::setCustomAttributes(const char* /*attr*/, PyObject* /*obj*/)
 {
     return 0;
 }

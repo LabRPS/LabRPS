@@ -105,8 +105,8 @@ bool CRPSTorsethaugenSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAP
 
     returnResult = CRPSSeaLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
 
-    SeaLabTools::TorsethaugenSpectrum jonswapSpectrum;
-    PSD = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
+    SeaLabTools::TorsethaugenSpectrum torsethaugenSpectrum;
+    PSD = torsethaugenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
 
     dValue = PSD * COHjk;
 
@@ -117,8 +117,8 @@ bool CRPSTorsethaugenSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI
 {
    bool returnResult = true;
   
-   SeaLabTools::TorsethaugenSpectrum jonswapSpectrum;
-   dValue = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
+   SeaLabTools::TorsethaugenSpectrum torsethaugenSpectrum;
+   dValue = torsethaugenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
 
     return returnResult;
 }    

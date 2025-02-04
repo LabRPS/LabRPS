@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef SEALABGUI_DlgPiersonMoskowitzSpectrum_H
-#define SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+#ifndef SEALABGUI_DlgGaussianSwellSpectrum_H
+#define SEALABGUI_DlgGaussianSwellSpectrum_H
 
 
 #include <Gui/TaskView/TaskDialog.h>
@@ -33,32 +33,32 @@ class QSignalMapper;
 
 namespace SeaLabGui {
 
-class Ui_DlgPiersonMoskowitzSpectrum;
-class DlgPiersonMoskowitzSpectrum : public QWidget
+class Ui_DlgGaussianSwellSpectrum;
+class DlgGaussianSwellSpectrum : public QWidget
 {
     Q_OBJECT
 
 public:
-    DlgPiersonMoskowitzSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName, QWidget* parent = nullptr);
+    DlgGaussianSwellSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyFloat&  Sigma, const App::PropertyString& featureName, QWidget* parent = nullptr);
     
-    ~DlgPiersonMoskowitzSpectrum();
+    ~DlgGaussianSwellSpectrum();
     void accept();
     void reject();
 
        
 
 private:
-    std::unique_ptr<Ui_DlgPiersonMoskowitzSpectrum> ui;
+    std::unique_ptr<Ui_DlgGaussianSwellSpectrum> ui;
     std::string _featureName;
 };
 
-class DlgPiersonMoskowitzSpectrumEdit : public Gui::TaskView::TaskDialog
+class DlgGaussianSwellSpectrumEdit : public Gui::TaskView::TaskDialog
 {
     Q_OBJECT
 
 public:
-    DlgPiersonMoskowitzSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyString& featureName);
-    ~DlgPiersonMoskowitzSpectrumEdit();
+    DlgGaussianSwellSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyFloat&  Sigma, const App::PropertyString& featureName);
+    ~DlgGaussianSwellSpectrumEdit();
     
 public:
     bool accept();
@@ -66,11 +66,11 @@ public:
     QDialogButtonBox::StandardButtons getStandardButtons() const;
 
 public:
-    DlgPiersonMoskowitzSpectrum* widget;
+    DlgGaussianSwellSpectrum* widget;
     Gui::TaskView::TaskBox* taskbox;
 
 };
 
 } // namespace SeaLabGui
 
-#endif // SEALABGUI_DlgPiersonMoskowitzSpectrum_H
+#endif // SEALABGUI_DlgGaussianSwellSpectrum_H

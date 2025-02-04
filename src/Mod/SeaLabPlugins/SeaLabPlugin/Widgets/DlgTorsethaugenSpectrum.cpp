@@ -39,7 +39,7 @@ using namespace SeaLabGui;
 
 /* TRANSLATOR SeaLabGui::DlgTorsethaugenSpectrum */
 
-DlgTorsethaugenSpectrum::DlgTorsethaugenSpectrum(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName, QWidget* parent)
+DlgTorsethaugenSpectrum::DlgTorsethaugenSpectrum(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName, QWidget* parent)
 	: QWidget(parent), ui(new Ui_DlgTorsethaugenSpectrum), _featureName(featureName.getStrValue())
 {
 	ui->setupUi(this);
@@ -100,7 +100,7 @@ void DlgTorsethaugenSpectrum::reject()
 
 /* TRANSLATOR PartGui::DlgTorsethaugenSpectrumEdit */
 
-DlgTorsethaugenSpectrumEdit::DlgTorsethaugenSpectrumEdit(const App::PropertyFrequency&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName)
+DlgTorsethaugenSpectrumEdit::DlgTorsethaugenSpectrumEdit(const App::PropertyLength&  SignificantWaveHeight, const App::PropertyTime&  PeakPeriod, const App::PropertyBool&  AutoGamma, const App::PropertyBool& AutoSigma, const App::PropertyFloat& Gamma, const App::PropertyFloat& Sigma1, const App::PropertyFloat& Sigma2, const App::PropertyBool& DoublePeaks, const App::PropertyString& featureName)
 {
 	// create and show dialog for the SeaLabFeatures
     widget = new DlgTorsethaugenSpectrum(SignificantWaveHeight, PeakPeriod, AutoGamma, AutoSigma, Gamma, Sigma1, Sigma2, DoublePeaks, featureName, nullptr);
