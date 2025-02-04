@@ -59,13 +59,11 @@ PyObject* ISSCSpectrumPy::computeSpectrum(PyObject *args)
 {
     double frequency;
     double significantWaveHeight;
-    double modalFrequency;
-    double c1 = 0.3123;
-    double c2 = -1.2489;
+    double alpha = 0.0081;
 
-    if (!PyArg_ParseTuple(args, "ddddd", &frequency, &significantWaveHeight, &modalFrequency, &c1, &c2))
+    if (!PyArg_ParseTuple(args, "ddd", &frequency, &significantWaveHeight, &alpha))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getISSCSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, modalFrequency, c1, c2)));
+    return Py::new_reference_to(Py::Float(getISSCSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, alpha)));
 }
 
 // +++ custom attributes implementer ++++++++++++++++++++++++++++++++++++++++
