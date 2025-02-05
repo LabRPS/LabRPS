@@ -13,14 +13,12 @@
 
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>This object allows to computation of the spectrum using the Jonswap spectrum</UserDocu>
+      <UserDocu>This object allows to computation of the spectrum using the International Ship Structures Congress (1964) spectrum</UserDocu>
     </Documentation>
     <Methode Name="computeSpectrum">
       <Documentation>
         <UserDocu>
-          computeSpectrum(frequency, significantWaveHeight, peakPeriod, autoGamma=True, autoSigma=True, gamma=0, sigma1=0, sigma2=0)
-					frequency = the frequency value for which the spectrum will be calculated
-
+        computeSpectrum(frequency, significantWaveHeight, modalFrequency, c1, c2)
         </UserDocu>
       </Documentation>
     </Methode>
