@@ -13,7 +13,7 @@
 
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>This object allows to computation of the along wind spectrum using the von Karman Spectrum with flexibility of parameter choice</UserDocu>
+      <UserDocu>This object allows the computation of the along wind spectrum using the von Karman Spectrum with flexibility of parameter choice</UserDocu>
     </Documentation>
     <Methode Name="computeGeneralizedVonKarmanWindAutoSpectrum">
       <Documentation>
