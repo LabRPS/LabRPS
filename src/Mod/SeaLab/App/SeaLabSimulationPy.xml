@@ -508,12 +508,12 @@
 	  </Methode>
 	  <Methode Name="computeDirectionalSpreadingFunctionValue">
 		  <Documentation>
-			  <UserDocu>Compute the directional spreading function for given time, frequency and direction</UserDocu>
+			  <UserDocu>Compute the directional spreading function for given frequency and direction</UserDocu>
 		  </Documentation>
 	  </Methode>
-	  <Methode Name="computeDirectionalSpreadingFunctionVectorT">
+	  <Methode Name="computeDirectionalSpreadingFunctionVectorF">
 		  <Documentation>
-			  <UserDocu>Compute the directional spreading function for all times</UserDocu>
+			  <UserDocu>Compute the directional spreading function for all frequencies</UserDocu>
 		  </Documentation>
 	  </Methode>
 	  <Methode Name="computeDirectionalSpreadingFunctionVectorP">

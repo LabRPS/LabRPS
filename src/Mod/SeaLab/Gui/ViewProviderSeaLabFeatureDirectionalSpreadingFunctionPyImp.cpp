@@ -51,7 +51,7 @@ PyObject* ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy::ComputeDirect
     Py_RETURN_NONE;
 }
 
-PyObject* ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy::ComputeDirectionalSpreadingFunctionVectorT(PyObject* args)
+PyObject* ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy::ComputeDirectionalSpreadingFunctionVectorF(PyObject* args)
 {
     if (!PyArg_ParseTuple(args, ""))
         return nullptr;
@@ -59,7 +59,7 @@ PyObject* ViewProviderSeaLabFeatureDirectionalSpreadingFunctionPy::ComputeDirect
     ViewProviderSeaLabFeatureDirectionalSpreadingFunction* vp = this->getViewProviderSeaLabFeatureDirectionalSpreadingFunctionPtr();
     if (vp)
     {
-        bool ok = vp->ComputeDirectionalSpreadingFunctionVectorT();
+        bool ok = vp->ComputeDirectionalSpreadingFunctionVectorF();
         return Py::new_reference_to(Py::Boolean(ok));
     }
 

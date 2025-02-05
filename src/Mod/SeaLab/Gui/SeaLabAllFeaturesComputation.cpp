@@ -461,9 +461,9 @@ void SeaLabAllFeaturesComputation::startSimulationWorker(QString function, const
         simulationWorker->setComputingFunction(function);
         connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionValue()));
     }
-    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT) {
+    else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorF) {
         simulationWorker->setComputingFunction(function);
-        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorT()));
+        connect(simulationThread, SIGNAL(started()), simulationWorker, SLOT(workerComputeDirectionalSpreadingFunctionVectorF()));
     }
     else if(function == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP) {
         simulationWorker->setComputingFunction(function);

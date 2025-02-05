@@ -910,7 +910,7 @@ QStringList SeaLabSimulation::findAllFeatureMethods(QString group)
     }
     else if (group == SeaLab::SeaLabUtils::objGroupDirectionalSpreadingFunction) {
         theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue);
-        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT);
+        theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorF);
         theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP);
         theList.append(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD);
         return theList;
@@ -2723,7 +2723,7 @@ bool SeaLabSimulation::computeAutoDirectionalSpectrumVectorD(const Base::Vector3
 }   
 
     // directional spreading function
-bool SeaLabSimulation::computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue, std::string& featureName)
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dfrequency, const double &dDirection, double &dValue, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2733,7 +2733,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionValue(const Base::Vect
         Base::Console().Error("No valid active directional spreading function feature found.\n");
         return false;
     }
-    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionValue(*this->getSimulationData(), location, dTime, dDirection, dValue);    
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionValue(*this->getSimulationData(), location, dfrequency, dDirection, dValue);    
     if (!returnResult)
     {
      Base::Console().Error("The computation of the directional spreading function value has failed.\n");
@@ -2743,7 +2743,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionValue(const Base::Vect
     return true;
 }
 
-bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorT(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorF(const Base::Vector3d &location, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2753,9 +2753,9 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorT(const Base::Ve
         Base::Console().Error("No valid active directional spreading function feature found.\n");
         return false;
     }
-    dVarVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    dValVector.resize(this->getSimulationData()->numberOfTimeIncrements.getValue());
-    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorT(*this->getSimulationData(), location, dDirection, dVarVector, dValVector);
+    dVarVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    dValVector.resize(this->getSimulationData()->numberOfFrequency.getValue());
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorF(*this->getSimulationData(), location, dDirection, dVarVector, dValVector);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the  directional spreading function vector has failed.\n");
@@ -2765,7 +2765,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorT(const Base::Ve
     return true;
 }
 
-bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorP(const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorP(const double &dFrequency, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2777,7 +2777,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorP(const double &
     }
     dVarVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
     dValVector.resize(this->getSimulationData()->numberOfSpatialPosition.getValue());
-    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorP(*this->getSimulationData(), dTime, dDirection, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorP(*this->getSimulationData(), dFrequency, dDirection, dVarVector, dValVector);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the directional spreading function vector has failed.\n");
@@ -2787,7 +2787,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorP(const double &
     return true;
 }  
 
-bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName)
+bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName)
 {
     auto doc = App::GetApplication().getActiveDocument();
     if(!doc)
@@ -2799,7 +2799,7 @@ bool SeaLabSimulation::computeDirectionalSpreadingFunctionVectorD(const Base::Ve
     }
     dVarVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
     dValVector.resize(this->getSimulationData()->numberOfDirectionIncrements.getValue());
-    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorD(*this->getSimulationData(), location, dTime, dVarVector, dValVector);
+    bool returnResult = activefeature->ComputeDirectionalSpreadingFunctionVectorD(*this->getSimulationData(), location, dFrequency, dVarVector, dValVector);
     if (!returnResult)
     {
      Base::Console().Error("The computation of the directional spreading function vector has failed.\n");

@@ -141,7 +141,7 @@ public Q_SLOTS:
     bool workerComputeAutoDirectionalSpectrumVectorD();
     
     bool workerComputeDirectionalSpreadingFunctionValue();
-    bool workerComputeDirectionalSpreadingFunctionVectorT();
+    bool workerComputeDirectionalSpreadingFunctionVectorF();
     bool workerComputeDirectionalSpreadingFunctionVectorP();
     bool workerComputeDirectionalSpreadingFunctionVectorD();
 

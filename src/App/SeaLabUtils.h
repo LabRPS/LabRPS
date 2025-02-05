@@ -169,7 +169,7 @@ class AppExport SeaLabUtils {
   static QString ComputeAutoDirectionalSpectrumVectorD;
 
   static QString ComputeDirectionalSpreadingFunctionValue;
-  static QString ComputeDirectionalSpreadingFunctionVectorT;
+  static QString ComputeDirectionalSpreadingFunctionVectorF;
   static QString ComputeDirectionalSpreadingFunctionVectorP;
   static QString ComputeDirectionalSpreadingFunctionVectorD;
 };
