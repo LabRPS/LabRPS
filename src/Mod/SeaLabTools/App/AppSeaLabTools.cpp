@@ -35,6 +35,7 @@
 #include "Mod/SeaLabTools/App/spectrum/BretschneiderSpectrumPy.h"
 #include "Mod/SeaLabTools/App/spectrum/ISSCSpectrumPy.h"
 #include "Mod/SeaLabTools/App/spectrum/ITTCSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/ScottSpectrumPy.h"
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h>
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy.h>
 
@@ -57,6 +58,7 @@ PyMOD_INIT_FUNC(SeaLabTools)
     Base::Interpreter().addType(&SeaLabTools::GaussianSwellSpectrumPy ::Type, SeaLabToolsModule, "GaussianSwellSpectrum");
     Base::Interpreter().addType(&SeaLabTools::BretschneiderSpectrumPy ::Type, SeaLabToolsModule, "BretschneiderSpectrum");
     Base::Interpreter().addType(&SeaLabTools::ISSCSpectrumPy ::Type, SeaLabToolsModule, "ISSCSpectrum");
+    Base::Interpreter().addType(&SeaLabTools::ScottSpectrumPy ::Type, SeaLabToolsModule, "ScottSpectrum");
     Base::Interpreter().addType(&SeaLabTools::DirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "DirectionalSpreadingFunction");
     Base::Interpreter().addType(&SeaLabTools::OrcaFlexDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "OrcaFlexDirectionalSpreadingFunction");
 
