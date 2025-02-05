@@ -1,5 +1,5 @@
-#ifndef PIERSONMOSKOWITZ_SPECTRUM_H
-#define PIERSONMOSKOWITZ_SPECTRUM_H
+#ifndef ITTC_SPECTRUM_H
+#define ITTC_SPECTRUM_H
 
 #include <Mod/SeaLabTools/SeaLabToolsGlobal.h>
 #include "SeaSurfaceSpectrum.h"
@@ -25,4 +25,4 @@ protected:// attributes
 
 }
 
-#endif //JONSWAP_SPECTRUM_H
+#endif //ITTC_SPECTRUM_H
