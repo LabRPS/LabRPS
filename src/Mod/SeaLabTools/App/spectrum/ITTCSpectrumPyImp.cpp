@@ -59,11 +59,11 @@ PyObject* ITTCSpectrumPy::computeSpectrum(PyObject *args)
 {
     double frequency;
     double significantWaveHeight;
-    double peakPeriod;
+    double alpha = 0.0081;
 
-    if (!PyArg_ParseTuple(args, "ddd", &frequency, &significantWaveHeight, &peakPeriod))
+    if (!PyArg_ParseTuple(args, "dd|d", &frequency, &significantWaveHeight, &alpha))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getITTCSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, peakPeriod)));
+    return Py::new_reference_to(Py::Float(getITTCSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, alpha)));
 
 }
 
