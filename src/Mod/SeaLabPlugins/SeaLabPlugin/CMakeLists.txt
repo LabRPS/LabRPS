@@ -106,6 +106,10 @@ RPSBretschneiderSpectrum.h
 RPSBretschneiderSpectrum.cpp
 RPSISSCSpectrum.h
 RPSISSCSpectrum.cpp
+RPSITTCSpectrum.h
+RPSITTCSpectrum.cpp
+
+
 )
 
 SET(Metadata_Files
