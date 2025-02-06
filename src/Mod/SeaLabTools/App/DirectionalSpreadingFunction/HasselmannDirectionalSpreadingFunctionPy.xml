@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<GenerateModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="generateMetaModel_Module.xsd">
+  <PythonExport
+    Father="DirectionalSpreadingFunctionPy"
+    Name="HasselmannDirectionalSpreadingFunctionPy"
+    Twin="HasselmannDirectionalSpreadingFunction"
+    TwinPointer="HasselmannDirectionalSpreadingFunction"
+    Include="Mod/SeaLabTools/App/DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunction.h"
+    Namespace="SeaLabTools"
+    FatherInclude="Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h" 
+    FatherNamespace="SeaLabTools"
+    Constructor="true">
+
+    <Documentation>
+      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <UserDocu>This object allows to compute wave direcational spreading function according to Hasselmann</UserDocu>
+    </Documentation>
+    <Methode Name="computeSpreadingFunction">
+      <Documentation>
+        <UserDocu>
+        computeSpreadingFunction(waveDirection, frequency, modalFrequency, meanWindSpeed, waveCelerity)
+        </UserDocu>
+      </Documentation>
+    </Methode>
+  </PythonExport>
+</GenerateModel>
