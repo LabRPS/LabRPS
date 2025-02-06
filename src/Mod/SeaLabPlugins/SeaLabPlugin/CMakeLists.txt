@@ -104,7 +104,8 @@ RPSGaussianSwellSpectrum.cpp
 RPSGaussianSwellSpectrum.h
 RPSBretschneiderSpectrum.h
 RPSBretschneiderSpectrum.cpp
-
+RPSISSCSpectrum.h
+RPSISSCSpectrum.cpp
 )
 
 SET(Metadata_Files

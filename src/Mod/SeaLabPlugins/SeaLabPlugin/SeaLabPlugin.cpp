@@ -17,6 +17,7 @@
 #include "RPSOchiAndHubbleSpectrum.h"
 #include "RPSGaussianSwellSpectrum.h"
 #include "RPSBretschneiderSpectrum.h"
+#include "RPSISSCSpectrum.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -295,6 +296,22 @@ RPS_PLUGIN_FUNC void DestroyBretschneiderSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
+//////////////////////////ISSC Spectrum//////////////////////////////////////////
+std::string objNameISSC_S = "ISSC Spectrum";
+std::string objDescriptionISSC_S = "This feature allows the user to compute sea surface elevation spectrum from ISSC Spectrum";
+std::string objTileISSC_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkISSC_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsISSC_S = "Dr. V. Sundar";
+std::string objDateISSC_S = "06/02/2025";
+std::string objVersionISSC_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildISSCSpectrum() {
+    return new CRPSISSCSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyISSCSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -339,6 +356,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSBretschneiderSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSBretschneiderSpectrum::init();
     }
+    if (SeaLab::CRPSISSCSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSISSCSpectrum::init();
+    }
     return 1;
 }
 
@@ -362,6 +382,7 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameOch_S, strPluginName, objTileOch_S, objLinkOch_S, objAuthorsOch_S, objDateOch_S, objVersionOch_S, stationarity);
     InitializeFrequencySpectrum(objNameGau_S, strPluginName, objTileGau_S, objLinkGau_S, objAuthorsGau_S, objDateGau_S, objVersionGau_S, stationarity);
     InitializeFrequencySpectrum(objNameBre_S, strPluginName, objTileBre_S, objLinkBre_S, objAuthorsBre_S, objDateBre_S, objVersionBre_S, stationarity);
+    InitializeFrequencySpectrum(objNameISSC_S, strPluginName, objTileISSC_S, objLinkISSC_S, objAuthorsISSC_S, objDateISSC_S, objVersionISSC_S, stationarity);
 
     return 1;
 }
@@ -387,6 +408,7 @@ INSTALL_PLUGIN()
     RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S,BuildOchiAndHubbleSpectrum,DestroyOchiAndHubbleSpectrum);
     RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S,BuildGaussianSwellSpectrum,DestroyGaussianSwellSpectrum);
     RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S,BuildBretschneiderSpectrum,DestroyBretschneiderSpectrum);
+    RegisterFrequencySpectrum(objNameISSC_S, strPluginName, objDescriptionISSC_S,BuildISSCSpectrum,DestroyISSCSpectrum);
 
     return 1;
 }
@@ -411,6 +433,7 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameOch_S, strPluginName);
     UnregisterFrequencySpectrum(objNameGau_S, strPluginName);
     UnregisterFrequencySpectrum(objNameBre_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameISSC_S, strPluginName);
 
     return 1;
 }
