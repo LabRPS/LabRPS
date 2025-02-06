@@ -53,8 +53,16 @@ generate_from_xml(spectrum/ITTCSpectrumPy)
 generate_from_xml(spectrum/ISSCSpectrumPy)
 generate_from_xml(spectrum/ITTCSpectrumPy)
 generate_from_xml(spectrum/ScottSpectrumPy)
+generate_from_xml(spectrum/WENSpectrumPy)
 generate_from_xml(DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy)
 generate_from_xml(DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/SwopDirectionalSpreadingFunctionPy)
+generate_from_xml(DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunctionPy)
 
 
 
@@ -70,8 +78,16 @@ SET(SeaLabTools_CPP_SRCS
     spectrum/ScottSpectrum.cpp
     spectrum/SeaSurfaceSpectrum.cpp
     spectrum/GaussianSwellSpectrum.cpp
+    spectrum/WENSpectrum.cpp
     DirectionalSpreadingFunction/DirectionalSpreadingFunction.cpp
     DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/SwopDirectionalSpreadingFunction.cpp
+    DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunction.cpp
 
 )
 
@@ -88,8 +104,16 @@ SET(SeaLabTools_HPP_SRCS
     spectrum/ScottSpectrum.h
     spectrum/SeaSurfaceSpectrum.h
     spectrum/GaussianSwellSpectrum.h
+    spectrum/WENSpectrum.h
     DirectionalSpreadingFunction/DirectionalSpreadingFunction.h
     DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/SwopDirectionalSpreadingFunction.h
+    DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunction.h
 
 )
 
@@ -120,10 +144,26 @@ SET(Python_SRCS
     spectrum/ITTCSpectrumPy.xml
     spectrum/ScottSpectrumPyImp.cpp
     spectrum/ScottSpectrumPy.xml
+    spectrum/WENSpectrumPyImp.cpp
+    spectrum/WENSpectrumPy.xml
     DirectionalSpreadingFunction/DirectionalSpreadingFunctionPyImp.cpp
     DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.xml
     DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPyImp.cpp
     DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/SwopDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/SwopDirectionalSpreadingFunctionPy.xml
+    DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunctionPyImp.cpp
+    DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunctionPy.xml
 )
 
 SOURCE_GROUP("Python" FILES ${Python_SRCS})
