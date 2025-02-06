@@ -102,6 +102,8 @@ RPSOchiAndHubbleSpectrum.cpp
 RPSOchiAndHubbleSpectrum.h
 RPSGaussianSwellSpectrum.cpp
 RPSGaussianSwellSpectrum.h
+RPSBretschneiderSpectrum.h
+RPSBretschneiderSpectrum.cpp
 
 )
 

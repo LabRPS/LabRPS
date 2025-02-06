@@ -59,13 +59,13 @@ PyObject* BretschneiderSpectrumPy::computeSpectrum(PyObject *args)
 {
     double frequency;
     double significantWaveHeight;
-    double modalFrequency;
+    double peakFrequency;
     double c1 = 0.3125;
     double c2 = -1.25;
 
-    if (!PyArg_ParseTuple(args, "ddddd", &frequency, &significantWaveHeight, &modalFrequency, &c1, &c2))
+    if (!PyArg_ParseTuple(args, "ddddd", &frequency, &significantWaveHeight, &peakFrequency, &c1, &c2))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getBretschneiderSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, modalFrequency, c1, c2)));
+    return Py::new_reference_to(Py::Float(getBretschneiderSpectrumPtr()->computeSpectrum(frequency, significantWaveHeight, peakFrequency, c1, c2)));
 
 }
 

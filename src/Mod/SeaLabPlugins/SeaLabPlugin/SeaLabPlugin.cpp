@@ -16,6 +16,8 @@
 #include "RPSTorsethaugenSpectrum.h"
 #include "RPSOchiAndHubbleSpectrum.h"
 #include "RPSGaussianSwellSpectrum.h"
+#include "RPSBretschneiderSpectrum.h"
+
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
 
@@ -274,6 +276,25 @@ RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildGaussianSwellSpectrum()
 RPS_PLUGIN_FUNC void DestroyGaussianSwellSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
+
+//////////////////////////Bretschneider Spectrum//////////////////////////////////////////
+std::string objNameBre_S = "Bretschneider Spectrum";
+std::string objDescriptionBre_S = "This feature allows the user to compute sea surface elevation spectrum from Bretschneider Spectrum";
+std::string objTileBre_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkBre_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsBre_S = "Dr. V. Sundar";
+std::string objDateBre_S = "06/02/2025";
+std::string objVersionBre_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildBretschneiderSpectrum()
+{
+    return new CRPSBretschneiderSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyBretschneiderSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -315,6 +336,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSGaussianSwellSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSGaussianSwellSpectrum::init();
     }
+    if (SeaLab::CRPSBretschneiderSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSBretschneiderSpectrum::init();
+    }
     return 1;
 }
 
@@ -337,6 +361,7 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameTor_S, strPluginName, objTileTor_S, objLinkTor_S, objAuthorsTor_S, objDateTor_S, objVersionTor_S, stationarity);
     InitializeFrequencySpectrum(objNameOch_S, strPluginName, objTileOch_S, objLinkOch_S, objAuthorsOch_S, objDateOch_S, objVersionOch_S, stationarity);
     InitializeFrequencySpectrum(objNameGau_S, strPluginName, objTileGau_S, objLinkGau_S, objAuthorsGau_S, objDateGau_S, objVersionGau_S, stationarity);
+    InitializeFrequencySpectrum(objNameBre_S, strPluginName, objTileBre_S, objLinkBre_S, objAuthorsBre_S, objDateBre_S, objVersionBre_S, stationarity);
 
     return 1;
 }
@@ -361,6 +386,7 @@ INSTALL_PLUGIN()
     RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
     RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S,BuildOchiAndHubbleSpectrum,DestroyOchiAndHubbleSpectrum);
     RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S,BuildGaussianSwellSpectrum,DestroyGaussianSwellSpectrum);
+    RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S,BuildBretschneiderSpectrum,DestroyBretschneiderSpectrum);
 
     return 1;
 }
@@ -384,6 +410,7 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameTor_S, strPluginName);
     UnregisterFrequencySpectrum(objNameOch_S, strPluginName);
     UnregisterFrequencySpectrum(objNameGau_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameBre_S, strPluginName);
 
     return 1;
 }
