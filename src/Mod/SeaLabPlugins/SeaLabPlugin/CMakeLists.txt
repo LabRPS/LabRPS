@@ -108,7 +108,8 @@ RPSISSCSpectrum.h
 RPSISSCSpectrum.cpp
 RPSITTCSpectrum.h
 RPSITTCSpectrum.cpp
-
+RPSScottSpectrum.h
+RPSScottSpectrum.cpp
 
 )
 

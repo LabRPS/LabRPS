@@ -19,6 +19,7 @@
 #include "RPSBretschneiderSpectrum.h"
 #include "RPSISSCSpectrum.h"
 #include "RPSITTCSpectrum.h"
+#include "RPSScottSpectrum.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -331,6 +332,23 @@ RPS_PLUGIN_FUNC void DestroyITTCSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
+//////////////////////////Scott Spectrum//////////////////////////////////////////
+std::string objNameScott_S = "Scott Spectrum";
+std::string objDescriptionScott_S = "This feature allows the user to compute sea surface elevation spectrum from Scott Spectrum";
+std::string objTileScott_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkScott_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsScott_S = "Dr. V. Sundar";
+std::string objDateScott_S = "06/02/2025";
+std::string objVersionScott_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildScottSpectrum() {
+    return new CRPSScottSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyScottSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
 
 PLUGIN_INIT_TYPE()
 { 
@@ -382,6 +400,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSITTCSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSITTCSpectrum::init();
     }
+    if (SeaLab::CRPSScottSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSScottSpectrum::init();
+    }
     return 1;
 }
 
@@ -407,6 +428,7 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameBre_S, strPluginName, objTileBre_S, objLinkBre_S, objAuthorsBre_S, objDateBre_S, objVersionBre_S, stationarity);
     InitializeFrequencySpectrum(objNameISSC_S, strPluginName, objTileISSC_S, objLinkISSC_S, objAuthorsISSC_S, objDateISSC_S, objVersionISSC_S, stationarity);
     InitializeFrequencySpectrum(objNameITTC_S, strPluginName, objTileITTC_S, objLinkITTC_S, objAuthorsITTC_S, objDateITTC_S, objVersionITTC_S, stationarity);
+    InitializeFrequencySpectrum(objNameScott_S, strPluginName, objTileScott_S, objLinkScott_S, objAuthorsScott_S, objDateScott_S, objVersionScott_S, stationarity);
 
     return 1;
 }
@@ -434,6 +456,7 @@ INSTALL_PLUGIN()
     RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S,BuildBretschneiderSpectrum,DestroyBretschneiderSpectrum);
     RegisterFrequencySpectrum(objNameISSC_S, strPluginName, objDescriptionISSC_S,BuildISSCSpectrum,DestroyISSCSpectrum);
     RegisterFrequencySpectrum(objNameITTC_S, strPluginName, objDescriptionITTC_S,BuildITTCSpectrum,DestroyITTCSpectrum);
+    RegisterFrequencySpectrum(objNameScott_S, strPluginName, objDescriptionScott_S,BuildScottSpectrum,DestroyScottSpectrum);
 
     return 1;
 }
@@ -460,6 +483,7 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameBre_S, strPluginName);
     UnregisterFrequencySpectrum(objNameISSC_S, strPluginName);
     UnregisterFrequencySpectrum(objNameITTC_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameScott_S, strPluginName);
 
     return 1;
 }
