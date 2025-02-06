@@ -110,7 +110,8 @@ RPSITTCSpectrum.h
 RPSITTCSpectrum.cpp
 RPSScottSpectrum.h
 RPSScottSpectrum.cpp
-
+RPSWENSpectrum.h
+RPSWENSpectrum.cpp
 )
 
 SET(Metadata_Files
