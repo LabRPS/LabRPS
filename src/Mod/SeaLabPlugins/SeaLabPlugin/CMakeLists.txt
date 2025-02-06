@@ -112,6 +112,8 @@ RPSScottSpectrum.h
 RPSScottSpectrum.cpp
 RPSWENSpectrum.h
 RPSWENSpectrum.cpp
+RPSBorgmanDirectionalSpreadingFunction.h
+RPSBorgmanDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files

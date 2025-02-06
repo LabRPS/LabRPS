@@ -21,6 +21,7 @@
 #include "RPSITTCSpectrum.h"
 #include "RPSScottSpectrum.h"
 #include "RPSWENSpectrum.h"
+#include "RPSBorgmanDirectionalSpreadingFunction.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -368,6 +369,24 @@ RPS_PLUGIN_FUNC void DestroyWENSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
 
+//////////////////////////Borgman Directional Spreading Function//////////////////////////////////////////
+std::string objNameBorgman_D = "Borgman Directional Spreading Function";
+std::string objDescriptionBorgman_D = "This feature allows the user to compute sea wave directional spreading function according to Borgman model";
+std::string objTileBorgman_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkBorgman_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsBorgman_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateBorgman_D = "06/02/2025";
+std::string objVersionBorgman_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildBorgmanDirectionalSpreadingFunction()
+{
+    return new CRPSBorgmanDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyBorgmanDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
 
 PLUGIN_INIT_TYPE()
 { 
@@ -425,6 +444,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSWENSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSWENSpectrum::init();
     }
+    if (SeaLab::CRPSBorgmanDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSBorgmanDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -453,6 +475,8 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameScott_S, strPluginName, objTileScott_S, objLinkScott_S, objAuthorsScott_S, objDateScott_S, objVersionScott_S, stationarity);
     InitializeFrequencySpectrum(objNameWEN_S, strPluginName, objTileWEN_S, objLinkWEN_S, objAuthorsWEN_S, objDateWEN_S, objVersionWEN_S, stationarity);
 
+    InitializeDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objTileBorgman_D, objLinkBorgman_D, objAuthorsBorgman_D, objDateBorgman_D, objVersionBorgman_D, stationarity);
+
     return 1;
 }
 
@@ -471,16 +495,18 @@ INSTALL_PLUGIN()
     RegisterRandomness(objNameUni_R, strPluginName, objDescriptionUni_R, BuildRPSUniformRandomPhases, DestroyRPSUniformRandomPhases);
     RegisterRandomness(objNameUni_I, strPluginName, objDescriptionUni_I, BuildRPSRandomPhasesFromFile, DestroyRPSRandomPhasesFromFile);
 
-    RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
-    RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
-    RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
-    RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S,BuildOchiAndHubbleSpectrum,DestroyOchiAndHubbleSpectrum);
-    RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S,BuildGaussianSwellSpectrum,DestroyGaussianSwellSpectrum);
-    RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S,BuildBretschneiderSpectrum,DestroyBretschneiderSpectrum);
-    RegisterFrequencySpectrum(objNameISSC_S, strPluginName, objDescriptionISSC_S,BuildISSCSpectrum,DestroyISSCSpectrum);
-    RegisterFrequencySpectrum(objNameITTC_S, strPluginName, objDescriptionITTC_S,BuildITTCSpectrum,DestroyITTCSpectrum);
-    RegisterFrequencySpectrum(objNameScott_S, strPluginName, objDescriptionScott_S,BuildScottSpectrum,DestroyScottSpectrum);
-    RegisterFrequencySpectrum(objNameWEN_S, strPluginName, objDescriptionWEN_S,BuildWENSpectrum,DestroyWENSpectrum);
+    RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S, BuildJonswapSpectrum, DestroyJonswapSpectrum);
+    RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S, BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
+    RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S, BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
+    RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S, BuildOchiAndHubbleSpectrum, DestroyOchiAndHubbleSpectrum);
+    RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S, BuildGaussianSwellSpectrum, DestroyGaussianSwellSpectrum);
+    RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S, BuildBretschneiderSpectrum, DestroyBretschneiderSpectrum);
+    RegisterFrequencySpectrum(objNameISSC_S, strPluginName, objDescriptionISSC_S, BuildISSCSpectrum, DestroyISSCSpectrum);
+    RegisterFrequencySpectrum(objNameITTC_S, strPluginName, objDescriptionITTC_S, BuildITTCSpectrum, DestroyITTCSpectrum);
+    RegisterFrequencySpectrum(objNameScott_S, strPluginName, objDescriptionScott_S, BuildScottSpectrum, DestroyScottSpectrum);
+    RegisterFrequencySpectrum(objNameWEN_S, strPluginName, objDescriptionWEN_S, BuildWENSpectrum, DestroyWENSpectrum);
+
+    RegisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objDescriptionBorgman_D, BuildBorgmanDirectionalSpreadingFunction, DestroyBorgmanDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -509,6 +535,8 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameITTC_S, strPluginName);
     UnregisterFrequencySpectrum(objNameScott_S, strPluginName);
     UnregisterFrequencySpectrum(objNameWEN_S, strPluginName);
+
+    UnregisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName);
 
     return 1;
 }
