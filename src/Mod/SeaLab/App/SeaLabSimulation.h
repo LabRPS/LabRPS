@@ -295,13 +295,13 @@ public:
     bool computeAutoDirectionalSpectrumVectorD(const Base::Vector3d &location, const double &dFrequency, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
 
    // directional spreading function
-    bool computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue, std::string& featureName);
+    bool computeDirectionalSpreadingFunctionValue(const Base::Vector3d &location, const double &dFrequency, const double &dDirection, double &dValue, std::string& featureName);
     
-    bool computeDirectionalSpreadingFunctionVectorT(const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeDirectionalSpreadingFunctionVectorF(const Base::Vector3d &location, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
 
-    bool computeDirectionalSpreadingFunctionVectorP(const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeDirectionalSpreadingFunctionVectorP(const double &dFrequency, const double &dDirection, vec &dVarVector, vec &dValVector, std::string& featureName);
 
-    bool computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector, std::string& featureName);
+    bool computeDirectionalSpreadingFunctionVectorD(const Base::Vector3d &location, const double &dFrequency, vec &dVarVector, vec &dValVector, std::string& featureName);
 
     bool computeCrossCoherenceValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue, std::string& featureName);
     bool computeCrossCorrelationValue(const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, double &dValue, std::string& featureName);

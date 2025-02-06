@@ -2319,10 +2319,10 @@ PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorD(PyObject* ar
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time = 0.0;
+    double frequency = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &direction))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -2333,7 +2333,7 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject*
     double resValue;
     std::string featureName;
 
-    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionValue(*location, time, direction, resValue, featureName);
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionValue(*location, frequency, direction, resValue, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -2343,13 +2343,12 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject*
     return returnResult6(resValue, featureName);
 }
 
-PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorT(PyObject* args)
+PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &direction))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -2361,7 +2360,7 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorT(PyObjec
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorT(*location, time, direction, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorF(*location, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -2373,17 +2372,17 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorT(PyObjec
 
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorP(PyObject* args)
 {
-    double time = 0.0;
+    double frequency = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "dd", &time, &direction))
+    if (!PyArg_ParseTuple(args, "dd", &frequency, &direction))
     return nullptr;
     
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorP(time, direction, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorP(frequency, direction, dVarVector, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -2396,9 +2395,9 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorP(PyObjec
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorD(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    double time = 0.0;
+    double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
     return nullptr;
 
     if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
@@ -2410,7 +2409,7 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorD(PyObjec
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorD(*location, time, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeDirectionalSpreadingFunctionVectorD(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");

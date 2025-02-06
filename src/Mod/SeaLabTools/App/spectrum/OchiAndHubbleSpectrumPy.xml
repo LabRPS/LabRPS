@@ -13,7 +13,7 @@
 
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>This object allows to computation of the spectrum using the Ochi and Hubble Spectrum</UserDocu>
+      <UserDocu>This object allows the computation of the spectrum using the Ochi and Hubble Spectrum</UserDocu>
     </Documentation>
     <Methode Name="computeSpectrum">
       <Documentation>

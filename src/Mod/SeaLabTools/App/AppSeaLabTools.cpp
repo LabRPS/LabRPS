@@ -32,8 +32,20 @@
 #include <Mod/SeaLabTools/App/spectrum/PiersonMoskowitzSpectrumPy.h>
 #include <Mod/SeaLabTools/App/spectrum/TorsethaugenSpectrumPy.h>
 #include <Mod/SeaLabTools/App/spectrum/GaussianSwellSpectrumPy.h>
+#include "Mod/SeaLabTools/App/spectrum/BretschneiderSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/ISSCSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/ITTCSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/ScottSpectrumPy.h"
+#include "Mod/SeaLabTools/App/spectrum/WENSpectrumPy.h"
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/DirectionalSpreadingFunctionPy.h>
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/OrcaFlexDirectionalSpreadingFunctionPy.h>
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/CosineSquareDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/MitsuyasuDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/HasselmannDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/BorgmanDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/Cos2sTypeDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/SwopDirectionalSpreadingFunctionPy.h"
+#include "Mod/SeaLabTools/App/DirectionalSpreadingFunction/LonguetHigginsDirectionalSpreadingFunctionPy.h"
 
 
 
@@ -52,8 +64,19 @@ PyMOD_INIT_FUNC(SeaLabTools)
     Base::Interpreter().addType(&SeaLabTools::PiersonMoskowitzSpectrumPy ::Type, SeaLabToolsModule, "PiersonMoskowitzSpectrum");
     Base::Interpreter().addType(&SeaLabTools::TorsethaugenSpectrumPy ::Type, SeaLabToolsModule, "TorsethaugenSpectrum");
     Base::Interpreter().addType(&SeaLabTools::GaussianSwellSpectrumPy ::Type, SeaLabToolsModule, "GaussianSwellSpectrum");
+    Base::Interpreter().addType(&SeaLabTools::BretschneiderSpectrumPy ::Type, SeaLabToolsModule, "BretschneiderSpectrum");
+    Base::Interpreter().addType(&SeaLabTools::ISSCSpectrumPy ::Type, SeaLabToolsModule, "ISSCSpectrum");
+    Base::Interpreter().addType(&SeaLabTools::ScottSpectrumPy ::Type, SeaLabToolsModule, "ScottSpectrum");
+    Base::Interpreter().addType(&SeaLabTools::WENSpectrumPy ::Type, SeaLabToolsModule, "WENSpectrum");
     Base::Interpreter().addType(&SeaLabTools::DirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "DirectionalSpreadingFunction");
     Base::Interpreter().addType(&SeaLabTools::OrcaFlexDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "OrcaFlexDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::CosineSquareDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "CosineSquareDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::MitsuyasuDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "MitsuyasuDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::HasselmannDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "HasselmannDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::BorgmanDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "BorgmanDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::Cos2sTypeDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "Cos2sTypeDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::SwopDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "SwopDirectionalSpreadingFunction");
+    Base::Interpreter().addType(&SeaLabTools::LonguetHigginsDirectionalSpreadingFunctionPy ::Type, SeaLabToolsModule, "LonguetHigginsDirectionalSpreadingFunction");
 
     Base::Console().Log("Loading SeaLabTools module... done\n");
 

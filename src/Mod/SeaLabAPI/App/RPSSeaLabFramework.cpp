@@ -683,7 +683,7 @@ bool CRPSSeaLabFramework::ComputeAutoDirectionalSpectrumVectorD(const SeaLabAPI:
 }
 
 // directional spreading function
-bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, double &dValue)
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dfrequency, const double &dDirection, double &dValue)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -699,12 +699,12 @@ bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionValue(const SeaLabA
         return false;
 	}
 
-    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionValue(Data,location, dTime, dDirection, dValue);
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionValue(Data,location, dfrequency, dDirection, dValue);
 
     return returnValue;
 }
 
-bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorT(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dTime, const double &dDirection, vec &dVarVector, vec &dValVector)
+bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorF(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d &location, const double &dDirection, vec &dVarVector, vec &dValVector)
 {
     auto doc = App::GetApplication().getActiveDocument();
 
@@ -720,7 +720,7 @@ bool CRPSSeaLabFramework::ComputeDirectionalSpreadingFunctionVectorT(const SeaLa
         return false;
 	}
 
-    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionVectorT(Data, location, dDirection, dVarVector, dValVector);
+    bool returnValue = SelectedSpectrumObject->ComputeDirectionalSpreadingFunctionVectorF(Data, location, dDirection, dVarVector, dValVector);
 
     return returnValue;
 }

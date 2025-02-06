@@ -20,7 +20,7 @@
           <UserDocu>Compute cross spectrum value between two locations</UserDocu>
         </Documentation>
       </Methode>
-      <Methode Name="ComputeDirectionalSpreadingFunctionVectorT">
+      <Methode Name="ComputeDirectionalSpreadingFunctionVectorF">
         <Documentation>
           <UserDocu>Compute cross spectrum between two locations for all time instants</UserDocu>
         </Documentation>

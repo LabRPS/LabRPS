@@ -144,8 +144,8 @@ void ViewProviderSeaLabFeatureDirectionalSpreadingFunction::setupContextMenu(QMe
     QAction* cvalue = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionValue"));
     func->trigger(cvalue, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue, this));
 
-    QAction* carray = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorT"));
-    func->trigger(carray, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorT, this));
+    QAction* carray = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorF"));
+    func->trigger(carray, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorF, this));
 
     QAction* cmatrix = menu->addAction(QObject::tr("ComputeDirectionalSpreadingFunctionVectorP"));
     func->trigger(cmatrix, boost::bind(&ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorP, this));
@@ -170,9 +170,9 @@ bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSp
 { 
     return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionValue);
 }
-bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorT()
+bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorF()
 { 
-    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT);
+    return runFeatureMethod(SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorF);
 }
 bool ViewProviderSeaLabFeatureDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionVectorP()
 { 

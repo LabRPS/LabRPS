@@ -158,7 +158,7 @@ QString SeaLabUtils::ComputeAutoDirectionalSpectrumVectorT = QString::fromLatin1
 QString SeaLabUtils::ComputeAutoDirectionalSpectrumVectorD = QString::fromLatin1("ComputeAutoDirectionalSpectrumVectorD");
 
 QString SeaLabUtils::ComputeDirectionalSpreadingFunctionValue = QString::fromLatin1("ComputeDirectionalSpreadingFunctionValue");
-QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorT");
+QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorF = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorF");
 QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorP = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorP");
 QString SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorD = QString::fromLatin1("ComputeDirectionalSpreadingFunctionVectorD");
 

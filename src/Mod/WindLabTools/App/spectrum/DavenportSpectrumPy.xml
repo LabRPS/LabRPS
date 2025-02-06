@@ -13,7 +13,7 @@
 
     <Documentation>
       <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
-      <UserDocu>This object allows to computation of the along wind spectrum using the Davenport wind spectrum</UserDocu>
+      <UserDocu>This object allows the computation of the along wind spectrum using the Davenport wind spectrum</UserDocu>
     </Documentation>
     <Methode Name="computeAlongWindAutoSpectrum">
       <Documentation>

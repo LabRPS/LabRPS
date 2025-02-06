@@ -5213,16 +5213,16 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionValue()
                                      locationCoord(locationIndexJ, 2),
                                      locationCoord(locationIndexJ, 3));
             double computedValue = 0.0;
-            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
-                + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
                 + m_sim->getSimulationData()->directionIndex.getValue()
                     * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeDirectionalSpreadingFunctionValue(locationJ, time, direction, computedValue, featureName);
+            returnResult = m_sim->computeDirectionalSpreadingFunctionValue(locationJ, frequency, direction, computedValue, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -5237,7 +5237,7 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionValue()
                 return false;
             }
 
-            m_ResultMatrix(0, 0) = time;
+            m_ResultMatrix(0, 0) = frequency;
             m_ResultMatrix(0, 1) = direction;
             m_ResultMatrix(0, 2) = computedValue;
 
@@ -5251,11 +5251,11 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionValue()
     return true;
 }
 
-bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorT()
+bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorF()
 {
     if (isStopped()) {
         stopped = false;
-        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorT) {
+        if (m_computingFunction == SeaLab::SeaLabUtils::ComputeDirectionalSpreadingFunctionVectorF) {
             //get the active document
             auto doc = App::GetApplication().getActiveDocument();
             if (!doc)
@@ -5299,17 +5299,17 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorT
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
-                + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+            // double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            //     + m_sim->getSimulationData()->frequencyIndex.getValue()
+            //         * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
             double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
                 + m_sim->getSimulationData()->directionIndex.getValue()
                     * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
 
             Base::StopWatch watch;
             watch.start();
-            returnResult = m_sim->computeDirectionalSpreadingFunctionVectorT(
-                locationJ, frequency, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
+            returnResult = m_sim->computeDirectionalSpreadingFunctionVectorF(
+                locationJ, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -5384,14 +5384,14 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorP
             double direction = m_sim->getSimulationData()->minDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)
                 + m_sim->getSimulationData()->directionIndex.getValue()
                     * m_sim->getSimulationData()->directionIncrement.getQuantityValue().getValueAs(Base::Quantity::Radian);
-            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
-                + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+                + m_sim->getSimulationData()->frequencyIndex.getValue()
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
 
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeDirectionalSpreadingFunctionVectorP(
-                time, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
+                frequency, direction, m_ResultVectorVar, m_ResultVectorVal, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);
@@ -5466,14 +5466,11 @@ bool RPSSeaLabSimulationWorker::workerComputeDirectionalSpreadingFunctionVectorD
             double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
                     * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
-            double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
-                + m_sim->getSimulationData()->timeIndex.getValue()
-                    * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
 
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeDirectionalSpreadingFunctionVectorD(
-                locationJ, time, m_ResultVectorVar, m_ResultVectorVal, featureName);
+                locationJ, frequency, m_ResultVectorVar, m_ResultVectorVal, featureName);
 
             m_simulationTime = watch.elapsed();
             std::string str = watch.toString(m_simulationTime);

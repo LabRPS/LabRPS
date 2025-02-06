@@ -46,7 +46,7 @@ public:
     void setupContextMenu(QMenu*, QObject*, const char*);
 
     bool ComputeDirectionalSpreadingFunctionValue();
-    bool ComputeDirectionalSpreadingFunctionVectorT();
+    bool ComputeDirectionalSpreadingFunctionVectorF();
     bool ComputeDirectionalSpreadingFunctionVectorP();
     bool ComputeDirectionalSpreadingFunctionVectorD();
 
