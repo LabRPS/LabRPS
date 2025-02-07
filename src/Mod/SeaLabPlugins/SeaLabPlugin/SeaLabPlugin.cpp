@@ -24,7 +24,7 @@
 #include "RPSBorgmanDirectionalSpreadingFunction.h"
 #include "RPSCos2sTypeDirectionalSpreadingFunction.h"
 #include "RPSCosineSquareDirectionalSpreadingFunction.h"
-
+#include "RPSHasselmannDirectionalSpreadingFunction.h" 
 
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
@@ -428,6 +428,25 @@ RPS_PLUGIN_FUNC void DestroyCosineSquareDirectionalSpreadingFunction(IrpsSeLDire
     delete r;
 }
 
+//////////////////////////Hasselmann Directional Spreading Function//////////////////////////////////////////
+std::string objNameHasselmann_D = "Hasselmann Directional Spreading Function";
+std::string objDescriptionHasselmann_D = "This feature allows the user to compute sea wave directional spreading function according to Hasselmann model";
+std::string objTileHasselmann_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkHasselmann_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsHasselmann_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateHasselmann_D = "06/02/2025";
+std::string objVersionHasselmann_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildHasselmannDirectionalSpreadingFunction()
+{
+    return new CRPSHasselmannDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyHasselmannDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
 
 PLUGIN_INIT_TYPE()
 { 
@@ -494,6 +513,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSCosineSquareDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSCosineSquareDirectionalSpreadingFunction::init();
     }
+    if (SeaLab::CRPSHasselmannDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSHasselmannDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -525,6 +547,7 @@ PLUGIN_INIT()
     InitializeDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objTileBorgman_D, objLinkBorgman_D, objAuthorsBorgman_D, objDateBorgman_D, objVersionBorgman_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objTileCos2s_D, objLinkCos2s_D, objAuthorsCos2s_D, objDateCos2s_D, objVersionCos2s_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objTileCosineSquare_D, objLinkCosineSquare_D, objAuthorsCosineSquare_D, objDateCosineSquare_D, objVersionCosineSquare_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objTileHasselmann_D, objLinkHasselmann_D, objAuthorsHasselmann_D, objDateHasselmann_D, objVersionHasselmann_D, stationarity);
 
     return 1;
 }
@@ -558,6 +581,7 @@ INSTALL_PLUGIN()
     RegisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objDescriptionBorgman_D, BuildBorgmanDirectionalSpreadingFunction, DestroyBorgmanDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objDescriptionCos2s_D, BuildCos2sDirectionalSpreadingFunction, DestroyCos2sDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objDescriptionCosineSquare_D, BuildCosineSquareDirectionalSpreadingFunction, DestroyCosineSquareDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objDescriptionHasselmann_D, BuildHasselmannDirectionalSpreadingFunction, DestroyHasselmannDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -590,6 +614,7 @@ UNINSTALL_PLUGIN()
     UnregisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName);
 
     return 1;
 }
