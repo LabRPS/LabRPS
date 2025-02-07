@@ -122,6 +122,10 @@ RPSHasselmannDirectionalSpreadingFunction.h
 RPSHasselmannDirectionalSpreadingFunction.cpp
 RPSLonguetHigginsDirectionalSpreadingFunction.h
 RPSLonguetHigginsDirectionalSpreadingFunction.cpp
+RPSMitsuyasuDirectionalSpreadingFunction.h
+RPSMitsuyasuDirectionalSpreadingFunction.cpp
+RPSOrcaFlexDirectionalSpreadingFunction.h
+RPSOrcaFlexDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files

@@ -26,8 +26,8 @@
 #include "RPSCosineSquareDirectionalSpreadingFunction.h"
 #include "RPSHasselmannDirectionalSpreadingFunction.h" 
 #include "RPSLonguetHigginsDirectionalSpreadingFunction.h"
-
-
+#include "RPSMitsuyasuDirectionalSpreadingFunction.h"
+#include "RPSOrcaFlexDirectionalSpreadingFunction.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -201,7 +201,7 @@ RPS_PLUGIN_FUNC void DestroyRPSRandomPhasesFromFile(IrpsSeLRandomness* r)
 std::string objNameJon_S = "Jonswap Spectrum (1974)";
 std::string objDescriptionJon_S = "This feature allows the user to compute sea surface elevation spectrum from Jonswap Spectrum";
 std::string objTileJon_S = "On environmental conditions and environmental loads. In DNV Recommended Practice DNV-RP-C205. 05 2006";
-    std::string objLinkJon_S = "https://www.dnv.com/";
+std::string objLinkJon_S = "https://www.dnv.com/";
 std::string objAuthorsJon_S = "Arne Nestegård, Marit Ronæss, Øistein Hagen, Knut Ronold, and Elzbieta Maria Bitner-Gregersen";
 std::string objDateJon_S = "15/06/2024";
 std::string objVersionJon_S = "1.0";
@@ -468,6 +468,44 @@ RPS_PLUGIN_FUNC void DestroyLonguetHigginsDirectionalSpreadingFunction(IrpsSeLDi
 }
 
 
+//////////////////////////Mitsuyasu Directional Spreading Function//////////////////////////////////////////
+std::string objNameMitsuyasu_D = "Mitsuyasu Directional Spreading Function";
+std::string objDescriptionMitsuyasu_D = "This feature allows the user to compute sea wave directional spreading function according to Mitsuyasu model";
+std::string objTileMitsuyasu_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkMitsuyasu_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsMitsuyasu_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateMitsuyasu_D = "06/02/2025";
+std::string objVersionMitsuyasu_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildMitsuyasuDirectionalSpreadingFunction()
+{
+    return new CRPSMitsuyasuDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyMitsuyasuDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////OrcaFlex Directional Spreading Function//////////////////////////////////////////
+std::string objNameOrcaFlex_D = "OrcaFlex Directional Spreading Function";
+std::string objDescriptionOrcaFlex_D = "This feature allows the user to compute sea wave directional spreading function according to OrcaFlex model";
+std::string objTileOrcaFlex_D = "Directional Spreading Function";
+std::string objLinkOrcaFlex_D = "https://www.orcina.com/webhelp/OrcaFlex/Content/html/Wavetheory.htm#WaveSpreadingTheory";
+std::string objAuthorsOrcaFlex_D = "OrcaFlex";
+std::string objDateOrcaFlex_D = "06/02/2025";
+std::string objVersionOrcaFlex_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildOrcaFlexDirectionalSpreadingFunction()
+{
+    return new CRPSOrcaFlexDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyOrcaFlexDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -539,6 +577,12 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::init();
     }
+    if (SeaLab::CRPSMitsuyasuDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSMitsuyasuDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -572,6 +616,8 @@ PLUGIN_INIT()
     InitializeDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objTileCosineSquare_D, objLinkCosineSquare_D, objAuthorsCosineSquare_D, objDateCosineSquare_D, objVersionCosineSquare_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objTileHasselmann_D, objLinkHasselmann_D, objAuthorsHasselmann_D, objDateHasselmann_D, objVersionHasselmann_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objTileLonguetHiggins_D, objLinkLonguetHiggins_D, objAuthorsLonguetHiggins_D, objDateLonguetHiggins_D, objVersionLonguetHiggins_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objTileMitsuyasu_D, objLinkMitsuyasu_D, objAuthorsMitsuyasu_D, objDateMitsuyasu_D, objVersionMitsuyasu_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objTileOrcaFlex_D, objLinkOrcaFlex_D, objAuthorsOrcaFlex_D, objDateOrcaFlex_D, objVersionOrcaFlex_D, stationarity);
 
     return 1;
 }
@@ -607,6 +653,8 @@ INSTALL_PLUGIN()
     RegisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objDescriptionCosineSquare_D, BuildCosineSquareDirectionalSpreadingFunction, DestroyCosineSquareDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objDescriptionHasselmann_D, BuildHasselmannDirectionalSpreadingFunction, DestroyHasselmannDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objDescriptionLonguetHiggins_D, BuildLonguetHigginsDirectionalSpreadingFunction, DestroyLonguetHigginsDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objDescriptionMitsuyasu_D, BuildMitsuyasuDirectionalSpreadingFunction, DestroyMitsuyasuDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objDescriptionOrcaFlex_D, BuildOrcaFlexDirectionalSpreadingFunction, DestroyOrcaFlexDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -641,6 +689,8 @@ UNINSTALL_PLUGIN()
     UnregisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName);
 
     return 1;
 }
