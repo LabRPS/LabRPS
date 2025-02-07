@@ -116,6 +116,8 @@ RPSBorgmanDirectionalSpreadingFunction.h
 RPSBorgmanDirectionalSpreadingFunction.cpp
 RPSCos2sTypeDirectionalSpreadingFunction.h
 RPSCos2sTypeDirectionalSpreadingFunction.cpp
+RPSCosineSquareDirectionalSpreadingFunction.h
+RPSCosineSquareDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files
