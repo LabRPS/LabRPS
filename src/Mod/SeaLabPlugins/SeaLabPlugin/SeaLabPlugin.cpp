@@ -22,6 +22,7 @@
 #include "RPSScottSpectrum.h"
 #include "RPSWENSpectrum.h"
 #include "RPSBorgmanDirectionalSpreadingFunction.h"
+#include "RPSCos2sTypeDirectionalSpreadingFunction.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -387,6 +388,24 @@ RPS_PLUGIN_FUNC void DestroyBorgmanDirectionalSpreadingFunction(IrpsSeLDirection
     delete r;
 }
 
+//////////////////////////Cos2s Directional Spreading Function//////////////////////////////////////////
+std::string objNameCos2s_D = "Cos2s Directional Spreading Function";
+std::string objDescriptionCos2s_D = "This feature allows the user to compute sea wave directional spreading function according to Cos2s type model";
+std::string objTileCos2s_D = "Estimation of Directional Wave Spectrum Using Measurement Array Pressure Data on Bottom - Mounted Offshore Structure in Incident and Diffracted Wave Field ";
+std::string objLinkCos2s_D = "https://doi.org/10.1155/2022/9764478";
+std::string objAuthorsCos2s_D = "Xiaodong Song, Zilong Ti, Yuanzhou Zhou";
+std::string objDateCos2s_D = "06/02/2025";
+std::string objVersionCos2s_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildCos2sDirectionalSpreadingFunction()
+{
+    return new CRPSCos2sTypeDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyCos2sDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
 
 PLUGIN_INIT_TYPE()
 { 
@@ -447,6 +466,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSBorgmanDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSBorgmanDirectionalSpreadingFunction::init();
     }
+    if (SeaLab::CRPSCos2sTypeDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSCos2sTypeDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -476,6 +498,7 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameWEN_S, strPluginName, objTileWEN_S, objLinkWEN_S, objAuthorsWEN_S, objDateWEN_S, objVersionWEN_S, stationarity);
 
     InitializeDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objTileBorgman_D, objLinkBorgman_D, objAuthorsBorgman_D, objDateBorgman_D, objVersionBorgman_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objTileCos2s_D, objLinkCos2s_D, objAuthorsCos2s_D, objDateCos2s_D, objVersionCos2s_D, stationarity);
 
     return 1;
 }
@@ -507,6 +530,7 @@ INSTALL_PLUGIN()
     RegisterFrequencySpectrum(objNameWEN_S, strPluginName, objDescriptionWEN_S, BuildWENSpectrum, DestroyWENSpectrum);
 
     RegisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objDescriptionBorgman_D, BuildBorgmanDirectionalSpreadingFunction, DestroyBorgmanDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objDescriptionCos2s_D, BuildCos2sDirectionalSpreadingFunction, DestroyCos2sDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -537,6 +561,7 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameWEN_S, strPluginName);
 
     UnregisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName);
 
     return 1;
 }

@@ -114,6 +114,8 @@ RPSWENSpectrum.h
 RPSWENSpectrum.cpp
 RPSBorgmanDirectionalSpreadingFunction.h
 RPSBorgmanDirectionalSpreadingFunction.cpp
+RPSCos2sTypeDirectionalSpreadingFunction.h
+RPSCos2sTypeDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files
