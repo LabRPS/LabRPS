@@ -25,6 +25,8 @@
 #include "RPSCos2sTypeDirectionalSpreadingFunction.h"
 #include "RPSCosineSquareDirectionalSpreadingFunction.h"
 #include "RPSHasselmannDirectionalSpreadingFunction.h" 
+#include "RPSLonguetHigginsDirectionalSpreadingFunction.h"
+
 
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
@@ -36,7 +38,7 @@ bool stationarity = true;
 PLUGIN_NAME("SeaLabPlugin");
 RANDOM_PHENOMENON("Sea Surface");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of seismic ground motion");
+PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of sea surface elevation");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("All");
 API_VERSION("ALL");
@@ -447,6 +449,24 @@ RPS_PLUGIN_FUNC void DestroyHasselmannDirectionalSpreadingFunction(IrpsSeLDirect
 }
 
 
+//////////////////////////LonguetHiggins Directional Spreading Function//////////////////////////////////////////
+std::string objNameLonguetHiggins_D = "Longuet-Higgins Directional Spreading Function";
+std::string objDescriptionLonguetHiggins_D = "This feature allows the user to compute sea wave directional spreading function according to Longuet-Higgins model";
+std::string objTileLonguetHiggins_D = "REALISTIC SIMULATION OF OCEAN SURFACE USING WAVESPECTRA";
+    std::string objLinkLonguetHiggins_D = "https://hal.science/hal-00307938";
+std::string objAuthorsLonguetHiggins_D = "Jocelyn Frechot";
+std::string objDateLonguetHiggins_D = "06/02/2025";
+std::string objVersionLonguetHiggins_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildLonguetHigginsDirectionalSpreadingFunction()
+{
+    return new CRPSLonguetHigginsDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyLonguetHigginsDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
 
 PLUGIN_INIT_TYPE()
 { 
@@ -516,6 +536,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSHasselmannDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSHasselmannDirectionalSpreadingFunction::init();
     }
+    if (SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -548,6 +571,7 @@ PLUGIN_INIT()
     InitializeDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objTileCos2s_D, objLinkCos2s_D, objAuthorsCos2s_D, objDateCos2s_D, objVersionCos2s_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objTileCosineSquare_D, objLinkCosineSquare_D, objAuthorsCosineSquare_D, objDateCosineSquare_D, objVersionCosineSquare_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objTileHasselmann_D, objLinkHasselmann_D, objAuthorsHasselmann_D, objDateHasselmann_D, objVersionHasselmann_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objTileLonguetHiggins_D, objLinkLonguetHiggins_D, objAuthorsLonguetHiggins_D, objDateLonguetHiggins_D, objVersionLonguetHiggins_D, stationarity);
 
     return 1;
 }
@@ -582,6 +606,7 @@ INSTALL_PLUGIN()
     RegisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objDescriptionCos2s_D, BuildCos2sDirectionalSpreadingFunction, DestroyCos2sDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objDescriptionCosineSquare_D, BuildCosineSquareDirectionalSpreadingFunction, DestroyCosineSquareDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objDescriptionHasselmann_D, BuildHasselmannDirectionalSpreadingFunction, DestroyHasselmannDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objDescriptionLonguetHiggins_D, BuildLonguetHigginsDirectionalSpreadingFunction, DestroyLonguetHigginsDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -615,6 +640,7 @@ UNINSTALL_PLUGIN()
     UnregisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName);
 
     return 1;
 }

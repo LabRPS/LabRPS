@@ -120,6 +120,8 @@ RPSCosineSquareDirectionalSpreadingFunction.h
 RPSCosineSquareDirectionalSpreadingFunction.cpp
 RPSHasselmannDirectionalSpreadingFunction.h
 RPSHasselmannDirectionalSpreadingFunction.cpp
+RPSLonguetHigginsDirectionalSpreadingFunction.h
+RPSLonguetHigginsDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files
