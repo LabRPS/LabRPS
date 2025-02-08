@@ -13,7 +13,7 @@ PROPERTY_SOURCE(SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction, SeaLabAP
 CRPSLonguetHigginsDirectionalSpreadingFunction::CRPSLonguetHigginsDirectionalSpreadingFunction()
 {
    ADD_PROPERTY_TYPE(PeakFrequency, (11), "Parameters", App::Prop_None, "The peak frequency.");
-   ADD_PROPERTY_TYPE(TenMeterHeightMeanWindSpeed, (25.00), "Parameters", App::Prop_None, "The mean wind speed at ten meters above ground.");
+   ADD_PROPERTY_TYPE(TenMeterHeightMeanWindSpeed, (25000.00), "Parameters", App::Prop_None, "The mean wind speed at ten meters above ground.");
    ADD_PROPERTY_TYPE(MainDirection, (0.00), "Parameters", App::Prop_None, "The main propagation direction of the wave.");
 }
 
