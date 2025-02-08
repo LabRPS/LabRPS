@@ -28,6 +28,7 @@
 #include "RPSLonguetHigginsDirectionalSpreadingFunction.h"
 #include "RPSMitsuyasuDirectionalSpreadingFunction.h"
 #include "RPSOrcaFlexDirectionalSpreadingFunction.h"
+#include "RPSSwopDirectionalSpreadingFunction.h"
 
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
@@ -361,9 +362,9 @@ RPS_PLUGIN_FUNC void DestroyScottSpectrum(IrpsSeLFrequencySpectrum* r) {
 //////////////////////////WEN Spectrum//////////////////////////////////////////
 std::string objNameWEN_S = "WEN Spectrum";
 std::string objDescriptionWEN_S = "This feature allows the user to compute sea surface elevation spectrum from WEN Spectrum";
-std::string objTileWEN_S = "Ocean Wave Mechanics: Applications in Marine Structures";
-std::string objLinkWEN_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
-std::string objAuthorsWEN_S = "Dr. V. Sundar";
+std::string objTileWEN_S = "Study on Numerical Simulation and Electromagnetic Scattering of Time - Invariant Freak Waves";
+std::string objLinkWEN_S = "https://doi.org/10.1155/2022/1951162";
+std::string objAuthorsWEN_S = "Lichen Han, Gengkun Wu, Bin Liu";
 std::string objDateWEN_S = "06/02/2025";
 std::string objVersionWEN_S = "1.0";
 
@@ -506,6 +507,25 @@ RPS_PLUGIN_FUNC void DestroyOrcaFlexDirectionalSpreadingFunction(IrpsSeLDirectio
 }
 
 
+//////////////////////////Swop Directional Spreading Function//////////////////////////////////////////
+std::string objNameSwop_D = "SWOP Directional Spreading Function";
+std::string objDescriptionSwop_D = "This feature allows the user to compute sea wave directional spreading function according to SWOP model";
+std::string objTileSwop_D = "Study on Numerical Simulation and Electromagnetic Scattering of Time - Invariant Freak Waves ";
+std::string objLinkSwop_D = "https://doi.org/10.1155/2022/1951162";
+std::string objAuthorsSwop_D = "Lichen Han, Gengkun Wu, Bin Liu";
+std::string objDateSwop_D = "06/02/2025";
+std::string objVersionSwop_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildSwopDirectionalSpreadingFunction()
+{
+    return new CRPSSwopDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroySwopDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -583,6 +603,9 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::init();
     }
+    if (SeaLab::CRPSSwopDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSSwopDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -618,6 +641,7 @@ PLUGIN_INIT()
     InitializeDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objTileLonguetHiggins_D, objLinkLonguetHiggins_D, objAuthorsLonguetHiggins_D, objDateLonguetHiggins_D, objVersionLonguetHiggins_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objTileMitsuyasu_D, objLinkMitsuyasu_D, objAuthorsMitsuyasu_D, objDateMitsuyasu_D, objVersionMitsuyasu_D, stationarity);
     InitializeDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objTileOrcaFlex_D, objLinkOrcaFlex_D, objAuthorsOrcaFlex_D, objDateOrcaFlex_D, objVersionOrcaFlex_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameSwop_D, strPluginName, objTileSwop_D, objLinkSwop_D, objAuthorsSwop_D, objDateSwop_D, objVersionSwop_D, stationarity);
 
     return 1;
 }
@@ -655,6 +679,7 @@ INSTALL_PLUGIN()
     RegisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objDescriptionLonguetHiggins_D, BuildLonguetHigginsDirectionalSpreadingFunction, DestroyLonguetHigginsDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objDescriptionMitsuyasu_D, BuildMitsuyasuDirectionalSpreadingFunction, DestroyMitsuyasuDirectionalSpreadingFunction);
     RegisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objDescriptionOrcaFlex_D, BuildOrcaFlexDirectionalSpreadingFunction, DestroyOrcaFlexDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameSwop_D, strPluginName, objDescriptionSwop_D, BuildSwopDirectionalSpreadingFunction, DestroySwopDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -691,6 +716,7 @@ UNINSTALL_PLUGIN()
     UnregisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName);
     UnregisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameSwop_D, strPluginName);
 
     return 1;
 }

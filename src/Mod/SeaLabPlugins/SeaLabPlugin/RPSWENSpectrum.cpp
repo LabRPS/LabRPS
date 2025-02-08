@@ -17,7 +17,7 @@ CRPSWENSpectrum::CRPSWENSpectrum()
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
    ADD_PROPERTY_TYPE(SignificantWavePeriod, (12.7), "Parameters", App::Prop_None, "significant wave period defined as the average period of the significant waves.");
    ADD_PROPERTY_TYPE(DepthParameter, (0.1), "Parameters", App::Prop_None, "The depth parametertaken between 0 and 0.5.");
-   ADD_PROPERTY_TYPE(TenMetersHeightMeanWindSpeed, (25000), "Parameters", App::Prop_None, "A constant.");
+   ADD_PROPERTY_TYPE(TenMetersHeightMeanWindSpeed, (25000), "Parameters", App::Prop_None, "The mean wind speed at 10 meters above ground.");
 }
 
 bool CRPSWENSpectrum::ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

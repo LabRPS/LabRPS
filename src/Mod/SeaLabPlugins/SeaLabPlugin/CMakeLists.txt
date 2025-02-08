@@ -126,6 +126,8 @@ RPSMitsuyasuDirectionalSpreadingFunction.h
 RPSMitsuyasuDirectionalSpreadingFunction.cpp
 RPSOrcaFlexDirectionalSpreadingFunction.h
 RPSOrcaFlexDirectionalSpreadingFunction.cpp
+RPSSwopDirectionalSpreadingFunction.h
+RPSSwopDirectionalSpreadingFunction.cpp
 )
 
 SET(Metadata_Files
