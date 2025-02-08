@@ -30,7 +30,6 @@ public:
 
    App::PropertyFrequency ModalFrequency;
    App::PropertySpeed MeanWindSpeed;
-   App::PropertySpeed WaveCelerity;
 };
 
 } // namespace App

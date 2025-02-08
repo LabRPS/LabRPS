@@ -26,7 +26,7 @@ double  LonguetHigginsDirectionalSpreadingFunction::computeSpreadingFunction(dou
     else
     mu = -2.5;
     double s = 11.5 * pow(9.8/(peakFrequency * tenMeterHeightMeanWindSpeed), 2.5) * pow(frequency/peakFrequency, mu);
-    double value = (1.00/(2*sqrt(PI_))) * tgamma(s+1) * tgamma(s+1)/tgamma(s+0.5) * pow(cos((mainDirection - waveDirection)/2), 2*s);
+    double value = (1.00/(2*sqrt(PI_))) * tgamma(s+1)/tgamma(s+0.5) * pow(cos((mainDirection - waveDirection)/2), 2*s);
     return value;
 }
 

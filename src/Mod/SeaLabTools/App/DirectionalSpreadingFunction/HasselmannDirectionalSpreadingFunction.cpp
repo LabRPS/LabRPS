@@ -17,10 +17,19 @@ HasselmannDirectionalSpreadingFunction::~HasselmannDirectionalSpreadingFunction(
 
 }
 
-// OCEAN WAVES, CAMBRIDGE OCEAN TECHNOLOGY SERIES: 6, Eq. 7.116 and Eq. 7.47
-double  HasselmannDirectionalSpreadingFunction::computeSpreadingFunction(double waveDirection, double frequency, double modalFrequency, double meanWindSpeed, double waveCelerity)
+// Elsevier ocean engineering book series 2,Wind Generated Ocean Waves (1999, Elsevier), P.127
+double  HasselmannDirectionalSpreadingFunction::computeSpreadingFunction(double waveDirection, double frequency, double modalFrequency, double meanWindSpeed)
 {
     double s = 0.0;
+    double mu = -2.33 - 1.45 * (meanWindSpeed*modalFrequency / 9.8 - 1.17);
+    if (frequency < 1.05 * modalFrequency)
+        s = 0.97 * pow(frequency / modalFrequency, 4.06);
+    else
+        s = 9.77 * pow(frequency / modalFrequency, mu);
+    double value = (pow(2, 2 * s - 1) / PI_) * tgamma(s + 1) * tgamma(s + 1) / tgamma(2 * s + 1) * pow(fabs(waveDirection / 2), 2 * s);
+    return value;      
+    
+   /* double s = 0.0;
     if((frequency <= modalFrequency) && (meanWindSpeed > waveCelerity) )
     {
         double ex = -(2.33+0.06) - (1.45+0.45) * (meanWindSpeed/waveCelerity - 1.17);
@@ -34,7 +43,7 @@ double  HasselmannDirectionalSpreadingFunction::computeSpreadingFunction(double 
     
     double value = (pow(2, 2*s -1)/PI_) * tgamma(s+1) * tgamma(s+1)/tgamma(2*s+1) * pow(fabs(waveDirection/2), 2*s);
    
-    return value;
+    return value;*/
 }
 
 PyObject* HasselmannDirectionalSpreadingFunction::getPyObject(void)

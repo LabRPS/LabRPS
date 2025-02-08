@@ -434,9 +434,9 @@ RPS_PLUGIN_FUNC void DestroyCosineSquareDirectionalSpreadingFunction(IrpsSeLDire
 //////////////////////////Hasselmann Directional Spreading Function//////////////////////////////////////////
 std::string objNameHasselmann_D = "Hasselmann Directional Spreading Function";
 std::string objDescriptionHasselmann_D = "This feature allows the user to compute sea wave directional spreading function according to Hasselmann model";
-std::string objTileHasselmann_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
-std::string objLinkHasselmann_D = "https://doi.org/10.1017/CBO9780511529559";
-std::string objAuthorsHasselmann_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objTileHasselmann_D = "WIND GENERATED OCEAN WAVES ";
+    std::string objLinkHasselmann_D = "https://www.sciencedirect.com/bookseries/elsevier-ocean-engineering-series/vol/2/suppl/C";
+std::string objAuthorsHasselmann_D = "IAN R. YOUNG";
 std::string objDateHasselmann_D = "06/02/2025";
 std::string objVersionHasselmann_D = "1.0";
 

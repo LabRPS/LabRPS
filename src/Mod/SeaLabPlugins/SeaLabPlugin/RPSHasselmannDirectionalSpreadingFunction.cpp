@@ -13,15 +13,13 @@ PROPERTY_SOURCE(SeaLab::CRPSHasselmannDirectionalSpreadingFunction, SeaLabAPI::S
 CRPSHasselmannDirectionalSpreadingFunction::CRPSHasselmannDirectionalSpreadingFunction()
 {
    ADD_PROPERTY_TYPE(ModalFrequency, (0.00), "Parameters", App::Prop_None, "The modal frequency.");
-   ADD_PROPERTY_TYPE(MeanWindSpeed, (1.00), "Parameters", App::Prop_None, "The mean wind speed.");
-   ADD_PROPERTY_TYPE(WaveCelerity, (1.00), "Parameters", App::Prop_None, "The wave celerity corresponding to the modal frequency.");
-   
+   ADD_PROPERTY_TYPE(MeanWindSpeed, (1.00), "Parameters", App::Prop_None, "The mean wind speed.");   
 }
 
 bool CRPSHasselmannDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::HasselmannDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, ModalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), MeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), WaveCelerity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, ModalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), MeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
   return true;
 }
     
