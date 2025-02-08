@@ -2836,7 +2836,7 @@ PyObject *WindLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
 PyObject* WindLabSimulationPy::simulate(PyObject* args)
 {
     int sampleIndex = -1;
-    if (!PyArg_ParseTuple(args, "i", &sampleIndex))
+    if (!PyArg_ParseTuple(args, "|i", &sampleIndex))
         return nullptr;
 
     cube resArray;
