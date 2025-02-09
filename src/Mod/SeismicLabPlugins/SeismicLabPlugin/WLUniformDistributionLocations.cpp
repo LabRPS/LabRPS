@@ -44,6 +44,8 @@ WLUniformDistributionLocations::WLUniformDistributionLocations()
 	ADD_PROPERTY_TYPE(Directions, ((long int)0), locationgroup, App::Prop_None,"The direction in which the simulation points are uniformly distributed.");
 
     Directions.setEnums(directionEnum);
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Uniform_Distribution");
+
 }
 
 

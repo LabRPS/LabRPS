@@ -9,6 +9,7 @@ PROPERTY_SOURCE(SeismicLab::ZervaModelFrequencyDistribution, SeismicLabAPI::Seis
 
 ZervaModelFrequencyDistribution::ZervaModelFrequencyDistribution()
 {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Zerva_Frequency_Discretization");
 
 }
 

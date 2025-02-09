@@ -11,6 +11,7 @@ PROPERTY_SOURCE(SeismicLab::CRPSSingleIndexFrequency, SeismicLabAPI::SeismicLabF
 
 CRPSSingleIndexFrequency::CRPSSingleIndexFrequency()
 {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Single_Index_Frequency_Discretization");
 
 }
 

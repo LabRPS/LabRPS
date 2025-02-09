@@ -12,6 +12,7 @@ PROPERTY_SOURCE(SeaLab::CRPSCosineSquareDirectionalSpreadingFunction, SeaLabAPI:
 
 CRPSCosineSquareDirectionalSpreadingFunction::CRPSCosineSquareDirectionalSpreadingFunction()
 {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Cosine_Squared_Directional_Spreading_Function");
 
 }
 

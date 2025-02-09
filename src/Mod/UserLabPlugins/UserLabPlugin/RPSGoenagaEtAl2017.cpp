@@ -45,6 +45,8 @@ CRPSGoenagaEtAl2017::CRPSGoenagaEtAl2017()
     ADD_PROPERTY_TYPE(ReferenceSpectrum, (0.000256), "Parameters", App::Prop_None, "The spectrum at the reference wave number.");
     ADD_PROPERTY_TYPE(PavementWavinessIndicator, (2), "Parameters", App::Prop_None, "The pavement waviness indicator.");
     Phenomenon.setValue("Pavement Profiles");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_UserLab#Goenaga_et_al_2017");
+
 }
 //Initial setting
 bool CRPSGoenagaEtAl2017::OnInitialSetting(const UserLabAPI::UserLabSimulationData& Data)

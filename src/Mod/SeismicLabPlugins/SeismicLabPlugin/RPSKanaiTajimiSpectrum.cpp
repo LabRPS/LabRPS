@@ -19,6 +19,7 @@ CRPSKanaiTajimiSpectrum::CRPSKanaiTajimiSpectrum()
    ADD_PROPERTY_TYPE(GroundNaturalFrequency, (2.39), "Parameters", App::Prop_None, "The natural frequency of the ground.");
    ADD_PROPERTY_TYPE(GroundDampingRatio, (6.0), "Parameters", App::Prop_None, "The damping ratio of the ground.");
    ADD_PROPERTY_TYPE(ConstantSpectralIntensity, (1.0), "Parameters", App::Prop_None, "The shaking intensity of the ground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Tajimi_Kanai_Spectrum");
 
 }
 

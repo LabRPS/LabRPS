@@ -15,6 +15,8 @@ CRPSLonguetHigginsDirectionalSpreadingFunction::CRPSLonguetHigginsDirectionalSpr
    ADD_PROPERTY_TYPE(PeakFrequency, (11), "Parameters", App::Prop_None, "The peak frequency.");
    ADD_PROPERTY_TYPE(TenMeterHeightMeanWindSpeed, (25000.00), "Parameters", App::Prop_None, "The mean wind speed at ten meters above ground.");
    ADD_PROPERTY_TYPE(MainDirection, (0.00), "Parameters", App::Prop_None, "The main propagation direction of the wave.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Longuet_Higgins_Directional_Spreading_Function");
+
 }
 
 bool CRPSLonguetHigginsDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

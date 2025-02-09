@@ -23,6 +23,7 @@ CRPSTorsethaugenSpectrum::CRPSTorsethaugenSpectrum()
    ADD_PROPERTY_TYPE(Sigma1, (0.07), "Parameters", App::Prop_None, "The width of spectral peak sigma 1.");
    ADD_PROPERTY_TYPE(Sigma2, (0.09), "Parameters", App::Prop_None, "The width of spectral peak sigam 2.");
    ADD_PROPERTY_TYPE(DoublePeaks, (true), "Parameters", App::Prop_None, "Whether double peaks or not.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Torsethaugen_Spectrum");
 
 }
 

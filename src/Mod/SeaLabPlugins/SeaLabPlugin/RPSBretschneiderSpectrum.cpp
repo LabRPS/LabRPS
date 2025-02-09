@@ -18,6 +18,7 @@ CRPSBretschneiderSpectrum::CRPSBretschneiderSpectrum()
    ADD_PROPERTY_TYPE(SignificantWavePeriod, (12.7), "Parameters", App::Prop_None, "significant wave period defined as the average period of the significant waves.");
    ADD_PROPERTY_TYPE(Constant1, (02107), "Parameters", App::Prop_None, "A constant.");
    ADD_PROPERTY_TYPE(Constant2, (-0.8429), "Parameters", App::Prop_None, "A constant.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Bretschneider_Spectrum");
 
 }
 

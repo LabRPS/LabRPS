@@ -11,6 +11,7 @@ using namespace SeaLabAPI;
 PROPERTY_SOURCE(SeaLab::CRPSDoubleIndexFrequency, SeaLabAPI::SeaLabFeatureFrequencyDistribution)
 
 CRPSDoubleIndexFrequency::CRPSDoubleIndexFrequency() {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Double_Index_Frequency_Discretization");
 
 }
 

@@ -11,6 +11,7 @@ using namespace SeismicLabAPI;
 PROPERTY_SOURCE(SeismicLab::CRPSDoubleIndexFrequency, SeismicLabAPI::SeismicLabFeatureFrequencyDistribution)
 
 CRPSDoubleIndexFrequency::CRPSDoubleIndexFrequency() {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Double_Index_Frequency_Discretization");
 
 }
 

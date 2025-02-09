@@ -19,6 +19,8 @@ CRPSExponentialModulation::CRPSExponentialModulation()
    ADD_PROPERTY_TYPE(Beta, (0.6), "Parameters", App::Prop_None, "The parameter beta.");
    ADD_PROPERTY_TYPE(CoefficientA, (1.0), "Parameters", App::Prop_ReadOnly, "The internal coefficient A.");
    this->IsUniformModulationFeature.setValue(true);
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Exponential_Modulation_Function");
+
 }
 
 bool CRPSExponentialModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)

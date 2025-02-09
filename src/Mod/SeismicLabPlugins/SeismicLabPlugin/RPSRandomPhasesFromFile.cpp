@@ -19,6 +19,8 @@ PROPERTY_SOURCE(SeismicLab::CRPSRandomPhasesFromFile, SeismicLabAPI::SeismicLabF
 CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
 {
   ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
+  this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Uniform_Random_Phases_Import");
+
 }
 
 bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const SeismicLabAPI::SeismicLabSimulationData& Data, cube &dRandomValueCube)

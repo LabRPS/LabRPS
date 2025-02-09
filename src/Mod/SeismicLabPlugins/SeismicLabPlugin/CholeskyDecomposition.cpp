@@ -12,6 +12,7 @@ using namespace std;
 PROPERTY_SOURCE(SeismicLab::CCholeskyDecomposition, SeismicLabAPI::SeismicLabFeaturePSDDecompositionMethod)
 
 CCholeskyDecomposition::CCholeskyDecomposition() {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Cholesky_Decomposition");
 
 }
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

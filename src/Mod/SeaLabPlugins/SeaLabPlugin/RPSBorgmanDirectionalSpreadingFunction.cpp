@@ -14,6 +14,8 @@ CRPSBorgmanDirectionalSpreadingFunction::CRPSBorgmanDirectionalSpreadingFunction
 {
    ADD_PROPERTY_TYPE(AngleOfPropagationOfPredominantWaveEnergy, (0.00), "Parameters", App::Prop_None, "The  angle of propagation of predominant wave energy.");
    ADD_PROPERTY_TYPE(PositiveConstant, (1.00), "Parameters", App::Prop_None, "A positive constant.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Borgman_Directional_Spreading_Function");
+
 }
 
 bool CRPSBorgmanDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

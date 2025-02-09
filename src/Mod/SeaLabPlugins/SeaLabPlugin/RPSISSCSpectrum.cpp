@@ -18,6 +18,7 @@ CRPSISSCSpectrum::CRPSISSCSpectrum()
    ADD_PROPERTY_TYPE(PeakFrequency, (12.7), "Parameters", App::Prop_None, "the angular frequency of spectral peak.");
    ADD_PROPERTY_TYPE(Constant1, (02107), "Parameters", App::Prop_None, "A constant.");
    ADD_PROPERTY_TYPE(Constant2, (-0.8429), "Parameters", App::Prop_None, "A constant.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#ISSC_Spectrum");
 
 }
 

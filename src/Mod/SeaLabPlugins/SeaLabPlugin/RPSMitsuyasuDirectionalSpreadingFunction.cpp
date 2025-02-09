@@ -14,6 +14,8 @@ CRPSMitsuyasuDirectionalSpreadingFunction::CRPSMitsuyasuDirectionalSpreadingFunc
 {
    ADD_PROPERTY_TYPE(ModalFrequency, (12.00), "Parameters", App::Prop_None, "The modal frequency.");
    ADD_PROPERTY_TYPE(TenMeterHeightmeanWindSpeed, (25000.00), "Parameters", App::Prop_None, "The mean wind speed at 10 meters above aground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Mitsuyasu_Directional_Spreading_Function");
+
 }
 
 bool CRPSMitsuyasuDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

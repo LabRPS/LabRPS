@@ -17,6 +17,7 @@ CRPSConstantModulation::CRPSConstantModulation()
 {
    ADD_PROPERTY_TYPE(ConstantModulationValue, (1), "Parameters", App::Prop_None, "The constant modulation value.");
    this->IsUniformModulationFeature.setValue(true);
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Constant_Modulation_Function");
 
 }
 

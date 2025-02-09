@@ -37,6 +37,8 @@ WLGridPoints::WLGridPoints()
 {
     static const char* locationgroup = "Distribution";
     ADD_PROPERTY_TYPE(GridStartingPoint, (Base::Vector3d(0,0,0)), locationgroup, App::Prop_None, "the starting point of the grid.");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Grid_Points");
+
 }
 
 

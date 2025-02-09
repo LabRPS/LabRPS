@@ -11,6 +11,7 @@ PROPERTY_SOURCE(SeaLab::CRPSSingleIndexFrequency, SeaLabAPI::SeaLabFeatureFreque
 
 CRPSSingleIndexFrequency::CRPSSingleIndexFrequency()
 {
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Single_Index_Frequency_Discretization");
 
 }
 

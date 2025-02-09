@@ -20,6 +20,7 @@ CRPSHuZhouSpectrum::CRPSHuZhouSpectrum()
    ADD_PROPERTY_TYPE(GroundDampingRatio, (0.64), "Parameters", App::Prop_None, "The damping ratio of the ground.");
    ADD_PROPERTY_TYPE(LowFrequencyControlFactor, (2.0/6.28), "Parameters", App::Prop_None, "The low frequency control factor.");
    ADD_PROPERTY_TYPE(ConstantSpectralIntensity, (1.0), "Parameters", App::Prop_None, "The shaking intensity of the ground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Hu_Zhou_Spectrum");
 
 }
 
