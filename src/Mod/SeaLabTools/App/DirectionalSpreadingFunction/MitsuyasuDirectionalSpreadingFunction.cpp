@@ -20,7 +20,7 @@ MitsuyasuDirectionalSpreadingFunction::~MitsuyasuDirectionalSpreadingFunction()
 // OCEAN WAVES, CAMBRIDGE OCEAN TECHNOLOGY SERIES: 6, Eq. 7.116
 double  MitsuyasuDirectionalSpreadingFunction::computeSpreadingFunction(double waveDirection, double frequency, double modalFrequency, double tenMeterHeightmeanWindSpeed)
 {
-    double Sm = pow(11.5 * modalFrequency * tenMeterHeightmeanWindSpeed/9.8, -2.5);
+    double Sm = 11.5 * pow(modalFrequency * tenMeterHeightmeanWindSpeed / 9.8, -2.5);
     double s = 0.0;
     if(frequency <= modalFrequency)
     s = Sm * pow(frequency/modalFrequency, 5.00);

@@ -14,7 +14,7 @@ public:
     ~ISSCSpectrum();
 
     //this computes the along wind spectrum
-    double computeSpectrum(double frequency, double significantWaveHeight, double modalFrequency, double c1 = 0.3123, double c2 = -1.2489);
+    double computeSpectrum(double frequency, double significantWaveHeight, double peakFrequency, double c1 = 0.3123, double c2 = -1.2489);
     
     virtual PyObject* getPyObject(void);
 

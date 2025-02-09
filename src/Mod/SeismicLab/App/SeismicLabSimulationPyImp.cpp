@@ -1966,7 +1966,7 @@ PyObject* SeismicLabSimulationPy::simulate(PyObject* args)
         return nullptr;
     }
 
-    if (sampleIndex >= 0 && sampleIndex <= getSeismicLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
+    if (sampleIndex >= 0 && sampleIndex < getSeismicLabSimulationPtr()->getSimulationData()->numberOfSample.getValue())
     {
         Eigen::Tensor<double, 2> matrix_at_k = resArray.chip(sampleIndex, 2);
         Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));

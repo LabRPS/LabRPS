@@ -14,7 +14,7 @@ public:
     ~HasselmannDirectionalSpreadingFunction();
 
     //this computes the along wind spectrum
-    double computeSpreadingFunction(double waveDirection, double frequency, double modalFrequency, double meanWindSpeed, double waveCelerity);
+    double computeSpreadingFunction(double waveDirection, double frequency, double modalFrequency, double meanWindSpeed);
     
     virtual PyObject* getPyObject(void);
 

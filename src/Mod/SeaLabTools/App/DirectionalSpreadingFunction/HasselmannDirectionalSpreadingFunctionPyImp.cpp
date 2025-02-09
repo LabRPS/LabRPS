@@ -61,11 +61,10 @@ PyObject* HasselmannDirectionalSpreadingFunctionPy::computeSpreadingFunction(PyO
     double frequency;
     double modalFrequency;
     double meanWindSpeed;
-    double waveCelerity;
 
-    if (!PyArg_ParseTuple(args, "ddddd", &waveDirection, &frequency, &modalFrequency, &meanWindSpeed, &waveCelerity))
+    if (!PyArg_ParseTuple(args, "dddd", &waveDirection, &frequency, &modalFrequency, &meanWindSpeed))
     return nullptr;
-    return Py::new_reference_to(Py::Float(getHasselmannDirectionalSpreadingFunctionPtr()->computeSpreadingFunction(waveDirection, frequency, modalFrequency, meanWindSpeed, waveCelerity)));
+    return Py::new_reference_to(Py::Float(getHasselmannDirectionalSpreadingFunctionPtr()->computeSpreadingFunction(waveDirection, frequency, modalFrequency, meanWindSpeed)));
 
 }
 

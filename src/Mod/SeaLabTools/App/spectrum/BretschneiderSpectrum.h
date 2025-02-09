@@ -14,7 +14,7 @@ public:
     ~BretschneiderSpectrum();
 
     //this computes the along wind spectrum
-    double computeSpectrum(double frequency, double significantWaveHeight, double modalFrequency, double c1 = 02107, double c2 = -0.8429);
+    double computeSpectrum(double frequency, double significantWaveHeight, double peakFrequency, double c1 = 0.2107, double c2 = -0.8429);
     
     virtual PyObject* getPyObject(void);
 

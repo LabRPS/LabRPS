@@ -16,6 +16,20 @@
 #include "RPSTorsethaugenSpectrum.h"
 #include "RPSOchiAndHubbleSpectrum.h"
 #include "RPSGaussianSwellSpectrum.h"
+#include "RPSBretschneiderSpectrum.h"
+#include "RPSISSCSpectrum.h"
+#include "RPSITTCSpectrum.h"
+#include "RPSScottSpectrum.h"
+#include "RPSWENSpectrum.h"
+#include "RPSBorgmanDirectionalSpreadingFunction.h"
+#include "RPSCos2sTypeDirectionalSpreadingFunction.h"
+#include "RPSCosineSquareDirectionalSpreadingFunction.h"
+#include "RPSHasselmannDirectionalSpreadingFunction.h" 
+#include "RPSLonguetHigginsDirectionalSpreadingFunction.h"
+#include "RPSMitsuyasuDirectionalSpreadingFunction.h"
+#include "RPSOrcaFlexDirectionalSpreadingFunction.h"
+#include "RPSSwopDirectionalSpreadingFunction.h"
+
 #include <Mod/SeaLabAPI/App/RPSSeaLabPluginAPI.h>
 #include <Base/Console.h>
 
@@ -25,7 +39,7 @@ bool stationarity = true;
 PLUGIN_NAME("SeaLabPlugin");
 RANDOM_PHENOMENON("Sea Surface");
 PLUGIN_AUTHOR("LabRPS Team");
-PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of seismic ground motion");
+PLUGIN_DESCRIPTION("This plugin adds a series of functionalities to LabRPS for the simulation of sea surface elevation");
 PLUGIN_VERSION("1.00");
 LABRPS_VERSION("All");
 API_VERSION("ALL");
@@ -188,7 +202,7 @@ RPS_PLUGIN_FUNC void DestroyRPSRandomPhasesFromFile(IrpsSeLRandomness* r)
 std::string objNameJon_S = "Jonswap Spectrum (1974)";
 std::string objDescriptionJon_S = "This feature allows the user to compute sea surface elevation spectrum from Jonswap Spectrum";
 std::string objTileJon_S = "On environmental conditions and environmental loads. In DNV Recommended Practice DNV-RP-C205. 05 2006";
-    std::string objLinkJon_S = "https://www.dnv.com/";
+std::string objLinkJon_S = "https://www.dnv.com/";
 std::string objAuthorsJon_S = "Arne Nestegård, Marit Ronæss, Øistein Hagen, Knut Ronold, and Elzbieta Maria Bitner-Gregersen";
 std::string objDateJon_S = "15/06/2024";
 std::string objVersionJon_S = "1.0";
@@ -274,6 +288,244 @@ RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildGaussianSwellSpectrum()
 RPS_PLUGIN_FUNC void DestroyGaussianSwellSpectrum(IrpsSeLFrequencySpectrum* r) {
     delete r;
 }
+
+//////////////////////////Bretschneider Spectrum//////////////////////////////////////////
+std::string objNameBre_S = "Bretschneider Spectrum";
+std::string objDescriptionBre_S = "This feature allows the user to compute sea surface elevation spectrum from Bretschneider Spectrum";
+std::string objTileBre_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkBre_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsBre_S = "Dr. V. Sundar";
+std::string objDateBre_S = "06/02/2025";
+std::string objVersionBre_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildBretschneiderSpectrum()
+{
+    return new CRPSBretschneiderSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyBretschneiderSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+//////////////////////////ISSC Spectrum//////////////////////////////////////////
+std::string objNameISSC_S = "ISSC Spectrum";
+std::string objDescriptionISSC_S = "This feature allows the user to compute sea surface elevation spectrum from ISSC Spectrum";
+std::string objTileISSC_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkISSC_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsISSC_S = "Dr. V. Sundar";
+std::string objDateISSC_S = "06/02/2025";
+std::string objVersionISSC_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildISSCSpectrum() {
+    return new CRPSISSCSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyISSCSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+//////////////////////////ITTC Spectrum//////////////////////////////////////////
+std::string objNameITTC_S = "ITTC Spectrum";
+std::string objDescriptionITTC_S = "This feature allows the user to compute sea surface elevation spectrum from ITTC Spectrum";
+std::string objTileITTC_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkITTC_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsITTC_S = "Dr. V. Sundar";
+std::string objDateITTC_S = "06/02/2025";
+std::string objVersionITTC_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildITTCSpectrum() {
+    return new CRPSITTCSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyITTCSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+//////////////////////////Scott Spectrum//////////////////////////////////////////
+std::string objNameScott_S = "Scott Spectrum";
+std::string objDescriptionScott_S = "This feature allows the user to compute sea surface elevation spectrum from Scott Spectrum";
+std::string objTileScott_S = "Ocean Wave Mechanics: Applications in Marine Structures";
+std::string objLinkScott_S = "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119241652";
+std::string objAuthorsScott_S = "Dr. V. Sundar";
+std::string objDateScott_S = "06/02/2025";
+std::string objVersionScott_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildScottSpectrum() {
+    return new CRPSScottSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyScottSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+
+//////////////////////////WEN Spectrum//////////////////////////////////////////
+std::string objNameWEN_S = "WEN Spectrum";
+std::string objDescriptionWEN_S = "This feature allows the user to compute sea surface elevation spectrum from WEN Spectrum";
+std::string objTileWEN_S = "Study on Numerical Simulation and Electromagnetic Scattering of Time - Invariant Freak Waves";
+std::string objLinkWEN_S = "https://doi.org/10.1155/2022/1951162";
+std::string objAuthorsWEN_S = "Lichen Han, Gengkun Wu, Bin Liu";
+std::string objDateWEN_S = "06/02/2025";
+std::string objVersionWEN_S = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLFrequencySpectrum* BuildWENSpectrum() {
+    return new CRPSWENSpectrum;
+}
+
+RPS_PLUGIN_FUNC void DestroyWENSpectrum(IrpsSeLFrequencySpectrum* r) {
+    delete r;
+}
+
+//////////////////////////Borgman Directional Spreading Function//////////////////////////////////////////
+std::string objNameBorgman_D = "Borgman Directional Spreading Function";
+std::string objDescriptionBorgman_D = "This feature allows the user to compute sea wave directional spreading function according to Borgman model";
+std::string objTileBorgman_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkBorgman_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsBorgman_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateBorgman_D = "06/02/2025";
+std::string objVersionBorgman_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildBorgmanDirectionalSpreadingFunction()
+{
+    return new CRPSBorgmanDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyBorgmanDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+//////////////////////////Cos2s Directional Spreading Function//////////////////////////////////////////
+std::string objNameCos2s_D = "Cos2s Directional Spreading Function";
+std::string objDescriptionCos2s_D = "This feature allows the user to compute sea wave directional spreading function according to Cos2s type model";
+std::string objTileCos2s_D = "Estimation of Directional Wave Spectrum Using Measurement Array Pressure Data on Bottom - Mounted Offshore Structure in Incident and Diffracted Wave Field ";
+std::string objLinkCos2s_D = "https://doi.org/10.1155/2022/9764478";
+std::string objAuthorsCos2s_D = "Xiaodong Song, Zilong Ti, Yuanzhou Zhou";
+std::string objDateCos2s_D = "06/02/2025";
+std::string objVersionCos2s_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildCos2sDirectionalSpreadingFunction()
+{
+    return new CRPSCos2sTypeDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyCos2sDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////CosineSquare Directional Spreading Function//////////////////////////////////////////
+std::string objNameCosineSquare_D = "Cosine Squared Directional Spreading Function";
+std::string objDescriptionCosineSquare_D = "This feature allows the user to compute sea wave directional spreading function according to Cosine Squared model";
+std::string objTileCosineSquare_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkCosineSquare_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsCosineSquare_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateCosineSquare_D = "06/02/2025";
+std::string objVersionCosineSquare_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildCosineSquareDirectionalSpreadingFunction()
+{
+    return new CRPSCosineSquareDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyCosineSquareDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+//////////////////////////Hasselmann Directional Spreading Function//////////////////////////////////////////
+std::string objNameHasselmann_D = "Hasselmann Directional Spreading Function";
+std::string objDescriptionHasselmann_D = "This feature allows the user to compute sea wave directional spreading function according to Hasselmann model";
+std::string objTileHasselmann_D = "WIND GENERATED OCEAN WAVES ";
+    std::string objLinkHasselmann_D = "https://www.sciencedirect.com/bookseries/elsevier-ocean-engineering-series/vol/2/suppl/C";
+std::string objAuthorsHasselmann_D = "IAN R. YOUNG";
+std::string objDateHasselmann_D = "06/02/2025";
+std::string objVersionHasselmann_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildHasselmannDirectionalSpreadingFunction()
+{
+    return new CRPSHasselmannDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyHasselmannDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////LonguetHiggins Directional Spreading Function//////////////////////////////////////////
+std::string objNameLonguetHiggins_D = "Longuet-Higgins Directional Spreading Function";
+std::string objDescriptionLonguetHiggins_D = "This feature allows the user to compute sea wave directional spreading function according to Longuet-Higgins model";
+std::string objTileLonguetHiggins_D = "REALISTIC SIMULATION OF OCEAN SURFACE USING WAVESPECTRA";
+    std::string objLinkLonguetHiggins_D = "https://hal.science/hal-00307938";
+std::string objAuthorsLonguetHiggins_D = "Jocelyn Frechot";
+std::string objDateLonguetHiggins_D = "06/02/2025";
+std::string objVersionLonguetHiggins_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildLonguetHigginsDirectionalSpreadingFunction()
+{
+    return new CRPSLonguetHigginsDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyLonguetHigginsDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////Mitsuyasu Directional Spreading Function//////////////////////////////////////////
+std::string objNameMitsuyasu_D = "Mitsuyasu Directional Spreading Function";
+std::string objDescriptionMitsuyasu_D = "This feature allows the user to compute sea wave directional spreading function according to Mitsuyasu model";
+std::string objTileMitsuyasu_D = "Ocean Waves: The Stochastic Approach (Cambridge Ocean Technology Series)";
+std::string objLinkMitsuyasu_D = "https://doi.org/10.1017/CBO9780511529559";
+std::string objAuthorsMitsuyasu_D = "Michel K. Ochi, I. Dyer, R. Eatock Taylor, J. N. Newman, W. G. Price";
+std::string objDateMitsuyasu_D = "06/02/2025";
+std::string objVersionMitsuyasu_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildMitsuyasuDirectionalSpreadingFunction()
+{
+    return new CRPSMitsuyasuDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyMitsuyasuDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////OrcaFlex Directional Spreading Function//////////////////////////////////////////
+std::string objNameOrcaFlex_D = "OrcaFlex Directional Spreading Function";
+std::string objDescriptionOrcaFlex_D = "This feature allows the user to compute sea wave directional spreading function according to OrcaFlex model";
+std::string objTileOrcaFlex_D = "Directional Spreading Function";
+std::string objLinkOrcaFlex_D = "https://www.orcina.com/webhelp/OrcaFlex/Content/html/Wavetheory.htm#WaveSpreadingTheory";
+std::string objAuthorsOrcaFlex_D = "OrcaFlex";
+std::string objDateOrcaFlex_D = "06/02/2025";
+std::string objVersionOrcaFlex_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildOrcaFlexDirectionalSpreadingFunction()
+{
+    return new CRPSOrcaFlexDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroyOrcaFlexDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
+//////////////////////////Swop Directional Spreading Function//////////////////////////////////////////
+std::string objNameSwop_D = "SWOP Directional Spreading Function";
+std::string objDescriptionSwop_D = "This feature allows the user to compute sea wave directional spreading function according to SWOP model";
+std::string objTileSwop_D = "Study on Numerical Simulation and Electromagnetic Scattering of Time - Invariant Freak Waves ";
+std::string objLinkSwop_D = "https://doi.org/10.1155/2022/1951162";
+std::string objAuthorsSwop_D = "Lichen Han, Gengkun Wu, Bin Liu";
+std::string objDateSwop_D = "06/02/2025";
+std::string objVersionSwop_D = "1.0";
+
+RPS_PLUGIN_FUNC IrpsSeLDirectionalSpreadingFunction* BuildSwopDirectionalSpreadingFunction()
+{
+    return new CRPSSwopDirectionalSpreadingFunction;
+}
+
+RPS_PLUGIN_FUNC void DestroySwopDirectionalSpreadingFunction(IrpsSeLDirectionalSpreadingFunction* r) {
+    delete r;
+}
+
+
 PLUGIN_INIT_TYPE()
 { 
     if (SeaLab::GeneralSpatialDistribution::getClassTypeId() == Base::Type::badType()) {
@@ -315,6 +567,45 @@ PLUGIN_INIT_TYPE()
     if (SeaLab::CRPSGaussianSwellSpectrum::getClassTypeId() == Base::Type::badType()) {
         SeaLab::CRPSGaussianSwellSpectrum::init();
     }
+    if (SeaLab::CRPSBretschneiderSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSBretschneiderSpectrum::init();
+    }
+    if (SeaLab::CRPSISSCSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSISSCSpectrum::init();
+    }
+    if (SeaLab::CRPSITTCSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSITTCSpectrum::init();
+    }
+    if (SeaLab::CRPSScottSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSScottSpectrum::init();
+    }
+    if (SeaLab::CRPSWENSpectrum::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSWENSpectrum::init();
+    }
+    if (SeaLab::CRPSBorgmanDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSBorgmanDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSCos2sTypeDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSCos2sTypeDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSCosineSquareDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSCosineSquareDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSHasselmannDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSHasselmannDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSLonguetHigginsDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSMitsuyasuDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSMitsuyasuDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSOrcaFlexDirectionalSpreadingFunction::init();
+    }
+    if (SeaLab::CRPSSwopDirectionalSpreadingFunction::getClassTypeId() == Base::Type::badType()) {
+        SeaLab::CRPSSwopDirectionalSpreadingFunction::init();
+    }
     return 1;
 }
 
@@ -337,6 +628,20 @@ PLUGIN_INIT()
     InitializeFrequencySpectrum(objNameTor_S, strPluginName, objTileTor_S, objLinkTor_S, objAuthorsTor_S, objDateTor_S, objVersionTor_S, stationarity);
     InitializeFrequencySpectrum(objNameOch_S, strPluginName, objTileOch_S, objLinkOch_S, objAuthorsOch_S, objDateOch_S, objVersionOch_S, stationarity);
     InitializeFrequencySpectrum(objNameGau_S, strPluginName, objTileGau_S, objLinkGau_S, objAuthorsGau_S, objDateGau_S, objVersionGau_S, stationarity);
+    InitializeFrequencySpectrum(objNameBre_S, strPluginName, objTileBre_S, objLinkBre_S, objAuthorsBre_S, objDateBre_S, objVersionBre_S, stationarity);
+    InitializeFrequencySpectrum(objNameISSC_S, strPluginName, objTileISSC_S, objLinkISSC_S, objAuthorsISSC_S, objDateISSC_S, objVersionISSC_S, stationarity);
+    InitializeFrequencySpectrum(objNameITTC_S, strPluginName, objTileITTC_S, objLinkITTC_S, objAuthorsITTC_S, objDateITTC_S, objVersionITTC_S, stationarity);
+    InitializeFrequencySpectrum(objNameScott_S, strPluginName, objTileScott_S, objLinkScott_S, objAuthorsScott_S, objDateScott_S, objVersionScott_S, stationarity);
+    InitializeFrequencySpectrum(objNameWEN_S, strPluginName, objTileWEN_S, objLinkWEN_S, objAuthorsWEN_S, objDateWEN_S, objVersionWEN_S, stationarity);
+
+    InitializeDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objTileBorgman_D, objLinkBorgman_D, objAuthorsBorgman_D, objDateBorgman_D, objVersionBorgman_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objTileCos2s_D, objLinkCos2s_D, objAuthorsCos2s_D, objDateCos2s_D, objVersionCos2s_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objTileCosineSquare_D, objLinkCosineSquare_D, objAuthorsCosineSquare_D, objDateCosineSquare_D, objVersionCosineSquare_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objTileHasselmann_D, objLinkHasselmann_D, objAuthorsHasselmann_D, objDateHasselmann_D, objVersionHasselmann_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objTileLonguetHiggins_D, objLinkLonguetHiggins_D, objAuthorsLonguetHiggins_D, objDateLonguetHiggins_D, objVersionLonguetHiggins_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objTileMitsuyasu_D, objLinkMitsuyasu_D, objAuthorsMitsuyasu_D, objDateMitsuyasu_D, objVersionMitsuyasu_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objTileOrcaFlex_D, objLinkOrcaFlex_D, objAuthorsOrcaFlex_D, objDateOrcaFlex_D, objVersionOrcaFlex_D, stationarity);
+    InitializeDirectionalSpreadingFunction(objNameSwop_D, strPluginName, objTileSwop_D, objLinkSwop_D, objAuthorsSwop_D, objDateSwop_D, objVersionSwop_D, stationarity);
 
     return 1;
 }
@@ -356,11 +661,25 @@ INSTALL_PLUGIN()
     RegisterRandomness(objNameUni_R, strPluginName, objDescriptionUni_R, BuildRPSUniformRandomPhases, DestroyRPSUniformRandomPhases);
     RegisterRandomness(objNameUni_I, strPluginName, objDescriptionUni_I, BuildRPSRandomPhasesFromFile, DestroyRPSRandomPhasesFromFile);
 
-    RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S,BuildJonswapSpectrum, DestroyJonswapSpectrum);
-    RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S,BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
-    RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S,BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
-    RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S,BuildOchiAndHubbleSpectrum,DestroyOchiAndHubbleSpectrum);
-    RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S,BuildGaussianSwellSpectrum,DestroyGaussianSwellSpectrum);
+    RegisterFrequencySpectrum(objNameJon_S, strPluginName, objDescriptionJon_S, BuildJonswapSpectrum, DestroyJonswapSpectrum);
+    RegisterFrequencySpectrum(objNameMos_S, strPluginName, objDescriptionMos_S, BuildPiersonMoskowitzSpectrum, DestroyPiersonMoskowitzSpectrum);
+    RegisterFrequencySpectrum(objNameTor_S, strPluginName, objDescriptionTor_S, BuildTorsethaugenSpectrum, DestroyTorsethaugenSpectrum);
+    RegisterFrequencySpectrum(objNameOch_S, strPluginName, objDescriptionOch_S, BuildOchiAndHubbleSpectrum, DestroyOchiAndHubbleSpectrum);
+    RegisterFrequencySpectrum(objNameGau_S, strPluginName, objDescriptionGau_S, BuildGaussianSwellSpectrum, DestroyGaussianSwellSpectrum);
+    RegisterFrequencySpectrum(objNameBre_S, strPluginName, objDescriptionBre_S, BuildBretschneiderSpectrum, DestroyBretschneiderSpectrum);
+    RegisterFrequencySpectrum(objNameISSC_S, strPluginName, objDescriptionISSC_S, BuildISSCSpectrum, DestroyISSCSpectrum);
+    RegisterFrequencySpectrum(objNameITTC_S, strPluginName, objDescriptionITTC_S, BuildITTCSpectrum, DestroyITTCSpectrum);
+    RegisterFrequencySpectrum(objNameScott_S, strPluginName, objDescriptionScott_S, BuildScottSpectrum, DestroyScottSpectrum);
+    RegisterFrequencySpectrum(objNameWEN_S, strPluginName, objDescriptionWEN_S, BuildWENSpectrum, DestroyWENSpectrum);
+
+    RegisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName, objDescriptionBorgman_D, BuildBorgmanDirectionalSpreadingFunction, DestroyBorgmanDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName, objDescriptionCos2s_D, BuildCos2sDirectionalSpreadingFunction, DestroyCos2sDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName, objDescriptionCosineSquare_D, BuildCosineSquareDirectionalSpreadingFunction, DestroyCosineSquareDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName, objDescriptionHasselmann_D, BuildHasselmannDirectionalSpreadingFunction, DestroyHasselmannDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName, objDescriptionLonguetHiggins_D, BuildLonguetHigginsDirectionalSpreadingFunction, DestroyLonguetHigginsDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName, objDescriptionMitsuyasu_D, BuildMitsuyasuDirectionalSpreadingFunction, DestroyMitsuyasuDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName, objDescriptionOrcaFlex_D, BuildOrcaFlexDirectionalSpreadingFunction, DestroyOrcaFlexDirectionalSpreadingFunction);
+    RegisterDirectionalSpreadingFunction(objNameSwop_D, strPluginName, objDescriptionSwop_D, BuildSwopDirectionalSpreadingFunction, DestroySwopDirectionalSpreadingFunction);
 
     return 1;
 }
@@ -384,6 +703,20 @@ UNINSTALL_PLUGIN()
     UnregisterFrequencySpectrum(objNameTor_S, strPluginName);
     UnregisterFrequencySpectrum(objNameOch_S, strPluginName);
     UnregisterFrequencySpectrum(objNameGau_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameBre_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameISSC_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameITTC_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameScott_S, strPluginName);
+    UnregisterFrequencySpectrum(objNameWEN_S, strPluginName);
+
+    UnregisterDirectionalSpreadingFunction(objNameBorgman_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameCos2s_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameCosineSquare_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameHasselmann_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameLonguetHiggins_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameMitsuyasu_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameOrcaFlex_D, strPluginName);
+    UnregisterDirectionalSpreadingFunction(objNameSwop_D, strPluginName);
 
     return 1;
 }
