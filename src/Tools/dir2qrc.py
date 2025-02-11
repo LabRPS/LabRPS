@@ -50,21 +50,10 @@ EndingList = ['.xpm','.svg','.qm','.png','.ui']
 
 locations = [["../Gui/Language","translation.qrc"," prefix=\"/translations\""],
              ["../Gui/Icons","resource.qrc"," prefix=\"/icons\""],
-             ["../Mod/Assembly/Gui/Resources","Assembly.qrc"],
-             ["../Mod/Complete/Gui/Resources","Complete.qrc"],
-             ["../Mod/Draft/Resources","Draft.qrc"],
-             ["../Mod/Drawing/Gui/Resources","Drawing.qrc"],
-             ["../Mod/Fem/Gui/Resources","Fem.qrc"],
-             ["../Mod/Image/Gui/Resources","Image.qrc"],
-             ["../Mod/Mesh/Gui/Resources","Mesh.qrc"],
-             ["../Mod/MeshPart/Gui/Resources","MeshPart.qrc"],
-             ["../Mod/Part/Gui/Resources","Part.qrc"],
-             ["../Mod/PartDesign/Gui/Resources","PartDesign.qrc"],
-             ["../Mod/Points/Gui/Resources","Points.qrc"],
-             ["../Mod/Raytracing/Gui/Resources","Raytracing.qrc"],
-             ["../Mod/ReverseEngineering/Gui/Resources","ReverseEngineering.qrc"],
-             ["../Mod/Robot/Gui/Resources","Robot.qrc"],
-             ["../Mod/Sketcher/Gui/Resources","Sketcher.qrc"]]
+             ["../Mod/WindLab/Gui/Resources","WindLab.qrc"],
+             ["../Mod/SeismicLab/Gui/Resources","SeismicLab.qrc"],
+             ["../Mod/SeaLab/Resources","SeaLab.qrc"],
+             ["../Mod/UserLab/Gui/Resources","UserLab.qrc"]]
 
 def main():
 	global Verbose,Automatic,ExtraDist,Dir,Output
