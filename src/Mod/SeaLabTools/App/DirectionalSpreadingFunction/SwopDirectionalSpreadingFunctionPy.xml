@@ -12,7 +12,7 @@
     Constructor="true">
 
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This object allows to compute wave direcational spreading function according to SWOP</UserDocu>
     </Documentation>
     <Methode Name="computeSpreadingFunction">

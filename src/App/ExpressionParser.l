@@ -1,6 +1,6 @@
 %{
 /***************************************************************************
- *   Copyright (c) 2010 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2010 Jürgen Riegel <FreeCAD@juergen-riegel.net>         *
  *   Copyright (c) 2015 Eivind Kvedalen <eivind@kvedalen.name>             *
  *                                                                         *
  *   This file is part of the LabRPS CAx development system.              *

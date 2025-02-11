@@ -12,7 +12,7 @@
             Constructor="false"
             Delete="false">
         <Documentation>
-            <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+            <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
             <UserDocu>ViewProviderSeaLabFeatureStandardDeviation class</UserDocu>
         </Documentation>
       <Methode Name="computeStandardDeviationValue">

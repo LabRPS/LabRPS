@@ -12,7 +12,7 @@
     Constructor="true">
 
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This object allows to compute the modulation function according to Saragoni and Hart (1974)</UserDocu>
     </Documentation>
     <Methode Name="computeModulation">

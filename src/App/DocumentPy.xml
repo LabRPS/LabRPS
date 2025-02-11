@@ -10,7 +10,7 @@
     FatherInclude="App/PropertyContainerPy.h" 
     FatherNamespace="App">
     <Documentation>
-      <Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+      <Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
       <UserDocu>This is a Document class</UserDocu>
     </Documentation>
     <Methode Name="save">

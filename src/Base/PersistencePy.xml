@@ -10,7 +10,7 @@
       Namespace="Base" 
       FatherNamespace="Base">
     <Documentation>
-      <Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+      <Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
       <DeveloperDocu>This is the Persistence class</DeveloperDocu>
       <UserDocu>Base.Persistence class.\n
 Class to dump and restore the content of an object.</UserDocu>

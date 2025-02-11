@@ -11,7 +11,7 @@
     FatherNamespace="Base"
     Constructor="true">
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This is the base object for all directional spreading function objects in SeaLabTools</UserDocu>
     </Documentation>
   </PythonExport>
