@@ -82,8 +82,8 @@ requirements:
 
 about:
     home: https://www.labrps.com/
-    license: LGPL2.1
-    license_family: LGPL
+    license: GPL2.0
+    license_family: GPL
     license_file: LICENSE
     summary: 'LabRPS is a computer tool for the numerical simulation of random phenomenon.'
     description: |
