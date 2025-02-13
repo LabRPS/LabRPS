@@ -14,36 +14,9 @@ authors:
     orcid: 0009-0009-5538-229X
     affiliation: 1
     corresponding: true
-  - name: Gabin Koto N’Gobi
-    orcid: 0009-0009-5538-229X 
-    affiliation: 2
-  - name: Chuanjin Yu
-    orcid: 0009-0009-5538-229X
-    affiliation: 3
-  - name: Eklou Eric Hiheglo
-    orcid: 0009-0009-5538-229X
-    affiliation: 4
-    - name: Dossa Didier Boko-haya
-    orcid: 0009-0009-5538-229X
-    affiliation: 1
-    - name: Médard Noukpo Agbazo, 
-    orcid: 0009-0009-5538-229X
-    affiliation: 2
-    - name: Guy Hervé Houngue
-    orcid: 0009-0009-5538-229X
-    affiliation: 2
-    - name: Hagninou Elagnon Venance Donnou
-    orcid: 0000-0002-2207-0398
-    affiliation: 2
 affiliations:
  - name: China Railway Major Bridge Reconnaissance & Design Institute Co., Ltd., Wuhan 430056, China.
    index: 1
- - name: Laboratoire de Physique du Rayonnement (L.P.R), Faculté des Sciences et Techniques (FAST), Université d’Abomey-Calavi, Cotonou, Bénin.
-   index: 2
- - name: Laboratoire de Physique du Rayonnement (L.P.R), Faculté des Sciences et Techniques (FAST), Université d’Abomey-Calavi, Cotonou, Bénin.
-   index: 3
- - name: The Molecular Sciences Software Institute, Blacksburg, VA, 24060, USA.
-   index: 4
 date: 12 February 2025
 bibliography: paper.bib
 ---
