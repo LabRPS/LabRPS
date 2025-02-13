@@ -13,6 +13,8 @@ PROPERTY_SOURCE(SeaLab::CRPSSwopDirectionalSpreadingFunction, SeaLabAPI::SeaLabF
 CRPSSwopDirectionalSpreadingFunction::CRPSSwopDirectionalSpreadingFunction()
 {
    ADD_PROPERTY_TYPE(TenMetersHeightMeanWindSpeed, (25.00), "Parameters", App::Prop_None, "The mean wind speed at 10 meters above ground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#SWOP_Directional_Spreading_Function");
+
 }
 
 bool CRPSSwopDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

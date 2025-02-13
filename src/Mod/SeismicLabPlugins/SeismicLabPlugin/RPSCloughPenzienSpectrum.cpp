@@ -21,6 +21,7 @@ CRPSCloughPenzienSpectrum::CRPSCloughPenzienSpectrum()
    ADD_PROPERTY_TYPE(SecondFilterLayerFrequency, (0.239), "Parameters", App::Prop_None, "The frequency of the second  filter layer.");
    ADD_PROPERTY_TYPE(SecondFilterLayerDampingRatio, (0.6), "Parameters", App::Prop_None, "The damping ratio of the second  filter layer.");
    ADD_PROPERTY_TYPE(ConstantSpectralIntensity, (1.0), "Parameters", App::Prop_None, "The shaking intensity of the ground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Clough_Penzien_Spectrum");
 
 }
 

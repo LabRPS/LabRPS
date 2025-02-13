@@ -42,6 +42,8 @@ CWLVerticalUniformDistribution::CWLVerticalUniformDistribution()
     ADD_PROPERTY_TYPE(Spacing, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points");
 
     Spacing.setConstraints(&SpacingContraint);
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Vertical_Uniform_Distribution");
+
 }
 bool CWLVerticalUniformDistribution::ComputeLocationCoordinateMatrixP3(const SeismicLabAPI::SeismicLabSimulationData& Data, mat &dLocCoord)
 {

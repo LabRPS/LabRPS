@@ -22,6 +22,7 @@ CRPSJonswapSpectrum::CRPSJonswapSpectrum()
    ADD_PROPERTY_TYPE(Gamma, (1.0), "Parameters", App::Prop_None, "The value of shape parameter gamma.");
    ADD_PROPERTY_TYPE(Sigma1, (0.07), "Parameters", App::Prop_None, "The width of spectral peak sigma 1.");
    ADD_PROPERTY_TYPE(Sigma2, (0.09), "Parameters", App::Prop_None, "The width of spectral peak sigam 2.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Jonswap_Spectrum_1974");
 
 }
 

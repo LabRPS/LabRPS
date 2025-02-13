@@ -12,7 +12,7 @@
     Constructor="true">
 
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This object allows the computation of the Clough-Penzien spectrum.</UserDocu>
     </Documentation>
     <Methode Name="computeCloughPenzienSpectrum">

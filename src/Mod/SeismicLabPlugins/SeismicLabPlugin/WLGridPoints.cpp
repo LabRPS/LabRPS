@@ -46,6 +46,9 @@ WLGridPoints::WLGridPoints()
     ADD_PROPERTY_TYPE(Spacing2, (5000.0), locationgroup, App::Prop_None, "The even spacing between the points along other axis");
     ADD_PROPERTY_TYPE(Length1, (5000.0), locationgroup, App::Prop_None, "The length along one axis");
     ADD_PROPERTY_TYPE(Length2, (15000.0), locationgroup, App::Prop_None, "The length along other axis");
+
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Grid_Points");
+
 }
 
 

@@ -11,7 +11,7 @@
     FatherNamespace="Base"
     DisableNotify="true">
     <Documentation>
-      <Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+      <Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
       <UserDocu>App.PropertyContainer class.</UserDocu>
     </Documentation>
     <Methode Name="getPropertyByName">

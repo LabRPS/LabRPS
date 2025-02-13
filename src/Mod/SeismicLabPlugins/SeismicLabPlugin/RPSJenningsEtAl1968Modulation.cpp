@@ -20,6 +20,8 @@ CRPSJenningsEtAl1968Modulation::CRPSJenningsEtAl1968Modulation()
    ADD_PROPERTY_TYPE(Alpha, (0.2), "Parameters", App::Prop_None, "The parameter alpha.");
    ADD_PROPERTY_TYPE(Power, (2.0), "Parameters", App::Prop_None, "The power coefficient");
    this->IsUniformModulationFeature.setValue(true);
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Jennings_Modulation_Function");
+
 }
 
 bool CRPSJenningsEtAl1968Modulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)

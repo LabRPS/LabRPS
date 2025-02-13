@@ -13,7 +13,9 @@ PROPERTY_SOURCE(SeaLab::CRPSHasselmannDirectionalSpreadingFunction, SeaLabAPI::S
 CRPSHasselmannDirectionalSpreadingFunction::CRPSHasselmannDirectionalSpreadingFunction()
 {
    ADD_PROPERTY_TYPE(ModalFrequency, (0.00), "Parameters", App::Prop_None, "The modal frequency.");
-   ADD_PROPERTY_TYPE(MeanWindSpeed, (1.00), "Parameters", App::Prop_None, "The mean wind speed.");   
+   ADD_PROPERTY_TYPE(MeanWindSpeed, (1.00), "Parameters", App::Prop_None, "The mean wind speed.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Hasselmann_Directional_Spreading_Function");
+   
 }
 
 bool CRPSHasselmannDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

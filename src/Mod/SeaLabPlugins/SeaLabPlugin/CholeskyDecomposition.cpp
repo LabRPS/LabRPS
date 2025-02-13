@@ -12,6 +12,7 @@ using namespace std;
 PROPERTY_SOURCE(SeaLab::CCholeskyDecomposition, SeaLabAPI::SeaLabFeaturePSDDecompositionMethod)
 
 CCholeskyDecomposition::CCholeskyDecomposition() {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Cholesky_Decomposition");
 
 }
 bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

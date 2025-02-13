@@ -15,7 +15,7 @@ namespace Base {
     typedef Type BaseType;
 }</ForwardDeclarations>
     <Documentation>
-      <Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+      <Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
       <DeveloperDocu>This is the Type class</DeveloperDocu>
       <UserDocu>Base.BaseType class.\n
 This class is not intended to create instances of itself, but to get information

@@ -134,12 +134,12 @@ PyObject* returnResult6(double resValue, std::string featureName)
 PyObject* returnResult7(cube& resArray, std::string featureName)
 {
     Py::List activeArray;
-    for (int i = 0; i < resArray.dimension(0); ++i) {  // Iterate over the first dimension (depth)
+    for (int i = 0; i < resArray.dimension(2); ++i) {  // Iterate over the first dimension (depth)
         Py::List array;
-        for (int j = 0; j < resArray.dimension(1); ++j) {  // Iterate over the second dimension (rows)
+        for (int j = 0; j < resArray.dimension(0); ++j) {  // Iterate over the second dimension (rows)
             Py::List row;
-            for (int k = 0; k < resArray.dimension(2); ++k) {  // Iterate over the third dimension (columns)
-                row.append(Py::Float((resArray(i, j, k))));
+            for (int k = 0; k < resArray.dimension(1); ++k) {  // Iterate over the third dimension (columns)
+                row.append(Py::Float((resArray(j, k, i))));
             }
             array.append(row);
         }

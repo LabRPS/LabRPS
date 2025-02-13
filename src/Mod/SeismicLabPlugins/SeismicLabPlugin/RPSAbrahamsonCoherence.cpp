@@ -16,6 +16,7 @@ PROPERTY_SOURCE(SeismicLab::CRPSAbrahamsonCoherence, SeismicLabAPI::SeismicLabFe
 
 CRPSAbrahamsonCoherence::CRPSAbrahamsonCoherence()
 {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Abrahamson_Coherence_Function");
   
 }
 

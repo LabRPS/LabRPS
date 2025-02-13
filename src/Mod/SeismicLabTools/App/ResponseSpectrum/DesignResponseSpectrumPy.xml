@@ -12,7 +12,7 @@
     Constructor="true">
 
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This object allows the computation of wind spectrum using the von Karman spectrum</UserDocu>
     </Documentation>
     <Methode Name="compute_Euro_EN1998_1_2004_Hori_Elastic_Response_Spectrum">

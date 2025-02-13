@@ -37,7 +37,7 @@ The LabRPS Contribution Process is expressed here with the following specific go
 4. "Administrator": Administrators have additional authority to maintain the list of designated Maintainers.
 
 ## 4. Licensing, Ownership, and Credit
-1. LabRPS is distributed under the Lesser General Public License, version 2, or superior (LGPL2+).  Additional details can be found in the LICENSE file.
+1. LabRPS is distributed under the General Public License, version 2, or superior (GPL2+).  Additional details can be found in the LICENSE file.
 2. All contributions to LabRPS MUST use a compatible license.
 3. All contributions are owned by their authors unless assigned to another.
 4. LabRPS does not have a mandatory copyright assignment policy.

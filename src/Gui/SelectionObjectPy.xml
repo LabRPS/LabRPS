@@ -11,7 +11,7 @@
     FatherInclude="Base/BaseClassPy.h"
     FatherNamespace="Base">
     <Documentation>
-      <Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+      <Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
       <UserDocu>This class represents selections made by the user. It holds information about the object, document and sub-element of the selection.</UserDocu>
     </Documentation>
     <Methode Name="remove">

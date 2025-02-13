@@ -17,6 +17,7 @@ CRPSBogdanoffGoldbergBernardModulation::CRPSBogdanoffGoldbergBernardModulation()
     ADD_PROPERTY_TYPE(CoefficientOne, (0.68), "Parameters", App::Prop_None, "The coefficient 1.");
     ADD_PROPERTY_TYPE(CoefficientTwo, (1.0/4.0), "Parameters", App::Prop_None, "The coefficient 2.");
     this->IsUniformModulationFeature.setValue(true);
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Bogdanoff_Goldberg_Bernard_Modulation_Function");
 
 }
 

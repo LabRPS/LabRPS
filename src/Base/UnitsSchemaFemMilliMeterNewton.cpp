@@ -1,5 +1,5 @@
 /***************************************************************************
- *   Copyright (c) 2009 Jürgen Riegel <LabRPS@juergen-riegel.net>         *
+ *   Copyright (c) 2009 Jürgen Riegel <FreeCAD@juergen-riegel.net>         *
  *   Copyright (c) 2020 Bernd Hahnebach <bernd@bimstatik.org>              *
  *                                                                         *
  *   This file is part of the LabRPS CAx development system.              *

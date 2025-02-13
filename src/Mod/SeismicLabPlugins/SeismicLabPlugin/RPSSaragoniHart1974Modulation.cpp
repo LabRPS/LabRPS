@@ -19,6 +19,8 @@ CRPSSaragoniHart1974Modulation::CRPSSaragoniHart1974Modulation()
    ADD_PROPERTY_TYPE(AlphaTwo, (3.0), "Parameters", App::Prop_None, "The parameter 2.");
    ADD_PROPERTY_TYPE(AlphaThree, (0.5), "Parameters", App::Prop_None, "The parameter 3.");
    this->IsUniformModulationFeature.setValue(true);
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Saragoni_and_Hart_Modulation_Function");
+
 }
 
 

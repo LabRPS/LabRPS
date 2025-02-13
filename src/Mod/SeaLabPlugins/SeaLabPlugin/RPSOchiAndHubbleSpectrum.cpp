@@ -23,6 +23,8 @@ CRPSOchiAndHubbleSpectrum::CRPSOchiAndHubbleSpectrum()
    ADD_PROPERTY_TYPE(PeakShape2, (0.932), "Parameters", App::Prop_None, "The shape of the second peak.");
    ADD_PROPERTY_TYPE(AutoPara, (true), "Parameters", App::Prop_None, "Whether the six parameter should be automatically computed by LabRPS or not.");
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (8100.00), "Parameters", App::Prop_None,"The significant wave height used for the calculation of the six parameters in case of automatic parameter computation.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Ochi_Hubble_Spectrum");
+
 }
 
 bool CRPSOchiAndHubbleSpectrum::ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

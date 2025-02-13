@@ -15,6 +15,7 @@ CRPSScottSpectrum::CRPSScottSpectrum()
 {
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
    ADD_PROPERTY_TYPE(PeakFrequency, (12.7), "Parameters", App::Prop_None, "Peak frequency of the spectrum.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Scott_Spectrum");
 
 }
 

@@ -11,7 +11,7 @@
     FatherNamespace="App"
     Constructor="true">
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>With this objects you can handle SeismicLab features</UserDocu>
     </Documentation>
     <Methode Name="run">

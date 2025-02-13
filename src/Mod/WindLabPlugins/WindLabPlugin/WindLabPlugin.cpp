@@ -672,7 +672,7 @@ RPS_PLUGIN_FUNC void DestroyRPSTogbenouEtAl2016(IrpsWLSimuMethod* r)
     delete r;
 }
 
-std::string objNameWav_P = "Exponential Wave Passage effect";
+std::string objNameWav_P = "Exponential Wave Passage Effect";
 std::string objDescriptionWav_P = "This feature allows the user to the wave passage effect as described in Guoqing Huang et al. (2013).";
 std::string objTileWav_P = "New formulation of Cholesky decomposition and applications in stochastic simulation";
 std::string objLinkWav_P = "http://dx.doi.org/10.1016/j.probengmech.2013.04.003";

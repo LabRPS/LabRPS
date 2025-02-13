@@ -9,6 +9,7 @@ PROPERTY_SOURCE(SeaLab::ZervaModelFrequencyDistribution, SeaLabAPI::SeaLabFeatur
 
 ZervaModelFrequencyDistribution::ZervaModelFrequencyDistribution()
 {
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Zerva_Frequency_Discretization");
 
 }
 

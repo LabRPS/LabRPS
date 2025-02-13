@@ -388,7 +388,6 @@
 <XPD:REF name="Model">PYiyt6LEqUKIXNPeAi4FeQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="itzFGa/wfEiNZSsXcFoePQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="JqH/nbO7iUysbMxU3BiLJwAA">
-<XPD:ATTR name="Text" type="string">Mesh</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Q9kO/G1Id0C6HOw49bGmjgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -910,7 +909,6 @@
 <XPD:REF name="Model">PYiyt6LEqUKIXNPeAi4FeQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="D3EBjw3G00+35eU7RhN2MwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="xeXKbIm5fUu+RDyueNArJAAA">
-<XPD:ATTR name="Text" type="string">Mesh</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="mDK99zFT9UuDwBiytqvN0AAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2233,7 +2231,6 @@
 <XPD:REF name="Views[0]">ebITM/L0xUGJL3zn/Mgo4wAA</XPD:REF>
 <XPD:ATTR name="#OwnedElements" type="integer">14</XPD:ATTR>
 <XPD:OBJ name="OwnedElements[0]" type="UMLPackage" guid="PYiyt6LEqUKIXNPeAi4FeQAA">
-<XPD:ATTR name="Name" type="string">Mesh</XPD:ATTR>
 <XPD:REF name="Namespace">rF42qmbBS0OPcjU6ZI8+vwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">3nYy4acz60Wk7vOxc44l8gAA</XPD:REF>

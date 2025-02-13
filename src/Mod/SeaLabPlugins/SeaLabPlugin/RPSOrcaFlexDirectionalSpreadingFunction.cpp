@@ -14,6 +14,8 @@ CRPSOrcaFlexDirectionalSpreadingFunction::CRPSOrcaFlexDirectionalSpreadingFuncti
 {
    ADD_PROPERTY_TYPE(PrincipalWaveDirection, (0.00), "Parameters", App::Prop_None, "The principal wave direction.");
    ADD_PROPERTY_TYPE(SpreadingExponent, (10.00), "Parameters", App::Prop_None, "The spreading exponent.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#OrcaFlex_Directional_Spreading_Function");
+
 }
 
 bool CRPSOrcaFlexDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)

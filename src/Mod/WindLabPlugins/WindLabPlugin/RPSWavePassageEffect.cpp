@@ -38,7 +38,7 @@ CRPSWavePassageEffect::CRPSWavePassageEffect()
 {
    ADD_PROPERTY_TYPE(ApparentWaveVelocity, (10000.0), "Parameters", App::Prop_None, "The apparent wave velocity.");
    ADD_PROPERTY_TYPE(Coefficient, (5.0), "Parameters", App::Prop_None, "The appropriate coefficient that can obtained from experiments.");
-   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_WindLab#Exponential_Wave_Passage_Effect");
 
 }
 
@@ -106,23 +106,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::Wind
 {
    bool returnResult = true;
 
-    double MEANj = 0.0;
-    double MEANk = 0.0;
-
-    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationJ, dTime, MEANj);
-    if (!returnResult) {
-        Base::Console().Error("The computation of mean wind speed at location %s has failed.\n");
-        return false;
-    }
-
-    returnResult = CRPSWindLabFramework::ComputeMeanWindSpeedValue(Data, locationK, dTime, MEANk);
-    if (!returnResult) {
-        Base::Console().Error("The computation of mean wind speed fails\n");
-        return false;
-    }
-
     WindLabTools::WavePassageEffect wavePassageEf;
-
     dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
 
 	return true;

@@ -12,7 +12,7 @@
     Constructor="true">
 
     <Documentation>
-      <Author Licence="LGPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
+      <Author Licence="GPL" Name="Koffi Daniel" EMail="kfdani@labrps.com" />
       <UserDocu>This object allows to compute the modulation according to the publication of Dominik et al 2013 (The method of separation for evolutionary spectral density estimation of
 multi-variate and multi-dimensional non-stationary stochastic processes) </UserDocu>
     </Documentation>

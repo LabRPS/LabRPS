@@ -13,6 +13,7 @@ CRPSITTCSpectrum::CRPSITTCSpectrum()
 {
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
    ADD_PROPERTY_TYPE(PhillipsConstant, (0.0081), "Parameters", App::Prop_None, "The Phillips Constant.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#ITTC_Spectrum");
 
 }
 

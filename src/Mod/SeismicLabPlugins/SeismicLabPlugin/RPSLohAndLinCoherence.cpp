@@ -18,6 +18,8 @@ CRPSLohAndLinCoherence::CRPSLohAndLinCoherence()
 {
    ADD_PROPERTY_TYPE(ParameterAlpha, (0.02), "Parameters", App::Prop_None, "The natural frequency of the ground.");
    ADD_PROPERTY_TYPE(ParameterB, (0.005), "Parameters", App::Prop_None, "The damping ratio of the ground.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Loh_and_Lin_Coherence_Function");
+
 }
 
 bool CRPSLohAndLinCoherence::ComputeCrossCoherenceVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

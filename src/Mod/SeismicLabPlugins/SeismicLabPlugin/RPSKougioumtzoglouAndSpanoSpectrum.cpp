@@ -17,6 +17,7 @@ PROPERTY_SOURCE(SeismicLab::CRPSKougioumtzoglouAndSpanoSpectrum, SeismicLabAPI::
 CRPSKougioumtzoglouAndSpanoSpectrum::CRPSKougioumtzoglouAndSpanoSpectrum()
 {
    ADD_PROPERTY_TYPE(ConstantS, (0.03), "Parameters", App::Prop_None, "The constant S.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Kougioumtzoglou_And_Spano_Spectrum_2009");
 
 }
 

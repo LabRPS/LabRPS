@@ -14,25 +14,12 @@ This is the complete python API reference of the LabRPS application
    LabRPS.rst
    LabRPSGui.rst
    Vector.rst
-   Placement.rst
-   Matrix.rst
    Document.rst
    DocumentObject.rst
    ViewProvider.rst
-   Mesh.rst
-   Part.rst
-   Sketch.rst
-   PartDesign.rst
-   Draft.rst
-   DraftVecUtils.rst
-   DraftGeomUtils.rst
-   DraftTrackers.rst
-   DraftSnap.rst
-   DraftWorkingPlane.rst
-   Arch.rst
-   Drawing.rst
+
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-* `LabRPS homepage <https://www.labrps.org>`_
+* `LabRPS homepage <https://www.labrps.com>`_

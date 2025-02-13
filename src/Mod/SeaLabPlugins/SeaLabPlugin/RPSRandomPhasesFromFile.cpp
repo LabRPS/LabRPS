@@ -19,6 +19,8 @@ PROPERTY_SOURCE(SeaLab::CRPSRandomPhasesFromFile, SeaLabAPI::SeaLabFeatureRandom
 CRPSRandomPhasesFromFile::CRPSRandomPhasesFromFile()
 {
   ADD_PROPERTY_TYPE(WorkingDirectory, (""), "Parameters", App::Prop_None, "The directory to import the random phase angles from");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Uniform_Random_Phases_Import");
+
 }
 
 bool CRPSRandomPhasesFromFile::GenerateRandomCubeFPS(const SeaLabAPI::SeaLabSimulationData& Data, cube& dRandomValueCube)

@@ -47,8 +47,9 @@ CRPSRandomWalk::CRPSRandomWalk()
     ADD_PROPERTY_TYPE(TotalSteps, (1000), "Parameters", App::Prop_None, "Number of total steps every walker shall take.");
     ADD_PROPERTY_TYPE(NumberOfWalker, (1), "Parameters", App::Prop_None, "Number of total walkers to be created.");
     ADD_PROPERTY_TYPE(MovePattern, (true), "Parameters", App::Prop_None, "Choose neighborhood movement pattern between Neumann (4 directions) or Moore (8 directions).");
-    ADD_PROPERTY_TYPE(RandomStart, (true), "Parameters", App::Prop_None, " Do you want different (random) start points for each walker or let all plots start at 0,0?.");
+    ADD_PROPERTY_TYPE(RandomStart, (true), "Parameters", App::Prop_None, " Do you want different (random) start points for each walker or let all walkers start at 0,0?.");
     Phenomenon.setValue("Random Walk");
+    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_UserLab_RandomWalk#Random_Walk");
 
 }
 //Initial setting

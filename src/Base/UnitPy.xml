@@ -14,7 +14,7 @@
 		Delete="true"
 		FatherNamespace="Base">
 	<Documentation>
-		<Author Licence="LGPL" Name="Juergen Riegel" EMail="LabRPS@juergen-riegel.net" />
+		<Author Licence="LGPL" Name="Juergen Riegel" EMail="FreeCAD@juergen-riegel.net" />
 		<UserDocu>
  Unit
  defines a unit type, calculate and compare.

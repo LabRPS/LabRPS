@@ -21,6 +21,7 @@ CRPSHarichandranVanmarckeCoherence::CRPSHarichandranVanmarckeCoherence()
    ADD_PROPERTY_TYPE(ParameterK, (19700000), "Parameters", App::Prop_None, "The parameter K.");
    ADD_PROPERTY_TYPE(ParameterOmegaZero, (12.692/6.28), "Parameters", App::Prop_None, "The parameter omega zero.");
    ADD_PROPERTY_TYPE(ParameterB, (3.47), "Parameters", App::Prop_None, "The parameter b.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeismicLab#Harichandran_Vanmarcke_Coherence_Function");
 
 }
 

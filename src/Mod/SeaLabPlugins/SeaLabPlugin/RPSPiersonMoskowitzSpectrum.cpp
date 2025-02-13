@@ -17,6 +17,8 @@ CRPSPiersonMoskowitzSpectrum::CRPSPiersonMoskowitzSpectrum()
 {
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
    ADD_PROPERTY_TYPE(PeakPeriod, (12.7), "Parameters", App::Prop_None, "The peak period.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Pierson_Moskowitz_Spectrum_1964");
+
 }
 
 bool CRPSPiersonMoskowitzSpectrum::ComputeCrossFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dTime, vec &dVarVector, cx_vec &dValVector)

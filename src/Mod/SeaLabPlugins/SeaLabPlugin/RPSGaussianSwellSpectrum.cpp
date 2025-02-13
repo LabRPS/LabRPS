@@ -18,6 +18,7 @@ CRPSGaussianSwellSpectrum::CRPSGaussianSwellSpectrum()
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
    ADD_PROPERTY_TYPE(PeakPeriod, (12.7), "Parameters", App::Prop_None, "The peak period.");
    ADD_PROPERTY_TYPE(Sigma, (3.0), "Parameters", App::Prop_None, "The parameter sigma.");
+   this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Gaussian_Swell_Spectrum");
 
 }
 
