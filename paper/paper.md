@@ -50,7 +50,7 @@ LabRPS is primarily intended to assist researchers in this area to quickly imple
 
 The tool is highly modular and seamlessly integrates with an advanced data visualizer, enabling the creation of high-quality 2D and 3D visualizations for simulation results, as well as data imported from files, manually entered, or derived from formulas. These visualizations are optimized for academic publications, empowering users to effectively communicate their findings with precision and clarity.
 
-![LabRPS\label{fig:figure1}](Figures/Figure1.png)
+![LabRPS Interface\label{fig:figure1}](Figures/Figure1.png)
 
 # 1. Statement of Need
 
@@ -80,7 +80,7 @@ LabRPS is a highly modular and flexible software platform, structured around a s
 
 By organizing the software into workbenches and plugins, LabRPS enables efficient, task specific customization, providing users with the flexibility to expand the software’s capabilities as required. Plugins can be easily integrated into existing workbenches, allowing for quick implementation of new methods or algorithms without disrupting the overall structure of the software. This architecture ensures that LabRPS remains a powerful yet accessible tool for diverse users with varying needs, from academic researchers developing new simulation techniques to industry professionals seeking realistic numerical models of random phenomena.
 
-![Plugin System\label{fig:figure2}](Figures/Figure2.svg)
+![Plugin System\label{fig:figure2}](Figures/Figure2.png)
 
 # 5. LabRPS Scripting 
 
@@ -88,18 +88,25 @@ LabRPS scripting using Python is a powerful way to automate and customize your s
 
 ![LabRPS Scripting\label{fig:figure3}](Figures/Figure3.png)
 
+# Resources
+
+* Official Website: [https://labrps.com](https://labrps.com)
+* Documentation: [https://wiki.labrps.com](https://wiki.labrps.com)
+* Download Page: [https://sourceforge.net/projects/labrps](https://sourceforge.net/projects/labrps)
+* Plugin API Documentation: [https://api.labrps.com](https://api.labrps.com)
+* Community Forum: [https://labrps.com/boards](https://labrps.com/boards)
+* Tutorials: [https://wiki.labrps.com/Tutorials](https://wiki.labrps.com/Tutorials)
+* Plugins: [https://wiki.labrps.com/Plugins](https://wiki.labrps.com/Plugins)
+* Add your Research: [https://wiki.labrps.com/Plugin_Creation](https://wiki.labrps.com/Plugin_Creation)
+
 # Acknowledgements
 
 Important part of this project is based on or adapted from the following source codes:
 
-- **[FreeCAD](https://github.com/FreeCAD/FreeCAD)**  
-  By [Jürgen Riegel and others].  
-  Licensed under the [LGPL](http://en.wikipedia.org/wiki/LGPL).
+- **[FreeCAD](https://github.com/FreeCAD/FreeCAD):** By [Jürgen Riegel and others]. Licensed under the [LGPL](http://en.wikipedia.org/wiki/LGPL).
 
-- **[Alphaplot](https://github.com/narunlifescience/AlphaPlot)**  
-  By [Arun Narayanankutty].  
-  Licensed under the [GPL](http://en.wikipedia.org/wiki/GPL).
+- **[Alphaplot](https://github.com/narunlifescience/AlphaPlot):** By [Arun Narayanankutty]. Licensed under the [GPL](http://en.wikipedia.org/wiki/GPL).
 
-We would like to express our sincere gratitude to the authors of these projects for providing such a helpful and well-constructed codebases. Modifications have been made to adapt it to our needs, but some core principles and ideas are drawn from the their work.
+We would like to express our sincere gratitude to the authors of these projects for providing such a helpful and well-constructed codebases. Modifications have been made to adapt them to our needs, but some core principles and ideas are drawn from their work.
 
 # References
