@@ -14,6 +14,9 @@ authors:
     orcid: 0009-0009-5538-229X
     affiliation: 1,2
     corresponding: true
+  - name: Gabin Koto N’Gobi
+    orcid: 0009-0009-5538-229X 
+    affiliation: 2
 affiliations:
  - name: China Railway Major Bridge Reconnaissance & Design Institute Co., Ltd., Wuhan 430056, China.
    index: 1
