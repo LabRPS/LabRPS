@@ -12,11 +12,17 @@ tags:
 authors:
   - name: Koffi Togbenou
     orcid: 0009-0009-5538-229X
-    affiliation: 1
+    affiliation: 1,2
     corresponding: true
 affiliations:
  - name: China Railway Major Bridge Reconnaissance & Design Institute Co., Ltd., Wuhan 430056, China.
    index: 1
+ - name: Laboratoire de Physique du Rayonnement (L.P.R), Faculté des Sciences et Techniques (FAST), Université d’Abomey-Calavi, Cotonou, Bénin.
+   index: 2
+ - name: Laboratoire de Physique du Rayonnement (L.P.R), Faculté des Sciences et Techniques (FAST), Université d’Abomey-Calavi, Cotonou, Bénin.
+   index: 3
+ - name: The Molecular Sciences Software Institute, Blacksburg, VA, 24060, USA.
+   index: 4
 date: 12 February 2025
 bibliography: paper.bib
 ---
