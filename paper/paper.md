@@ -106,6 +106,6 @@ LabRPS scripting using Python is a powerful way to automate and customize your s
 
 # Acknowledgements
 
-We would like to express our gratitude to Siyu Zhu from the College of Environment and Civil Engineering at Chengdu University of Technology, China, for his valuable suggestions and thoughtful review. Additionally, we extend our thanks to Williams Adilehou and Hermann Sakponou for their ongoing support throughout the development of this project.
+We would like to express our sincere gratitude to Siyu Zhu from the College of Environment and Civil Engineering at Chengdu University of Technology, China, for his insightful suggestions and thorough review. We also wish to thank Williams Adilehou and Hermann Sakponou for their continuous support throughout the development of this project.
 
 # References
