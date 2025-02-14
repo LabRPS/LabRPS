@@ -29,6 +29,9 @@ authors:
   - name: Hagninou Elagnon Venance Donnou
     orcid: 0000-0002-2207-0398
     affiliation: 2
+  - name: Patrick Arnaud Wandji Zoumb
+    orcid: 0000-0002-1449-6604
+    affiliation: 5
 affiliations:
  - name: China Railway Major Bridge Reconnaissance & Design Institute Co., Ltd., Wuhan 430056, China
    index: 1
@@ -38,6 +41,8 @@ affiliations:
    index: 3
  - name: Department of Mechanical Engineering, Systems for Hybrid-Additive Process Engineering Lab, Pennsylvania State University, USA
    index: 4
+ - name: School of Civil Engineering, National Advanced School of Public Works, Yaoundé, Cameroon
+   index: 5
 date: 12 February 2025
 bibliography: paper.bib
 ---
@@ -101,12 +106,6 @@ LabRPS scripting using Python is a powerful way to automate and customize your s
 
 # Acknowledgements
 
-Important part of this project is based on or adapted from the following source codes:
-
-- **[FreeCAD](https://github.com/FreeCAD/FreeCAD):** By [Jürgen Riegel and others]. Licensed under the [LGPL](http://en.wikipedia.org/wiki/LGPL).
-
-- **[Alphaplot](https://github.com/narunlifescience/AlphaPlot):** By [Arun Narayanankutty]. Licensed under the [GPL](http://en.wikipedia.org/wiki/GPL).
-
-We would like to express our sincere gratitude to the authors of these projects for providing such a helpful and well-constructed codebases. Modifications have been made to adapt them to our needs, but some core principles and ideas are drawn from their work.
+We thank Siyu Zhu of the College of Environment and Civil Engineering at Chengdu University of Technology in China for his helpful suggestions and review. We also thank Williams Adilehou, and Hermann Sakponou for supporting the project throughout its development.
 
 # References
