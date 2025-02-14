@@ -73,9 +73,9 @@ LabRPS leverages the strengths of both C++ and Python, providing a powerful and 
 
 In LabRPS, a Workbench is a set of tools, features, and functions that are organized based on specific tasks or workflows. Each workbench in LabRPS is tailored to a particular aspect of the simulation process, providing an optimized interface for users working on a particular type of random phenomenon. The workbench concept allows users to switch between different tools depending on the stage or needs of the simulation. Examples of LabRPS Workbenches:
 
-- **[https://wiki.labrps.com/WindLab_Workbench](WindLab Workbench:)** Focuses the simulation of random wind velocity
-- **[https://wiki.labrps.com/SeismicLab_Workbench](SeismicLab Workbench:)** For the simulation of seismic ground motion
-- **[https://wiki.labrps.com/SeaLab_Workbench](SeaLab Workbench:)** Enables users to simulate random sea surface elevation
+- **[WindLab Workbench:](https://wiki.labrps.com/WindLab_Workbench)** Focuses the simulation of random wind velocity
+- **[SeismicLab Workbench:](https://wiki.labrps.com/SeismicLab_Workbench)** For the simulation of seismic ground motion
+- **[SeaLab Workbench:](https://wiki.labrps.com/SeaLab_Workbench)** Enables users to simulate random sea surface elevation
 
 By switching between workbenches, users can tackle different aspects of a simulation more effectively, providing a tailored and efficient workflow for diverse simulation tasks.
 
