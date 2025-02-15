@@ -61,6 +61,7 @@ class RPS_CORE_API SeaLabSimulationData : public SeaLabAPI::SeaLabFeature
 
 	// motion Direction
     App::PropertyEnumeration direction;
+    App::PropertyEnumeration seaState;
 
 	// Nunber of time instant
 	App::PropertyInteger numberOfTimeIncrements;

@@ -188,11 +188,15 @@ SeaLabSimulation::SeaLabSimulation()
     Variance.setEnums(someEnums);
     WavePassageEffect.setEnums(someEnums);
 
-    static const char* directions[] = {"X", "Y", "Z", nullptr};
+    static const char* directions[] = {"X", "Y", "Z", nullptr};  
     ADD_PROPERTY_TYPE(Direction, ((long int)0), datagroup, Prop_None, "The ground motion direction");
     Direction.setEnums(directions);
-    App::Document* doc = App::GetApplication().getActiveDocument();
 
+    static const char* seaStates[] = {"Calm (Beaufort 0)", "Light air (Beaufort 1)", "Light breeze (Beaufort 2)", " Gentle breeze (Beaufort 3)", " Moderate breeze (Beaufort 4)", "Fresh breeze (Beaufort 5)", "Strong breeze (Beaufort 6)", "Near gale (Beaufort 7)", "Gale (Beaufort 8)", "Severe gale (Beaufort 9)", "Storm (Beaufort 10)", "Violent storm (Beaufort 11)", " Hurricane (Beaufort 12)", nullptr};
+    ADD_PROPERTY_TYPE(SeaState, ((long int)0), datagroup, Prop_None, "The sea state");
+    SeaState.setEnums(seaStates);
+
+    App::Document* doc = App::GetApplication().getActiveDocument();
     doc->signalSimulationAbort.connect(
        std::bind(&SeaLab::SeaLabSimulation::slotSimulationAbort, this, sp::_1));
 }
@@ -266,6 +270,7 @@ void SeaLabSimulation::updateSimulationData()
     _simuData->variance.setValue(this->Variance.getValueAsString());
     _simuData->wavePassageEffect.setValue(this->WavePassageEffect.getValueAsString());
     _simuData->direction.setValue(this->Direction.getValue());
+    _simuData->seaState.setValue(this->SeaState.getValue());
     _simuData->numberOfIncrementOfVariableX.setValue(this->NumberOfIncrementOfVariableX.getValue());
     _simuData->indexOfVariableX.setValue(this->IndexOfVariableX.getValue());
     _simuData->incrementOfVariableX.setValue(this->IncrementOfVariableX.getValue());
