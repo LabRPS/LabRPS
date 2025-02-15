@@ -101,4 +101,4 @@ Important part of this project is based on or adapted from the following source 
   Original work by [Jürgen Riegel and others].  
   Licensed under the [LGPL](http://en.wikipedia.org/wiki/LGPL).
 
-We would like to express our sincere gratitude to the original authors for providing such a helpful and well-constructed codebase. Modifications have been made to adapt it to our needs, but some core principles and ideas are drawn from the original work.Thank you
+We would like to express our sincere gratitude to the original authors for providing such a helpful and well-constructed codebase. Modifications have been made to adapt it to our needs, but some core principles and ideas are drawn from the original work.
