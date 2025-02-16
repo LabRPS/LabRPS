@@ -66,7 +66,7 @@ To report an issue please:
 - Use the most updated stable or development versions of LabRPS; 
 - Post version info from eg. `Help > About LabRPS > Copy to clipboard`; 
 - Post a Step-By-Step explanation on how to recreate the issue; 
-- Upload an example file to demonstrate problem. 
+- Upload an example file to demonstrate problem.
 
 For more detail see:
 - [Wiki Page about the Bug Tracker](https://wiki.labrps.com/Tracker)
