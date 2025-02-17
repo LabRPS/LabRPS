@@ -2281,6 +2281,20 @@ Table* MainAlphaPlot::newTableShowMatrix(const mat& x, const QString caption)
     return table;
 }
 
+Table* MainAlphaPlot::newTableShowTensor(const cube& x, int index, const QString caption)
+{
+    Eigen::Tensor<double, 2> matrix_at_k = x.chip(index, 2);
+    Eigen::Map<Eigen::MatrixXd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+    return newTableShowMatrix(matrix_k, caption);
+}
+
+Table* MainAlphaPlot::newTableShowComplexTensor(const cx_cube& x, int index, const QString caption)
+{
+    Eigen::Tensor<std::complex<double>, 2> matrix_at_k = x.chip(index, 2);
+    Eigen::Map<Eigen::MatrixXcd> matrix_k(matrix_at_k.data(), matrix_at_k.dimension(0), matrix_at_k.dimension(1));
+    return newTableShowComplexMatrix(matrix_k, caption);
+}
+
 Table* MainAlphaPlot::newTableShowComplexMatrix(const cx_mat& x, const QString caption, const int& complexRealImag)
 {
     Table* table1 = new Table(x.rows(), x.cols(), QString::fromLatin1(""), getMainWindow()->centralWidget(), 0, Qt::SubWindow, ScriptingLangManager::newEnv(getMainWindow()));
