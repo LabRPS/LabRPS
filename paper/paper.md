@@ -58,7 +58,7 @@ LabRPS is primarily intended to assist researchers in this field to quickly impl
 
 The tool is highly modular and seamlessly integrates with an advanced data visualizer, enabling the creation of high-quality 2D and 3D visualizations for simulation results, as well as data imported from files, manually entered, or derived from formulas. These data visualizations are optimized for academic publications, empowering users to effectively communicate their findings with precision and clarity. Figure 1 displays the graphical user interface of LabRPS.
 
-![LabRPS Interface: (a) The toolbar and menu area that allows users to invoke various commands, (b) the combo view, comprising the tree view, task panel, and property editor, (c) the main view area, featuring multiple tabbed windows, (d) the plot editor view, enabling users to edit plots, (e) the  Python console, running an instance of the Python interpreter for creating and modifying objects and their properties, (f) the plot explorer, which lists all created plots..\label{fig:figure1}](Figures/Figure1.png)
+![LabRPS Interface: (a) the toolbar and menu area that allows users to invoke various commands, (b) the combo view, comprising the tree view, task panel, and property editor, (c) the main view area, featuring multiple tabbed windows, (d) the plot editor view, enabling users to edit plots, (e) the  Python console, running an instance of the Python interpreter for creating and modifying objects and their properties, (f) the plot explorer, which lists all created plots.\label{fig:figure1}](Figures/Figure1.png)
 
 # 1. Statement of Need
 
