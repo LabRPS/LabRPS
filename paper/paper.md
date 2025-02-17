@@ -26,6 +26,7 @@ authors:
   - name: Agbazo Médard Noukpo 
     affiliation: 6
   - name: Guy Hervé Houngue
+    orcid: 0000-0003-1946-3833
     affiliation: 2
   - name: Hagninou Elagnon Venance Donnou
     orcid: 0000-0002-2207-0398
