@@ -1,5 +1,5 @@
 ---
-title: 'LabRPS: Laboratory of Random Phenomena Simulation'
+title: 'LabRPS: Laboratory for Random Phenomena Simulation'
 tags:
   - Random phenomenon
   - simulation
@@ -12,7 +12,7 @@ tags:
 authors:
   - name: Koffi Togbenou
     orcid: 0009-0009-5538-229X
-    affiliation: 1,7
+    affiliation: 1,2
     corresponding: true
   - name: Gabin Koto N’Gobi
     orcid: 0000-0001-7322-138X
@@ -20,16 +20,16 @@ authors:
   - name: Chuanjin Yu
     affiliation: 3
   - name: Dossa Didier Boko-haya
-    affiliation: 1,7
+    affiliation: 1,2
   - name: Eklou Eric Hiheglo
     affiliation: 4
   - name: Agbazo Médard Noukpo 
     affiliation: 6
   - name: Guy Hervé Houngue
-    affiliation: 7
+    affiliation: 2
   - name: Hagninou Elagnon Venance Donnou
     orcid: 0000-0002-2207-0398
-    affiliation: 7
+    affiliation: 2
   - name: Patrick Arnaud Wandji Zoumb
     orcid: 0000-0002-1449-6604
     affiliation: 5
@@ -46,8 +46,6 @@ affiliations:
    index: 5
  - name: Département d'Hydrologie, Université de N'zérékoré, Guinée
    index: 6
- - name: Laboratoire de Physique du Rayonnement (L.P.R), Faculté des Sciences et Techniques (FAST), Université d’Abomey-Calavi, Cotonou, Bénin.
-   index: 7
 date: 12 February 2025
 bibliography: paper.bib
 ---
@@ -66,9 +64,9 @@ The tool is highly modular and seamlessly integrates with an advanced data visua
 
 Most of the problems that engineers, and scientists face involve random phenomena or randomness which is the lack of predictability. In many situations, it is desired to numerically represent those random phenomena. For example: (a) numerical correlated stochastic wind velocity is required for the buffeting analysis of flexible long span cable supported bridges, (b) boundary layer turbulence is required for the analysis of panel vibrations of aircraft and submarines, (c) ocean waves need to be numerically represented for the analysis of ship oscillations, (d) randomness in material must be well represented for the analysis of the effect of randomness in geometrical configuration of structural component due to fabrication errors on the vibration and buckling eigenvalues, (e) numerical representation of random surface roughness of airport run-way is required for the analysis of aircraft vibration caused by the roughness.
 
-Currently, there are several methods available to numerically represent those random phenomena. Most of these methods are based on Monte Carlo simulation [@Spanos_Monte_1998; @Kareem_Numerical_2008]  which can be achieved by frequency domain approaches such as linear filtering [@Yousun_ARMA_1990; @George_AutoRegressive_1988; @MIGNOLET_ARMA_1987] approaches or spectral representation method [@Lizhong_Adeterministic_2004; @Yousun_Simulation_1991; @Shinozuka_Digital_1972; @Mircea_Onthespectral_1993; @Koffi_Anefficient_2016; @Koffi_Improved_2018; @Koffi_Simulation_2017]. From the previous studies, the complexity associated to these methods are undoubtable. The application of these methods generally results in a time-consuming task due to the significantly large number of processes that is simulated. This can even lead to a higher demand in terms of computer memory. In the recent years, effort has been made to provide these issues with suitable solutions. However, the solutions involve complex physics and mathematical tools which make their implementations in a computation program very difficult and time consuming.
+Currently, there are several methods available to numerically represent those random phenomena. Most of these methods are based on the Monte Carlo simulation [@Spanos_Monte_1998; @Kareem_Numerical_2008]  which can be achieved by frequency domain approaches such as linear filtering [@Yousun_ARMA_1990; @George_AutoRegressive_1988; @MIGNOLET_ARMA_1987] approaches or spectral representation method [@Lizhong_Adeterministic_2004; @Yousun_Simulation_1991; @Shinozuka_Digital_1972; @Mircea_Onthespectral_1993; @Koffi_Anefficient_2016; @Koffi_Improved_2018; @Koffi_Simulation_2017]. From the previous studies, the complexity associated to these methods are undoubtable. The application of these methods generally results in a time-consuming task due to the significantly large number of processes that is simulated. This can even lead to a higher demand in terms of computer memory. In the recent years, effort has been made to provide these issues with suitable solutions. However, the solutions involve complex physics and mathematical tools which make their implementations in a computation program very difficult and time consuming.
 
-It has been noticed that computer programs that offer suitable features for the computation works related to the numerical simulation of random phenomena are very few. In most cases, the simulation approach is implemented in the commercial software such as MATLAB which is a very powerful tool that offers number of solutions in numerical computation. The numerical simulation of random phenomena using Matlab requires some programming skills. It may be time consuming to be involved with programming tasks each time a simulation is required. We observed that researchers, who often build upon the works of other researchers during the study of new simulation approaches, frequently invest significant time and effort merely to replicate the existing computational results. Reproducing computational research presents challenges in this field. A well-designed computer program that makes scientific computations reproducible, storageble and accessible will be of a big benefit. A program that helps researchers and engineers to implement quickly new simulation approaches without having to implement or to understand the programming background of the existing simulation approaches is needed. To address these problems, we developed LabRPS, a plugin-based system designed to facilitate the implementation, storage, and access of simulation algorithm source codes and binaries in order to accelerate the development of new simulation algorithms in this field. Additionally, LabRPS features an intuitive user interface that enables users to numerically simulate random phenomena without the need for coding.
+It has been noticed that computer programs that offer suitable features for the computation works related to the numerical simulation of random phenomena are very few. In most cases, the simulation approach is implemented in the commercial software such as MATLAB which is a very powerful tool that offers number of solutions in numerical computation. The numerical simulation of random phenomena using Matlab requires some programming skills. It may be time consuming to be involved with programming tasks each time a simulation is required. We observed that researchers, who often build upon the works of other researchers during the study of new simulation approaches, frequently invest significant time and effort merely to replicate the existing computational results. Reproducing computational research presents challenges in this field. A well-designed computer program that makes scientific computations reproducible, storable and accessible will be of a big benefit. A program that helps researchers and engineers to implement quickly new simulation approaches without having to implement or to understand the programming background of the existing simulation approaches is needed. To address these problems, we developed LabRPS, a plugin-based system designed to facilitate the implementation, storage, and access of simulation algorithm (source codes and binaries) in order to accelerate the development of new simulation algorithms in this field. Additionally, LabRPS features an intuitive user interface that enables users to numerically simulate random phenomena without the need for coding.
 
 # 2. Programming Language
 
