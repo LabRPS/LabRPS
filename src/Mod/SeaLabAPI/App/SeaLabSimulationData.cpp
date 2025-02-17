@@ -103,6 +103,10 @@ SeaLabSimulationData::SeaLabSimulationData()
     ADD_PROPERTY_TYPE(direction, ((long int)0), 0, Prop_None, "The wind direction");
     direction.setEnums(directions);
 
+    static const char* seaStates[] = {"Calm (Beaufort 0)", "Light air (Beaufort 1)", "Light breeze (Beaufort 2)", " Gentle breeze (Beaufort 3)", " Moderate breeze (Beaufort 4)", "Fresh breeze (Beaufort 5)", "Strong breeze (Beaufort 6)", "Near gale (Beaufort 7)", "Gale (Beaufort 8)", "Severe gale (Beaufort 9)", "Storm (Beaufort 10)", "Violent storm (Beaufort 11)", " Hurricane (Beaufort 12)", nullptr};
+    ADD_PROPERTY_TYPE(seaState, ((long int)0), 0, Prop_None, "The sea state");
+    seaState.setEnums(seaStates);
+
 	ADD_PROPERTY_TYPE(workingDirectoryPath, (App::Application::getHomePath()), 0, Prop_None, "The working directory path.");
     ADD_PROPERTY_TYPE(fileName, (""), 0, Prop_None, "The wind velocity file name.");
 

@@ -128,6 +128,7 @@ public:
 	App::PropertyEnumeration Variance;
 	App::PropertyEnumeration WavePassageEffect;
 	App::PropertyEnumeration Direction;
+    App::PropertyEnumeration SeaState;
 	App::PropertyInteger NumberOfIncrementOfVariableX;
     App::PropertyInteger IndexOfVariableX;
     App::PropertyFloat IncrementOfVariableX;
