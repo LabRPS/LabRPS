@@ -28,6 +28,8 @@
 #include <QMessageBox>
 #include <QThread>
 #include <fstream>
+#include <Gui/MainWindow.h>
+#include <Gui/AlphaPlot.h>
 
 using namespace WindLab;
 using namespace WindLabAPI;
@@ -122,6 +124,16 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     // fast fourier transform
     Eigen::FFT<double> fft;
 
+    for (int m = 1; m <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; m++) {
+         for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue() && true == returnResult; l++) {
+             returnResult = WindLabAPI::CRPSWindLabFramework::ComputeDecomposedCrossSpectrumMatrixPP(Data, frequencies(l - 1, m - 1), 0.0, decomposedPSD2D);
+             for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++) {
+                 decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
+             }
+         }
+    }
+
+
     // this method is for stationry wind. Spectrum is not function of time
     double time = 0;
     for (int ss = 1; ss <= sampleN && false == Data.isInterruptionRequested.getValue(); ss++) {
@@ -134,10 +146,15 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
                     Base::Console().Warning("The computation of the spectrum matrix has failed.\n");
                     return false;
                 }
+
+                //Gui::getMainWindow()->getAlphaPlot()->newTableShowComplexMatrix(decomposedPSD2D, QString::number(m));
+
                 for (int j = 1; j <= n && false == Data.isInterruptionRequested.getValue() && true == returnResult; j++) {
                     decomposedPSD3D(j - 1, m - 1, l - 1) = decomposedPSD2D(j - 1, m - 1);
                 }
             }
+            
+            //Gui::getMainWindow()->getAlphaPlot()->newTableShowComplexTensor(decomposedPSD3D,0, QString::number(m));
 
             // compute matrix B
             for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {

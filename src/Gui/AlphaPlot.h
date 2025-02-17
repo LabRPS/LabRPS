@@ -390,6 +390,8 @@ public Q_SLOTS:
     Table* newTableShowVectors(const vec& x, const vec& y, const QString caption);
     Table* newTableShowVector(const vec& x, const QString caption);
     Table* newTableShowMatrix(const mat& x, const QString caption);
+    Table* newTableShowTensor(const cube& x, int index, const QString caption);
+    Table* newTableShowComplexTensor(const cx_cube& x, int index, const QString caption);
     Table* newTableShowComplexVectors(const vec& x, const cx_vec& y, const QString caption, const int& complexRealImag = 1);
     Table* newTableShowComplexMatrix(const cx_mat& x, const QString caption, const int& complexRealImag = 1);
     Table* newTableShowArrayPy(int rws, int cls, const std::vector<std::vector<double>> array, QString caption);
