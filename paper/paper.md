@@ -21,6 +21,7 @@ authors:
     orcid: 0000-0002-3333-5689
     affiliation: 3
   - name: Dossa Didier Boko-haya
+    orcid: 0009-0006-7859-6993
     affiliation: 1,2
   - name: Eklou Eric Hiheglo
     orcid: 0009-0008-9664-2628
