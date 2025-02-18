@@ -64,7 +64,7 @@ The tool is highly modular and seamlessly integrates with an advanced data visua
 
 ![LabRPS Interface: (a) the toolbar and menu area that allows users to invoke various commands, (b) the combo view, comprising the tree view, task panel, and property editor, (c) the main view area, featuring multiple tabbed windows, (d) the plot editor view, enabling users to edit plots, (e) the  Python console, running an instance of the Python interpreter for creating and modifying objects and their properties, (f) the plot explorer, which lists all created plots.\label{fig:figure1}](Figures/Figure1.png)
 
-# 1. Statement of Need
+# Statement of Need
 
 Most of the problems that engineers, and scientists face involve random phenomena or randomness which is the lack of predictability. In many situations, it is desired to numerically represent those random phenomena. For example: (a) numerical correlated stochastic wind velocity is required for the buffeting analysis of flexible long span cable supported bridges, (b) boundary layer turbulence is required for the analysis of panel vibrations of aircraft and submarines, (c) ocean waves need to be numerically represented for the analysis of ship oscillations, (d) randomness in material must be well represented for the analysis of the effect of randomness in geometrical configuration of structural component due to fabrication errors on the vibration and buckling eigenvalues, (e) numerical representation of random surface roughness of airport run-way is required for the analysis of aircraft vibration caused by the roughness.
 
@@ -72,11 +72,11 @@ Currently, there are several methods available to numerically represent those ra
 
 It has been noticed that computer programs that offer suitable features for the computation works related to the numerical simulation of random phenomena are very few. In most cases, the simulation approach is implemented in the commercial software such as MATLAB which is a very powerful tool that offers number of solutions in numerical computation. The numerical simulation of random phenomena using Matlab requires some programming skills. It may be time consuming to be involved with programming tasks each time a simulation is required. We observed that researchers, who often build upon the works of other researchers during the study of new simulation approaches, frequently invest significant time and effort merely to replicate the existing computational results. Reproducing computational research presents challenges in this field. A well-designed computer program that makes scientific computations reproducible, storable and accessible will be of a big benefit. A program that helps researchers and engineers to implement quickly new simulation approaches without having to implement or to understand the programming background of the existing simulation approaches is needed. To address these problems, we have developed LabRPS, a plugin-based system designed to facilitate the implementation, storage, and access of simulation algorithm (source codes and binaries) in order to accelerate the development of new simulation algorithms in this field. Additionally, LabRPS features an intuitive user interface that enables users to numerically simulate random phenomena without the need for coding.
 
-# 2. Programming Language
+# Programming Language
 
 LabRPS leverages the strengths of both C++ and Python, providing a powerful and flexible environment that benefits from the performance of C++ and the ease of use and rapid development capabilities of Python. This combination offers significant advantages, making LabRPS a versatile tool for both professional developers and casual users.
 
-# 3. Workbench Framework 
+# Workbench Framework 
 
 In LabRPS, a Workbench is a set of tools, features, and functions that are organized based on specific tasks or workflows. Each workbench in LabRPS is tailored to a particular aspect of the simulation process, providing an optimized interface for users working on a particular type of random phenomenon. The workbench concept allows users to switch between different tools depending on the stage or needs of the simulation. Examples of LabRPS Workbenches:
 
@@ -86,7 +86,7 @@ In LabRPS, a Workbench is a set of tools, features, and functions that are organ
 
 By switching between workbenches, users can tackle different aspects of a simulation more effectively, providing a tailored and efficient workflow for diverse simulation tasks, etc.
 
-# 4. Plugin System 
+# Plugin System 
 
 LabRPS is a highly modular and flexible software platform, structured around a system of workbenches, each designed to cater to specific tasks or workflows in the simulation of random phenomena. These workbenches, which form the core of LabRPS, are composed of plugins which are individual, reusable components that provide specific functionality within each workbench.
 
@@ -94,7 +94,7 @@ By organizing the software into workbenches and plugins, LabRPS enables efficien
 
 ![Plugin System\label{fig:figure2}](Figures/Figure2.png)
 
-# 5. LabRPS Scripting 
+# LabRPS Scripting 
 
 LabRPS scripting (see Figure 3) using Python is a powerful way to automate and customize your simulation process, especially for parametric features and repetitive tasks. Whether you're a hobbyist or a professional, understanding scripting opens up endless possibilities for enhancing your LabRPS experience.
 
