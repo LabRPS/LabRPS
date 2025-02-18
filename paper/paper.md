@@ -12,7 +12,7 @@ tags:
 authors:
   - name: Koffi Togbenou
     orcid: 0009-0009-5538-229X
-    affiliation: 1,2
+    affiliation: "1, 2"
     corresponding: true
   - name: Gabin Koto N’Gobi
     orcid: 0000-0001-7322-138X
@@ -22,7 +22,7 @@ authors:
     affiliation: 3
   - name: Dossa Didier Boko-haya
     orcid: 0009-0006-7859-6993
-    affiliation: 1,2
+    affiliation: "1, 2"
   - name: Eklou Eric Hiheglo
     orcid: 0009-0008-9664-2628
     affiliation: 4
