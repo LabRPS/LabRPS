@@ -18,10 +18,12 @@ authors:
     orcid: 0000-0001-7322-138X
     affiliation: 2
   - name: Chuanjin Yu
+    orcid: 0000-0002-3333-5689
     affiliation: 3
   - name: Dossa Didier Boko-haya
     affiliation: 1,2
   - name: Eklou Eric Hiheglo
+    orcid: 0009-0008-9664-2628
     affiliation: 4
   - name: Agbazo Médard Noukpo 
     affiliation: 6
