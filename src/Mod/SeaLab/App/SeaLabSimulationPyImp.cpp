@@ -477,18 +477,35 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceVectorF(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
     std::string featureName;
     vec dVarVector;
@@ -509,18 +526,35 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceVectorT(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &frequency))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -563,17 +597,34 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationVectorT(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
-    if (!PyArg_ParseTuple(args, "OO", &pyLocationJ, &pyLocationK))
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
+    if (!PyArg_ParseTuple(args, "OO|dddddd", &pyLocationJ, &pyLocationK, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -611,19 +662,31 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationMatrixPP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeFrequenciesVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     mat resArray;
     std::string featureName;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeFrequenciesVectorF(*locationJ, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeFrequenciesVectorF(*location, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -696,19 +759,31 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeMeanAccelerationVectorT(*locationJ, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeMeanAccelerationVectorT(*location, dVarVector, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -721,21 +796,33 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationVectorT(PyObject* args)
 PyObject *SeaLabSimulationPy::computeModulationVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &frequency, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
     vec dValVector;
 
-    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*locationJ, frequency, dVarVector, dValVector, featureName);
+    bool result = getSeaLabSimulationPtr()->computeModulationVectorT(*location, frequency, dVarVector, dValVector, featureName);
     if (!result)
     {
         PyErr_SetString(PyExc_RuntimeError, "The computation has failed.\n");
@@ -807,19 +894,36 @@ PyObject *SeaLabSimulationPy::computeCrossCoherenceValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency;
     double time;
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
      std::complex<double> resValue;
      std::string featureName;
@@ -838,18 +942,35 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
      double resValue;
      std::string featureName;
@@ -866,14 +987,26 @@ PyObject *SeaLabSimulationPy::computeCrossCorrelationValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
      double resValue;
      std::string featureName;
@@ -890,16 +1023,28 @@ PyObject *SeaLabSimulationPy::computeMeanAccelerationValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeModulationValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time = 0.0;
     double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &frequency, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
      double resValue;
      std::string featureName;
@@ -934,14 +1079,26 @@ PyObject *SeaLabSimulationPy::computeRandomValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeFrequencyValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     int index;
-    if (!PyArg_ParseTuple(args, "Oi", &pyLocation, &index))
+    if (!PyArg_ParseTuple(args, "Oi|ddd", &pyLocation, &index, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
      double resValue;
      std::string featureName;
@@ -1127,14 +1284,26 @@ PyObject* SeaLabSimulationPy::computeCPDVectorX(PyObject* args)
 PyObject *SeaLabSimulationPy::computeKurtosisValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
      double resValue;
      std::string featureName;
@@ -1170,13 +1339,25 @@ PyObject *SeaLabSimulationPy::computeKurtosisVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeKurtosisVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1195,14 +1376,26 @@ PyObject *SeaLabSimulationPy::computeKurtosisVectorT(PyObject* args)
 PyObject *SeaLabSimulationPy::computePeakFactorValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
      double resValue;
      std::string featureName;
@@ -1219,13 +1412,25 @@ PyObject *SeaLabSimulationPy::computePeakFactorValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computePeakFactorVectorP(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1243,13 +1448,25 @@ PyObject *SeaLabSimulationPy::computePeakFactorVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computePeakFactorVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1306,14 +1523,26 @@ PyObject *SeaLabSimulationPy::computePDFVectorX(PyObject* args)
 PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -1349,13 +1578,25 @@ PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1374,14 +1615,26 @@ PyObject *SeaLabSimulationPy::computeShearVelocityOfFlowVectorT(PyObject* args)
 PyObject *SeaLabSimulationPy::computeSkewnessValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -1417,13 +1670,25 @@ PyObject *SeaLabSimulationPy::computeSkewnessVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeSkewnessVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1442,14 +1707,26 @@ PyObject *SeaLabSimulationPy::computeSkewnessVectorT(PyObject* args)
 PyObject *SeaLabSimulationPy::computeStandardDeviationValue(PyObject* args)
 {
    PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -1485,13 +1762,25 @@ PyObject *SeaLabSimulationPy::computeStandardDeviationVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeStandardDeviationVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1510,14 +1799,26 @@ PyObject *SeaLabSimulationPy::computeStandardDeviationVectorT(PyObject* args)
 PyObject *SeaLabSimulationPy::computeVarianceValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-     Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -1553,13 +1854,25 @@ PyObject *SeaLabSimulationPy::computeVarianceVectorP(PyObject* args)
 PyObject *SeaLabSimulationPy::computeVarianceVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
-    if (!PyArg_ParseTuple(args, "O", &pyLocation))
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
+    if (!PyArg_ParseTuple(args, "O|ddd", &pyLocation, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-    throw Py::TypeError("Expect the argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1579,18 +1892,35 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectVectorF(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1609,18 +1939,35 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectVectorT(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &frequency))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1660,19 +2007,36 @@ PyObject *SeaLabSimulationPy::computeWavePassageEffectValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency;
     double time;
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
     std::complex<double> resValue;
     std::string featureName;
@@ -1769,18 +2133,35 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorF(PyObject* ar
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1800,18 +2181,35 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumVectorT(PyObject* ar
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time;
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1852,16 +2250,28 @@ PyObject *SeaLabSimulationPy::computeDecomposedCrossSpectrumMatrixPP(PyObject* a
 PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
     double time = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &frequency, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -1880,19 +2290,36 @@ PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumValue(PyObject* args)
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency;
     double time;
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
     std::complex<double> resValue;
     std::string featureName;
@@ -1911,15 +2338,27 @@ PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumValue(PyObject* args)
 PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &time))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1939,15 +2378,27 @@ PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumVectorF(PyObject* args
 PyObject *SeaLabSimulationPy::computeAutoFrequencySpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &frequency, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1967,19 +2418,36 @@ PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumVectorF(PyObject* arg
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &time))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -1999,19 +2467,36 @@ PyObject *SeaLabSimulationPy::computeCrossFrequencySpectrumVectorT(PyObject* arg
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOd", &pyLocationJ, &pyLocationK, &frequency))
+    if (!PyArg_ParseTuple(args, "OOd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2053,21 +2538,38 @@ PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumValue(PyObject* arg
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency = 0.0;
     double time = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOddd", &pyLocationJ, &pyLocationK, &frequency, &time, &direction))
+    if (!PyArg_ParseTuple(args, "OOddd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &time, &direction, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
 
      std::complex<double> resValue;
      std::string featureName;
@@ -2086,20 +2588,37 @@ PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorF(PyObject* a
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double time = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &time, &direction))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &time, &direction, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2119,20 +2638,37 @@ PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorT(PyObject* a
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &direction))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &direction, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2152,20 +2688,37 @@ PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumVectorD(PyObject* a
 {
     PyObject* pyLocationJ = nullptr;
     PyObject* pyLocationK = nullptr;
+    double x1 = 0.0;
+    double y1 = 0.0;
+    double z1 = 0.0;
+    double x2 = 0.0;
+    double y2 = 0.0;
+    double z2 = 0.0;
     double frequency = 0.0;
     double time = 0.0;
 
-    if (!PyArg_ParseTuple(args, "OOdd", &pyLocationJ, &pyLocationK, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "OOdd|dddddd", &pyLocationJ, &pyLocationK, &frequency, &time, &x1, &y1, &z1, &x2, &y2, &z2))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* locationJ;
+    Base::Vector3d* locationK;
 
-    if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the second argument to be a vector object");
+    if (pyLocationJ != Py_None || pyLocationK != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocationJ, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
 
-    Base::Vector3d* locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
-    Base::Vector3d* locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+        if (!PyObject_TypeCheck(pyLocationK, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the second argument to be a vector object");
+
+        locationJ = static_cast<Base::VectorPy*>(pyLocationJ)->getVectorPtr();
+        locationK = static_cast<Base::VectorPy*>(pyLocationK)->getVectorPtr();
+    }
+    else
+    {
+        locationJ = new Base::Vector3d(x1, y1, z1);
+        locationK = new Base::Vector3d(x2, y1, z1);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2207,17 +2760,29 @@ PyObject *SeaLabSimulationPy::computeCrossDirectionalSpectrumMatrixPP(PyObject* 
 PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
     double time = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Oddd", &pyLocation, &frequency, &time, &direction))
+    if (!PyArg_ParseTuple(args, "Oddd|ddd", &pyLocation, &frequency, &time, &direction, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -2235,16 +2800,28 @@ PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumValue(PyObject* args
 PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double time = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &time, &direction))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &time, &direction, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the first argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2263,16 +2840,28 @@ PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorF(PyObject* ar
 PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorT(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &direction))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &frequency, &direction, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2291,16 +2880,28 @@ PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorT(PyObject* ar
 PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorD(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
     double time = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &time))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &frequency, &time, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2319,16 +2920,28 @@ PyObject *SeaLabSimulationPy::computeAutoDirectionalSpectrumVectorD(PyObject* ar
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Odd", &pyLocation, &frequency, &direction))
+    if (!PyArg_ParseTuple(args, "Odd|ddd", &pyLocation, &frequency, &direction, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
 
     double resValue;
     std::string featureName;
@@ -2346,15 +2959,27 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionValue(PyObject*
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorF(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double direction = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &direction))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &direction, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
@@ -2395,15 +3020,27 @@ PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorP(PyObjec
 PyObject *SeaLabSimulationPy::computeDirectionalSpreadingFunctionVectorD(PyObject* args)
 {
     PyObject* pyLocation = nullptr;
+    double x = 0.0;
+    double y = 0.0;
+    double z = 0.0;
     double frequency = 0.0;
 
-    if (!PyArg_ParseTuple(args, "Od", &pyLocation, &frequency))
+    if (!PyArg_ParseTuple(args, "Od|ddd", &pyLocation, &frequency, &x, &y, &z))
     return nullptr;
 
-    if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
-        throw Py::TypeError("Expect the  argument to be a vector object");
+    Base::Vector3d* location;
 
-    Base::Vector3d* location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    if (pyLocation != Py_None)
+    {
+        if (!PyObject_TypeCheck(pyLocation, &Base::VectorPy::Type))
+            throw Py::TypeError("Expect the first argument to be a vector object");
+
+        location = static_cast<Base::VectorPy*>(pyLocation)->getVectorPtr();
+    }
+    else
+    {
+        location = new Base::Vector3d(x, y, z);
+    }
     
     std::string featureName;
     vec dVarVector;
