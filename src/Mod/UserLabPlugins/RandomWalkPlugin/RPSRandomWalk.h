@@ -29,8 +29,6 @@
 #include <stdexcept>
 #include <string>
 // JSON for Modern C++ single-include header
-#include "JsonObject.h"
-#include <nlohmann/json.hpp>
 
 #include <Mod/UserLabAPI/App/IrpsULSimulationMethod.h>
 #include <App/PropertyUnits.h>

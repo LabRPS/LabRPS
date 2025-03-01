@@ -1,3 +1,2 @@
 add_subdirectory(SeismicLabPlugin)
 add_subdirectory(AspasiaZervaPlugin)
-add_subdirectory(SeismicLabSmeltPlugin)
