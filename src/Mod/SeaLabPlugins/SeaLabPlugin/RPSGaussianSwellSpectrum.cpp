@@ -61,7 +61,7 @@ bool CRPSGaussianSwellSpectrum::ComputeCrossFrequencySpectrumMatrixPP(const SeaL
     bool returnResult = CRPSSeaLabFramework::ComputeLocationCoordinateMatrixP3(Data, dLocCoord);
         if(!returnResult)
     {
-       Base::Console().Warning("The computation of the location coordinates matrix has failed.\n") ;
+       Base::Console().Error("The computation of the location coordinates matrix has failed.\n") ;
        return false;
     }
     
@@ -100,7 +100,10 @@ bool CRPSGaussianSwellSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabA
    double PSD = 0.0;
 
     returnResult = CRPSSeaLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
-
+   if (!returnResult) {
+       Base::Console().Error("The computation of cross coherence value has failed.\n");
+       return false;
+   }
     SeaLabTools::GaussianSwellSpectrum gaussianSwellSpectrum;
     PSD = gaussianSwellSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Sigma.getValue());
 
@@ -127,7 +130,6 @@ bool CRPSGaussianSwellSpectrum::ComputeAutoFrequencySpectrumVectorF(const SeaLab
     if (!returnResult)
     {
         Base::Console().Warning("The computation of frequency vector  has failed.\n");
-
         return false;
     }
 
