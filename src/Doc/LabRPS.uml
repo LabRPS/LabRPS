@@ -224,7 +224,6 @@
 <XPD:REF name="Model">5UEwhw2uP0KgJJ9LI/ITnQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="lEPDkXkIz0ColVaz0vylowAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="twPBuBM3VkGfrbjnmRRdYAAA">
-<XPD:ATTR name="Text" type="string">Coin 3D</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="7rC3Ryo9YkWJNvtdoorjZQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -407,7 +406,6 @@
 <XPD:REF name="Model">TUoKC/B/n0+FRVTQl1A7YwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="t8J2woru4ki8Xk7XDVTPewAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="LdsgJAoChkOzLvCA29svqQAA">
-<XPD:ATTR name="Text" type="string">MeshGui</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="YQHjYm6pyEuP7VH+j/kxtwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -571,7 +569,6 @@
 <XPD:REF name="Model">Er0i46U+nESL37D/1ggRsAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="kb+bJQxkGkCyQS2ZOOMHNwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="1xuivGkYJUiPwG7Nruts3QAA">
-<XPD:ATTR name="Text" type="string">OCC 6.1</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="TNdX/B3qhECWPyyYIONjowAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -651,7 +648,6 @@
 <XPD:REF name="Model">cEWWmNlGpkqTlRIJNPzikwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="8EgbDSW11EmjQVT6R/q3SgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="/VLrb5cebkeUqONFHAqhaAAA">
-<XPD:ATTR name="Text" type="string">IScan3D</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="oNnxnhYplUmynDGkKKTn4QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -671,7 +667,6 @@
 <XPD:REF name="Model">Hmyx5xj8Z0iS6dHbyqVdtQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="be1QACGGw0eroKDpuwbuBwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="x/jk4AhqyUW9AZJFq6coNAAA">
-<XPD:ATTR name="Text" type="string">Iscan3DGui</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="HMmjYO4g5kmsQRJfrSyPoAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -954,7 +949,6 @@
 <XPD:REF name="Model">C+pADT2XgUOM1iZgkclhEAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="2Xfy25jk402cz6/sWU4WmQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="JCaKSbmwVEG6eqKZk9LZnAAA">
-<XPD:ATTR name="Text" type="string">Part</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="uCS6pE5tHU2thqsjWSephgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -974,7 +968,6 @@
 <XPD:REF name="Model">TiexIwpVFEKwE9q5kH9yxgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="l4k9CCVVHka+gQ5FrWarlAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="dVxAX7ui+kGS5hh6PIj+twAA">
-<XPD:ATTR name="Text" type="string">PartDesign</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="unYNdJ0fBUa53/4zIHO1yQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -994,7 +987,6 @@
 <XPD:REF name="Model">UWW26aMX5ECU70AIFAhToQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="D8CiUQ9zV0eqpBUiUBGBSgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="oKd2YAr0AUyLRdppkhVcagAA">
-<XPD:ATTR name="Text" type="string">MeshPart</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="7bnCwSsUH0ay0V6ZelFL/gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1256,7 +1248,6 @@
 <XPD:REF name="Model">AF44TV8fpEOE2F9sV0Ij3gAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="DV3o8uHzr0iEfTKE7WU8cwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="U61BJkEEPUmBYv9z+W02swAA">
-<XPD:ATTR name="Text" type="string">Drafting</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="MQkPpAMW90y2uUQk0aZIgQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1302,7 +1293,6 @@
 <XPD:REF name="Model">Po/V3dG5OEupQvm5QrayNAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="S8IucYRzT0CmCJ7AFX4sbwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="YgGsqZbkM0K1kQ7JuSHtDQAA">
-<XPD:ATTR name="Text" type="string">Raytracing</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="HgfytYg+XEagNw4odNVCtQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1348,7 +1338,6 @@
 <XPD:REF name="Model">bLIlem3kwEugtPYQrf13/wAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="ExMc7k/66E+lSUx5D4MBvwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="gCtJaH+IKkuk5fCZIsoQQQAA">
-<XPD:ATTR name="Text" type="string">Sketcher</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="c5XqM4BEnkawBm1OIlcLVwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1394,7 +1383,6 @@
 <XPD:REF name="Model">X0P7mPL1FkC/7jmCsGPitQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="UA3pkgi/VEi3okrHKYW0lAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="xgDSt5MfcUiZLWIB9dpWTAAA">
-<XPD:ATTR name="Text" type="string">Points</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="ZCvRCQ8cNkeNMFSWZ3BoVAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1440,7 +1428,6 @@
 <XPD:REF name="Model">RXIFKdbe9Umxj9jFV5BUXQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="5o0nb9QNrkeyuF/gnF99PAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="NedYEr2fBkCw8dMUtrdFpgAA">
-<XPD:ATTR name="Text" type="string">PointsMesh</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="sqjjRafOXU2MJtstiG1A6gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -1512,7 +1499,6 @@
 <XPD:REF name="Model">PZ2im6/cLE2ek2KVA3006wAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="2L+c6mQiDkq+F+CLd5WhngAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="6ndrYeBmEEyUXUZUFltx7gAA">
-<XPD:ATTR name="Text" type="string">Complete</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="cAbjZsRbqkqlbFlxYWvRGgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -2245,7 +2231,6 @@
 <XPD:REF name="SupplierDependencies[3]">kL7oxf/r9EqRCgBiyhIQGgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[1]" type="UMLPackage" guid="TUoKC/B/n0+FRVTQl1A7YwAA">
-<XPD:ATTR name="Name" type="string">MeshGui</XPD:ATTR>
 <XPD:REF name="Namespace">rF42qmbBS0OPcjU6ZI8+vwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">1</XPD:ATTR>
 <XPD:REF name="Views[0]">GK1DxfpFBEmnYuQ/BO3O1wAA</XPD:REF>
@@ -2291,7 +2276,6 @@
 <XPD:REF name="SupplierDependencies[0]">JwMi+lW2XEKl1HRacJczSAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[5]" type="UMLPackage" guid="UWW26aMX5ECU70AIFAhToQAA">
-<XPD:ATTR name="Name" type="string">MeshPart</XPD:ATTR>
 <XPD:REF name="Namespace">rF42qmbBS0OPcjU6ZI8+vwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">1</XPD:ATTR>
 <XPD:REF name="Views[0]">zt/RaZ9JZUq/k9f+sEhXOgAA</XPD:REF>
@@ -2363,7 +2347,6 @@
 <XPD:REF name="SupplierDependencies[0]">gYDrW5rqHkeeq+Y4lfH7MQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[12]" type="UMLPackage" guid="RXIFKdbe9Umxj9jFV5BUXQAA">
-<XPD:ATTR name="Name" type="string">PointsMesh</XPD:ATTR>
 <XPD:REF name="Namespace">rF42qmbBS0OPcjU6ZI8+vwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">1</XPD:ATTR>
 <XPD:REF name="Views[0]">aIYY3uh6QkWCBrEkpi97owAA</XPD:REF>
@@ -3463,7 +3446,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="dvBY2CVYKEiA/i/uZI1TbQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="GLW8LElqZEKjWwKxkhCa+gAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Matrix4D</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="gjBDARLqv0KSJf4wmMI9xAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3551,7 +3533,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="LaCtpYsSC0Ghq9whKPTfJwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="kl8Mgcq26UC/MnR6DAWbGwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Placement</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="9Rj83jtU5Uq0VoILwygW8gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -3582,7 +3563,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="WTFfh6GBIUy9XaBJx/NmbQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Z4Vbvw7ksUyuZ7zgqiBLswAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">BoundBox3D</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="FcLQmUIJN0m4kuAGswFVUgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -6391,7 +6371,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="WAYWvGCK0ky9nXCQGdt/IAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="u8Z7ihBdeUOlib8WH4JW3gAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Placement</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="8V3/Gn+01E2N+xIk40VcyAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -6814,7 +6793,6 @@
 <XPD:REF name="Model">WA23nfnsmU+lBQoJNViV3gAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="SHsAvafNW0+3tlhc/BlZ5QAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="5bcMoclU20WuPCMhOLhHkQAA">
-<XPD:ATTR name="Text" type="string">SoQt</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="tmascjGbTE+P4/XzwF9RagAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -6860,7 +6838,6 @@
 <XPD:REF name="Model">0vI35LKeGkKxdDinu8x1VwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="08flPmpji0yac25CS99f9wAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="UB4hSsD9PEmo/kpC6c7k6gAA">
-<XPD:ATTR name="Text" type="string">Coin3D</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="6DcjpC+BTEKQOlEy9ttEogAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -6907,7 +6884,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="GcR8gwibfEyPxB0ulcrthQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="FK+B8Ib3PEWcUBu7Y57nMwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">SoQtViewer</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="rypmn+xxNUimIG3h/yEZawAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -6938,7 +6914,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="QasIq6XtikeUH2hz2c+x8AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="tIiHkH2qUEWTMwrmRQl1QQAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">SoQtRenderArea</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="vqjbHH4YB0m+4J2/wns9ZgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -7422,7 +7397,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="mCTDifWNRkSKYSxUbfj/zgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Rp7KM1Se6kGbg8JXxdqbpgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">SoOffscreenrenderer</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="nt4AWG6A30Stg/dl2IMUyAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8130,7 +8104,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="OfXo+lDmkUu4oNUvHLSnwQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="FLGBEOcskUmpaWIY2tTHuAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">ComplexGeoData</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="/LSlcSt7qUC6e1S1JNqD2gAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8185,7 +8158,6 @@
 <XPD:REF name="Model">vCKQhjrX7020GlPRxI8EIwAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="5hk7wS7sIk6Aqr/zuuaavQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="tHsvo21kcECFrED9m+z5lQAA">
-<XPD:ATTR name="Text" type="string">Part</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="9TJ/+seLZU+Sojy6q+aR2QAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8206,7 +8178,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="JEoo2/D0MEyNS1XeM2pKmwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="dUo9e0BoIkuM8klp9Q5wtwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TopoShape</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="NqI5BwzHcUm7JP7OmU1vBQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8237,7 +8208,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="+wFU3xVQ5EezaPjbL6RqlAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="xfIKSfajV0WHr0GoxHZhHgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TopoShapePy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="WWxbvePOSUiCgWbLsdqxRQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8294,7 +8264,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="cKrjgmOEz02RwtPPBt8NiAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="fVQGDsmEC0iGHaaW2e4eIgAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">ComplexGeoDataPy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="TVbXA0yeTEW32mgxXu+tfAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8461,7 +8430,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="GwuWR/nQjUC/dHyG+d6sUgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="4VSL0PB5HEOqhJu8Z3DOgAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">Geom</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="gaVyMn6tFUKamOFyJsdd/AAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8518,7 +8486,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="lhRiBqGyHkuag8UFF4yHygAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Sk7UF+wWek+vemzL/3TGXwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">GeomPy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Hfk6yd/R3EebJ8J/aR+cHAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8575,7 +8542,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="QpTMvklLaky9eKy2i7nNQQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="FxZo0AyrY0+6UngzMvFRcAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TopoShapeEdgePy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="rZYFGO1hSUO9n3x94wVuUwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8606,7 +8572,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="y0z8HY+53kugn6TMGFm/iQAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="7c9qclVOE0m1vV419alOuwAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">TopoShapeWirePy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="K22guLoA3EeaDeX0POuEnAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8858,7 +8823,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="HQ5tm9aom0GYDFw5Jz2l8AAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="2qa8zWb/Lk2Ysxu0PuEBOAAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">GeomLine</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="Z8tLwuSol0SQYRVvv1et+AAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8889,7 +8853,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="ZSiQ2cSZqUOgBIUB/JTHuwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="lao1ku+xP0yB9acJ+cfM4wAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">GeomCircle</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="CXHTwoSW7Ea9pI8VTunynQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
@@ -8972,7 +8935,6 @@
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="nY8BMvOwuESPsqIxU6u8dwAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="zXNjUgcOf0+mjq6XjD9v+gAA">
 <XPD:ATTR name="FontStyle" type="integer">1</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">GeomLinePy</XPD:ATTR>
 </XPD:OBJ>
 <XPD:OBJ name="StereotypeLabel" type="LabelView" guid="48l8Kl1k2kiIM+Jpbb7kvQAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
