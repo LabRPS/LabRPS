@@ -48,6 +48,13 @@ def makeSimulation(doc, name="Simulation"):
     obj = doc.addObject("SeismicLab::SeismicLabSimulation", name)
     return obj
 
+def newSimulation(docName = "Doc", name="Simulation"):
+    """newSimulation(docName, name):
+    makes a SeismicLab Simulation object"""
+    doc =  LabRPS.newDocument(docName)
+    obj = doc.addObject("SeismicLab::SeismicLabSimulation", name)
+    return obj
+
 # ********* SeismicLab Features *********************************************************************
 def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     """makeFeature(featureName, simulationName,  featureTypeName, featureGroup):

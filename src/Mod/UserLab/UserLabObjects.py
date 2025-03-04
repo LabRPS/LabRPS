@@ -40,11 +40,18 @@ import UserLab
 # Could only be happen if the make is called from Python.
 # What happens ATM? Error or the obj is moved to the other doc?
 
-
 # ********* simulation objects *********************************************************************
 def makeSimulation(doc, name="Simulation"):
-    """makeSimulation(document, [name]):
+    """makeSimulation(document, name):
     makes a UserLab Simulation object"""
+    obj = doc.addObject("UserLab::UserLabSimulation", name)
+    return obj
+
+# ********* simulation objects *********************************************************************
+def newSimulation(docName = "Doc", name="Simulation"):
+    """makeSimulation(docName, name):
+    makes a UserLab Simulation object"""
+    doc =  LabRPS.newDocument(docName)
     obj = doc.addObject("UserLab::UserLabSimulation", name)
     return obj
 

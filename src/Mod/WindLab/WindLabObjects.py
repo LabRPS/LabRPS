@@ -48,6 +48,14 @@ def makeSimulation(doc, name="Simulation"):
     obj = doc.addObject("WindLab::WindLabSimulation", name)
     return obj
 
+# ********* simulation objects *********************************************************************
+def newSimulation(docName = "Doc", name="Simulation"):
+    """newSimulation(docName, name):
+    makes a WindLab Simulation object"""
+    doc =  LabRPS.newDocument(docName)
+    obj = doc.addObject("WindLab::WindLabSimulation", name)
+    return obj
+
 # ********* WindLab Features *********************************************************************
 def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     """makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
