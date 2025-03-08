@@ -82,7 +82,7 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
     int N = Data.numberOfFrequency.getValue();
     double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
     double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
-    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
     int T = Data.numberOfTimeIncrements.getValue();
     double sampleN = Data.numberOfSample.getValue();
 
@@ -152,7 +152,8 @@ bool CRPSAspasiaZerva::Simulate(const SeismicLabAPI::SeismicLabSimulationData& D
                 for (int k = 1; k <= N && false == Data.isInterruptionRequested.getValue(); k++) {
                     dPhenomenon(p - 1, j, ss - 1) = dPhenomenon(p - 1, j, ss - 1)
                         + Env(p - 1) * 2 * std::sqrt(PSD(k - 1) * deltaomega)
-                            * std::cos(frequencies(k - 1, j - 1) * time + thet(k - 1, j - 1));
+                            * std::cos(frequencies(k - 1, j - 1) * time + thet(k - 1, j - 1))
+                            * ScaleCoefficient.getValue();
                 }
             }             
          }

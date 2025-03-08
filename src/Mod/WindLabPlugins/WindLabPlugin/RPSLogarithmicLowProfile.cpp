@@ -120,7 +120,7 @@ bool RPSLogarithmicLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindL
 		return false;
 	}
 
-    dValue = logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+    dValue = logarithmicMeanWindSpeed.computeMeanWindSpeed(location.z, TerrainRoughness.getQuantityValue().getValueAs(Base::Quantity::Metre), ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre)) * ScaleCoefficient.getValue();
 
 	return true;
 }

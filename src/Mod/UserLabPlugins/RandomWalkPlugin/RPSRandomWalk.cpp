@@ -125,7 +125,7 @@ bool CRPSRandomWalk::Simulate(const UserLabAPI::UserLabSimulationData& Data, cub
                  {
                     Py::Float value(list2DColum[j]);
 
-                    dPhenomenon(j, i, ss) = value.as_double();
+                    dPhenomenon(j, i, ss) = value.as_double() * ScaleCoefficient.getValue();
                    /* 
                     x[j].add_value("x", dPhenomenon(j, i, ss));
 

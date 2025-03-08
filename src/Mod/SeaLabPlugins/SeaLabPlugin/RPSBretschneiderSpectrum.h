@@ -35,7 +35,7 @@ public:
 public:
 
    App::PropertyLength SignificantWaveHeight;
-   App::PropertyFrequency SignificantWavePeriod;
+   App::PropertyFrequency PeakFrequency;
    App::PropertyFloat Constant1;
    App::PropertyFloat Constant2;
 };

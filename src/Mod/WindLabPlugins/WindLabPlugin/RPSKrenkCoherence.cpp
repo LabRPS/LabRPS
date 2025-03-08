@@ -64,7 +64,7 @@ bool RPSKrenkCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLabSimu
 
     WindLabTools::KrenkCoherence krenkCoherence;
 
-	dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre));
+	dValue = krenkCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre)) * ScaleCoefficient.getValue();
 
 	return true;
 }

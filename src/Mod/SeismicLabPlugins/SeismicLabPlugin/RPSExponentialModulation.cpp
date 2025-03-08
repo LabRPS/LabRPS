@@ -26,7 +26,7 @@ CRPSExponentialModulation::CRPSExponentialModulation()
 bool CRPSExponentialModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::ExponentialModulation exponentialModulation;
-   dValue = exponentialModulation.computeModulation(dTime, Alpha.getValue(), Beta.getValue());
+   dValue = exponentialModulation.computeModulation(dTime, Alpha.getValue(), Beta.getValue()) * ScaleCoefficient.getValue();
    double A = exponentialModulation.computeCoefficientA(Alpha.getValue(), Beta.getValue());
    CoefficientA.setValue(A);
    return true;

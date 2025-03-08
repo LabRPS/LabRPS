@@ -55,6 +55,9 @@ public:
 	App::PropertyString Description;
     App::PropertyBool IsUniformModulationFeature;
     App::PropertyString OutputUnitString;
+
+    /// A coefficient each feature value is multiplied by.
+    App::PropertyFloat ScaleCoefficient;
     App::PropertyStringList ApplicationFields;
 
 
@@ -78,6 +81,7 @@ public:
             && group.getValue() == rhs.group.getValue()
             && IsUniformModulationFeature.getValue() == rhs.IsUniformModulationFeature.getValue()
             && OutputUnitString.getValue() == rhs.OutputUnitString.getValue()
+            && ScaleCoefficient.getValue() == rhs.ScaleCoefficient.getValue()
             && ApplicationFields.getValue() == rhs.ApplicationFields.getValue();
 
 	}

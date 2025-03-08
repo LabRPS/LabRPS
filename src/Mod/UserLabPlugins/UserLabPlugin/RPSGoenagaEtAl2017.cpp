@@ -100,7 +100,7 @@ bool CRPSGoenagaEtAl2017::Simulate(const UserLabAPI::UserLabSimulationData& Data
              dPhenomenon(p - 1, 0, ss - 1) = x;
 
              for (int l = 1; l <= N && false == Data.isInterruptionRequested.getValue(); l++) {
-                 dPhenomenon(p - 1, j, ss - 1) = dPhenomenon(p - 1, j, ss - 1) + Amp(l - 1) * sin(w(l - 1) * x - thet(l - 1, j - 1));
+                 dPhenomenon(p - 1, j, ss - 1) = dPhenomenon(p - 1, j, ss - 1) + Amp(l - 1) * sin(w(l - 1) * x - thet(l - 1, j - 1)) * ScaleCoefficient.getValue();
             }
          }      
         }

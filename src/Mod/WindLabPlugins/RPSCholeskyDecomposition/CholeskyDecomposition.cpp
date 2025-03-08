@@ -35,6 +35,7 @@ bool CholeskyDecomposition::MatrixToolCompute(const WindLabAPI::WindLabSimulatio
 {
     rps::General::CholeskyDecomposition decomposition;
     decomposition.computeCholeskyDecomposition(inputMatrix, outputMatrix);
+    outputMatrix = outputMatrix * ScaleCoefficient.getValue();
     return true;
 }
 

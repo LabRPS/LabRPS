@@ -110,14 +110,14 @@ bool CRPSOchiAndHubbleSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabA
     PSD = ochiAndHubbleSpectrum.computeSpectrum(dFrequency, 
         SignificantWaveHeight1.getQuantityValue().getValueAs(Base::Quantity::Metre),
         SignificantWaveHeight2.getQuantityValue().getValueAs(Base::Quantity::Metre),
-        PeakFrequency1.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), 
-        PeakFrequency2.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond),
+        PeakFrequency1.getQuantityValue().getValueAs(Base::Quantity::Hertz), 
+        PeakFrequency2.getQuantityValue().getValueAs(Base::Quantity::Hertz),
         PeakShape1.getValue(), 
         PeakShape2.getValue(),
         AutoPara.getValue(),
         SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre));
 
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -130,10 +130,11 @@ bool CRPSOchiAndHubbleSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAP
    dValue = ochiAndHubbleSpectrum.computeSpectrum(
        dFrequency, SignificantWaveHeight1.getQuantityValue().getValueAs(Base::Quantity::Metre),
        SignificantWaveHeight2.getQuantityValue().getValueAs(Base::Quantity::Metre),
-       PeakFrequency1.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond),
-       PeakFrequency2.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond),
+       PeakFrequency1.getQuantityValue().getValueAs(Base::Quantity::Hertz),
+       PeakFrequency2.getQuantityValue().getValueAs(Base::Quantity::Hertz),
        PeakShape1.getValue(), PeakShape2.getValue(), AutoPara.getValue(),
-       SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre));
+           SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre))
+       * ScaleCoefficient.getValue();
     return returnResult;
 }    
 bool CRPSOchiAndHubbleSpectrum::ComputeAutoFrequencySpectrumVectorF(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

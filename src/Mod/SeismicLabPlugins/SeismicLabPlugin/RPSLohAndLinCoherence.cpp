@@ -92,7 +92,7 @@ bool CRPSLohAndLinCoherence::ComputeCrossCoherenceMatrixPP(const SeismicLabAPI::
 bool CRPSLohAndLinCoherence::ComputeCrossCoherenceValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     SeismicLabTools::LohAndLinCoherence lohAndLinCoherence;
-	dValue = lohAndLinCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, ParameterAlpha.getValue(), ParameterB.getValue());
+	dValue = lohAndLinCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, ParameterAlpha.getValue(), ParameterB.getValue()) * ScaleCoefficient.getValue();
 	return true;
 }
 

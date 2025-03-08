@@ -27,7 +27,7 @@ CRPSSaragoniHart1974Modulation::CRPSSaragoniHart1974Modulation()
 bool CRPSSaragoniHart1974Modulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::SaragoniHart1974Modulation saragoniHart1974Modulation;
-   dValue = saragoniHart1974Modulation.computeModulation(dTime, AlphaOne.getValue(), AlphaTwo.getValue(), AlphaThree.getValue());
+   dValue = saragoniHart1974Modulation.computeModulation(dTime, AlphaOne.getValue(), AlphaTwo.getValue(), AlphaThree.getValue()) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSSaragoniHart1974Modulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

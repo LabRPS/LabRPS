@@ -95,7 +95,7 @@ bool CRPSHarichandranVanmarckeCoherence::ComputeCrossCoherenceMatrixPP(const Sei
 bool CRPSHarichandranVanmarckeCoherence::ComputeCrossCoherenceValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     SeismicLabTools::HarichandranVanmarckeCoherence harichandranVanmarckeCoherence;
-	dValue = harichandranVanmarckeCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, ParameterA.getValue(), ParameterAlpha.getValue(), ParameterK.getQuantityValue().getValueAs(Base::Quantity::Metre), ParameterOmegaZero.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ParameterB.getValue());
+	dValue = harichandranVanmarckeCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, ParameterA.getValue(), ParameterAlpha.getValue(), ParameterK.getQuantityValue().getValueAs(Base::Quantity::Metre), ParameterOmegaZero.getQuantityValue().getValueAs(Base::Quantity::Hertz), ParameterB.getValue()) * ScaleCoefficient.getValue();
 	return true;
 }
 

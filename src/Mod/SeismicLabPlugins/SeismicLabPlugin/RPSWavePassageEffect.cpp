@@ -110,7 +110,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const SeismicLabAPI::S
       ApparentWaveVelocity.setValue(apparentWaveVelocity);
     }
 
-    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
 
 	return true;
 }

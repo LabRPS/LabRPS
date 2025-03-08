@@ -50,7 +50,7 @@ bool CExpoModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& 
 bool CExpoModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     WindLabTools::ExponentialModulation exponentialModulation;
-    dValue = exponentialModulation.computeModulation(dTime, TimeOfMax.getQuantityValue().getValueAs(Base::Quantity::Second), StormLength.getQuantityValue().getValueAs(Base::Quantity::Second));
+    dValue = exponentialModulation.computeModulation(dTime, TimeOfMax.getQuantityValue().getValueAs(Base::Quantity::Second), StormLength.getQuantityValue().getValueAs(Base::Quantity::Second)) * ScaleCoefficient.getValue();
 	return true;
 }
 

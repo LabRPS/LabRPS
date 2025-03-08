@@ -109,9 +109,9 @@ bool CRPSHuZhouSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::SeismicL
     }
 
     SeismicLabTools::HuZhouSpectrum cloughPenzienSpectrum;
-    PSDj = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-    PSDk = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    PSDj = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::Hertz), ConstantSpectralIntensity.getValue());
+    PSDk = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::Hertz), ConstantSpectralIntensity.getValue());
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
     return true;
 }
@@ -119,7 +119,7 @@ bool CRPSHuZhouSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::SeismicL
 bool CRPSHuZhouSpectrum::ComputeAutoSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
     SeismicLabTools::HuZhouSpectrum cloughPenzienSpectrum;
-    dValue = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), ConstantSpectralIntensity.getValue());
+    dValue = cloughPenzienSpectrum.computeHuZhouSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), LowFrequencyControlFactor.getQuantityValue().getValueAs(Base::Quantity::Hertz), ConstantSpectralIntensity.getValue()) * ScaleCoefficient.getValue();
 	return true;
 }    
 bool CRPSHuZhouSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

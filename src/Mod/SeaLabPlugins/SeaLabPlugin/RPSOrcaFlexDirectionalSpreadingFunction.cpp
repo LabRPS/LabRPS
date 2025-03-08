@@ -21,7 +21,7 @@ CRPSOrcaFlexDirectionalSpreadingFunction::CRPSOrcaFlexDirectionalSpreadingFuncti
 bool CRPSOrcaFlexDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::OrcaFlexDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, PrincipalWaveDirection.getQuantityValue().getValueAs(Base::Quantity::Radian), SpreadingExponent.getValue());
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, PrincipalWaveDirection.getQuantityValue().getValueAs(Base::Quantity::Radian), SpreadingExponent.getValue()) * ScaleCoefficient.getValue();
   return true;
 }
     

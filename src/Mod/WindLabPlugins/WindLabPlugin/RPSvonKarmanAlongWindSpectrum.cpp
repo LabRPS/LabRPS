@@ -141,7 +141,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI
   
     PSDj = vonKarmanPSD.computeAlongWindAutoSpectrum(dFrequency, MEANj, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
     PSDk = vonKarmanPSD.computeAlongWindAutoSpectrum(dFrequency, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
 	return true; 
 }
@@ -160,7 +160,7 @@ bool CRPSvonKarmanAlongWindSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI:
 
     WindLabTools::VonKarmanSpectrum vonKarmanPSD;
   
-    dValue = vonKarmanPSD.computeAlongWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+    dValue = vonKarmanPSD.computeAlongWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue()) * ScaleCoefficient.getValue();
 
 	return true;
 }

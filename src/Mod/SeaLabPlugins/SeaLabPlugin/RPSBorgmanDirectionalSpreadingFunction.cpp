@@ -21,7 +21,7 @@ CRPSBorgmanDirectionalSpreadingFunction::CRPSBorgmanDirectionalSpreadingFunction
 bool CRPSBorgmanDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::BorgmanDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, AngleOfPropagationOfPredominantWaveEnergy.getQuantityValue().getValueAs(Base::Quantity::Radian), PositiveConstant.getValue());
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, AngleOfPropagationOfPredominantWaveEnergy.getQuantityValue().getValueAs(Base::Quantity::Radian), PositiveConstant.getValue()) * ScaleCoefficient.getValue();
   return true;
 }
     

@@ -159,9 +159,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -329,9 +329,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -385,9 +385,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCoherenceMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
@@ -552,9 +552,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossCorrelationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -1133,9 +1133,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeKurtosisVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -1459,9 +1459,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             Base::StopWatch watch;
             watch.start();
             bool returnResult =
@@ -1512,9 +1512,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorP()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);            
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);            
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeModulationVectorP(frequency, time, m_ResultVectorVar,
@@ -1585,9 +1585,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeModulationVectorT()
 
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             Base::StopWatch watch;
             watch.start();
             bool returnResult = m_sim->computeModulationVectorT(location, frequency, m_ResultVectorVar,
@@ -1891,9 +1891,9 @@ bool RPSSeismicLabSimulationWorker::workerComputePeakFactorVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -2168,9 +2168,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumVectorT(
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -2232,9 +2232,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeDecomposedCrossSpectrumMatrixPP
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
@@ -2578,9 +2578,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeShearVelocityOfFlowVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -2859,9 +2859,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeSkewnessVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -3092,9 +3092,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeStandardDeviationVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -3432,9 +3432,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeVarianceVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -3519,9 +3519,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             Base::StopWatch watch;
             watch.start();
             returnResult = m_sim->computeWavePassageEffectValue(locationJ, locationK, frequency,
@@ -3691,9 +3691,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -3754,9 +3754,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeWavePassageEffectMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
@@ -3842,9 +3842,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -4010,9 +4010,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumVectorT()
             m_ResultVectorVal_cx.resize(
                 m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -4073,9 +4073,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeCrossSpectrumMatrixPP()
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue(),
                 m_sim->getSimulationData()->numberOfSpatialPosition.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
@@ -4156,9 +4156,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumValue()
             double time = m_sim->getSimulationData()->minTime.getQuantityValue().getValueAs(Base::Quantity::Second)
                 + m_sim->getSimulationData()->timeIndex.getValue()
                     * m_sim->getSimulationData()->timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();
@@ -4315,9 +4315,9 @@ bool RPSSeismicLabSimulationWorker::workerComputeAutoSpectrumVectorT()
             m_ResultVectorVar.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
             m_ResultVectorVal.resize(m_sim->getSimulationData()->numberOfTimeIncrements.getValue());
 
-            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond)
+            double frequency = m_sim->getSimulationData()->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz)
                 + m_sim->getSimulationData()->frequencyIndex.getValue()
-                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+                    * m_sim->getSimulationData()->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 
             Base::StopWatch watch;
             watch.start();

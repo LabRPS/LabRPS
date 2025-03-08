@@ -19,7 +19,7 @@ CRPSCosineSquareDirectionalSpreadingFunction::CRPSCosineSquareDirectionalSpreadi
 bool CRPSCosineSquareDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::CosineSquareDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection);
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection) * ScaleCoefficient.getValue();
   return true;
 }
     

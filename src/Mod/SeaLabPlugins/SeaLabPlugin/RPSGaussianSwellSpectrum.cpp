@@ -107,7 +107,7 @@ bool CRPSGaussianSwellSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabA
     SeaLabTools::GaussianSwellSpectrum gaussianSwellSpectrum;
     PSD = gaussianSwellSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Sigma.getValue());
 
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -117,7 +117,7 @@ bool CRPSGaussianSwellSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAP
    bool returnResult = true;
   
    SeaLabTools::GaussianSwellSpectrum gaussianSwellSpectrum;
-   dValue = gaussianSwellSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Sigma.getValue());
+   dValue = gaussianSwellSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Sigma.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

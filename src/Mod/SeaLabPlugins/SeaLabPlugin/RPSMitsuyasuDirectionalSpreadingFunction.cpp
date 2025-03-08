@@ -21,7 +21,7 @@ CRPSMitsuyasuDirectionalSpreadingFunction::CRPSMitsuyasuDirectionalSpreadingFunc
 bool CRPSMitsuyasuDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::MitsuyasuDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, ModalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), TenMeterHeightmeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, ModalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), TenMeterHeightmeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
   return true;
 }
     

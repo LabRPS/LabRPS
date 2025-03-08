@@ -115,7 +115,7 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const SeismicLabAPI::Seismi
                 }
                 for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {
 
-                    dRandomValueArray(j, k) = fields[k].toDouble();
+                    dRandomValueArray(j, k) = fields[k].toDouble() * ScaleCoefficient.getValue();
                 }
             }
         }

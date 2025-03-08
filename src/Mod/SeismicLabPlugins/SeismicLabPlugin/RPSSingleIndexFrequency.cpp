@@ -53,35 +53,6 @@ bool CRPSSingleIndexFrequency::OnInitialSetting(const SeismicLabAPI::SeismicLabS
 
 bool CRPSSingleIndexFrequency::ComputeFrequencyValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
-    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    dValue = (Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz)) * ScaleCoefficient.getValue();
 	return true;
 }
-
-//short CRPSSingleIndexFrequency::mustExecute(void) const
-//{
-//    return SeismicLabFeature::mustExecute();
-//}
-//
-//App::DocumentObjectExecReturn* CRPSSingleIndexFrequency::recompute(void)
-//{
-//    try {
-//        return SeismicLabAPI::SeismicLabFeature::recompute();
-//    }
-//    catch (Base::Exception& e) {
-//
-//        App::DocumentObjectExecReturn* ret = new App::DocumentObjectExecReturn(e.what());
-//        if (ret->Why.empty()) ret->Why = "Unknown exception";
-//        return ret;
-//    }
-//}
-//
-//App::DocumentObjectExecReturn* CRPSSingleIndexFrequency::execute(void)
-//{
-//    return SeismicLabFeature::execute();
-//}
-//
-//void CRPSSingleIndexFrequency::onChanged(const App::Property* prop)
-//{
-//
-//    SeismicLabFeature::onChanged(prop);
-//}

@@ -140,7 +140,7 @@ bool CRPSSimuAcrossWindSpectrum::ComputeYCrossSpectrumValue(const WindLabAPI::Wi
   
     PSDj = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
     PSDk = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
 	return true;   
 }
@@ -158,7 +158,7 @@ bool CRPSSimuAcrossWindSpectrum::ComputeYAutoSpectrumValue(const WindLabAPI::Win
     }
 
   	WindLabTools::SimuSpectrum simuPSD;
-    dValue = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue());
+    dValue = simuPSD.computeAcrossWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue()) * ScaleCoefficient.getValue();
 	return true;
 } 
 

@@ -71,7 +71,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
     double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
     double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
     double deltaomega =
-        Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+        Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
     int M = 2 * N;
     int T = Data.numberOfTimeIncrements.getValue();
     double sampleN = Data.numberOfSample.getValue();
@@ -186,7 +186,7 @@ bool CRPSDeodatis1996::Simulate(const WindLabAPI::WindLabSimulationData& Data, c
                 dPhenomenon(p - 1, 0, ss - 1) = time;
                 for (int k = 1; k <= m && false == Data.isInterruptionRequested.getValue(); k++) {
                     dPhenomenon(p - 1, m, ss - 1) = dPhenomenon(p - 1, m, ss - 1)
-                        + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n)));
+                        + real(G(m - 1, k - 1, q) * exp(i2 * ((k)*deltaomega * (time) / n))) * ScaleCoefficient.getValue();
                 }
             }
         }

@@ -24,7 +24,7 @@ CRPSConstantModulation::CRPSConstantModulation()
 bool CRPSConstantModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::ConstantModulation constantModulation;
-   dValue = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue());
+   dValue = constantModulation.computeModulation(dTime, ConstantModulationValue.getValue()) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSConstantModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

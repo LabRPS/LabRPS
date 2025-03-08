@@ -66,7 +66,7 @@ bool CRPSDavenportCoherence::ComputeCrossCoherenceValue(const WindLabAPI::WindLa
 
     WindLabTools::DavenportCoherence davenportCoherence;
 
-    dValue = davenportCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk);
+    dValue = davenportCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency, MEANj, MEANk) * ScaleCoefficient.getValue();
 
 	return true;
 }

@@ -49,7 +49,7 @@ bool CSineModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationData& 
 bool CSineModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     WindLabTools::SineModulation sineModulation;
-    dValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
+    dValue = sineModulation.computeModulation(dTime, PulseDuration.getQuantityValue().getValueAs(Base::Quantity::Second)) * ScaleCoefficient.getValue();
 	return true;
 }
 

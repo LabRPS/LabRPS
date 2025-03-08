@@ -98,8 +98,8 @@ bool CRPSISSCSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLa
     returnResult = CRPSSeaLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
 
     SeaLabTools::ISSCSpectrum isscSpectrum;
-    PSD = isscSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Constant1.getValue(), Constant2.getValue());
-    dValue = PSD * COHjk;
+    PSD = isscSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), Constant1.getValue(), Constant2.getValue());
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -109,7 +109,7 @@ bool CRPSISSCSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLab
    bool returnResult = true;
   
     SeaLabTools::ISSCSpectrum isscSpectrum;
-   dValue = isscSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), Constant1.getValue(), Constant2.getValue());
+   dValue = isscSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), Constant1.getValue(), Constant2.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

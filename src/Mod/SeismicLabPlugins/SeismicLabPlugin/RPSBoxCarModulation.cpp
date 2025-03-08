@@ -26,7 +26,7 @@ CRPSBoxCarModulation::CRPSBoxCarModulation()
 bool CRPSBoxCarModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::BoxCarModulation boxCarModulation;
-   dValue = boxCarModulation.computeModulation(dTime, ScalingFactor.getValue(), StrongMotionDuration.getQuantityValue().getValueAs(Base::Quantity::Second));
+   dValue = boxCarModulation.computeModulation(dTime, ScalingFactor.getValue(), StrongMotionDuration.getQuantityValue().getValueAs(Base::Quantity::Second)) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSBoxCarModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

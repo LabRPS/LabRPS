@@ -142,7 +142,7 @@ bool CRPSKaimalSpectr::ComputeXCrossSpectrumValue(const WindLabAPI::WindLabSimul
   
     PSDj = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationJ.z, MEANj, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
     PSDk = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, locationK.z, MEANk, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
 	return true;
 }
@@ -161,7 +161,7 @@ bool CRPSKaimalSpectr::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabSimula
 
     WindLabTools::KaimalSpectrum kaimalPSD;
   
-    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    dValue = kaimalPSD.computeAlongWindAutoSpectrum(dFrequency, location.z, MEAN, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
 
 	return true;
 }    

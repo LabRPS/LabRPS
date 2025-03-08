@@ -94,7 +94,7 @@ bool CRPSITTCSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLa
 
     SeaLabTools::ITTCSpectrum ittcSpectrum;
     PSD = ittcSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PhillipsConstant.getValue());
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -104,7 +104,7 @@ bool CRPSITTCSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLab
    bool returnResult = true;
   
    SeaLabTools::ITTCSpectrum ittcSpectrum;
-   dValue = ittcSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PhillipsConstant.getValue());
+   dValue = ittcSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PhillipsConstant.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

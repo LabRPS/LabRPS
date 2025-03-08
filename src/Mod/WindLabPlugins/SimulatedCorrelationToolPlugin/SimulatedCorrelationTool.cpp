@@ -83,7 +83,7 @@ bool SimulatedCorrelationTool::TableToolCompute(const WindLabAPI::WindLabSimulat
 	//take the computation results for the simulated psd
 	for (int i = 0; i < 2 * N + 1; i++) {
 		outputTable(i, 0) = simulatedLags[i];
-		outputTable(i, 1) = simuatedCorr[i];
+        outputTable(i, 1) = simuatedCorr[i] * ScaleCoefficient.getValue();
 	}
 
 	return true;
