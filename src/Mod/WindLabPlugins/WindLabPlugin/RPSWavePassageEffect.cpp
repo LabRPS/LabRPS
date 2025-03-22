@@ -107,7 +107,7 @@ bool CRPSWavePassageEffect::ComputeWavePassageEffectValue(const WindLabAPI::Wind
    bool returnResult = true;
 
     WindLabTools::WavePassageEffect wavePassageEf;
-    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    dValue = wavePassageEf.computeWavePassageEffect(locationJ, locationK, dFrequency, ApparentWaveVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
 
 	return true;
 }

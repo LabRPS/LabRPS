@@ -47,7 +47,7 @@ bool RPSTurbulenceIntensityASCE798::ComputeTurbulenceIntensityValue(const WindLa
 
     bool returnResult = true;
 
-    dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue());
+    dValue = turbulenceIntensity.computeASCETurbulenceIntensityValue(location.z, TenMetersHighTurbulenceIntensity.getValue()) * ScaleCoefficient.getValue();
 
     return true;
 }

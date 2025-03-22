@@ -84,7 +84,7 @@ SeaLabSimulation::SeaLabSimulation()
     ADD_PROPERTY_TYPE(UniformModulation, (true), datagroup, Prop_None,"This specifies whether a non stataionary ground motion is uniformly modulated or not.");
 
     static const char* locationgroup = "Location Distribution";
-    ADD_PROPERTY_TYPE(NumberOfProcess, (3), locationgroup, App::Prop_None,"The number of simulation point which is the number of ground motion processes in a sample");
+    ADD_PROPERTY_TYPE(NumberOfProcess, (9), locationgroup, App::Prop_None,"The number of simulation point which is the number of ground motion processes in a sample");
     ADD_PROPERTY_TYPE(LocationIndexJ, (1), locationgroup, Prop_None,"The index of the a given ground motion process in a ground motion field at a location J");
     ADD_PROPERTY_TYPE(LocationIndexK, (1), locationgroup, Prop_None,"The index of the a given ground motion process in a ground motion field at a location K");
 

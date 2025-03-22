@@ -147,7 +147,7 @@ bool CRPSvonKarmanVerticalWindSpectrum::ComputeZCrossSpectrumValue(const WindLab
 	{
         PSDj = vonKarmanPSD.computeVerticalWindAutoSpectrum(dFrequency, MEANj, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
         PSDk = vonKarmanPSD.computeVerticalWindAutoSpectrum(dFrequency, MEANk, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
-        dValue = std::sqrt(PSDj * PSDk) * COHjk;
+        dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
     }
 	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
 	{
@@ -173,17 +173,7 @@ bool CRPSvonKarmanVerticalWindSpectrum::ComputeZAutoSpectrumValue(const WindLabA
 
     WindLabTools::VonKarmanSpectrum vonKarmanPSD;
   
-    //stationary and non-stationary but uniformly modulated. For non-stationarity, the user just has to make sure the mean wind speed is time dependent
-	if ((Data.stationarity.getValue()) || (!Data.stationarity.getValue() && Data.uniformModulation.getValue() && this->IsUniformModulationFeature.getValue()))
-	{
-        dValue = vonKarmanPSD.computeVerticalWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue());
-    }
-	else//this includes cases where the user chooses non-stationary wind with non-uniforme modulation. This feature cannot be used in this case.
-	{
-        Base::Console().Error("The computation of the power spectral density value has failed. The active feature does not allow non-stationarity with non-uniform modulation.\n");
-        
-        return false;
-	}
+    dValue = vonKarmanPSD.computeVerticalWindAutoSpectrum(dFrequency, MEAN, IntegralLengthScale.getQuantityValue().getValueAs(Base::Quantity::Metre), StandardDeviation.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), Constant1.getValue(), Constant2.getValue(), Constant3.getValue()) * ScaleCoefficient.getValue();
 
 	return true;
 

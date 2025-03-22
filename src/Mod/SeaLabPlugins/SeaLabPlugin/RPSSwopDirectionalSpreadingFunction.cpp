@@ -1,5 +1,3 @@
-
-
 #include "RPSSwopDirectionalSpreadingFunction.h"
 #include <Mod/SeaLabAPI/App/RPSSeaLabFramework.h>
 #include <Mod/SeaLabTools/App/DirectionalSpreadingFunction/SwopDirectionalSpreadingFunction.h>
@@ -20,7 +18,7 @@ CRPSSwopDirectionalSpreadingFunction::CRPSSwopDirectionalSpreadingFunction()
 bool CRPSSwopDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::SwopDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, TenMetersHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, TenMetersHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
   return true;
 }
     

@@ -1390,53 +1390,18 @@ INCLUDE_FILE_PATTERNS  = *.h
 # instead of the = operator.
 
 PREDEFINED             = HAVE_SWIG \
-                         AppAssemblyExport= \
-                         AppCamExport= \
-                         AppCamGuiExport= \
-                         AppCompleteExport= \
-                         AppDrawingExport= \
                          AppExport= \
-                         AppFemExport= \
-                         AppJtReaderExport= \
-                         AppMeshPartExport= \
-                         AppPartDesignExport= \
-                         AppPartExport= \
-                         AppPartGuiExport= \
-                         AppRobotExport= \
-                         AppSketcherExport= \
                          AppStartExport= \
                          AppTestGuiExport= \
-                         AssemblyGuiExport= \
                          BaseExport= \
-                         CompleteGuiExport= \
-                         DrawingGuiExport= \
-                         FemGuiExport= \
                          GuiExport= \
-                         ImageAppExport= \
-                         ImageGuiExport= \
                          MainExport= \
-                         MeshExport= \
-                         MeshGuiExport= \
-                         MeshPartGuiExport= \
                          ModuleExport= \
-                         PartDesignGuiExport= \
-                         PartExport= \
-                         PointsAppExport= \
-                         PointsExport= \
-                         PointsGuiExport= \
-                         ReenExport= \
-                         ReenGuiExport= \
-                         RobotGuiExport= \
-                         SandboxAppExport= \
-                         SketcherExport= \
-                         SketcherGuiExport= \
                          StartGuiExport= \
                          WebGuiExport= \
                          WM4_MEMORY_MANAGER \
                          WM4_FOUNDATION_ITEM= \                       
                          IMETHOD=inline \
-                         COIN_DLL_API= \
-                         COIN_INTERNAL \
                          PYCXX_EXPORT= \
                          KDL_INLINE \
                          YY_NO_UNISTD_H \

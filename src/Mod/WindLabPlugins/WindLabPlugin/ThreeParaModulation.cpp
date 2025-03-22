@@ -51,7 +51,7 @@ bool CThreeParaModulation::OnInitialSetting(const WindLabAPI::WindLabSimulationD
 bool CThreeParaModulation::ComputeModulationValue(const WindLabAPI::WindLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
     WindLabTools::ThreeParametersModulation threeParametersModulation;
-    dValue = threeParametersModulation.computeModulation(Alpha.getValue(), Betta.getValue(), Lambda.getValue(), dTime);
+    dValue = threeParametersModulation.computeModulation(Alpha.getValue(), Betta.getValue(), Lambda.getValue(), dTime) * ScaleCoefficient.getValue();
 	return true;
 }
 

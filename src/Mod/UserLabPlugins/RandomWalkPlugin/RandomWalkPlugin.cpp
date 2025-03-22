@@ -22,7 +22,7 @@
 
 #include "PreCompiled.h"
 
-#include <QString>
+//#include <QString>
 #include "RPSRandomWalk.h"
 
 #include <Mod/UserLabAPI/App/RPSUserLabpluginAPI.h>

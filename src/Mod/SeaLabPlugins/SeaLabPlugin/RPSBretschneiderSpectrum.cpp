@@ -15,7 +15,7 @@ PROPERTY_SOURCE(SeaLab::CRPSBretschneiderSpectrum, SeaLabAPI::SeaLabFeatureFrequ
 CRPSBretschneiderSpectrum::CRPSBretschneiderSpectrum()
 {
    ADD_PROPERTY_TYPE(SignificantWaveHeight, (12100), "Parameters", App::Prop_None, "The significant wave height.");
-   ADD_PROPERTY_TYPE(SignificantWavePeriod, (12.7), "Parameters", App::Prop_None, "significant wave period defined as the average period of the significant waves.");
+   ADD_PROPERTY_TYPE(PeakFrequency, (12.7), "Parameters", App::Prop_None, "significant wave period defined as the average period of the significant waves.");
    ADD_PROPERTY_TYPE(Constant1, (02107), "Parameters", App::Prop_None, "A constant.");
    ADD_PROPERTY_TYPE(Constant2, (-0.8429), "Parameters", App::Prop_None, "A constant.");
    this->LinkToWiki.setValue("https://wiki.labrps.com/Plugin_SeaLab#Bretschneider_Spectrum");
@@ -98,8 +98,8 @@ bool CRPSBretschneiderSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabA
     returnResult = CRPSSeaLabFramework::ComputeCrossCoherenceValue(Data, locationJ, locationK, dFrequency, dTime, COHjk);
 
     SeaLabTools::BretschneiderSpectrum bretschneiderSpectrum;
-    PSD = bretschneiderSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), SignificantWavePeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Constant1.getValue(), Constant2.getValue());
-    dValue = PSD * COHjk;
+    PSD = bretschneiderSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), Constant1.getValue(), Constant2.getValue());
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -109,7 +109,7 @@ bool CRPSBretschneiderSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAP
    bool returnResult = true;
   
    SeaLabTools::BretschneiderSpectrum bretschneiderSpectrum;
-   dValue = bretschneiderSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), SignificantWavePeriod.getQuantityValue().getValueAs(Base::Quantity::Second), Constant1.getValue(), Constant2.getValue());
+   dValue = bretschneiderSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), Constant1.getValue(), Constant2.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

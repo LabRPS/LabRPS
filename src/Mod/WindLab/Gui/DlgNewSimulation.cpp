@@ -166,17 +166,17 @@ DlgNewSimulation::DlgNewSimulation(QWidget* parent,  WindLab::WindLabSimulation*
 
 	ui->frequencyMinSpinBox->setMinimum(0.00);
 	ui->frequencyMinSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyMinSpinBox->setValue(simData->minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
+	ui->frequencyMinSpinBox->setValue(simData->minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz));
 	ui->frequencyMinSpinBox->setUnit(Base::Unit::Frequency);
 
 	ui->frequencyMaxSpinBox->setMinimum(0.00);
 	ui->frequencyMaxSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyMaxSpinBox->setValue(simData->maxFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
+	ui->frequencyMaxSpinBox->setValue(simData->maxFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz));
 	ui->frequencyMaxSpinBox->setUnit(Base::Unit::Frequency);
 
 	ui->frequencyIncrementSpinBox->setMinimum(0.00);
 	ui->frequencyIncrementSpinBox->setMaximum(std::numeric_limits<double>::max());
-	ui->frequencyIncrementSpinBox->setValue(simData->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond));
+	ui->frequencyIncrementSpinBox->setValue(simData->frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz));
 	ui->frequencyIncrementSpinBox->setUnit(Base::Unit::Frequency);
 
 	//wave length discretization

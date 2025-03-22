@@ -108,7 +108,7 @@ bool SimulatedSpectrumTool::TableToolCompute(const WindLabAPI::WindLabSimulation
 
 	for (int i = 0; i < fftPN; i++) {
         outputTable(i, 0) = frequenciesSim(i);
-        outputTable(i, 1) = simuatedPSD[i] / 2;
+        outputTable(i, 1) = simuatedPSD[i] * ScaleCoefficient.getValue() / 2;
 	}
 
 	return true;

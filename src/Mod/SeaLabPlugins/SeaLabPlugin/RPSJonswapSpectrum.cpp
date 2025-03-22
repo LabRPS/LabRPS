@@ -109,7 +109,7 @@ bool CRPSJonswapSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::Se
     SeaLabTools::JonswapSpectrum jonswapSpectrum;
     PSD = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue());
 
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -119,7 +119,7 @@ bool CRPSJonswapSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::Sea
    bool returnResult = true;
   
    SeaLabTools::JonswapSpectrum jonswapSpectrum;
-   dValue = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue());
+   dValue = jonswapSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

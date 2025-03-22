@@ -45,7 +45,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorF(const Seismic
 	{
 		returnResult = ComputeDecomposedCrossSpectrumMatrixPP(Data, dVarVector(l), dTime, dCPSDDecomMatrix);
 
-		dValVector(l) = dCPSDDecomMatrix(row, col);
+		dValVector(l) = dCPSDDecomMatrix(row, col) * ScaleCoefficient.getValue();
 	}
 
 	return returnResult;
@@ -63,7 +63,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumVectorT(const Seismic
 	{
         dVarVector(l) = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second) + l * Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
         returnResult = ComputeDecomposedCrossSpectrumMatrixPP(Data, dFrequency, dVarVector(l), dCPSDDecomMatrix);
-        dValVector(l) = dCPSDDecomMatrix(Data.locationJ.getValue(), Data.locationK.getValue());
+        dValVector(l) = dCPSDDecomMatrix(Data.locationJ.getValue(), Data.locationK.getValue()) * ScaleCoefficient.getValue();
 	}
 
 	return returnResult;
@@ -78,7 +78,7 @@ bool CCholeskyDecomposition::ComputeDecomposedCrossSpectrumMatrixPP(const Seismi
 	rps::General::CholeskyDecomposition decomposition;
    
 	decomposition.computeCholeskyDecomposition_cx(psdMatrix, dCPSDDecomMatrix);
-	
+    dCPSDDecomMatrix = dCPSDDecomMatrix * ScaleCoefficient.getValue();
 	return true;
 }
 bool CCholeskyDecomposition::OnInitialSetting(const SeismicLabAPI::SeismicLabSimulationData& Data)

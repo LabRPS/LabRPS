@@ -24,7 +24,7 @@ CRPSBogdanoffGoldbergBernardModulation::CRPSBogdanoffGoldbergBernardModulation()
 bool CRPSBogdanoffGoldbergBernardModulation::ComputeModulationValue(const SeismicLabSimulationData &Data, Base::Vector3d location, const double &dFrequency, const double &dTime, double &dValue)
 {
    SeismicLabTools::BogdanoffGoldbergBernardModulation bogdanoffGoldbergBernardModulation;
-   dValue = bogdanoffGoldbergBernardModulation.computeModulation(dTime, CoefficientOne.getValue(), CoefficientTwo.getValue());
+   dValue = bogdanoffGoldbergBernardModulation.computeModulation(dTime, CoefficientOne.getValue(), CoefficientTwo.getValue()) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSBogdanoffGoldbergBernardModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

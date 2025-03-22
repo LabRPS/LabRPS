@@ -110,9 +110,9 @@ bool CRPSCloughPenzienSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::S
     }
 
     SeismicLabTools::CloughPenzienSpectrum cloughPenzienSpectrum;
-    PSDj = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
-    PSDk = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    PSDj = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+    PSDk = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
     return true;
 }
@@ -120,7 +120,7 @@ bool CRPSCloughPenzienSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::S
 bool CRPSCloughPenzienSpectrum::ComputeAutoSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
    SeismicLabTools::CloughPenzienSpectrum cloughPenzienSpectrum;
-   dValue = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+   dValue = cloughPenzienSpectrum.computeCloughPenzienSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), SecondFilterLayerFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), SecondFilterLayerDampingRatio.getValue(), ConstantSpectralIntensity.getValue()) * ScaleCoefficient.getValue();
    return true;
 }    
 bool CRPSCloughPenzienSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

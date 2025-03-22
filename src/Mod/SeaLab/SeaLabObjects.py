@@ -48,6 +48,13 @@ def makeSimulation(doc, name="Simulation"):
     obj = doc.addObject("SeaLab::SeaLabSimulation", name)
     return obj
 
+def newSimulation(docName = "Doc", name="Simulation"):
+    """newSimulation(docName, name):
+    makes a SeaLab Simulation object"""
+    doc =  LabRPS.newDocument(docName)
+    obj = doc.addObject("SeaLab::SeaLabSimulation", name)
+    return obj
+
 # ********* SeaLab Features *********************************************************************
 def makeFeature(featureName, simulationName,  featureTypeName, featureGroup):
     """makeFeature(featureName, simulationName,  featureTypeName, featureGroup):

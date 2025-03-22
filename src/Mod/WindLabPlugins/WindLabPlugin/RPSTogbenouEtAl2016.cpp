@@ -71,7 +71,7 @@ bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Dat
     double timeMin = 0.00;
     int M = 2*N;
     int T = NumberOfTimeIncrements.getValue();
-    double wu = UpperCutOffFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    double wu = UpperCutOffFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz);
     double dt = 2 * 3.14 / (2 * wu);
     double deltaomega = wu/N;
     double spacing = LocationSpacing.getQuantityValue().getValueAs(Base::Quantity::Metre);
@@ -174,7 +174,7 @@ bool CRPSTogbenouEtAl2016::Simulate(const WindLabAPI::WindLabSimulationData& Dat
             for (int k = 1; k <= j && false == Data.isInterruptionRequested.getValue(); k++) {
 
             dPhenomenon(p - 1, j, ss - 1) = dPhenomenon(p - 1, j, ss - 1)
-                    + real(G(k - 1, q) * exp(i2 * (k * deltaomega * time / n)));
+                    + real(G(k - 1, q) * exp(i2 * (k * deltaomega * time / n))) * ScaleCoefficient.getValue();
             }
         }
     }

@@ -59,7 +59,7 @@ bool DataReshaper::TableToolCompute(const SeaLabAPI::SeaLabSimulationData &Data,
 
     vec toBeReshaped = inputTable.row(TimeIndex.getValue()).tail(inputTable.cols() - 1);
     Eigen::Map<mat> theReshaped(toBeReshaped.data(), pointNumberX, pointNumberY);
-    outputTable = theReshaped;
+    outputTable = theReshaped * ScaleCoefficient.getValue();
     return true;
 }
 

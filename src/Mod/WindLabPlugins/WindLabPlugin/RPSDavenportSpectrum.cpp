@@ -144,7 +144,7 @@ bool CRPSDavenportSpectrum::ComputeXCrossSpectrumValue(const WindLabAPI::WindLab
     WindLabTools::DavenportSpectrum davenportPSD;
     PSDj = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
     PSDk = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
 }
 
@@ -163,7 +163,7 @@ bool CRPSDavenportSpectrum::ComputeXAutoSpectrumValue(const WindLabAPI::WindLabS
 
     WindLabTools::DavenportSpectrum davenportPSD;
     
-    dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+    dValue = davenportPSD.computeAlongWindAutoSpectrum(dFrequency, ShearVelocity.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MeanWindSpeed10.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
 
 	return true;
 }    

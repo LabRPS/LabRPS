@@ -33,7 +33,7 @@
 #include <Mod/UserLabAPI/App/RPSUserLabFramework.h>
 #include <Base/Interpreter.h>
 #include <App/Application.h>
-#include <nlohmann/json.hpp>
+// #include <nlohmann/json.hpp>
 
 const double PI = 3.14159265358979323846;
 
@@ -125,7 +125,7 @@ bool CRPSRandomWalk::Simulate(const UserLabAPI::UserLabSimulationData& Data, cub
                  {
                     Py::Float value(list2DColum[j]);
 
-                    dPhenomenon(j, i, ss) = value.as_double();
+                    dPhenomenon(j, i, ss) = value.as_double() * ScaleCoefficient.getValue();
                    /* 
                     x[j].add_value("x", dPhenomenon(j, i, ss));
 

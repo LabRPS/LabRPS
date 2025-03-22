@@ -90,7 +90,7 @@ bool CRPSAbrahamsonCoherence::ComputeCrossCoherenceMatrixPP(const SeismicLabAPI:
 bool CRPSAbrahamsonCoherence::ComputeCrossCoherenceValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &locationJ, const Base::Vector3d &locationK, const double &dFrequency, const double &dTime, std::complex<double> &dValue)
 {
     SeismicLabTools::AbrahamsonCoherence abrahamsonCoherence;
-	dValue = abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency);
+	dValue = abrahamsonCoherence.computeCoherenceValue(locationJ.x, locationJ.y, locationJ.z, locationK.x, locationK.y, locationK.z, dFrequency) * ScaleCoefficient.getValue();
 	return true;
 }
 

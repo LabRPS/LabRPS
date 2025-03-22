@@ -50,8 +50,8 @@ Widgets/DlgRandomWalk.h
 Widgets/DlgRandomWalk.cpp
 RPSRandomWalk.cpp
 RPSRandomWalk.h
-JsonObject.h
-JsonObject.cpp
+# JsonObject.h
+# JsonObject.cpp
 )
 
 SET(Metadata_Files
@@ -65,7 +65,7 @@ SET(RandomWalkPluginIcon_SVG
 )
 
 add_library(RandomWalkPlugin SHARED ${RandomWalkPlugin_SRCS} ${Metadata_Files} ${RandomWalkPlugin_Scripts} ${RandomWalkPluginIcon_SVG})
-target_link_libraries(RandomWalkPlugin ${RandomWalkPlugin_LIBS} nlohmann_json::nlohmann_json)
+target_link_libraries(RandomWalkPlugin ${RandomWalkPlugin_LIBS})
 
 set_target_properties(RandomWalkPlugin PROPERTIES FOLDER "Plugins/UserLab")
 

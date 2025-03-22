@@ -53,7 +53,7 @@ bool CRPSSingleIndexFrequency::OnInitialSetting(const SeaLabAPI::SeaLabSimulatio
 
 bool CRPSSingleIndexFrequency::ComputeFrequencyValue(const SeaLabAPI::SeaLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
-    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    dValue = (Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz)) * ScaleCoefficient.getValue();
 	return true;
 }
 

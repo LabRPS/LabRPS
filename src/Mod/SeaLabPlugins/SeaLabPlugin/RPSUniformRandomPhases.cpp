@@ -31,6 +31,7 @@ bool CRPSUniformRandomPhases::GenerateRandomCubeFPS(const SeaLabAPI::SeaLabSimul
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseCube(dRandomValueCube, MinimumValue.getValue(), MaximumValue.getValue());
+    dRandomValueCube = dRandomValueCube * ScaleCoefficient.getValue();
     return true;
 }
 
@@ -38,6 +39,7 @@ bool CRPSUniformRandomPhases::GenerateRandomMatrixFP(const SeaLabAPI::SeaLabSimu
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseMatrix(dRandomValueArray, MinimumValue.getValue(), MaximumValue.getValue());
+    dRandomValueArray = dRandomValueArray * ScaleCoefficient.getValue();
     return true;
 }
 
@@ -45,5 +47,6 @@ bool CRPSUniformRandomPhases::ComputeRandomValue(const SeaLabAPI::SeaLabSimulati
 {
     rps::General::UniformRandomPhaseMatrixGenerator uniformRandomPhaseMatrixGenerator;
     uniformRandomPhaseMatrixGenerator.generateUniformRandomPhaseValue(dValue, MinimumValue.getValue(), MaximumValue.getValue());
+    dValue = dValue * ScaleCoefficient.getValue();
     return true;
 }

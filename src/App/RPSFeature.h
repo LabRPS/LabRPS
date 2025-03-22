@@ -101,6 +101,9 @@ public:
     /// The unit string of the computed values 
     App::PropertyString OutputUnitString;
 
+    /// A coefficient each feature value is multiplied by.
+    App::PropertyFloat ScaleCoefficient;
+
     /// Description of the feature
     App::PropertyString Description;
 
@@ -112,6 +115,7 @@ public:
 
     /// The web link to the wiki page of the feature
     App::PropertyString LinkToWiki;
+
     //@}
 
     /// Constructor

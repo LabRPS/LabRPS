@@ -1,5 +1,3 @@
-
-
 #include "RPSTorsethaugenSpectrum.h"
 #include <Mod/SeaLabAPI/App/RPSSeaLabFramework.h>
 #include <Mod/SeaLabTools/App/spectrum/TorsethaugenSpectrum.h>
@@ -109,7 +107,7 @@ bool CRPSTorsethaugenSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAP
     SeaLabTools::TorsethaugenSpectrum torsethaugenSpectrum;
     PSD = torsethaugenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
 
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -119,7 +117,7 @@ bool CRPSTorsethaugenSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI
    bool returnResult = true;
   
    SeaLabTools::TorsethaugenSpectrum torsethaugenSpectrum;
-   dValue = torsethaugenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue());
+   dValue = torsethaugenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakPeriod.getQuantityValue().getValueAs(Base::Quantity::Second), AutoGamma.getValue(), AutoSigma.getValue(), Gamma.getValue(), Sigma1.getValue(), Sigma2.getValue(), DoublePeaks.getValue()) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

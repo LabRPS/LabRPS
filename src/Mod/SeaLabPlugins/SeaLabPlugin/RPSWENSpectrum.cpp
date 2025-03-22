@@ -1,5 +1,3 @@
-
-
 #include "RPSWENSpectrum.h"
 #include <Mod/SeaLabAPI/App/RPSSeaLabFramework.h>
 #include <Mod/SeaLabTools/App/spectrum/WENSpectrum.h>
@@ -99,7 +97,7 @@ bool CRPSWENSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaLab
 
     SeaLabTools::WENSpectrum wenSpectrum;
     PSD = wenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), SignificantWavePeriod.getQuantityValue().getValueAs(Base::Quantity::Second), DepthParameter.getValue(), TenMetersHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -109,7 +107,7 @@ bool CRPSWENSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLabS
    bool returnResult = true;
   
    SeaLabTools::WENSpectrum wenSpectrum;
-   dValue = wenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), SignificantWavePeriod.getQuantityValue().getValueAs(Base::Quantity::Second), DepthParameter.getValue(), TenMetersHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond));
+   dValue = wenSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), SignificantWavePeriod.getQuantityValue().getValueAs(Base::Quantity::Second), DepthParameter.getValue(), TenMetersHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond)) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    

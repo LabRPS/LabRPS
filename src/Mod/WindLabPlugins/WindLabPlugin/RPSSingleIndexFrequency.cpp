@@ -72,6 +72,6 @@ bool CRPSSingleIndexFrequency::OnInitialSetting(const WindLabAPI::WindLabSimulat
 
 bool CRPSSingleIndexFrequency::ComputeFrequencyValue(const WindLabAPI::WindLabSimulationData &Data, const Base::Vector3d &location, const int &frequencyIndex, double &dValue)
 {
-    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
 	return true;
 }

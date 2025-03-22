@@ -116,7 +116,7 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeCrossSpectrumValue(const Seismi
 
     SeismicLabTools::KougioumtzoglouAndSpanoSpectrum kougioumtzoglouAndSpanoSpectrum;
     PSD = kougioumtzoglouAndSpanoSpectrum.computeKougioumtzoglouAndSpanoSpectrum(dFrequency, dTime, ConstantS.getValue());
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return true;
 }
@@ -129,7 +129,7 @@ bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumValue(const Seismic
     }
 
    SeismicLabTools::KougioumtzoglouAndSpanoSpectrum kougioumtzoglouAndSpanoSpectrum;
-   dValue = kougioumtzoglouAndSpanoSpectrum.computeKougioumtzoglouAndSpanoSpectrum(dFrequency, dTime, ConstantS.getValue());
+   dValue = kougioumtzoglouAndSpanoSpectrum.computeKougioumtzoglouAndSpanoSpectrum(dFrequency, dTime, ConstantS.getValue()) * ScaleCoefficient.getValue();
    return true;
 }    
 bool CRPSKougioumtzoglouAndSpanoSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

@@ -78,7 +78,7 @@ bool CRPSDoubleIndexFrequency::ComputeFrequencyValue(const SeaLabAPI::SeaLabSimu
         return false;
     }
 
-    dValue = Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) + (locationIndex + 1)*Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond) / Data.numberOfSpatialPosition.getValue();
+    dValue = (Data.minFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz) + frequencyIndex * Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz) + (locationIndex + 1)*Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz) / Data.numberOfSpatialPosition.getValue()) * ScaleCoefficient.getValue();
 
     return true;
 }

@@ -51,7 +51,7 @@ bool CDeodatisAndShinozuka1991::Simulate(const WindLabAPI::WindLabSimulationData
     int N = Data.numberOfFrequency.getValue();
     double dt = Data.timeIncrement.getQuantityValue().getValueAs(Base::Quantity::Second);
     double timeMin = Data.minTime.getQuantityValue().getValueAs(Base::Quantity::Second);
-    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond);
+    double deltaomega = Data.frequencyIncrement.getQuantityValue().getValueAs(Base::Quantity::Hertz);
     int M = 2 * N;
     int T = Data.numberOfTimeIncrements.getValue();
     double sampleN = Data.numberOfSample.getValue();
@@ -125,7 +125,7 @@ bool CDeodatisAndShinozuka1991::Simulate(const WindLabAPI::WindLabSimulationData
                 q = fmod(p - 1, M);
                 time = (p - 1) * dt + timeMin;
                 dPhenomenon(p - 1, 0, ss - 1) = time;
-                dPhenomenon(p - 1, m, ss - 1) = dPhenomenon(p - 1, m, ss - 1) + real(yyy(q) * exp(i2 * ( time / n)));            
+                dPhenomenon(p - 1, m, ss - 1) = dPhenomenon(p - 1, m, ss - 1) + real(yyy(q) * exp(i2 * ( time / n))) * ScaleCoefficient.getValue();            
             }
         }
     }

@@ -70,6 +70,7 @@ RPSFeature::RPSFeature(void)
     ADD_PROPERTY_TYPE(Description, (""), featuregroup, App::Prop_ReadOnly, "The description of the feature");
     ADD_PROPERTY_TYPE(Path, (""), featuregroup, App::Prop_ReadOnly, "The path to the folder containing the folder");
     ADD_PROPERTY_TYPE(Module, (""), featuregroup, App::Prop_ReadOnly, "The parent module");
+    ADD_PROPERTY_TYPE(ScaleCoefficient, (1.0), featuregroup, App::Prop_None, "A scaling coefficient for all features");
 
     this->OutputUnitString.setValue("");
     std::vector<std::string> fields;

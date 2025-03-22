@@ -27,7 +27,7 @@ CRPSJenningsEtAl1968Modulation::CRPSJenningsEtAl1968Modulation()
 bool CRPSJenningsEtAl1968Modulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::JenningsEtAl1968Modulation jenningsEtAl1968Modulation;
-   dValue = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue());
+   dValue = jenningsEtAl1968Modulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), Alpha.getValue(), Power.getValue()) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSJenningsEtAl1968Modulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

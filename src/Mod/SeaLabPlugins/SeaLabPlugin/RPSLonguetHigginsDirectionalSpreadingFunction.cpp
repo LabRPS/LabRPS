@@ -22,7 +22,7 @@ CRPSLonguetHigginsDirectionalSpreadingFunction::CRPSLonguetHigginsDirectionalSpr
 bool CRPSLonguetHigginsDirectionalSpreadingFunction::ComputeDirectionalSpreadingFunctionValue(const SeaLabAPI::SeaLabSimulationData& Data, const Base::Vector3d& location, const double& dfrequency, const double& dDirection, double& dValue)
 {
   SeaLabTools::LonguetHigginsDirectionalSpreadingFunction directionalSpreadingFunction;
-  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), TenMeterHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MainDirection.getQuantityValue().getValueAs(Base::Quantity::Radian));
+  dValue = directionalSpreadingFunction.computeSpreadingFunction(dDirection, dfrequency, PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), TenMeterHeightMeanWindSpeed.getQuantityValue().getValueAs(Base::Quantity::MetrePerSecond), MainDirection.getQuantityValue().getValueAs(Base::Quantity::Radian)) * ScaleCoefficient.getValue();
   return true;
 }
     

@@ -35,7 +35,7 @@ PROPERTY_SOURCE(SeaLabAPI::SeaLabSimulationData, SeaLabAPI::SeaLabFeature)
 SeaLabSimulationData::SeaLabSimulationData()
 {
 
-	ADD_PROPERTY_TYPE(numberOfSpatialPosition, (3), "SeaLabData", App::Prop_None, "The number of simulation point which is the number of wind processes in a sample");
+	ADD_PROPERTY_TYPE(numberOfSpatialPosition, (9), "SeaLabData", App::Prop_None, "The number of simulation point which is the number of wind processes in a sample");
 	ADD_PROPERTY_TYPE(numberOfFrequency, (1024), 0, Prop_None, "The number of frequency increments");
 	ADD_PROPERTY_TYPE(numberOfSample, (1), 0, Prop_None, "This is the number of wind field sample in a simulation.");
 	ADD_PROPERTY_TYPE(numberOfTimeIncrements, (6144), 0, Prop_None, "This is the number of time increments");

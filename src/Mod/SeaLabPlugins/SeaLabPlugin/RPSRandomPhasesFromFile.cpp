@@ -118,7 +118,7 @@ int CRPSRandomPhasesFromFile::ReadPhaseAngleFromFile(const SeaLabAPI::SeaLabSimu
                 for (int k = 0; k < Data.numberOfSpatialPosition.getValue(); k++) {
 
                     // FOR EACH ROW AND COL
-                    dRandomValueArray(j, k) = fields[k].toDouble();
+                    dRandomValueArray(j, k) = fields[k].toDouble() * ScaleCoefficient.getValue();
                 }
             }
         }

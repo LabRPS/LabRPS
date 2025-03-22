@@ -27,7 +27,7 @@ CRPSTrapezoidalModulation::CRPSTrapezoidalModulation()
 bool CRPSTrapezoidalModulation::ComputeModulationValue(const SeismicLabSimulationData& Data, Base::Vector3d location, const double &dFrequency, const double& dTime, double& dValue)
 {
    SeismicLabTools::TrapezoidalModulation trapezoidalModulation;
-   dValue = trapezoidalModulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), MaxTime.getQuantityValue().getValueAs(Base::Quantity::Second));
+   dValue = trapezoidalModulation.computeModulation(dTime, RiseTime.getQuantityValue().getValueAs(Base::Quantity::Second), LevelTime.getQuantityValue().getValueAs(Base::Quantity::Second), MaxTime.getQuantityValue().getValueAs(Base::Quantity::Second)) * ScaleCoefficient.getValue();
    return true;
 }
 bool CRPSTrapezoidalModulation::ComputeModulationVectorP(const SeismicLabSimulationData& Data, const double &dFrequency, const double& dTime, vec& dVarVector, vec& dValVector)

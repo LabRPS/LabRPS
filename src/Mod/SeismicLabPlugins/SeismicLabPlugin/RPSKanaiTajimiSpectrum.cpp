@@ -108,9 +108,9 @@ bool CRPSKanaiTajimiSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::Sei
     }
 
     SeismicLabTools::KanaiTajimiSpectrum kanaiTajimiSpectrum;
-    PSDj = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
-    PSDk = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
-    dValue = std::sqrt(PSDj * PSDk) * COHjk;
+    PSDj = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+    PSDk = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+    dValue = std::sqrt(PSDj * PSDk) * COHjk * ScaleCoefficient.getValue();
 
     return true;
 }
@@ -118,7 +118,7 @@ bool CRPSKanaiTajimiSpectrum::ComputeCrossSpectrumValue(const SeismicLabAPI::Sei
 bool CRPSKanaiTajimiSpectrum::ComputeAutoSpectrumValue(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dFrequency, const double &dTime, double &dValue)
 {
    SeismicLabTools::KanaiTajimiSpectrum kanaiTajimiSpectrum;
-   dValue = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::RadianPerSecond), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue());
+   dValue = kanaiTajimiSpectrum.computeKanaiTajimiSpectrum(dFrequency, GroundNaturalFrequency.getQuantityValue().getValueAs(Base::Quantity::Hertz), GroundDampingRatio.getValue(), ConstantSpectralIntensity.getValue()) * ScaleCoefficient.getValue();
    return true;
 }    
 bool CRPSKanaiTajimiSpectrum::ComputeAutoSpectrumVectorF(const SeismicLabAPI::SeismicLabSimulationData &Data, const Base::Vector3d &location, const double &dTime, vec &dVarVector, vec &dValVector)

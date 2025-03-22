@@ -132,7 +132,7 @@ bool RPSWLPowerLowProfile::ComputeMeanWindSpeedValue(const WindLabAPI::WindLabSi
 		return false;
 	}
 
-	dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre));
+	dValue = powerLawMeanWindSpeed.computeMeanWindSpeed(location.z, ReferenceHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), ReferenceSpeed.getQuantityValue().getValueAs(Base::Quantity::Metre), DimensionlessPower.getValue(), ZeroPlanDisplacement.getQuantityValue().getValueAs(Base::Quantity::Metre)) * ScaleCoefficient.getValue();
 
 	return true;
 }

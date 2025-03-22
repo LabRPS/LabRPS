@@ -976,6 +976,7 @@ SeaLabAPI::SeaLabFeatureDescription* CRPSSeaLabFramework::getSeaLabFeatureDescri
      information->Description.setValue(feature->Description.getValue());
      information->IsUniformModulationFeature.setValue(feature->IsUniformModulationFeature.getValue());
      information->OutputUnitString.setValue(feature->OutputUnitString.getValue());
+     information->ScaleCoefficient.setValue(feature->ScaleCoefficient.getValue());
      information->ApplicationFields.setValue(feature->ApplicationFields.getValue());
      
 	return information;

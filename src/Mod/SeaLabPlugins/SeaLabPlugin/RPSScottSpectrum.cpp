@@ -96,7 +96,7 @@ bool CRPSScottSpectrum::ComputeCrossFrequencySpectrumValue(const SeaLabAPI::SeaL
 
     SeaLabTools::ScottSpectrum scottSpectrum;
     PSD = scottSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Second));
-    dValue = PSD * COHjk;
+    dValue = PSD * COHjk * ScaleCoefficient.getValue();
 
     return returnResult;
 }
@@ -106,7 +106,7 @@ bool CRPSScottSpectrum::ComputeAutoFrequencySpectrumValue(const SeaLabAPI::SeaLa
    bool returnResult = true;
   
    SeaLabTools::ScottSpectrum scottSpectrum;
-   dValue = scottSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Second));
+   dValue = scottSpectrum.computeSpectrum(dFrequency, SignificantWaveHeight.getQuantityValue().getValueAs(Base::Quantity::Metre), PeakFrequency.getQuantityValue().getValueAs(Base::Quantity::Second)) * ScaleCoefficient.getValue();
 
     return returnResult;
 }    
