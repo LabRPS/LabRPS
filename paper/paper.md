@@ -72,11 +72,15 @@ Currently, there are several methods available to numerically represent those ra
 
 It has been noticed that computer programs that offer suitable features for the computation works related to the numerical simulation of random phenomena are very few. In most cases, the simulation approach is implemented in the commercial software such as MATLAB which is a very powerful tool that offers number of solutions in numerical computation. The numerical simulation of random phenomena using Matlab requires some programming skills. It may be time consuming to be involved with programming tasks each time a simulation is required. We observed that researchers, who often build upon the works of other researchers during the study of new simulation approaches, frequently invest significant time and effort merely to replicate the existing computational results. Reproducing computational research presents challenges in this field. A well-designed computer program that makes scientific computations reproducible, storable and accessible will be of a big benefit. A program that helps researchers and engineers to implement quickly new simulation approaches without having to implement or to understand the programming background of the existing simulation approaches is needed. To address these problems, we have developed LabRPS, a plugin-based system designed to facilitate the implementation, storage, and access of simulation algorithm (source codes and binaries) in order to accelerate the development of new simulation algorithms in this field. Additionally, LabRPS features an intuitive user interface that enables users to numerically simulate random phenomena without the need for coding.
 
-# Programming Language
+# Programming Language and Resources
 
-LabRPS leverages the strengths of both C++ and Python, providing a powerful and flexible environment that benefits from the performance of C++ and the ease of use and rapid development capabilities of Python. This combination offers significant advantages, making LabRPS a versatile tool for both professional developers and casual users.
+Processing speed is especially important when dealing with numerical simulation of random phenomena which usually involves complex equations and algorithms with many iterations. Matlab is a common tool for numerical simulation of random phenomenon. It combines its ability to compute complex formulas with its graphical capabilities, which allows users to visualize the simulation data. Though Matlab is a powerful tool in visualization and computation of random phenomenon simulation, it does restrict developers in the ability to implement for example a serious plugin system as desired in the computer tool proposed in this study. Other programming languages, such as C++ and Python, offer a more versatile environment for developers to implement complex features such as a plugin architecture.
 
-# Workbench Framework 
+Python programming language is currently the most popular language worldwide and can be a good solution for the implementation of a plugin system of any complexity. However, Python is known for its performance limitation disadvantages where it (as Interpreted Language) can lead to slower computation speed compared to compiled languages like C or C++. This may be a concern when handling large datasets or complex computations which are the situations usually encountered in the field of random phenomenon numerical simulation. Therefore, in this study, we propose a combination of both languages which will give the advantage to ally the speed of C++ to the flexibility of Python. According to the current practice, Matlab is extensively used for these purposes. Therefore, LabRPS is designed in a way to allow access to its simulation workflow from Matlab. Any time-consuming tasks are coded in C++ to allow high computation speed performance. Python and Matlab are used as scripting languages to allow automation and most importantly to initiate time-consuming C++ based simulation algorithm.
+
+One of the primary objectives of this research is to foster the advancement of new simulation algorithms by building upon existing works. A significant component of LabRPS’s codebase is directly derived from or adapted from FreeCAD, an open-source parametric 3D CAD modeler renowned for its modular and extensible architecture. FreeCAD's core features have been instrumental in shaping the functionality of LabRPS.
+
+# Workbench Framework and Scripting Interface
 
 In LabRPS, a Workbench is a set of tools, features, and functions that are organized based on specific tasks or workflows. Each workbench in LabRPS is tailored to a particular aspect of the simulation process, providing an optimized interface for users working on a particular type of random phenomenon. The workbench concept allows users to switch between different tools depending on the stage or needs of the simulation. Examples of LabRPS Workbenches:
 
@@ -86,19 +90,20 @@ In LabRPS, a Workbench is a set of tools, features, and functions that are organ
 
 By switching between workbenches, users can tackle different aspects of a simulation more effectively, providing a tailored and efficient workflow for diverse simulation tasks, etc.
 
+LabRPS scripting (see Figure 2) using Python is a powerful way to automate and customize your simulation process, especially for parametric features and repetitive tasks. Whether you're a hobbyist or a professional, understanding scripting opens up endless possibilities for enhancing your LabRPS experience. It should be noted that, this feature has been adapted from FreeCAD project.
+
+![LabRPS Scripting\label{fig:figure2}](Figures/Figure2.png)
+
 # Plugin System 
 
 LabRPS is a highly modular and flexible software platform, structured around a system of workbenches, each designed to cater to specific tasks or workflows in the simulation of random phenomena. These workbenches, which form the core of LabRPS, are composed of plugins which are individual, reusable components that provide specific functionality within each workbench.
 
-By organizing the software into workbenches and plugins, LabRPS enables efficient, task specific customization, providing users with the flexibility to expand the software’s capabilities as required. Plugins can be easily integrated into existing workbenches, allowing for quick implementation of new methods or algorithms without disrupting the overall structure of the software. This architecture ensures that LabRPS remains a powerful yet accessible tool for diverse users with varying needs, from academic researchers developing new simulation techniques to industry professionals seeking realistic numerical models of random phenomena. Figure 2 illustrates the schematic architecture LabRPS structure.
+In LabRPS, a plugin is a dynamic library that is discovered and loaded at run time as opposed to a dynamic library that an application is linked against at build time. LabRPS Plugins can therefore be written by LabRPS users (Scientists, Engineers, Researchers, Teachers and students) using a well-defined plugin API that is provided. This allows them to extend the functionality of the API in designated ways. The plugins are directly plugged into the corresponding workbench. Plugins are where the most important computations happen. In most of cases, these computations are time-consuming and according to the principles of LabRPS, C++ is recommended for the implementation of such computation tasks. However, a mix of C++ and Python can also be used.
 
-![Plugin System\label{fig:figure2}](Figures/Figure2.png)
+By organizing the software into workbenches and plugins, LabRPS enables efficient, task specific customization, providing users with the flexibility to expand the software’s capabilities as required. Plugins can be easily integrated into existing workbenches, allowing for quick implementation of new methods or algorithms without disrupting the overall structure of the software. This architecture ensures that LabRPS remains a powerful yet accessible tool for diverse users with varying needs, from academic researchers developing new simulation techniques to industry professionals seeking realistic numerical models of random phenomena. Figure 3 illustrates the schematic architecture LabRPS structure.
 
-# LabRPS Scripting 
+![Plugin System\label{fig:figure3}](Figures/Figure3.png)
 
-LabRPS scripting (see Figure 3) using Python is a powerful way to automate and customize your simulation process, especially for parametric features and repetitive tasks. Whether you're a hobbyist or a professional, understanding scripting opens up endless possibilities for enhancing your LabRPS experience.
-
-![LabRPS Scripting\label{fig:figure3}](Figures/Figure3.png)
 
 # Resources
 
